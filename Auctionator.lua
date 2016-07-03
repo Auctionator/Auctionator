@@ -923,7 +923,7 @@ function Atr_OnLoad()
 
   ------------------
 
-  Atr_CheckClassMappings()
+  -- Atr_CheckClassMappings()
 
   Atr_InitDETable()
 

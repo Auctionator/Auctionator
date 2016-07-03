@@ -1111,18 +1111,19 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
   end
 );
 
-hooksecurefunc (GameTooltip, "SetTradeSkillItem",
-  function (tip, skill, id)
-    local link = GetTradeSkillItemLink(skill);
-    local num  = GetTradeSkillNumMade(skill);
-    if id then
-      link = GetTradeSkillReagentItemLink(skill, id);
-      num = select (3, GetTradeSkillReagentInfo(skill, id));
-    end
+-- TODO http://www.wowinterface.com/forums/showthread.php?p=315431
+-- hooksecurefunc (GameTooltip, "SetTradeSkillItem",
+--   function (tip, skill, id)
+--     local link = GetTradeSkillItemLink(skill);
+--     local num  = GetTradeSkillNumMade(skill);
+--     if id then
+--       link = GetTradeSkillReagentItemLink(skill, id);
+--       num = select (3, GetTradeSkillReagentInfo(skill, id));
+--     end
 
-    Atr_ShowTipWithPricing (tip, link, num);
-  end
-);
+--     Atr_ShowTipWithPricing (tip, link, num);
+--   end
+-- );
 
 hooksecurefunc (GameTooltip, "SetTradePlayerItem",
   function (tip, id)
