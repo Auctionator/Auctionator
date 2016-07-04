@@ -158,6 +158,7 @@ function Atr_Buy_SendQuery ()
 
     exactMatch = true
 
+    Auctionator.Debug.Override( 'Atr_Buy_SendQuery' )
     QueryAuctionItems (queryString, "", "", nil, 0, 0, gAtr_Buy_CurPage, nil, nil, false, exactMatch);
   end
 

@@ -18,3 +18,8 @@ function Auctionator.Debug.Message(message, ...)
     print( message, ... )
   end
 end
+
+function Auctionator.Debug.Override( message, ... )
+  -- Note this ignore Debug.IsOn(), so REMEMBER TO REMOVE
+  print( message, ... )
+end

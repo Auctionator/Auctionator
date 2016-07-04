@@ -319,23 +319,7 @@ local gItemSubClasses;
 -----------------------------------------
 
 function Atr_GetAuctionClasses()
-  local categories = {}
-
-  categories[1] = AUCTION_CATEGORY_WEAPONS
-  categories[2] = AUCTION_CATEGORY_ARMOR
-  categories[3] = AUCTION_CATEGORY_CONTAINERS
-  categories[4] = AUCTION_CATEGORY_GEMS
-  categories[5] = AUCTION_CATEGORY_ITEM_ENHANCEMENT
-  categories[6] = AUCTION_CATEGORY_CONSUMABLES
-  categories[7] = AUCTION_CATEGORY_GLYPHS
-  categories[8] = AUCTION_CATEGORY_TRADE_GOODS
-  categories[9] = AUCTION_CATEGORY_RECIPES
-  categories[10] = AUCTION_CATEGORY_BATTLE_PETS
-  categories[11] = AUCTION_CATEGORY_QUEST_ITEMS
-  categories[12] = AUCTION_CATEGORY_MISCELLANEOUS
-  categories[13] = TOKEN_FILTER_LABEL
-
-  return categories
+  return Auctionator.Constants.ItemClasses
 end
 
 -----------------------------------------
