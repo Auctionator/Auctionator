@@ -1485,9 +1485,9 @@ end
 -----------------------------------------
 
 function Atr_StackSize ()
-  -- Auctionator.Debug.Message( 'Atr_StackSize' )
+  Auctionator.Debug.Message( 'Atr_StackSize' )
 
-  return Atr_Batch_Stacksize:GetNumber();
+  return math.max( Atr_Batch_Stacksize:GetNumber(), 1 )
 end
 
 -----------------------------------------
