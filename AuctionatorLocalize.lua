@@ -347,6 +347,7 @@ end
 -----------------------------------------
 
 function Atr_ItemType2AuctionClass(itemType)
+  Auctionator.Debug.Message( 'Atr_ItemType2AuctionClass', itemType )
 
   local itemClasses = Atr_GetAuctionClasses();
 

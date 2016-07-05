@@ -1,0 +1,16 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="Atr_core">
+    <Scripts>
+      <OnLoad>
+        Atr_RegisterEvents(self);
+        self.TimeSinceLastUpdate = 0;
+      </OnLoad>
+      <OnUpdate>
+        Atr_OnUpdate(self, elapsed);
+      </OnUpdate>
+      <OnEvent>
+        Atr_EventHandler(self, event, ...);
+      </OnEvent>
+    </Scripts>
+  </Frame>
+</Ui>

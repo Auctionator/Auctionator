@@ -17,10 +17,13 @@ Locales\esES.lua
 Locales\zhTW.lua
 
 AuctionatorObjects.lua
+
 AuctionatorConstants.lua
+AuctionatorFilters.lua
 AuctionatorUtil.lua
 
 AuctionatorItemLink.lua
+AuctionatorSearch.lua
 
 zcUtils.lua
 AuctionatorLocalize.lua

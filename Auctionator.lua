@@ -4596,11 +4596,6 @@ local _atr_info = {};   -- table reuse
 function Atr_Dropdown_AddPick (frame, text, value, func)
   Auctionator.Debug.Message( 'Atr_Dropdown_AddPick', frame, text, value, func )
 
---  if (_atr_info == nil) then
---    _atr_info = {}
-    --zc.CopyDeep (_atr_info, UIDropDownMenu_CreateInfo());
---  end
-
   _atr_info.owner     = frame;
   _atr_info.text      = text;
   _atr_info.value     = value;
@@ -4613,9 +4608,6 @@ function Atr_Dropdown_AddPick (frame, text, value, func)
   end
 
   UIDropDownMenu_AddButton(_atr_info);
-
-  --zc.md (UIDROPDOWNMENU_MAXBUTTONS);
-
 end
 
 -----------------------------------------

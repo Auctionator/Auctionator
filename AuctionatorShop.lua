@@ -335,6 +335,7 @@ end
 -----------------------------------------
 
 function Atr_Search_Onclick ()
+  Auctionator.Debug.Message( 'Atr_Search_Onclick')
 
   local currentPane = Atr_GetCurrentPane();
 
@@ -352,6 +353,27 @@ function Atr_Search_Onclick ()
   currentPane:DoSearch (searchText);
 
   Atr_ClearHistory();
+end
+
+function Atr_Search_Onclick_2( search )
+  Auctionator.Debug.Message( 'Atr_Search_Onclick_2')
+
+  local currentPane = Atr_GetCurrentPane();
+
+  local searchText = Atr_Search_Box:GetText();
+
+  Atr_Search_Button:Disable();
+  Atr_Adv_Search_Button:Disable();
+  Atr_Exact_Search_Button:Disable();
+  Atr_Buy1_Button:Disable();
+  Atr_AddToSListButton:Disable();
+  Atr_RemFromSListButton:Disable();
+
+  Atr_ClearAll();
+
+  currentPane:DoSearch2( searchText )
+
+  Atr_ClearHistory()
 end
 
 -----------------------------------------
@@ -796,6 +818,7 @@ end
 -----------------------------------------
 
 function Atr_Adv_Search_Onclick ()
+  Auctionator.Debug.Message( 'Atr_Adv_Search_Onclick' )
 
   local searchText = Atr_Search_Box:GetText();
 
@@ -842,65 +865,67 @@ end
 
 -----------------------------------------
 
-function Atr_ASDD_Class_Initialize (self)
-
-  local itemClasses = Atr_GetAuctionClasses();
-  local n;
-
+function Atr_ASDD_Class_Initialize( self )
   Atr_Dropdown_AddPick (Atr_ASDD_Subclass, "-------", 0);
 
-  if (#itemClasses > 0) then
-    local text;
-    for n, text in pairs(itemClasses) do
-      Atr_Dropdown_AddPick (self, text, n, Atr_ASDD_Class_OnClick);
-    end
+  for index in pairs( Auctionator.Filters ) do
+    local filterEntry = Auctionator.Filters[ index ]
+
+    Atr_Dropdown_AddPick( self, filterEntry.name, filterEntry.key, Atr_ASDD_Class_OnClick )
   end
 
+  -- local itemClasses = Atr_GetAuctionClasses();
+  -- local n;
+
+  -- Atr_Dropdown_AddPick (Atr_ASDD_Subclass, "-------", 0);
+
+  -- if (#itemClasses > 0) then
+  --   local text;
+  --   for n, text in pairs(itemClasses) do
+  --     Atr_Dropdown_AddPick (self, text, n, Atr_ASDD_Class_OnClick);
+  --   end
+  -- end
 end
 
 -----------------------------------------
 
 function Atr_ASDD_Class_OnClick (info)
+  UIDropDownMenu_SetSelectedValue(info.owner, info.value)
 
-  UIDropDownMenu_SetSelectedValue(info.owner, info.value);
-
-  Atr_Dropdown_Refresh (Atr_ASDD_Subclass);
-
+  Atr_Dropdown_Refresh (Atr_ASDD_Subclass)
 end
-
 
 -----------------------------------------
 
-
 function Atr_ASDD_Subclass_OnShow (self)
+  UIDropDownMenu_Initialize   (self, Atr_ASDD_Subclass_Initialize)
 
-  UIDropDownMenu_Initialize   (self, Atr_ASDD_Subclass_Initialize);
-  UIDropDownMenu_SetSelectedValue (self, 0);
+  UIDropDownMenu_SetSelectedValue (self, 0)
 end
-
 
 -----------------------------------------
 
 function Atr_ASDD_Subclass_Initialize (self)
-
-  local itemClass = UIDropDownMenu_GetSelectedValue (Atr_ASDD_Class);
-
   Atr_Dropdown_AddPick (Atr_ASDD_Subclass, "-------", 0);
 
-  if (itemClass) then
+  local parentFilterKey = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Class )
+  local parentFilter = Auctionator.FilterLookup[ parentFilterKey ]
 
-    local itemSubclasses = Atr_GetAuctionSubclasses(itemClass);
-    local n;
+  Auctionator.Debug.Message( 'parent filter key is ', parentFilterKey )
+  Auctionator.Util.Print( parentFilter, parentFilterKey )
 
-    if (#itemSubclasses > 0) then
-      local text;
-      for n, text in pairs(itemSubclasses) do
-
-        Atr_Dropdown_AddPick (Atr_ASDD_Subclass, text, n);
-      end
-    end
+  -- TODO not a fan of this special casing bullshit
+  if parentFilterKey == 0 then
+    return
   end
 
+  for index in pairs( parentFilter.subClasses ) do
+    local filterEntry = parentFilter.subClasses[ index ]
+
+    Atr_Dropdown_AddPick( Atr_ASDD_Subclass, filterEntry.name, filterEntry.key )
+  end
+
+  -- TODO Fix this to work with new filters
   if (itemClass and (itemClass == WEAPON or itemClass == ARMOR)) then
     Atr_AS_ILevRange_Label:Show()
     Atr_AS_ILevRange_Dash:Show()
@@ -936,58 +961,90 @@ end
 -----------------------------------------
 
 function Atr_Adv_Search_Do()
+  Auctionator.Debug.Message( 'Atr_Adv_Search_Do' )
 
-  local itemClass   = UIDropDownMenu_GetSelectedValue (Atr_ASDD_Class);
-  local itemSublass = UIDropDownMenu_GetSelectedValue (Atr_ASDD_Subclass);
+  local parentKey = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Class )
+  local subClassKey = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Subclass )
 
-  local itemClassList   = Atr_GetAuctionClasses();
-  local itemSubclassList  = Atr_GetAuctionSubclasses(itemClass);
+  local minLevel = Atr_AS_Minlevel:GetNumber()
+  local maxLevel = Atr_AS_Maxlevel:GetNumber()
+  local text = Atr_AS_Searchtext:GetText()
+
+  local search = Auctionator.Search:new({
+    text = text,
+    minLevel = minLevel,
+    maxLevel = maxLevel,
+    parentKey = parentKey,
+    subClassKey = subClassKey
+  })
+
+  -- Auctionator.Util.Print( search, "TEST SEARCH" )
+  -- Auctionator.Util.Print( search:Filter(), "FILTER" )
+  -- Auctionator.Debug.Message( search:Display() )
+
+  -- -- TODO Here's that special case again :/
+  -- -- Apparently an advanced search is not currently allowed when no class is chosen
+  -- if parentKey == 0 then
+  --   Atr_Adv_Search_Dialog:Hide()
+  --   return
+  -- end
+
+  -- local searchText = parentKey
+  -- -- TODO Annnnnndddd special case again
+  -- if subClassKey ~= 0 then
+  --   searchText = subClassKey
+  -- end
+
+  -- -- local itemClass   = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Class )
+  -- -- local itemSublass = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Subclass )
+
+  -- -- local itemClassList   = Atr_GetAuctionClasses();
+  -- -- local itemSubclassList  = Atr_GetAuctionSubclasses(itemClass);
 
 
-  local searchText = itemClassList[itemClass];
+  -- -- local searchText = itemClassList[itemClass];
 
-  if (searchText == nil) then
-    zc.msg_anm ("|cffff0000Error getting itemClass from menu|r.  itemClass = ", itemClass)
-    Atr_Adv_Search_Dialog:Hide()
-    return
-  end
+  -- -- if (searchText == nil) then
+  -- --   zc.msg_anm ("|cffff0000Error getting itemClass from menu|r.  itemClass = ", itemClass)
+  -- --   Atr_Adv_Search_Dialog:Hide()
+  -- --   return
+  -- -- end
 
-  if (itemSublass > 0) then
-    searchText = searchText.."/"..itemSubclassList[itemSublass];
-  end
+  -- -- if (itemSublass > 0) then
+  -- --   searchText = searchText.."/"..itemSubclassList[itemSublass];
+  -- -- end
 
-  local minLevel    = Atr_AS_Minlevel:GetNumber ();
-  local maxLevel    = Atr_AS_Maxlevel:GetNumber ();
-  local text      = Atr_AS_Searchtext:GetText();
+  -- if (maxLevel > 0 and minLevel == 0) then
+  --   minLevel = 1;
+  -- end
 
-  if (maxLevel > 0 and minLevel == 0) then
-    minLevel = 1;
-  end
+  -- if (minLevel > 0)   then  searchText = searchText.."/"..minLevel;       end
+  -- if (maxLevel > 0)   then  searchText = searchText.."/"..maxLevel;       end
 
-  if (minLevel > 0)   then  searchText = searchText.."/"..minLevel;       end
-  if (maxLevel > 0)   then  searchText = searchText.."/"..maxLevel;       end
+  -- if (itemClass and (itemClass == WEAPON or itemClass == ARMOR)) then
+  --   local minItemLevel  = Atr_AS_MinItemlevel:GetNumber()
+  --   local maxItemLevel  = Atr_AS_MaxItemlevel:GetNumber()
+  --   if (minItemLevel > 0) then  searchText = searchText.."/i"..minItemLevel;    end
+  --   if (maxItemLevel > 0) then  searchText = searchText.."/i"..maxItemLevel;    end
+  -- end
 
-  if (itemClass and (itemClass == WEAPON or itemClass == ARMOR)) then
-    local minItemLevel  = Atr_AS_MinItemlevel:GetNumber()
-    local maxItemLevel  = Atr_AS_MaxItemlevel:GetNumber()
-    if (minItemLevel > 0) then  searchText = searchText.."/i"..minItemLevel;    end
-    if (maxItemLevel > 0) then  searchText = searchText.."/i"..maxItemLevel;    end
-  end
+  -- if (text ~= "")     then  searchText = searchText.."/"..text;         end
 
-  if (text ~= "")     then  searchText = searchText.."/"..text;         end
+  -- -- handle category only search
 
-  -- handle category only search
+  -- if (not zc.StringContains (searchText, "/")) then
+  --   searchText = searchText.."/"
+  -- end
 
-  if (not zc.StringContains (searchText, "/")) then
-    searchText = searchText.."/"
-  end
+  -- Auctionator.Debug.Message( '******', searchText )
 
-  Atr_SetSearchText(searchText);
+  -- Atr_SetSearchText(searchText);
+  Atr_SetSearchText( search:Display() )
 
-  Atr_Search_Onclick();
+  -- Atr_Search_Onclick();
+  Atr_Search_Onclick_2( search )
 
   Atr_Adv_Search_Dialog:Hide();
-
 end
 
 -----------------------------------------

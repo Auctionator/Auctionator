@@ -1,7 +1,9 @@
 Auctionator = {
   Debug = {},
   Constants = {},
-  Util = {}
+  Util = {},
+  Filters = {},
+  FilterLookup = {}
 }
 
 -- TODO: Move this to Utilities when re-organizing code

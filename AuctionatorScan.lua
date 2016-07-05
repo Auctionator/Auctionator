@@ -68,6 +68,7 @@ end
 -----------------------------------------
 
 function AtrSearch:Init (searchText, IDstring, itemLink, rescanThreshold)
+  Auctionator.Debug.Message( 'AtrSearch:Init', searchText, IDstring, itemLink, rescanThreshold )
 
   if (searchText == nil) then
     searchText = ""
@@ -99,6 +100,8 @@ function AtrSearch:Init (searchText, IDstring, itemLink, rescanThreshold)
     _, _, _, _, _, self.minItemLevel, self.maxItemLevel = Atr_ParseCompoundSearch (self.searchText);
   end
 
+  Auctionator.Util.Print( self, 'AtrSearch:Init' )
+
   if (IDstring) then
 
     if (rescanThreshold and rescanThreshold > 0) then
@@ -122,6 +125,7 @@ end
 -----------------------------------------
 
 function Atr_FindScanAndInit (IDstring, itemName)
+  Auctionator.Debug.Message( 'Atr_FindScanAndInit', IDstring, itemName )
 
   return Atr_FindScan (IDstring, itemName, true);
 end
@@ -129,6 +133,7 @@ end
 -----------------------------------------
 
 function Atr_FindScan (IDstring, itemName, init)
+  Auctionator.Debug.Message( 'Atr_FindScan', IDstring, itemName, init )
 
   if (IDstring == nil or IDstring == "" or IDstring == "0") then
     IDstring = "0";
@@ -194,6 +199,7 @@ end
 -----------------------------------------
 
 function AtrScan:UpdateItemLink (itemLink)
+  Auctionator.Debug.Message( itemLink )
 
   if (itemLink and self.itemLink == nil) then
 
@@ -208,14 +214,29 @@ function AtrScan:UpdateItemLink (itemLink)
       iLevel  = level;
       quality = breedQuality;
 
-      self.itemClass    = AUCTION_CLASS_BATTLEPET;
+      self.itemClass    = LE_ITEM_CLASS_BATTLEPET;
       self.itemSubclass = 0;
 
     else
-      _, _, quality, iLevel, _, sType, sSubType = GetItemInfo(itemLink);
+      Auctionator.Util.Print( { GetItemInfo( itemLink ) }, 'GET ITEM INFO' .. itemLink )
+      -- 1: name
+      -- 2: itemLink
+      -- 3: quality
+      -- 4: iLevel
+      -- 5: required Level
+      -- 6: itemClass String
+      -- 7: subClass String
+      -- 8: ? (int)
+      -- 9: WTF String
+      -- 10: big int
+      -- 11: big int
+      -- 12: itemClass int
+      -- 13: subClass int
 
-      self.itemClass    = Atr_ItemType2AuctionClass (sType);
-      self.itemSubclass = Atr_SubType2AuctionSubclass (self.itemClass, sSubType);
+      _, _, quality, iLevel, _, sType, sSubType, _, _, _, _, itemClass, itemSubClass = GetItemInfo(itemLink);
+
+      self.itemClass    = itemClass -- Atr_ItemType2AuctionClass (sType);
+      self.itemSubclass = itemSubClass -- Atr_SubType2AuctionSubclass (self.itemClass, sSubType);
     end
 
     self.itemQuality  = quality;
@@ -282,6 +303,8 @@ end
 -----------------------------------------
 
 function AtrSearch:Start ()
+  Auctionator.Debug.Message( 'AtrSearch:Start' )
+  Auctionator.Util.Print( self, 'AtrSearch:Start' )
 
   if (self.searchText == "") then
     return;
@@ -398,6 +421,8 @@ function AtrSearch:AnalyzeResultsPage()
   end
 
   local q = self.query;
+
+  print( 'AnalyzeResultsPage:', q.totalAuctions )
 
   if (self.current_page == 1 and q.totalAuctions > 5000) then -- give Blizz servers a break (100 pages)
     Atr_Error_Display (ZT("Too many results\n\nPlease narrow your search"));
@@ -601,10 +626,13 @@ end
 -----------------------------------------
 
 function Atr_IsCompoundSearch (searchString)
+  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', searchString )
 
   if (searchString == nil) then
     return false;
   end
+
+  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', zc.StringContains (searchString, ">") or zc.StringContains (searchString, "/") )
 
   return zc.StringContains (searchString, ">") or zc.StringContains (searchString, "/");
 end
@@ -700,8 +728,12 @@ end
 -----------------------------------------
 
 function AtrSearch:Continue()
+  local canQuery = CanSendAuctionQuery()
 
-  if (CanSendAuctionQuery()) then
+  Auctionator.Debug.Message( 'AtrSearch:Continue', canQuery )
+
+
+  if canQuery then
 
     self.processing_state = KM_IN_QUERY;
 
@@ -744,9 +776,12 @@ function AtrSearch:Continue()
 
     queryString = zc.UTF8_Truncate (queryString,127); -- attempting to reduce number of disconnects
 
-    zz ("Exact: ", exactMatch)
+    -- QueryAuctionItems(text, minLevel, maxLevel, page, usable, rarity, false, exactMatch, filterData)
+    -- filterData combines itemClass and itemSubclass
+    local filterData = { classID = itemClass, subClassID = itemSubClass }
+    Auctionator.Util.Print( filterData )
 
-    QueryAuctionItems (queryString, minLevel, maxLevel, nil, itemClass, itemSubclass, self.current_page, nil, nil, false, exactMatch);
+    QueryAuctionItems (queryString, minLevel, maxLevel, self.current_page, nil, nil, false, exactMatch, filterData );
 
     self.query_sent_when  = gAtr_ptime;
     self.processing_state = KM_POSTQUERY;
