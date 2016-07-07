@@ -423,7 +423,7 @@ function AtrSearch:AnalyzeResultsPage()
 
   local q = self.query;
 
-  print( 'AnalyzeResultsPage:', q.totalAuctions )
+  Auctionator.Debug.Message( 'AnalyzeResultsPage:', q.totalAuctions )
 
   if (self.current_page == 1 and q.totalAuctions > 5000) then -- give Blizz servers a break (100 pages)
     Atr_Error_Display (ZT("Too many results\n\nPlease narrow your search"));

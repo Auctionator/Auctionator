@@ -319,7 +319,7 @@ end
 function Atr_ItemType2AuctionClass(itemType)
   Auctionator.Debug.Message( 'Atr_ItemType2AuctionClass', itemType )
 
-  local itemClasses = Atr_GetAuctionClasses();
+  local itemClasses = { Atr_GetAuctionClasses() }
 
   if #itemClasses > 0 then
   local itemClass;

@@ -963,10 +963,11 @@ function Atr_Adv_Search_Do()
     minLevel = minLevel,
     maxLevel = maxLevel,
     parentKey = parentKey,
-    subClassKey = subClassKey
+    subClassKey = subClassKey,
+    advanced = true
   })
 
-  Atr_SetSearchText( search:Display() )
+  Atr_SetSearchText( search:ToString() )
 
   -- TODO: Finish implementing version 2 of search
   -- Atr_Search_Onclick();

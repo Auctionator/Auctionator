@@ -6,7 +6,8 @@ Auctionator.Search = {
   parentKey = nil,
   subClassKey = nil,
   resolvedKey = nil,
-  filterResolved = false
+  filterResolved = false,
+  advanced = false
 }
 
 function Auctionator.Search:new( options )
@@ -21,8 +22,17 @@ function Auctionator.Search:Start()
 
 end
 
+function Auctionator.Search:ToString()
+  if self.advanced then
+    return self.text .. [[ (Advanced)]]
+  else
+    return self.text
+  end
+end
+
 function Auctionator.Search:Display()
   local buffer = { self.text }
+  local levelBuffer = {}
 
   if not self.filterResolved then
     self:Filter()
@@ -32,8 +42,20 @@ function Auctionator.Search:Display()
     table.insert( buffer, [[(]] .. self.resolvedKey .. [[)]] )
   end
 
-  if self.maxLevel or self.minLevel then
-    table.insert( buffer, self.minLevel .. [[-]] .. self.maxLevel )
+  if self.minLevel ~= nil then
+    table.insert( levelBuffer, self.minLevel )
+  end
+
+  if self.minLevel ~= nil and self.maxLevel ~= nil then
+    table.insert( levelBuffer, '-' )
+  end
+
+  if self.maxLevel ~= nil then
+    table.insert( levelBuffer, self.maxLevel )
+  end
+
+  if self.minLevel ~= nil or self.maxLevel ~= nil then
+    table.insert( buffer, table.concat( levelBuffer, '' ) )
   end
 
   return table.concat( buffer, ' ' )
