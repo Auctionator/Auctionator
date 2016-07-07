@@ -83,7 +83,10 @@ end
 for index, classID in ipairs( ITEM_CLASS_IDS ) do
   local name = GetItemClassInfo( classID )
 
-  Auctionator.Filters[ classID ] = Auctionator.Filter:new({
+  -- TODO: This is a hack since LE_ITEM_CLASS_CONSUMABLE is 0
+  -- Would prefer to be able to look up by class ID directly, but may not be necessary
+  -- since the filter tracks it
+  Auctionator.Filters[ index ] = Auctionator.Filter:new({
     classID = classID,
     name = name,
     key = name,
@@ -93,9 +96,7 @@ for index, classID in ipairs( ITEM_CLASS_IDS ) do
 end
 
 for index, filter in ipairs( Auctionator.Filters ) do
-  local parent = filter
-
-  Auctionator.FilterLookup[ parent.key ] = filter
+  Auctionator.FilterLookup[ filter.key ] = filter
 
   for i = 1, #filter.subClasses do
     local subFilter = filter.subClasses[ i ]

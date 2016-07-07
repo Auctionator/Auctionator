@@ -30,7 +30,7 @@ function Auctionator.Search:ToString()
   end
 end
 
-function Auctionator.Search:Display()
+function Auctionator.Search:RecentToString()
   local buffer = { self.text }
   local levelBuffer = {}
 
