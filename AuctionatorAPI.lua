@@ -1,5 +1,5 @@
 
-local addonName, addonTable = ...; 
+local addonName, addonTable = ...;
 local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc;
 local zz = zc.md;
@@ -13,14 +13,14 @@ local origGetAuctionBuyout	= GetAuctionBuyout;
 -----------------------------------------
 
 function GetSellValue (item)		-- Tekkub's API
-	
+
 	return Atr_GetSellValue(item);
 end
 
 -----------------------------------------
 
 function GetAuctionBuyout (item)		-- Tekkub's API
-	
+
 	return Atr_GetAuctionBuyout(item);
 end
 
@@ -33,11 +33,11 @@ function Atr_GetSellValue (item)		-- Just like Tekkub's API but for when you wan
 	if (sellval ~= nil) then
 		return sellval;
 	end
-	
+
 	if (origGetSellValue) then
 		return origGetSellValue(item);
 	end
-	
+
 	return 0;
 end
 
@@ -51,7 +51,7 @@ function Atr_GetAuctionBuyout (item)  -- Just like Tekkub's API but for when you
 	if (type(item) == "string") then
 		sellval = Atr_GetAuctionPrice(item);
 	end
-	
+
 	if (sellval == nil) then
 		local name = GetItemInfo(item);
 		if (name) then
@@ -59,7 +59,7 @@ function Atr_GetAuctionBuyout (item)  -- Just like Tekkub's API but for when you
 		end
 	end
 
-	
+
 	if (sellval) then
 		return sellval;
 	end
@@ -67,20 +67,19 @@ function Atr_GetAuctionBuyout (item)  -- Just like Tekkub's API but for when you
 	if (origGetAuctionBuyout) then
 		return origGetAuctionBuyout(item);
 	end
-	
+
 	return nil;
 end
 
 -----------------------------------------
 
 function Atr_GetDisenchantValue (item)
-
-	local itemName, itemLink, itemRarity, itemLevel, _, itemType = GetItemInfo (item);
+  local itemName, itemLink, quality, iLevel, _, itemType, sSubType, _, _, _, _, itemClass, itemSubClass = GetItemInfo(itemLink);
 
 	if (itemLink) then
-		return Atr_CalcDisenchantPrice (itemType, itemRarity, itemLevel);
+		return Atr_CalcDisenchantPrice( itemClass, itemRarity, itemLevel )
 	end
-	
+
 	return nil;
 end
 
@@ -129,7 +128,7 @@ end
 function Atr_Broadcast_DBupdated (num, kind, binfo)
 
 	local n;
-	
+
 	for n = 1,#DBupdateCallbacks do
 		local cbFunc = DBupdateCallbacks[n]
 		if (type(cbFunc) == "function") then
@@ -143,7 +142,7 @@ end
 --[[
 function Atr_TestListener (num, kind, binfo)
 	zz (num, "items found", kind)
-	
+
 	if (type(binfo) == "table") then
 		local z;
 		for z = 1,#binfo do

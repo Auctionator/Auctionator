@@ -219,6 +219,7 @@ function AtrScan:UpdateItemLink (itemLink)
 
     else
       Auctionator.Util.Print( { GetItemInfo( itemLink ) }, 'GET ITEM INFO' .. itemLink )
+      -- TODO: Capture this knowledge somewhere
       -- 1: name
       -- 2: itemLink
       -- 3: quality
@@ -235,8 +236,8 @@ function AtrScan:UpdateItemLink (itemLink)
 
       _, _, quality, iLevel, _, sType, sSubType, _, _, _, _, itemClass, itemSubClass = GetItemInfo(itemLink);
 
-      self.itemClass    = itemClass -- Atr_ItemType2AuctionClass (sType);
-      self.itemSubclass = itemSubClass -- Atr_SubType2AuctionSubclass (self.itemClass, sSubType);
+      self.itemClass    = itemClass
+      self.itemSubclass = itemSubClass
     end
 
     self.itemQuality  = quality;

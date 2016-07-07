@@ -782,9 +782,9 @@ end
 
 -----------------------------------------
 
-local function Atr_FindDEentry (itemType, itemRarity, itemLevel)
+local function Atr_FindDEentry (classID, itemRarity, itemLevel)
 
-  local itemTypeNum = Atr_ItemType2AuctionClass (itemType);
+  local itemTypeNum = classID
 
   local t = deTable[deKey(itemTypeNum, itemRarity)];
 
@@ -805,9 +805,9 @@ end
 
 -----------------------------------------
 
-function Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel)
+function Atr_AddDEDetailsToTip (tip, classID, itemRarity, itemLevel)
 
-  local ta = Atr_FindDEentry (itemType, itemRarity, itemLevel);
+  local ta = Atr_FindDEentry (classID, itemRarity, itemLevel);
 
   if (ta) then
     local x;
@@ -850,14 +850,14 @@ end
 
 -----------------------------------------
 
-function Atr_CalcDisenchantPrice (itemType, itemRarity, itemLevel)
+function Atr_CalcDisenchantPrice( classID, itemRarity, itemLevel)
 
-  if (Atr_IsWeaponType (itemType) or Atr_IsArmorType (itemType)) then
+  if (Atr_IsWeaponType (classID) or Atr_IsArmorType (classID)) then
     if (itemRarity == UNCOMMON or itemRarity == RARE or itemRarity == EPIC) then
 
       local dePrice = 0;
 
-      local ta = Atr_FindDEentry (itemType, itemRarity, itemLevel);
+      local ta = Atr_FindDEentry (classID, itemRarity, itemLevel);
       if (ta) then
         local x;
         for x = 3,#ta,3 do
@@ -926,7 +926,7 @@ end
 
 -----------------------------------------
 
-function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, itemType, itemRarity, itemLevel)
+function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel)
 
   local vendorPrice = 0;
   local auctionPrice  = 0;
@@ -934,7 +934,7 @@ function Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemNa
 
   if (AUCTIONATOR_V_TIPS == 1) then vendorPrice = itemVendorPrice; end;
   if (AUCTIONATOR_A_TIPS == 1) then auctionPrice  = Atr_GetAuctionPrice (itemName); end;
-  if (AUCTIONATOR_D_TIPS == 1) then dePrice   = Atr_CalcDisenchantPrice (itemType, itemRarity, itemLevel); end;
+  if (AUCTIONATOR_D_TIPS == 1) then dePrice   = Atr_CalcDisenchantPrice (classID, itemRarity, itemLevel); end;
 
   if (num and showStackPrices) then
     if (auctionPrice) then  auctionPrice = auctionPrice * num;  end;
@@ -990,8 +990,21 @@ function Atr_ShowTipWithPricing (tip, link, num)
     tip:AddDoubleLine( 'BONUS_ID_3', item_links[ link ]:GetField( Auctionator.Constants.ItemLink.BONUS_ID_3 ))
     tip:AddDoubleLine( 'BONUS_ID_4', item_links[ link ]:GetField( Auctionator.Constants.ItemLink.BONUS_ID_4 ))
   end
-
-  local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, _, _, _, _, itemVendorPrice = GetItemInfo (link);
+      -- TODO: Capture this knowledge somewhere
+      -- 1: name
+      -- 2: itemLink
+      -- 3: quality
+      -- 4: iLevel
+      -- 5: required Level
+      -- 6: itemClass String
+      -- 7: subClass String
+      -- 8: ? (int)
+      -- 9: WTF String
+      -- 10: big int
+      -- 11: itemVendorPrice? (big int)
+      -- 12: itemClass int
+      -- 13: subClass int
+  local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, _, _, _, _, itemVendorPrice, classID = GetItemInfo (link);
 
   local showStackPrices = IsShiftKeyDown();
   if (AUCTIONATOR_SHIFT_TIPS == 2) then
@@ -1003,7 +1016,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
     xstring = "|cFFAAAAFF x"..num.."|r";
   end
 
-  local vendorPrice, auctionPrice, dePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, itemType, itemRarity, itemLevel);
+  local vendorPrice, auctionPrice, dePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel);
 
   -- vendor info
 
@@ -1026,7 +1039,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
   if (AUCTIONATOR_DE_DETAILS_TIPS == 5) then showDetails = true; end;
 
   if (showDetails and dePrice ~= nil) then
-    Atr_AddDEDetailsToTip (tip, itemType, itemRarity, itemLevel)
+    Atr_AddDEDetailsToTip (tip, classID, itemRarity, itemLevel)
   end
 
 

@@ -267,9 +267,9 @@ end
 
 -----------------------------------------
 
-function Atr_IsGlyph        (itemLink)    return (Atr_IsClass (itemLink, 5));   end
-function Atr_IsGem          (itemLink)    return (Atr_IsClass (itemLink, 8));   end
-function Atr_IsItemEnhancement    (itemLink)    return (Atr_IsClass (itemLink, 4, 6));  end
+-- function Atr_IsGlyph        (itemLink)    return (Atr_IsClass (itemLink, 5));   end
+-- function Atr_IsGem          (itemLink)    return (Atr_IsClass (itemLink, 8));   end
+-- function Atr_IsItemEnhancement    (itemLink)    return (Atr_IsClass (itemLink, 4, 6));  end
 function Atr_IsPotion       (itemLink)    return (Atr_IsClass (itemLink, 4, 2));  end
 function Atr_IsElixir       (itemLink)    return (Atr_IsClass (itemLink, 4, 3));  end
 function Atr_IsFlask        (itemLink)    return (Atr_IsClass (itemLink, 4, 4));  end
@@ -278,37 +278,69 @@ function Atr_IsHerb         (itemLink)    return (Atr_IsClass (itemLink, 6, 6));
 -----------------------------------------
 -- if Blizz introduces new auction classes this might need to change
 
-function Atr_IsWeaponType       (itemType)    return (Atr_ItemType2AuctionClass (itemType) == 1);   end
-function Atr_IsArmorType        (itemType)    return (Atr_ItemType2AuctionClass (itemType) == 2);   end
-function Atr_IsBattlePetType      (itemType)    return (Atr_ItemType2AuctionClass (itemType) == 11);  end
+function Atr_IsWeaponType( classID )
+  Auctionator.Debug.Message( 'Atr_IsWeaponType', classID )
+  return classID == LE_ITEM_CLASS_WEAPON
+end
+
+function Atr_IsArmorType( classID )
+  Auctionator.Debug.Message( 'Atr_IsArmorType', classID )
+  return classID == LE_ITEM_CLASS_ARMOR
+end
+
+function Atr_IsBattlePetType( classID )
+  Auctionator.Debug.Message( 'Atr_IsBattlePetType', classID )
+  return classID == LE_ITEM_CLASS_BATTLEPET
+end
+
+function Atr_IsGlyph( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_GLYPH )
+end
+
+function Atr_IsGem( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_GEM )
+end
+
+function Atr_IsItemEnhancement( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_ITEM_ENHANCEMENT )
+end
 
 -----------------------------------------
 
-function Atr_IsClass (itemLink, class, subclass)
-
-  if (itemLink == nil) then
-    return false;
+function Atr_IsClass( itemLink, classID, subClassID )
+  -- TODO: Would love to get rid of passing nil around... where can itemLink be nil from?
+  if itemLink == nil then
+    return false
   end
 
-  local _, _, _, _, _, itemType, itemSubType = GetItemInfo (itemLink);
+  local _, _, _, _, _, _, _, _, _, _, _ itemClassID, itemSubClassID = GetItemInfo( itemLink )
 
-  local itemClass = Atr_ItemType2AuctionClass (itemType);
-  local itemSubClass;
+  return classID == itemClassID and ( subClassID == nil or subClassID == itemSubClassID )
 
-  if (itemClass == class) then
 
-    if (subclass == nil) then
-      return true;
-    end
+  -- if (itemLink == nil) then
+  --   return false;
+  -- end
 
-    itemSubClass = Atr_SubType2AuctionSubclass (itemClass, itemSubType)
+  -- local _, _, _, _, _, itemType, itemSubType = GetItemInfo (itemLink);
 
-    if (subclass == itemSubClass) then
-      return true;
-    end
-  end
+  -- local itemClass = Atr_ItemType2AuctionClass (itemType);
+  -- local itemSubClass;
 
-  return false;
+  -- if (itemClass == class) then
+
+  --   if (subclass == nil) then
+  --     return true;
+  --   end
+
+  --   itemSubClass = Atr_SubType2AuctionSubclass (itemClass, itemSubType)
+
+  --   if (subclass == itemSubClass) then
+  --     return true;
+  --   end
+  -- end
+
+  -- return false;
 end
 
 -----------------------------------------
