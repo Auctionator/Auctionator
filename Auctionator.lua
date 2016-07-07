@@ -668,18 +668,20 @@ local function Atr_OnClickTradeSkillBut()
 
   Atr_SelectPane (BUY_TAB);
 
-  local index = GetTradeSkillSelectionIndex()
-  local link = GetTradeSkillItemLink(index)
+  local index = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
+
+
+  local link = C_TradeSkillUI.GetRecipeItemLink(index)
 
   local _, _, _, _, _, itemType = GetItemInfo (link);
 
+  local numReagents = C_TradeSkillUI.GetRecipeNumReagents(index)
 
-  local numReagents = GetTradeSkillNumReagents (index)
   local reagentId
 
   local shoppingListName = GetItemInfo (link)
   if (shoppingListName == nil) then
-    shoppingListName = GetTradeSkillInfo (index)
+    shoppingListName = C_TradeSkillUI.GetRecipeInfo(index).name
   end
 
   local items = {}
@@ -691,7 +693,7 @@ local function Atr_OnClickTradeSkillBut()
 --  zz (shoppingListName)
 
   for reagentId = 1, numReagents do
-    local reagentName = GetTradeSkillReagentInfo(index, reagentId)
+    local reagentName = C_TradeSkillUI.GetRecipeReagentInfo(index, reagentId)
     if (reagentName and not zc.StringSame(reagentName, "Crystal Vial")) then
       table.insert (items, reagentName)
     end
@@ -711,11 +713,13 @@ local function Atr_ModTradeSkillFrame()
 
   if (TradeSkillFrame) then
     gTradeSkillFrameModded = true
---    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrame, "UIPanelButtonTemplate");
---    button:SetPoint("TOPRIGHT", "TradeSkillFrameCloseButton", "TOPLEFT", 0, -8);
-    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillDetailScrollChildFrame, "UIPanelButtonTemplate");
-    button:SetPoint("TOPRIGHT", "TradeSkillDetailScrollChildFrame", "TOPRIGHT", -1, -24);
-    button:SetHeight (16)
+--    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrameScrollChild, "UIPanelButtonTemplate");
+--    button:SetPoint("TOPRIGHT", "TradeSkillFrameScrollChild", "TOPRIGHT", -3, -5);
+
+    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrame, "UIPanelButtonTemplate");
+    button:SetPoint("RIGHT", "TradeSkillFrame", "RIGHT", -35, 100);
+
+    button:SetHeight (20)
     button:SetText("AH")
     button:SetNormalFontObject(_G["GameFontNormalSmall"])
     button:SetHighlightFontObject(_G["GameFontNormalSmall"])
@@ -729,7 +733,6 @@ local function Atr_ModTradeSkillFrame()
 
 
 end
-
 -----------------------------------------
 
 function Atr_InitScanDB()

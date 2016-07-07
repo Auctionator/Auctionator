@@ -1,4 +1,11 @@
 Auctionator.Constants = {
+  SubClasses = {
+    ITEM_CLASS_HERB = 9, -- Under LE_ITEM_CLASS_TRADEGOODS
+    ITEM_CLASS_POTION = 1, -- Under LE_ITEM_CLASS_CONSUMABLE
+    ITEM_CLASS_ELIXIR = 2, -- Under LE_ITEM_CLASS_CONSUMABLE
+    ITEM_CLASS_FLASK = 3 -- Under LE_ITEM_CLASS_CONSUMABLE
+  },
+
   ItemLink = {
     MAX = 27, -- Blarg, gimme length
     TYPE = 1,

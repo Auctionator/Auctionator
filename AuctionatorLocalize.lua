@@ -265,18 +265,6 @@ function Atr_CheckClassMappings ()
   Atr_Check1ClassMapping (6, 6,   "Herb")
 end
 
------------------------------------------
-
--- function Atr_IsGlyph        (itemLink)    return (Atr_IsClass (itemLink, 5));   end
--- function Atr_IsGem          (itemLink)    return (Atr_IsClass (itemLink, 8));   end
--- function Atr_IsItemEnhancement    (itemLink)    return (Atr_IsClass (itemLink, 4, 6));  end
-function Atr_IsPotion       (itemLink)    return (Atr_IsClass (itemLink, 4, 2));  end
-function Atr_IsElixir       (itemLink)    return (Atr_IsClass (itemLink, 4, 3));  end
-function Atr_IsFlask        (itemLink)    return (Atr_IsClass (itemLink, 4, 4));  end
-function Atr_IsHerb         (itemLink)    return (Atr_IsClass (itemLink, 6, 6));  end
-
------------------------------------------
--- if Blizz introduces new auction classes this might need to change
 
 function Atr_IsWeaponType( classID )
   Auctionator.Debug.Message( 'Atr_IsWeaponType', classID )
@@ -305,6 +293,22 @@ function Atr_IsItemEnhancement( itemLink )
   return Atr_IsClass( itemLink, LE_ITEM_CLASS_ITEM_ENHANCEMENT )
 end
 
+function Atr_IsPotion( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_CONSUMABLE, Auctionator.Constants.SubClasses.ITEM_CLASS_POTION )
+end
+
+function Atr_IsElixir( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_CONSUMABLE, Auctionator.Constants.SubClasses.ITEM_CLASS_ELIXIR )
+end
+
+function Atr_IsFlask( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_CONSUMABLE, Auctionator.Constants.SubClasses.ITEM_CLASS_FLASK )
+end
+
+function Atr_IsHerb( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_TRADEGOODS, Auctionator.Constants.SubClasses.ITEM_CLASS_HERB )
+end
+
 -----------------------------------------
 
 function Atr_IsClass( itemLink, classID, subClassID )
@@ -316,31 +320,6 @@ function Atr_IsClass( itemLink, classID, subClassID )
   local _, _, _, _, _, _, _, _, _, _, _ itemClassID, itemSubClassID = GetItemInfo( itemLink )
 
   return classID == itemClassID and ( subClassID == nil or subClassID == itemSubClassID )
-
-
-  -- if (itemLink == nil) then
-  --   return false;
-  -- end
-
-  -- local _, _, _, _, _, itemType, itemSubType = GetItemInfo (itemLink);
-
-  -- local itemClass = Atr_ItemType2AuctionClass (itemType);
-  -- local itemSubClass;
-
-  -- if (itemClass == class) then
-
-  --   if (subclass == nil) then
-  --     return true;
-  --   end
-
-  --   itemSubClass = Atr_SubType2AuctionSubclass (itemClass, itemSubType)
-
-  --   if (subclass == itemSubClass) then
-  --     return true;
-  --   end
-  -- end
-
-  -- return false;
 end
 
 -----------------------------------------
