@@ -225,47 +225,6 @@ function Atr_IsCutGem (itemLink)
   return true;
 end
 
------------------------------------------
-
-local function Atr_Check1ClassMapping (class, subclass, name)
-
-  local foundname = "????"
-
-  local itemClassArray = Atr_GetAuctionClasses()
-
-  if (itemClassArray) then
-    if (subclass) then
-      itemSubclassArray = Atr_GetAuctionSubclasses(class)
-      if (itemSubclassArray) then
-        foundname = itemSubclassArray[subclass]
-      end
-    else
-      foundname = itemClassArray[class]
-    end
-  end
-
-  if (GetLocale() == "enUS" and foundname ~= name) then
-    zc.msg_anm ("|cffff0000class mapping mismatch:", class, subclass, "expected:", name, "   found:", foundname)
-  end
-
-end
-
------------------------------------------
-
-function Atr_CheckClassMappings ()
-
-  Atr_Check1ClassMapping (1, nil,   "Weapon")
-  Atr_Check1ClassMapping (2, nil,   "Armor")
-  Atr_Check1ClassMapping (5, nil,   "Glyph")
-  Atr_Check1ClassMapping (8, nil,   "Gem")
-  Atr_Check1ClassMapping (4, 6,   "Item Enhancement")
-  Atr_Check1ClassMapping (4, 2,   "Potion")
-  Atr_Check1ClassMapping (4, 3,   "Elixir")
-  Atr_Check1ClassMapping (4, 4,   "Flask")
-  Atr_Check1ClassMapping (6, 6,   "Herb")
-end
-
-
 function Atr_IsWeaponType( classID )
   Auctionator.Debug.Message( 'Atr_IsWeaponType', classID )
   return classID == LE_ITEM_CLASS_WEAPON

@@ -906,27 +906,14 @@ function Atr_OnLoad()
     zc.msg_anm ("Unable to create AtrScanningTooltip");
   end
   AtrScanningTooltip:SetOwner( WorldFrame, "ANCHOR_NONE" );
-  -- Allow tooltip SetX() methods to dynamically add new lines based on these
---  AtrScanningTooltip:AddFontStrings(
---  AtrScanningTooltip:CreateFontString( "$parentTextLeft1", nil, "GameTooltipText" ),
---  AtrScanningTooltip:CreateFontString( "$parentTextRight1", nil, "GameTooltipText" ) );
-
-  -- a second scanning tooltip for use by zc.PullItemIntoMemory
-  -- fixed a bug to separate this out from the original one (above)
 
   local atrtt2 = CreateFrame( "GameTooltip", "AtrScanningTooltip2", nil, "GameTooltipTemplate" ); -- Tooltip name cannot be nil
   if (atrtt2 == nil) then
     zc.msg_anm ("Unable to create AtrScanningTooltip2");
   end
   AtrScanningTooltip2:SetOwner( WorldFrame, "ANCHOR_NONE" );
-  -- Allow tooltip SetX() methods to dynamically add new lines based on these
---  AtrScanningTooltip2:AddFontStrings(
---  AtrScanningTooltip2:CreateFontString( "$parentTextLeft1", nil, "GameTooltipText" ),
---  AtrScanningTooltip2:CreateFontString( "$parentTextRight1", nil, "GameTooltipText" ) );
 
   ------------------
-
-  -- Atr_CheckClassMappings()
 
   Atr_InitDETable()
 

@@ -873,18 +873,6 @@ function Atr_ASDD_Class_Initialize( self )
 
     Atr_Dropdown_AddPick( self, filterEntry.name, filterEntry.key, Atr_ASDD_Class_OnClick )
   end
-
-  -- local itemClasses = Atr_GetAuctionClasses();
-  -- local n;
-
-  -- Atr_Dropdown_AddPick (Atr_ASDD_Subclass, "-------", 0);
-
-  -- if (#itemClasses > 0) then
-  --   local text;
-  --   for n, text in pairs(itemClasses) do
-  --     Atr_Dropdown_AddPick (self, text, n, Atr_ASDD_Class_OnClick);
-  --   end
-  -- end
 end
 
 -----------------------------------------
@@ -978,69 +966,9 @@ function Atr_Adv_Search_Do()
     subClassKey = subClassKey
   })
 
-  -- Auctionator.Util.Print( search, "TEST SEARCH" )
-  -- Auctionator.Util.Print( search:Filter(), "FILTER" )
-  -- Auctionator.Debug.Message( search:Display() )
-
-  -- -- TODO Here's that special case again :/
-  -- -- Apparently an advanced search is not currently allowed when no class is chosen
-  -- if parentKey == 0 then
-  --   Atr_Adv_Search_Dialog:Hide()
-  --   return
-  -- end
-
-  -- local searchText = parentKey
-  -- -- TODO Annnnnndddd special case again
-  -- if subClassKey ~= 0 then
-  --   searchText = subClassKey
-  -- end
-
-  -- -- local itemClass   = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Class )
-  -- -- local itemSublass = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Subclass )
-
-  -- -- local itemClassList   = Atr_GetAuctionClasses();
-  -- -- local itemSubclassList  = Atr_GetAuctionSubclasses(itemClass);
-
-
-  -- -- local searchText = itemClassList[itemClass];
-
-  -- -- if (searchText == nil) then
-  -- --   zc.msg_anm ("|cffff0000Error getting itemClass from menu|r.  itemClass = ", itemClass)
-  -- --   Atr_Adv_Search_Dialog:Hide()
-  -- --   return
-  -- -- end
-
-  -- -- if (itemSublass > 0) then
-  -- --   searchText = searchText.."/"..itemSubclassList[itemSublass];
-  -- -- end
-
-  -- if (maxLevel > 0 and minLevel == 0) then
-  --   minLevel = 1;
-  -- end
-
-  -- if (minLevel > 0)   then  searchText = searchText.."/"..minLevel;       end
-  -- if (maxLevel > 0)   then  searchText = searchText.."/"..maxLevel;       end
-
-  -- if (itemClass and (itemClass == WEAPON or itemClass == ARMOR)) then
-  --   local minItemLevel  = Atr_AS_MinItemlevel:GetNumber()
-  --   local maxItemLevel  = Atr_AS_MaxItemlevel:GetNumber()
-  --   if (minItemLevel > 0) then  searchText = searchText.."/i"..minItemLevel;    end
-  --   if (maxItemLevel > 0) then  searchText = searchText.."/i"..maxItemLevel;    end
-  -- end
-
-  -- if (text ~= "")     then  searchText = searchText.."/"..text;         end
-
-  -- -- handle category only search
-
-  -- if (not zc.StringContains (searchText, "/")) then
-  --   searchText = searchText.."/"
-  -- end
-
-  -- Auctionator.Debug.Message( '******', searchText )
-
-  -- Atr_SetSearchText(searchText);
   Atr_SetSearchText( search:Display() )
 
+  -- TODO: Finish implementing version 2 of search
   -- Atr_Search_Onclick();
   Atr_Search_Onclick_2( search )
 

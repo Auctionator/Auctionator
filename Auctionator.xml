@@ -1,22 +1,22 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/"> 
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 
-  
-   <!-- Frame to handle all core events --> 
-   <Frame name="Atr_core"> 
-      <Scripts> 
+
+   <!-- Frame to handle all core events -->
+   <Frame name="Atr_core">
+      <Scripts>
          <OnLoad>
 			Atr_RegisterEvents(self);
-			
+
 			self.TimeSinceLastUpdate = 0;
          </OnLoad>
 		<OnUpdate>
 			Atr_OnUpdate(self, elapsed);
 		</OnUpdate>
-         <OnEvent> 
+         <OnEvent>
             Atr_EventHandler(self, event, ...);
-         </OnEvent> 
-      </Scripts> 
-   </Frame> 
+         </OnEvent>
+      </Scripts>
+   </Frame>
 
 	<Button name="Atr_SmallButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
 		<NormalFont style="GameFontNormalSmall"/>
@@ -26,9 +26,9 @@
 
 
 	<Frame name="Atr_Error_Frame" toplevel="true" parent="UIParent" enableMouse="true" frameStrata="FULLSCREEN_DIALOG" hidden="true">
-		<Size><AbsDimension x="340" y="160" /></Size>		
+		<Size><AbsDimension x="340" y="160" /></Size>
 		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="290" y="-190"/></Offset></Anchor></Anchors>
-	
+
 		<Backdrop bgFile="Interface\MERCHANTFRAME\UI-BuyBack-TopLeft" edgeFile="Interface\DialogFrame\UI-DialogBox-Border">
 			<BackgroundInsets><AbsInset left="2" right="0" top="2" bottom="2"/></BackgroundInsets>
 			<TileSize><AbsValue val="256"/></TileSize>
@@ -59,7 +59,7 @@
 				</FontString>
 			</Layer>
 		</Layers>
-	
+
 		<Frames>
 			<Button inherits="UIPanelButtonTemplate" text="OKAY">
 				<Size><AbsDimension x="60" y="22"/></Size>
@@ -67,14 +67,14 @@
 				<Scripts><OnClick>Atr_Error_Frame:Hide();</OnClick></Scripts>
 			</Button>
 		</Frames>
-		
+
 	</Frame>
-			
+
 
 	<Frame name="Atr_LUA_Error" inherits="UIPanelDialogTemplate" toplevel="true" enableMouse="true" hidden="true">
 		<Size x="500" y="340"/>
 		<Anchors><Anchor point="CENTER"/></Anchors>
-	
+
 		<Scripts>
 			<OnShow>
 			</OnShow>
@@ -86,24 +86,24 @@
 					<Anchors><Anchor point="TOP"><Offset y="-10"/></Anchor></Anchors>
 				</FontString>
 				<FontString name="Atr_LUA_explanation" inherits="GameFontNormalSmall">
-					<Size x="460" y="110"/>	
+					<Size x="460" y="110"/>
 					<Anchors><Anchor point="TOPLEFT"><Offset x="20" y="-30"/></Anchor></Anchors>
 				</FontString>
 				<FontString name="Atr_LUA_CntrlC" inherits="GameFontNormalSmall" text="Type control-C to copy to your clipboard" justifyH="LEFT" hidden="true">
-					<Size x="460" y="20"/>	
+					<Size x="460" y="20"/>
 					<Anchors><Anchor point="BOTTOMLEFT"><Offset x="30" y="25"/></Anchor></Anchors>
 				</FontString>
 			</Layer>
 		</Layers>
-	
+
 		<Frames>
 
 			<ScrollFrame name="$parentScrollFrame" inherits="UIPanelScrollFrameTemplate">
-				<Size x="430" y="145" />	
+				<Size x="430" y="145" />
 				<Anchors><Anchor point="TOPLEFT"><Offset x="30" y="-150"/></Anchor></Anchors>
 				<ScrollChild>
 					<EditBox name="Atr_LUA_ErrorMsg" multiLine="true" letters="10000" autoFocus="false">
-						<Size x="430" y="145" />	
+						<Size x="430" y="145" />
 						<Scripts>
 							<OnCursorChanged function="ScrollingEdit_OnCursorChanged"/>
 							<OnUpdate>
@@ -125,7 +125,7 @@
 				<Anchors><Anchor point="BOTTOMRIGHT"><Offset x="-20" y="20"/></Anchor></Anchors>
 				<Scripts><OnClick>Atr_LUA_Error:Hide()</OnClick></Scripts>
 			</Button>
-		
+
 			<Button inherits="UIPanelButtonTemplate" text="Select All">
 				<Size><AbsDimension x="100" y="22"/></Size>
 				<Anchors><Anchor point="BOTTOMRIGHT"><Offset x="-90" y="20"/></Anchor></Anchors>
@@ -133,21 +133,21 @@
 					<OnClick>
 						Atr_LUA_ErrorMsg:HighlightText()
 						Atr_LUA_ErrorMsg:SetFocus()
-						
+
 						Atr_LUA_CntrlC:Show()
 					</OnClick>
 				</Scripts>
 			</Button>
 		</Frames>
-		
+
 	</Frame>
-			
+
 
 
 	<Frame name="Atr_Confirm_Frame" toplevel="true" parent="UIParent" enableMouse="true" frameStrata="DIALOG" hidden="true">
-		<Size><AbsDimension x="300" y="150" /></Size>		
+		<Size><AbsDimension x="300" y="150" /></Size>
 		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="290" y="-190"/></Offset></Anchor></Anchors>
-	
+
 		<Backdrop bgFile="Interface\MERCHANTFRAME\UI-BuyBack-TopLeft" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 			<BackgroundInsets><AbsInset left="2" right="0" top="2" bottom="2"/></BackgroundInsets>
 			<TileSize><AbsValue val="256"/></TileSize>
@@ -165,7 +165,7 @@
 				Atr_Mask:Hide();
 			</OnHide>
 		</Scripts>
-		
+
 		<Layers>
 			<Layer level="BACKGROUND">
 				<FontString inherits="GameFontNormal" name="Atr_Confirm_Text" spacing="3">
@@ -173,7 +173,7 @@
 				</FontString>
 			</Layer>
 		</Layers>
-	
+
 		<Frames>
 			<Button name="Atr_Confirm_Cancel" inherits="UIPanelButtonTemplate" text="CANCEL">
 				<Size><AbsDimension x="60" y="22"/></Size>
@@ -186,10 +186,10 @@
 				<Scripts><OnClick>Atr_Confirm_Yes();</OnClick></Scripts>
 			</Button>
 		</Frames>
-		
+
 	</Frame>
-			
-   <!-- The clickable column heading template --> 
+
+   <!-- The clickable column heading template -->
 
 	<Button name="Atr_Col_Heading_Template" virtual="true">
 		<ButtonText name="$parentText">
@@ -218,10 +218,10 @@
 		</HighlightTexture>
 	</Button>
 
-   <!-- The Standard Auctionator Dialog template --> 
+   <!-- The Standard Auctionator Dialog template -->
 
 	<Frame name="AuctionatorDialog" virtual="true">
-	
+
 		<Backdrop bgFile="Interface\CharacterFrame\UI-Party-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
 			<BackgroundInsets><AbsInset left="11" right="12" top="12" bottom="11"/></BackgroundInsets>
 			<TileSize><AbsValue val="32"/></TileSize>
@@ -274,10 +274,10 @@
 
 
 	<Button name="AuctionatorEntryTemplate" virtual="true" hidden="true">
-		<Size><AbsDimension x="584" y="16" /></Size>		
+		<Size><AbsDimension x="584" y="16" /></Size>
 		<Frames>
 			<Frame>
-				<Size><AbsDimension x="120" y="16" /></Size>
+				<Size><AbsDimension x="140" y="16" /></Size>
 				<Anchors><Anchor point="LEFT"><Offset><AbsDimension x="22" y="0"/></Offset></Anchor></Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
@@ -298,9 +298,9 @@
 					</Frame>
 				</Frames>
 			</Frame>
-			
+
 			<Frame>
-				<Size><AbsDimension x="240" y="16" /></Size>
+				<Size><AbsDimension x="220" y="16" /></Size>
 				<Anchors><Anchor point="LEFT"><Offset><AbsDimension x="167" y="0"/></Offset></Anchor></Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
@@ -308,7 +308,7 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			
+
 
 			<Frame>
 				<Size><AbsDimension x="120" y="16" /></Size>
@@ -319,7 +319,7 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			
+
 		</Frames>
 
 		<PushedTexture file="Interface\HelpFrame\HelpFrameButton-Highlight">
@@ -337,7 +337,7 @@
 
 
 	<Button name="Atr_HEntryTemplate" virtual="true" hidden="true">
-		<Size><AbsDimension x="174" y="16" /></Size>		
+		<Size><AbsDimension x="174" y="16" /></Size>
 		<Layers>
 			<Layer level="BACKGROUND">
 				<FontString name="$parent_EntryText" inherits="GameFontHighlightSmall" justifyH="LEFT">
@@ -374,7 +374,7 @@
 					<AbsDimension x="0" y="0"/>
 				</Offset>
 			</Anchor>
-		</Anchors>	
+		</Anchors>
 
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -421,7 +421,7 @@
 
 
 		<Frames>
-			
+
 
 			<Frame name="Atr_DropDownSL" inherits="UIDropDownMenuTemplate">
 				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-190" y="-49"/></Offset></Anchor></Anchors>
@@ -483,7 +483,7 @@
 			</Button>
 
 			<CheckButton name="Atr_Adv_Search_Button" inherits="UICheckButtonTemplate">
-				<Size><AbsDimension x="20" y="20" /></Size>		
+				<Size><AbsDimension x="20" y="20" /></Size>
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="Atr_Search_Button" relativePoint="RIGHT">
 						<Offset><AbsDimension x="6" y="8"/></Offset>
@@ -507,7 +507,7 @@
 
 
 			<CheckButton name="Atr_Exact_Search_Button" inherits="UICheckButtonTemplate">
-				<Size><AbsDimension x="20" y="20" /></Size>		
+				<Size><AbsDimension x="20" y="20" /></Size>
 				<Anchors>
 					<Anchor point="TOP" relativeTo="Atr_Adv_Search_Button" relativePoint="BOTTOM">
 						<Offset><AbsDimension y="5"/></Offset>
@@ -545,7 +545,7 @@
 					</OnClick>
 				</Scripts>
 			</Button>
-			
+
 			<Button name="Atr_FullScanButton" inherits="Atr_SmallButtonTemplate" text="Full Scan...">
 				<Size><AbsDimension x="74" y="18"/>	</Size>
 				<Anchors><Anchor point="TOPLEFT" relativeTo="Auctionator1Button" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="0" y="2"/></Offset></Anchor></Anchors>
@@ -553,14 +553,14 @@
 					<OnClick>Atr_ShowFullScanFrame();</OnClick>
 				</Scripts>
 			</Button>
-			
+
 
 			<ScrollFrame name="Atr_Hlist_ScrollFrame" inherits="FauxScrollFrameTemplate" hidden="true">
 				<Size><AbsDimension x="170" y="335"/></Size>
 				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-193" y="-75"/></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnVerticalScroll>
-						FauxScrollFrame_OnVerticalScroll(self, offset, 16, Atr_DisplayHlist); 
+						FauxScrollFrame_OnVerticalScroll(self, offset, 16, Atr_DisplayHlist);
 					</OnVerticalScroll>
 				</Scripts>
 			</ScrollFrame>
@@ -635,7 +635,7 @@
 
 					</Layer>
 				</Layers>
-				
+
 				<Frames>
 					<Button name="$parent_Tex">
 						<Size><AbsDimension x="37" y="37"/></Size>
@@ -646,7 +646,7 @@
 									<Size><AbsDimension x="124" y="30"/></Size>
 									<Anchors><Anchor point="TOPLEFT" relativePoint="TOPRIGHT"><Offset><AbsDimension x="5" y="0"/></Offset></Anchor></Anchors>
 								</FontString>
-							
+
 								<FontString name="$parentCount" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
 									<Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-5" y="2"/></Offset></Anchor></Anchors>
 								</FontString>
@@ -664,7 +664,7 @@
 						</Scripts>
 						<HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
 					</Button>
-					
+
 					<Frame name="Atr_StackPrice" inherits="MoneyInputFrameTemplate">
 						<Anchors>
 							<Anchor point="TOPLEFT" relativeTo="Atr_StackPriceText" relativePoint="BOTTOMLEFT">
@@ -734,7 +734,7 @@
 							<OnTabPressed>		Atr_Batch_NumAuctions:SetFocus()	</OnTabPressed>
 						</Scripts>
 					</EditBox>
-					
+
 					<Button name="Atr_CreateAuctionButton" inherits="UIPanelButtonTemplate"  text="Create Auction" disabled="true">
 						<Size><AbsDimension x="185" y="30"/>	</Size>
 						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="3" y="-170"/></Offset></Anchor></Anchors>
@@ -753,7 +753,7 @@
 						</Scripts>
 					</Frame>
 
-					
+
 				</Frames>
 			</Frame>
 
@@ -918,13 +918,13 @@
 
 				<Scripts>
 					<OnVerticalScroll>
-						FauxScrollFrame_OnVerticalScroll(self, offset, 16, Atr_RedisplayAuctions); 
+						FauxScrollFrame_OnVerticalScroll(self, offset, 16, Atr_RedisplayAuctions);
 					</OnVerticalScroll>
 				</Scripts>
 			</ScrollFrame>
 
 
-			
+
 			 <Button name="AuctionatorEntry1" inherits="AuctionatorEntryTemplate">
 			   <Anchors><Anchor point="TOPLEFT" relativeTo="AuctionatorScrollFrame" relativePoint="TOPLEFT"><Offset><AbsDimension x="8" y="0"/></Offset></Anchor></Anchors>
 			 </Button>
@@ -942,7 +942,7 @@
 			 <Button name="AuctionatorEntry13" inherits="AuctionatorEntryTemplate"><Anchors><Anchor point="TOPLEFT" relativeTo="AuctionatorEntry12" relativePoint="BOTTOMLEFT"/></Anchors></Button>
 			 <Button name="AuctionatorEntry14" inherits="AuctionatorEntryTemplate"><Anchors><Anchor point="TOPLEFT" relativeTo="AuctionatorEntry13" relativePoint="BOTTOMLEFT"/></Anchors></Button>
 			 <Button name="AuctionatorEntry15" inherits="AuctionatorEntryTemplate"><Anchors><Anchor point="TOPLEFT" relativeTo="AuctionatorEntry14" relativePoint="BOTTOMLEFT"/></Anchors></Button>
-                                                                                                        
+
 			<Frame name="Atr_HeadingsBar">
 				<Size><AbsDimension x="605" y="64"/></Size>
 				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="6" y="-163"/></Offset></Anchor></Anchors>
@@ -968,7 +968,7 @@
 						</FontString>
 					</Layer>
 				</Layers>
-				
+
 				<Frames>
 					<Button name="Atr_Back_Button" text="Back" inherits="Atr_SmallButtonTemplate"  hidden="true">
 						<Size><AbsDimension x="70" y="18"/></Size>
@@ -1000,7 +1000,7 @@
 			<Frame name="Atr_ListTabs" hidden="true">
 				<Size><AbsDimension x="250" y="40"/></Size>
 				<Anchors><Anchor point="BOTTOMRIGHT" relativeTo="Atr_HeadingsBar" relativePoint="TOPRIGHT"><Offset><AbsDimension x="0" y="-22"/></Offset></Anchor></Anchors>
-				
+
 				<Frames>
 					<Button name="$parentTab3" inherits="TabButtonTemplate" id="3" text="Other">
 						<Anchors><Anchor point="BOTTOMRIGHT" ><Offset><AbsDimension x="-8" y="0"/></Offset></Anchor></Anchors>
@@ -1043,14 +1043,14 @@
 					</EdgeSize>
 				</Backdrop>
 			</Frame>
-				
+
 			<Button>
 				<Size><AbsDimension y="110" /></Size>
 				<Anchors>
 					<Anchor point="TOPLEFT"><Offset><AbsDimension x="60" y="-72"/></Offset></Anchor>
 					<Anchor point="RIGHT"><Offset><AbsDimension x="63"/></Offset></Anchor>
 				</Anchors>
-				
+
 				<Scripts>
 					<OnLoad>
 						self:RegisterEvent("NEW_AUCTION_UPDATE");
@@ -1072,19 +1072,19 @@
 						Atr_Hilite1:Hide();
 					</OnLeave>
 				</Scripts>
-				
+
 			</Button>
 
 
 		</Frames>
 	</Frame>
-	
 
 
-   <!-- Buy Confirmation screen --> 
+
+   <!-- Buy Confirmation screen -->
 
 	<Frame name="Atr_Buy_Confirm_Frame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" enableMouse="true" hidden="true">
-		<Size><AbsDimension x="390" y="180" /></Size>		
+		<Size><AbsDimension x="390" y="180" /></Size>
 
 		<Scripts>
 			<OnUpdate>
@@ -1113,7 +1113,7 @@
 					<Anchor point="TOPLEFT">    <Offset><AbsDimension x="0" y="0" /></Offset></Anchor>
 					<Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="0" y="40"/></Offset></Anchor>
 				</Anchors>
-				
+
 				<Layers>
 					<Layer level="BACKGROUND">
 						<FontString name="Atr_Buy_Confirm_Text1" inherits="GameFontNormal" text="Buy">
@@ -1150,7 +1150,7 @@
 					<Anchor point="TOPLEFT">    <Offset><AbsDimension x="0" y="0" /></Offset></Anchor>
 					<Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="0" y="40"/></Offset></Anchor>
 				</Anchors>
-				
+
 				<Layers>
 					<Layer level="BACKGROUND">
 						<FontString name="Atr_Buy_NumAvail_Text" inherits="GameFontNormal">
@@ -1162,7 +1162,7 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			
+
 			<Button name="Atr_Buy_Confirm_CancelBut" inherits="UIPanelButtonTemplate" text="Cancel">
 				<Size><AbsDimension x="120" y="22"/></Size>
 				<Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-20" y="25"/></Offset></Anchor></Anchors>
@@ -1186,10 +1186,10 @@
 	</Frame>
 
 
-   <!-- Check Active screen --> 
+   <!-- Check Active screen -->
 
 	<Frame name="Atr_CheckActives_Frame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" enableMouse="true" hidden="true">
-		<Size><AbsDimension x="350" y="190" /></Size>		
+		<Size><AbsDimension x="350" y="190" /></Size>
 
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -1219,11 +1219,11 @@
 		</Frames>
 	</Frame>
 
-   <!-- Confirm Cancel Auction screen --> 
+   <!-- Confirm Cancel Auction screen -->
 
 	<Frame name="Atr_CancelAuction_Confirm_Frame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" enableMouse="true" frameStrata="DIALOG" hidden="true">
-		<Size><AbsDimension x="340" y="115" /></Size>		
-	
+		<Size><AbsDimension x="340" y="115" /></Size>
+
 		<Layers>
 			<Layer level="BACKGROUND">
 				<FontString inherits="GameFontNormal" name="$parent_text" spacing="3" text="Really cancel?">
@@ -1231,7 +1231,7 @@
 				</FontString>
 			</Layer>
 		</Layers>
-	
+
 		<Frames>
 			<Button inherits="UIPanelButtonTemplate" text="Leave it">
 				<Size><AbsDimension x="60" y="22"/></Size>
@@ -1244,7 +1244,7 @@
 				<Scripts><OnClick>Atr_CancelUndercut_Confirm(true);</OnClick></Scripts>
 			</Button>
 		</Frames>
-		
+
 	</Frame>
 
 
@@ -1261,7 +1261,7 @@
 
 
 	<Frame name="Atr_FullScanFrame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="DIALOG" enableMouse="true" hidden="true">
-		<Size><AbsDimension x="600" y="420" /></Size>		
+		<Size><AbsDimension x="600" y="420" /></Size>
 
 		<Layers>
 			<Layer level="ARTWORK">
@@ -1298,7 +1298,7 @@
 		</Layers>
 
 		<Frames>
-			
+
 			<Button name="Atr_FullScanDone" inherits="UIPanelButtonTemplate" text="DONE">
 				<Size><AbsDimension x="80" y="22"/>	</Size>
 				<Anchors><Anchor point="TOPRIGHT"><Offset><AbsDimension x="-30" y="-140"/></Offset></Anchor></Anchors>
@@ -1320,7 +1320,7 @@
 			</Button>
 
 			<SimpleHTML name="Atr_FullScanHTML">
-				<Size><AbsDimension x="545" y="300" /></Size>		
+				<Size><AbsDimension x="545" y="300" /></Size>
 				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="27" y="-175"/></Offset></Anchor></Anchors>
 				<FontString inherits="GameFontLightGraySmall"/>
 				<FontStringHeader1 inherits="GameFontNormal"/>
@@ -1373,23 +1373,23 @@
 
 					</Layer>
 				</Layers>
-		
-		
+
+
 			</Frame>
-	
+
 		</Frames>
 
 	</Frame>
-	
 
-   <!-- Buy Confirmation screen --> 
+
+   <!-- Buy Confirmation screen -->
 
 	<Frame name="Atr_Adv_Search_Dialog" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" enableMouse="true" hidden="true">
-		<Size><AbsDimension x="480" y="320" /></Size>		
+		<Size><AbsDimension x="480" y="320" /></Size>
 
 		<Layers>
 			<Layer level="ARTWORK">
-			
+
 				<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
 					<Size x="310" y="64"/>
 					<Anchors><Anchor point="TOP"><Offset x="0" y="12"/></Anchor></Anchors>
@@ -1402,31 +1402,31 @@
 				<FontString name="Atr_AS_Searchtext_Label" inherits="GameFontNormalSmall" text="Search For">
 					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-50"/></Offset></Anchor></Anchors>
 				</FontString>
-				
+
 				<FontString name="Atr_AS_Cat_Label" inherits="GameFontNormalSmall" text="Category">
 					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-120"/></Offset></Anchor></Anchors>
 				</FontString>
-				
+
 				<FontString name="Atr_AS_SubCat_Label" inherits="GameFontNormalSmall" text="Subcategory">
 					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="240" y="-120"/></Offset></Anchor></Anchors>
 				</FontString>
-				
+
 				<FontString name="Atr_AS_LevRange_Label" inherits="GameFontNormalSmall" text="Level Range">
 					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-190"/></Offset></Anchor></Anchors>
 				</FontString>
-				
+
 				<FontString inherits="GameFontHighlightLarge" text="-">
 					<Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_LevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="41" y="-6"/></Offset></Anchor></Anchors>
 				</FontString>
-				
+
 				<FontString name="Atr_AS_ILevRange_Label" inherits="GameFontNormalSmall" text="Item Level Range" hidden="true">
 					<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="240" y="-190"/></Offset></Anchor></Anchors>
 				</FontString>
-				
+
 				<FontString name="Atr_AS_ILevRange_Dash" inherits="GameFontHighlightLarge" text="-" hidden="true">
 					<Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_ILevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="41" y="-6"/></Offset></Anchor></Anchors>
 				</FontString>
-				
+
 			</Layer>
 		</Layers>
 
