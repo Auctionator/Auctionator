@@ -5,27 +5,9 @@ local zc = addonTable.zc
 local zz = zc.md
 local _
 
-KM_NULL_STATE = 0;
-KM_PREQUERY   = 1;
-KM_INQUERY    = 2;
-KM_POSTQUERY  = 3;
-KM_ANALYZING  = 4;
-KM_SETTINGSORT  = 5;
-
-local AUCTION_CLASS_WEAPON     = 1;
-local AUCTION_CLASS_ARMOR      = 2;
-local AUCTION_CLASS_BATTLEPET  = 11;
-
 local gAllScans = {};
 
-local BATTLE_PET_ITEMID = 82800
-
 local BIGNUM = 999999999999;
-
-local ATR_SORTBY_NAME_ASC = 0;
-local ATR_SORTBY_NAME_DES = 1;
-local ATR_SORTBY_PRICE_ASC = 2;
-local ATR_SORTBY_PRICE_DES = 3;
 
 gScanHistDayZero = time({year=2010, month=11, day=15, hour=0});   -- never ever change
 
@@ -87,12 +69,12 @@ function AtrSearch:Init (searchText, IDstring, itemLink, rescanThreshold)
   end
 
   self.IDstring     = IDstring
-  self.processing_state = KM_NULL_STATE
+  self.processing_state = Auctionator.Constants.SearchStates.NULL
   self.current_page   = -1
   self.items        = {}
   self.query        = Atr_NewQuery()
   self.sortedScans    = nil
-  self.sortHow      = ATR_SORTBY_PRICE_ASC
+  self.sortHow      = Auctionator.Constants.Sort.PRICE_ASCENDING
   self.shopListIndex    = 1
   self.shplist      = Atr_GetShoppingListFromSearchText (self.searchText)
 
@@ -145,12 +127,9 @@ function Atr_FindScan (IDstring, itemName, init)
     setmetatable (scn, AtrScan);
     gAllScans[IDstring] = scn;
     init = true;
---    zz ("creating scan: ", IDstring, itemName);
   end
 
   if (init and gAllScans[IDstring] ~= nil) then
---    zz ("initing scan: ", IDstring, itemName);
-
     gAllScans[IDstring]:Init (IDstring, itemName);
   end
 
@@ -320,7 +299,7 @@ function AtrSearch:Start ()
       return;
     end
 
-    self.sortHow = ATR_SORTBY_PRICE_DES;
+    self.sortHow = Auctionator.Constants.Sort.PRICE_DESCENDING;
   end
 
   -- make sure all the matches in the scan db are in memory
@@ -358,7 +337,7 @@ function AtrSearch:Start ()
 
   gNumNilItemLinks = 0
 
-  self.processing_state = KM_SETTINGSORT;
+  self.processing_state = Auctionator.Constants.SearchStates.SETTING_SORT;
 
   if (Atr_ILevelHist_Init) then
     Atr_ILevelHist_Init()
@@ -369,7 +348,7 @@ function AtrSearch:Start ()
   BrowseName:SetText (self.searchText);   -- not necessary but nice when user switches to Browse tab
 
   self.current_page   = 0;
-  self.processing_state = KM_PREQUERY;
+  self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY;
 
   self:Continue();
 
@@ -379,11 +358,11 @@ end
 
 function AtrSearch:Abort ()
 
-  if (self.processing_state == KM_NULL_STATE) then
+  if (self.processing_state == Auctionator.Constants.SearchStates.NULL) then
     return;
   end
 
-  self.processing_state = KM_NULL_STATE;
+  self.processing_state = Auctionator.Constants.SearchStates.NULL;
   self:Init();
 end
 
@@ -404,7 +383,7 @@ function AtrSearch:CheckForDuplicatePage ()
 
   if (isDup) then
     self.current_page   = self.current_page - 1;   -- requery the page
-    self.processing_state = KM_PREQUERY;
+    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY;
   end
 
   return isDup;
@@ -415,7 +394,7 @@ end
 
 function AtrSearch:AnalyzeResultsPage()
 
-  self.processing_state = KM_ANALYZING;
+  self.processing_state = Auctionator.Constants.SearchStates.ANALYZING;
 
   if (self.query.numDupPages > 50) then    -- hopefully this will never happen but need check to avoid looping
     return true;             -- done
@@ -486,6 +465,8 @@ function AtrSearch:AnalyzeResultsPage()
         if (self.minItemLevel or self.maxItemLevel) then
           local _, _, _, iLevel = GetItemInfo(itemLink);
 
+          Auctionator.Debug.Message( '*****************', iLevel, self.minItemLevel, self.maxItemLevel )
+
           if ((self.minItemLevel and iLevel < self.minItemLevel) or (self.maxItemLevel and iLevel > self.maxItemLevel)) then
             OKitemLevel = false
           end
@@ -533,7 +514,7 @@ function AtrSearch:AnalyzeResultsPage()
   end
 
   if (not done) then
-    self.processing_state = KM_PREQUERY;
+    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY;
   end
 
   return done;
@@ -633,9 +614,9 @@ function Atr_IsCompoundSearch (searchString)
     return false;
   end
 
-  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', zc.StringContains (searchString, ">") or zc.StringContains (searchString, "/") )
+  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', zc.StringContains (searchString, ">") or zc.StringContains (searchString, ":") )
 
-  return zc.StringContains (searchString, ">") or zc.StringContains (searchString, "/");
+  return zc.StringContains (searchString, ">") or zc.StringContains (searchString, ":");
 end
 
 -----------------------------------------
@@ -651,79 +632,109 @@ end
 
 -----------------------------------------
 
-function Atr_ParseCompoundSearch (searchString)
+function Atr_ParseCompoundSearch( searchString )
+  local delimiter = ":"
 
-  local delim = "/";
-
-  if (zc.StringContains (searchString, ">")) then
-    delim = ">";
+  if zc.StringContains( searchString, ">" ) then
+    delimiter = ">"
   end
 
-  local tbl = { strsplit (delim, searchString) };
+  local queryString, itemClassID, itemSubClassID, minLevel, maxLevel, minItemLevel, maxItemLevel =
+    strsplit( delimiter, searchString )
 
-  local queryString = "";
-  local itemClass   = 0;
-  local itemSubclass  = 0;
-  local minLevel    = nil;
-  local maxLevel    = nil;
-  local minItemLevel  = nil;
-  local maxItemLevel  = nil;
-  local prevWasItemClass;
-  local n;
+  -- TODO: Make this into an object when this works (sort of is as query, but needs a lot of work
+  -- to incorporate everywhere)
+  itemClassID = tonumber( itemClassID )
+  itemSubClassID = tonumber( itemSubClassID)
+  minLevel = tonumber( minLevel )
+  maxLevel = tonumber( maxLevel )
+  minItemLevel = tonumber( minItemLevel )
+  maxItemLevel = tonumber( maxItemLevel )
 
-  for n = 1,#tbl do
-    local s = tbl[n];
-
-    local handled = false;
-
-
-    if (not handled and tonumber(s)) then
-      if (minLevel == nil) then
-        minLevel = tonumber(s);
-      elseif (maxLevel == nil) then
-        maxLevel = tonumber(s);
-      end
-
-      handled = true;
-      prevWasItemClass = false;
-    end
-
-    if (not handled and toItemLevel(s)) then
-      if (minItemLevel == nil) then
-        minItemLevel = toItemLevel(s);
-      elseif (maxItemLevel == nil) then
-        maxItemLevel = toItemLevel(s);
-      end
-
-      handled = true;
-      prevWasItemClass = false;
-    end
-
-    if (not handled and prevWasItemClass and itemSubclass == 0) then
-      itemSubclass = Atr_SubType2AuctionSubclass (itemClass, s);
-      if (itemSubclass > 0) then
-        handled = true;
-        prevWasItemClass = false;
-      end
-    end
-
-    if (not handled and itemClass == 0) then
-
-      itemClass = Atr_ItemType2AuctionClass (s);
-
-      if (itemClass > 0) then
-        prevWasItemClass = true;
-        handled = true;
-      end
-    end
-
-    if (not handled) then
-      queryString = s;
-      handled = true;
-    end
+  if itemSubClassID == -1 then
+    itemSubClassID = nil
   end
 
-  return queryString, itemClass, itemSubclass, minLevel, maxLevel, minItemLevel, maxItemLevel;
+  if minLevel == 0 then
+    minLevel = nil
+  end
+
+  if maxLevel == 0 then
+    maxLevel = nil
+  end
+
+  if minItemLevel == 0 then
+    minItemLevel = nil
+  end
+
+  if maxItemLevel == 0 then
+    maxItemLevel = nil
+  end
+
+  return queryString, itemClassID, itemSubClassID, minLevel, maxLevel, minItemLevel, maxItemLevel
+
+  -- local tokens = { strsplit( delimiter, searchString )}
+
+  -- local queryString = ""
+  -- local itemClass = 0
+  -- local itemSubclass = 0
+  -- local minLevel = nil
+  -- local maxLevel = nil
+  -- local minItemLevel = nil
+  -- local maxItemLevel = nil
+  -- local prevWasItemClass
+  -- local tokenIndex
+
+  -- for tokenIndex = 1, #tokens do
+  --   local token = tokens[ tokenIndex ]
+
+  --   local handled = false;
+
+  --   if not handled and tonumber( token ) then
+  --     if minLevel == nil then
+  --       minLevel = tonumber( token )
+  --     elseif maxLevel == nil then
+  --       maxLevel = tonumber( token )
+  --     end
+
+  --     handled = true;
+  --     prevWasItemClass = false;
+  --   end
+
+  --   if (not handled and toItemLevel( token )) then
+  --     if (minItemLevel == nil) then
+  --       minItemLevel = toItemLevel( token );
+  --     elseif (maxItemLevel == nil) then
+  --       maxItemLevel = toItemLevel( token );
+  --     end
+
+  --     handled = true;
+  --     prevWasItemClass = false;
+  --   end
+
+  --   if (not handled and prevWasItemClass and itemSubclass == 0) then
+  --     itemSubclass = Atr_SubType2AuctionSubclass (itemClass, token);
+  --     if (itemSubclass > 0) then
+  --       handled = true;
+  --       prevWasItemClass = false;
+  --     end
+  --   end
+
+  --   if (not handled and itemClass == 0) then
+
+  --     itemClass = Atr_ItemType2AuctionClass( token );
+
+  --     if (itemClass > 0) then
+  --       prevWasItemClass = true;
+  --       handled = true;
+  --     end
+  --   end
+
+  --   if (not handled) then
+  --     queryString = token;
+  --     handled = true;
+  --   end
+  -- end
 end
 
 -----------------------------------------
@@ -775,7 +786,7 @@ function AtrSearch:Continue()
 
     local exactMatch = (self.exactMatchText ~= nil or self.IDstring ~= nil)
 
-    queryString = zc.UTF8_Truncate (queryString,127); -- attempting to reduce number of disconnects
+    queryString = Auctionator.Util.UTF8_Truncate( queryString ) -- attempting to reduce number of disconnects
 
     -- QueryAuctionItems(text, minLevel, maxLevel, page, usable, rarity, false, exactMatch, filterData)
     -- filterData combines itemClass and itemSubclass
@@ -785,7 +796,7 @@ function AtrSearch:Continue()
     QueryAuctionItems (queryString, minLevel, maxLevel, self.current_page, nil, nil, false, exactMatch, filterData );
 
     self.query_sent_when  = gAtr_ptime;
-    self.processing_state = KM_POSTQUERY;
+    self.processing_state = Auctionator.Constants.SearchStates.POST_QUERY;
 
     self.current_page   = self.current_page + 1;
   end
@@ -800,8 +811,8 @@ local gSortScansBy;
 
 local function Atr_SortScans (x, y)
 
-  if (gSortScansBy == ATR_SORTBY_NAME_ASC) then   return string.lower (x.itemName) < string.lower (y.itemName); end
-  if (gSortScansBy == ATR_SORTBY_NAME_DES) then   return string.lower (x.itemName) > string.lower (y.itemName); end
+  if (gSortScansBy == Auctionator.Constants.Sort.NAME_ASCENDING) then   return string.lower (x.itemName) < string.lower (y.itemName); end
+  if (gSortScansBy == Auctionator.Constants.Sort.NAME_DESCENDING) then   return string.lower (x.itemName) > string.lower (y.itemName); end
 
   local xprice = 0;
   local yprice = 0;
@@ -809,8 +820,8 @@ local function Atr_SortScans (x, y)
   if (x.absoluteBest) then  xprice = zc.round(x.absoluteBest.buyoutPrice/x.absoluteBest.stackSize);   end;
   if (y.absoluteBest) then  yprice = zc.round(y.absoluteBest.buyoutPrice/y.absoluteBest.stackSize);   end;
 
-  if (gSortScansBy == ATR_SORTBY_PRICE_ASC) then    return xprice < yprice;   end
-  if (gSortScansBy == ATR_SORTBY_PRICE_DES) then    return xprice > yprice;   end
+  if (gSortScansBy == Auctionator.Constants.Sort.PRICE_ASCENDING) then    return xprice < yprice;   end
+  if (gSortScansBy == Auctionator.Constants.Sort.PRICE_DESCENDING) then    return xprice > yprice;   end
 
 end
 
@@ -820,7 +831,7 @@ function AtrSearch:Finish()
 
   local finishTime = time();
 
-  self.processing_state = KM_NULL_STATE;
+  self.processing_state = Auctionator.Constants.SearchStates.NULL;
   self.current_page   = -1;
   self.query_sent_when  = nil;
 
@@ -942,10 +953,10 @@ end
 
 function AtrSearch:ClickPriceCol()
 
-  if (self.sortHow == ATR_SORTBY_PRICE_ASC) then
-    self.sortHow = ATR_SORTBY_PRICE_DES;
+  if (self.sortHow == Auctionator.Constants.Sort.PRICE_ASCENDING) then
+    self.sortHow = Auctionator.Constants.Sort.PRICE_DESCENDING;
   else
-    self.sortHow = ATR_SORTBY_PRICE_ASC;
+    self.sortHow = Auctionator.Constants.Sort.PRICE_ASCENDING;
   end
 
   gSortScansBy = self.sortHow;
@@ -957,10 +968,10 @@ end
 
 function AtrSearch:ClickNameCol()
 
-  if (self.sortHow == ATR_SORTBY_NAME_ASC) then
-    self.sortHow = ATR_SORTBY_NAME_DES;
+  if (self.sortHow == Auctionator.Constants.Sort.NAME_ASCENDING) then
+    self.sortHow = Auctionator.Constants.Sort.NAME_DESCENDING;
   else
-    self.sortHow = ATR_SORTBY_NAME_ASC;
+    self.sortHow = Auctionator.Constants.Sort.NAME_ASCENDING;
   end
 
   gSortScansBy = self.sortHow;
@@ -974,16 +985,16 @@ function AtrSearch:UpdateArrows()
   Atr_Col1_Heading_ButtonArrow:Hide();
   Atr_Col3_Heading_ButtonArrow:Hide();
 
-  if (self.sortHow == ATR_SORTBY_PRICE_ASC) then
+  if (self.sortHow == Auctionator.Constants.Sort.PRICE_ASCENDING) then
     Atr_Col1_Heading_ButtonArrow:Show();
     Atr_Col1_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 0, 1.0);
-  elseif (self.sortHow == ATR_SORTBY_PRICE_DES) then
+  elseif (self.sortHow == Auctionator.Constants.Sort.PRICE_DESCENDING) then
     Atr_Col1_Heading_ButtonArrow:Show();
     Atr_Col1_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 1.0, 0);
-  elseif (self.sortHow == ATR_SORTBY_NAME_ASC) then
+  elseif (self.sortHow == Auctionator.Constants.Sort.NAME_ASCENDING) then
     Atr_Col3_Heading_ButtonArrow:Show();
     Atr_Col3_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 0, 1.0);
-  elseif (self.sortHow == ATR_SORTBY_NAME_DES) then
+  elseif (self.sortHow == Auctionator.Constants.Sort.NAME_DESCENDING) then
     Atr_Col3_Heading_ButtonArrow:Show();
     Atr_Col3_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 1.0, 0);
   end

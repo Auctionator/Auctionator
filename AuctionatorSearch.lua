@@ -1,13 +1,18 @@
 Auctionator.Search = {
-  text = nil,
-  filter = nil,
-  minLevel = nil,
-  maxLevel = nil,
-  parentKey = nil,
-  subClassKey = nil,
-  resolvedKey = nil,
-  filterResolved = false,
-  advanced = false
+  query = nil,
+  timeFinished = nil,
+
+  -- itemName = nil, NOW query.text
+  -- IDString, These aren't yet used, need to find the DoSearch that passes these
+  -- itemLink,
+  -- rescanThreshold
+
+  processingState = Auctionator.Constants.SearchStates.NULL,
+  currentPage = 0,
+  items = {},
+  atr_query = {}, -- Atr_NewQuery() used to be query... I think this is a page of results?
+  sortedScans = nil,
+  sortOrder = Auctionator.Constants.Sort.PRICE_ASCENDING, -- Used to be sortHow
 }
 
 function Auctionator.Search:new( options )
@@ -19,63 +24,18 @@ function Auctionator.Search:new( options )
 end
 
 function Auctionator.Search:Start()
+  Auctionator.Debug.Message( 'Auctionator.Search:Start' )
 
-end
-
-function Auctionator.Search:ToString()
-  if self.advanced then
-    return self.text .. [[ (Advanced)]]
+  if CanSendAuctionQuery() then
+    QueryAuctionItems( self.query:ToParams( self.currentPage ) )
   else
-    return self.text
+    Auctionator.Debug.Message( 'CanSendAuctionQuery FALSE' )
   end
 end
 
-function Auctionator.Search:RecentToString()
-  local buffer = { self.text }
-  local levelBuffer = {}
-
-  if not self.filterResolved then
-    self:Filter()
-  end
-
-  if self.resolvedKey ~= nil then
-    table.insert( buffer, [[(]] .. self.resolvedKey .. [[)]] )
-  end
-
-  if self.minLevel ~= nil then
-    table.insert( levelBuffer, self.minLevel )
-  end
-
-  if self.minLevel ~= nil and self.maxLevel ~= nil then
-    table.insert( levelBuffer, '-' )
-  end
-
-  if self.maxLevel ~= nil then
-    table.insert( levelBuffer, self.maxLevel )
-  end
-
-  if self.minLevel ~= nil or self.maxLevel ~= nil then
-    table.insert( buffer, table.concat( levelBuffer, '' ) )
-  end
-
-  return table.concat( buffer, ' ' )
-end
-
-
-function Auctionator.Search:Filter()
-  -- TODO: This could be made easier by tracking state on dropdown click in AuctionatorShop
-  if not self.filterResolved and self.filter == nil then
-
-    if self.subClassKey and self.subClassKey ~= 0 then
-      self.resolvedKey = self.subClassKey
-      self.filter = Auctionator.FilterLookup[ self.subClassKey ].filter
-    elseif self.parentKey and self.parentKey ~= 0 then
-      self.resolvedKey = self.parentKey
-      self.filter = Auctionator.FilterLookup[ self.parentKey ].filter
-    end
-
-    self.filterResolved = true
-  end
-
-  return self.filter
+function Auctionator.Search:Finish()
+  self.timeFinished = time()
+  -- TODO: Why is there just a FINISHED SearchState?
+  self.processingState = Auctionator.Constants.SearchStates.NULL
+  self.currentPage = -1
 end

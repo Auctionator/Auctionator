@@ -302,13 +302,6 @@ function Atr_GetAuctionSubclasses (auctionClass)
 
   if (gItemSubClasses[auctionClass] == nil) then
     gItemSubClasses[auctionClass] = { GetAuctionItemSubClasses(auctionClass) };
-
---    zz ("-----");
---    for x, itemSubClass in pairs(gItemSubClasses[auctionClass]) do
---      zz (x, itemSubClass)
---    end
-
-
   end
 
   return gItemSubClasses[auctionClass];

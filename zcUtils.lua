@@ -136,28 +136,6 @@ end
 
 -----------------------------------------
 
-function zc.UTF8_Truncate (s, newlen)
-
-  if (s:len() <= newlen) then
-    return s;
-  end
-
-  local x, c;
-
-  for x = newlen, 1, -1 do
-
-    c = s:byte(x+1);
-
-    if (bit.band (c, 0xC0) == 0x80) then
-      return s:sub (1, x-1);
-    end
-
-  end
-
-end
-
------------------------------------------
-
 function zc.GetArrayElemOrFirst (a, x)
 
   if (a and #a > 0) then

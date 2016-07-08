@@ -52,6 +52,24 @@ Auctionator.Filter = {
   subClasses = {}
 }
 
+function Auctionator.Filter.Find( classID, options )
+  options = options or {}
+  local filterSet = options.filters or Auctionator.Filters
+
+  -- TODO: NullObject pattern?
+  for index, filter in ipairs( filterSet ) do
+    if filter.classID == classID then
+      return filter
+    end
+  end
+
+  return Auctionator.Filter.new({
+    classID = 0,
+    name = Auctionator.Constants.FilterDefault,
+    key = 0
+  })
+end
+
 function Auctionator.Filter:new( options )
   options = options or {}
   setmetatable( options, self )
@@ -64,12 +82,12 @@ local function GenerateSubClasses( classID, parentName )
   local subClassesTable = { GetAuctionItemSubClasses( classID ) }
   local subClasses = {}
 
-  for i = 1, #subClassesTable do
-    local subClassID = subClassesTable[ i ]
+  for index = 1, #subClassesTable do
+    local subClassID = subClassesTable[ index ]
     local name = GetItemSubClassInfo( classID, subClassID )
 
-    subClasses[ i ] = Auctionator.Filter:new({
-      classID = subClassesID,
+    subClasses[ index ] = Auctionator.Filter:new({
+      classID = subClassID,
       name = name,
       key = parentName .. [[/]] .. name,
       filter = Auctionator.QueryFilter:new({ classID = classID, subclassID = subClassID })

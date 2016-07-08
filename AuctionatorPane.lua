@@ -73,8 +73,13 @@ function AtrPane:DoSearch (searchText, IDstring, itemLink, rescanThreshold)
   return cacheHit;
 end
 
-function AtrPane:DoSearch2( search )
-  Auctionator.Util.Print( search, "Hook this new search object up" )
+function AtrPane:DoSearch2( query )
+  Auctionator.Util.Print( query, "Hook this new search object up" )
+
+  self.currentSearch = Auctionator.Search:new({ query = query })
+  self.activeSearch = self.currentSearch
+
+  self.currentSearch:Start()
 end
 
 -----------------------------------------
@@ -85,13 +90,13 @@ end
 
 -----------------------------------------
 
-function AtrPane:GetProcessingState ()
-
-  if (self.activeSearch) then
-    return self.activeSearch.processing_state;
+function AtrPane:GetProcessingState()
+  if self.activeSearch then
+    -- TODO: processing_state for backwards compatibility until new search fully implemented
+    return self.activeSearch.processing_state or self.activeSearch.processingState
+  else
+    return Auctionator.Constants.SearchStates.NULL
   end
-
-  return KM_NULL_STATE;
 end
 
 -----------------------------------------

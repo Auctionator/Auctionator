@@ -2017,7 +2017,7 @@ function Atr_OnAuctionUpdate (...)
     return
   end
 
-  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == KM_POSTQUERY) then
+  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
 
     gCurrentPane.activeSearch:CapturePageInfo();
 
@@ -2475,7 +2475,7 @@ function Atr_UpdateRecommendation (updatePrices)
 
   elseif (Atr_IsSelectedTab_Current()) then
 
-    if (gCurrentPane:GetProcessingState() ~= KM_NULL_STATE) then
+    if (gCurrentPane:GetProcessingState() ~= Auctionator.Constants.SearchStates.NULL) then
       return;
     end
 
@@ -2922,7 +2922,7 @@ function Atr_Idle(self, elapsed)
     return;
   end
 
-  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == KM_PREQUERY) then   ------- check whether to send a new auction query to get the next page -------
+  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.PRE_QUERY) then   ------- check whether to send a new auction query to get the next page -------
     gCurrentPane.activeSearch:Continue();
   end
 
@@ -3102,7 +3102,7 @@ function Atr_UpdateUI_SellPane (needsUpdate)
 
   if (needsUpdate) then
 
-    if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state ~= KM_NULL_STATE) then
+    if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state ~= Auctionator.Constants.SearchStates.NULL) then
       Atr_CreateAuctionButton:Disable();
       Atr_FullScanButton:Disable();
       Auctionator1Button:Disable();
@@ -3408,7 +3408,7 @@ end
 function Atr_ListTabOnClick (id)
   Auctionator.Debug.Message( 'Atr_ListTabOnClick', id )
 
-  if (gCurrentPane.activeSearch.processing_state ~= KM_NULL_STATE) then   -- if we're scanning auctions don't respond
+  if (gCurrentPane.activeSearch.processing_state ~= Auctionator.Constants.SearchStates.NULL) then   -- if we're scanning auctions don't respond
     return;
   end
 

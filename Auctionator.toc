@@ -22,10 +22,12 @@ AuctionatorConstants.lua
 AuctionatorFilters.lua
 AuctionatorUtil.lua
 
+zcUtils.lua
+
 AuctionatorItemLink.lua
 AuctionatorSearch.lua
+AuctionatorSearchQuery.lua
 
-zcUtils.lua
 AuctionatorLocalize.lua
 
 AtrErrorInspector.lua

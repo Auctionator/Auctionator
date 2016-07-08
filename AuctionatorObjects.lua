@@ -3,7 +3,9 @@ Auctionator = {
   Constants = {},
   Util = {},
   Filters = {},
-  FilterLookup = {}
+  FilterLookup = {},
+
+  SearchUI = {}
 }
 
 -- TODO: Move this to Utilities when re-organizing code
