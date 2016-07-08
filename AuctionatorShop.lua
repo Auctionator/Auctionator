@@ -836,14 +836,13 @@ function Atr_Adv_Search_Onclick()
 
     Atr_AS_Searchtext:SetText( queryString )
 
-    Atr_Dropdown_Refresh( Atr_ASDD_Class )
     local filter = Auctionator.Filter.Find( itemClassID )
     local subFilter = Auctionator.Filter.Find( itemSubClassID, { filters = filter.subClasses })
-    Auctionator.Debug.Message( '******** Setting itemClassID', filter.key )
+
+    Atr_Dropdown_Refresh( Atr_ASDD_Class )
     UIDropDownMenu_SetSelectedValue( Atr_ASDD_Class, filter.key )
 
     Atr_Dropdown_Refresh( Atr_ASDD_Subclass )
-    Auctionator.Debug.Message( '-------- Setting subClassID', subFilter.key )
     UIDropDownMenu_SetSelectedValue( Atr_ASDD_Subclass, subFilter.key )
 
     if minLevel == nil then
