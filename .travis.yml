@@ -28,7 +28,7 @@ deploy:
     access_key_id: AKIAJIROBN3KXYHWZM2A
     secret_access_key: &1
       secure: DAeRITMwx+evskrbHsKGAjHFE8S0qC8F6lzPyxAJtbC8Ml+3gsD6OeaV52UMsrUQS/X0EVpzbn3L4NSFQvmmDfVQZKMZVtNbUniBuEDGMRufMdzVyVe5OwrCnAi+1wZgLUr1qneNwuFbHGaOF57eeLaG3yqeQhGoemkHMsPJKKhoQ2GkNXkQ1Z1nJLm26JXsiZc+vTtIthh0AcZTWoAEz64lgTgpfIWuNNw2kkOBioiy9/s5ZgL+kuK2y96hhegRZOH5iKMWQMlMwu6oPZDuaWjhX3yb9N0Vy4xZ05oyZ1CaHjLqYK5tg/dO0GzN00vXoM+r2gcLbf9rkdbO+SnXUPVlqvtb++2cpxCm/njgejHU/tjgj/JlwoPhxdOxhjDWy7pFXncmWQbUfSt/jmfT5H+5S67G0pYDv4Eq+bZSONJtLb6TGDQNQhtuX+9Iypcy4Uv1n7VjM6pGQybYZcxmhN2SOiRYr7EZbazxJ6XBE5T9gu16vScpKKRlvRdGz2LgdtX5RoxkH2xrUJ1C8I8b3KgQlwCY7IO9nmfASWkeJeLb6o4gYWVvhno1/3wjG+FP/lNrFdI2hJ/ZaQEkU6rG2fRBvfMLqo3dCKC/FQLe830RS+5MFHw9yUu0y4kb7NYc7iD0JnEJsGRpyUMohAtAVzgbrTQda9K5d8/kNARbSwI=
-    local_dir: dpl_cd_upload
+    local_dir: Deploy
     skip_cleanup: true
     on: &2
       repo: jrob8577/Auctionator
