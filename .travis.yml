@@ -21,9 +21,7 @@ notifications:
 
 before_deploy:
   - rsync -av --progress . Deploy --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec
-  - ls -a
   - mkdir latest
-  - ls -a
   - cd Deploy && zip -r ../latest/Auctionator.zip * && cd ..
 
 deploy:
