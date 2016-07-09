@@ -21,24 +21,20 @@ notifications:
 
 before_deploy:
   - rsync -av --progress . Deploy --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec
+  - mkdir latest
   - zip -r Auctionator.zip Deploy/*
+  - mv Auctionator.zip latest/
 
 deploy:
-  - provider: s3
-    access_key_id: AKIAJIROBN3KXYHWZM2A
-    secret_access_key: &1
-      secure: DAeRITMwx+evskrbHsKGAjHFE8S0qC8F6lzPyxAJtbC8Ml+3gsD6OeaV52UMsrUQS/X0EVpzbn3L4NSFQvmmDfVQZKMZVtNbUniBuEDGMRufMdzVyVe5OwrCnAi+1wZgLUr1qneNwuFbHGaOF57eeLaG3yqeQhGoemkHMsPJKKhoQ2GkNXkQ1Z1nJLm26JXsiZc+vTtIthh0AcZTWoAEz64lgTgpfIWuNNw2kkOBioiy9/s5ZgL+kuK2y96hhegRZOH5iKMWQMlMwu6oPZDuaWjhX3yb9N0Vy4xZ05oyZ1CaHjLqYK5tg/dO0GzN00vXoM+r2gcLbf9rkdbO+SnXUPVlqvtb++2cpxCm/njgejHU/tjgj/JlwoPhxdOxhjDWy7pFXncmWQbUfSt/jmfT5H+5S67G0pYDv4Eq+bZSONJtLb6TGDQNQhtuX+9Iypcy4Uv1n7VjM6pGQybYZcxmhN2SOiRYr7EZbazxJ6XBE5T9gu16vScpKKRlvRdGz2LgdtX5RoxkH2xrUJ1C8I8b3KgQlwCY7IO9nmfASWkeJeLb6o4gYWVvhno1/3wjG+FP/lNrFdI2hJ/ZaQEkU6rG2fRBvfMLqo3dCKC/FQLe830RS+5MFHw9yUu0y4kb7NYc7iD0JnEJsGRpyUMohAtAVzgbrTQda9K5d8/kNARbSwI=
-    local_dir: Deploy
-    skip_cleanup: true
-    on: &2
-      repo: jrob8577/Auctionator
-    bucket: auctionator
-  - provider: codedeploy
-    access_key_id: AKIAJIROBN3KXYHWZM2A
-    secret_access_key: *1
-    bucket: auctionator
-    key: Auctionator.zip
-    bundle_type: zip
-    application: Auctionator
-    deployment_group: Default
-    on: *2
+  provider: s3
+  region: "us-west-1"
+  skip_cleanup: true
+  detect_encoding: true
+  access_key_id: AKIAJBVTKN4IPSXK73KA
+  secret_access_key:
+    secure: j96xYx9xQ6zLMv0POoa+S6KZaK7QSw9oIekjjcrxbZJJ4ipDsiQ2DcmAN2PzBO2HnPltZpsEEszeD7FB+AuyNVyhJhNg/cRCBh4+Fv77xSCod4WzntITACDQBDHVxkMLVVsoKzScXfDUEKRR1nRY29Vg7S0+Ol6bwihSKl0bcjQsoc5BTmjXZdNK0OIQTZo13ghdYXX41aF4LOl7jWbXcYWxqmMhoUR12OBOUI3Nt8rTQWJTR9W8TLhnSehED0zefvkNrCq/gia0iD3MyDCfiuMPv/ZRrW42NMAr00sOLJs+sfQb3gNgRvMFx4Wwl7z6aBU5qrhCgJNxZ/UIIo2ou9FX/02QpRaua2ypoSOvuTPcj4MI2/dWmjeeuNOXVpUZSImse9jENr5qw6Op5p8BDdpzxOX7dM0nYwM0F3j8W2HNICobW5sVTkELMgeJDPhoT6Zuthxg0R7n4YQXPBVyEXtrwMxjoISWqLyUng89Y6HHclgRk3R6b14iw1eMo9Ghw1YuLc8SB/u8Y66ib8aWkjQNV5uvvFK60KAp2zgNiktGvmRD0T1FoJIrwfjTuIt9Z+/HuyYF8GEa8E59WJjQpzLi3uw0pbnVJ72frYCny/6VOph/oCdU+q580wj944f9tlQs79xF8XgVs0KXXgaGEONC689CCCRAFNDx0M5qGuY=
+  bucket: auctionator
+  local-dir: latest
+  acl: public_read
+  on:
+    repo: jrob8577/Auctionator
