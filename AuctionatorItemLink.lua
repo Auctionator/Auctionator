@@ -128,3 +128,9 @@ end
 function Auctionator.ItemLink:BonusIdCount()
   return tonumber( self:GetField( Auctionator.Constants.ItemLink.BONUS_ID_COUNT ) )
 end
+
+function Auctionator.ItemLink:IsBattlePet()
+  local item_type = self:GetField( Auctionator.Constants.ItemLink.TYPE )
+
+  return item_type == 'battlepet'
+end

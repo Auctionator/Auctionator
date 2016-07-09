@@ -985,7 +985,7 @@ end
 -----------------------------------------
 
 function zc.CopyDeep (dest, src)
-  Auctionator.Debug.Message( 'zc.CopyDeep', dest, src )
+  -- Auctionator.Debug.Message( 'zc.CopyDeep', dest, src )
 
   if type(src) == 'table' then
 

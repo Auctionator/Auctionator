@@ -6,11 +6,11 @@
 --  {
 --    classID    = integer (corresponding to ITEM_CLASS_IDS )
 --    name       = string  (resolved by GetItemClassInfo( classID ))
---    filter     = table   (new QueryAuctionItems filterData format, { classID, subclassID (nil), inventoryType (nil) } )
+--    filter     = table   (new QueryAuctionItems filterData format, { classID, subClassID (nil), inventoryType (nil) } )
 --    subClasses = {
---      classID  = integer (subclassID)
---      name     = string  (resolved by GetItemSubClassInfo( subclassID ))
---      filter   = table   (new QueryAuctionItems filterData format, { classID, subclassID, inventoryType (nil) } )
+--      classID  = integer (subClassID)
+--      name     = string  (resolved by GetItemSubClassInfo( subClassID ))
+--      filter   = table   (new QueryAuctionItems filterData format, { classID, subClassID, inventoryType (nil) } )
 --      TODO: Probably want to use the inventoryType to create Armor slot filters as well...
 --    }
 --  }
@@ -30,44 +30,32 @@ local ITEM_CLASS_IDS = {
   LE_ITEM_CLASS_MISCELLANEOUS
 }
 
-Auctionator.QueryFilter = {
-  classID = nil,
-  subclassID = nil,
-  inventoryType = nil
-}
-
-function Auctionator.QueryFilter:new( options )
-  options = options or {}
-  setmetatable( options, self )
-  self.__index = self
-
-  return options
-end
-
 Auctionator.Filter = {
-  classID = -1,
-  name = nil,
-  key = nil,
+  classID = 0,
+  name = Auctionator.Constants.FilterDefault,
+  key = 0,
+  parentKey = nil,
   filter = {},
   subClasses = {}
 }
 
-function Auctionator.Filter.Find( classID, options )
-  options = options or {}
-  local filterSet = options.filters or Auctionator.Filters
+-- TODO: Make this work, then can remove check in Atr_ASDD_Subclass_Initialize
+-- Provides a null object for invalid lookups; intended use is for
+-- rendering subclasses in Advanced Search UI
+-- Auctionator.FilterLookup.__index = function()
+--   return Auctionator.Filter:new()
+-- end
 
-  -- TODO: NullObject pattern?
-  for index, filter in ipairs( filterSet ) do
-    if filter.classID == classID then
-      return filter
-    end
+function Auctionator.Filter.Find( key )
+  local filter = Auctionator.FilterLookup[ key ]
+
+  if filter == nil then
+    return Auctionator.Filter:new(), Auctionator.Filter:new()
+  elseif filter.parentKey == nil then
+    return filter, Auctionator.Filter:new()
+  else
+    return Auctionator.FilterLookup[ filter.parentKey ], filter
   end
-
-  return Auctionator.Filter.new({
-    classID = 0,
-    name = Auctionator.Constants.FilterDefault,
-    key = 0
-  })
 end
 
 function Auctionator.Filter:new( options )
@@ -78,39 +66,46 @@ function Auctionator.Filter:new( options )
   return options
 end
 
-local function GenerateSubClasses( classID, parentName )
+local function GenerateSubClasses( classID, parentName, parentKey )
   local subClassesTable = { GetAuctionItemSubClasses( classID ) }
   local subClasses = {}
+  local subFilters = {}
 
   for index = 1, #subClassesTable do
     local subClassID = subClassesTable[ index ]
     local name = GetItemSubClassInfo( classID, subClassID )
 
-    subClasses[ index ] = Auctionator.Filter:new({
+    local filter = { classID = classID, subClassID = subClassID }
+    local subClass = Auctionator.Filter:new({
       classID = subClassID,
       name = name,
-      key = parentName .. [[/]] .. name,
-      filter = Auctionator.QueryFilter:new({ classID = classID, subclassID = subClassID })
+      key = parentKey .. [[/]] .. name,
+      parentKey = parentKey,
+      filter = { filter }
     })
+
+    table.insert( subFilters, filter )
+    table.insert( subClasses, subClass )
   end
 
-  return subClasses
+  return subClasses, subFilters
 end
 
 -- TODO: Will probably want to special case Armor for inventoryTypeFilters
 for index, classID in ipairs( ITEM_CLASS_IDS ) do
   local name = GetItemClassInfo( classID )
+  local key = name
+  local subClasses, filter = GenerateSubClasses( classID, name, key )
 
-  -- TODO: This is a hack since LE_ITEM_CLASS_CONSUMABLE is 0
-  -- Would prefer to be able to look up by class ID directly, but may not be necessary
-  -- since the filter tracks it
-  Auctionator.Filters[ index ] = Auctionator.Filter:new({
+  local categoryFilter = Auctionator.Filter:new({
     classID = classID,
     name = name,
-    key = name,
-    filter = Auctionator.QueryFilter:new({ classID = classID }),
-    subClasses = GenerateSubClasses( classID, name )
+    key = key,
+    filter = filter,
+    subClasses = subClasses
   })
+
+  table.insert( Auctionator.Filters, categoryFilter )
 end
 
 for index, filter in ipairs( Auctionator.Filters ) do

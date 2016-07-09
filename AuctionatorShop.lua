@@ -337,22 +337,21 @@ end
 function Atr_Search_Onclick ()
   Auctionator.Debug.Message( 'Atr_Search_Onclick')
 
-  local currentPane = Atr_GetCurrentPane();
+  local currentPane = Atr_GetCurrentPane()
+  local searchText = Atr_Search_Box:GetText()
 
-  local searchText = Atr_Search_Box:GetText();
+  Atr_Search_Button:Disable()
+  Atr_Adv_Search_Button:Disable()
+  Atr_Exact_Search_Button:Disable()
+  Atr_Buy1_Button:Disable()
+  Atr_AddToSListButton:Disable()
+  Atr_RemFromSListButton:Disable()
 
-  Atr_Search_Button:Disable();
-  Atr_Adv_Search_Button:Disable();
-  Atr_Exact_Search_Button:Disable();
-  Atr_Buy1_Button:Disable();
-  Atr_AddToSListButton:Disable();
-  Atr_RemFromSListButton:Disable();
+  Atr_ClearAll()
 
-  Atr_ClearAll();
+  currentPane:DoSearch( searchText )
 
-  currentPane:DoSearch (searchText);
-
-  Atr_ClearHistory();
+  Atr_ClearHistory()
 end
 
 function Auctionator.SearchUI.Disable()
@@ -827,20 +826,15 @@ function Atr_Adv_Search_Onclick()
   Atr_Adv_Search_Button:SetChecked( false )
 
   if Atr_IsCompoundSearch( searchText ) then
-    local queryString, itemClassID, itemSubClassID, minLevel, maxLevel, minItemLevel, maxItemLevel =
+    local queryString, filter, minLevel, maxLevel, minItemLevel, maxItemLevel =
       Atr_ParseCompoundSearch( searchText )
-
-    if itemSubClassID == nil then
-      itemSubClassID = 0
-    end
 
     Atr_AS_Searchtext:SetText( queryString )
 
-    local filter = Auctionator.Filter.Find( itemClassID )
-    local subFilter = Auctionator.Filter.Find( itemSubClassID, { filters = filter.subClasses })
+    local parentFilter, subFilter = Auctionator.Filter.Find( filter.key )
 
     Atr_Dropdown_Refresh( Atr_ASDD_Class )
-    UIDropDownMenu_SetSelectedValue( Atr_ASDD_Class, filter.key )
+    UIDropDownMenu_SetSelectedValue( Atr_ASDD_Class, parentFilter.key )
 
     Atr_Dropdown_Refresh( Atr_ASDD_Subclass )
     UIDropDownMenu_SetSelectedValue( Atr_ASDD_Subclass, subFilter.key )
@@ -881,35 +875,31 @@ end
 -----------------------------------------
 
 function Atr_ASDD_Class_Initialize( self )
-  Atr_Dropdown_AddPick (Atr_ASDD_Subclass, Auctionator.Constants.FilterDefault, 0);
+  Atr_Dropdown_AddPick( Atr_ASDD_Subclass, Auctionator.Constants.FilterDefault, 0 )
 
-  for index in pairs( Auctionator.Filters ) do
-    local filterEntry = Auctionator.Filters[ index ]
-
+  for index, filterEntry in ipairs( Auctionator.Filters ) do
     Atr_Dropdown_AddPick( self, filterEntry.name, filterEntry.key, Atr_ASDD_Class_OnClick )
   end
 end
 
 -----------------------------------------
 
-function Atr_ASDD_Class_OnClick (info)
-  UIDropDownMenu_SetSelectedValue(info.owner, info.value)
-
-  Atr_Dropdown_Refresh (Atr_ASDD_Subclass)
+function Atr_ASDD_Class_OnClick( info )
+  UIDropDownMenu_SetSelectedValue( info.owner, info.value )
+  Atr_Dropdown_Refresh( Atr_ASDD_Subclass )
 end
 
 -----------------------------------------
 
 function Atr_ASDD_Subclass_OnShow (self)
-  UIDropDownMenu_Initialize   (self, Atr_ASDD_Subclass_Initialize)
-
-  UIDropDownMenu_SetSelectedValue (self, 0)
+  UIDropDownMenu_Initialize( self, Atr_ASDD_Subclass_Initialize )
+  UIDropDownMenu_SetSelectedValue( self, 0 )
 end
 
 -----------------------------------------
 
-function Atr_ASDD_Subclass_Initialize (self)
-  Atr_Dropdown_AddPick (Atr_ASDD_Subclass, Auctionator.Constants.FilterDefault, 0);
+function Atr_ASDD_Subclass_Initialize( self )
+  Atr_Dropdown_AddPick( Atr_ASDD_Subclass, Auctionator.Constants.FilterDefault, 0 )
 
   local parentFilterKey = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Class )
   local parentFilter = Auctionator.FilterLookup[ parentFilterKey ]
@@ -922,13 +912,11 @@ function Atr_ASDD_Subclass_Initialize (self)
     return
   end
 
-  for index in pairs( parentFilter.subClasses ) do
-    local filterEntry = parentFilter.subClasses[ index ]
-
+  for index, filterEntry in ipairs( parentFilter.subClasses ) do
     Atr_Dropdown_AddPick( Atr_ASDD_Subclass, filterEntry.name, filterEntry.key )
   end
 
-  if Atr_IsWeaponType( parentFilter.filter.classID ) or Atr_IsArmorType( parentFilter.filter.classID ) then
+  if Atr_IsWeaponType( parentFilter.classID ) or Atr_IsArmorType( parentFilter.classID ) then
     Atr_AS_ILevRange_Label:Show()
     Atr_AS_ILevRange_Dash:Show()
     Atr_AS_MinItemlevel:Show()
@@ -960,25 +948,27 @@ end
 -----------------------------------------
 
 function Atr_Adv_Search_Do()
-
   local parentFilterKey = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Class )
   local subClassFilterKey = UIDropDownMenu_GetSelectedValue( Atr_ASDD_Subclass )
 
-  local searchText = parentFilterKey
+  local filterKey = parentFilterKey
 
   if subClassFilterKey ~= 0 then
-    searchText = subClassFilterKey
+    filterKey = subClassFilterKey
   end
 
-  if searchText == 0 then
+  if filterKey == 0 then
     zc.msg_anm ("|cffff0000Error getting itemClass from menu|r. ", parentFilterKey, subClassFilterKey )
     Atr_Adv_Search_Dialog:Hide()
     return
   end
 
-  Auctionator.Debug.Message( 'Search Text: ', searchText )
+  Auctionator.Debug.Message( 'Search Text: ', filterKey )
 
-  local filter = Auctionator.FilterLookup[ searchText ].filter
+  local filter = Auctionator.FilterLookup[ filterKey ]
+  if filter.parentKey ~= nil then
+    filter = Auctionator.FilterLookup[ filter.parentKey ]
+  end
 
   local minLevel = Atr_AS_Minlevel:GetNumber()
   local maxLevel = Atr_AS_Maxlevel:GetNumber()
@@ -987,6 +977,8 @@ function Atr_Adv_Search_Do()
 
   local minItemLevel = 0
   local maxItemLevel = 0
+
+  Auctionator.Debug.Message( 'filter.classID is ', filter.classID )
   if Atr_IsWeaponType( filter.classID ) or Atr_IsArmorType( filter.classID ) then
     minItemLevel = Atr_AS_MinItemlevel:GetNumber()
     maxItemLevel = Atr_AS_MaxItemlevel:GetNumber()
@@ -994,8 +986,7 @@ function Atr_Adv_Search_Do()
 
   local tokens = {}
   table.insert( tokens, text )
-  table.insert( tokens, filter.classID )
-  table.insert( tokens, filter.subclassID or -1 )
+  table.insert( tokens, filterKey )
   table.insert( tokens, minLevel )
   table.insert( tokens, maxLevel )
   table.insert( tokens, minItemLevel )

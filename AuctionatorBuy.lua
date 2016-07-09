@@ -145,6 +145,7 @@ end
 -----------------------------------------
 
 function Atr_Buy_SendQuery()
+  Auctionator.Debug.Message( '********************** Atr_Buy_SendQuery' )
   gAtr_NextMatchIndex = 0
 
   if CanSendAuctionQuery() then

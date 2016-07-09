@@ -3679,7 +3679,7 @@ function Atr_ShowSearchSummary()
     end
 
     Auctionator.Debug.Message( 'Atr_ShowSearchSummary line ', line )
-    Auctionator.Util.Print( scn, 'Scan ' .. line )
+    -- Auctionator.Util.Print( scn, 'Scan ' .. line )
 
 
     if (dataOffset > numrows or not scn) then
@@ -3715,7 +3715,7 @@ function Atr_ShowSearchSummary()
       lineEntry_text:SetTextColor (r, g, b)
       lineEntry_stack:SetTextColor (1, 1, 1)
 
-      Auctionator.Util.Print( scn, "Atr_ShowSearchSummary Scan" )
+      -- Auctionator.Util.Print( scn, "Atr_ShowSearchSummary Scan" )
       local icon = Atr_GetUCIcon( scn.itemLink )
 
       if (not scn:IsNil()) then
