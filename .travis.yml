@@ -15,8 +15,7 @@ install:
 
 script:
   - busted --verbose
-  - rsync -av --progress . Deploy --exclude Deploy
-  - rm -rf Deploy/.git Deploy/spec Deploy/.travis.yml Deploy/README.md
+  - rsync -av --progress . Deploy --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec
   - zip -r Auctionator.zip Deploy/*
 
 notifications:
