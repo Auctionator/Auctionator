@@ -17,7 +17,7 @@ script:
   - busted --verbose
 
 notifications:
-  slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy#builds
+  slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy
 
 before_deploy:
   - rsync -av --progress . Deploy --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec
