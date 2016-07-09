@@ -15,7 +15,7 @@ install:
 
 script:
   - busted --verbose
-  - ls -al ../
+  - cd .. && cp Auctionator/ Deploy/ && ls -R Deploy/
 
 notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy
