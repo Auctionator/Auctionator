@@ -15,8 +15,30 @@ install:
 
 script:
   - busted --verbose
-  - rsync -av --progress . Deploy --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec
-  - zip -r Auctionator.zip Deploy/*
 
 notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy
+
+before_deploy:
+  - rsync -av --progress . Deploy --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec
+  - zip -r Auctionator.zip Deploy/*
+
+deploy:
+  - provider: s3
+    access_key_id: AKIAJIROBN3KXYHWZM2A
+    secret_access_key: &1
+      secure: DAeRITMwx+evskrbHsKGAjHFE8S0qC8F6lzPyxAJtbC8Ml+3gsD6OeaV52UMsrUQS/X0EVpzbn3L4NSFQvmmDfVQZKMZVtNbUniBuEDGMRufMdzVyVe5OwrCnAi+1wZgLUr1qneNwuFbHGaOF57eeLaG3yqeQhGoemkHMsPJKKhoQ2GkNXkQ1Z1nJLm26JXsiZc+vTtIthh0AcZTWoAEz64lgTgpfIWuNNw2kkOBioiy9/s5ZgL+kuK2y96hhegRZOH5iKMWQMlMwu6oPZDuaWjhX3yb9N0Vy4xZ05oyZ1CaHjLqYK5tg/dO0GzN00vXoM+r2gcLbf9rkdbO+SnXUPVlqvtb++2cpxCm/njgejHU/tjgj/JlwoPhxdOxhjDWy7pFXncmWQbUfSt/jmfT5H+5S67G0pYDv4Eq+bZSONJtLb6TGDQNQhtuX+9Iypcy4Uv1n7VjM6pGQybYZcxmhN2SOiRYr7EZbazxJ6XBE5T9gu16vScpKKRlvRdGz2LgdtX5RoxkH2xrUJ1C8I8b3KgQlwCY7IO9nmfASWkeJeLb6o4gYWVvhno1/3wjG+FP/lNrFdI2hJ/ZaQEkU6rG2fRBvfMLqo3dCKC/FQLe830RS+5MFHw9yUu0y4kb7NYc7iD0JnEJsGRpyUMohAtAVzgbrTQda9K5d8/kNARbSwI=
+    local_dir: dpl_cd_upload
+    skip_cleanup: true
+    on: &2
+      repo: jrob8577/Auctionator
+    bucket: auctionator
+  - provider: codedeploy
+    access_key_id: AKIAJIROBN3KXYHWZM2A
+    secret_access_key: *1
+    bucket: auctionator
+    key: Auctionator.zip
+    bundle_type: zip
+    application: Auctionator
+    deployment_group: Default
+    on: *2
