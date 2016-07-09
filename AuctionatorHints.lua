@@ -1174,14 +1174,14 @@ hooksecurefunc (GameTooltip, "SetQuestLogItem",
 
 hooksecurefunc (GameTooltip, "SetInboxItem",
   function (tip, index, attachIndex)
-    local _, _, num = GetInboxItem(index, attachIndex);
+    local _, _, _, num = GetInboxItem(index, attachIndex);
     Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachIndex), num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetSendMailItem",
   function (tip, id)
-    local name, _, num = GetSendMailItem(id)
+    local name, _, _, num = GetSendMailItem(id)
     local name, link = GetItemInfo(name);
     Atr_ShowTipWithPricing (tip, link, num);
   end
