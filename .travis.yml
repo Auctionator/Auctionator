@@ -24,7 +24,7 @@ before_deploy:
   - ls -a
   - mkdir latest
   - ls -a
-  - cd Deploy && zip -r ../latest/Auctionator.zip *
+  - cd Deploy && zip -r ../latest/Auctionator.zip * && cd ..
 
 deploy:
   provider: s3
