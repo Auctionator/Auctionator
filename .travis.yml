@@ -20,10 +20,9 @@ notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy#builds
 
 before_deploy:
-  - rsync -av --progress . Auctionator --exclude .travis.yml --exclude README.md --exclude Auctionator --exclude lua_install --exclude .git --exclude spec
-  - mkdir Auctionator
-  - zip -r Auctionator.zip Auctionator/*
-  - mv Auctionator.zip latest/
+  - rsync -av --progress . Deploy --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec
+  - mkdir latest
+  - cd Deploy && zip -r ../latest/Auctionator.zip *
 
 deploy:
   provider: s3
