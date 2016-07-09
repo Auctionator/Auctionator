@@ -15,7 +15,7 @@ install:
 
 script:
   - busted --verbose
-  - ls -al
+  - ls -al ../
 
 notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy
