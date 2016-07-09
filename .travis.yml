@@ -18,3 +18,7 @@ script:
 
 notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy
+
+before_deploy:
+  - mkdir deploy
+  - ls -al
