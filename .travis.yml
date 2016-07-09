@@ -15,7 +15,9 @@ install:
 
 script:
   - busted --verbose
-  - cd .. && cp Auctionator/ Deploy/ && ls -R Deploy/
+  - rsync -av --progress . Deploy --exclude Deploy
+  - rm -rf Deploy/.git Deploy/spec Deploy/.travis.yml Deploy/README.md
+  - zip -r Auctionator.zip Deploy/*
 
 notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy
