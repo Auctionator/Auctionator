@@ -249,7 +249,7 @@ AtrL["German translation courtesy of %s"] = "Deutsche Übersetzung von %s"
 AtrL["Swedish translation courtesy of %s"] = "Schwedische Lokalisierung von %s"
 AtrL["Russian translation courtesy of %s"] = "Russische Übersetzung von %s"
 AtrL["Auctionator"] = "Auctionator"
-AtrL["Author:  Zirco"] = "Autor: Zirco"
+AtrL["Author:  Borjamacare"] = "Autor: Borjamacare"
 AtrL["Version"] = "Version"
 
 
