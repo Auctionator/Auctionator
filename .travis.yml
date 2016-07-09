@@ -15,3 +15,6 @@ install:
 
 script:
   - busted --verbose
+
+notifications:
+  slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy
