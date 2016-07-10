@@ -155,7 +155,7 @@ function Atr_Buy_SendQuery()
 
     -- attempting to reduce number of disconnects
     local queryString = Auctionator.Util.UTF8_Truncate( gAtr_Buy_ItemName )
-    QueryAuctionItems( queryString, nil, nil, gAtr_Buy_CurPage, 0, 0, false, false, nil )
+    QueryAuctionItems( queryString, nil, nil, gAtr_Buy_CurPage, nil, nil, false, false, nil )
   end
 end
 
