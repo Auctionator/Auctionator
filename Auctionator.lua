@@ -943,8 +943,6 @@ function Atr_OnAddonLoaded(...)
 
   local now = time();
 
---  zz (addonName.."   time: "..now - gStartingTime);
-
   gPrevTime = now;
 
   if (zc.StringSame (addonName, "blizzard_tradeskillui")) then
@@ -1058,19 +1056,6 @@ function Atr_OnSpellCastSucess (...)
   end
 
   gDisenchantTime = time();
-
---[[  local k, m, g;
-
-  zz ("-----")
-  for k, g in pairs (preDEgear) do
-    zz (g.t, g.s, g.q, g.lev, g.count)
-  end
-
-  zz ("-----")
-  for k, m in pairs (preDEmats) do
-    zz (k, m.count)
-  end
-]]--
 end
 
 -----------------------------------------
@@ -1155,7 +1140,6 @@ function Atr_OnBagUpdate (...)
     tm = math.floor (tm / 3600)
 
     local s = tm.."_"..result.matcount.."_"..matname.."_"..itemClassAbbrev.."_"..itemSubclass.."_"..result.q.."_"..result.lev;
---    zz (s);
 
     gDisenchantTime = 0;
 
@@ -1167,9 +1151,6 @@ function Atr_OnBagUpdate (...)
 
     AUCTIONATOR_DE_DATA_BAK = nil
   end
-
-
-
 end
 
 -----------------------------------------
@@ -1186,9 +1167,6 @@ function Atr_Init()
   if (AUCTIONATOR_SAVEDVARS == nil) then
     Atr_ResetSavedVars()
   end
-
-  --Bump_MaxButton_Hack();
-
 
   gShopPane = Atr_AddSellTab (ZT("Buy"),      BUY_TAB);
   gSellPane = Atr_AddSellTab (ZT("Sell"),     SELL_TAB);
@@ -1240,7 +1218,6 @@ function Atr_ShowHide_StartingPrice()
   end
 end
 
-
 -----------------------------------------
 
 function Atr_GetSellItemInfo ()
@@ -1250,7 +1227,6 @@ function Atr_GetSellItemInfo ()
 
   Auctionator.Debug.Message( "GetAuctionSellItemInfo()", auctionItemName, auctionTexture, auctionCount, auctionQuality )
 
-
   if (auctionItemName == nil) then
     auctionItemName = "";
     auctionCount  = 0;
@@ -1259,11 +1235,7 @@ function Atr_GetSellItemInfo ()
   local auctionItemLink = nil;
 
   -- only way to get sell itemlink that I can figure
-
   if (auctionItemName ~= "") then
-
-    -- in 5.0 GameTooltip:SetAuctionSellItem was changed to RETURN values if the auction item is a Battle Pet.  Go figure.
-
     local hasCooldown, speciesID, level, breedQuality, maxHealth, power, speed, name = GameTooltip:SetAuctionSellItem();
 
     if (speciesID and speciesID > 0) then   -- if it's a battle pet, construct a fake battlepet link
@@ -1273,9 +1245,6 @@ function Atr_GetSellItemInfo ()
       auctionItemLink = "|cffcccccc|Hbattlepet:"..speciesID..":"..level..":"..breedQuality..":"..maxHealth..":"..power..":"..speed..":"..battlePetID.."|h["..name.."]|h|r";
 
       ATR_AddToBattlePetIconCache (auctionItemLink, auctionTexture);
-
-      --zz ((auctionItemLink));
-
     else
       AtrScanningTooltip:SetAuctionSellItem();
 
@@ -1289,13 +1258,8 @@ function Atr_GetSellItemInfo ()
 
   end
 
---zz (auctionItemName, auctionCount, auctionItemLink);
---zz ("-----------------------------");
-
   return auctionItemName, auctionCount, auctionItemLink;
-
 end
-
 
 -----------------------------------------
 
@@ -1306,12 +1270,9 @@ function Atr_ResetSavedVars ()
   zc.CopyDeep (AUCTIONATOR_SAVEDVARS, auctionator_savedvars_defaults);
 end
 
-
 --------------------------------------------------------------------------------
 
 function Atr_FindTabIndex (whichTab)
-  -- Auctionator.Debug.Message( 'Atr_FindTabIndex', whichTab )
-
   local i;
   for i = 4,20  do
     local tab = _G['AuctionFrameTab'..i];
@@ -1324,10 +1285,7 @@ function Atr_FindTabIndex (whichTab)
   return 0
 end
 
-
-
 -----------------------------------------
-
 
 function Atr_AuctionFrameTab_OnClick (self, index, down)
   Auctionator.Debug.Message( 'Atr_AuctionFrameTab_OnClick', self, index, down )
@@ -1355,7 +1313,6 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
       if (AP_ShowBid) then  AP_ShowHide_Bid_Button(1);  end;
       if (AP_ShowBO)  then  AP_ShowHide_BO_Button(1); end;
     end
-
 
   elseif (Atr_IsAuctionatorTab(index)) then
 
@@ -1428,7 +1385,6 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
       Atr_Adv_Search_Button:Show();
       Atr_Exact_Search_Button:Show();
       AuctionFrameMoneyFrame:Show();
---      Atr_BuildGlobalHistoryList(true);
       Atr_AddToSListButton:Show();
       Atr_RemFromSListButton:Show();
       Atr_NewSListButton:Show();
