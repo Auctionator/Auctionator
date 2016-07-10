@@ -54,8 +54,7 @@ local BUY_TAB     = 3;
 
 -- saved variables - amounts to undercut
 
-local auctionator_savedvars_defaults =
-  {
+local auctionator_savedvars_defaults = {
   ["_5000000"]      = 10000;  -- amount to undercut buyouts over 500 gold
   ["_1000000"]      = 2500;
   ["_200000"]       = 1000;
@@ -64,9 +63,8 @@ local auctionator_savedvars_defaults =
   ["_2000"]       = 100;
   ["_500"]        = 5;
   ["STARTING_DISCOUNT"] = 5;  -- PERCENT
-  ["LOG_DE_DATA"]     = nil;  -- obsolete
   ["LOG_DE_DATA_X"]   = true;
-  };
+}
 
 
 -----------------------------------------
