@@ -226,17 +226,17 @@ function Atr_IsCutGem (itemLink)
 end
 
 function Atr_IsWeaponType( classID )
-  Auctionator.Debug.Message( 'Atr_IsWeaponType', classID )
+  -- Auctionator.Debug.Message( 'Atr_IsWeaponType', classID )
   return classID == LE_ITEM_CLASS_WEAPON
 end
 
 function Atr_IsArmorType( classID )
-  Auctionator.Debug.Message( 'Atr_IsArmorType', classID )
+  -- Auctionator.Debug.Message( 'Atr_IsArmorType', classID )
   return classID == LE_ITEM_CLASS_ARMOR
 end
 
 function Atr_IsBattlePetType( classID )
-  Auctionator.Debug.Message( 'Atr_IsBattlePetType', classID )
+  -- Auctionator.Debug.Message( 'Atr_IsBattlePetType', classID )
   return classID == LE_ITEM_CLASS_BATTLEPET
 end
 
