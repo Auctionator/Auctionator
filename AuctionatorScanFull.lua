@@ -208,19 +208,18 @@ end
 
 function Atr_FullScanAnalyze()
 
-  if (gFullScanPosition == nil) then
+  if gFullScanPosition == nil then
     zc.msg_anm ("|cffff3333Warning:|r Atr_FullScanAnalyze: gFullScanPosition is nil!");
   end
 
   local firstScanPosition = gFullScanPosition;
   local numBatchAuctions  = gGetAllNumBatchAuctions;
 
-  if (gDoSlowScan) then
-    local numBatchAuctions, totalAuctions = Atr_GetNumAuctionItems("list");
+  if gDoSlowScan then
+    local numBatchAuctions, totalAuctions = Atr_GetNumAuctionItems( "list" )
 
     firstScanPosition = 1
-    gSlowScanTotalPages = ceil(totalAuctions/NUM_AUCTION_ITEMS_PER_PAGE)
-
+    gSlowScanTotalPages = ceil( totalAuctions / NUM_AUCTION_ITEMS_PER_PAGE )
 
     if (numBatchAuctions == 0) then   -- slow scan done
       Atr_FullScanUpdateDB();
@@ -230,76 +229,72 @@ function Atr_FullScanAnalyze()
 
   local dataIsGood = true
 
-  local name, texture, count, quality, canUse, level, huh, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName, owner, ownerFullName, saleStatus
+  if numBatchAuctions > 0 then
 
-  if (numBatchAuctions > 0) then
-
-
-    local chunk_size = gDefaultFullScanChunkSize;
-    if (AUCTIONATOR_FS_CHUNK ~= nil) then
+    local chunk_size = gDefaultFullScanChunkSize
+    if AUCTIONATOR_FS_CHUNK ~= nil then
       chunk_size = AUCTIONATOR_FS_CHUNK
     end
 
-
-    local x;
-
     for x = firstScanPosition, numBatchAuctions do
 
-      name, texture, count, quality, canUse, level, huh, minBid,
-          minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName, owner, ownerFullName, saleStatus   = GetAuctionItemInfo("list", x);
-
-
+      local name, texture, count, quality, canUse, level, huh, minBid,
+        minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName,
+        owner, ownerFullName, saleStatus = GetAuctionItemInfo( "list", x )
 
       gNumScanned = gNumScanned + 1
 
-      if (name == nil) then
-        gFSNumNullItemNames = gFSNumNullItemNames + 1;
+      if name == nil then
+        gFSNumNullItemNames = gFSNumNullItemNames + 1
       end
 
-      if (owner == nil) then
-        gFSNumNullOwners = gFSNumNullOwners + 1;
+      if owner == nil then
+        gFSNumNullOwners = gFSNumNullOwners + 1
       end
 
-      if (name == nil or name == "") then
+      if name == nil or name == "" then
         badItemCount = badItemCount + 1
         dataIsGood = false
-        zz ("bad item scanned.  name: ", name, " count: ", count, "badItemCount: ", badItemCount);
+        zz( "bad item scanned.  name: ", name, " count: ", count, "badItemCount: ", badItemCount )
       else
-        gQualities[name] = quality;
+        -- TODO fix to prevent error from unknown quality returned from GetAuctionItemInfo, above
+        -- Should constantize (1 means white)
+        gQualities[ name ] = quality or 1
 
-        if (buyoutPrice ~= nil) then
+        if buyoutPrice ~= nil then
 
-          local itemPrice = math.floor (buyoutPrice / count);
+          local itemPrice = math.floor( buyoutPrice / count )
 
-          if (itemPrice > 0) then
-            if (not gLowPrices[name]) then
-              gLowPrices[name] = BIGNUM;
+          if itemPrice > 0 then
+            if not gLowPrices[name] then
+              gLowPrices[ name ] = BIGNUM
             end
 
-            gLowPrices[name] = math.min (gLowPrices[name], itemPrice);
+            gLowPrices[ name ] = math.min( gLowPrices[name], itemPrice )
           end
         end
       end
 
-      if (not gDoSlowScan and (x % chunk_size) == 0 and x < numBatchAuctions) then      -- analyze fast scan data in chunks so as not to cause client to timeout?
-        gFullScanPosition = x + 1;
-        return;
+      -- analyze fast scan data in chunks so as not to cause client to timeout?
+      if not gDoSlowScan and ( x % chunk_size ) == 0 and x < numBatchAuctions then
+        gFullScanPosition = x + 1
+        return
       end
     end
   end
 
-
-  if (gDoSlowScan) then
-    if (dataIsGood) then
+  if gDoSlowScan then
+    if dataIsGood then
       gSlowScanPage = gSlowScanPage + 1
     else
-      zz ("*** bad scan data.  requerying page: ", gSlowScanPage);
+      zz( "*** bad scan data.  requerying page: ", gSlowScanPage )
     end
-    gAtr_FullScanState = ATR_FS_SLOW_QUERY_NEEDED;
-  else
-    Atr_FullScanUpdateDB()    -- if we get to here on a fast scan, we're done
-  end;
 
+    gAtr_FullScanState = ATR_FS_SLOW_QUERY_NEEDED
+  else
+    -- if we get to here on a fast scan, we're done
+    Atr_FullScanUpdateDB()
+  end
 end
 
 -----------------------------------------
