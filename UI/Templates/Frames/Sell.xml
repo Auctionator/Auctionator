@@ -52,6 +52,7 @@
           <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_Recommend_Text"><Offset><AbsDimension x="152" y="-51"/></Offset></Anchor></Anchors>
         </FontString>
       </Layer>
+
     </Layers>
 
     <Frames>
@@ -67,9 +68,10 @@
         <Size><AbsDimension x="165" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-413"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_CheckActive_OnClick(false);</OnClick>
+          <OnClick>Atr_CheckActive_OnClick( false )</OnClick>
         </Scripts>
       </Button>
+
 
       <EditBox name="Atr_Search_Box" autoFocus="false" inherits="InputBoxTemplate">
         <Size><AbsDimension x="260" y="20"/></Size>
@@ -78,24 +80,25 @@
 
         <Scripts>
           <OnEnterPressed>
-            Atr_Search_Onclick();
-            self:ClearFocus();
+            Atr_Search_Onclick()
+            self:ClearFocus()
           </OnEnterPressed>
           <OnCharComposition>
-            Atr_Item_Autocomplete(self);
+            Atr_Item_Autocomplete(self)
           </OnCharComposition>
           <OnChar>
             if ( not self:IsInIMECompositionMode() ) then
-              Atr_Item_Autocomplete(self);
+              Atr_Item_Autocomplete( self )
             end
           </OnChar>
           <OnEscapePressed>
-            self:ClearFocus();
+            self:ClearFocus()
           </OnEscapePressed>
           <OnShow>
-            self:SetFocus();
+            self:SetFocus()
           </OnShow>
         </Scripts>
+
       </EditBox>
 
       <Button name="Atr_Search_Button" text="Search" inherits="UIPanelButtonTemplate" >
@@ -107,7 +110,7 @@
         </Anchors>
         <Scripts>
           <OnClick>
-            Atr_Search_Onclick();
+            Atr_Search_Onclick()
           </OnClick>
         </Scripts>
       </Button>
@@ -131,7 +134,7 @@
           </Layer>
         </Layers>
         <Scripts>
-          <OnClick> Atr_Adv_Search_Onclick ();  </OnClick>
+          <OnClick>Atr_Adv_Search_Onclick ()</OnClick>
         </Scripts>
       </CheckButton>
 
@@ -154,7 +157,7 @@
           </Layer>
         </Layers>
         <Scripts>
-          <OnClick> Atr_Exact_Search_Onclick ();  </OnClick>
+          <OnClick>Atr_Exact_Search_Onclick ()</OnClick>
         </Scripts>
       </CheckButton>
 
@@ -163,12 +166,13 @@
         <Anchors><Anchor point="TOPRIGHT" relativePoint="TOPRIGHT"><Offset><AbsDimension x="-14" y="-38"/></Offset></Anchor></Anchors>
         <Scripts>
           <OnClick>
-            InterfaceOptionsFrame_OpenToCategory ("Auctionator"); -- seems to be a bug that requires we do this so that it works the first time someone clicks Options
-            local f = _G["Atr_BasicOptionsFrame"];
+            -- seems to be a bug that requires we do this so that it works the first time someone clicks Options
+            InterfaceOptionsFrame_OpenToCategory( "Auctionator" )
+            local f = _G["Atr_BasicOptionsFrame"]
             if (f) then
-              InterfaceOptionsFrame_OpenToCategory (f);
+              InterfaceOptionsFrame_OpenToCategory( f )
             else
-              InterfaceOptionsFrame_OpenToCategory ("Auctionator");
+              InterfaceOptionsFrame_OpenToCategory( "Auctionator" )
             end
           </OnClick>
         </Scripts>
@@ -178,16 +182,17 @@
         <Size><AbsDimension x="74" y="18"/> </Size>
         <Anchors><Anchor point="TOPLEFT" relativeTo="Auctionator1Button" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="0" y="2"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_ShowFullScanFrame();</OnClick>
+          <OnClick>Atr_ShowFullScanFrame()</OnClick>
         </Scripts>
       </Button>
+
 
       <ScrollFrame name="Atr_Hlist_ScrollFrame" inherits="FauxScrollFrameTemplate" hidden="true">
         <Size><AbsDimension x="170" y="335"/></Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-193" y="-75"/></Offset></Anchor></Anchors>
         <Scripts>
           <OnVerticalScroll>
-            FauxScrollFrame_OnVerticalScroll(self, offset, 16, Atr_DisplayHlist);
+            FauxScrollFrame_OnVerticalScroll( self, offset, 16, Atr_DisplayHlist )
           </OnVerticalScroll>
         </Scripts>
       </ScrollFrame>
@@ -216,7 +221,6 @@
       <Frame name="Atr_SellControls" hidden="true">
         <Size><AbsDimension x="170" y="335"/></Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-193" y="-75"/></Offset></Anchor></Anchors>
-
         <Layers>
           <Layer level="ARTWORK">
 
@@ -282,8 +286,8 @@
             </Layers>
             <Scripts>
               <OnLoad>
-                self:RegisterEvent("NEW_AUCTION_UPDATE");
-                self:RegisterForDrag("LeftButton");
+                self:RegisterEvent( "NEW_AUCTION_UPDATE" )
+                self:RegisterForDrag( "LeftButton" )
               </OnLoad>
               <OnEvent function="Atr_SellItemButton_OnEvent"/>
               <OnClick function="Atr_SellItemButton_OnClick"/>
@@ -301,8 +305,8 @@
             </Anchors>
             <Scripts>
               <OnLoad>
-                MoneyInputFrame_SetOnValueChangedFunc(self, Atr_StackPriceChangedFunc);
-                Atr_StackPriceGold:SetJustifyH("CENTER");
+                MoneyInputFrame_SetOnValueChangedFunc( self, Atr_StackPriceChangedFunc )
+                Atr_StackPriceGold:SetJustifyH( "CENTER" )
               </OnLoad>
             </Scripts>
           </Frame>
@@ -315,8 +319,8 @@
             </Anchors>
             <Scripts>
               <OnLoad>
-                MoneyInputFrame_SetOnValueChangedFunc(self, Atr_ItemPriceChangedFunc);
-                Atr_ItemPriceGold:SetJustifyH("CENTER");
+                MoneyInputFrame_SetOnValueChangedFunc( self, Atr_ItemPriceChangedFunc )
+                Atr_ItemPriceGold:SetJustifyH( "CENTER" )
               </OnLoad>
             </Scripts>
           </Frame>
@@ -329,7 +333,7 @@
             </Anchors>
             <Scripts>
               <OnLoad>
-                Atr_StartingPriceGold:SetJustifyH("CENTER");
+                Atr_StartingPriceGold:SetJustifyH( "CENTER" )
               </OnLoad>
             </Scripts>
           </Frame>
@@ -343,11 +347,10 @@
             </Anchors>
             <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
             <Scripts>
-              <OnTextChanged>   Atr_NumAuctionsChangedFunc()  </OnTextChanged>
-              <OnTabPressed>  Atr_Batch_Stacksize:SetFocus()  </OnTabPressed>
+              <OnTextChanged>Atr_NumAuctionsChangedFunc()</OnTextChanged>
+              <OnTabPressed>Atr_Batch_Stacksize:SetFocus()</OnTabPressed>
             </Scripts>
           </EditBox>
-
 
           <EditBox name="Atr_Batch_Stacksize" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
             <Size><AbsDimension x="40" y="20"/></Size>
@@ -358,8 +361,8 @@
             </Anchors>
             <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
             <Scripts>
-              <OnTextChanged>   Atr_StackSizeChangedFunc()    </OnTextChanged>
-              <OnTabPressed>    Atr_Batch_NumAuctions:SetFocus()  </OnTabPressed>
+              <OnTextChanged>Atr_StackSizeChangedFunc()</OnTextChanged>
+              <OnTabPressed>Atr_Batch_NumAuctions:SetFocus()</OnTabPressed>
             </Scripts>
           </EditBox>
 
@@ -368,7 +371,7 @@
             <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="3" y="-170"/></Offset></Anchor></Anchors>
             <Scripts>
               <OnClick>
-                Atr_CreateAuction_OnClick();
+                Atr_CreateAuction_OnClick()
               </OnClick>
             </Scripts>
           </Button>
@@ -380,6 +383,7 @@
               <OnShow function="Atr_Duration_OnShow"/>
             </Scripts>
           </Frame>
+
         </Frames>
       </Frame>
 
@@ -400,8 +404,8 @@
           </Layer>
         </Layers>
         <Scripts>
-          <OnEnter>Atr_ShowRecTooltip();</OnEnter>
-          <OnLeave>Atr_HideRecTooltip();</OnLeave>
+          <OnEnter>Atr_ShowRecTooltip()</OnEnter>
+          <OnLeave>Atr_HideRecTooltip()</OnLeave>
           <OnClick>Atr_ClickRecItemTexture()</OnClick>
         </Scripts>
       </Button>
@@ -410,7 +414,7 @@
         <Size><AbsDimension x="97" y="20"/> </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-329"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_AddToSListOnClick();</OnClick>
+          <OnClick>Atr_AddToSListOnClick()</OnClick>
         </Scripts>
       </Button>
 
@@ -418,7 +422,7 @@
         <Size><AbsDimension x="101" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-100" y="-329"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_RemFromSListOnClick();</OnClick>
+          <OnClick>Atr_RemFromSListOnClick()</OnClick>
         </Scripts>
       </Button>
 
@@ -426,7 +430,7 @@
         <Size><AbsDimension x="195" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-349"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_SrchSList_OnClick();</OnClick>
+          <OnClick>Atr_SrchSList_OnClick()</OnClick>
         </Scripts>
       </Button>
 
@@ -434,7 +438,7 @@
         <Size><AbsDimension x="195" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-369"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_MngSLists_OnClick();</OnClick>
+          <OnClick>Atr_MngSLists_OnClick()</OnClick>
         </Scripts>
       </Button>
 
@@ -442,7 +446,7 @@
         <Size><AbsDimension x="195" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-389"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_NewSlist_OnClick();</OnClick>
+          <OnClick>Atr_NewSlist_OnClick()</OnClick>
         </Scripts>
       </Button>
 
@@ -457,7 +461,7 @@
           <Frame name="Atr_RecommendPerStack_Price" inherits="SmallMoneyFrameTemplate">
             <Size><AbsDimension x="120" y="16" /></Size>
             <Anchors><Anchor point="RIGHT"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
-            <Scripts><OnLoad>AuctionatorMoneyFrame_OnLoad(self);</OnLoad></Scripts>
+            <Scripts><OnLoad>AuctionatorMoneyFrame_OnLoad(self)</OnLoad></Scripts>
           </Frame>
         </Frames>
       </Frame>
@@ -473,7 +477,7 @@
           <Frame name="Atr_RecommendPerItem_Price" inherits="SmallMoneyFrameTemplate">
             <Size><AbsDimension x="120" y="16" /></Size>
             <Anchors><Anchor point="RIGHT"><Offset><AbsDimension x="0" y="0"/></Offset></Anchor></Anchors>
-            <Scripts><OnLoad>AuctionatorMoneyFrame_OnLoad(self);</OnLoad></Scripts>
+            <Scripts><OnLoad>AuctionatorMoneyFrame_OnLoad(self)</OnLoad></Scripts>
           </Frame>
         </Frames>
       </Frame>
@@ -482,7 +486,7 @@
         <Size><AbsDimension x="80" y="22"/></Size>
         <Anchors><Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"><Offset><AbsDimension x="-10" y="14"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>HideUIPanel(self:GetParent():GetParent());</OnClick>
+          <OnClick>HideUIPanel( self:GetParent():GetParent() )</OnClick>
         </Scripts>
       </Button>
 
@@ -491,7 +495,7 @@
         <Anchors><Anchor point="RIGHT" relativeTo="AuctionatorCloseButton" relativePoint="LEFT"><Offset><AbsDimension x="2" y="0"/></Offset></Anchor></Anchors>
         <Scripts>
           <OnClick>
-            Atr_CancelSelection_OnClick();
+            Atr_CancelSelection_OnClick()
           </OnClick>
         </Scripts>
       </Button>
@@ -500,7 +504,7 @@
         <Size><AbsDimension x="90" y="22"/> </Size>
         <Anchors><Anchor point="RIGHT" relativeTo="Atr_CancelSelectionButton" relativePoint="LEFT"><Offset><AbsDimension x="4" y="0"/></Offset></Anchor></Anchors>
         <Scripts>
-          <OnClick>Atr_Buy1_Onclick();</OnClick>
+          <OnClick>Atr_Buy1_Onclick()</OnClick>
         </Scripts>
       </Button>
 
@@ -510,7 +514,7 @@
 
         <Scripts>
           <OnVerticalScroll>
-            FauxScrollFrame_OnVerticalScroll(self, offset, 16, Atr_RedisplayAuctions);
+            FauxScrollFrame_OnVerticalScroll( self, offset, 16, Atr_RedisplayAuctions )
           </OnVerticalScroll>
         </Scripts>
       </ScrollFrame>
@@ -607,14 +611,14 @@
         </Frames>
         <Scripts>
           <OnLoad>
-            PanelTemplates_SetNumTabs(Atr_ListTabs, 3);
-            PanelTemplates_SetTab(Atr_ListTabs, 1);
+            PanelTemplates_SetNumTabs( Atr_ListTabs, 3 )
+            PanelTemplates_SetTab( Atr_ListTabs, 1 )
           </OnLoad>
           <OnShow>
-            PlaySound("UChatScrollButton");
+            PlaySound( "UChatScrollButton")
           </OnShow>
           <OnHide>
-            PlaySound("UChatScrollButton");
+            PlaySound( "UChatScrollButton" )
           </OnHide>
         </Scripts>
         </Frame>
@@ -642,23 +646,23 @@
 
         <Scripts>
           <OnLoad>
-            self:RegisterEvent("NEW_AUCTION_UPDATE");
-            self:RegisterForDrag("LeftButton");
+            self:RegisterEvent( "NEW_AUCTION_UPDATE" )
+            self:RegisterForDrag( "LeftButton" )
           </OnLoad>
           <OnEvent>
-            if ( event == "NEW_AUCTION_UPDATE") then
-              Atr_Hilite1:Hide();
+            if event == "NEW_AUCTION_UPDATE" then
+              Atr_Hilite1:Hide()
             end
           </OnEvent>
-          <OnClick>     Atr_OnDropItem();   </OnClick>
-          <OnReceiveDrag>   Atr_OnDropItem();   </OnReceiveDrag>
+          <OnClick>Atr_OnDropItem()</OnClick>
+          <OnReceiveDrag>Atr_OnDropItem()</OnReceiveDrag>
           <OnEnter>
-            if (GetCursorInfo() == "item") then
-              Atr_Hilite1:Show();
+            if GetCursorInfo() == "item" then
+              Atr_Hilite1:Show()
             end;
           </OnEnter>
           <OnLeave>
-            Atr_Hilite1:Hide();
+            Atr_Hilite1:Hide()
           </OnLeave>
         </Scripts>
       </Button>

@@ -473,9 +473,9 @@ local function Atr_DumpDElog()
     msg = msg..AUCTIONATOR_DE_DATA_BAK[n].."\n"
   end
 
-  Atr_LUA_ErrorMsg:SetText (msg)
+  -- Atr_LUA_ErrorMsg:SetText (msg)
 
-  Atr_LUA_Error:Show()
+  -- Atr_LUA_Error:Show()
 
 end
 
@@ -574,10 +574,6 @@ local function Atr_SlashCmdFunction(msg)
   elseif (cmd == "eac") then
     gAtr_echoAddonChat = not gAtr_echoAddonChat
     zz ("gAtr_echoAddonChat is now", gAtr_echoAddonChat)
-
-  elseif (cmd == "showdi") then
-
-    Atr_Error_Handler ("xxx");
 
   elseif (cmd == "delog") then
 
@@ -967,23 +963,17 @@ function Atr_OnPlayerEnteringWorld()
 
   zz ("auctionatorInited = ", auctionatorInited);
 
-
   if (auctionatorInited == false) then
     auctionatorInited = true;
 
     Atr_InitOptionsPanels()
-    Atr_Install_Error_Handler()
-
     Atr_InitToolTips()
 
     if (RegisterAddonMessagePrefix) then
       RegisterAddonMessagePrefix ("ATR")
     end
 
-  --  Atr_MakeOptionsFrameOpaque();
-
   end
-
 end
 
 -----------------------------------------

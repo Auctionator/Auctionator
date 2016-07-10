@@ -1,0 +1,125 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="Atr_Adv_Search_Dialog" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" enableMouse="true" hidden="true">
+    <Size><AbsDimension x="480" y="320" /></Size>
+
+    <Layers>
+      <Layer level="ARTWORK">
+
+        <Texture file="Interface\DialogFrame\UI-DialogBox-Header">
+          <Size x="310" y="64"/>
+          <Anchors><Anchor point="TOP"><Offset x="0" y="12"/></Anchor></Anchors>
+        </Texture>
+
+        <FontString inherits="GameFontNormal" text="Advanced Search">
+          <Anchors><Anchor point="TOP"><Offset x="0" y="-2"/></Anchor></Anchors>
+        </FontString>
+
+        <FontString name="Atr_AS_Searchtext_Label" inherits="GameFontNormalSmall" text="Search For">
+          <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-50"/></Offset></Anchor></Anchors>
+        </FontString>
+
+        <FontString name="Atr_AS_Cat_Label" inherits="GameFontNormalSmall" text="Category">
+          <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-120"/></Offset></Anchor></Anchors>
+        </FontString>
+
+        <FontString name="Atr_AS_SubCat_Label" inherits="GameFontNormalSmall" text="Subcategory">
+          <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="240" y="-120"/></Offset></Anchor></Anchors>
+        </FontString>
+
+        <FontString name="Atr_AS_LevRange_Label" inherits="GameFontNormalSmall" text="Level Range">
+          <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-190"/></Offset></Anchor></Anchors>
+        </FontString>
+
+        <FontString inherits="GameFontHighlightLarge" text="-">
+          <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_LevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="41" y="-6"/></Offset></Anchor></Anchors>
+        </FontString>
+
+        <FontString name="Atr_AS_ILevRange_Label" inherits="GameFontNormalSmall" text="Item Level Range" hidden="true">
+          <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="240" y="-190"/></Offset></Anchor></Anchors>
+        </FontString>
+
+        <FontString name="Atr_AS_ILevRange_Dash" inherits="GameFontHighlightLarge" text="-" hidden="true">
+          <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_ILevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="41" y="-6"/></Offset></Anchor></Anchors>
+        </FontString>
+
+      </Layer>
+    </Layers>
+
+    <Frames>
+
+      <EditBox name="Atr_AS_Searchtext" autoFocus="false" inherits="InputBoxTemplate">
+        <Size><AbsDimension x="240" y="20"/></Size>
+        <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_Searchtext_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="2" y="-4"/></Offset></Anchor></Anchors>
+      </EditBox>
+
+      <Frame name="Atr_ASDD_Class" inherits="UIDropDownMenuTemplate">
+        <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_Cat_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="-20" y="-4"/></Offset></Anchor></Anchors>
+        <Scripts>
+          <OnShow function="Atr_ASDD_Class_OnShow"/>
+        </Scripts>
+      </Frame>
+
+      <Frame name="Atr_ASDD_Subclass" inherits="UIDropDownMenuTemplate">
+        <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_SubCat_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="-20" y="-4"/></Offset></Anchor></Anchors>
+        <Scripts>
+          <OnShow function="Atr_ASDD_Subclass_OnShow"/>
+        </Scripts>
+      </Frame>
+
+      <EditBox name="Atr_AS_Minlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+        <Size x="30" y="20"/>
+        <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_LevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="5" y="-4"/></Offset></Anchor></Anchors>
+        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+      </EditBox>
+
+      <EditBox name="Atr_AS_Maxlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+        <Size x="30" y="20"/>
+        <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_LevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="59" y="-4"/></Offset></Anchor></Anchors>
+        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+      </EditBox>
+
+
+      <EditBox name="Atr_AS_MinItemlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate" hidden="true">
+        <Size x="30" y="20"/>
+        <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_ILevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="5" y="-4"/></Offset></Anchor></Anchors>
+        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+      </EditBox>
+
+      <EditBox name="Atr_AS_MaxItemlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate" hidden="true">
+        <Size x="30" y="20"/>
+        <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_ILevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="59" y="-4"/></Offset></Anchor></Anchors>
+        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+      </EditBox>
+
+      <Button name="Atr_Adv_Search_ResetBut" inherits="Atr_SmallButtonTemplate" text="RESET">
+        <Size><AbsDimension x="60" y="18"/></Size>
+        <Anchors><Anchor point="BOTTOMLEFT"><Offset><AbsDimension x="40" y="25"/></Offset></Anchor></Anchors>
+        <Scripts>
+          <OnClick>
+            Atr_Adv_Search_Reset()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Button name="Atr_Adv_Search_CancelBut" inherits="UIPanelButtonTemplate" text="CANCEL">
+        <Size><AbsDimension x="80" y="22"/></Size>
+        <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-20" y="25"/></Offset></Anchor></Anchors>
+        <Scripts>
+          <OnClick>
+            Atr_Adv_Search_Dialog:Hide()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Button name="Atr_Adv_Search_OKBut" inherits="UIPanelButtonTemplate" text="Search">
+        <Size><AbsDimension x="80" y="22"/></Size>
+        <Anchors><Anchor point="RIGHT" relativeTo="Atr_Adv_Search_CancelBut" relativePoint="LEFT"><Offset><AbsDimension x="-10"/></Offset></Anchor></Anchors>
+        <Scripts>
+          <OnClick>
+            Atr_Adv_Search_Do()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

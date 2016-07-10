@@ -1,0 +1,18 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="Atr_Mask" toplevel="true" parent="UIParent" enableMouse="true" hidden="true">
+    <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" tile="true">
+      <TileSize><AbsValue val="16"/></TileSize>
+    </Backdrop>
+
+    <Scripts>
+      <OnLoad>
+        self:SetBackdropColor( 0.2, 0.2, 0.2 )
+      </OnLoad>
+      <OnShow>
+        self:SetPoint( "TOPLEFT", "AuctionFrame", "TOPLEFT" )
+        self:SetPoint( "BOTTOMRIGHT", "AuctionFrame", "BOTTOMRIGHT", 0, -20 )
+        self:SetFrameStrata( "HIGH" )
+      </OnShow>
+    </Scripts>
+  </Frame>
+</Ui>

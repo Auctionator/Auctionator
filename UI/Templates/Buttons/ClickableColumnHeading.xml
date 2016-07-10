@@ -1,5 +1,3 @@
-<!-- The clickable column heading template -->
-
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Button name="Atr_Col_Heading_Template" virtual="true">
     <ButtonText name="$parentText">

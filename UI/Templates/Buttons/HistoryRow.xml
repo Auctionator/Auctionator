@@ -18,7 +18,7 @@
     </HighlightTexture>
     <Scripts>
       <OnClick>
-        Atr_HEntryOnClick(self);
+        Atr_HEntryOnClick( self )
       </OnClick>
     </Scripts>
   </Button>

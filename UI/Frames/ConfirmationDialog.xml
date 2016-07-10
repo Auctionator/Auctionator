@@ -1,0 +1,47 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="Atr_Confirm_Frame" toplevel="true" parent="UIParent" enableMouse="true" frameStrata="DIALOG" hidden="true">
+    <Size><AbsDimension x="300" y="150" /></Size>
+    <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="290" y="-190"/></Offset></Anchor></Anchors>
+
+    <Backdrop bgFile="Interface\MERCHANTFRAME\UI-BuyBack-TopLeft" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+      <BackgroundInsets><AbsInset left="2" right="0" top="2" bottom="2"/></BackgroundInsets>
+      <TileSize><AbsValue val="256"/></TileSize>
+      <EdgeSize><AbsValue val="32"/></EdgeSize>
+    </Backdrop>
+
+    <Scripts>
+      <OnLoad>
+        self:SetBackdropColor( 0.3, 0.3, 0.7 )
+      </OnLoad>
+      <OnShow>
+        if AuctionFrame and AuctionFrame:IsShown() then
+          Atr_Mask:Show()
+        end
+      </OnShow>
+      <OnHide>
+        Atr_Mask:Hide()
+      </OnHide>
+    </Scripts>
+
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontNormal" name="Atr_Confirm_Text" spacing="3">
+          <Anchors><Anchor point="CENTER"><Offset><AbsDimension y="20"/></Offset></Anchor></Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+
+    <Frames>
+      <Button name="Atr_Confirm_Cancel" inherits="UIPanelButtonTemplate" text="CANCEL">
+        <Size><AbsDimension x="60" y="22"/></Size>
+        <Anchors><Anchor point="BOTTOMRIGHT"><Offset><AbsDimension x="-30" y="20"/></Offset></Anchor></Anchors>
+        <Scripts><OnClick>Atr_Confirm_No()</OnClick></Scripts>
+      </Button>
+      <Button inherits="UIPanelButtonTemplate" text="OKAY">
+        <Size><AbsDimension x="60" y="22"/></Size>
+        <Anchors><Anchor point="RIGHT" relativeTo="Atr_Confirm_Cancel" relativePoint="LEFT"><Offset><AbsDimension x="-10"/></Offset></Anchor></Anchors>
+        <Scripts><OnClick>Atr_Confirm_Yes()</OnClick></Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

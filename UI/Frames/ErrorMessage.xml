@@ -11,17 +11,17 @@
 
     <Scripts>
       <OnLoad>
-        self:SetBackdropColor(0.3, 0.3, 0.7);
+        self:SetBackdropColor( 0.3, 0.3, 0.7 )
       </OnLoad>
       <OnShow>
-        if (self.withMask) then
-          Atr_Mask:Show();
+        if self.withMask then
+          Atr_Mask:Show()
         end
       </OnShow>
       <OnHide>
-        if (self.withMask) then
-          Atr_Mask:Hide();
-          self.withMask = nil;
+        if self.withMask then
+          Atr_Mask:Hide()
+          self.withMask = nil
         end
       </OnHide>
     </Scripts>
@@ -29,7 +29,13 @@
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormal" name="Atr_Error_Text">
-          <Anchors><Anchor point="CENTER"><Offset><AbsDimension y="20"/></Offset></Anchor></Anchors>
+          <Anchors>
+            <Anchor point="CENTER">
+              <Offset>
+                <AbsDimension y="20"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
         </FontString>
       </Layer>
     </Layers>
@@ -37,10 +43,15 @@
     <Frames>
       <Button inherits="UIPanelButtonTemplate" text="OKAY">
         <Size><AbsDimension x="60" y="22"/></Size>
-        <Anchors><Anchor point="BOTTOM"><Offset><AbsDimension  y="20"/></Offset></Anchor></Anchors>
-        <Scripts><OnClick>Atr_Error_Frame:Hide();</OnClick></Scripts>
+        <Anchors>
+          <Anchor point="BOTTOM">
+            <Offset><AbsDimension  y="20"/></Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnClick>Atr_Error_Frame:Hide()</OnClick>
+        </Scripts>
       </Button>
     </Frames>
-
   </Frame>
 </Ui>

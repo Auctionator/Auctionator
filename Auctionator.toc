@@ -30,7 +30,6 @@ AuctionatorSearchQuery.lua
 
 AuctionatorLocalize.lua
 
-AtrErrorInspector.lua
 Auctionator.lua
 AuctionatorShop.lua
 
