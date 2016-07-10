@@ -196,7 +196,6 @@ function Atr_EventHandler(self, event, ...)
   if (event == "UNIT_SPELLCAST_SENT")     then  Atr_OnSpellCastSent(...);     end;
   if (event == "UNIT_SPELLCAST_SUCCEEDED")  then  Atr_OnSpellCastSucess(...);     end;
   if (event == "BAG_UPDATE")          then  Atr_OnBagUpdate(...);     end;
-
 end
 
 

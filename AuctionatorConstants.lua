@@ -1,4 +1,11 @@
 Auctionator.Constants = {
+  DebugLevels = {
+    ERROR = 0,
+    WARNING = 10,
+    INFO = 80,
+    SPAMMY_AF = 100
+  },
+
   SubClasses = {
     ITEM_CLASS_HERB = 9, -- Under LE_ITEM_CLASS_TRADEGOODS
     ITEM_CLASS_POTION = 1, -- Under LE_ITEM_CLASS_CONSUMABLE

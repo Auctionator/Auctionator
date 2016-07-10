@@ -1174,6 +1174,7 @@ hooksecurefunc (GameTooltip, "SetQuestLogItem",
 
 hooksecurefunc (GameTooltip, "SetInboxItem",
   function (tip, index, attachIndex)
+    -- TODO https://github.com/jrob8577/Auctionator/issues/75
     local attachmentIndex = attachIndex or 1
     local _, _, _, num = GetInboxItem(index, attachmentIndex);
     Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachmentIndex), num);
