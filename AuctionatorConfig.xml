@@ -1,10 +1,10 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame name="Atr_UIOptionsFrame">
     <Scripts>
-      <OnLoad>self.name = &quot;Auctionator&quot;
+      <OnLoad>self.name = "Auctionator"
         Atr_LoadOptionsMainPanel (self)
       </OnLoad>
-      <OnShow>local f = _G[&quot;Atr_BasicOptionsFrame&quot;];
+      <OnShow>local f = _G["Atr_BasicOptionsFrame"];
         if (f) then
           self:Hide();
           InterfaceOptionsFrame_OpenToCategory (f)
@@ -122,7 +122,7 @@
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_BasicOptionsFrame" parent="UIParent">
     <Scripts>
       <OnLoad>self.TimeSinceLastUpdate = 0;
-        Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;Basic Options&quot;));
+        Atr_LoadOptionsSubPanel (self, gAtr_ZT("Basic Options"));
       </OnLoad>
     </Scripts>
     <Frames>
@@ -135,7 +135,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>AuctionatorOption_Enable_Alt_CB_Text:SetText (gAtr_ZT(&quot;Enable alt-key shortcut&quot;));  </OnLoad>
+          <OnLoad>AuctionatorOption_Enable_Alt_CB_Text:SetText (gAtr_ZT("Enable alt-key shortcut"));  </OnLoad>
         </Scripts>
       </Frame>
       <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Open_All_Bags">
@@ -147,7 +147,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>AuctionatorOption_Open_All_Bags_CB_Text:SetText (gAtr_ZT(&quot;Automatically open all bags&quot;)); </OnLoad>
+          <OnLoad>AuctionatorOption_Open_All_Bags_CB_Text:SetText (gAtr_ZT("Automatically open all bags")); </OnLoad>
         </Scripts>
       </Frame>
       <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Show_StartingPrice">
@@ -159,7 +159,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>AuctionatorOption_Show_StartingPrice_CB_Text:SetText (gAtr_ZT(&quot;Show Starting Price on the Sell Tab&quot;));  </OnLoad>
+          <OnLoad>AuctionatorOption_Show_StartingPrice_CB_Text:SetText (gAtr_ZT("Show Starting Price on the Sell Tab"));  </OnLoad>
         </Scripts>
       </Frame>
       <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Enable_Debug">
@@ -171,7 +171,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>AuctionatorOption_Enable_Debug_CB_Text:SetText (gAtr_ZT(&quot;Enable debug mode&quot;));</OnLoad>
+          <OnLoad>AuctionatorOption_Enable_Debug_CB_Text:SetText (gAtr_ZT("Enable debug mode"));</OnLoad>
         </Scripts>
       </Frame>
       <Frame name="AuctionatorOption_Def_Duration_Text">
@@ -222,7 +222,7 @@
               </Anchor>
             </Anchors>
             <Scripts>
-              <OnLoad>_G[self:GetName()..&quot;Text&quot;]:SetText(&quot;None&quot;); </OnLoad>
+              <OnLoad>_G[self:GetName().."Text"]:SetText("None"); </OnLoad>
               <OnClick>Atr_SetDurationOptionRB (self:GetName()); </OnClick>
             </Scripts>
           </CheckButton>
@@ -235,7 +235,7 @@
               </Anchor>
             </Anchors>
             <Scripts>
-              <OnLoad>_G[self:GetName()..&quot;Text&quot;]:SetFormattedText(FORMATED_HOURS, 12); </OnLoad>
+              <OnLoad>_G[self:GetName().."Text"]:SetFormattedText(FORMATED_HOURS, 12); </OnLoad>
               <OnClick>Atr_SetDurationOptionRB (self:GetName()); </OnClick>
             </Scripts>
           </CheckButton>
@@ -248,7 +248,7 @@
               </Anchor>
             </Anchors>
             <Scripts>
-              <OnLoad>_G[self:GetName()..&quot;Text&quot;]:SetFormattedText(FORMATED_HOURS, 24); </OnLoad>
+              <OnLoad>_G[self:GetName().."Text"]:SetFormattedText(FORMATED_HOURS, 24); </OnLoad>
               <OnClick>Atr_SetDurationOptionRB (self:GetName()); </OnClick>
             </Scripts>
           </CheckButton>
@@ -261,7 +261,7 @@
               </Anchor>
             </Anchors>
             <Scripts>
-              <OnLoad>_G[self:GetName()..&quot;Text&quot;]:SetFormattedText(FORMATED_HOURS, 48); </OnLoad>
+              <OnLoad>_G[self:GetName().."Text"]:SetFormattedText(FORMATED_HOURS, 48); </OnLoad>
               <OnClick>Atr_SetDurationOptionRB (self:GetName()); </OnClick>
             </Scripts>
           </CheckButton>
@@ -312,7 +312,7 @@
   <!-- The Tooltips Options screen -->
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_TooltipsOptionsFrame" parent="UIParent">
     <Scripts>
-      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;Tooltips&quot;));
+      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Tooltips"));
       </OnLoad>
     </Scripts>
     <Layers>
@@ -343,7 +343,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>ATR_tipsVendorOpt_CB_Text:SetText (gAtr_ZT(&quot;Show vendor prices in tooltips&quot;));  </OnLoad>
+          <OnLoad>ATR_tipsVendorOpt_CB_Text:SetText (gAtr_ZT("Show vendor prices in tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
       <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsAuctionOpt">
@@ -355,7 +355,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>ATR_tipsAuctionOpt_CB_Text:SetText (gAtr_ZT(&quot;Show auction house prices in tooltips&quot;));  </OnLoad>
+          <OnLoad>ATR_tipsAuctionOpt_CB_Text:SetText (gAtr_ZT("Show auction house prices in tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
       <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsDisenchantOpt">
@@ -367,7 +367,7 @@
           </Anchor>
         </Anchors>
         <Scripts>
-          <OnLoad>ATR_tipsDisenchantOpt_CB_Text:SetText (gAtr_ZT(&quot;Show disenchant prices in tooltips&quot;));  </OnLoad>
+          <OnLoad>ATR_tipsDisenchantOpt_CB_Text:SetText (gAtr_ZT("Show disenchant prices in tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
       <Frame inherits="UIDropDownMenuTemplate" name="Atr_tipsShiftDD">
@@ -421,7 +421,7 @@
   <!-- The Undercutting Configuration screen -->
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_UCConfigFrame" parent="UIParent">
     <Scripts>
-      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;Undercutting&quot;));
+      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Undercutting"));
       </OnLoad>
     </Scripts>
     <Layers>
@@ -547,7 +547,7 @@
   <!-- The Sell Stacking screen -->
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_StackingOptionsFrame" parent="UIParent">
     <Scripts>
-      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;Selling&quot;), nil, gAtr_ZT(&quot;Configure how you typically like to sell the items listed below.&quot;));
+      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Selling"), nil, gAtr_ZT("Configure how you typically like to sell the items listed below."));
       </OnLoad>
     </Scripts>
     <Layers>
@@ -847,7 +847,7 @@
   <!-- The Scanning Options screen -->
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_ScanningOptionsFrame" parent="UIParent">
     <Scripts>
-      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;Database&quot;));
+      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Database"));
       </OnLoad>
     </Scripts>
     <Frames>
@@ -979,7 +979,7 @@
   <!-- The Resets screen -->
   <Frame enableMouse="true" frameStrata="MEDIUM" hidden="true" inherits="Atr_OptionsPanelTemplate" name="AuctionatorResetsFrame" parent="InterfaceOptionsFrame">
     <Scripts>
-      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;Clears&quot;), gAtr_ZT(&quot;Clears&quot;), gAtr_ZT(&quot;The features below will help you clear out data that Auctionator stores.  Typically you would only need this in the event that that data gets corrupted.&quot;));
+      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Clears"), gAtr_ZT("Clears"), gAtr_ZT("The features below will help you clear out data that Auctionator stores.  Typically you would only need this in the event that that data gets corrupted."));
       </OnLoad>
     </Scripts>
     <Frames>
@@ -1101,7 +1101,7 @@
   <!-- The Shopping Lists screen -->
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_ShpList_Options_Frame" parent="UIParent">
     <Scripts>
-      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;Shopping Lists&quot;), gAtr_ZT(&quot;Shopping Lists&quot;));
+      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Shopping Lists"), gAtr_ZT("Shopping Lists"));
       </OnLoad>
       <OnUpdate>Atr_ShpList_Options_Update (self, elapsed);
       </OnUpdate>
@@ -1432,7 +1432,7 @@
           <Anchor point="BOTTOMLEFT" x="30" y="240"/>
         </Anchors>
         <Scripts>
-          <OnLoad>Atr_SList_Conflict_SetRB (self, gAtr_ZT(&quot;Create new shopping lists with new names&quot;)) </OnLoad>
+          <OnLoad>Atr_SList_Conflict_SetRB (self, gAtr_ZT("Create new shopping lists with new names")) </OnLoad>
           <OnClick function="Atr_SList_Conflict_OnClick"/>
         </Scripts>
       </CheckButton>
@@ -1441,7 +1441,7 @@
           <Anchor point="BOTTOMLEFT" x="30" y="170"/>
         </Anchors>
         <Scripts>
-          <OnLoad>Atr_SList_Conflict_SetRB (self, gAtr_ZT(&quot;Overwrite the existing shopping lists with the imported lists.&quot;)) </OnLoad>
+          <OnLoad>Atr_SList_Conflict_SetRB (self, gAtr_ZT("Overwrite the existing shopping lists with the imported lists.")) </OnLoad>
           <OnClick function="Atr_SList_Conflict_OnClick"/>
         </Scripts>
       </CheckButton>
@@ -1450,7 +1450,7 @@
           <Anchor point="BOTTOMLEFT" x="30" y="100"/>
         </Anchors>
         <Scripts>
-          <OnLoad>Atr_SList_Conflict_SetRB (self, gAtr_ZT(&quot;Abort the import.  You can hand-edit the import text to change the names and then try again.&quot;)) </OnLoad>
+          <OnLoad>Atr_SList_Conflict_SetRB (self, gAtr_ZT("Abort the import.  You can hand-edit the import text to change the names and then try again.")) </OnLoad>
           <OnClick function="Atr_SList_Conflict_OnClick"/>
         </Scripts>
       </CheckButton>
@@ -1468,7 +1468,7 @@
   <!-- The About screen -->
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="AuctionatorDescriptionFrame" parent="UIParent">
     <Scripts>
-      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT(&quot;About&quot;), gAtr_ZT(&quot;About Auctionator&quot;));
+      <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("About"), gAtr_ZT("About Auctionator"));
       </OnLoad>
     </Scripts>
     <Layers>

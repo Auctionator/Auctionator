@@ -83,7 +83,7 @@ end
 function Atr_SetupOptionsFrame()
 
   local expText = "<html><body>"
-          .."<p>"..ZT("The latest information on Auctionator can be found at").." auctionator-addon.com.".."</p>"
+          .."<p>"..ZT("The latest information on Auctionator can be found at").." http://mods.curse.com/addons/wow/auctionator .".."</p>"
           .."<p><br/>"
           .."MoP disenchanting data courtesy of the Norganna's AddOns (the Auctioneer folks)"
           .."</p>"
@@ -169,7 +169,7 @@ function Atr_SetupTooltipsOptionsFrame ()
 
   ATR_tipsVendorOpt_CB:SetChecked   (zc.NumToBool(AUCTIONATOR_V_TIPS));
   ATR_tipsAuctionOpt_CB:SetChecked  (zc.NumToBool(AUCTIONATOR_A_TIPS));
-  ATR_tipsDisenchantOpt_CB:SetChecked (zc.NumToBool(AUCTIONATOR_D_TIPS));
+  -- ATR_tipsDisenchantOpt_CB:SetChecked (zc.NumToBool(AUCTIONATOR_D_TIPS));
 end
 
 
@@ -185,10 +185,10 @@ function Atr_TooltipsOptionsFrame_Save(frame)
 
   AUCTIONATOR_V_TIPS    = zc.BoolToNum(ATR_tipsVendorOpt_CB:GetChecked ());
   AUCTIONATOR_A_TIPS    = zc.BoolToNum(ATR_tipsAuctionOpt_CB:GetChecked ());
-  AUCTIONATOR_D_TIPS    = zc.BoolToNum(ATR_tipsDisenchantOpt_CB:GetChecked ());
+  -- AUCTIONATOR_D_TIPS    = zc.BoolToNum(ATR_tipsDisenchantOpt_CB:GetChecked ());
 
   AUCTIONATOR_SHIFT_TIPS    = UIDropDownMenu_GetSelectedValue(Atr_tipsShiftDD);
-  AUCTIONATOR_DE_DETAILS_TIPS = UIDropDownMenu_GetSelectedValue(Atr_deDetailsDD);
+  -- AUCTIONATOR_DE_DETAILS_TIPS = UIDropDownMenu_GetSelectedValue(Atr_deDetailsDD);
 
   local newValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
 
