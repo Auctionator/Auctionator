@@ -276,7 +276,7 @@ function Atr_IsClass( itemLink, classID, subClassID )
     return false
   end
 
-  local _, _, _, _, _, _, _, _, _, _, _ itemClassID, itemSubClassID = GetItemInfo( itemLink )
+  local _, _, _, _, _, _, _, _, _, _, _, itemClassID, itemSubClassID = GetItemInfo( itemLink )
 
   return classID == itemClassID and ( subClassID == nil or subClassID == itemSubClassID )
 end

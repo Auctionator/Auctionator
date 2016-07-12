@@ -4,6 +4,7 @@ local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc;
 local zz = zc.md;
 local _
+local ItemUpgradeInfo = LibStub("LibItemUpgradeInfo-1.0")
 
 -----------------------------------------
 
@@ -229,8 +230,8 @@ local UNCOMMON  = 2;
 local RARE    = 3;
 local EPIC    = 4;
 
-local WEAPON = 1;
-local ARMOR  = 2;
+--local WEAPON = LE_ITEM_CLASS_WEAPON;
+--local ARMOR  = LE_ITEM_CLASS_ARMOR;
 
 local LESSER_MAGIC    = 10938;
 local GREATER_MAGIC   = 10939;
@@ -287,18 +288,22 @@ local GREATER_CEL   = 52719;
 local LESSER_CEL    = 52718;
 local MAELSTROM_CRYSTAL = 52722;
 
-local ETHEREAL_SHARD  = 74247
-local SMALL_ETHEREAL  = 74252
+local ETHEREAL_SHARD  = 74247;
+local SMALL_ETHEREAL  = 74252;
 
-local SPIRIT_DUST   = 74249
-local MYSTERIOUS_ESS  = 74250
-local GREATER_MYST_ESS  = 74251
-local SHA_CRYSTAL   = 74248
+local SPIRIT_DUST   = 74249;
+local MYSTERIOUS_ESS  = 74250;
+local GREATER_MYST_ESS  = 74251;
+local SHA_CRYSTAL   = 74248;
 
-local TEMPORAL_CRYSTAL    = 113588
-local LUMINOUS_SHARD    = 111245
-local SMALL_LUM_SHARD   = 115502
-local DRAENIC_DUST      = 109693
+local TEMPORAL_CRYSTAL    = 113588;
+local LUMINOUS_SHARD    = 111245;
+local SMALL_LUM_SHARD   = 115502;
+local DRAENIC_DUST      = 109693;
+
+local ARKHANA = 124440;
+local LEYLIGHT_SHARD = 124441;
+local CHAOS_CRYSTAL = 124442;
 
 --[[
 local CINDERBLOOM   = 52983;
@@ -367,19 +372,22 @@ engDEnames [GREATER_CEL]    = "Greater Celestial Essence";
 engDEnames [LESSER_CEL]     = "Lesser Celestial Essence";
 engDEnames [MAELSTROM_CRYSTAL]  = "Maelstrom Crystal";
 
-engDEnames[SMALL_ETHEREAL]    = 'Small Ethereal Shard'
-engDEnames[ETHEREAL_SHARD]    = 'Ethereal Shard'
+engDEnames[SMALL_ETHEREAL]    = 'Small Ethereal Shard';
+engDEnames[ETHEREAL_SHARD]    = 'Ethereal Shard';
 
-engDEnames[SPIRIT_DUST]     = 'Spirit Dust'
-engDEnames[MYSTERIOUS_ESS]    = 'Mysterious Essence'
-engDEnames[GREATER_MYST_ESS]  = 'Greater Mysterious Essence'
-engDEnames[SHA_CRYSTAL]     = 'Sha Crystal'
+engDEnames[SPIRIT_DUST]     = 'Spirit Dust';
+engDEnames[MYSTERIOUS_ESS]    = 'Mysterious Essence';
+engDEnames[GREATER_MYST_ESS]  = 'Greater Mysterious Essence';
+engDEnames[SHA_CRYSTAL]     = 'Sha Crystal';
 
-engDEnames[TEMPORAL_CRYSTAL]  = 'Temporal Crystal'
-engDEnames[LUMINOUS_SHARD]    = 'Luminous Shard'
-engDEnames[SMALL_LUM_SHARD]   = 'Small Luminous Shard'
-engDEnames[DRAENIC_DUST]    = 'Draenic Dust'
+engDEnames[TEMPORAL_CRYSTAL]  = 'Temporal Crystal';
+engDEnames[LUMINOUS_SHARD]    = 'Luminous Shard';
+engDEnames[SMALL_LUM_SHARD]   = 'Small Luminous Shard';
+engDEnames[DRAENIC_DUST]    = 'Draenic Dust';
 
+engDEnames[ARKHANA] = 'Arkhana';
+engDEnames[LEYLIGHT_SHARD] = 'Leylight Shard';
+engDEnames[CHAOS_CRYSTAL] = 'Chaos Crystal';
 
 
 local dustsAndEssences = {};
@@ -451,6 +459,10 @@ tinsert (dustsAndEssences, TEMPORAL_CRYSTAL)
 tinsert (dustsAndEssences, LUMINOUS_SHARD)
 tinsert (dustsAndEssences, SMALL_LUM_SHARD)
 tinsert (dustsAndEssences, DRAENIC_DUST)
+
+tinsert (dustsAndEssences, ARKHANA)
+tinsert (dustsAndEssences, LEYLIGHT_SHARD)
+tinsert (dustsAndEssences, CHAOS_CRYSTAL)
 
 gAtr_dustCacheIndex = 1;
 
@@ -550,8 +562,8 @@ local deTable = {};
 
 -----------------------------------------
 
-local function deKey (itemType, itemRarity)
-  local s = tostring(itemType).."_"..itemRarity
+local function deKey (itemRarity)
+  local s = itemRarity
   return s;
 end
 
@@ -594,12 +606,11 @@ end
 
 function Atr_InitDETable()
 
-
   -- UNCOMMON (GREEN) ARMOR
 
-  deTable[deKey(ARMOR, UNCOMMON)] = {};
+  deTable[deKey(UNCOMMON)] = {};
 
-  local t = deTable[deKey(ARMOR, UNCOMMON)];
+  t  = deTable[deKey(UNCOMMON)];
 
 
   DEtableInsert (t, {5, 15,   80, {1,2}, STRANGE_DUST,  20, {1,2}, LESSER_MAGIC});
@@ -619,114 +630,34 @@ function Atr_InitDETable()
   DEtableInsert (t, {121, 151,  75, {1,3}, INFINITE_DUST, 22, {1,2}, LESSER_COSMIC, 3, 1, SMALL_DREAM});
   DEtableInsert (t, {152, 200,  75, {4,7}, INFINITE_DUST, 22, {1,2}, GREATER_COSMIC,  3, 1, DREAM_SHARD});
 
-  DEtableInsert (t, {272,272        ,34,1,HYPN_DUST       ,41,2,HYPN_DUST       ,13,1,LESSER_CEL       ,12,2,LESSER_CEL  })
-  DEtableInsert (t, {278,278        ,31,1,HYPN_DUST       ,20,2,HYPN_DUST       ,22,3,HYPN_DUST       ,9,1,LESSER_CEL       ,11,2,LESSER_CEL       ,6,3,LESSER_CEL  })
-  DEtableInsert (t, {283,283        ,28,1,HYPN_DUST       ,21,2,HYPN_DUST       ,24,3,HYPN_DUST       ,1,4,HYPN_DUST       ,8,1,LESSER_CEL       ,9,2,LESSER_CEL       ,9,3,LESSER_CEL  })
-  DEtableInsert (t, {285,285        ,28,1,HYPN_DUST       ,25,2,HYPN_DUST       ,20,3,HYPN_DUST       ,0,4,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,0,6,LESSER_CEL  })
-  DEtableInsert (t, {289,289        ,25,1,HYPN_DUST       ,25,2,HYPN_DUST       ,25,3,HYPN_DUST       ,0,4,HYPN_DUST       ,0,5,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,8,3,LESSER_CEL       ,0,5,LESSER_CEL  })
-  DEtableInsert (t, {295,295        ,21,1,HYPN_DUST       ,19,2,HYPN_DUST       ,22,3,HYPN_DUST       ,17,4,HYPN_DUST       ,7,2,LESSER_CEL       ,8,3,LESSER_CEL       ,6,4,LESSER_CEL  })
-  DEtableInsert (t, {300,300        ,18,1,HYPN_DUST       ,20,2,HYPN_DUST       ,19,3,HYPN_DUST       ,19,4,HYPN_DUST       ,0,6,HYPN_DUST       ,8,2,LESSER_CEL       ,10,3,LESSER_CEL       ,7,4,LESSER_CEL  })
-  DEtableInsert (t, {305,305        ,15,1,HYPN_DUST       ,12,2,HYPN_DUST       ,26,3,HYPN_DUST       ,20,4,HYPN_DUST       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,9,4,LESSER_CEL  })
-  DEtableInsert (t, {306,306        ,24,2,HYPN_DUST       ,26,3,HYPN_DUST       ,26,4,HYPN_DUST       ,12,1,GREATER_CEL       ,12,2,GREATER_CEL  })
-  DEtableInsert (t, {312,312        ,29,2,HYPN_DUST       ,30,3,HYPN_DUST       ,20,4,HYPN_DUST       ,11,1,GREATER_CEL       ,11,2,GREATER_CEL  })
-  DEtableInsert (t, {316,316        ,18,2,HYPN_DUST       ,18,3,HYPN_DUST       ,22,4,HYPN_DUST       ,16,5,HYPN_DUST       ,14,2,GREATER_CEL       ,12,3,GREATER_CEL  })
-  DEtableInsert (t, {318,318        ,14,2,HYPN_DUST       ,21,3,HYPN_DUST       ,22,4,HYPN_DUST       ,18,5,HYPN_DUST       ,12,2,GREATER_CEL       ,13,3,GREATER_CEL  })
-  DEtableInsert (t, {325,325        ,17,3,HYPN_DUST       ,17,4,HYPN_DUST       ,17,5,HYPN_DUST       ,50,2,GREATER_CEL  })
-  DEtableInsert (t, {333,333        ,12,2,HYPN_DUST       ,24,3,HYPN_DUST       ,12,4,HYPN_DUST       ,29,5,HYPN_DUST       ,18,2,GREATER_CEL       ,6,3,GREATER_CEL  })
+  DEtableInsert (t, {272,272        ,34,1,HYPN_DUST       ,41,2,HYPN_DUST       ,13,1,LESSER_CEL       ,12,2,LESSER_CEL  });
+  DEtableInsert (t, {278,278        ,31,1,HYPN_DUST       ,20,2,HYPN_DUST       ,22,3,HYPN_DUST       ,9,1,LESSER_CEL       ,11,2,LESSER_CEL       ,6,3,LESSER_CEL  });
+  DEtableInsert (t, {283,283        ,28,1,HYPN_DUST       ,21,2,HYPN_DUST       ,24,3,HYPN_DUST       ,1,4,HYPN_DUST       ,8,1,LESSER_CEL       ,9,2,LESSER_CEL       ,9,3,LESSER_CEL  });
+  DEtableInsert (t, {285,285        ,28,1,HYPN_DUST       ,25,2,HYPN_DUST       ,20,3,HYPN_DUST       ,0,4,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,0,6,LESSER_CEL  });
+  DEtableInsert (t, {289,289        ,25,1,HYPN_DUST       ,25,2,HYPN_DUST       ,25,3,HYPN_DUST       ,0,4,HYPN_DUST       ,0,5,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,8,3,LESSER_CEL       ,0,5,LESSER_CEL  });
+  DEtableInsert (t, {295,295        ,21,1,HYPN_DUST       ,19,2,HYPN_DUST       ,22,3,HYPN_DUST       ,17,4,HYPN_DUST       ,7,2,LESSER_CEL       ,8,3,LESSER_CEL       ,6,4,LESSER_CEL  });
+  DEtableInsert (t, {300,300        ,18,1,HYPN_DUST       ,20,2,HYPN_DUST       ,19,3,HYPN_DUST       ,19,4,HYPN_DUST       ,0,6,HYPN_DUST       ,8,2,LESSER_CEL       ,10,3,LESSER_CEL       ,7,4,LESSER_CEL  });
+  DEtableInsert (t, {305,305        ,15,1,HYPN_DUST       ,12,2,HYPN_DUST       ,26,3,HYPN_DUST       ,20,4,HYPN_DUST       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,9,4,LESSER_CEL  });
+  DEtableInsert (t, {306,306        ,24,2,HYPN_DUST       ,26,3,HYPN_DUST       ,26,4,HYPN_DUST       ,12,1,GREATER_CEL       ,12,2,GREATER_CEL  });
+  DEtableInsert (t, {312,312        ,29,2,HYPN_DUST       ,30,3,HYPN_DUST       ,20,4,HYPN_DUST       ,11,1,GREATER_CEL       ,11,2,GREATER_CEL  });
+  DEtableInsert (t, {316,316        ,18,2,HYPN_DUST       ,18,3,HYPN_DUST       ,22,4,HYPN_DUST       ,16,5,HYPN_DUST       ,14,2,GREATER_CEL       ,12,3,GREATER_CEL  });
+  DEtableInsert (t, {318,318        ,14,2,HYPN_DUST       ,21,3,HYPN_DUST       ,22,4,HYPN_DUST       ,18,5,HYPN_DUST       ,12,2,GREATER_CEL       ,13,3,GREATER_CEL  });
+  DEtableInsert (t, {325,325        ,17,3,HYPN_DUST       ,17,4,HYPN_DUST       ,17,5,HYPN_DUST       ,50,2,GREATER_CEL  });
+  DEtableInsert (t, {333,333        ,12,2,HYPN_DUST       ,24,3,HYPN_DUST       ,12,4,HYPN_DUST       ,29,5,HYPN_DUST       ,18,2,GREATER_CEL       ,6,3,GREATER_CEL  });
 
-  DEtableInsert (t, {364,380      ,85,2 ,SPIRIT_DUST    ,15, 1,   MYSTERIOUS_ESS})
-  DEtableInsert (t, {381,390      ,85,2.5 ,SPIRIT_DUST    ,15, 1,   MYSTERIOUS_ESS})
-  DEtableInsert (t, {391,410      ,85,3 ,SPIRIT_DUST    ,15, 1.5, MYSTERIOUS_ESS})
-  DEtableInsert (t, {411,483      ,85,3.5 ,SPIRIT_DUST    ,15, 2,   MYSTERIOUS_ESS})
+  DEtableInsert (t, {364,380      ,85,2 ,SPIRIT_DUST    ,15, 1,   MYSTERIOUS_ESS});
+  DEtableInsert (t, {381,390      ,85,2.5 ,SPIRIT_DUST    ,15, 1,   MYSTERIOUS_ESS});
+  DEtableInsert (t, {391,410      ,85,3 ,SPIRIT_DUST    ,15, 1.5, MYSTERIOUS_ESS});
+  DEtableInsert (t, {411,483      ,85,3.5 ,SPIRIT_DUST    ,15, 2,   MYSTERIOUS_ESS});
 
-  DEtableInsert (t, {484,700    , 100, 2.5, DRAENIC_DUST})
-
-  -- UNCOMMON (GREEN) WEAPONS
-
-  deTable[deKey(WEAPON, UNCOMMON)] = {};
-
-  local t = deTable[deKey(WEAPON, UNCOMMON)];
-
-  DEtableInsert (t, {6, 15,   20, {1,2}, STRANGE_DUST,  80, {1,2}, LESSER_MAGIC});
-  DEtableInsert (t, {16, 20,    20, {2,3}, STRANGE_DUST,  75, {1,2}, GREATER_MAGIC, 5, 1, SMALL_GLIMMERING});
-  DEtableInsert (t, {21, 25,    15, {4,6}, STRANGE_DUST,  75, {1,2}, LESSER_ASTRAL, 10, 1, SMALL_GLIMMERING});
-  DEtableInsert (t, {26, 30,    20, {1,2}, SOUL_DUST,   75, {1,2}, GREATER_ASTRAL,  5, 1, LARGE_GLIMMERING});
-  DEtableInsert (t, {31, 35,    20, {2,5}, SOUL_DUST,   75, {1,2}, LESSER_MYSTIC, 5, 1, SMALL_GLOWING});
-  DEtableInsert (t, {36, 40,    20, {1,2}, VISION_DUST,   75, {1,2}, GREATER_MYSTIC,  5, 1, LARGE_GLOWING});
-  DEtableInsert (t, {41, 45,    20, {2,5}, VISION_DUST,   75, {1,2}, LESSER_NETHER, 5, 1, SMALL_RADIANT});
-  DEtableInsert (t, {46, 50,    20, {1,2}, DREAM_DUST,    75, {1,2}, GREATER_NETHER,  5, 1, LARGE_RADIANT});
-  DEtableInsert (t, {51, 55,    22, {2,5}, DREAM_DUST,    75, {1,2}, LESSER_ETERNAL,  5, 1, SMALL_BRILLIANT});
-  DEtableInsert (t, {56, 60,    22, {1,2}, ILLUSION_DUST, 75, {1,2}, GREATER_ETERNAL, 5, 1, LARGE_BRILLIANT});
-  DEtableInsert (t, {61, 65,    22, {2,5}, ILLUSION_DUST, 75, {2,3}, GREATER_ETERNAL, 5, 1, LARGE_BRILLIANT});
-  DEtableInsert (t, {66, 99,    22, {2,3}, ARCANE_DUST,   75, {2,3}, LESSER_PLANAR, 3, 1, SMALL_PRISMATIC});
-  DEtableInsert (t, {100, 120,  22, {2,5}, ARCANE_DUST,   75, {1,2}, GREATER_PLANAR,  3, 1, LARGE_PRISMATIC});
-  DEtableInsert (t, {121, 151,  22, {1,3}, INFINITE_DUST, 75, {1,2}, LESSER_COSMIC, 3, 1, SMALL_DREAM});
-  DEtableInsert (t, {152, 200,  22, {4,7}, INFINITE_DUST, 75, {1,2}, GREATER_COSMIC,  3, 1, DREAM_SHARD});
-
-  DEtableInsert (t, {272,272        ,12,1,HYPN_DUST       ,11,2,HYPN_DUST       ,33,1,LESSER_CEL       ,45,2,LESSER_CEL  })
-  DEtableInsert (t, {278,278        ,16,1,HYPN_DUST       ,8,2,HYPN_DUST       ,4,3,HYPN_DUST       ,16,1,LESSER_CEL       ,28,2,LESSER_CEL       ,28,3,LESSER_CEL  })
-  DEtableInsert (t, {283,283        ,7,1,HYPN_DUST       ,5,2,HYPN_DUST       ,17,3,HYPN_DUST       ,22,1,LESSER_CEL       ,22,2,LESSER_CEL       ,25,3,LESSER_CEL  })
-  DEtableInsert (t, {289,289        ,8,1,HYPN_DUST       ,8,2,HYPN_DUST       ,25,1,LESSER_CEL       ,33,2,LESSER_CEL       ,27,3,LESSER_CEL  })
-  DEtableInsert (t, {295,295        ,2,1,HYPN_DUST       ,16,2,HYPN_DUST       ,5,3,HYPN_DUST       ,3,4,HYPN_DUST       ,17,2,LESSER_CEL       ,30,3,LESSER_CEL       ,28,4,LESSER_CEL  })
-  DEtableInsert (t, {300,300        ,4,1,HYPN_DUST       ,10,2,HYPN_DUST       ,10,3,HYPN_DUST       ,8,4,HYPN_DUST       ,25,2,LESSER_CEL       ,16,3,LESSER_CEL       ,27,4,LESSER_CEL  })
-  DEtableInsert (t, {305,305        ,25,2,HYPN_DUST       ,25,3,HYPN_DUST       ,37,3,LESSER_CEL       ,12,4,LESSER_CEL  })
-  DEtableInsert (t, {306,306        ,11,2,HYPN_DUST       ,8,3,HYPN_DUST       ,11,4,HYPN_DUST       ,36,1,GREATER_CEL       ,35,2,GREATER_CEL  })
-  DEtableInsert (t, {312,312        ,11,2,HYPN_DUST       ,7,3,HYPN_DUST       ,8,4,HYPN_DUST       ,42,1,GREATER_CEL       ,31,2,GREATER_CEL  })
-  DEtableInsert (t, {317,317        ,6,2,HYPN_DUST       ,7,3,HYPN_DUST       ,7,4,HYPN_DUST       ,6,5,HYPN_DUST       ,37,2,GREATER_CEL       ,36,3,GREATER_CEL       ,1,5,GREATER_CEL  })
-  DEtableInsert (t, {318,318        ,21,3,HYPN_DUST       ,5,5,HYPN_DUST       ,42,2,GREATER_CEL       ,32,3,GREATER_CEL  })
-
-  DEtableInsert(t, {351,380   , 85, 2.5, SPIRIT_DUST,   15, 1, MYSTERIOUS_ESS})
-  DEtableInsert(t, {381,390   , 85, 3,   SPIRIT_DUST,   15, 1, MYSTERIOUS_ESS})
-  DEtableInsert(t, {391,410   , 85, 3.5, SPIRIT_DUST,   15, 1.5, MYSTERIOUS_ESS})
-  DEtableInsert(t, {411,483   , 85, 4,   SPIRIT_DUST,   15, 2, MYSTERIOUS_ESS})
-
-  DEtableInsert(t, {484,700   , 100, 2.5, DRAENIC_DUST})
+  DEtableInsert (t, {484,700    , 100, 2.5, DRAENIC_DUST});
+  DEtableInsert (t, {701,900    , 100, 3, ARKHANA});
 
   -- RARE (BLUE) ARMOR
 
-  deTable[deKey(ARMOR, RARE)] = {};
+  deTable[deKey(RARE)] = {};
 
-  t = deTable[deKey(ARMOR, RARE)];
-
-  DEtableInsert (t, {11, 25,    100, 1, SMALL_GLIMMERING});
-  DEtableInsert (t, {26, 30,    100, 1, LARGE_GLIMMERING});
-  DEtableInsert (t, {31, 35,    100, 1, SMALL_GLOWING});
-  DEtableInsert (t, {36, 40,    100, 1, LARGE_GLOWING});
-  DEtableInsert (t, {41, 45,    100, 1, SMALL_RADIANT});
-  DEtableInsert (t, {46, 50,    100, 1, LARGE_RADIANT});
-  DEtableInsert (t, {51, 55,    100, 1, SMALL_BRILLIANT});
-  DEtableInsert (t, {56, 65,    99.5, 1, LARGE_BRILLIANT,   0.5, 1, NEXUS_CRYSTAL});
-  DEtableInsert (t, {66, 99,    99.5, 1, SMALL_PRISMATIC,   0.5, 1, NEXUS_CRYSTAL});
-  DEtableInsert (t, {100, 120,  99.5, 1, LARGE_PRISMATIC,   0.5, 1, VOID_CRYSTAL});
-  DEtableInsert (t, {121, 164,  99.5, 1, SMALL_DREAM,     0.5, 1, ABYSS_CRYSTAL});
-  DEtableInsert (t, {165, 280,  99.5, 1, DREAM_SHARD,     0.5, 1, ABYSS_CRYSTAL});
-
-  DEtableInsert (t, {288,288        ,100,1,SMALL_HEAVENLY  })
-  DEtableInsert (t, {292,292        ,100,1,SMALL_HEAVENLY  })
-  DEtableInsert (t, {300,300        ,95,1,SMALL_HEAVENLY       ,5,2,SMALL_HEAVENLY  })
-  DEtableInsert (t, {308,308        ,100,1,SMALL_HEAVENLY  })
-  DEtableInsert (t, {316,316        ,100,1,SMALL_HEAVENLY  })
-  DEtableInsert (t, {318,318        ,100,1,HEAVENLY_SHARD  })
-  DEtableInsert (t, {325,325        ,100,1,HEAVENLY_SHARD  })
-  DEtableInsert (t, {333,333        ,97,1,HEAVENLY_SHARD       ,3,2,HEAVENLY_SHARD  })
-  DEtableInsert (t, {339,339        ,98,1,HEAVENLY_SHARD       ,2,2,HEAVENLY_SHARD  })
-  DEtableInsert (t, {346,346        ,99,1,HEAVENLY_SHARD       ,1,2,HEAVENLY_SHARD  })
-  DEtableInsert (t, {352,380        ,100,1,HEAVENLY_SHARD  })
-
-  DEtableInsert (t, {381,424,   100, 1, SMALL_ETHEREAL})
-  DEtableInsert (t, {425,449,   100, 1, ETHEREAL_SHARD})
-  DEtableInsert (t, {450,450,   20,  1, ETHEREAL_SHARD,     80, 1, SMALL_ETHEREAL})
-  DEtableInsert (t, {451,476,   100, 1, ETHEREAL_SHARD})
-
-  DEtableInsert (t, {477,800,   90, 9, DRAENIC_DUST,    10, 1, LUMINOUS_SHARD})
-
-
-
-  -- RARE (BLUE) WEAPON
-
-  deTable[deKey(WEAPON, RARE)] = {};
-
-  t = deTable[deKey(WEAPON, RARE)];
+ t  = deTable[deKey(RARE)];
 
   DEtableInsert (t, {11, 25,    100, 1, SMALL_GLIMMERING});
   DEtableInsert (t, {26, 30,    100, 1, LARGE_GLIMMERING});
@@ -741,52 +672,58 @@ function Atr_InitDETable()
   DEtableInsert (t, {121, 164,  99.5, 1, SMALL_DREAM,     0.5, 1, ABYSS_CRYSTAL});
   DEtableInsert (t, {165, 280,  99.5, 1, DREAM_SHARD,     0.5, 1, ABYSS_CRYSTAL});
 
-  DEtableInsert (t, {308,308        ,100,1,SMALL_HEAVENLY  })
-  DEtableInsert (t, {316,316        ,100,1,SMALL_HEAVENLY  })
-  DEtableInsert (t, {318,318        ,100,1,HEAVENLY_SHARD  })
-  DEtableInsert (t, {333,333        ,100,1,HEAVENLY_SHARD  })
-  DEtableInsert (t, {346,346        ,93,1,HEAVENLY_SHARD       ,7,2,HEAVENLY_SHARD  })
+  DEtableInsert (t, {288,288        ,100,1,SMALL_HEAVENLY  });
+  DEtableInsert (t, {292,292        ,100,1,SMALL_HEAVENLY  });
+  DEtableInsert (t, {300,300        ,95,1,SMALL_HEAVENLY       ,5,2,SMALL_HEAVENLY  });
+  DEtableInsert (t, {308,308        ,100,1,SMALL_HEAVENLY  });
+  DEtableInsert (t, {316,316        ,100,1,SMALL_HEAVENLY  });
+  DEtableInsert (t, {318,318        ,100,1,HEAVENLY_SHARD  });
+  DEtableInsert (t, {325,325        ,100,1,HEAVENLY_SHARD  });
+  DEtableInsert (t, {333,333        ,97,1,HEAVENLY_SHARD       ,3,2,HEAVENLY_SHARD  });
+  DEtableInsert (t, {339,339        ,98,1,HEAVENLY_SHARD       ,2,2,HEAVENLY_SHARD  });
+  DEtableInsert (t, {346,346        ,99,1,HEAVENLY_SHARD       ,1,2,HEAVENLY_SHARD  });
+  DEtableInsert (t, {352,380        ,100,1,HEAVENLY_SHARD  });
 
-  DEtableInsert (t, {381,424,   100, 1, SMALL_ETHEREAL})
-  DEtableInsert (t, {425,449,   100, 1, ETHEREAL_SHARD})
-  DEtableInsert (t, {450,450,   20,  1, ETHEREAL_SHARD,     80, 1, SMALL_ETHEREAL})
-  DEtableInsert (t, {451,476,   100, 1, ETHEREAL_SHARD})
+  DEtableInsert (t, {381,424,   100, 1, SMALL_ETHEREAL});
+  DEtableInsert (t, {425,449,   100, 1, ETHEREAL_SHARD});
+  DEtableInsert (t, {450,450,   20,  1, ETHEREAL_SHARD,     80, 1, SMALL_ETHEREAL});
+  DEtableInsert (t, {451,476,   100, 1, ETHEREAL_SHARD});
 
-  DEtableInsert (t, {477,800,   90, 9, DRAENIC_DUST,    10, 1, LUMINOUS_SHARD})
+  DEtableInsert (t, {477,714,   90, 9, DRAENIC_DUST,    10, 1, LUMINOUS_SHARD});
+  
+  DEtableInsert (t, {715,850,   90, 3, ARKHANA,    10, 1, LEYLIGHT_SHARD});
+
 
   -- EPIC ITEMS
 
-  deTable[deKey(ARMOR, EPIC)] = {};
+  deTable[deKey(EPIC)] = {};
 
-  t = deTable[deKey(ARMOR, EPIC)];
+ t  = deTable[deKey(EPIC)];
 
   DEtableInsert (t, {40, 45,    100, {2,4}, SMALL_RADIANT});
   DEtableInsert (t, {46, 50,    100, {2,4}, LARGE_RADIANT});
   DEtableInsert (t, {51, 55,    100, {2,4}, SMALL_BRILLIANT});
   DEtableInsert (t, {56, 60,    100, 1, NEXUS_CRYSTAL});
---  DEtableInsert (t, {61, 80,  FILLED IN BELOW
+  DEtableInsert (t, {61, 80,    50,   1, NEXUS_CRYSTAL,   50,   2, NEXUS_CRYSTAL});
   DEtableInsert (t, {95, 100,   100, {1,2}, VOID_CRYSTAL});
   DEtableInsert (t, {105, 164,  33.3, 1, VOID_CRYSTAL,  66.6, 2, VOID_CRYSTAL});
   DEtableInsert (t, {165, 280,  100, 1, ABYSS_CRYSTAL});
   DEtableInsert (t, {281, 450,  100, 1, MAELSTROM_CRYSTAL});
-  DEtableInsert (t, {420, 600,  100, 1, SHA_CRYSTAL})
-  DEtableInsert (t, {601, 900,  100, 1, TEMPORAL_CRYSTAL})
-
-  deTable[deKey(WEAPON, EPIC)] = {};
-  zc.CopyDeep (deTable[deKey(WEAPON, EPIC)], deTable[deKey(ARMOR, EPIC)]);  -- copy it this time because of differences
-
-  DEtableInsert (deTable[deKey(ARMOR,  EPIC)], {61, 80, 50,   1, NEXUS_CRYSTAL,   50,   2, NEXUS_CRYSTAL});
-  DEtableInsert (deTable[deKey(WEAPON, EPIC)], {61, 80, 33.3, 1, NEXUS_CRYSTAL,   66.6, 2, NEXUS_CRYSTAL});
-
+  DEtableInsert (t, {420, 600,  100, 1, SHA_CRYSTAL});
+  DEtableInsert (t, {601, 714,  100, 1, TEMPORAL_CRYSTAL});
+  DEtableInsert (t, {715, 950,  100, 1, CHAOS_CRYSTAL});
+  
+  --zc.CopyDeep (deTable[deKey(EPIC)]);  -- copy it this time because of differences
+ 
 end
 
 -----------------------------------------
 
-local function Atr_FindDEentry (classID, itemRarity, itemLevel)
+local function Atr_FindDEentry (itemRarity, itemLevel)
 
-  local itemTypeNum = classID
 
-  local t = deTable[deKey(itemTypeNum, itemRarity)];
+ local t = deTable[deKey(itemRarity)];
+
 
   if (t) then
     local n;
@@ -805,9 +742,9 @@ end
 
 -----------------------------------------
 
-function Atr_AddDEDetailsToTip (tip, classID, itemRarity, itemLevel)
+function Atr_AddDEDetailsToTip (tip, itemRarity, itemLevel)
 
-  local ta = Atr_FindDEentry (classID, itemRarity, itemLevel);
+  local ta = Atr_FindDEentry (itemRarity, itemLevel);
 
   if (ta) then
     local x;
@@ -850,14 +787,14 @@ end
 
 -----------------------------------------
 
-function Atr_CalcDisenchantPrice( classID, itemRarity, itemLevel)
+function Atr_CalcDisenchantPrice(itemRarity, itemLevel)
 
-  if (Atr_IsWeaponType (classID) or Atr_IsArmorType (classID)) then
+ -- if (Atr_IsWeaponType (classID) or Atr_IsArmorType (classID)) then
     if (itemRarity == UNCOMMON or itemRarity == RARE or itemRarity == EPIC) then
 
       local dePrice = 0;
 
-      local ta = Atr_FindDEentry (classID, itemRarity, itemLevel);
+      local ta = Atr_FindDEentry (itemRarity, itemLevel);
       if (ta) then
         local x;
         for x = 3,#ta,3 do
@@ -870,7 +807,7 @@ function Atr_CalcDisenchantPrice( classID, itemRarity, itemLevel)
 
       return math.floor (dePrice/100);
     end
-  end
+ -- end
 
   return nil;   -- can't be disenchanted
 end
@@ -1005,6 +942,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
       -- 12: itemClass int
       -- 13: subClass int
   local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, _, _, _, _, itemVendorPrice, classID = GetItemInfo (link);
+  itemLevel = ItemUpgradeInfo:GetUpgradedItemLevel(itemLink)
 
   local showStackPrices = IsShiftKeyDown();
   if (AUCTIONATOR_SHIFT_TIPS == 2) then
@@ -1039,7 +977,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
   if (AUCTIONATOR_DE_DETAILS_TIPS == 5) then showDetails = true; end;
 
   if (showDetails and dePrice ~= nil) then
-    Atr_AddDEDetailsToTip (tip, classID, itemRarity, itemLevel)
+    Atr_AddDEDetailsToTip (tip, itemRarity, itemLevel)
   end
 
 

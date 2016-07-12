@@ -23,8 +23,8 @@ gAtrZC = addonTable.zc;   -- share with AuctionatorDev
 
 -----------------------------------------
 
-local WEAPON = 1;
-local ARMOR  = 2;
+local WEAPON = LE_ITEM_CLASS_WEAPON;
+local ARMOR  = LE_ITEM_CLASS_ARMOR;
 
 local recommendElements     = {};
 
