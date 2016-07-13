@@ -1,11 +1,4 @@
 
--- 3.2.3
-
--- change truncate length to 127
--- fixed a couple of possible taints on local variables
---
-
-
 AuctionatorVersion = "???";   -- set from toc upon loading
 AuctionatorAuthor  = "Borjamacare";
 
@@ -20,12 +13,7 @@ local _
 
 gAtrZC = addonTable.zc;   -- share with AuctionatorDev
 
-
 -----------------------------------------
-
-local WEAPON = 1;
-local ARMOR  = 2;
-
 local recommendElements     = {};
 
 AUCTIONATOR_ENABLE_ALT    = 1;
@@ -995,9 +983,9 @@ function Atr_ScanBags (mats, gear)
       if (itemLink) then
         local texture, itemCount, locked, quality = GetContainerItemInfo(bagID, slotID);
 
-        local itemName, _, itemRarity, itemLevel, _, itemType, itemSubType = GetItemInfo (itemLink);
+        local itemName, _, itemRarity, itemLevel, _, itemType, itemSubType, _, _, _, _, itemClassID, itemSubClassID = GetItemInfo( itemLink )
 
-        if ((itemType == "Armor" or itemType == "Weapon") and itemLevel > 271) then
+        if ( Atr_IsWeaponType( itemClassID ) or Atr_IsArmorType( itemClassID ) ) and itemLevel > 271 then
           local key = itemType.."_"..itemSubType.."_"..itemRarity.."_"..itemLevel;
           if (gear[key]) then
             gear[key].count = gear[key].count + 1;
@@ -3664,7 +3652,7 @@ function Atr_ShowSearchSummary()
       if (not scn:IsNil()) then
 
         iLevelStr = ""
-        if (scn.itemClass == WEAPON or scn.itemClass == ARMOR) then
+        if scn.itemClass == LE_ITEM_CLASS_WEAPON or scn.itemClass == LE_ITEM_CLASS_ARMOR then
           iLevelStr = " ("..scn.itemLevel..")"
         end
 
