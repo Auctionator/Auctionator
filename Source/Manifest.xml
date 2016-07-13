@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Objects.lua" />
+
+  <Include file="Constants\Manifest.xml" />
+</Ui>

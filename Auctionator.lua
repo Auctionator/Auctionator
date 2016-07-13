@@ -896,8 +896,6 @@ function Atr_OnLoad()
 
   ------------------
 
-  Atr_InitDETable()
-
   Atr_ShoppingListsInit();
 
   zc.msg_anm ("Read the FAQ at |cFF4499FF http://auctionatoraddon.com/faq")
@@ -2784,12 +2782,6 @@ function Atr_OnUpdate(self, elapsed)
 
   if (zc.periodic (self, "dcq_lastUpdate", 0.05, elapsed)) then
     zc.CheckDeferredCall();
-  end
-
-  -- make sure all dusts and essences are in memory
-
-  if (gAtr_dustCacheIndex > 0) then
-    Atr_GetNextDustIntoCache();
   end
 
   -- special idle routine for full scan analyze phase gets called more often

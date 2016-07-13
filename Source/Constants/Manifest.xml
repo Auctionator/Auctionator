@@ -1,0 +1,14 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Main.lua" />
+
+  <Script file="DebugLevels.lua" />
+  <Script file="Rarity.lua" />
+  <Script file="ClassItemSubclasses.lua" />
+
+  <Script file="Search.lua" />
+  <Script file="ItemLinks.lua" />
+  <Script file="DisenchantingMaterials.lua" />
+  <Script file="DisenchantingMaterialMapping.lua" />
+  <Script file="DisenchantingItemNames.lua" />
+  <Script file="DisenchantingProbabilities.lua" />
+</Ui>

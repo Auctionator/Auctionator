@@ -90,7 +90,7 @@ function Atr_FullScanStart()
       gSlowScanPage = 0
     else
       gAtr_FullScanState = ATR_FS_STARTED;
-      QueryAuctionItems ("", nil, nil, 0, nil, nil, false, false, nil);
+      QueryAuctionItems( "", nil, nil, 0, 0, 0, false, false, nil )
     end
 
   end
@@ -140,7 +140,7 @@ function Atr_FullScanFrameIdle()
     zz ("gDeniedCounter", gDeniedCounter);
     gDeniedCounter = 0;
 
-    QueryAuctionItems ("", nil, nil, gSlowScanPage, nil, nil, false, false, nil)
+    QueryAuctionItems( "", nil, nil, gSlowScanPage, 0, 0, false, false, nil )
 
     gAtr_FullScanState = ATR_FS_SLOW_QUERY_SENT
     if (gSlowScanTotalPages) then

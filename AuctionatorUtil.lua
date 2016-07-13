@@ -45,6 +45,16 @@ function Auctionator.Util.Print( t, name )
   print()
 end
 
+function Auctionator.Util.FlatPrint( t )
+  local buffer = {}
+
+  for position, value in pairs( t ) do
+    table.insert( buffer, value )
+  end
+
+  print( [[{]] .. table.concat( buffer, ',' ) .. [[}]] )
+end
+
 function Auctionator.Util.UTF8_Truncate( string, options )
   options = options or {}
   local newLength = options.newLength or 127

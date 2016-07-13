@@ -18,7 +18,8 @@ Locales\zhTW.lua
 
 AuctionatorObjects.lua
 
-AuctionatorConstants.lua
+Source\Manifest.xml
+
 AuctionatorFilters.lua
 AuctionatorUtil.lua
 
