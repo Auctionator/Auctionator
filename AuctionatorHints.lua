@@ -727,7 +727,7 @@ function Atr_InitDETable()
         DEtableInsert(t, {165, 280, 100, 1, DEMATS.ABYSS_CRYSTAL});
         DEtableInsert(t, {281, 450, 100, 1, DEMATS.MAELSTROM_CRYSTAL});
         DEtableInsert(t, {420, 600, 100, 1, DEMATS.SHA_CRYSTAL});
-        DEtableInsert(t, {601, 714, 100, 1, DEMATS.TEMPORAL_CRYSTAL});
+        DEtableInsert(t, {601, 800, 100, 1, DEMATS.TEMPORAL_CRYSTAL});
  
 end
 
