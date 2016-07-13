@@ -203,28 +203,6 @@ end
 
 -----------------------------------------
 
-local function Atr_CalcTTpadding (price1, price2)
-
-  local padding = "";
-
-  if (price1 and price2) then
-    local vpwidth = Atr_CalcTextWid (price1);
-    local apwidth = Atr_CalcTextWid (price2);
-
-    local padlen = math.floor ((apwidth - vpwidth)/6);
-    local k;
-
-    for k = 1,padlen do
-      padding = padding.." ";
-    end
-  end
-
-  return padding;
-
-end
-
------------------------------------------
-
 local UNCOMMON  = 2;
 local RARE    = 3;
 local EPIC    = 4;
@@ -878,12 +856,9 @@ end
 -----------------------------------------
 
 function Atr_STWP_AddVendorInfo (tip, xstring, vendorPrice, auctionPrice)
-
   if (AUCTIONATOR_V_TIPS == 1 and vendorPrice > 0) then
-    local vpadding = Atr_CalcTTpadding (vendorPrice, auctionPrice);
     tip:AddDoubleLine (ZT("Vendor")..xstring, "|cFFFFFFFF"..zc.priceToMoneyString (vendorPrice))
   end
-
 end
 
 -----------------------------------------
