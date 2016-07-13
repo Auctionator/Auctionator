@@ -591,8 +591,8 @@ function Atr_InitDETable()
         DEtableInsert(t, {381, 390, 85, 2.5, DEMATS.SPIRIT_DUST, 15, 1, DEMATS.MYSTERIOUS_ESS});
         DEtableInsert(t, {391, 410, 85, 3, DEMATS.SPIRIT_DUST, 15, 1.5, DEMATS.MYSTERIOUS_ESS});
         DEtableInsert(t, {411, 483, 85, 3.5, DEMATS.SPIRIT_DUST, 15, 2, DEMATS.MYSTERIOUS_ESS});
-        DEtableInsert(t, {484, 700, 100, 2.5, DEMATS.DRAENIC_DUST});
-        DEtableInsert(t, {701, 900, 100, 2.5, DEMATS.ARKHANA});
+        DEtableInsert(t, {484, 625, 100, 2.5, DEMATS.DRAENIC_DUST});
+        DEtableInsert(t, {626, 900, 100, 2.5, DEMATS.ARKHANA});
 
 
 --UNCOMMON(GREEN)WEAPONS
@@ -663,8 +663,8 @@ function Atr_InitDETable()
         DEtableInsert(t, {425, 449, 100, 1, DEMATS.ETHEREAL_SHARD});
         DEtableInsert(t, {450, 450, 20, 1, DEMATS.ETHEREAL_SHARD, 80, 1, DEMATS.SMALL_ETHEREAL});
         DEtableInsert(t, {451, 476, 100, 1, DEMATS.ETHEREAL_SHARD});
-        DEtableInsert(t, {477, 714, 90, 9, DEMATS.DRAENIC_DUST, 10, 1, DEMATS.LUMINOUS_SHARD});
-        DEtableInsert(t, {715, 850, 30, 3, DEMATS.ARKHANA, 70, 1, DEMATS.LEYLIGHT_SHARD});
+        DEtableInsert(t, {477, 685, 90, 9, DEMATS.DRAENIC_DUST, 10, 1, DEMATS.LUMINOUS_SHARD});
+        DEtableInsert(t, {686, 850, 30, 3, DEMATS.ARKHANA, 70, 1, DEMATS.LEYLIGHT_SHARD});
 
 
 --RARE(BLUE)WEAPON
@@ -709,8 +709,8 @@ function Atr_InitDETable()
         DEtableInsert(t, {165, 280, 100, 1, DEMATS.ABYSS_CRYSTAL});
         DEtableInsert(t, {281, 450, 100, 1, DEMATS.MAELSTROM_CRYSTAL});
         DEtableInsert(t, {420, 600, 100, 1, DEMATS.SHA_CRYSTAL});
-        DEtableInsert(t, {601, 714, 100, 1, DEMATS.TEMPORAL_CRYSTAL});
-        DEtableInsert(t, {715, 950, 100, 1, DEMATS.CHAOS_CRYSTAL});
+        DEtableInsert(t, {601, 834, 100, 1, DEMATS.TEMPORAL_CRYSTAL});
+        DEtableInsert(t, {835, 950, 100, 1, DEMATS.CHAOS_CRYSTAL});
 
 
 --EPIC(PURPLE)WEAPON
