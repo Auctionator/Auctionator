@@ -157,7 +157,6 @@ end
 -----------------------------------------
 
 function Atr_GetAuctionPrice (item)  -- itemName or itemID
-
   local itemName;
 
   if (type (item) == "number") then
@@ -200,80 +199,6 @@ local function Atr_CalcTextWid (price)
 
   return wid;
 end
-
------------------------------------------
-
-local UNCOMMON  = 2;
-local RARE    = 3;
-local EPIC    = 4;
-
-local LESSER_MAGIC    = 10938;
-local GREATER_MAGIC   = 10939;
-local STRANGE_DUST    = 10940;
-
-local SMALL_GLIMMERING  = 10978;
-local LESSER_ASTRAL   = 10998;
-
-local GREATER_ASTRAL  = 11082;
-local SOUL_DUST     = 11083;
-local LARGE_GLIMMERING  = 11084;
-
-local LESSER_MYSTIC   = 11134;
-local GREATER_MYSTIC  = 11135;
-local VISION_DUST   = 11137;
-local SMALL_GLOWING   = 11138;
-local LARGE_GLOWING   = 11139;
-
-local LESSER_NETHER   = 11174;
-local GREATER_NETHER  = 11175;
-local DREAM_DUST    = 11176;
-local SMALL_RADIANT   = 11177;
-local LARGE_RADIANT   = 11178;
-
-local SMALL_BRILLIANT = 14343;
-local LARGE_BRILLIANT = 14344;
-
-local LESSER_ETERNAL  = 16202;
-local GREATER_ETERNAL = 16203;
-local ILLUSION_DUST   = 16204;
-
-local NEXUS_CRYSTAL   = 20725;
-
-local ARCANE_DUST   = 22445;
-local GREATER_PLANAR  = 22446;
-local LESSER_PLANAR   = 22447;
-local SMALL_PRISMATIC = 22448;
-local LARGE_PRISMATIC = 22449;
-local VOID_CRYSTAL    = 22450;
-
-local DREAM_SHARD   = 34052;
-local SMALL_DREAM   = 34053;
-
-local INFINITE_DUST   = 34054;
-local GREATER_COSMIC  = 34055;
-local LESSER_COSMIC   = 34056;
-local ABYSS_CRYSTAL   = 34057;
-
-local HEAVENLY_SHARD  = 52721;
-local SMALL_HEAVENLY  = 52720;
-
-local HYPN_DUST     = 52555;
-local GREATER_CEL   = 52719;
-local LESSER_CEL    = 52718;
-local MAELSTROM_CRYSTAL = 52722;
-
-local ETHEREAL_SHARD  = 74247
-local SMALL_ETHEREAL  = 74252
-
-local SPIRIT_DUST   = 74249
-local MYSTERIOUS_ESS  = 74250
-local GREATER_MYST_ESS  = 74251
-local SHA_CRYSTAL   = 74248
-
-local TEMPORAL_CRYSTAL    = 113588
-local LUMINOUS_SHARD    = 111245
-local SMALL_LUM_SHARD   = 115502
-local DRAENIC_DUST      = 109693
 
 -----------------------------------------
 
@@ -341,30 +266,36 @@ end
 
 
 -----------------------------------------
+function Auctionator.IsNotCommon( itemRarity )
+  return itemRarity == Auctionator.Constants.Rarity.UNCOMMON or
+    itemRarity == Auctionator.Constants.Rarity.RARE or
+    itemRarity == Auctionator.Constants.Rarity.EPIC
+end
+
+function Auctionator.IsDisenchantable( classID )
+  return Atr_IsWeaponType( classID ) or Atr_IsArmorType( classID )
+end
 
 function Atr_CalcDisenchantPrice( classID, itemRarity, itemLevel)
+  if Auctionator.IsDisenchantable( classID ) and Auctionator.IsNotCommon( itemRarity ) then
 
-  if (Atr_IsWeaponType (classID) or Atr_IsArmorType (classID)) then
-    if (itemRarity == UNCOMMON or itemRarity == RARE or itemRarity == EPIC) then
+    local dePrice = 0
 
-      local dePrice = 0;
+    local ta = Atr_FindDEentry( classID, itemRarity, itemLevel )
+    if ta then
+      for x = 3, #ta, 3 do
+        local price = Atr_GetAuctionPriceDE( ta[ x + 2 ] )
 
-      local ta = Atr_FindDEentry (classID, itemRarity, itemLevel);
-      if (ta) then
-        local x;
-        for x = 3,#ta,3 do
-          local price = Atr_GetAuctionPriceDE (ta[x+2]);
-          if (price) then
-            dePrice = dePrice + (ta[x] * ta[x+1] * price);
-          end
+        if price then
+          dePrice = dePrice + ( ta[ x ] * ta[ x + 1 ] * price )
         end
       end
-
-      return math.floor (dePrice/100);
     end
+
+    return math.floor( dePrice / 100 )
   end
 
-  return nil;   -- can't be disenchanted
+  return nil
 end
 
 -----------------------------------------
@@ -378,7 +309,7 @@ end
 -----------------------------------------
 
 function Atr_STWP_AddAuctionInfo (tip, xstring, link, auctionPrice)
-  if (AUCTIONATOR_A_TIPS == 1) then
+  if AUCTIONATOR_A_TIPS == 1 then
 
     local itemID = zc.RawItemIDfromLink (link);
     itemID = tonumber(itemID);
@@ -444,15 +375,14 @@ local item_links = {}
 local pet_links = {}
 
 function Atr_ShowTipWithPricing (tip, link, num)
-
-  if (link == nil or zc.IsBattlePetLink(link)) then
+  if link == nil or zc.IsBattlePetLink( link ) then
     if link and not pet_links[ link ] then
       pet_links[ link ] = Auctionator.ItemLink:new({ item_link = link })
-      Auctionator.Debug.Message( pet_links[ link ]:GetField( Auctionator.Constants.ItemLink.TYPE ),
-        pet_links[ link ]:IdString() )
     end
 
-    return;
+    -- TODO: Once search functionality is updated to include battle pet levels,
+    -- add tooltip here
+    return
   end
 
   if Auctionator.Debug.IsOn() then

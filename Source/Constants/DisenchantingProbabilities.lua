@@ -1,5 +1,5 @@
 -- Just re-namespacing for convenience in this file
-local MATS = Auctionator.Constants.DisenchantMats
+-- local MATS = Auctionator.Constants.DisenchantMats
 
 Auctionator.Constants.DisenchantingProbabilityKeys = {
   LOW = 1,
