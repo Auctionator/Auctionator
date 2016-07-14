@@ -5,6 +5,8 @@ local zc = addonTable.zc;
 local zz = zc.md;
 local _
 
+local ItemUpgradeInfo = LibStub( 'LibItemUpgradeInfo-1.0' )
+
 -----------------------------------------
 
 local auctionator_orig_GameTooltip_OnTooltipAddMoney;
@@ -423,7 +425,8 @@ function Atr_ShowTipWithPricing (tip, link, num)
       -- 11: itemVendorPrice? (big int)
       -- 12: itemClass int
       -- 13: subClass int
-  local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, _, _, _, _, itemVendorPrice, classID = GetItemInfo (link);
+  local itemName, itemLink, itemRarity, _, itemMinLevel, itemType, _, _, _, _, itemVendorPrice, classID = GetItemInfo (link);
+  local itemLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
 
   local showStackPrices = IsShiftKeyDown();
   if (AUCTIONATOR_SHIFT_TIPS == 2) then
