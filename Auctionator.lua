@@ -1394,15 +1394,13 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
 
     if (gOpenAllBags == 1) then
 	
-		for i=0, NUM_BAG_FRAMES do
-			OpenBag(i);
-		end
+	    for i=0, NUM_BAG_FRAMES do
+	        OpenBag(i);
+	    end
 		
 		gOpenAllBags = 0;
     end
-
   end
-
 end
 
 -----------------------------------------
