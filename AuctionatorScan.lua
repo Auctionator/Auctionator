@@ -393,8 +393,8 @@ function AtrSearch:ShouldAnalyze()
     return false
   end
 
-  -- give Blizz servers a break (100 pages)
-  if self.current_page == 1 and self.query.totalAuctions > 5000 then
+  -- give Blizz servers a break (200 pages)
+  if self.current_page == 1 and self.query.totalAuctions > 10000 then
     return false
   end
 
@@ -415,8 +415,9 @@ function AtrSearch:SetScanningMessage()
     end
 
     message = string.format( ZT( "Scanning auctions for %s%s"), shoppingListItemName, pageText)
-  elseif self.query.totalAuctions >= 50 then
-    message = string.format( ZT( "Scanning auctions: page %d"), self.current_page)
+  elseif self.query.totalAuctions >= 50 then	
+	message = string.format( ZT( "Scanning auctions: page %d of %d"), self.current_page, ceil( self.query.totalAuctions / NUM_AUCTION_ITEMS_PER_PAGE ))
+	
   end
 
   if message then
