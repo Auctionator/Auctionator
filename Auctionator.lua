@@ -1393,8 +1393,14 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
     gCurrentPane.UINeedsUpdate = true;
 
     if (gOpenAllBags == 1) then
-      OpenAllBags();
-      gOpenAllBags = 0;
+	
+		OpenBackpack();
+		
+		for i=1, NUM_BAG_FRAMES, 1 do
+			OpenBag(i);
+		end
+		
+		gOpenAllBags = 0;
     end
 
   end
