@@ -180,7 +180,11 @@
 
       <Button name="Atr_FullScanButton" inherits="Atr_SmallButtonTemplate" text="Full Scan...">
         <Size><AbsDimension x="74" y="18"/> </Size>
-        <Anchors><Anchor point="TOPLEFT" relativeTo="Auctionator1Button" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="0" y="2"/></Offset></Anchor></Anchors>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeTo="Auctionator1Button" relativePoint="BOTTOMRIGHT">
+            <Offset><AbsDimension x="0" y="2"/></Offset>
+          </Anchor>
+        </Anchors>
         <Scripts>
           <OnClick>Atr_ShowFullScanFrame()</OnClick>
         </Scripts>
