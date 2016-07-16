@@ -415,9 +415,9 @@ function AtrSearch:SetScanningMessage()
     end
 
     message = string.format( ZT( "Scanning auctions for %s%s"), shoppingListItemName, pageText)
-  elseif self.query.totalAuctions >= 50 then	
+  elseif self.query.totalAuctions >= 50 then
 	message = string.format( ZT( "Scanning auctions: page %d of %d"), self.current_page, ceil( self.query.totalAuctions / NUM_AUCTION_ITEMS_PER_PAGE ))
-	
+
   end
 
   if message then
@@ -426,100 +426,132 @@ function AtrSearch:SetScanningMessage()
 end
 
 function AtrSearch:AnalyzeResultsPage()
-  Auctionator.Debug.Message( 'AnalyzeResultsPage:', self.query.totalAuctions )
 
   self.processing_state = Auctionator.Constants.SearchStates.ANALYZING;
 
-  if not self:ShouldAnalyze() then
-    return true
+  if (self.query.numDupPages > 50) then    -- hopefully this will never happen but need check to avoid looping
+    return true;             -- done
   end
 
-  self:SetScanningMessage()
+  local q = self.query;
+
+  Auctionator.Debug.Message( 'AnalyzeResultsPage:', q.totalAuctions )
+
+  if (self.current_page == 1 and q.totalAuctions > 5000) then -- give Blizz servers a break (100 pages)
+    Atr_Error_Display (ZT("Too many results\n\nPlease narrow your search"));
+    return true;  -- done
+  end
+
+  local msg
+
+  local slistItemName = Atr_GetShoppingListItem (self)
+  if (slistItemName) then
+
+    local pageText = "";
+    if (self.current_page > 1) then
+      pageText = string.format (ZT(": page %d"), self.current_page)
+    else
+      pageText = "             "
+    end
+
+    msg = string.format (ZT("Scanning auctions for %s%s"), slistItemName, pageText);
+  elseif (q.totalAuctions >= 50) then
+    msg = string.format (ZT("Scanning auctions: page %d"), self.current_page);
+  end
+
+  if (msg) then
+    Atr_SetMessage (msg)
+  end
+
+  --zz (slistItemName, "current_page: ", self.current_page, "numBatchAuctions: ", numBatchAuctions)
+
+  -- analyze
 
   local k, g, f
   local numNilOwners = 0
 
-  local numberOnPage = self.query.curPageInfo.numOnPage
+  if (q.curPageInfo.numOnPage > 0) then
 
-  for itemNumber = 1, numberOnPage do
-    local ax = self.query.curPageInfo.auctionInfo[ itemNumber ]
+    local x;
 
-    local itemLink = ax.itemLink;
+    for x = 1, q.curPageInfo.numOnPage do
+      local ax = q.curPageInfo.auctionInfo[x];
 
-    if itemLink then
-      local item_link = Auctionator.ItemLink:new({ item_link = itemLink })
+      local itemLink = ax.itemLink;
 
-      if Atr_ILevelHist_Update then
-        Atr_ILevelHist_Update( itemLink )
-      end
+      if (itemLink) then
+        local item_link = Auctionator.ItemLink:new({ item_link = itemLink })
 
-      if item_link:IsBattlePet() then
-        Auctionator.Debug.Message( 'AtrSearch:AnalyzeResultsPage isBattlePet ', item_link:IdString() )
-        Auctionator.Util.Print( item_link, 'Battle Pet Item Link')
-        ATR_AddToBattlePetIconCache( itemLink, ax.texture )
-      end
-
-      local OKitemLevel = true
-
-      Auctionator.Debug.Message( 'Checking item level: ', self.minItemLevel, self.maxItemLevel )
-
-      if self.minItemLevel or self.maxItemLevel then
-        local _, _, _, iLevel = GetItemInfo( itemLink )
-         Auctionator.Debug.Message( 'iLevel: ', iLevel )
-
-        OKitemLevel = not (
-          ( self.minItemLevel and iLevel < self.minItemLevel ) or
-          ( self.maxItemLevel and iLevel > self.maxItemLevel )
-        )
-      end
-
-      if OKitemLevel then
-        if owner == nil then
-          numNilOwners = numNilOwners + 1
+        if (Atr_ILevelHist_Update) then
+          Atr_ILevelHist_Update(itemLink)
         end
 
-        if self.exactMatchText == nil or zc.StringSame( ax.name, self.exactMatchText ) then
+        local isBattlePet = zc.IsBattlePetLink(itemLink);
 
-          if (self.items[ item_link:IdString() ] == nil) then
-            self.items[ item_link:IdString() ] = Atr_FindScanAndInit( item_link:IdString(), ax.name )
-          end
+        if (isBattlePet) then
+          Auctionator.Debug.Message( 'AtrSearch:AnalyzeResultsPage isBattlePet ', item_link:IdString() )
+          Auctionator.Util.Print( item_link, 'Battle Pet Item Link')
+          ATR_AddToBattlePetIconCache (itemLink, ax.texture);
+        end
 
-          local curpage = tonumber( self.current_page ) - 1
+        local OKitemLevel = true
+        if (self.minItemLevel or self.maxItemLevel) then
+          local _, _, _, iLevel = GetItemInfo(itemLink);
 
-          local scn = self.items[ item_link:IdString() ]
+          Auctionator.Debug.Message( '*****************', iLevel, self.minItemLevel, self.maxItemLevel )
 
-          if scn then
-            scn:AddScanItem( ax.count, ax.buyoutPrice, ax.owner, 1, curpage )
-            scn:UpdateItemLink( itemLink )
+          if ((self.minItemLevel and iLevel < self.minItemLevel) or (self.maxItemLevel and iLevel > self.maxItemLevel)) then
+            OKitemLevel = false
           end
         end
+
+        if (OKitemLevel) then
+          if (owner == nil) then
+            numNilOwners = numNilOwners + 1
+          end
+
+          if (self.exactMatchText == nil or zc.StringSame (ax.name, self.exactMatchText)) then
+
+            if (self.items[ item_link:IdString() ] == nil) then
+              self.items[ item_link:IdString() ] = Atr_FindScanAndInit( item_link:IdString(), ax.name )
+            end
+
+            local curpage = (tonumber(self.current_page)-1)
+
+            local scn = self.items[ item_link:IdString() ]
+
+            if (scn) then
+              scn:AddScanItem (ax.count, ax.buyoutPrice, ax.owner, 1, curpage)
+              scn:UpdateItemLink (itemLink)
+            end
+          end
+        end
+      else
+        gNumNilItemLinks = gNumNilItemLinks + 1
       end
-    else
-      gNumNilItemLinks = gNumNilItemLinks + 1
     end
   end
 
-  local done = numberOnPage < 50
+  local done = (q.curPageInfo.numOnPage < 50);
 
-  if done then
-    if self.shplist then
+  if (done) then
+    if (self.shplist) then
       self.shopListIndex = self.shopListIndex + 1
-
-      local nextSearchItem = Atr_GetShoppingListItem( self )
-
-      if nextSearchItem then
-        self.current_page = 0
-        self.exactMatchText = nil
+      local nextSearchItem = Atr_GetShoppingListItem (self)
+      if (nextSearchItem) then
+        self.current_page   = 0
+        self.exactMatchText   = nil
         done = false
       end
     end
-  else
-    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY
   end
 
-  return done
-end
+  if (not done) then
+    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY;
+  end
 
+  return done;
+end
 -----------------------------------------
 
 function AtrScan:AddScanItem (stackSize, buyoutPrice, owner, numAuctions, curpage)
