@@ -395,6 +395,7 @@ function AtrSearch:ShouldAnalyze()
 
   -- give Blizz servers a break (200 pages)
   if self.current_page == 1 and self.query.totalAuctions > 10000 then
+    Atr_Error_Display( ZT( "Too many results\n\nPlease narrow your search" ))
     return false
   end
 
@@ -426,104 +427,67 @@ function AtrSearch:SetScanningMessage()
 end
 
 function AtrSearch:AnalyzeResultsPage()
+  Auctionator.Debug.Message( 'AnalyzeResultsPage:', self.query.totalAuctions )
 
   self.processing_state = Auctionator.Constants.SearchStates.ANALYZING;
 
-  if (self.query.numDupPages > 50) then    -- hopefully this will never happen but need check to avoid looping
-    return true;             -- done
+  if not self:ShouldAnalyze() then
+    return true
   end
 
-  local q = self.query;
-
-  Auctionator.Debug.Message( 'AnalyzeResultsPage:', q.totalAuctions )
-
-  if (self.current_page == 1 and q.totalAuctions > 5000) then -- give Blizz servers a break (100 pages)
-    Atr_Error_Display (ZT("Too many results\n\nPlease narrow your search"));
-    return true;  -- done
-  end
-
-  local msg
-
-  local slistItemName = Atr_GetShoppingListItem (self)
-  if (slistItemName) then
-
-    local pageText = "";
-    if (self.current_page > 1) then
-      pageText = string.format (ZT(": page %d"), self.current_page)
-    else
-      pageText = "             "
-    end
-
-    msg = string.format (ZT("Scanning auctions for %s%s"), slistItemName, pageText);
-  elseif (q.totalAuctions >= 50) then
-    msg = string.format (ZT("Scanning auctions: page %d"), self.current_page);
-  end
-
-  if (msg) then
-    Atr_SetMessage (msg)
-  end
-
-  --zz (slistItemName, "current_page: ", self.current_page, "numBatchAuctions: ", numBatchAuctions)
+  self:SetScanningMessage()
 
   -- analyze
 
   local k, g, f
   local numNilOwners = 0
 
-  if (q.curPageInfo.numOnPage > 0) then
+  if self.query.curPageInfo.numOnPage > 0 then
 
-    local x;
+    for x = 1, self.query.curPageInfo.numOnPage do
+      local item = self.query.curPageInfo.auctionInfo[ x ]
 
-    for x = 1, q.curPageInfo.numOnPage do
-      local ax = q.curPageInfo.auctionInfo[x];
+      if item.itemLink then
+        local item_link = Auctionator.ItemLink:new({ item_link = item.itemLink })
 
-      local itemLink = ax.itemLink;
-
-      if (itemLink) then
-        local item_link = Auctionator.ItemLink:new({ item_link = itemLink })
-
-        if (Atr_ILevelHist_Update) then
-          Atr_ILevelHist_Update(itemLink)
+        if Atr_ILevelHist_Update then
+          Atr_ILevelHist_Update( item.itemLink )
         end
 
-        local isBattlePet = zc.IsBattlePetLink(itemLink);
-
-        if (isBattlePet) then
+        if zc.IsBattlePetLink( item.itemLink ) then
           Auctionator.Debug.Message( 'AtrSearch:AnalyzeResultsPage isBattlePet ', item_link:IdString() )
           Auctionator.Util.Print( item_link, 'Battle Pet Item Link')
-          ATR_AddToBattlePetIconCache (itemLink, ax.texture);
+          ATR_AddToBattlePetIconCache( item.itemLink, item.texture )
         end
 
         local OKitemLevel = true
-        if (self.minItemLevel or self.maxItemLevel) then
-          local _, _, _, iLevel = GetItemInfo(itemLink);
 
-          Auctionator.Debug.Message( '*****************', iLevel, self.minItemLevel, self.maxItemLevel )
+        if self.minItemLevel or self.maxItemLevel then
+          local _, _, _, iLevel = GetItemInfo( item.itemLink )
 
-          if ((self.minItemLevel and iLevel < self.minItemLevel) or (self.maxItemLevel and iLevel > self.maxItemLevel)) then
-            OKitemLevel = false
-          end
+          OKitemLevel = not (
+            ( self.minItemLevel and iLevel < self.minItemLevel ) or
+            ( self.maxItemLevel and iLevel > self.maxItemLevel )
+          )
         end
 
-        if (OKitemLevel) then
-          if (owner == nil) then
-            numNilOwners = numNilOwners + 1
+        if OKitemLevel and owner == nil then
+          numNilOwners = numNilOwners + 1
+        end
+
+        if OKitemLevel and ( self.exactMatchText == nil or zc.StringSame( item.name, self.exactMatchText )) then
+
+          if self.items[ item_link:IdString() ] == nil then
+            self.items[ item_link:IdString() ] = Atr_FindScanAndInit( item_link:IdString(), item.name )
           end
 
-          if (self.exactMatchText == nil or zc.StringSame (ax.name, self.exactMatchText)) then
+          local scn = self.items[ item_link:IdString() ]
 
-            if (self.items[ item_link:IdString() ] == nil) then
-              self.items[ item_link:IdString() ] = Atr_FindScanAndInit( item_link:IdString(), ax.name )
-            end
+          if scn then
+            local curpage = tonumber( self.current_page ) - 1
 
-            local curpage = (tonumber(self.current_page)-1)
-
-            local scn = self.items[ item_link:IdString() ]
-
-            if (scn) then
-              scn:AddScanItem (ax.count, ax.buyoutPrice, ax.owner, 1, curpage)
-              scn:UpdateItemLink (itemLink)
-            end
+            scn:AddScanItem( item.count, item.buyoutPrice, item.owner, 1, curpage )
+            scn:UpdateItemLink( item.itemLink )
           end
         end
       else
@@ -532,25 +496,24 @@ function AtrSearch:AnalyzeResultsPage()
     end
   end
 
-  local done = (q.curPageInfo.numOnPage < 50);
+  local done = self.query.curPageInfo.numOnPage < 50
 
-  if (done) then
-    if (self.shplist) then
-      self.shopListIndex = self.shopListIndex + 1
-      local nextSearchItem = Atr_GetShoppingListItem (self)
-      if (nextSearchItem) then
-        self.current_page   = 0
-        self.exactMatchText   = nil
-        done = false
-      end
+  if done and self.shplist then
+    self.shopListIndex = self.shopListIndex + 1
+    local nextSearchItem = Atr_GetShoppingListItem( self )
+
+    if nextSearchItem then
+      self.current_page = 0
+      self.exactMatchText = nil
+      done = false
     end
   end
 
-  if (not done) then
-    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY;
+  if not done then
+    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY
   end
 
-  return done;
+  return done
 end
 -----------------------------------------
 
