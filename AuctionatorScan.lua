@@ -415,10 +415,13 @@ function AtrSearch:SetScanningMessage()
       pageText = "             "
     end
 
-    message = string.format( ZT( "Scanning auctions for %s%s"), shoppingListItemName, pageText)
+    message = string.format( ZT( "Scanning auctions for %s%s"), shoppingListItemName, pageText )
   elseif self.query.totalAuctions >= 50 then
-	message = string.format( ZT( "Scanning auctions: page %d of %d"), self.current_page, ceil( self.query.totalAuctions / NUM_AUCTION_ITEMS_PER_PAGE ))
-
+    message = string.format(
+      ZT( "Scanning auctions: page %d of %d"), self.current_page,
+        ceil( self.query.totalAuctions / NUM_AUCTION_ITEMS_PER_PAGE
+      )
+    )
   end
 
   if message then
@@ -439,7 +442,6 @@ function AtrSearch:AnalyzeResultsPage()
 
   -- analyze
 
-  local k, g, f
   local numNilOwners = 0
 
   if self.query.curPageInfo.numOnPage > 0 then
@@ -515,6 +517,7 @@ function AtrSearch:AnalyzeResultsPage()
 
   return done
 end
+
 -----------------------------------------
 
 function AtrScan:AddScanItem (stackSize, buyoutPrice, owner, numAuctions, curpage)
