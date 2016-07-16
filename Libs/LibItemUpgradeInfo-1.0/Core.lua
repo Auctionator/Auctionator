@@ -140,9 +140,11 @@ function lib:GetUpgradeID(itemString)
 	local itemString = itemString:match("item[%-?%d:]+") or ""-- Standardize itemlink to itemstring
 	local instaid, _, numBonuses, affixes = select(12, strsplit(":", itemString, 15))
 	instaid=tonumber(instaid) or 7
+	numBonuses=tonumber(numBonuses) or 0
 	if instaid >0 and (instaid-4)%8==0 then
-		return tonumber((select(numBonuses + 1, strsplit(":", affixes))))
+		return select(numBonuses + 1, strsplit(":", affixes))
 	end
+	
 end
 
 -- GetCurrentUpgrade(id)
