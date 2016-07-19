@@ -541,10 +541,10 @@ function Atr_RenameSList(index, newname)
 
   -- in case it's the currently selected one
 
-  local curIndex = UIDropDownMenu_GetSelectedValue(Atr_DropDownSL)
-  if (curIndex and curIndex > 0) then
-    UIDropDownMenu_SetText (Atr_DropDownSL, AUCTIONATOR_SHOPPING_LISTS[curIndex].name)  -- needed to fix bug in UIDropDownMenu
-  end
+  -- local curIndex = UIDropDownMenu_GetSelectedValue(Atr_DropDownSL)
+  -- if (curIndex and curIndex > 0) then
+  --   UIDropDownMenu_SetText (Atr_DropDownSL, AUCTIONATOR_SHOPPING_LISTS[curIndex].name)  -- needed to fix bug in UIDropDownMenu
+  -- end
 
   -- run thru all the lists and fix up any lists that contain this list
 
