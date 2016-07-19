@@ -20,7 +20,8 @@ notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy#builds
 
 before_deploy:
-  - rsync -avR --progress . Deploy/Auctionator --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec --exclude .gitignore --exclude .github
+  - mkdir -p Deploy/Auctionator
+  - rsync -av --progress . Deploy/Auctionator --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec --exclude .gitignore --exclude .github
   - mkdir latest
   - cd Deploy && zip -r ../latest/Auctionator.zip * && cd ..
 
