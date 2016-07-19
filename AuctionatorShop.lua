@@ -566,28 +566,6 @@ end
 
 -----------------------------------------
 
-local function FinishCreateNewSList(text)
-
-  local slist = Atr_SList.create(text);
-
-  local num = #AUCTIONATOR_SHOPPING_LISTS;
-  local n;
-
-  for n = 1,num do
-    if (AUCTIONATOR_SHOPPING_LISTS[n] == slist) then
-      UIDropDownMenu_SetSelectedValue(Atr_DropDownSL, n);
-      UIDropDownMenu_SetText (Atr_DropDownSL, text);  -- needed to fix bug in UIDropDownMenu
-      slist:DisplayX();
-      Atr_SetUINeedsUpdate();
-      break;
-    end
-  end
-end
-
-
-
------------------------------------------
-
 StaticPopupDialogs["ATR_NEW_SHOPPING_LIST"] = {
   text = "",
   button1 = ACCEPT,
@@ -596,11 +574,11 @@ StaticPopupDialogs["ATR_NEW_SHOPPING_LIST"] = {
   maxLetters = 32,
   OnAccept = function(self)
     local text = self.editBox:GetText();
-    FinishCreateNewSList (text);
+    Atr_SList.create( text )
   end,
   EditBoxOnEnterPressed = function(self)
     local text = self:GetParent().editBox:GetText();
-    FinishCreateNewSList (text);
+    Atr_SList.create( text )
     self:GetParent():Hide();
   end,
   OnShow = function(self)
