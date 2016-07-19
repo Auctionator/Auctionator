@@ -36,4 +36,4 @@ deploy:
   local-dir: latest
   acl: public_read
   on:
-    repo: jrob8577/Auctionator
+    repo: Auctionator/Auctionator
