@@ -17,7 +17,6 @@ gAtrZC = addonTable.zc;   -- share with AuctionatorDev
 local recommendElements     = {};
 
 AUCTIONATOR_ENABLE_ALT    = 1;
-AUCTIONATOR_OPEN_ALL_BAGS = 1;
 AUCTIONATOR_SHOW_ST_PRICE = 0;
 AUCTIONATOR_SHOW_TIPS   = 1;
 AUCTIONATOR_DEF_DURATION  = "N";    -- none
@@ -68,7 +67,6 @@ local gForceMsgAreaUpdate = true;
 local gAtr_ClickAuctionSell = false;
 local gAtr_echoAddonChat = false
 
-local gOpenAllBags    = AUCTIONATOR_OPEN_ALL_BAGS;
 local gTimeZero;
 local gTimeTightZero;
 
@@ -1391,14 +1389,6 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
     _G["Atr_Main_Panel"]:Show();
 
     gCurrentPane.UINeedsUpdate = true;
-
-    if gOpenAllBags == 1 then
-      for i=0, NUM_BAG_FRAMES do
-        OpenBag( i )
-      end
-		
-      gOpenAllBags = 0
-    end
   end
 end
 
@@ -2693,8 +2683,6 @@ end
 
 function Atr_OnAuctionHouseShow()
   Auctionator.Debug.Message( 'Atr_OnAuctionHouseShow' )
-
-  gOpenAllBags = AUCTIONATOR_OPEN_ALL_BAGS;
 
   if (AUCTIONATOR_DEFTAB == 1) then   Atr_SelectPane (SELL_TAB);  end
   if (AUCTIONATOR_DEFTAB == 2) then   Atr_SelectPane (BUY_TAB); end
