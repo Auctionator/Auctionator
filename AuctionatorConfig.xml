@@ -534,7 +534,7 @@
     </Frames>
   </Frame>
   <!-- The Sell Stacking screen -->
-  <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_StackingOptionsFrame" parent="UIParent">
+  <Frame enableMouse="true" frameStrata="MEDIUM" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_StackingOptionsFrame" parent="InterfaceOptionsFrame">
     <Scripts>
       <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Selling"), nil, gAtr_ZT("Configure how you typically like to sell the items listed below."));
       </OnLoad>
@@ -586,7 +586,7 @@
           </EdgeSize>
         </Backdrop>
       </Frame>
-      <Button inherits="Atr_SmallButtonTemplate" name="$parent_Edit" text="Edit">
+      <Button inherits="Atr_SmallButtonTemplate" name="$parent_Edit" parent="Atr_StackingOptionsFrame" text="Edit">
         <Size>
           <AbsDimension x="80" y="18"/>
         </Size>
@@ -601,7 +601,7 @@
           <OnClick>Atr_StackingList_Edit_OnClick()</OnClick>
         </Scripts>
       </Button>
-      <Button inherits="Atr_SmallButtonTemplate" name="$parent_New" text="New">
+      <Button inherits="Atr_SmallButtonTemplate" name="$parent_New" parent="Atr_StackingOptionsFrame" text="New">
         <Size>
           <AbsDimension x="80" y="18"/>
         </Size>
@@ -681,14 +681,14 @@
     </Scripts>
   </Button>
   <!-- Memorize Stacking screen -->
-  <Frame enableMouse="true" frameStrata="FULLSCREEN_DIALOG" hidden="true" name="Atr_MemorizeFrame" parent="Atr_StackingOptionsFrame" toplevel="true">
+  <Frame enableMouse="true" frameStrata="DIALOG" hidden="true" name="Atr_MemorizeFrame" parent="InterfaceOptionsFrame" toplevel="true">
     <Size>
       <AbsDimension x="430" y="250"/>
     </Size>
     <Anchors>
-      <Anchor point="TOPLEFT">
+      <Anchor point="CENTER">
         <Offset>
-          <AbsDimension x="-100" y="-30"/>
+          <AbsDimension x="10" y="50"/>
         </Offset>
       </Anchor>
     </Anchors>
