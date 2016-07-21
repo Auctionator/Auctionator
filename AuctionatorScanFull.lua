@@ -90,7 +90,7 @@ function Atr_FullScanStart()
       gSlowScanPage = 0
     else
       gAtr_FullScanState = ATR_FS_STARTED;
-      QueryAuctionItems( "", nil, nil, 0, 0, 0, false, false, nil )
+      QueryAuctionItems( "", nil, nil, 0, 0, 0, true, false, nil )
     end
 
   end
