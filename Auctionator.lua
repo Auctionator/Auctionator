@@ -877,7 +877,7 @@ function Atr_OnLoad()
 
 
   -- Migrate old version of shopping lists to new adv
-  if AUCTIONATOR_SHOPPING_LISTS then and AUCTIONATOR_SHOPPING_LISTS_MIGRATED_V2 == nil then
+  if AUCTIONATOR_SHOPPING_LISTS and AUCTIONATOR_SHOPPING_LISTS_MIGRATED_V2 == nil then
     for index, list in ipairs( AUCTIONATOR_SHOPPING_LISTS ) do
       local fixedList = {}
 
