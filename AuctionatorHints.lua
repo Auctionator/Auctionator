@@ -546,19 +546,24 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
   end
 );
 
--- TODO http://www.wowinterface.com/forums/showthread.php?p=315431
--- hooksecurefunc (GameTooltip, "SetTradeSkillItem",
---   function (tip, skill, id)
---     local link = GetTradeSkillItemLink(skill);
---     local num  = GetTradeSkillNumMade(skill);
---     if id then
---       link = GetTradeSkillReagentItemLink(skill, id);
---       num = select (3, GetTradeSkillReagentInfo(skill, id));
---     end
 
---     Atr_ShowTipWithPricing (tip, link, num);
---   end
--- );
+hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
+  function( tip, itemId )
+    local link = C_TradeSkillUI.GetRecipeItemLink( itemId )
+    local count  = C_TradeSkillUI.GetRecipeNumItemsProduced( itemId )
+
+    Atr_ShowTipWithPricing( tip, link, count )
+  end
+);
+
+hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
+  function( tip, itemId, index )
+    local link = C_TradeSkillUI.GetRecipeReagentItemLink( itemId, index )
+    local count = select( 3, C_TradeSkillUI.GetRecipeReagentInfo( itemId, index ) )
+
+    Atr_ShowTipWithPricing( tip, link, count )
+  end
+);
 
 hooksecurefunc (GameTooltip, "SetTradePlayerItem",
   function (tip, id)
