@@ -15,4 +15,4 @@ Auctionator.Constants.Sort = {
 }
 
 Auctionator.Constants.FilterDefault = '-------'
-Auctionator.Constants.AdvancedSearchDivider = '|'
+Auctionator.Constants.AdvancedSearchDivider = ';'
