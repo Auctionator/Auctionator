@@ -612,9 +612,9 @@ function Atr_IsCompoundSearch (searchString)
     return false;
   end
 
-  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', zc.StringContains (searchString, ">") or zc.StringContains (searchString, ":") )
+  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', zc.StringContains (searchString, ">") or zc.StringContains (searchString, Auctionator.Constants.AdvancedSearchDivider) )
 
-  return zc.StringContains (searchString, ">") or zc.StringContains (searchString, ":");
+  return zc.StringContains (searchString, ">") or zc.StringContains (searchString, Auctionator.Constants.AdvancedSearchDivider);
 end
 
 -----------------------------------------
@@ -631,7 +631,7 @@ end
 -----------------------------------------
 
 function Atr_ParseCompoundSearch( searchString )
-  local delimiter = ":"
+  local delimiter = Auctionator.Constants.AdvancedSearchDivider
 
   if zc.StringContains( searchString, ">" ) then
     delimiter = ">"
