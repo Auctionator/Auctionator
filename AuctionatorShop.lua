@@ -970,7 +970,7 @@ function Atr_Adv_Search_Do()
   table.insert( tokens, minItemLevel )
   table.insert( tokens, maxItemLevel )
 
-  local tempSearchText = table.concat( tokens, ':' )
+  local tempSearchText = table.concat( tokens, Auctionator.Constants.AdvancedSearchDivider )
 
   Atr_SetSearchText( tempSearchText )
   Atr_Search_Onclick()
