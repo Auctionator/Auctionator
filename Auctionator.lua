@@ -876,6 +876,22 @@ function Atr_OnLoad()
   end
 
 
+  -- Migrate old version of shopping lists to new adv
+  if AUCTIONATOR_SHOPPING_LISTS then and AUCTIONATOR_SHOPPING_LISTS_MIGRATED_V2 == nil then
+    for index, list in ipairs( AUCTIONATOR_SHOPPING_LISTS ) do
+      local fixedList = {}
+
+      for itemIndex, itemName in ipairs( list.items ) do
+        local replacement = itemName:gsub( ":", ";" ):gsub( "|", ";" )
+        table.insert( fixedList, replacement )
+      end
+
+      AUCTIONATOR_SHOPPING_LISTS[ index ].items = fixedList
+    end
+
+    AUCTIONATOR_SHOPPING_LISTS_MIGRATED_V2 = true
+  end
+
   Atr_SetupHookFunctionsEarly();
 
   ------------------
