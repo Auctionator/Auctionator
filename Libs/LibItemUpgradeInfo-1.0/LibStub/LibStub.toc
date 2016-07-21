@@ -5,7 +5,7 @@
 ## X-Website: http://www.wowace.com/addons/libstub/
 ## X-Category: Library
 ## X-License: Public Domain	
-## X-Curse-Packaged-Version: Release-60204-22
+## X-Curse-Packaged-Version: Release-70000-24
 ## X-Curse-Project-Name: LibItemUpgradeInfo-1.0
 ## X-Curse-Project-ID: libitemupgradeinfo-1-0
 ## X-Curse-Repository-ID: wow/libitemupgradeinfo-1-0/mainline
