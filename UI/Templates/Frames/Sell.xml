@@ -372,7 +372,9 @@
 
           <Button name="Atr_CreateAuctionButton" inherits="UIPanelButtonTemplate"  text="Create Auction" disabled="true">
             <Size><AbsDimension x="185" y="30"/>  </Size>
-            <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="3" y="-170"/></Offset></Anchor></Anchors>
+              <Anchors>
+                <Anchor point="TOPLEFT"><Offset><AbsDimension x="5" y="-153"/></Offset></Anchor>
+              </Anchors>
             <Scripts>
               <OnClick>
                 Atr_CreateAuction_OnClick()
