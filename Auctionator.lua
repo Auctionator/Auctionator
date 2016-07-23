@@ -882,7 +882,7 @@ function Atr_OnLoad()
       local fixedList = {}
 
       for itemIndex, itemName in ipairs( list.items ) do
-        local replacement = itemName:gsub( ":", ";" ):gsub( "|", ";" )
+        local replacement = itemName:gsub( "|", ";" )
         table.insert( fixedList, replacement )
       end
 
