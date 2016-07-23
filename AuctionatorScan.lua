@@ -855,8 +855,8 @@ function AtrSearch:Finish()
 
     if (scn.lowprice < BIGNUM) then
 
-      if (scn.itemQuality == nil) then
-        zc.msg_anm ("|cffff0000Error: scn.itemQuality == nil, scn.itemName: ", scn.itemName);
+      if scn.itemQuality == nil then
+        Auctionator.Debug.Message( 'Error: scn.itemQuality == nil, scn.itemName: ' .. scn.itemName )
       end
 
       if (scn.itemQuality ~= nil and (scn.itemQuality + 1 >= AUCTIONATOR_SCAN_MINLEVEL or scn.quality == -1)) then    --  battle pets can be UNKNOWN (-1) quality
