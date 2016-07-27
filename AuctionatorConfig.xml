@@ -1502,7 +1502,7 @@
             </Offset>
           </Anchor>
         </Anchors>
-        <FontString inherits="GameFontHighlightSmall"/>
+        <FontString inherits="GameFontNormal" />
         <FontStringHeader1 inherits="GameFontNormal"/>
       </SimpleHTML>
     </Frames>
