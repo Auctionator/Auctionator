@@ -601,10 +601,34 @@ hooksecurefunc (GameTooltip, "SetQuestLogItem",
 
 hooksecurefunc (GameTooltip, "SetInboxItem",
   function (tip, index, attachIndex)
-    -- TODO https://github.com/jrob8577/Auctionator/issues/75
     local attachmentIndex = attachIndex or 1
     local _, _, _, num = GetInboxItem(index, attachmentIndex);
+
     Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachmentIndex), num);
+  end
+);
+
+hooksecurefunc ( "InboxFrameItem_OnEnter",
+  function ( self )
+    local itemCount = select( 8, GetInboxHeaderInfo( self.index ) )
+
+    if itemCount and itemCount > 1 then
+      for numIndex = 1, ATTACHMENTS_MAX_RECEIVE do
+        local name, _, _, num = GetInboxItem( self.index, numIndex )
+
+        if name then
+          local attachLink = GetInboxItemLink( self.index, numIndex ) or name
+
+          if num > 1 then
+            GameTooltip:AddLine( attachLink )
+            Atr_ShowTipWithPricing( GameTooltip, attachLink, num )
+          else
+            GameTooltip:AddLine(attachLink)
+            Atr_ShowTipWithPricing( GameTooltip, attachLink )
+          end
+        end
+      end
+    end
   end
 );
 
