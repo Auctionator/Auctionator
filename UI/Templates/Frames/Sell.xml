@@ -233,11 +233,11 @@
             </FontString>
 
             <FontString name="Atr_StackPriceText" inherits="GameFontHighlightSmall" text="Buyout Price">
-              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-82"/></Offset></Anchor></Anchors>
+              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-72"/></Offset></Anchor></Anchors>
             </FontString>
 
             <FontString name="Atr_ItemPriceText" inherits="GameFontHighlightSmall" text="Item Price">
-              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-128"/></Offset></Anchor></Anchors>
+              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-118"/></Offset></Anchor></Anchors>
             </FontString>
 
             <FontString name="Atr_Batch_Stacksize_Text" inherits="GameFontNormal" text="stacks of" justifyH="CENTER">
