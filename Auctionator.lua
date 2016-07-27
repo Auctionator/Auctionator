@@ -1809,7 +1809,7 @@ function auctionator_ChatEdit_InsertLink(text)
       item = GetItemInfo(text);
     end
     if ( item ) then
-      Atr_SetSearchText (zc.QuoteString(item)); -- quote to make it exact
+      Atr_SetSearchText( item )
       Atr_Search_Onclick ();
       return true;
     end
