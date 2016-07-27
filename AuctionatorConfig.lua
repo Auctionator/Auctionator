@@ -83,7 +83,9 @@ end
 function Atr_SetupOptionsFrame()
 
   local expText = "<html><body>"
-          .."<p>"..ZT("The latest information on Auctionator can be found at").." http://mods.curse.com/addons/wow/auctionator .".."</p>"
+          .."<p>"..ZT("The latest information on Auctionator can be found at").." |cFF4499FF http://mods.curse.com/addons/wow/auctionator .".."</p>"
+          .."<p><br />"
+          .. ZT("Read the FAQ at") .. " |cFF4499FF https://github.com/Auctionator/Auctionator/wiki ." .. "</p>"
           .."<p><br/>"
           .."MoP disenchanting data courtesy of the Norganna's AddOns (the Auctioneer folks)"
           .."</p>"
