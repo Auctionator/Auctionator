@@ -434,8 +434,8 @@ function Atr_ShowTipWithPricing (tip, link, num)
   end
 
   local xstring = "";
-  if (num and showStackPrices) then
-    xstring = "|cFFAAAAFF x"..num.."|r";
+  if num and showStackPrices then
+    xstring = "|cFFAAAAFF x" .. num .. "|r"
   end
 
   local vendorPrice, auctionPrice, dePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel);
@@ -611,19 +611,20 @@ hooksecurefunc (GameTooltip, "SetInboxItem",
 hooksecurefunc ( "InboxFrameItem_OnEnter",
   function ( self )
     local itemCount = select( 8, GetInboxHeaderInfo( self.index ) )
+    local tooltipEnabled = AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1
 
-    if itemCount and itemCount > 1 then
+    if tooltipEnabled and itemCount and itemCount > 1 then
       for numIndex = 1, ATTACHMENTS_MAX_RECEIVE do
         local name, _, _, num = GetInboxItem( self.index, numIndex )
 
         if name then
           local attachLink = GetInboxItemLink( self.index, numIndex ) or name
 
+          GameTooltip:AddLine( attachLink )
+
           if num > 1 then
-            GameTooltip:AddLine( attachLink )
             Atr_ShowTipWithPricing( GameTooltip, attachLink, num )
           else
-            GameTooltip:AddLine(attachLink)
             Atr_ShowTipWithPricing( GameTooltip, attachLink )
           end
         end
@@ -653,16 +654,3 @@ hooksecurefunc (ItemRefTooltip, "SetHyperlink",
     Atr_ShowTipWithPricing (tip, link);
   end
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
