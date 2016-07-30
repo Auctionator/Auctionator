@@ -367,6 +367,19 @@
         </Scripts>
       </Frame>
 
+      <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsMailboxOpt">
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="20" y="-145"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnLoad>ATR_tipsMailboxOpt_CB_Text:SetText (gAtr_ZT("Show auction house prices in mailbox tooltips"));  </OnLoad>
+        </Scripts>
+      </Frame>
+
       <Frame inherits="UIDropDownMenuTemplate" name="Atr_tipsShiftDD">
         <Anchors>
           <Anchor point="TOPLEFT">

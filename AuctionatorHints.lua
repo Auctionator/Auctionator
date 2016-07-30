@@ -601,17 +601,21 @@ hooksecurefunc (GameTooltip, "SetQuestLogItem",
 
 hooksecurefunc (GameTooltip, "SetInboxItem",
   function (tip, index, attachIndex)
-    local attachmentIndex = attachIndex or 1
-    local _, _, _, num = GetInboxItem(index, attachmentIndex);
+    if AUCTIONATOR_SHOW_MAILBOX_TIPS == 1 then
+      local attachmentIndex = attachIndex or 1
+      local _, _, _, num = GetInboxItem(index, attachmentIndex);
 
-    Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachmentIndex), num);
+      Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachmentIndex), num);
+    end
   end
 );
 
 hooksecurefunc ( "InboxFrameItem_OnEnter",
   function ( self )
     local itemCount = select( 8, GetInboxHeaderInfo( self.index ) )
-    local tooltipEnabled = AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1
+    local tooltipEnabled = AUCTIONATOR_SHOW_MAILBOX_TIPS == 1 and  (
+      AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1
+    )
 
     if tooltipEnabled and itemCount and itemCount > 1 then
       for numIndex = 1, ATTACHMENTS_MAX_RECEIVE do
