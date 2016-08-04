@@ -596,7 +596,6 @@ StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
   hideOnEscape = 1
 };
 
-
 function Atr_Memorize_Save()
 
   zz ("Saving stacking configuration");
