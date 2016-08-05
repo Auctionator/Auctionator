@@ -1803,19 +1803,27 @@ end
 function auctionator_ChatEdit_InsertLink(text)
   Auctionator.Debug.Message( 'auctionator_ChatEdit_InsertLink', text )
 
-  if (text and AuctionFrame:IsShown() and IsShiftKeyDown() and Atr_IsTabSelected(BUY_TAB)) then
-    local item;
-    if ( strfind(text, "item:", 1, true) ) then
-      item = GetItemInfo(text);
+  if text and AuctionFrame:IsShown() and Atr_IsTabSelected( BUY_TAB ) then
+    local item
+
+    if strfind( text, "item:", 1, true ) then
+      item = GetItemInfo( text )
     end
-    if ( item ) then
-      Atr_SetSearchText( item )
-      Atr_Search_Onclick ();
-      return true;
+
+    if item then
+      if IsLeftShiftKeyDown() then
+        Atr_SetSearchText( item )
+      elseif IsRightShiftKeyDown() then
+        Atr_SetSearchText( zc.QuoteString( item ) )
+      end
+
+      Atr_Search_Onclick()
+
+      return true
     end
   end
 
-  return auctionator_orig_ChatEdit_InsertLink(text);
+  return auctionator_orig_ChatEdit_InsertLink( text )
 
 end
 
