@@ -559,6 +559,8 @@ function Atr_Memorize_Show (isNew)
 
   Atr_MemorizeFrame:Show();
 
+  StaticPopup_Hide ("ATR_MEMORIZE_TEXT_BLANK");
+
 end
 
 -----------------------------------------
@@ -583,7 +585,7 @@ StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
   text = "",
   button1 = OKAY,
   OnAccept = function( self )
-    Atr_Memorize_Show( true )
+    Atr_StackingList_New_OnClick();
     return
   end,
   OnShow = function( self )
