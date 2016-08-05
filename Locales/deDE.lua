@@ -21,6 +21,7 @@ AtrL["Wowecon server price"] = "WoWecon Serverpreis"
 
 AtrL["No current auctions with buyouts found"] = "Keine aktuellen Sofortkauf-Auktionen gefunden."
 AtrL["Really delete the shopping list %s ?"] = "Einkaufsliste wirklich löschen?"
+AtrL["Entry must not be blank"] = ""
 AtrL["There is a more recent version of Auctionator: VERSION"] = "Es gibt eine neuere Version von Auctionator: VERSION"
 AtrL["You can buy at most %d auctions"] = "Du kannst maximal %d Auktionen kaufen"            -- don't overspend!
 AtrL["You can create at most %d auctions"] = "Du kannst maximal %d Auktionen erstellen"

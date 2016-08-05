@@ -579,6 +579,24 @@ end
 
 -----------------------------------------
 
+StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
+  text = "",
+  button1 = OKAY,
+  OnAccept = function( self )
+    Atr_Memorize_Show( true )
+    return
+  end,
+  OnShow = function( self )
+    local s = string.format (ZT("Item Name must not be blank"));
+    self.text:SetText("\n"..s.."\n");
+  end,
+  timeout = 0,
+  exclusive = 1,
+  whileDead = 1,
+  hideOnEscape = 1
+};
+
+
 function Atr_Memorize_Save()
 
   zz ("Saving stacking configuration");
@@ -588,7 +606,7 @@ function Atr_Memorize_Save()
 
   local key = Atr_Mem_EB_itemName:GetText();
   if (key == nil or key == "") then
-    key = plist[x].sortkey;
+    StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
   end
 
   if (key and key ~= "") then
