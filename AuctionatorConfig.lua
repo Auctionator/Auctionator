@@ -611,8 +611,6 @@ function Atr_Memorize_Save()
   if Atr_StackingList_Check then
     if (key == nil or key == "") then
       StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
-    else
-      key = Atr_Mem_EB_itemName:GetText()
     end
   else
     key = plist[x].sortkey
