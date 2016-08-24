@@ -93,7 +93,7 @@ function Atr_SetupOptionsFrame()
           .."|cffaaaaaa"..string.format (ZT("German translation courtesy of %s"),  "|rCkaotik").."<br/>"
           .."|cffaaaaaa"..string.format (ZT("Russian translation courtesy of %s"), "|rStingerSoft, Wetxius").."<br/>"
           .."|cffaaaaaa"..string.format (ZT("Swedish translation courtesy of %s"), "|rHellManiac").."<br/>"
-          .."|cffaaaaaa"..string.format (ZT("French translation courtesy of %s"),  "|rKiskewl").."<br/>"
+          .."|cffaaaaaa"..string.format (ZT("French translation courtesy of %s"),  "|rKiskewl and Klep").."<br/>"
           .."|cffaaaaaa"..string.format (ZT("Spanish translation courtesy of %s"),  "|rElfindor").."<br/>"
           .."|cffaaaaaa"..string.format (ZT("Chinese/Taiwan translation courtesy of %s"),  "|rScars").."<br/>"
           .."</p>"
@@ -564,11 +564,12 @@ function Atr_Memorize_Show (isNew)
 end
 
 -----------------------------------------
+local Atr_StackingList_Check
 
 function Atr_StackingList_Edit_OnClick()
 
   Atr_Memorize_Show(false);
-
+  Atr_StackingList_Check = false
 end
 
 -----------------------------------------
@@ -576,6 +577,7 @@ end
 function Atr_StackingList_New_OnClick()
 
   Atr_Memorize_Show(true);
+  Atr_StackingList_Check = true
 
 end
 
@@ -599,15 +601,18 @@ StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
 };
 
 function Atr_Memorize_Save()
+  Auctionator.Debug.Message( 'Atr_Memorize_Save' )
 
-  zz ("Saving stacking configuration");
+  local x   = gStackList_SelectedIndex
+  local plist = gStackList_plist
+  local key = Atr_Mem_EB_itemName:GetText()
 
-  local x   = gStackList_SelectedIndex;
-  local plist = gStackList_plist;
-
-  local key = Atr_Mem_EB_itemName:GetText();
-  if (key == nil or key == "") then
-    StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
+  if Atr_StackingList_Check then
+    if key == nil or key == "" then
+      StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
+    end
+  else
+    key = plist[ x ].sortkey
   end
 
   if (key and key ~= "") then

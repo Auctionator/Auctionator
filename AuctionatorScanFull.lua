@@ -90,6 +90,11 @@ function Atr_FullScanStart()
       gSlowScanPage = 0
     else
       gAtr_FullScanState = ATR_FS_STARTED;
+
+      if not ITEM_QUALITY_COLORS[-1] then
+        ITEM_QUALITY_COLORS[-1] = {r=0, b=0, g=0}
+      end
+
       QueryAuctionItems( "", nil, nil, 0, nil, nil, true, false, nil )
     end
 
