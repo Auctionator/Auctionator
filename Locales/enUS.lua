@@ -52,6 +52,7 @@ AtrL["Category"] = ""
 AtrL["Check and Cancel Auctions"] = ""
 AtrL["Check for Undercuts"] = ""
 AtrL["Checking stopped"] = ""
+AtrL["Chinese/Taiwan translation courtesy of %s"] = ""
 AtrL["Cleaning up"] = ""
 AtrL["Common"] = ""
 AtrL["Common items"] = ""
@@ -163,6 +164,7 @@ AtrL["Select the Auctionator panel to be displayed first whenever you open the A
 AtrL["Sell"] = ""
 AtrL["Show disenchanting details"] = ""
 AtrL["Source"] = ""
+AtrL["Spanish translation courtesy of %s"] = ""
 AtrL["stack"] = ""
 AtrL["stack for"] = ""
 AtrL["stack of"] = ""
@@ -204,6 +206,5 @@ AtrL["You may have no more than\n\n%d items on a shopping list."] = ""
 AtrL["your auction on"] = ""
 AtrL["your most recent posting"] = ""
 AtrL["yours"] = ""
-
 
 end
