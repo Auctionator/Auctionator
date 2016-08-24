@@ -564,11 +564,12 @@ function Atr_Memorize_Show (isNew)
 end
 
 -----------------------------------------
+local Atr_StackingList_Check
 
 function Atr_StackingList_Edit_OnClick()
 
   Atr_Memorize_Show(false);
-
+  Atr_StackingList_Check = false
 end
 
 -----------------------------------------
@@ -576,6 +577,7 @@ end
 function Atr_StackingList_New_OnClick()
 
   Atr_Memorize_Show(true);
+  Atr_StackingList_Check = true
 
 end
 
@@ -599,15 +601,18 @@ StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
 };
 
 function Atr_Memorize_Save()
+  Auctionator.Debug.Message( 'Atr_Memorize_Save' )
 
-  zz ("Saving stacking configuration");
+  local x   = gStackList_SelectedIndex
+  local plist = gStackList_plist
+  local key = Atr_Mem_EB_itemName:GetText()
 
-  local x   = gStackList_SelectedIndex;
-  local plist = gStackList_plist;
-
-  local key = Atr_Mem_EB_itemName:GetText();
-  if (key == nil or key == "") then
-    StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
+  if Atr_StackingList_Check then
+    if key == nil or key == "" then
+      StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
+    end
+  else
+    key = plist[ x ].sortkey
   end
 
   if (key and key ~= "") then
