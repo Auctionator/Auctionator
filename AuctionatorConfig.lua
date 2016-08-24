@@ -601,19 +601,18 @@ StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
 };
 
 function Atr_Memorize_Save()
+  Auctionator.Debug.Message( 'Atr_Memorize_Save' )
 
-  zz ("Saving stacking configuration");
+  local x   = gStackList_SelectedIndex
+  local plist = gStackList_plist
+  local key = Atr_Mem_EB_itemName:GetText()
 
-  local x   = gStackList_SelectedIndex;
-  local plist = gStackList_plist;
-
-  local key = Atr_Mem_EB_itemName:GetText();
   if Atr_StackingList_Check then
-    if (key == nil or key == "") then
+    if key == nil or key == "" then
       StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
     end
   else
-    key = plist[x].sortkey
+    key = plist[ x ].sortkey
   end
 
   if (key and key ~= "") then
