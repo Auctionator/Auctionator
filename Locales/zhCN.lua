@@ -1,4 +1,4 @@
-﻿function AtrBuildLTable_zhTW ()
+﻿function AtrBuildLTable_zhCN ()
 
 AtrL = {};
 
@@ -90,7 +90,7 @@ AtrL["Deposit"] = "保证金"
 AtrL["Disenchant"] = "分解"
 AtrL["Done"] = "完成"
 AtrL["Drag an item you want to sell to this area."] = "将物品放到这里以供拍卖"
-AtrL["Duration"] = "时长"
+AtrL["Duration"] = "拍卖时长"
 AtrL["Edit"] = "编辑"
 AtrL["Enable alt-key shortcut"]="启用Alt快捷键"
 AtrL["Epic items"] = "史诗物品"
@@ -256,6 +256,14 @@ AtrL["You may have no more than\n\n%d items on a shopping list."] = "购物单�
 AtrL["your auction on"] = "你拍卖于"
 AtrL["your most recent posting"] = "你最近的拍卖"
 AtrL["yours"] = "你的"
+AtrL["Manage Shopping Lists"] = "管理购物单"
+AtrL["Shopping Lists"] = "购物单"
+AtrL["Delete"] = "删除"
+AtrL["Rename"] = "重命名"
+AtrL["Import"] = "导入"
+AtrL["Export"] = "导出"
+AtrL["Options..."] = "选项..."
+AtrL["Clears"] = "清理数据库"
 
 
 end
