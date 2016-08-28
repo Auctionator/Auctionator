@@ -65,7 +65,6 @@ local auctionator_orig_ChatFrame_OnEvent;
 
 local gForceMsgAreaUpdate = true;
 local gAtr_ClickAuctionSell = false;
-local gAtr_echoAddonChat = false
 
 local gTimeZero;
 local gTimeTightZero;
@@ -162,7 +161,7 @@ end
 -----------------------------------------
 
 function Atr_EventHandler(self, event, ...)
-  Auctionator.Debug.Message( 'Atr_EventHandler', event, ... )
+  -- Auctionator.Debug.Message( 'Atr_EventHandler', event, ... )
 
   if (event == "VARIABLES_LOADED")      then  Atr_OnLoad();             end;
   if (event == "ADDON_LOADED")        then  Atr_OnAddonLoaded(...);       end;
@@ -290,25 +289,31 @@ local versionReminderCalled = false;  -- make sure we don't bug user more than o
 
 -----------------------------------------
 
-local function CheckVersion (verString)
-  Auctionator.Debug.Message( 'CheckVersion', verString )
+local function VersionStringToInt( versionString )
+  Auctionator.Debug.Message( 'VersionStringToInt', versionString )
+  local major, minor, patch = strsplit( '.', versionString )
 
-  if (checkVerString == nil) then
-    checkVerString = AuctionatorVersion;
+  return tonumber( major ), tonumber( minor ), tonumber( patch )
+end
+
+local function CheckVersion( verString )
+  if checkVerString == nil then
+    checkVerString = AuctionatorVersion
   end
 
-  local a,b,c = strsplit (".", verString);
+  Auctionator.Debug.Message( 'CheckVersion', verString, checkVerString )
 
-  if (tonumber(a) == nil or tonumber(b) == nil or tonumber(c) == nil) then
-    return false;
+  local userMajor, userMinor, userPatch = VersionStringToInt( checkVerString )
+  local otherMajor, otherMinor, otherPatch = VersionStringToInt( verString )
+
+  -- TODO is this needed? kept it in, not sure if it was here for backwards compatibility?
+  if userMajor == nil or userMinor == nil or userPatch == nil then
+    return false
   end
 
-  if (verString > checkVerString) then
-    checkVerString = verString;
-    return true;  -- out of date
-  end
-
-  return false;
+  return userMajor < otherMajor or
+    ( userMajor == otherMajor and userMinor < otherMinor ) or
+    ( userMajor == otherMajor and userMinor == otherMinor and userPatch < otherPatch )
 end
 
 -----------------------------------------
@@ -334,60 +339,50 @@ local VREQ_sent = 0;
 function Atr_SendAddon_VREQ (type, target)
   Auctionator.Debug.Message( 'Atr_SendAddon_VREQ', type, target )
 
-  VREQ_sent = time();
+  VREQ_sent = time()
 
   if (not zc.StringSame (type, "WHISPER")) then
     zz ("sending vreq to", type)
   end
 
-  SendAddonMessage ("ATR", "VREQ_"..AuctionatorVersion, type, target);
-
+  SendAddonMessage( "ATR", "VREQ_"..AuctionatorVersion, type, target )
 end
 
 -----------------------------------------
 
 function Atr_OnChatMsgAddon (...)
-  Auctionator.Debug.Message( 'Atr_OnChatMsgAddon', ... )
+  local prefix, msg, distribution, sender = ...
 
-  local prefix, msg, distribution, sender = ...;
+  if prefix == "ATR" then
+    Auctionator.Debug.Message( 'Atr_OnChatMsgAddon', ... )
 
+    local s = string.format(
+      "%s %s |cff88ffff %s |cffffffaa %s|r", prefix, distribution, sender, msg
+    )
 
-  if (prefix == "ATR") then
-
-    local s = string.format ("%s %s |cff88ffff %s |cffffffaa %s|r", prefix, distribution, sender, msg);
-
-    if (gAtr_echoAddonChat) then
-      zz (s);
+    if zc.StringStartsWith( msg, "VREQ_" ) then
+      SendAddonMessage( "ATR", "V_"..AuctionatorVersion, "WHISPER", sender )
     end
 
-    if (zc.StringStartsWith (msg, "VREQ_")) then
-      SendAddonMessage ("ATR", "V_"..AuctionatorVersion, "WHISPER", sender);
+    if zc.StringStartsWith (msg, "IREQ_") then
+      collectgarbage( "collect" )
+      UpdateAddOnMemoryUsage()
+      local mem  = math.floor( GetAddOnMemoryUsage("Auctionator") )
+      SendAddonMessage( "ATR", "I_" .. Atr_GetDBsize() .. "_" .. mem .. "_" .. #AUCTIONATOR_SHOPPING_LISTS.."_"..GetRealmFacInfoString(), "WHISPER", sender)
     end
 
-    if (zc.StringStartsWith (msg, "IREQ_")) then
-      collectgarbage  ("collect");
-      UpdateAddOnMemoryUsage();
-      local mem  = math.floor(GetAddOnMemoryUsage("Auctionator"));
-      SendAddonMessage ("ATR", "I_"..Atr_GetDBsize().."_"..mem.."_"..#AUCTIONATOR_SHOPPING_LISTS.."_"..GetRealmFacInfoString(), "WHISPER", sender)
-    end
+    if zc.StringStartsWith( msg, "V_" ) and time() - VREQ_sent < 5 then
 
-    if (zc.StringStartsWith (msg, "V_") and time() - VREQ_sent < 5) then
+      local herVerString = string.sub( msg, 3 )
+      local outOfDate = CheckVersion( herVerString )
 
-      local herVerString = string.sub (msg, 3);
-    --  zc.md ("version found:", herVerString, "   ", sender, "     response time:", time() - VREQ_sent);
-      local outOfDate = CheckVersion (herVerString);
-      if (outOfDate) then
-        zc.AddDeferredCall (3, "Atr_VersionReminder", nil, nil, "VR");
+      if outOfDate then
+        zc.AddDeferredCall( 3, "Atr_VersionReminder", nil, nil, "VR" )
       end
     end
   end
 
-  Atr_OnChatMsgAddon_ShoppingListCmds (prefix, msg, distribution, sender)
-
-  if (Atr_OnChatMsgAddon_Dev) then
-    Atr_OnChatMsgAddon_Dev (prefix, msg, distribution, sender);
-  end
-
+  Atr_OnChatMsgAddon_ShoppingListCmds( prefix, msg, distribution, sender )
 end
 
 
@@ -455,11 +450,6 @@ local function Atr_DumpDElog()
   for n = 1,#AUCTIONATOR_DE_DATA_BAK do
     msg = msg..AUCTIONATOR_DE_DATA_BAK[n].."\n"
   end
-
-  -- Atr_LUA_ErrorMsg:SetText (msg)
-
-  -- Atr_LUA_Error:Show()
-
 end
 
 -----------------------------------------
@@ -474,8 +464,6 @@ function Atr_ClearItemStackingPrefs ()
       AUCTIONATOR_STACKING_PREFS[text] = nil
     end
   end
-
-
 end
 
 -----------------------------------------
@@ -553,10 +541,6 @@ local function Atr_SlashCmdFunction(msg)
   elseif (cmd == "vsl") then
 
     Atr_ShpList_Validate()
-
-  elseif (cmd == "eac") then
-    gAtr_echoAddonChat = not gAtr_echoAddonChat
-    zz ("gAtr_echoAddonChat is now", gAtr_echoAddonChat)
 
   elseif (cmd == "delog") then
 
@@ -669,8 +653,6 @@ local function Atr_OnClickTradeSkillBut()
     table.insert (items, shoppingListName)
   end
 
---  zz (shoppingListName)
-
   for reagentId = 1, numReagents do
     local reagentName = C_TradeSkillUI.GetRecipeReagentInfo(index, reagentId)
     if (reagentName and not zc.StringSame(reagentName, "Crystal Vial")) then
@@ -692,8 +674,6 @@ local function Atr_ModTradeSkillFrame()
 
   if (TradeSkillFrame) then
     gTradeSkillFrameModded = true
---    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrameScrollChild, "UIPanelButtonTemplate");
---    button:SetPoint("TOPRIGHT", "TradeSkillFrameScrollChild", "TOPRIGHT", -3, -5);
 
     local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrame, "UIPanelButtonTemplate");
     button:SetPoint("RIGHT", "TradeSkillFrame", "RIGHT", -35, 100);
