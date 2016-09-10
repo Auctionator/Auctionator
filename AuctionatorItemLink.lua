@@ -60,7 +60,8 @@ end
 function Auctionator.ItemLink:ItemIdString()
   if not self.item_id_string then
     self.item_id_string = self:GetField( Auctionator.Constants.ItemLink.ID ) .. ':' ..
-      self:Tier() .. ':' .. self:Stage() .. ':' .. self:Suffix()
+      self:Tier() .. ':' .. self:Stage() .. ':' .. self:Suffix() .. ':' ..
+      self:GetField( Auctionator.Constants.ItemLink.BONUS_ID_1 )
   end
 
   return self.item_id_string
