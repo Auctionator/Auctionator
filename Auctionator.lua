@@ -293,7 +293,9 @@ local function VersionStringToInt( versionString )
   Auctionator.Debug.Message( 'VersionStringToInt', versionString )
   local major, minor, patch = strsplit( '.', versionString )
 
-  return tonumber( major ), tonumber( minor ), tonumber( patch )
+  return ( tonumber( major ) or -1 ),
+    ( tonumber( minor ) or -1 ),
+    ( tonumber( patch ) or -1 )
 end
 
 local function CheckVersion( verString )
