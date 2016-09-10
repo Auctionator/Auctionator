@@ -1,5 +1,3 @@
-local ItemUpgradeInfo = LibStub( 'LibItemUpgradeInfo-1.0' )
-
 Auctionator.ItemLink = {
   item_link = '',
   item_string = nil,
