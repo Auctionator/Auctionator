@@ -217,7 +217,7 @@ function AtrScan:UpdateItemLink (itemLink)
       -- 13: subClass int
 
       _, _, quality, _, _, sType, sSubType, _, _, _, _, itemClass, itemSubClass = GetItemInfo(itemLink);
-	  iLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
+      iLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
 
       self.itemClass    = itemClass
       self.itemSubclass = itemSubClass
@@ -468,7 +468,7 @@ function AtrSearch:AnalyzeResultsPage()
         local OKitemLevel = true
 
         if self.minItemLevel or self.maxItemLevel then
-		  local iLevel = ItemUpgradeInfo:GetUpgradedItemLevel( item.itemLink )
+          local iLevel = ItemUpgradeInfo:GetUpgradedItemLevel( item.itemLink )
 
           OKitemLevel = not (
             ( self.minItemLevel and iLevel < self.minItemLevel ) or

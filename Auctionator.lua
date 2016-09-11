@@ -977,7 +977,7 @@ function Atr_ScanBags (mats, gear)
         local texture, itemCount, locked, quality = GetContainerItemInfo(bagID, slotID);
 
         local itemName, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, itemClassID, itemSubClassID = GetItemInfo( itemLink )
-		local itemLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
+        local itemLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
 
         if ( Atr_IsWeaponType( itemClassID ) or Atr_IsArmorType( itemClassID ) ) and itemLevel > 271 then
           local key = itemType.."_"..itemSubType.."_"..itemRarity.."_"..itemLevel;
