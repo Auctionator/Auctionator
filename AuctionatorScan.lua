@@ -4,6 +4,8 @@ local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc
 local zz = zc.md
 local _
+local ItemUpgradeInfo = LibStub( 'LibItemUpgradeInfo-1.0' )
+
 
 local gAllScans = {};
 
@@ -214,7 +216,8 @@ function AtrScan:UpdateItemLink (itemLink)
       -- 12: itemClass int
       -- 13: subClass int
 
-      _, _, quality, iLevel, _, sType, sSubType, _, _, _, _, itemClass, itemSubClass = GetItemInfo(itemLink);
+      _, _, quality, _, _, sType, sSubType, _, _, _, _, itemClass, itemSubClass = GetItemInfo(itemLink);
+      iLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
 
       self.itemClass    = itemClass
       self.itemSubclass = itemSubClass
@@ -465,7 +468,7 @@ function AtrSearch:AnalyzeResultsPage()
         local OKitemLevel = true
 
         if self.minItemLevel or self.maxItemLevel then
-          local _, _, _, iLevel = GetItemInfo( item.itemLink )
+          local iLevel = ItemUpgradeInfo:GetUpgradedItemLevel( item.itemLink )
 
           OKitemLevel = not (
             ( self.minItemLevel and iLevel < self.minItemLevel ) or
