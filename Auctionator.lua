@@ -18,6 +18,7 @@ gAtrZC = addonTable.zc;   -- share with AuctionatorDev
 local recommendElements     = {};
 
 AUCTIONATOR_ENABLE_ALT    = 1;
+AUCTIONATOR_EXACT_SHIFT_MATCH = 0;
 AUCTIONATOR_SHOW_ST_PRICE = 0;
 AUCTIONATOR_SHOW_TIPS   = 1;
 AUCTIONATOR_DEF_DURATION  = "N";    -- none
@@ -1795,10 +1796,10 @@ function auctionator_ChatEdit_InsertLink(text)
     end
 
     if item then
-      if IsLeftShiftKeyDown() then
-        Atr_SetSearchText( item )
-      elseif IsRightShiftKeyDown() then
+      if IsRightShiftKeyDown() or (AUCTIONATOR_EXACT_SHIFT_MATCH == 1 and IsLeftShiftKeyDown()) then
         Atr_SetSearchText( zc.QuoteString( item ) )
+      elseif IsLeftShiftKeyDown() then
+        Atr_SetSearchText( item )
       end
 
       Atr_Search_Onclick()
@@ -5257,4 +5258,3 @@ function FromTightTime(tt)
   return (tt*60) + gTimeTightZero;
 
 end
-
