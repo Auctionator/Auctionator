@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 24
+local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 26
 local type,tonumber,select,strsplit,GetItemInfoFromHyperlink=type,tonumber,select,strsplit,GetItemInfoFromHyperlink
 local library,previous = _G.LibStub:NewLibrary(MAJOR, MINOR)
 local lib=library --#lib Needed to keep Eclipse LDT happy
@@ -12,6 +12,85 @@ if LibDebug then LibDebug() end
 --@non-debug@
 local print=function() end
 --@end-non-debug@
+--[[
+Caching system
+1	itemName	String	The name of the item.
+2	itemLink	String	The item link of the item.
+3	itemRarity	Number	The quality of the item. The value is 0 to 7, which represents Poor to Heirloom. This appears to include gains from upgrades/bonuses.
+4	itemLevel	Number	The item level of this item, not including item levels gained from upgrades. There is currently no API to get the item level including upgrades/bonuses.
+5	itemMinLevel	Number	The minimum level required to use the item, 0 meaning no level requirement.
+6	itemType	String	The type of the item: Armor, Weapon, Quest, Key, etc. (localized)
+7	itemSubType	String	The sub-type of the item: Enchanting, Cloth, Sword, etc. See itemType. (localized)
+8	itemStackCount	Number	How many of the item per stack: 20 for Runecloth, 1 for weapon, 100 for Alterac Ram Hide, etc.
+9	itemEquipLoc	String	The type of inventory equipment location in which the item may be equipped, or "" if it can't be equippable. The string returned is also the name of a global string variable e.g. if "INVTYPE_WEAPONMAINHAND" is returned, _G["INVTYPE_WEAPONMAINHAND"] will be the localized, displayable name of the location.
+10	iconFileDataID	Number	The FileDataID for the icon texture for the item.
+11	itemSellPrice	Number	The price, in copper, a vendor is willing to pay for this item, 0 for items that cannot be sold.
+12	itemClassID	Number	This is the numerical value that determines the string to display for 'itemType'.
+13	itemSubClassID	Number	This is the numerical value that determines the string to display for 'itemSubType'
+14 ? number
+15 ? number
+16 ? ?
+17 ? boolean
+--]]
+-- ItemLink Constants
+local i_Name=1
+local i_Link=2
+local i_Rarity=3
+local i_Quality=3
+local i_Level=4
+local i_MinLevel =5
+local i_ClassName=6
+local i_SubClassName=7
+local i_StackCount=8
+local i_EquipLoc=9
+local i_TextureId=10
+local i_SellPrice=11
+local i_ClassID=12
+local i_SubCkass_ID=13
+local i_unk1=14
+local i_unk2=15
+local i_unk3=16
+local i_unk4=17
+
+
+do
+local oGetItemInfo=GetItemInfo
+lib.itemcache=lib.itemcache or
+	setmetatable({miss=0,tot=0},{
+		__index=function(table,key)
+			if (not key) then return "" end
+			if (key=="miss") then return 0 end
+			if (key=="tot") then return 0 end
+			local cached={oGetItemInfo(key)}
+			if #cached==0 then return nil end
+			local itemLink=cached[2]
+			if not itemLink then return nil end
+			local itemID=lib:GetItemID(itemLink)
+			local name=cached[1]
+			cached.englishClass=GetItemClassInfo(cached[12])
+			cached.englishSubClass=GetItemSubClassInfo(cached[12],cached[13])
+			rawset(table,itemLink,cached)
+			rawset(table,itemID,cached)
+			rawset(table,name,cached)
+			table.miss=table.miss+1
+			return cached
+		end
+
+	})
+end
+local cache,select,unpack=lib.itemcache,select,unpack
+local	function CachedGetItemInfo(key,index)
+	if not key then return nil end
+	index=index or 1
+	cache.tot=cache.tot+1
+	local cached=cache[key]
+	if cached and type(cached)=='table' then
+		return select(index,unpack(cached))
+	else
+		rawset(cache,key,nil) -- voiding broken cache entry
+	end
+end
+
 local upgradeTable = {
 	[  1] = { upgrade = 1, max = 1, ilevel = 8 },
 	[373] = { upgrade = 1, max = 3, ilevel = 4 },
@@ -82,25 +161,23 @@ local boaPattern1=_G.ITEM_BIND_TO_BNETACCOUNT
 local boaPattern2=_G.ITEM_BNETACCOUNTBOUND
 
 local scanningTooltip
-local itemCache = setmetatable({},{__index=function(table,key) return {} end})
-local heirloomcolor
+local tipCache = lib.tipCache or setmetatable({},{__index=function(table,key) return {} end})
 local emptytable={}
-local function ScanTip(itemLink,itemLevel)
-	if not heirloomcolor then heirloomcolor =_G.ITEM_QUALITY_COLORS[_G.LE_ITEM_QUALITY_HEIRLOOM].hex end
+local function ScanTip(itemLink,itemLevel,show)
 	if type(itemLink)=="number" then
-		itemLink=select(2,GetItemInfo(itemLink))
+		itemLink=CachedGetItemInfo(itemLink,2)
 		if not itemLink then return emptytable end
 	end
-	if type(itemCache[itemLink].ilevel)=="nil" then
+	if type(tipCache[itemLink].ilevel)=="nil" then
 		if not scanningTooltip then
 			scanningTooltip = _G.CreateFrame("GameTooltip", "LibItemUpgradeInfoTooltip", nil, "GameTooltipTemplate")
-			scanningTooltip:SetOwner(_G.WorldFrame, "ANCHOR_NONE")
 		end
 		scanningTooltip:ClearLines()
 		local rc,message=pcall(scanningTooltip.SetHyperlink,scanningTooltip,itemLink)
 		if (not rc) then
 			return emptytable
 		end
+		local quality,_,_,class,subclass,_,_,_,_,classIndex,subclassIndex=CachedGetItemInfo(itemLink,3)
 		-- line 1 is the item name
 		-- line 2 may be the item level, or it may be a modifier like "Heroic"
 		-- check up to line 6 just in case
@@ -117,12 +194,14 @@ local function ScanTip(itemLink,itemLevel)
 				if boa==nil then boa = text:find(boaPattern2) end
 			end
 		end
-		if (itemLink:find(heirloomcolor)) then
-			heirloom=true
-		end
-		itemCache[itemLink]={ilevel=ilevel or itemLevel,soulbound=soulbound,bop=bop,boe=boe,heirloom=heirloom}
+		tipCache[itemLink]={
+			ilevel=ilevel or itemLevel,
+			soulbound=soulbound,
+			bop=bop,
+			boe=boe
+		}
 	end
-	return itemCache[itemLink]
+	return tipCache[itemLink]
 end
 
 
@@ -233,7 +312,7 @@ end
 -- Convert the ITEM_LEVEL constant into a pattern for our use
 function lib:GetHeirloomTrueLevel(itemString)
 	if type(itemString) ~= "string" then return nil,false end
-	local _, itemLink, rarity, itemLevel = GetItemInfo(itemString)
+	local _, itemLink, rarity, itemLevel = CachedGetItemInfo(itemString)
 	if (not itemLink) then
 		return nil,false
 	end
@@ -310,7 +389,7 @@ function lib:IsBoa(itemString)
 	return rc.boa
 end
 
--- IsHeirloom(itemString)
+-- IsArtifact(itemString)
 --
 -- Check an item for  Heirloom
 --
@@ -318,7 +397,28 @@ end
 --   itemString - String - An itemLink or itemString denoting the item
 --
 -- Returns:
---   Boolean - True if Heirloom
+--   Boolean - True if Artifact
+
+function lib:IsArtifact(itemString)
+	return CachedGetItemInfo(itemString,i_Quality)==LE_ITEM_QUALITY_ARTIFACT
+end
+
+-- GetClassInfoIsHeirloom(itemString)
+--
+-- Retrieve class and subclass
+--
+-- Arguments:
+--   itemString - String - An itemLink or itemString denoting the item
+--
+-- Returns:
+--   class,subclass
+
+
+function lib:GetClassInfo(itemString)
+	local rc=ScantTip(itemString)
+	return rc.class,rc.subclass
+end
+
 
 -- IsHeirloom(itemString)
 --
@@ -331,51 +431,11 @@ end
 --   Boolean - True if Heirloom
 
 function lib:IsHeirloom(itemString)
-	local rc=ScanTip(itemString)
-	return rc.heirloom
-end
-
-
-
-local GetItemInfo=GetItemInfo
-lib.itemcache=lib.itemcache or
-	setmetatable({miss=0,tot=0},{
-		__index=function(table,key)
-			if (not key) then return "" end
-			if (key=="miss") then return 0 end
-			if (key=="tot") then return 0 end
-			local cached={GetItemInfo(key)}
-			if #cached==0 then return nil end
-			local itemLink=cached[2]
-			if not itemLink then return nil end
-			local itemID=lib:GetItemID(itemLink)
-			local name=cached[1]
-			rawset(table,itemLink,cached)
-			rawset(table,itemID,cached)
-			rawset(table,name,cached)
-			table.miss=table.miss+1
-			return cached
-		end
-
-	})
-local CachedGetItemInfo	--#function
-do
-	local cache,select,unpack=lib.itemcache,select,unpack
-	function CachedGetItemInfo(key,index)
-		if not key then return nil end
-		index=index or 1
-		cache.tot=cache.tot+1
-		local cached=cache[key]
-		if cached and type(cached)=='table' then
-			return select(index,unpack(cached))
-		else
-			rawset(cache,key,nil) -- voiding broken cache entry
-		end
-	end
+	return CachedGetItemInfo(itemString,i_Quality) ==LE_ITEM_QUALITY_HEIRLOOM
 end
 ---
 -- Parses an itemlink and returns itemId without calling API again
--- @param #Lib self
+-- @param #lib self
 -- @param #string itemlink
 -- @return #number itemId or 0
 function lib:GetItemID(itemlink)
