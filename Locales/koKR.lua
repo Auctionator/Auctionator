@@ -2,7 +2,7 @@
 
 -- Translated by Nfrog
 
-AtrL = {};	
+AtrL = {};
 
 AtrL["%d auctions created for %s"] = "경매시작 - %d묶음 %s"
 AtrL[": page %d"] = ": %d 페이지"
@@ -144,8 +144,8 @@ AtrL["SCAN_EXPLANATION"] = "Auctionator가 경매장 조사를 통해 경매가�
 .."조사에는 보통 10초 정도가 소요되지만 경매장 상황에 따라 지연될 수 있습니다."
 .."<br/><br/>"
 .."조사가 진행 중일때 와우에서 연결이 끊긴것처럼 보일 수 있습니다. 이 부분에 대한 내용은 "
-.."http://auctionatoraddon.com/disconnects 에서 좀 더 자세히 읽어볼 수 있습니다.";
-		
+.."https://github.com/Auctionator/Auctionator/wiki 에서 좀 더 자세히 읽어볼 수 있습니다.";
+
 AtrL["Next scan allowed:"] = "다음 조사 가능"
 AtrL["in about %d minutes"] = "약 %d분 후"
 AtrL["in about one minute"] = "약 1분 후"
@@ -168,7 +168,7 @@ AtrL["Uncommon items"] = "고급 아이템"
 AtrL["Common items"] = "일반 아이템"
 AtrL["Poor items"] = "하급 아이템"
 AtrL["Items added to database"] = "데이터베이스에 아이템이 추가되었습니다"
-AtrL["Items updated in database"] = "데이터베이스에 아이템이 업데이트되었습니다"	
+AtrL["Items updated in database"] = "데이터베이스에 아이템이 업데이트되었습니다"
 
 
 
@@ -325,7 +325,7 @@ AtrL["Are you sure you want to clear your stacking preferences?"]="Stacking Pref
 AtrL["Go ahead - this isn't a big deal.  Auctionator will figure it out again fairly quickly.  This is just some info Auctionator keeps to help it set the default stack size a bit more intelligently."]=""
 AtrL["Are you sure you want to clear your shopping lists?"]="내 쇼핑목록을 삭제합니까?"
 AtrL["If you put a lot of time into constructing detailed shopping lists, this will require you to buidl them all over again."]="쇼핑목록 구성에 많은 시간을 소비했다면, 다시 구성하는데 그만큼의 시간이 필요하게 됩니다."
-	
+
 	-- result chat windows
 
 AtrL["pricing history cleared"] = "가격 기록이 삭제되었습니다."

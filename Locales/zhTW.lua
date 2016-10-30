@@ -13,7 +13,7 @@ AtrL["SCAN_EXPLANATION"] = ""
 .."<br/><br/>"
 .."有些人會在掃描時從WoW斷線，你可以在以下網址讀取相關原因及可能的解決辦法:"
 .."<br/>"
-.."http://auctionatoraddon.com/disconnects";
+.."https://github.com/Auctionator/Auctionator/wiki";
 
 
 AtrL["%6d items"]="%6d 項物品"

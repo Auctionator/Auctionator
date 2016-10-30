@@ -1,6 +1,6 @@
-## Interface: 70000
+## Interface: 70100
 ## Title: Auctionator
-## Version: 4.0.13
+## Version: 4.0.14
 ## Author: Borjamacare, Zirco
 ## X-Website: http://mods.curse.com/addons/wow/auctionator
 ## X-Localizations: enUS, deDE, ruRU, svSE, frFR, esES, zhTW
@@ -42,4 +42,3 @@ AuctionatorConfig.lua
 AuctionatorBuy.lua
 
 AuctionatorConfig.xml
-

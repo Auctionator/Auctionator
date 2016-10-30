@@ -6,7 +6,7 @@ AtrL["SCAN_EXPLANATION"] =  "<br />"
               .."Analyser l'hôtel des ventes va créer une base de données des différents prix qu'Auctionator utilisera pour deux raisons :<br /><br />"
               .."- afficher le prix moyen des objets disponible à la vente dans votre inventaire<br/>- recommander un prix moyen si aucune enchère n'est disponible au moment de la vente"
               .."<br /><br />"
-              .."Si l'analyse provoque une déconnection du jeu, rendez-vous sur |cFFffd100auctionatoraddon.com/faq|r pour trouver une solution adaptée.<br /><br />"
+              .."Si l'analyse provoque une déconnection du jeu, rendez-vous sur |cFFffd100https://github.com/Auctionator/Auctionator/wiki|r pour trouver une solution adaptée.<br /><br />"
               .."Si l'analyse provoque d'autres problèmes, vous pouvez essayer |cFFff5555l'analyse longue|r. Il suffit de tenir la touche Ctrl enfoncée avant de cliquer sur le bouton Démarrer l'analyse."
 
 
