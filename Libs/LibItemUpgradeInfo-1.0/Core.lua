@@ -1,4 +1,4 @@
-local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 26
+local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 27
 local type,tonumber,select,strsplit,GetItemInfoFromHyperlink=type,tonumber,select,strsplit,GetItemInfoFromHyperlink
 local library,previous = _G.LibStub:NewLibrary(MAJOR, MINOR)
 local lib=library --#lib Needed to keep Eclipse LDT happy
@@ -161,27 +161,45 @@ local boaPattern1=_G.ITEM_BIND_TO_BNETACCOUNT
 local boaPattern2=_G.ITEM_BNETACCOUNTBOUND
 
 local scanningTooltip
+local anchor
 local tipCache = lib.tipCache or setmetatable({},{__index=function(table,key) return {} end})
 local emptytable={}
+
 local function ScanTip(itemLink,itemLevel,show)
 	if type(itemLink)=="number" then
 		itemLink=CachedGetItemInfo(itemLink,2)
 		if not itemLink then return emptytable end
 	end
-	if type(tipCache[itemLink].ilevel)=="nil" then
+	if true or type(tipCache[itemLink].ilevel)=="nil" then
 		if not scanningTooltip then
+			anchor=CreateFrame("Frame")
+			anchor:Hide()
 			scanningTooltip = _G.CreateFrame("GameTooltip", "LibItemUpgradeInfoTooltip", nil, "GameTooltipTemplate")
 		end
-		scanningTooltip:ClearLines()
-		local rc,message=pcall(scanningTooltip.SetHyperlink,scanningTooltip,itemLink)
+		--scanningTooltip:ClearLines()
+		GameTooltip_SetDefaultAnchor(scanningTooltip,anchor)
+		local itemString=itemLink:match("|H(.-)|h")
+		local rc,message=pcall(scanningTooltip.SetHyperlink,scanningTooltip,itemString)
 		if (not rc) then
 			return emptytable
 		end
+		scanningTooltip:Show()
 		local quality,_,_,class,subclass,_,_,_,_,classIndex,subclassIndex=CachedGetItemInfo(itemLink,3)
+		
 		-- line 1 is the item name
 		-- line 2 may be the item level, or it may be a modifier like "Heroic"
 		-- check up to line 6 just in case
 		local ilevel,soulbound,bop,boe,boa,heirloom
+		if quality==LE_ITEM_QUALITY_ARTIFACT and itemLevel then ilevel=itemLevel end
+		if show then
+			for i=1,12 do
+				local l, ltext = _G["LibItemUpgradeInfoTooltipTextLeft"..i], nil		
+				local r, rtext  = _G["LibItemUpgradeInfoTooltipTextRight"..i], nil
+				ltext=l:GetText()
+				rtext=r:GetText()
+				pp(i,ltext,' - ',rtext)		
+			end
+		end
 		for i = 2, 6 do
 			local label, text = _G["LibItemUpgradeInfoTooltipTextLeft"..i], nil
 			if label then text=label:GetText() end
@@ -200,6 +218,7 @@ local function ScanTip(itemLink,itemLevel,show)
 			bop=bop,
 			boe=boe
 		}
+		scanningTooltip:Hide()
 	end
 	return tipCache[itemLink]
 end
@@ -459,6 +478,17 @@ end
 --
 -- Returns:
 --   #function The new function
+
+--@do-not-package--
+function lib:ScanTip(itemLink)
+	local GameTooltip=LibItemUpgradeInfoTooltip
+	if GameTooltip then
+		GameTooltip_SetDefaultAnchor(GameTooltip, UIParent)
+		GameTooltip:SetHyperlink(itemLink)
+		GameTooltip:Show()
+	end
+	return ScanTip(itemLink,100,true)
+end
 function lib:GetCachingGetItemInfo()
 	return CachedGetItemInfo
 end
@@ -467,6 +497,12 @@ function lib:GetCacheStats()
 	local h=c.tot-c.miss
 	local perc=( h>0) and h/c.tot*100 or 0
 	return c.miss,h,perc
+end
+function lib:GetCache()
+	return lib.itemcache
+end
+function lib:CleanCache()
+	return wipe(lib.itemcache)
 end
 
 --[===========[ ]===========]
@@ -598,5 +634,6 @@ do
 		debugFrame:Show()
 	end
 end
+--@end-do-not-package--
 
 -- vim: set noet sw=4 ts=4:
