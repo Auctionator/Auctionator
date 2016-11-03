@@ -481,15 +481,18 @@ end
 
 hooksecurefunc (GameTooltip, "SetMerchantItem",
   function(tip, index)
-    Atr_ShowTipWithPricing (tip, GetMerchantItemLink(index));
+    local _, _, _, num = GetMerchantItemInfo(index);
+    Atr_ShowTipWithPricing (tip, GetMerchantItemLink(index), num);
   end
 );
 
 hooksecurefunc (GameTooltip, "SetBuybackItem",
   function(tip, index)
-    Atr_ShowTipWithPricing (tip, GetBuybackItemLink(index));
+    local _, _, _, num = GetBuybackItemInfo(index);
+    Atr_ShowTipWithPricing (tip, GetBuybackItemLink(index), num);
   end
 );
+
 
 
 hooksecurefunc (GameTooltip, "SetBagItem",
