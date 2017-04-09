@@ -1795,9 +1795,9 @@ function auctionator_ChatEdit_InsertLink(text)
     end
 
     if item then
-      if IsLeftShiftKeyDown() then
+      if IsRightShiftKeyDown() then
         Atr_SetSearchText( item )
-      elseif IsRightShiftKeyDown() then
+      elseif IsLeftShiftKeyDown() then
         Atr_SetSearchText( zc.QuoteString( item ) )
       end
 
