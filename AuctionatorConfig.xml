@@ -140,7 +140,18 @@
           <OnLoad>AuctionatorOption_Enable_Alt_CB_Text:SetText (gAtr_ZT("Enable alt-key shortcut"));  </OnLoad>
         </Scripts>
       </Frame>
-
+      <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Exact_Shift_Match">
+        <Anchors>
+          <Anchor point="TOP">
+            <Offset>
+              <AbsDimension y="-115"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnLoad>AuctionatorOption_Exact_Shift_Match_CB_Text:SetText (gAtr_ZT("Exact shift match"));</OnLoad>
+        </Scripts>
+      </Frame>
       <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Show_StartingPrice">
         <Anchors>
           <Anchor point="TOP">
