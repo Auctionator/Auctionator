@@ -3330,7 +3330,7 @@ function Atr_ListTabOnClick (id)
     return;
   end
 
-  PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);;
+  PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
 
   Atr_SetToShowTab (id);
 
