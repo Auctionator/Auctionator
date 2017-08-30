@@ -165,7 +165,7 @@ function Atr_FullScanFrameIdle()
   if (gAtr_FullScanState == ATR_FS_CLEANING_UP) then
 
     if (Atr_GetNumAuctionItems("list") < 100) then
-      PlaySound("AuctionWindowClose");
+      PlaySound(SOUNDKIT.AUCTION_WINDOW_CLOSE);
       Atr_PurgeObsoleteItems ();
       gAtr_FullScanState = ATR_FS_NULL;
     end

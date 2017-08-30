@@ -621,10 +621,10 @@
             PanelTemplates_SetTab( Atr_ListTabs, 1 )
           </OnLoad>
           <OnShow>
-            PlaySound( "UChatScrollButton")
+            PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
           </OnShow>
           <OnHide>
-            PlaySound( "UChatScrollButton" )
+            PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
           </OnHide>
         </Scripts>
         </Frame>

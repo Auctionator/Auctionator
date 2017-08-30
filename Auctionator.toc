@@ -1,6 +1,6 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: Auctionator
-## Version: 4.0.17
+## Version: 4.0.18
 ## Author: Borjamacare, Zirco
 ## X-Website: http://mods.curse.com/addons/wow/auctionator
 ## X-Localizations: enUS, deDE, ruRU, svSE, frFR, esES, zhTW
