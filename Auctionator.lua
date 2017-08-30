@@ -1298,7 +1298,7 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
     AuctionFrameAuctions:Hide();
     AuctionFrameBrowse:Hide();
     AuctionFrameBid:Hide();
-    PlaySound("igCharacterInfoTab");
+    PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB);
 
     PanelTemplates_SetTab(AuctionFrame, index);
 
@@ -3318,7 +3318,7 @@ function Atr_HEntryOnClick(self)
     Atr_OnSearchComplete()
   end
 
-  PlaySound("igMainMenuOptionCheckBoxOn")
+  PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
 end
 
 -----------------------------------------
@@ -3330,7 +3330,7 @@ function Atr_ListTabOnClick (id)
     return;
   end
 
-  PlaySound("igMainMenuOptionCheckBoxOn");
+  PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);;
 
   Atr_SetToShowTab (id);
 
@@ -4021,7 +4021,7 @@ function Atr_EntryOnClick(entry)
     Atr_UpdateRecommendation(true);
   end
 
-  PlaySound ("igMainMenuOptionCheckBoxOn");
+  PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
 end
 
 -----------------------------------------
@@ -4966,7 +4966,7 @@ function Atr_Cancel_Undercuts_OnClick ()
 
   if (#gAtr_MassCancelList == 0) then
     Atr_CheckActives_Yes_Button:Disable();
-    PlaySound ("AuctionWindowClose");
+    PlaySound(SOUNDKIT.AUCTION_WINDOW_CLOSE);
   else
     Atr_CheckActives_Yes_Button:Enable();
   end
