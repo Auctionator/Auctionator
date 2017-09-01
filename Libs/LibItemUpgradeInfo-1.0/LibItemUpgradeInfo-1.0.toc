@@ -1,9 +1,9 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: Lib: ItemUpgradeInfo-1.0
 ## Notes: Database of item upgrade IDs
 ## Author: eridius
-## Version: Release-70200-28 70200
-## X-Revision: 7c5485a
+## Version: Release-70300-29 70200
+## X-Revision: a8e342c
 ## X-Category: Library
 
 LibItemUpgradeInfo-1.0.xml
