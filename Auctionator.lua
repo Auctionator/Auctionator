@@ -770,14 +770,14 @@ function Atr_InitScanDB()
   if (AUCTIONATOR_PRICE_DATABASE and AUCTIONATOR_PRICE_DATABASE["__dbversion"] == 4) then
     for realm_fac, data in pairs (AUCTIONATOR_PRICE_DATABASE) do
         zc.md ("migrating Auctionator db to version 5 for:", realm_fac);
-		if realm_fac:find("_Alliance") ~= nil then
-			AUCTIONATOR_PRICE_DATABASE[realm_fac:gsub("_Alliance", "")] = AUCTIONATOR_PRICE_DATABASE[realm_fac]
-			AUCTIONATOR_PRICE_DATABASE[realm_fac] = nil
-		end
-		if realm_fac:find("_Horde") ~= nil then
-			AUCTIONATOR_PRICE_DATABASE[realm_fac:gsub("_Horde", "")] = AUCTIONATOR_PRICE_DATABASE[realm_fac]
-			AUCTIONATOR_PRICE_DATABASE[realm_fac] = nil
-		end
+        if realm_fac:find("_Alliance") ~= nil then
+            AUCTIONATOR_PRICE_DATABASE[realm_fac:gsub("_Alliance", "")] = AUCTIONATOR_PRICE_DATABASE[realm_fac]
+            AUCTIONATOR_PRICE_DATABASE[realm_fac] = nil
+        end
+        if realm_fac:find("_Horde") ~= nil then
+            AUCTIONATOR_PRICE_DATABASE[realm_fac:gsub("_Horde", "")] = AUCTIONATOR_PRICE_DATABASE[realm_fac]
+            AUCTIONATOR_PRICE_DATABASE[realm_fac] = nil
+        end
     end
     AUCTIONATOR_PRICE_DATABASE["__dbversion"] = 5;
   end
