@@ -515,7 +515,7 @@ function AtrSearch:AnalyzeResultsPage()
   end
 
   -- scan only one page
-  if self.current_page > 1 then
+  if self.current_page > 1 and AUCTIONATOR_ENABLE_QUICK_SCAN == 1 then
     done = true
   end
 
