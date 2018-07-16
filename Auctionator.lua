@@ -348,7 +348,7 @@ function Atr_SendAddon_VREQ (type, target)
     zz ("sending vreq to", type)
   end
 
-  SendAddonMessage( "ATR", "VREQ_"..AuctionatorVersion, type, target )
+  C_ChatInfo.SendAddonMessage( "ATR", "VREQ_"..AuctionatorVersion, type, target )
 end
 
 -----------------------------------------
@@ -364,14 +364,14 @@ function Atr_OnChatMsgAddon (...)
     )
 
     if zc.StringStartsWith( msg, "VREQ_" ) then
-      SendAddonMessage( "ATR", "V_"..AuctionatorVersion, "WHISPER", sender )
+      C_ChatInfo.SendAddonMessage( "ATR", "V_"..AuctionatorVersion, "WHISPER", sender )
     end
 
     if zc.StringStartsWith (msg, "IREQ_") then
       collectgarbage( "collect" )
       UpdateAddOnMemoryUsage()
       local mem  = math.floor( GetAddOnMemoryUsage("Auctionator") )
-      SendAddonMessage( "ATR", "I_" .. Atr_GetDBsize() .. "_" .. mem .. "_" .. #AUCTIONATOR_SHOPPING_LISTS.."_"..GetRealmFacInfoString(), "WHISPER", sender)
+      C_ChatInfo.SendAddonMessage( "ATR", "I_" .. Atr_GetDBsize() .. "_" .. mem .. "_" .. #AUCTIONATOR_SHOPPING_LISTS.."_"..GetRealmFacInfoString(), "WHISPER", sender)
     end
 
     if zc.StringStartsWith( msg, "V_" ) and time() - VREQ_sent < 5 then
@@ -700,7 +700,7 @@ end
 function Atr_InitScanDB()
   Auctionator.Debug.Message( 'Atr_InitScanDB' )
 
-  local realm_Faction = GetRealmName().."_"..UnitFactionGroup ("player");
+  local realm_Faction = GetRealmName();
 
   if (AUCTIONATOR_PRICE_DATABASE and AUCTIONATOR_PRICE_DATABASE["__dbversion"] == nil) then -- migrate version 1 to version 2
 
@@ -767,9 +767,23 @@ function Atr_InitScanDB()
     AUCTIONATOR_PRICE_DATABASE["__dbversion"] = 4;
   end
 
+  if (AUCTIONATOR_PRICE_DATABASE and AUCTIONATOR_PRICE_DATABASE["__dbversion"] == 4) then
+    for realm_fac, data in pairs (AUCTIONATOR_PRICE_DATABASE) do
+        zc.md ("migrating Auctionator db to version 5 for:", realm_fac);
+        if realm_fac:find("_Alliance") ~= nil then
+            AUCTIONATOR_PRICE_DATABASE[realm_fac:gsub("_Alliance", "")] = AUCTIONATOR_PRICE_DATABASE[realm_fac]
+            AUCTIONATOR_PRICE_DATABASE[realm_fac] = nil
+        end
+        if realm_fac:find("_Horde") ~= nil then
+            AUCTIONATOR_PRICE_DATABASE[realm_fac:gsub("_Horde", "")] = AUCTIONATOR_PRICE_DATABASE[realm_fac]
+            AUCTIONATOR_PRICE_DATABASE[realm_fac] = nil
+        end
+    end
+    AUCTIONATOR_PRICE_DATABASE["__dbversion"] = 5;
+  end
   if (AUCTIONATOR_PRICE_DATABASE == nil) then
     AUCTIONATOR_PRICE_DATABASE = {};
-    AUCTIONATOR_PRICE_DATABASE["__dbversion"] = 4;
+    AUCTIONATOR_PRICE_DATABASE["__dbversion"] = 5;
   end
 
   if (AUCTIONATOR_PRICE_DATABASE[realm_Faction] == nil) then
@@ -1551,9 +1565,6 @@ function Atr_ContainerFrameItemButton_OnModifiedClick (self, button)
 
   return auctionator_orig_ContainerFrameItemButton_OnModifiedClick (self, button);
 end
-
-
-
 
 -----------------------------------------
 

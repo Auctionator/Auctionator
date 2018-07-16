@@ -1022,12 +1022,12 @@ StaticPopupDialogs["ATR_SL_REQUEST_SHARING"] = {
   OnAccept = function(self)
     gSLpermittedUser = gShpListShareRequester
     Atr_Send_ShoppingListData (gShpListShareRequester)
-    SendAddonMessage ("ATR", "SLREQ_", "WHISPER", gShpListShareRequester)
+    C_ChatInfo.SendAddonMessage ("ATR", "SLREQ_", "WHISPER", gShpListShareRequester)
     return
   end,
   OnCancel = function(self)
     gSLpermittedUser = nil
-    SendAddonMessage ("ATR", "SLPERM_DENIED_", "WHISPER", gShpListShareRequester)
+    C_ChatInfo.SendAddonMessage ("ATR", "SLPERM_DENIED_", "WHISPER", gShpListShareRequester)
     return
   end,
   OnShow = function(self)
@@ -1075,7 +1075,7 @@ function Atr_OnChatMsgAddon_ShoppingListCmds (prefix, msg, distribution, sender)
     gSLpermittedUser    = nil
     gShpListShareRequester  = sender
 
-    SendAddonMessage ("ATR", "SLREQACK_", "WHISPER", gShpListShareRequester)
+    C_ChatInfo.SendAddonMessage ("ATR", "SLREQACK_", "WHISPER", gShpListShareRequester)
 
     StaticPopup_Show ("ATR_SL_REQUEST_SHARING")
   end
@@ -1127,7 +1127,7 @@ function Atr_Send_ShoppingListData (toWhom)
     text = text..Atr_ShpList_Export_GetText (AUCTIONATOR_SHOPPING_LISTS[n])
   end
 
-  SendAddonMessage ("ATR", "SLSTART_", "WHISPER", toWhom)
+  C_ChatInfo.SendAddonMessage ("ATR", "SLSTART_", "WHISPER", toWhom)
 
   local lines = { strsplit("\n", text) }
 
@@ -1139,12 +1139,12 @@ function Atr_Send_ShoppingListData (toWhom)
     for n = 1,#lines do
       local line = strtrim(lines[n])
       if (line ~= "") then
-        SendAddonMessage ("ATR", "SLDATA_"..line, "WHISPER", toWhom)
+        C_ChatInfo.SendAddonMessage ("ATR", "SLDATA_"..line, "WHISPER", toWhom)
       end
     end
   end
 
-  SendAddonMessage ("ATR", "SLEND_", "WHISPER", toWhom)
+  C_ChatInfo.SendAddonMessage ("ATR", "SLEND_", "WHISPER", toWhom)
 
 end
 
@@ -1154,7 +1154,7 @@ function Atr_Send_ShareShoppingListRequest (target)
 
   if (UnitIsPlayer(target)) then
     gSLpermittedUser = target   -- sending this request implicitly grants permission to the target
-    SendAddonMessage ("ATR", "SLPERM_REQ_", "WHISPER", gSLpermittedUser)
+    C_ChatInfo.SendAddonMessage ("ATR", "SLPERM_REQ_", "WHISPER", gSLpermittedUser)
     gRequestSentTime = time()
   else
     zc.msg_anm ("You can only share lists with another player")

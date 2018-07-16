@@ -66,29 +66,29 @@
         </Scripts>
       </Frame>
 
-      <EditBox name="Atr_AS_Minlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+      <EditBox name="Atr_AS_Minlevel" autoFocus="false" bytes="64" numeric="true" inherits="InputBoxTemplate">
         <Size x="30" y="20"/>
         <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_LevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="5" y="-4"/></Offset></Anchor></Anchors>
-        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
       </EditBox>
 
-      <EditBox name="Atr_AS_Maxlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+      <EditBox name="Atr_AS_Maxlevel" autoFocus="false" bytes="64" numeric="true" inherits="InputBoxTemplate">
         <Size x="30" y="20"/>
         <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_LevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="59" y="-4"/></Offset></Anchor></Anchors>
-        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
       </EditBox>
 
 
-      <EditBox name="Atr_AS_MinItemlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate" hidden="true">
+      <EditBox name="Atr_AS_MinItemlevel" autoFocus="false" bytes="64" numeric="true" inherits="InputBoxTemplate" hidden="true">
         <Size x="30" y="20"/>
         <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_ILevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="5" y="-4"/></Offset></Anchor></Anchors>
-        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
       </EditBox>
 
-      <EditBox name="Atr_AS_MaxItemlevel" autoFocus="false" numeric="true" inherits="InputBoxTemplate" hidden="true">
+      <EditBox name="Atr_AS_MaxItemlevel" autoFocus="false" bytes="64" numeric="true" inherits="InputBoxTemplate" hidden="true">
         <Size x="30" y="20"/>
         <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_AS_ILevRange_Label" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="59" y="-4"/></Offset></Anchor></Anchors>
-        <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
       </EditBox>
 
       <Button name="Atr_Adv_Search_ResetBut" inherits="Atr_SmallButtonTemplate" text="RESET">
