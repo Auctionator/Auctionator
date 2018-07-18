@@ -348,7 +348,7 @@ function Atr_SendAddon_VREQ (type, target)
     zz ("sending vreq to", type)
   end
 
-  SendAddonMessage( "ATR", "VREQ_"..AuctionatorVersion, type, target )
+  C_ChatInfo.SendAddonMessage( "ATR", "VREQ_"..AuctionatorVersion, type, target )
 end
 
 -----------------------------------------
@@ -364,14 +364,14 @@ function Atr_OnChatMsgAddon (...)
     )
 
     if zc.StringStartsWith( msg, "VREQ_" ) then
-      SendAddonMessage( "ATR", "V_"..AuctionatorVersion, "WHISPER", sender )
+      C_ChatInfo.SendAddonMessage( "ATR", "V_"..AuctionatorVersion, "WHISPER", sender )
     end
 
     if zc.StringStartsWith (msg, "IREQ_") then
       collectgarbage( "collect" )
       UpdateAddOnMemoryUsage()
       local mem  = math.floor( GetAddOnMemoryUsage("Auctionator") )
-      SendAddonMessage( "ATR", "I_" .. Atr_GetDBsize() .. "_" .. mem .. "_" .. #AUCTIONATOR_SHOPPING_LISTS.."_"..GetRealmFacInfoString(), "WHISPER", sender)
+      C_ChatInfo.SendAddonMessage( "ATR", "I_" .. Atr_GetDBsize() .. "_" .. mem .. "_" .. #AUCTIONATOR_SHOPPING_LISTS.."_"..GetRealmFacInfoString(), "WHISPER", sender)
     end
 
     if zc.StringStartsWith( msg, "V_" ) and time() - VREQ_sent < 5 then
