@@ -49,14 +49,14 @@
         <Frames>
 
 
-          <EditBox name="Atr_Buy_Confirm_Numstacks" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+          <EditBox name="Atr_Buy_Confirm_Numstacks" autoFocus="false" numeric="true" inherits="InputBoxTemplate" bytes="64">
             <Size><AbsDimension x="40" y="20"/></Size>
             <Anchors>
               <Anchor point="TOPLEFT" relativeTo="Atr_Buy_Confirm_Text1">
                 <Offset><AbsDimension x="40" y="4"/></Offset>
               </Anchor>
             </Anchors>
-            <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+            <FontString inherits="ChatFontNormal" justifyH="CENTER" />
           </EditBox>
         </Frames>
       </Frame>

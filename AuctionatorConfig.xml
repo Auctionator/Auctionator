@@ -524,7 +524,7 @@
           </Anchor>
         </Anchors>
       </Frame>
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" name="Atr_Starting_Discount" numeric="true">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" name="Atr_Starting_Discount" numeric="true" bytes="64">
         <Size>
           <AbsDimension x="24" y="20"/>
         </Size>
@@ -533,7 +533,7 @@
             <Offset x="210" y="-286"/>
           </Anchor>
         </Anchors>
-        <FontString bytes="64" inherits="ChatFontNormal"/>
+        <FontString inherits="ChatFontNormal"/>
       </EditBox>
       <Button inherits="UIPanelButtonTemplate" name="$parent_Reset" text="Reset to Default">
         <Size>
@@ -789,7 +789,7 @@
           <OnShow function="Atr_SONumStacks_OnShow"/>
         </Scripts>
       </Frame>
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" name="Atr_Mem_EB_stackSize" numeric="true">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" name="Atr_Mem_EB_stackSize" numeric="true" bytes="64">
         <Size>
           <AbsDimension x="40" y="20"/>
         </Size>
@@ -800,7 +800,7 @@
             </Offset>
           </Anchor>
         </Anchors>
-        <FontString bytes="64" inherits="ChatFontNormal" justifyH="CENTER"/>
+        <FontString inherits="ChatFontNormal" justifyH="CENTER"/>
       </EditBox>
       <Button inherits="Atr_SmallButtonTemplate" name="Atr_Mem_Forget" text="">
         <Size>
@@ -971,7 +971,7 @@
           </Layer>
         </Layers>
         <Frames>
-          <EditBox autoFocus="false" inherits="InputBoxTemplate" name="Atr_ScanOpts_MaxHistAge" numeric="true">
+          <EditBox autoFocus="false" inherits="InputBoxTemplate" name="Atr_ScanOpts_MaxHistAge" numeric="true" bytes="64">
             <Size>
               <AbsDimension x="40" y="22"/>
             </Size>
@@ -980,7 +980,7 @@
                 <Offset x="220" y="-3"/>
               </Anchor>
             </Anchors>
-            <FontString bytes="64" inherits="ChatFontNormal"/>
+            <FontString inherits="ChatFontNormal"/>
           </EditBox>
         </Frames>
       </Frame>

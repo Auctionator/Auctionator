@@ -73,10 +73,10 @@
       </Button>
 
 
-      <EditBox name="Atr_Search_Box" autoFocus="false" inherits="InputBoxTemplate">
+      <EditBox name="Atr_Search_Box" autoFocus="false" inherits="InputBoxTemplate" bytes="64">
         <Size><AbsDimension x="260" y="20"/></Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-45"/></Offset></Anchor></Anchors>
-        <FontString inherits="ChatFontNormal" bytes="64"/>
+        <FontString inherits="ChatFontNormal" />
 
         <Scripts>
           <OnEnterPressed>
@@ -342,28 +342,28 @@
             </Scripts>
           </Frame>
 
-          <EditBox name="Atr_Batch_NumAuctions" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+          <EditBox name="Atr_Batch_NumAuctions" autoFocus="false" numeric="true" inherits="InputBoxTemplate" bytes="64">
             <Size><AbsDimension x="40" y="20"/></Size>
             <Anchors>
               <Anchor point="TOPLEFT" relativeTo="Atr_Batch_Stacksize_Text">
                 <Offset><AbsDimension x="-37" y="0"/></Offset>
               </Anchor>
             </Anchors>
-            <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+            <FontString inherits="ChatFontNormal"  justifyH="CENTER" />
             <Scripts>
               <OnTextChanged>Atr_NumAuctionsChangedFunc()</OnTextChanged>
               <OnTabPressed>Atr_Batch_Stacksize:SetFocus()</OnTabPressed>
             </Scripts>
           </EditBox>
 
-          <EditBox name="Atr_Batch_Stacksize" autoFocus="false" numeric="true" inherits="InputBoxTemplate">
+          <EditBox name="Atr_Batch_Stacksize" autoFocus="false" numeric="true" inherits="InputBoxTemplate" bytes="64">
             <Size><AbsDimension x="40" y="20"/></Size>
             <Anchors>
               <Anchor point="TOPLEFT" relativeTo="Atr_Batch_Stacksize_Text">
                 <Offset><AbsDimension x="84" y="0"/></Offset>
               </Anchor>
             </Anchors>
-            <FontString inherits="ChatFontNormal" bytes="64" justifyH="CENTER" />
+            <FontString inherits="ChatFontNormal"  justifyH="CENTER" />
             <Scripts>
               <OnTextChanged>Atr_StackSizeChangedFunc()</OnTextChanged>
               <OnTabPressed>Atr_Batch_NumAuctions:SetFocus()</OnTabPressed>
