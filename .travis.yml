@@ -10,6 +10,11 @@ before_install:
   - hererocks lua_install -rlatest --$LUA
   - export PATH=$PATH:$PWD/lua_install/bin
 
+after_failure:
+  - curl -v -H User-Agent:bot -H Content-Type:application/json -d '{"content":"Build has failed!"}' https://discordapp.com/api/webhooks/469326007745249290/0K92Jqg0kznesVj3Dp7f3FtzSORjc7S0BHRqQo2LPJYYlaEJOalwLhO8uALpdltazQ6O
+after_success:
+  - curl -v -H User-Agent:bot -H Content-Type:application/json -d '{"content":"Build successfully built!"}' https://discordapp.com/api/webhooks/469326007745249290/0K92Jqg0kznesVj3Dp7f3FtzSORjc7S0BHRqQo2LPJYYlaEJOalwLhO8uALpdltazQ6O
+
 install:
   - luarocks install busted
 
@@ -18,7 +23,6 @@ script:
 
 notifications:
   slack: auctionator:BC1zZn6yPmF6GNk303gvkOMy#builds
-  webhooks: https://discordapp.com/api/webhooks/469326007745249290/0K92Jqg0kznesVj3Dp7f3FtzSORjc7S0BHRqQo2LPJYYlaEJOalwLhO8uALpdltazQ6O
 
 before_deploy:
   - mkdir -p Deploy/Auctionator
