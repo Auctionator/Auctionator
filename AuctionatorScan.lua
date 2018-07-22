@@ -514,6 +514,11 @@ function AtrSearch:AnalyzeResultsPage()
     end
   end
 
+  -- scan only one page
+  if self.current_page > 1 and AUCTIONATOR_ENABLE_QUICK_SCAN == 1 then
+    done = true
+  end
+
   if not done then
     self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY
   end
@@ -732,6 +737,12 @@ function AtrSearch:Continue()
       { queryString, minLevel, maxLevel, self.current_page, nil, nil, false, exactMatch, filter },
       'QUERY AUCTION ITEMS PARAMS'
     )
+
+    -- sort search result by buyout (total, so just the cheapest stacks of 1 item will be used to determine price)
+    SortAuctionClearSort("list")
+    SortAuctionSetSort("list", "buyout")
+    SortAuctionApplySort("list")
+
     QueryAuctionItems (queryString, minLevel, maxLevel, self.current_page, nil, nil, false, exactMatch, filter )
 
     self.query_sent_when  = gAtr_ptime;

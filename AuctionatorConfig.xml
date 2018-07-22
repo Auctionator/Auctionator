@@ -141,6 +141,19 @@
         </Scripts>
       </Frame>
 
+      <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Quick_Scan">
+        <Anchors>
+          <Anchor point="TOP">
+            <Offset>
+              <AbsDimension y="-115"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+          <OnLoad>AuctionatorOption_Quick_Scan_CB_Text:SetText ("Enable quick scan (experimentally)");  </OnLoad>
+        </Scripts>
+      </Frame>
+
       <Frame inherits="Atr_SingleOptionTemplate" name="AuctionatorOption_Show_StartingPrice">
         <Anchors>
           <Anchor point="TOP">
