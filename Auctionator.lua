@@ -1553,6 +1553,16 @@ function Atr_ContainerFrameItemButton_OnModifiedClick (self, button)
 end
 
 
+-----------------------------------------
+local function Atr_Search_Bags_For_Item (itemLink)
+	for bag = 0, NUM_BAG_SLOTS do
+			for slot = 1, GetContainerNumSlots(bag) do
+				if(GetContainerItemLink(bag, slot) == itemLink) then
+					return bag, slot
+				end
+			end
+	end
+end
 
 
 -----------------------------------------
@@ -1574,17 +1584,43 @@ function Atr_CreateAuction_OnClick ()
     gJustPosted.NumStacks     = Atr_Batch_NumAuctions:GetNumber();
   end
 
-  local duration        = UIDropDownMenu_GetSelectedValue(Atr_Duration);
+  local duration            = UIDropDownMenu_GetSelectedValue(Atr_Duration);
   local stackStartingPrice  = MoneyInputFrame_GetCopper(Atr_StartingPrice);
   local stackBuyoutPrice    = MoneyInputFrame_GetCopper(Atr_StackPrice);
 
   Atr_Memorize_Stacking_If();
+  
+  -- this Block is for that last unfinished stack 
+  if (Atr_SellallCheckBox:GetChecked() == true) then
+	Auctionator.Debug.Message( 'Atr_SellallCheckBox Test : Checked' );
+	countItems = Atr_GetNumItemInBags(gCurrentPane.activeScan.itemLink);
+	countItems = countItems - (gJustPosted.StackSize * gJustPosted.NumStacks)
+	Auctionator.Debug.Message( 'Atr_CreateAuction_OnClick() Items left : ',countItems);	
+	-- this only works if the user rly wants to sell all! 
+	if (countItems < gJustPosted.StackSize) then		
+		StartAuction (stackStartingPrice, stackBuyoutPrice, duration, countItems, 1);   
+		Auctionator.Debug.Message( 'Atr_CreateAuction_OnClick : ', "adding 1 unfinished Stack of ", countItems);			
+		--- search for the same ID and drop it into mouse hand and then into auctionhouse
+		local bagID, slotID = Atr_Search_Bags_For_Item(gCurrentPane.activeScan.itemLink);
+		Auctionator.Debug.Message( 'Atr_CreateAuction_OnClick : ', bagID, slotID);
+		PickupContainerItem(bagID, slotID);
+		ClickAuctionSellItemButton(); 
+		Atr_SetToShowCurrent(); 
+		Atr_SellallCheckBox:SetChecked(false);	  	
+		return;
+	else 
+		Auctionator.Debug.Message( 'Atr_CreateAuction_OnClick : didnt create any unfinished stack auctions');	
+	end		
+  end
 
-  StartAuction (stackStartingPrice, stackBuyoutPrice, duration, gJustPosted.StackSize, gJustPosted.NumStacks);
-
+  StartAuction (stackStartingPrice, stackBuyoutPrice, duration, gJustPosted.StackSize, gJustPosted.NumStacks);   
   Atr_SetToShowCurrent();
 end
 
+function Atr_My_Test_Func_OnClick()
+	Auctionator.Debug.Message( 'Atr_My_Test_Func_OnClick : ', gCurrentPane.activeScan.itemLink, gCurrentPane.activeScan.itemName);
+	
+end
 
 -----------------------------------------
 

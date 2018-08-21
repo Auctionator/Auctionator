@@ -256,9 +256,14 @@
             <FontString name="Atr_StartingPriceText" inherits="GameFontHighlightSmall" text="Starting Price" hidden="true">
               <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="13" y="-260"/></Offset></Anchor></Anchors>
             </FontString>
+			
+			<!-- Sell all CheckBox Text-->
+			<FontString name="Atr_SellallCheckBoxText" inherits="GameFontHighlightSmall" text="Sell all">
+              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="38" y="-255"/></Offset></Anchor></Anchors>
+            </FontString>
 
             <FontString name="Atr_StartingPriceDiscountText" inherits="GameFontHighlightSmall" text="Starting Price">
-              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-270"/></Offset></Anchor></Anchors>
+              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-280"/></Offset></Anchor></Anchors>
             </FontString>
 
             <FontString name="Atr_Duration_Text" inherits="GameFontHighlightSmall" text="Duration">
@@ -368,7 +373,18 @@
               <OnTextChanged>Atr_StackSizeChangedFunc()</OnTextChanged>
               <OnTabPressed>Atr_Batch_NumAuctions:SetFocus()</OnTabPressed>
             </Scripts>
-          </EditBox>
+          </EditBox>		  
+		  
+		  <!-- Sell All Items Checkbox -->
+		  <CheckButton name="Atr_SellallCheckBox" inherits="UICheckButtonTemplate">
+            <Size><AbsDimension x="30" y="30"/></Size>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="Atr_SellallCheckBoxText">
+                <Offset><AbsDimension x="-30" y="9"/></Offset>
+              </Anchor>
+            </Anchors>         
+          </CheckButton> 
+		  
 
           <Button name="Atr_CreateAuctionButton" inherits="UIPanelButtonTemplate"  text="Create Auction" disabled="true">
             <Size><AbsDimension x="185" y="30"/>  </Size>
