@@ -413,28 +413,18 @@
 				</OnClick>
 			</Scripts>
 		</Button>
-		  
-		  <!-- Sell All Items Checkbox -->
-		  <CheckButton name="Atr_SellallCheckBox" inherits="UICheckButtonTemplate">
-            <Size><AbsDimension x="30" y="30"/></Size>
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeTo="Atr_SellallCheckBoxText">
-                <Offset><AbsDimension x="-30" y="9"/></Offset>
-              </Anchor>
-            </Anchors>         
-          </CheckButton> 		  
 
-          <Button name="Atr_CreateAuctionButton" inherits="UIPanelButtonTemplate"  text="Create Auction" disabled="true">
-            <Size><AbsDimension x="185" y="30"/>  </Size>
-              <Anchors>
-                <Anchor point="TOPLEFT"><Offset><AbsDimension x="5" y="-153"/></Offset></Anchor>
-              </Anchors>
-            <Scripts>
-              <OnClick>
-                Atr_CreateAuction_OnClick()
-              </OnClick>
-            </Scripts>
-          </Button>
+		  <Button name="Atr_CreateAuctionButton" inherits="UIPanelButtonTemplate"  text="Create Auction" disabled="true">
+			<Size><AbsDimension x="185" y="30"/>  </Size>
+			  <Anchors>
+				<Anchor point="TOPLEFT"><Offset><AbsDimension x="5" y="-153"/></Offset></Anchor>
+			  </Anchors>
+			<Scripts>
+			  <OnClick>
+				Atr_CreateAuction_OnClick()
+			  </OnClick>
+			</Scripts>
+		  </Button>
 
           <Frame name="Atr_Duration" inherits="UIDropDownMenuTemplate">
             <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_Duration_Text"><Offset><AbsDimension x="32" y="7"/></Offset></Anchor></Anchors>
