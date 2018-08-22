@@ -370,6 +370,60 @@
             </Scripts>
           </EditBox>
 
+		<!-- Set Max Stacks Buttons -->
+		<Button name="SetStackCountToMaxButton" inherits="Atr_SmallButtonTemplate" text="Max">
+			<Size><AbsDimension x="25" y="15"/> </Size>
+			<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-190"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					Atr_SetStackCountToMax()
+				</OnClick>
+			</Scripts>
+		</Button>		
+		
+		<Button name="SetStackCountToMaxButton_Stacksize_1" inherits="Atr_SmallButtonTemplate" text="Max_1">
+			<Size><AbsDimension x="25" y="15"/> </Size>
+			<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="60" y="-190"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					Atr_Batch_Stacksize:SetText(1);
+					Atr_SetStackCountToMax();
+				</OnClick>
+			</Scripts>
+		</Button>
+		
+		<Button name="SetStackCountToMaxButton_Stacksize_2" inherits="Atr_SmallButtonTemplate" text="Max_2">
+			<Size><AbsDimension x="25" y="15"/> </Size>
+			<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="100" y="-190"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					Atr_Batch_Stacksize:SetText(2);
+					Atr_SetStackCountToMax();
+				</OnClick>
+			</Scripts>
+		</Button>
+		
+		<Button name="SetStackCountToMaxButton_Stacksize_5" inherits="Atr_SmallButtonTemplate" text="Max_5">
+			<Size><AbsDimension x="25" y="15"/> </Size>
+			<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="140" y="-190"/></Offset></Anchor></Anchors>
+			<Scripts>
+				<OnClick>
+					Atr_Batch_Stacksize:SetText(5);
+					Atr_SetStackCountToMax();
+				</OnClick>
+			</Scripts>
+		</Button>
+		  
+		  <!-- Sell All Items Checkbox -->
+		  <CheckButton name="Atr_SellallCheckBox" inherits="UICheckButtonTemplate">
+            <Size><AbsDimension x="30" y="30"/></Size>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="Atr_SellallCheckBoxText">
+                <Offset><AbsDimension x="-30" y="9"/></Offset>
+              </Anchor>
+            </Anchors>         
+          </CheckButton> 		  
+
           <Button name="Atr_CreateAuctionButton" inherits="UIPanelButtonTemplate"  text="Create Auction" disabled="true">
             <Size><AbsDimension x="185" y="30"/>  </Size>
               <Anchors>

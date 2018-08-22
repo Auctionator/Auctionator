@@ -1555,6 +1555,7 @@ end
 
 
 
+
 -----------------------------------------
 
 function Atr_CreateAuction_OnClick ()
@@ -1583,6 +1584,14 @@ function Atr_CreateAuction_OnClick ()
   StartAuction (stackStartingPrice, stackBuyoutPrice, duration, gJustPosted.StackSize, gJustPosted.NumStacks);
 
   Atr_SetToShowCurrent();
+end
+
+
+function Atr_SetStackCountToMax()
+	if (gCurrentPane ~= nil and gCurrentPane.totalItems > 0) then
+		local maxAuctions = math.floor (gCurrentPane.totalItems / Atr_StackSize());		
+		Atr_Batch_NumAuctions:SetText (maxAuctions);
+	end
 end
 
 
