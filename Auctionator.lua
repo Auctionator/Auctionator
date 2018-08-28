@@ -1580,7 +1580,7 @@ function Atr_CreateAuction_OnClick ()
 
   Atr_Memorize_Stacking_If();
 
-  StartAuction (stackStartingPrice, stackBuyoutPrice, duration, gJustPosted.StackSize, gJustPosted.NumStacks);
+  PostAuction (stackStartingPrice, stackBuyoutPrice, duration, gJustPosted.StackSize, gJustPosted.NumStacks);
 
   Atr_SetToShowCurrent();
 end
@@ -2511,6 +2511,7 @@ function Atr_StackPriceChangedFunc ()
     MoneyInputFrame_SetCopper (Atr_StartingPrice, new_Item_StartPrice * Atr_StackSize());
   end
 
+  gSellPane.UINeedsUpdate = true;
 end
 
 -----------------------------------------
@@ -2530,6 +2531,7 @@ function Atr_ItemPriceChangedFunc ()
     MoneyInputFrame_SetCopper (Atr_StartingPrice, new_Item_StartPrice  * Atr_StackSize());
   end
 
+  gSellPane.UINeedsUpdate = true;
 end
 
 -----------------------------------------
@@ -3113,14 +3115,9 @@ function Atr_SetDepositText()
 
   if (auctionCount > 0) then
     local duration = UIDropDownMenu_GetSelectedValue(Atr_Duration);
+    local deposit1 = GetAuctionDeposit (duration, MoneyInputFrame_GetCopper(Atr_StartingPrice), MoneyInputFrame_GetCopper(Atr_StackPrice), Atr_StackSize(), Atr_Batch_NumAuctions:GetNumber());
 
-    local deposit1 = CalculateAuctionDeposit (duration) / auctionCount;
-    local numAuctionString = "";
-    if (Atr_Batch_NumAuctions:GetNumber() > 1) then
-      numAuctionString = "  |cffff55ff x"..Atr_Batch_NumAuctions:GetNumber();
-    end
-
-    Atr_Deposit_Text:SetText (ZT("Deposit")..":    "..zc.priceToMoneyString(deposit1 * Atr_StackSize(), true)..numAuctionString);
+    Atr_Deposit_Text:SetText (ZT("Deposit")..":    "..zc.priceToMoneyString(deposit1, true));
   else
     Atr_Deposit_Text:SetText ("");
   end
