@@ -3111,7 +3111,7 @@ end
 function Atr_SetDepositText()
   Auctionator.Debug.Message( 'Atr_SetDepositText' )
 
-  _, auctionCount = Atr_GetSellItemInfo();
+  local _, auctionCount = Atr_GetSellItemInfo();
 
   if (auctionCount > 0) then
     local duration = UIDropDownMenu_GetSelectedValue(Atr_Duration);
@@ -3287,12 +3287,9 @@ function Atr_HEntryOnClick(self)
     gHentryTryAgain = nil;
   end
 
-  local _, itemLink;
-  local IDstring;
   local entryIndex = line:GetID();
-
-  itemName = gHistoryItemList[entryIndex].name;
-  itemLink = gHistoryItemList[entryIndex].link;
+  local itemName = gHistoryItemList[entryIndex].name;
+  local itemLink = gHistoryItemList[entryIndex].link;
 
   if (IsAltKeyDown() and Atr_IsModeActiveAuctions()) then
     Atr_Cancel_Undercuts_OnClick (itemName)
@@ -3690,7 +3687,7 @@ function Atr_ShowCurrentAuctions()
     scn = Atr_FindScan(nil)
   end
 
-  numrows = #scn.sortedData
+  local numrows = #scn.sortedData
 
   if (numrows > 0) then
     Atr_Col1_Heading:Show();
@@ -4158,7 +4155,6 @@ function Atr_CancelAuction_ByIndex(index)
   if (#gAtr_Owner_Item_Indices == 0) then
 
     local numInList = Atr_GetNumAuctionItems ("owner");
-    local i;
     local x = 1;
 
     for i = 1,numInList do
@@ -4174,7 +4170,7 @@ function Atr_CancelAuction_ByIndex(index)
 
   -- cancel the last item in the list and remove it
 
-  local numInMatchList = #gAtr_Owner_Item_Indices;
+  local numInMatchList, i = #gAtr_Owner_Item_Indices;
 
   for x = numInMatchList,1,-1 do
 
@@ -4659,7 +4655,6 @@ function Atr_BuildGlobalHistoryList()
     Atr_BuildActiveAuctions()
   end
 
-  local info, IDstring
   for IDstring, info in pairs (gActiveAuctions) do
     if (info.link and info.count ~= 0) then
       table.insert (gHistoryItemList, info)
