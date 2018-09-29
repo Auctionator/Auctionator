@@ -178,7 +178,7 @@
         </Anchors>
         <Layers>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" name="$parent_Text" text="Default Auction Duration">
+            <FontString inherits="GameFontHighlight" name="$parent_Text" text="AUCTIONATOR_AUCTION_DURATION">
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset x="0" y="0"/>
@@ -213,7 +213,7 @@
               </Anchor>
             </Anchors>
             <Scripts>
-              <OnLoad>_G[self:GetName().."Text"]:SetText("None"); </OnLoad>
+              <OnLoad>_G[self:GetName().."Text"]:SetText (gAtr_ZT("None")); </OnLoad>
               <OnClick>Atr_SetDurationOptionRB (self:GetName()); </OnClick>
             </Scripts>
           </CheckButton>
@@ -271,7 +271,7 @@
         </Anchors>
         <Layers>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" name="$parent_Text" text="Default Auctionator tab">
+            <FontString inherits="GameFontHighlight" name="$parent_Text" text="AUCTIONATOR_DEFAULT_AUCTIONATOR_TAB">
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset x="0" y="0"/>
@@ -535,7 +535,7 @@
         </Anchors>
         <FontString inherits="ChatFontNormal"/>
       </EditBox>
-      <Button inherits="UIPanelButtonTemplate" name="$parent_Reset" text="Reset to Default">
+      <Button inherits="UIPanelButtonTemplate" name="$parent_Reset" text="DEFAULT">
         <Size>
           <AbsDimension x="150" y="22"/>
         </Size>
@@ -607,7 +607,7 @@
           </EdgeSize>
         </Backdrop>
       </Frame>
-      <Button inherits="Atr_SmallButtonTemplate" name="$parent_Edit" parent="Atr_StackingOptionsFrame" text="Edit">
+      <Button inherits="Atr_SmallButtonTemplate" name="$parent_Edit" parent="Atr_StackingOptionsFrame" text="EDIT">
         <Size>
           <AbsDimension x="80" y="18"/>
         </Size>
@@ -622,7 +622,7 @@
           <OnClick>Atr_StackingList_Edit_OnClick()</OnClick>
         </Scripts>
       </Button>
-      <Button inherits="Atr_SmallButtonTemplate" name="$parent_New" parent="Atr_StackingOptionsFrame" text="New">
+      <Button inherits="Atr_SmallButtonTemplate" name="$parent_New" parent="Atr_StackingOptionsFrame" text="AUCTIONATOR_NEW">
         <Size>
           <AbsDimension x="80" y="18"/>
         </Size>
@@ -726,7 +726,7 @@
     </Backdrop>
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontNormalSmall" justifyH="LEFT" name="Atr_Mem_itemName_text" text="Item Name">
+        <FontString inherits="GameFontNormalSmall" justifyH="LEFT" name="Atr_Mem_itemName_text" text="AUCTIONATOR_ITEM_NAME">
           <Size>
             <AbsDimension x="200" y="20"/>
           </Size>
@@ -872,7 +872,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormal" justifyH="LEFT" text="Minimum quality level:"/>
+            <FontString inherits="GameFontNormal" justifyH="LEFT" text="AUCTIONATOR_MINIMUM_QUALITY_LEVEL"/>
           </Layer>
         </Layers>
         <Scripts>
@@ -909,7 +909,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormal" text="Auctionator memory usage:">
+            <FontString inherits="GameFontNormal" text="AUCTIONATOR_MEMORY_USAGE">
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset x="15" y="-20"/>
@@ -923,7 +923,7 @@
                 </Anchor>
               </Anchors>
             </FontString>
-            <FontString inherits="GameFontNormal" text="Items in the database:">
+            <FontString inherits="GameFontNormal" text="AUCTIONATOR_ITEMS_IN_THE_DATABASE">
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset x="15" y="-45"/>
@@ -951,7 +951,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormal" justifyH="LEFT" spacing="2" text="On start-up delete historical prices older than:">
+            <FontString inherits="GameFontNormal" justifyH="LEFT" spacing="2" text="AUCTIONATOR_DELETE_HISTORICAL_PRICES">
               <Size>
                 <AbsDimension x="200"/>
               </Size>
@@ -961,7 +961,7 @@
                 </Anchor>
               </Anchors>
             </FontString>
-            <FontString inherits="GameFontNormal" justifyH="LEFT" text="days">
+            <FontString inherits="GameFontNormal" justifyH="LEFT" text="AUCTIONATOR_DELETE_HISTORICAL_PRICES_DAYS">
               <Anchors>
                 <Anchor point="TOPLEFT">
                   <Offset x="268" y="-11"/>
@@ -993,7 +993,7 @@
       </OnLoad>
     </Scripts>
     <Frames>
-      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="Clear Scanning History">
+      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="AUCTIONATOR_CLEAR_SCANNING_HISTORY_BTN">
         <Size x="300" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1004,7 +1004,7 @@
           <OnClick function="Atr_OnClick_ClearHistory"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="Clear Posting History">
+      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="AUCTIONATOR_CLEAR_POSTING_HISTORY_BTN">
         <Size x="300" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1015,7 +1015,7 @@
           <OnClick function="Atr_OnClick_ClearPostHistory"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="Clear Stacking Preferences">
+      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="AUCTIONATOR_CLEAR_STACKING_PREFERENCES_BTN">
         <Size x="300" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1026,7 +1026,7 @@
           <OnClick function="Atr_OnClick_ClearStackPrefs"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="Clear Shopping Lists">
+      <Button inherits="UIPanelButtonTemplate" parent="AuctionatorResetsFrame" text="AUCTIONATOR_CLEAR_SHOPPING_LISTS_BTN">
         <Size x="300" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1062,7 +1062,7 @@
     </Backdrop>
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontNormal" name="Atr_ClearConfirm_Text1" text="Are you sure?">
+        <FontString inherits="GameFontNormal" name="Atr_ClearConfirm_Text1" text="AUCTIONATOR_ARE_YOU_SURE">
           <Anchors>
             <Anchor point="TOPLEFT">
               <Offset x="20" y="-40"/>
@@ -1093,7 +1093,7 @@
           <OnClick function="Atr_OnClick_ClearConfirm_Hide"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" text="Clear It">
+      <Button inherits="UIPanelButtonTemplate" text="AUCTIONATOR_CLEAR_IT">
         <Size x="120" y="22"/>
         <Anchors>
           <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="Atr_ClearConfirm_Cancel">
@@ -1118,7 +1118,7 @@
     </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontDarkGraySmall" text="Select multiple shopping lists by holding down the control key while clicking">
+        <FontString inherits="GameFontDarkGraySmall" text="AUCTIONATOR_SHOPPING_LISTS_OPTION_DESCRIPTION">
           <Size x="125"/>
           <Anchors>
             <Anchor point="BOTTOMRIGHT" x="-30" y="26"/>
@@ -1172,7 +1172,7 @@
           <OnClick function="Atr_OnClick_ShpList_Delete"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_EditButton" text="Edit">
+      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_EditButton" text="EDIT">
         <Size x="100" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1194,7 +1194,7 @@
           <OnClick function="Atr_OnClick_ShpList_Rename"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_ImportButton" text="New">
+      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_ImportButton" text="AUCTIONATOR_NEW">
         <Size x="100" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1205,7 +1205,7 @@
           <OnClick function="Atr_OnClick_ShpList_New"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_ImportButton" text="Import">
+      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_ImportButton" text="AUCTIONATOR_IMPORT">
         <Size x="100" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1216,7 +1216,7 @@
           <OnClick function="Atr_OnClick_ShpList_Import"/>
         </Scripts>
       </Button>
-      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_ExportButton" text="Export">
+      <Button inherits="UIPanelButtonTemplate" name="Atr_ShpList_ExportButton" text="AUCTIONATOR_EXPORT">
         <Size x="100" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -1290,7 +1290,7 @@
     </Backdrop>
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontNormal" name="Atr_ShpList_Edit_Name" text="Edit">
+        <FontString inherits="GameFontNormal" name="Atr_ShpList_Edit_Name" text="EDIT">
           <Anchors>
             <Anchor point="TOPLEFT" x="30" y="-30"/>
           </Anchors>
@@ -1369,7 +1369,7 @@
           <OnClick>self:GetParent():Hide()</OnClick>
         </Scripts>
       </Button>
-      <Button hidden="true" inherits="UIPanelButtonTemplate" name="Atr_ShpList_ImportSaveBut" text="Import">
+      <Button hidden="true" inherits="UIPanelButtonTemplate" name="Atr_ShpList_ImportSaveBut" text="AUCTIONATOR_SHPLIST_IMPORTSAVEBTN">
         <Size x="120" y="22"/>
         <Anchors>
           <Anchor point="BOTTOMRIGHT">
@@ -1380,7 +1380,7 @@
           <OnClick>Atr_ShpList_Edit_ImportSave()</OnClick>
         </Scripts>
       </Button>
-      <Button hidden="true" inherits="UIPanelButtonTemplate" name="Atr_ShpList_SaveBut" text="SAVE">
+      <Button hidden="true" inherits="UIPanelButtonTemplate" name="Atr_ShpList_SaveBut" text="AUCTIONATOR_SHPLIST_SAVEBTN">
         <Size x="120" y="22"/>
         <Anchors>
           <Anchor point="BOTTOMRIGHT">
@@ -1391,7 +1391,7 @@
           <OnClick>Atr_ShpList_Edit_Save()</OnClick>
         </Scripts>
       </Button>
-      <Button hidden="true" inherits="UIPanelButtonTemplate" name="Atr_ShpList_SelectAllBut" text="Select All">
+      <Button hidden="true" inherits="UIPanelButtonTemplate" name="Atr_ShpList_SelectAllBut" text="AUCTIONATOR_SHPLIST_SELECTALLBTN">
         <Size x="120" y="22"/>
         <Anchors>
           <Anchor point="BOTTOMRIGHT">
@@ -1422,7 +1422,7 @@
     </Backdrop>
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontNormal" spacing="3" text="The following shopping list(s) already exist:">
+        <FontString inherits="GameFontNormal" spacing="3" text="AUCTIONATOR_SHPLIST_ALREADY_EXIST">
           <Anchors>
             <Anchor point="TOPLEFT" x="30" y="-30"/>
             <Anchor point="RIGHT" x="-30"/>
@@ -1464,7 +1464,7 @@
           <OnClick function="Atr_SList_Conflict_OnClick"/>
         </Scripts>
       </CheckButton>
-      <Button inherits="UIPanelButtonTemplate" name="Atr_SList_Conflict_OKAY" text="OKAY">
+      <Button inherits="UIPanelButtonTemplate" name="Atr_SList_Conflict_OKAY" text="AUCTIONATOR_SHPLIST_OKAY">
         <Size x="140" y="22"/>
         <Anchors>
           <Anchor point="BOTTOMRIGHT" x="-30" y="30"/>
@@ -1483,7 +1483,7 @@
     </Scripts>
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontDisableSmall" justifyH="LEFT" justifyV="TOP" text="Author:  Borjamacare (US)">
+        <FontString inherits="GameFontDisableSmall" justifyH="LEFT" justifyV="TOP" text="AUCTIONATOR_AUTOR_TEXT">
           <Anchors>
             <Anchor point="BOTTOMLEFT">
               <Offset>

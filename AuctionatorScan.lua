@@ -418,10 +418,10 @@ function AtrSearch:SetScanningMessage()
       pageText = "             "
     end
 
-    message = string.format( ZT( "Scanning auctions for %s%s"), shoppingListItemName, pageText )
+    message = string.format( ZT("Scanning auctions for %s%s"), shoppingListItemName, pageText )
   elseif self.query.totalAuctions >= 50 then
     message = string.format(
-      ZT( "Scanning auctions: page %d of %d"), self.current_page,
+      ZT("Scanning auctions: page %d of %d"), self.current_page,
         ceil( self.query.totalAuctions / NUM_AUCTION_ITEMS_PER_PAGE
       )
     )

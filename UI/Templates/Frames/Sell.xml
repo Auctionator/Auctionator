@@ -124,7 +124,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormalSmall" text="Advanced">
+            <FontString inherits="GameFontNormalSmall" text="ADVANCED_LABEL">
               <Anchors>
                 <Anchor point="LEFT" relativePoint="RIGHT">
                   <Offset><AbsDimension x="2" y="1"/></Offset>
@@ -147,7 +147,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormalSmall" text="Exact Match">
+            <FontString inherits="GameFontNormalSmall" text="AH_EXACT_MATCH">
               <Anchors>
                 <Anchor point="LEFT" relativePoint="RIGHT">
                   <Offset><AbsDimension x="2" y="1"/></Offset>
@@ -228,8 +228,8 @@
         <Layers>
           <Layer level="ARTWORK">
 
-            <FontString inherits="GameFontHighlightSmall" text="Sell">
-              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="93" y="18"/></Offset></Anchor></Anchors>
+            <FontString inherits="GameFontHighlightSmall" text="CREATE_AUCTION">
+              <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="83" y="18"/></Offset></Anchor></Anchors>
             </FontString>
 
             <FontString name="Atr_StackPriceText" inherits="GameFontHighlightSmall" text="Buyout Price">
@@ -253,15 +253,15 @@
               <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_Batch_Stacksize_Text"><Offset><AbsDimension x="79" y="-21"/></Offset></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_StartingPriceText" inherits="GameFontHighlightSmall" text="Starting Price" hidden="true">
+            <FontString name="Atr_StartingPriceText" inherits="GameFontHighlightSmall" text="STARTING_PRICE" hidden="true">
               <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="13" y="-260"/></Offset></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_StartingPriceDiscountText" inherits="GameFontHighlightSmall" text="Starting Price">
+            <FontString name="Atr_StartingPriceDiscountText" inherits="GameFontHighlightSmall" text="STARTING_PRICE">
               <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-270"/></Offset></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_Duration_Text" inherits="GameFontHighlightSmall" text="Duration">
+            <FontString name="Atr_Duration_Text" inherits="GameFontHighlightSmall" text="AUCTION_DURATION">
               <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="10" y="-304"/></Offset></Anchor></Anchors>
             </FontString>
 
@@ -416,7 +416,7 @@
         </Scripts>
       </Button>
 
-      <Button name="Atr_AddToSListButton" inherits="Atr_SmallButtonTemplate"  text="Add Item" disabled="true">
+      <Button name="Atr_AddToSListButton" inherits="Atr_SmallButtonTemplate"  text="AUCTIONATOR_ADD_ITEM" disabled="true">
         <Size><AbsDimension x="97" y="20"/> </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-329"/></Offset></Anchor></Anchors>
         <Scripts>
@@ -424,7 +424,7 @@
         </Scripts>
       </Button>
 
-      <Button name="Atr_RemFromSListButton" inherits="Atr_SmallButtonTemplate"  text="Remove Item" disabled="true">
+      <Button name="Atr_RemFromSListButton" inherits="Atr_SmallButtonTemplate"  text="AUCTIONATOR_REMOVE_ITEM" disabled="true">
         <Size><AbsDimension x="101" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-100" y="-329"/></Offset></Anchor></Anchors>
         <Scripts>
@@ -432,7 +432,7 @@
         </Scripts>
       </Button>
 
-      <Button name="Atr_SrchSListButton" inherits="Atr_SmallButtonTemplate"  text="Search for All Items" disabled="true">
+      <Button name="Atr_SrchSListButton" inherits="Atr_SmallButtonTemplate"  text="AUCTIONATOR_SEARCH_FOR_ALL_ITEMS" disabled="true">
         <Size><AbsDimension x="195" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-349"/></Offset></Anchor></Anchors>
         <Scripts>
@@ -440,7 +440,7 @@
         </Scripts>
       </Button>
 
-      <Button name="Atr_MngSListsButton" inherits="Atr_SmallButtonTemplate"  text="Manage Shopping Lists" disabled="true">
+      <Button name="Atr_MngSListsButton" inherits="Atr_SmallButtonTemplate"  text="AUCTIONATOR_MANAGE_SHOPPING_LISTS" disabled="true">
         <Size><AbsDimension x="195" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-369"/></Offset></Anchor></Anchors>
         <Scripts>
@@ -448,7 +448,7 @@
         </Scripts>
       </Button>
 
-      <Button name="Atr_NewSListButton" inherits="Atr_SmallButtonTemplate"  text="New Shopping List">
+      <Button name="Atr_NewSListButton" inherits="Atr_SmallButtonTemplate"  text="AUCTIONATOR_NEW_SHOPPING_LIST">
         <Size><AbsDimension x="195" y="20"/>  </Size>
         <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="-195" y="-389"/></Offset></Anchor></Anchors>
         <Scripts>
@@ -554,41 +554,41 @@
               <TexCoords left="0.1953125" right="0.8046875" top="0" bottom="1"/>
             </Texture>
 
-            <FontString name="Atr_Col1_Heading" inherits="GameFontHighlightSmall" text="Item Price" hidden="true" justifyH="CENTER">
+            <FontString name="Atr_Col1_Heading" inherits="GameFontHighlightSmall" text="AUCTIONATOR_ITEM_PRICE" hidden="true" justifyH="CENTER">
               <Size><AbsDimension x="100"/></Size>
               <Anchors><Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentMiddle"><Offset><AbsDimension x="40" y="1"/></Offset></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_Col3_Heading" inherits="GameFontHighlightSmall" text="Current Auctions" hidden="true">
+            <FontString name="Atr_Col3_Heading" inherits="GameFontHighlightSmall" text="AUCTIONATOR_CURRENT_AUCTIONS" hidden="true">
               <Anchors><Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentMiddle"><Offset><AbsDimension x="175" y="1"/></Offset></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_Col4_Heading" inherits="GameFontHighlightSmall" text="Total Price" hidden="true">
+            <FontString name="Atr_Col4_Heading" inherits="GameFontHighlightSmall" text="TOTAL" hidden="true">
               <Anchors><Anchor point="LEFT" relativePoint="LEFT" relativeTo="$parentMiddle"><Offset><AbsDimension x="500" y="1"/></Offset></Anchor></Anchors>
             </FontString>
           </Layer>
         </Layers>
 
         <Frames>
-          <Button name="Atr_Back_Button" text="Back" inherits="Atr_SmallButtonTemplate"  hidden="true">
+          <Button name="Atr_Back_Button" text="BACK" inherits="Atr_SmallButtonTemplate"  hidden="true">
             <Size><AbsDimension x="70" y="18"/></Size>
             <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="8" y="5"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_Onclick_Back()</OnClick></Scripts>
           </Button>
 
-          <Button name="Atr_SaveThisList_Button" text="Save this Shopping List" inherits="Atr_SmallButtonTemplate"  hidden="true">
+          <Button name="Atr_SaveThisList_Button" text="AUCTIONATOR_SAVE_THIS_SHPLIST" inherits="Atr_SmallButtonTemplate"  hidden="true">
             <Size><AbsDimension x="200" y="20"/></Size>
             <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="8" y="8"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_Onclick_SaveTempList()</OnClick></Scripts>
           </Button>
 
-          <Button name="Atr_Col1_Heading_Button" text="Lowest Price" inherits="Atr_Col_Heading_Template"  hidden="true">
+          <Button name="Atr_Col1_Heading_Button" text="AUCTIONATOR_LOWEST_PRICE" inherits="Atr_Col_Heading_Template"  hidden="true">
             <Size><AbsDimension x="100" y="20"/></Size>
             <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="46" y="-21"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_Onclick_Col1()</OnClick></Scripts>
           </Button>
 
-          <Button name="Atr_Col3_Heading_Button" text="Item Name" inherits="Atr_Col_Heading_Template"  hidden="true">
+          <Button name="Atr_Col3_Heading_Button" text="AUCTIONATOR_ITEM_NAME" inherits="Atr_Col_Heading_Template"  hidden="true">
             <Size><AbsDimension x="108" y="20"/></Size>
             <Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="172" y="-21"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_Onclick_Col3()</OnClick></Scripts>
@@ -602,15 +602,15 @@
         <Anchors><Anchor point="BOTTOMRIGHT" relativeTo="Atr_HeadingsBar" relativePoint="TOPRIGHT"><Offset><AbsDimension x="0" y="-22"/></Offset></Anchor></Anchors>
 
         <Frames>
-          <Button name="$parentTab3" inherits="TabButtonTemplate" id="3" text="Other">
+          <Button name="$parentTab3" inherits="TabButtonTemplate" id="3" text="OTHER">
             <Anchors><Anchor point="BOTTOMRIGHT" ><Offset><AbsDimension x="-8" y="0"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_ListTabOnClick(3);</OnClick></Scripts>
           </Button>
-          <Button name="$parentTab2" inherits="TabButtonTemplate" id="2" text="History">
+          <Button name="$parentTab2" inherits="TabButtonTemplate" id="2" text="HISTORY">
             <Anchors><Anchor point="RIGHT" relativeTo="$parentTab3" relativePoint="LEFT"><Offset><AbsDimension x="-2" y="0"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_ListTabOnClick(2);</OnClick></Scripts>
           </Button>
-          <Button name="$parentTab1" inherits="TabButtonTemplate" id="1" text="Current">
+          <Button name="$parentTab1" inherits="TabButtonTemplate" id="1" text="REFORGE_CURRENT">
             <Anchors><Anchor point="RIGHT" relativeTo="$parentTab2" relativePoint="LEFT"><Offset><AbsDimension x="-2" y="0"/></Offset></Anchor></Anchors>
             <Scripts><OnClick>Atr_ListTabOnClick(1);</OnClick></Scripts>
           </Button>
