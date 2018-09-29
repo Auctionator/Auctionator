@@ -194,7 +194,7 @@ function Atr_Buy_Idle ()
         Atr_Buy_Confirm_CancelBut:SetText (ZT("Done"))
       else
         Atr_Buy_Confirm_OKBut:SetText (ZT("Buy One"))
-        Atr_Buy_Confirm_CancelBut:SetText (ZT("Cancel"))
+        Atr_Buy_Confirm_CancelBut:SetText (CANCEL)
       end
 
     else

@@ -11,19 +11,19 @@
         <FontString inherits="GameFontNormal" text="Full Scan">
           <Anchors><Anchor point="TOP"><Offset x="0" y="-2"/></Anchor></Anchors>
         </FontString>
-        <FontString name="Atr_FullScanNextLabel" inherits="GameFontNormal" text="Next scan allowed:">
+        <FontString name="Atr_FullScanNextLabel" inherits="GameFontNormal" text="AUCTIONATOR_NEXT_SCAN_ALLOWED">
           <Anchors><Anchor point="TOPLEFT"><Offset x="27" y="-55"/></Anchor></Anchors>
         </FontString>
         <FontString name="Atr_FullScanNext" inherits="GameFontHighlight">
           <Anchors><Anchor point="TOPLEFT"><Offset x="150" y="-55"/></Anchor></Anchors>
         </FontString>
-        <FontString name="Atr_FullScanDBwhenLabel" inherits="GameFontNormal" text="Last scan:">
+        <FontString name="Atr_FullScanDBwhenLabel" inherits="GameFontNormal" text="AUCTIONATOR_LAST_SCAN">
           <Anchors><Anchor point="TOPLEFT"><Offset x="27" y="-80"/></Anchor></Anchors>
         </FontString>
         <FontString name="Atr_FullScanDBwhen" inherits="GameFontHighlight">
           <Anchors><Anchor point="TOPLEFT"><Offset x="150" y="-80"/></Anchor></Anchors>
         </FontString>
-        <FontString name="Atr_FullScanDBsizeLabel" inherits="GameFontNormal" text="Items in database:">
+        <FontString name="Atr_FullScanDBsizeLabel" inherits="GameFontNormal" text="AUCTIONATOR_ITEMS_IN_DB">
           <Anchors><Anchor point="TOPLEFT"><Offset x="27" y="-105"/></Anchor></Anchors>
         </FontString>
         <FontString name="Atr_FullScanDBsize" inherits="GameFontHighlight">
@@ -47,7 +47,7 @@
         </Scripts>
       </Button>
 
-      <Button name="Atr_FullScanStartButton" inherits="UIPanelButtonTemplate" text="Start Scanning">
+      <Button name="Atr_FullScanStartButton" inherits="UIPanelButtonTemplate" text="AUCTIONATOR_START_SCANNING">
         <Size><AbsDimension x="120" y="22"/>  </Size>
         <Anchors><Anchor point="RIGHT" relativeTo="Atr_FullScanDone" relativePoint="LEFT"><Offset><AbsDimension x="-4" y="0"/></Offset></Anchor></Anchors>
         <Scripts>
@@ -76,7 +76,7 @@
 
         <Layers>
           <Layer level="ARTWORK">
-            <FontString name="Atr_FSR_scanned_text" inherits="GameFontNormal" text="Auctions scanned:">
+            <FontString name="Atr_FSR_scanned_text" inherits="GameFontNormal" text="AUCTIONATOR_AUCTIONS_SCANNED">
               <Anchors><Anchor point="TOPRIGHT"><Offset x="-170" y="-40"/></Anchor></Anchors>
             </FontString>
 
@@ -84,7 +84,7 @@
               <Anchors><Anchor point="LEFT" relativeTo="Atr_FSR_scanned_text" relativePoint="RIGHT"><Offset x="15"/></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_FSR_added_text" inherits="GameFontNormal" text="Items added:">
+            <FontString name="Atr_FSR_added_text" inherits="GameFontNormal" text="AUCTIONATOR_ITEMS_ADDED">
               <Anchors><Anchor point="TOPRIGHT"><Offset x="-170" y="-65"/></Anchor></Anchors>
             </FontString>
 
@@ -92,7 +92,7 @@
               <Anchors><Anchor point="LEFT" relativeTo="Atr_FSR_added_text" relativePoint="RIGHT"><Offset x="15"/></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_FSR_updated_text" inherits="GameFontNormal" text="Items updated:">
+            <FontString name="Atr_FSR_updated_text" inherits="GameFontNormal" text="AUCTIONATOR_ITEMS_UPDATED">
               <Anchors><Anchor point="TOPRIGHT"><Offset x="-170" y="-90"/></Anchor></Anchors>
             </FontString>
 
@@ -100,7 +100,7 @@
               <Anchors><Anchor point="LEFT" relativeTo="Atr_FSR_updated_text" relativePoint="RIGHT"><Offset x="15"/></Anchor></Anchors>
             </FontString>
 
-            <FontString name="Atr_FSR_ignored_text" inherits="GameFontNormal" text="Items ignored:">
+            <FontString name="Atr_FSR_ignored_text" inherits="GameFontNormal" text="AUCTIONATOR_ITEMS_IGNORED">
               <Anchors><Anchor point="TOPRIGHT"><Offset x="-170" y="-115"/></Anchor></Anchors>
             </FontString>
 

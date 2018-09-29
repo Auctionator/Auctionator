@@ -412,9 +412,9 @@ local function Atr_RestoreDElog()
     AUCTIONATOR_DE_DATA = {}
 
     zc.CopyDeep (AUCTIONATOR_DE_DATA, AUCTIONATOR_DE_DATA_BAK)
-    zc.msg_anm ("Disenchant data restored.  Number of entries:", #AUCTIONATOR_DE_DATA_BAK);
+    zc.msg_anm (ZT("Disenchant data restored. Number of entries:"), #AUCTIONATOR_DE_DATA_BAK);
   else
-    zc.msg_anm ("No data available to be restored");
+    zc.msg_anm (ZT("No data available to be restored."));
   end
 
 end
@@ -682,7 +682,7 @@ local function Atr_ModTradeSkillFrame()
     button:SetPoint("RIGHT", "TradeSkillFrame", "RIGHT", -35, 100);
 
     button:SetHeight (20)
-    button:SetText("AH")
+    button:SetText(ZT("AH"))
     button:SetNormalFontObject(_G["GameFontNormalSmall"])
     button:SetHighlightFontObject(_G["GameFontNormalSmall"])
     button:SetDisabledFontObject(_G["GameFontNormalSmall"])
@@ -1683,7 +1683,7 @@ function Atr_LogMsg (itemlink, itemcount, price, numstacks)
   logmsg = logmsg.."   "..zc.priceToString(price);
 
   if (numstacks > 1 and itemcount > 1) then
-    logmsg = logmsg.."  per stack";
+    logmsg = logmsg.."  "..ZT("per stack")..".";
   end
 
 
@@ -2106,7 +2106,7 @@ function Atr_ShowItemNameAndTexture(itemName)
     itemName = scn.itemName;
 
     if (zc.IsBattlePetLink(scn.itemLink)) then
-      level = " (Level "..scn.itemLevel..")"
+      level = " ("..ZT("Level").." "..scn.itemLevel..")"
     end
   end
 
@@ -3641,7 +3641,7 @@ function Atr_ShowSearchSummary()
         end
 
         if (zc.IsBattlePetLink (scn.itemLink)) then
-          iLevelStr = " (Level "..scn.itemLevel..")"
+          iLevelStr = " ("..ZT("Level").." "..scn.itemLevel..")"
         end
 
         lineEntry_text:SetText (icon.."  "..scn.itemName..iLevelStr)
