@@ -425,7 +425,9 @@ function Atr_ShowTipWithPricing (tip, link, num)
       -- 11: itemVendorPrice? (big int)
       -- 12: itemClass int
       -- 13: subClass int
-  local itemName, itemLink, itemRarity, _, itemMinLevel, itemType, _, _, _, _, itemVendorPrice, classID = GetItemInfo (link);
+  local itemName, itemLink, itemRarity, _, _, _, _, _, _, _, itemVendorPrice, classID = GetItemInfo (link);
+  if not (itemName and itemLink) then return end
+
   local itemLevel = ItemUpgradeInfo:GetUpgradedItemLevel( itemLink )
 
   local showStackPrices = IsShiftKeyDown();
