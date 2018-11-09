@@ -19,11 +19,11 @@ Auctionator also eliminates the tedious process of item posting and auction mana
 
 ## Quick Start
 
-Auctionator adds *'Buy'*, *'Sell'*, and *'More...'* tabs in the auction house interface to replace default functionalities.
+Auctionator adds **'Buy'**, **'Sell'**, and **'More...'** tabs in the auction house interface to replace default functionalities.
 
 ## FAQ
 
-PLease visit the [wiki](https://github.com/Auctionator/Auctionator/wiki).
+Please visit the [wiki](https://github.com/Auctionator/Auctionator/wiki).
 
 ## Contribute
 
