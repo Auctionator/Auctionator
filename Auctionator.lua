@@ -4285,7 +4285,7 @@ function Atr_GetStackingPrefs_ByItem (itemLink)
     
     -- do exact match before partial match
     for text, spinfo in pairs (AUCTIONATOR_STACKING_PREFS) do
-      if itemName == text then
+      if string.lower(itemName) == string.lower(text) then
         return spinfo.numstacks, spinfo.stacksize
       end
     end
