@@ -1,4 +1,4 @@
-## Interface: 80000
+## Interface: 80100
 ## Title: Auctionator
 ## Version: 5.0.6
 ## Author: Borjamacare, Zirco
