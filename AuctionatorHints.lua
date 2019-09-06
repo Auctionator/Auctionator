@@ -4,6 +4,8 @@ local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc;
 local zz = zc.md;
 local _
+local version, build, date, tocversion = GetBuildInfo()
+local isWoWClassic = tocversion >= 11302 and tocversion < 20000
 
 local ItemUpgradeInfo = LibStub( 'LibItemUpgradeInfo-1.0' )
 
@@ -541,32 +543,48 @@ hooksecurefunc (GameTooltip, "SetInventoryItem",
   end
 );
 
+if (not isWoWClassic) then
+  hooksecurefunc (GameTooltip, "SetGuildBankItem",
+    function (tip, tab, slot)
+      local _, num = GetGuildBankItemInfo(tab, slot);
+      Atr_ShowTipWithPricing (tip, GetGuildBankItemLink(tab, slot), num);
+    end
+  );
+end
 
-hooksecurefunc (GameTooltip, "SetGuildBankItem",
-  function (tip, tab, slot)
-    local _, num = GetGuildBankItemInfo(tab, slot);
-    Atr_ShowTipWithPricing (tip, GetGuildBankItemLink(tab, slot), num);
-  end
-);
+if (isWoWClassic) then
+  hooksecurefunc (GameTooltip, "SetTradeSkillItem",
+    function (tip, skill, id)
+      local link = GetTradeSkillItemLink(skill);
+      local num  = GetTradeSkillNumMade(skill);
+      if id then
+        link = GetTradeSkillReagentItemLink(skill, id);
+        num = select (3, GetTradeSkillReagentInfo(skill, id));
+      end
+    
+      Atr_ShowTipWithPricing (tip, link, num);
+    end
+  );
+else
+  hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
+    function( tip, itemId )
+      local link = C_TradeSkillUI.GetRecipeItemLink( itemId )
+      local count  = C_TradeSkillUI.GetRecipeNumItemsProduced( itemId )
+
+      Atr_ShowTipWithPricing( tip, link, count )
+    end
+  );
 
 
-hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
-  function( tip, itemId )
-    local link = C_TradeSkillUI.GetRecipeItemLink( itemId )
-    local count  = C_TradeSkillUI.GetRecipeNumItemsProduced( itemId )
+  hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
+    function( tip, itemId, index )
+      local link = C_TradeSkillUI.GetRecipeReagentItemLink( itemId, index )
+      local count = select( 3, C_TradeSkillUI.GetRecipeReagentInfo( itemId, index ) )
 
-    Atr_ShowTipWithPricing( tip, link, count )
-  end
-);
-
-hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
-  function( tip, itemId, index )
-    local link = C_TradeSkillUI.GetRecipeReagentItemLink( itemId, index )
-    local count = select( 3, C_TradeSkillUI.GetRecipeReagentInfo( itemId, index ) )
-
-    Atr_ShowTipWithPricing( tip, link, count )
-  end
-);
+      Atr_ShowTipWithPricing( tip, link, count )
+    end
+  );
+end
 
 hooksecurefunc (GameTooltip, "SetTradePlayerItem",
   function (tip, id)

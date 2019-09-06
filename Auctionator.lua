@@ -11,6 +11,8 @@ local zc = addonTable.zc;
 local zz = zc.md;
 local _
 local ItemUpgradeInfo = LibStub( 'LibItemUpgradeInfo-1.0' )
+local version, build, date, tocversion = GetBuildInfo()
+local isWoWClassic = tocversion >= 11302 and tocversion < 20000
 
 gAtrZC = addonTable.zc;   -- share with AuctionatorDev
 
@@ -271,8 +273,10 @@ end
 -----------------------------------------
 
 local function IsCataEnchanter()
-  Auctionator.Debug.Message( 'IsCataEnchanter' )
+  if isWoWClassic then return false end
 
+  Auctionator.Debug.Message( 'IsCataEnchanter' )
+  
   local prof1, prof2 = GetProfessions()
 
   if (IsCataEnchanting (prof1) or IsCataEnchanting (prof2)) then
@@ -1855,7 +1859,7 @@ function Atr_AddMainPanel ()
   local frame = CreateFrame("FRAME", "Atr_Main_Panel", AuctionFrame, "Atr_Sell_Template");
   frame:Hide();
 
-  UIDropDownMenu_SetWidth (Atr_Duration, 95);
+  UIDropDownMenu_SetWidth (Atr_Duration, 75);
 
 end
 
@@ -2644,7 +2648,7 @@ function Atr_ShowRecTooltip ()
   if (link) then
     if (num < 1) then num = 1; end;
 
-    if (zc.IsBattlePetLink (link)) then
+    if (not isWoWClassic and zc.IsBattlePetLink (link)) then
       local speciesID, level, breedQuality, maxHealth, power, speed, battlePetID, name = zc.ParseBattlePetLink(link)
 
       BattlePetToolTip_Show(speciesID, level, breedQuality, maxHealth, power, speed, name)
@@ -2668,7 +2672,7 @@ function Atr_HideRecTooltip ()
 
   gCurrentPane.tooltipvisible = nil;
   GameTooltip:Hide();
-  BattlePetTooltip:Hide();
+  if (not isWoWClassic) then BattlePetTooltip:Hide(); end
 
 end
 
@@ -3471,7 +3475,7 @@ function Atr_ShowLineTooltip (self)
 
   local itemLink = self.itemLink;
 
-  if (zc.IsBattlePetLink (itemLink)) then
+  if (not isWoWClassic and zc.IsBattlePetLink (itemLink)) then
 
     local speciesID, level, breedQuality, maxHealth, power, speed, battlePetID, name = zc.ParseBattlePetLink(itemLink)
 
@@ -3502,7 +3506,7 @@ function Atr_HideLineTooltip (self)
   Auctionator.Debug.Message( 'Atr_HideLineTooltip', self )
 
   GameTooltip:Hide();
-  BattlePetTooltip:Hide();
+  if (not isWoWClassic) then BattlePetTooltip:Hide(); end
 end
 
 
@@ -4470,10 +4474,15 @@ end
 
 function Atr_Duration_Initialize(self)
   Auctionator.Debug.Message( 'Atr_Duration_Initialize', self )
-
-  Atr_Dropdown_AddPick (self, AUCTION_DURATION_ONE, 1, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, AUCTION_DURATION_TWO, 2, Atr_Duration_OnClick);
-  Atr_Dropdown_AddPick (self, AUCTION_DURATION_THREE, 3, Atr_Duration_OnClick);
+  if (isWoWClassic) then
+    Atr_Dropdown_AddPick (self, "2 hours", 1, Atr_Duration_OnClick);
+    Atr_Dropdown_AddPick (self, "8 hours", 2, Atr_Duration_OnClick);
+    Atr_Dropdown_AddPick (self, "24 hours", 3, Atr_Duration_OnClick);
+  else
+    Atr_Dropdown_AddPick (self, AUCTION_DURATION_ONE, 1, Atr_Duration_OnClick);
+    Atr_Dropdown_AddPick (self, AUCTION_DURATION_TWO, 2, Atr_Duration_OnClick);
+    Atr_Dropdown_AddPick (self, AUCTION_DURATION_THREE, 3, Atr_Duration_OnClick);
+  end
 
 end
 

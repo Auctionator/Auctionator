@@ -4,6 +4,8 @@ local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc;
 local zz = zc.md;
 local _
+local version, build, date, tocversion = GetBuildInfo()
+local isWoWClassic = tocversion >= 11302 and tocversion < 20000
 
 Atr_LoadOptionsSubPanel_NumCalls = 0;
 
@@ -112,7 +114,11 @@ end
 -----------------------------------------
 
 function Atr_SetDurationOptionRB(name)
-
+  if (isWoWClassic) then
+    Atr_RB_SText:SetFormattedText(FORMATED_HOURS, 2);
+    Atr_RB_MText:SetFormattedText(FORMATED_HOURS, 8);
+    Atr_RB_LText:SetFormattedText(FORMATED_HOURS, 24);
+  end
   Atr_RB_S:SetChecked (zc.StringEndsWith (name, "S"));
   Atr_RB_M:SetChecked (zc.StringEndsWith (name, "M"));
   Atr_RB_L:SetChecked (zc.StringEndsWith (name, "L"));

@@ -383,7 +383,7 @@
           </Button>
 
           <Frame name="Atr_Duration" inherits="UIDropDownMenuTemplate">
-            <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_Duration_Text"><Offset><AbsDimension x="32" y="7"/></Offset></Anchor></Anchors>
+            <Anchors><Anchor point="TOPLEFT" relativeTo="Atr_Duration_Text"><Offset><AbsDimension x="75" y="7"/></Offset></Anchor></Anchors>
             <Scripts>
               <OnLoad function="Atr_Duration_OnShow"/>
               <OnShow function="Atr_Duration_OnShow"/>

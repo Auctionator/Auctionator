@@ -14,6 +14,8 @@
 --      TODO: Probably want to use the inventoryType to create Armor slot filters as well...
 --    }
 --  }
+local version, build, date, tocversion = GetBuildInfo()
+local isWoWClassic = tocversion >= 11302 and tocversion < 20000
 
 local ITEM_CLASS_IDS = {
   LE_ITEM_CLASS_WEAPON,
@@ -74,7 +76,11 @@ local function GenerateSubClasses( classID, parentName, parentKey )
   for index = 1, #subClassesTable do
     local subClassID = subClassesTable[ index ]
     local name = GetItemSubClassInfo( classID, subClassID )
-
+    if (isWoWClassic) then
+      if (parentKey == nil) then 
+        parentKey = ""; 
+      end
+    end
     local filter = { classID = classID, subClassID = subClassID }
     local subClass = Auctionator.Filter:new({
       classID = subClassID,
@@ -93,19 +99,26 @@ end
 
 -- TODO: Will probably want to special case Armor for inventoryTypeFilters
 for index, classID in ipairs( ITEM_CLASS_IDS ) do
-  local name = GetItemClassInfo( classID )
-  local key = name
-  local subClasses, filter = GenerateSubClasses( classID, name, key )
+  (function() -- This is used as a "continue" so that we can use Return to skip iterations.
+    local name = GetItemClassInfo( classID )
+    if (isWoWClassic) then
+      if name == nil then
+        return
+      end
+    end
+    local key = name
+    local subClasses, filter = GenerateSubClasses( classID, name, key )
 
-  local categoryFilter = Auctionator.Filter:new({
-    classID = classID,
-    name = name,
-    key = key,
-    filter = filter,
-    subClasses = subClasses
-  })
+    local categoryFilter = Auctionator.Filter:new({
+      classID = classID,
+      name = name,
+      key = key,
+      filter = filter,
+      subClasses = subClasses
+    })
 
-  table.insert( Auctionator.Filters, categoryFilter )
+    table.insert( Auctionator.Filters, categoryFilter )
+  end)()
 end
 
 for index, filter in ipairs( Auctionator.Filters ) do
