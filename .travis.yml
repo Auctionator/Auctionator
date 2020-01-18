@@ -10,10 +10,14 @@ before_install:
   - hererocks lua_install -rlatest --$LUA
   - export PATH=$PATH:$PWD/lua_install/bin
 
-after_failure:
-  - curl -v -H User-Agent:bot -H Content-Type:application/json -d '{"content":"Build failed!"}' https://discordapp.com/api/webhooks/469326007745249290/0K92Jqg0kznesVj3Dp7f3FtzSORjc7S0BHRqQo2LPJYYlaEJOalwLhO8uALpdltazQ6O
 after_success:
-  - curl -v -H User-Agent:bot -H Content-Type:application/json -d '{"content":"Build completed!"}' https://discordapp.com/api/webhooks/469326007745249290/0K92Jqg0kznesVj3Dp7f3FtzSORjc7S0BHRqQo2LPJYYlaEJOalwLhO8uALpdltazQ6O
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL
 
 install:
   - luarocks install busted
