@@ -15,8 +15,8 @@ Libs\LibItemUpgradeInfo-1.0\LibItemUpgradeInfo-1.0.xml
 
 Source\Manifest.xml
 
-AuctionatorFilters.lua
 AuctionatorUtil.lua
+AuctionatorFilters.lua
 
 zcUtils.lua
 
