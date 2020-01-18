@@ -67,7 +67,7 @@ function Auctionator.Filter:new( options )
 end
 
 local function GenerateSubClasses( classID, parentName, parentKey )
-  local subClassesTable = { GetAuctionItemSubClasses( classID ) }
+  local subClassesTable = C_AuctionHouse.GetAuctionItemSubClasses( classID )
   local subClasses = {}
   local subFilters = {}
 
