@@ -31,7 +31,7 @@ function Auctionator.Events.Handler(self, event, ...)
   elseif event == "AUCTION_MULTISELL_FAILURE" then
     Auctionator.Events.AuctionMultisellFailure(...)
   elseif event == "CHAT_MSG_ADDON" then
-    Auctionat.Events.ChatMessageAddon(...)
+    Auctionator.Events.ChatMessageAddon(...)
   end
 end
 
