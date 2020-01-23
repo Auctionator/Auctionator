@@ -8,15 +8,15 @@
 
     <Scripts>
       <OnShow>
-        if (AuctionFrame and AuctionFrame:IsShown()) then
+        if (AuctionHouseFrame and AuctionHouseFrame:IsShown()) then
           self:ClearAllPoints ();
-          self:SetPoint ("CENTER", "AuctionFrame", "CENTER");
-          self:SetPoint ("BOTTOM", "AuctionFrame", "BOTTOM", 0, -10);
+          self:SetPoint ("CENTER", "AuctionHouseFrame", "CENTER");
+          self:SetPoint ("BOTTOM", "AuctionHouseFrame", "BOTTOM", 0, -10);
           Atr_Mask:Show();
         end;
       </OnShow>
       <OnHide>
-        if (AuctionFrame and AuctionFrame:IsShown()) then Atr_Mask:Hide(); end;
+        if (AuctionHouseFrame and AuctionHouseFrame:IsShown()) then Atr_Mask:Hide(); end;
       </OnHide>
     </Scripts>
   </Frame>

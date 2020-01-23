@@ -14,7 +14,7 @@
         self:SetBackdropColor( 0.3, 0.3, 0.7 )
       </OnLoad>
       <OnShow>
-        if AuctionFrame and AuctionFrame:IsShown() then
+        if AuctionHouseFrame and AuctionHouseFrame:IsShown() then
           Atr_Mask:Show()
         end
       </OnShow>

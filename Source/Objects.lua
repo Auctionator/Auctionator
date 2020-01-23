@@ -1,11 +1,24 @@
 Auctionator = {
   Debug = {},
+  Database = {
+    Scanning = false
+  },
   Constants = {},
   Util = {},
   Filters = {},
   FilterLookup = {},
+  Events = {},
 
-  SearchUI = {}
+  SearchUI = {},
+  State = {
+    Loaded = false,
+    CurrentVersion = nil,
+    CurrentPane = {
+      UINeedsUpdate = false
+    },
+    LiveDB = nil
+  },
+  Hints = {}
 }
 
 -- TODO: Move this to Utilities when re-organizing code
@@ -19,7 +32,8 @@ end
 
 function Auctionator.Debug.Message(message, ...)
   if Auctionator.Debug.IsOn() then
-    print( message, ... )
+    print(GREEN_FONT_COLOR:WrapTextInColorCode(message), ...)
+    -- print( '|cff008000'..message..'|r', ... )
   end
 end
 

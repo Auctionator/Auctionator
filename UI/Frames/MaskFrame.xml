@@ -9,8 +9,8 @@
         self:SetBackdropColor( 0.2, 0.2, 0.2 )
       </OnLoad>
       <OnShow>
-        self:SetPoint( "TOPLEFT", "AuctionFrame", "TOPLEFT" )
-        self:SetPoint( "BOTTOMRIGHT", "AuctionFrame", "BOTTOMRIGHT", 0, -20 )
+        self:SetPoint( "TOPLEFT", "AuctionHouseFrame", "TOPLEFT" )
+        self:SetPoint( "BOTTOMRIGHT", "AuctionHouseFrame", "BOTTOMRIGHT", 0, -20 )
         self:SetFrameStrata( "HIGH" )
       </OnShow>
     </Scripts>

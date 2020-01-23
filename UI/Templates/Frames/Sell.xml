@@ -290,7 +290,8 @@
             </Layers>
             <Scripts>
               <OnLoad>
-                self:RegisterEvent( "NEW_AUCTION_UPDATE" )
+                <!-- TODO Event deprecated, find replacement -->
+                <!-- self:RegisterEvent( "NEW_AUCTION_UPDATE" ) -->
                 self:RegisterForDrag( "LeftButton" )
               </OnLoad>
               <OnEvent function="Atr_SellItemButton_OnEvent"/>
@@ -652,13 +653,14 @@
 
         <Scripts>
           <OnLoad>
-            self:RegisterEvent( "NEW_AUCTION_UPDATE" )
+            <!-- TODO Event deprecated, find replacement? -->
+            <!-- self:RegisterEvent( "NEW_AUCTION_UPDATE" ) -->
             self:RegisterForDrag( "LeftButton" )
           </OnLoad>
           <OnEvent>
-            if event == "NEW_AUCTION_UPDATE" then
+            <!-- if event == "NEW_AUCTION_UPDATE" then
               Atr_Hilite1:Hide()
-            end
+            end -->
           </OnEvent>
           <OnClick>Atr_OnDropItem()</OnClick>
           <OnReceiveDrag>Atr_OnDropItem()</OnReceiveDrag>

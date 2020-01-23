@@ -13,19 +13,23 @@ Patches\UIDropDownMenuTaintCommunities.lua
 
 Libs\LibItemUpgradeInfo-1.0\LibItemUpgradeInfo-1.0.xml
 
+zcUtils.lua
+
+Locales\Manifest.xml
+AuctionatorLocalize.lua
+
 Source\Manifest.xml
 
 AuctionatorUtil.lua
 AuctionatorFilters.lua
 
-zcUtils.lua
+
 
 AuctionatorItemLink.lua
 AuctionatorSearch.lua
 AuctionatorSearchQuery.lua
 
-Locales\Manifest.xml
-AuctionatorLocalize.lua
+
 
 Auctionator.lua
 AuctionatorShop.lua

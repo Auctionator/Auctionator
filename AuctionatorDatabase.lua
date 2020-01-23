@@ -87,3 +87,10 @@ function AtrDB:UpdateItemPrice (itemName, quality, currentLowPrice)
   end
 end
 
+-- How to build an entry in the Database:
+-- Keyed by iTag: itemName_quality
+-- {
+--   Lowest price entry starts with L
+--   Highest price entry starts with H
+-- }
+

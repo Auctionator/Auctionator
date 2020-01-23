@@ -1063,58 +1063,7 @@ StaticPopupDialogs["ATR_SL_REQUEST_DENIED"] = {
 };
 
 
------------------------------------------
 
-function Atr_OnChatMsgAddon_ShoppingListCmds (prefix, msg, distribution, sender)
-
---zz (prefix, msg, distribution, sender)
-
-
-  if (zc.StringStartsWith (msg, "SLPERM_REQ_")) then
-
-    gSLpermittedUser    = nil
-    gShpListShareRequester  = sender
-
-    C_ChatInfo.SendAddonMessage ("ATR", "SLREQACK_", "WHISPER", gShpListShareRequester)
-
-    StaticPopup_Show ("ATR_SL_REQUEST_SHARING")
-  end
-
-  if (zc.StringStartsWith (msg, "SLREQACK_")) then
-    gRequestSentTime = 0
-  end
-
-  if (zc.StringStartsWith (msg, "SLPERM_DENIED_")) then
-    StaticPopup_Show("ATR_SL_REQUEST_DENIED")
-  end
-
-  if (zc.StringStartsWith (msg, "SLREQ_") and gSLpermittedUser and sender == gSLpermittedUser) then
-    Atr_Send_ShoppingListData (gSLpermittedUser)
-  end
-
-  if (zc.StringStartsWith (msg, "SLSTART_")) then
-    gSLgather = ""
-  end
-
-  if (zc.StringStartsWith (msg, "SLDATA_")) then
-    local line = string.sub(msg, 8)
-    if (zc.StringStartsWith (line, "***")) then
-      local slistName = strtrim (string.sub (line, 4))
-      gSuspendGathering = (Atr_SList.FindByName (slistName) ~= nil)
-      zc.msg_anm ("You already have a list called|cffffbb00", slistName, "|r")
-      line = "\n"..line
-    end
-    if (not gSuspendGathering) then
-      gSLgather = gSLgather..line.."\n"
-    end
-  end
-
-  if (zc.StringStartsWith (msg, "SLEND_")) then
-    Atr_OnClick_ShpList_Import()
-    Atr_ShpList_Edit_Text:SetText(gSLgather)
-  end
-
-end
 
 -----------------------------------------
 

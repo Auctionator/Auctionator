@@ -13,14 +13,19 @@
   <Include file="UI/Templates/Frames/Sell.xml" />
 
   <!-- Frame to handle all core events -->
-  <Frame name="Atr_core">
+  <Frame name="AuctionatorCore">
     <Scripts>
       <OnLoad>
-        Atr_RegisterEvents( self )
-        self.TimeSinceLastUpdate = 0
+        Auctionator.Events.CoreFrameLoaded(self)
+        <!-- Atr_RegisterEvents( self )
+        self.TimeSinceLastUpdate = 0 -->
        </OnLoad>
-      <OnUpdate>Atr_OnUpdate( self, elapsed )</OnUpdate>
-      <OnEvent>Atr_EventHandler( self, event, ... )</OnEvent>
+      <OnUpdate>
+        <!-- Atr_OnUpdate( self, elapsed ) -->
+      </OnUpdate>
+      <OnEvent>
+        Auctionator.Events.Handler(self, event, ...)
+      </OnEvent>
     </Scripts>
   </Frame>
 

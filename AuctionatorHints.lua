@@ -309,7 +309,6 @@ function Atr_STWP_AddVendorInfo (tip, xstring, vendorPrice, auctionPrice)
 end
 
 -----------------------------------------
-
 function Atr_STWP_AddAuctionInfo (tip, xstring, link, auctionPrice)
   if AUCTIONATOR_A_TIPS == 1 then
 
@@ -376,7 +375,19 @@ end
 local item_links = {}
 local pet_links = {}
 
-function Atr_ShowTipWithPricing (tip, link, num)
+function Auctionator.Hints.TryThis(tip, itemId, num)
+  tip:AddDoubleLine("Auctionator Updated ID", itemId)
+
+  local dbEntry = Auctionator.State.LiveDB[itemId]
+
+  if dbEntry == nil then
+    tip:AddDoubleLine("Low Price", "Unknown")
+  else
+    tip:AddDoubleLine("Low Price", WHITE_FONT_COLOR:WrapTextInColorCode(zc.priceToMoneyString(dbEntry.mr)))
+  end
+end
+
+function Atr_ShowTipWithPricing (tip, link, num, itemId)
   if link == nil or zc.IsBattlePetLink( link ) then
     if link and not pet_links[ link ] then
       pet_links[ link ] = Auctionator.ItemLink:new({ item_link = link })
@@ -438,7 +449,14 @@ function Atr_ShowTipWithPricing (tip, link, num)
     xstring = "|cFFAAAAFF x" .. num .. "|r"
   end
 
-  local vendorPrice, auctionPrice, dePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel);
+  local vendorPrice, _, dePrice = Atr_STWP_GetPrices (link, num, showStackPrices, itemVendorPrice, itemName, classID, itemRarity, itemLevel);
+
+  local auctionPrice = "Unknown"
+  if Auctionator.State.LiveDB[itemId] == nil then
+
+  else
+    auctionPrice = Auctionator.State.LiveDB[itemId].mr
+  end
 
   -- vendor info
 
@@ -447,6 +465,7 @@ function Atr_ShowTipWithPricing (tip, link, num)
   -- auction info
 
   Atr_STWP_AddAuctionInfo (tip, xstring, link, auctionPrice)
+
 
   -- disenchanting info
 
@@ -497,25 +516,30 @@ hooksecurefunc (GameTooltip, "SetBuybackItem",
 
 hooksecurefunc (GameTooltip, "SetBagItem",
   function(tip, bag, slot)
+    local itemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
+    local itemId = C_Item.GetItemID(itemLocation)
+
     local _, num = GetContainerItemInfo(bag, slot);
-    Atr_ShowTipWithPricing (tip, GetContainerItemLink(bag, slot), num);
+
+    -- Auctionator.Hints.TryThis(tip, itemId, num)
+    Atr_ShowTipWithPricing (tip, GetContainerItemLink(bag, slot), num, itemId);
   end
 );
 
-hooksecurefunc (GameTooltip, "SetAuctionItem",
-  function (tip, type, index)
-    local _, _, num = GetAuctionItemInfo(type, index);
-    Atr_ShowTipWithPricing (tip, GetAuctionItemLink(type, index), num);
-  end
-);
+-- hooksecurefunc (GameTooltip, "SetAuctionItem",
+--   function (tip, type, index)
+--     local _, _, num = GetAuctionItemInfo(type, index);
+--     Atr_ShowTipWithPricing (tip, GetAuctionItemLink(type, index), num);
+--   end
+-- );
 
-hooksecurefunc (GameTooltip, "SetAuctionSellItem",
-  function (tip)
-    local name, _, count = GetAuctionSellItemInfo();
-    local __, link = GetItemInfo(name);
-    Atr_ShowTipWithPricing (tip, link, num);
-  end
-);
+-- hooksecurefunc (GameTooltip, "SetAuctionSellItem",
+--   function (tip)
+--     local name, _, count = GetAuctionSellItemInfo();
+--     local __, link = GetItemInfo(name);
+--     Atr_ShowTipWithPricing (tip, link, num);
+--   end
+-- );
 
 
 hooksecurefunc (GameTooltip, "SetLootItem",

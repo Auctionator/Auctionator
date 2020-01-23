@@ -102,8 +102,8 @@ function Atr_SearchAH (shoppingListName, items, itemType)
 		end
 	end
 
-	if (not Atr_IsTabSelected(SELL_TAB)) then
-		Atr_SelectPane (SELL_TAB);
+	if (not Atr_IsTabSelected(Auctionator.Constants.Tabs.SELL_TAB)) then
+		Atr_SelectPane (Auctionator.Constants.Tabs.SELL_TAB);
 	end
 
 	Atr_SetSearchText ("{ "..shoppingListName.." }");
