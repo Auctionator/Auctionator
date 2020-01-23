@@ -109,7 +109,9 @@ function Auctionator.Database.AddItem(item)
     db[itemID] = {};
   end
 
-  db[itemID].mr = item.minPrice;
+  if db[itemID].mr == nil or item.minPrice > db[itemID].mr then
+    db[itemID].mr = item.minPrice
+  end
 
   local daysSinceZero = Atr_GetScanDay_Today();
 
