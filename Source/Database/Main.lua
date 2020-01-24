@@ -105,6 +105,8 @@ function Auctionator.Database.AddItem(item)
   local itemID = item.itemKey.itemID
   local db = Auctionator.State.LiveDB
 
+  print(itemID)
+
   if (not db[itemID]) then
     db[itemID] = {};
   end
@@ -133,11 +135,19 @@ function Auctionator.Database.AddItem(item)
   end
 end
 
+-- TODO DOCUMENTATION
 -- id: ItemLink:IdString()
 -- mr: currentLowPrice (most recent)
 -- cc: classID
 -- sc: subclassID
 -- L[age]: lowest price seen *today*
 -- H[age]: highest price seen *today* (of the lowest prices for all scans today)?
-
 -- po: mark for purge (!= nil)
+
+function Auctionator.Database.GetPrice(itemId)
+  if Auctionator.State.LiveDB[itemId] ~= nil then
+    return Auctionator.State.LiveDB[itemId].mr
+  else
+    return nil
+  end
+end

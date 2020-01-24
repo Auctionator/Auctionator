@@ -5,6 +5,7 @@ Auctionator = {
   },
   Constants = {},
   Util = {},
+  Utilities = {},
   Filters = {},
   FilterLookup = {},
   Events = {},
@@ -18,7 +19,8 @@ Auctionator = {
     },
     LiveDB = nil
   },
-  Hints = {}
+  Tooltip = {},
+  Localization = {}
 }
 
 -- TODO: Move this to Utilities when re-organizing code

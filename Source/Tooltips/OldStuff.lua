@@ -1,4 +1,3 @@
-
 local addonName, addonTable = ...;
 local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc;
@@ -184,90 +183,78 @@ function Atr_GetAuctionPrice (item)  -- itemName or itemID
   return nil;
 end
 
------------------------------------------
+-- local function Atr_CalcTextWid (price)
 
-local function Atr_CalcTextWid (price)
+--   local wid = 15;
 
-  local wid = 15;
+--   if (price > 9)      then wid = wid + 12;  end;
+--   if (price > 99)     then wid = wid + 44;  end;
+--   if (price > 999)    then wid = wid + 12;  end;
+--   if (price > 9999)   then wid = wid + 44;  end;
+--   if (price > 99999)    then wid = wid + 12;  end;
+--   if (price > 999999)   then wid = wid + 12;  end;
+--   if (price > 9999999)  then wid = wid + 12;  end;
+--   if (price > 99999999) then wid = wid + 12;  end;
 
-  if (price > 9)      then wid = wid + 12;  end;
-  if (price > 99)     then wid = wid + 44;  end;
-  if (price > 999)    then wid = wid + 12;  end;
-  if (price > 9999)   then wid = wid + 44;  end;
-  if (price > 99999)    then wid = wid + 12;  end;
-  if (price > 999999)   then wid = wid + 12;  end;
-  if (price > 9999999)  then wid = wid + 12;  end;
-  if (price > 99999999) then wid = wid + 12;  end;
+--   return wid;
+-- end
 
-  return wid;
-end
+-- local function Atr_GetDEitemName( itemID )
+--   local itemName = GetItemInfo( itemID )
 
------------------------------------------
-
-local function Atr_GetDEitemName( itemID )
-  local itemName = GetItemInfo( itemID )
-
-  return itemName or Auctionator.Constants.DisenchantingItemName[ itemID ]
-end
-
------------------------------------------
+--   return itemName or Auctionator.Constants.DisenchantingItemName[ itemID ]
+-- end
 
 -- same as Atr_GetAuctionPrice but understands that some "lesser" essences are
 -- convertible with "greater"
-function Atr_GetAuctionPriceDE( itemID )
-  local mapping = Auctionator.Constants.DisenchantingMatMapping[ itemID ]
+-- function Atr_GetAuctionPriceDE( itemID )
+--   local mapping = Auctionator.Constants.DisenchantingMatMapping[ itemID ]
 
-  if mapping then
-    local lesserPrice = Atr_GetAuctionPrice( Atr_GetDEitemName( itemID ))
-    local greaterPrice = Atr_GetAuctionPrice( Atr_GetDEitemName( mapping ))
+--   if mapping then
+--     local lesserPrice = Atr_GetAuctionPrice( Atr_GetDEitemName( itemID ))
+--     local greaterPrice = Atr_GetAuctionPrice( Atr_GetDEitemName( mapping ))
 
-    if lesserPrice and greaterPrice and lesserPrice * 3 > greaterPrice then
-      return math.floor( greaterPrice / 3 )
-    else
-      return lesserPrice
-    end
-  else
-    return Atr_GetAuctionPrice( Atr_GetDEitemName( itemID ))
-  end
-end
+--     if lesserPrice and greaterPrice and lesserPrice * 3 > greaterPrice then
+--       return math.floor( greaterPrice / 3 )
+--     else
+--       return lesserPrice
+--     end
+--   else
+--     return Atr_GetAuctionPrice( Atr_GetDEitemName( itemID ))
+--   end
+-- end
 
------------------------------------------
+-- function Auctionator.ItemLevelMatches( entry, itemLevel )
+--   return itemLevel >= entry[ Auctionator.Constants.DisenchantingProbabilityKeys.LOW ] and
+--     itemLevel <= entry[ Auctionator.Constants.DisenchantingProbabilityKeys.HIGH ]
+-- end
 
-function Auctionator.ItemLevelMatches( entry, itemLevel )
-  return itemLevel >= entry[ Auctionator.Constants.DisenchantingProbabilityKeys.LOW ] and
-    itemLevel <= entry[ Auctionator.Constants.DisenchantingProbabilityKeys.HIGH ]
-end
+-- local function Atr_FindDEentry (classID, itemRarity, itemLevel)
+--   local itemClassTable = Auctionator.Constants.DisenchantingProbability[ classID ]
+--   local entries = ( itemClassTable and itemClassTable[ itemRarity ] ) or {}
 
-local function Atr_FindDEentry (classID, itemRarity, itemLevel)
-  local itemClassTable = Auctionator.Constants.DisenchantingProbability[ classID ]
-  local entries = ( itemClassTable and itemClassTable[ itemRarity ] ) or {}
+--   for index, entry in pairs( entries ) do
+--     if Auctionator.ItemLevelMatches( entry, itemLevel ) then
+--       return entry
+--     end
+--   end
+-- end
 
-  for index, entry in pairs( entries ) do
-    if Auctionator.ItemLevelMatches( entry, itemLevel ) then
-      return entry
-    end
-  end
-end
+-- function Atr_AddDEDetailsToTip( tip, classID, itemRarity, itemLevel )
+--   local entry = Atr_FindDEentry( classID, itemRarity, itemLevel )
 
------------------------------------------
+--   if entry then
+--     for x = 3, #entry, 3 do
+--       local percent = math.floor( entry[ x ] * 100 ) / 100
+--       local deitem = Atr_GetDEitemName( entry[ x + 2 ] )
 
-function Atr_AddDEDetailsToTip( tip, classID, itemRarity, itemLevel )
-  local entry = Atr_FindDEentry( classID, itemRarity, itemLevel )
+--       if (percent > 0) then
+--         tip:AddLine ("  |cFFFFFFFF" .. percent .. "%|r   " .. entry[ x + 1 ] .. " " .. ( deitem or '???' ))
+--       end
+--     end
+--   end
+-- end
 
-  if entry then
-    for x = 3, #entry, 3 do
-      local percent = math.floor( entry[ x ] * 100 ) / 100
-      local deitem = Atr_GetDEitemName( entry[ x + 2 ] )
-
-      if (percent > 0) then
-        tip:AddLine ("  |cFFFFFFFF" .. percent .. "%|r   " .. entry[ x + 1 ] .. " " .. ( deitem or '???' ))
-      end
-    end
-  end
-end
-
-
------------------------------------------
 function Auctionator.IsNotCommon( itemRarity )
   return itemRarity == Auctionator.Constants.Rarity.UNCOMMON or
     itemRarity == Auctionator.Constants.Rarity.RARE or
@@ -278,29 +265,27 @@ function Auctionator.IsDisenchantable( classID )
   return Atr_IsWeaponType( classID ) or Atr_IsArmorType( classID )
 end
 
-function Atr_CalcDisenchantPrice( classID, itemRarity, itemLevel)
-  if Auctionator.IsDisenchantable( classID ) and Auctionator.IsNotCommon( itemRarity ) then
+-- function Atr_CalcDisenchantPrice( classID, itemRarity, itemLevel)
+--   if Auctionator.IsDisenchantable( classID ) and Auctionator.IsNotCommon( itemRarity ) then
 
-    local dePrice = 0
+--     local dePrice = 0
 
-    local ta = Atr_FindDEentry( classID, itemRarity, itemLevel )
-    if ta then
-      for x = 3, #ta, 3 do
-        local price = Atr_GetAuctionPriceDE( ta[ x + 2 ] )
+--     local ta = Atr_FindDEentry( classID, itemRarity, itemLevel )
+--     if ta then
+--       for x = 3, #ta, 3 do
+--         local price = Atr_GetAuctionPriceDE( ta[ x + 2 ] )
 
-        if price then
-          dePrice = dePrice + ( ta[ x ] * ta[ x + 1 ] * price )
-        end
-      end
-    end
+--         if price then
+--           dePrice = dePrice + ( ta[ x ] * ta[ x + 1 ] * price )
+--         end
+--       end
+--     end
 
-    return math.floor( dePrice / 100 )
-  end
+--     return math.floor( dePrice / 100 )
+--   end
 
-  return nil
-end
-
------------------------------------------
+--   return nil
+-- end
 
 function Atr_STWP_AddVendorInfo (tip, xstring, vendorPrice, auctionPrice)
   if (AUCTIONATOR_V_TIPS == 1 and vendorPrice > 0) then
@@ -374,18 +359,6 @@ end
 -----------------------------------------
 local item_links = {}
 local pet_links = {}
-
-function Auctionator.Hints.TryThis(tip, itemId, num)
-  tip:AddDoubleLine("Auctionator Updated ID", itemId)
-
-  local dbEntry = Auctionator.State.LiveDB[itemId]
-
-  if dbEntry == nil then
-    tip:AddDoubleLine("Low Price", "Unknown")
-  else
-    tip:AddDoubleLine("Low Price", WHITE_FONT_COLOR:WrapTextInColorCode(zc.priceToMoneyString(dbEntry.mr)))
-  end
-end
 
 function Atr_ShowTipWithPricing (tip, link, num, itemId)
   if link == nil or zc.IsBattlePetLink( link ) then
@@ -496,192 +469,3 @@ end
 
 
 -----------------------------------------
-
-
-hooksecurefunc (GameTooltip, "SetMerchantItem",
-  function(tip, index)
-    local _, _, _, num = GetMerchantItemInfo(index);
-    Atr_ShowTipWithPricing (tip, GetMerchantItemLink(index), num);
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetBuybackItem",
-  function(tip, index)
-    local _, _, _, num = GetBuybackItemInfo(index);
-    Atr_ShowTipWithPricing (tip, GetBuybackItemLink(index), num);
-  end
-);
-
-
-
-hooksecurefunc (GameTooltip, "SetBagItem",
-  function(tip, bag, slot)
-    local itemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
-    local itemId = C_Item.GetItemID(itemLocation)
-
-    local _, num = GetContainerItemInfo(bag, slot);
-
-    -- Auctionator.Hints.TryThis(tip, itemId, num)
-    Atr_ShowTipWithPricing (tip, GetContainerItemLink(bag, slot), num, itemId);
-  end
-);
-
--- hooksecurefunc (GameTooltip, "SetAuctionItem",
---   function (tip, type, index)
---     local _, _, num = GetAuctionItemInfo(type, index);
---     Atr_ShowTipWithPricing (tip, GetAuctionItemLink(type, index), num);
---   end
--- );
-
--- hooksecurefunc (GameTooltip, "SetAuctionSellItem",
---   function (tip)
---     local name, _, count = GetAuctionSellItemInfo();
---     local __, link = GetItemInfo(name);
---     Atr_ShowTipWithPricing (tip, link, num);
---   end
--- );
-
-
-hooksecurefunc (GameTooltip, "SetLootItem",
-  function (tip, slot)
-    if LootSlotHasItem(slot) then
-      local link, _, num = GetLootSlotLink(slot);
-      Atr_ShowTipWithPricing (tip, link, num);
-    end
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetLootRollItem",
-  function (tip, slot)
-    local _, _, num = GetLootRollItemInfo(slot);
-    Atr_ShowTipWithPricing (tip, GetLootRollItemLink(slot), num);
-  end
-);
-
-
-hooksecurefunc (GameTooltip, "SetInventoryItem",
-  function (tip, unit, slot)
-    Atr_ShowTipWithPricing (tip, GetInventoryItemLink(unit, slot), GetInventoryItemCount(unit, slot));
-  end
-);
-
-
-hooksecurefunc (GameTooltip, "SetGuildBankItem",
-  function (tip, tab, slot)
-    local _, num = GetGuildBankItemInfo(tab, slot);
-    Atr_ShowTipWithPricing (tip, GetGuildBankItemLink(tab, slot), num);
-  end
-);
-
-
-hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
-  function( tip, itemId )
-    local link = C_TradeSkillUI.GetRecipeItemLink( itemId )
-    local count  = C_TradeSkillUI.GetRecipeNumItemsProduced( itemId )
-
-    Atr_ShowTipWithPricing( tip, link, count )
-  end
-);
-
-hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
-  function( tip, itemId, index )
-    local link = C_TradeSkillUI.GetRecipeReagentItemLink( itemId, index )
-    local count = select( 3, C_TradeSkillUI.GetRecipeReagentInfo( itemId, index ) )
-
-    Atr_ShowTipWithPricing( tip, link, count )
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetTradePlayerItem",
-  function (tip, id)
-    local _, _, num = GetTradePlayerItemInfo(id);
-    Atr_ShowTipWithPricing (tip, GetTradePlayerItemLink(id), num);
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetTradeTargetItem",
-  function (tip, id)
-    local _, _, num = GetTradeTargetItemInfo(id);
-    Atr_ShowTipWithPricing (tip, GetTradeTargetItemLink(id), num);
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetQuestItem",
-  function (tip, type, index)
-    local _, _, num = GetQuestItemInfo(type, index);
-    Atr_ShowTipWithPricing (tip, GetQuestItemLink(type, index), num);
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetQuestLogItem",
-  function (tip, type, index)
-    local num, _;
-    if type == "choice" then
-      _, _, num = GetQuestLogChoiceInfo(index);
-    else
-      _, _, num = GetQuestLogRewardInfo(index)
-    end
-
-    Atr_ShowTipWithPricing (tip, GetQuestLogItemLink(type, index), num);
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetInboxItem",
-  function (tip, index, attachIndex)
-    if AUCTIONATOR_SHOW_MAILBOX_TIPS == 1 then
-      local attachmentIndex = attachIndex or 1
-      local _, _, _, num = GetInboxItem(index, attachmentIndex);
-
-      Atr_ShowTipWithPricing (tip, GetInboxItemLink(index, attachmentIndex), num);
-    end
-  end
-);
-
-hooksecurefunc ( "InboxFrameItem_OnEnter",
-  function ( self )
-    local itemCount = select( 8, GetInboxHeaderInfo( self.index ) )
-    local tooltipEnabled = AUCTIONATOR_SHOW_MAILBOX_TIPS == 1 and  (
-      AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1
-    )
-
-    if tooltipEnabled and itemCount and itemCount > 1 then
-      for numIndex = 1, ATTACHMENTS_MAX_RECEIVE do
-        local name, _, _, num = GetInboxItem( self.index, numIndex )
-
-        if name then
-          local attachLink = GetInboxItemLink( self.index, numIndex ) or name
-
-          GameTooltip:AddLine( attachLink )
-
-          if num > 1 then
-            Atr_ShowTipWithPricing( GameTooltip, attachLink, num )
-          else
-            Atr_ShowTipWithPricing( GameTooltip, attachLink )
-          end
-        end
-      end
-    end
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetSendMailItem",
-  function (tip, id)
-    local name, _, _, num = GetSendMailItem(id)
-    local name, link = GetItemInfo(name);
-    Atr_ShowTipWithPricing (tip, link, num);
-  end
-);
-
-hooksecurefunc (GameTooltip, "SetHyperlink",
-  function (tip, itemstring, num)
-    local name, link = GetItemInfo (itemstring);
-    Atr_ShowTipWithPricing (tip, link, num);
-  end
-);
-
-hooksecurefunc (ItemRefTooltip, "SetHyperlink",
-  function (tip, itemstring)
-    local name, link = GetItemInfo (itemstring);
-    Atr_ShowTipWithPricing (tip, link);
-  end
-);

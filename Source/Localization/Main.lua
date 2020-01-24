@@ -12,6 +12,10 @@ addonTable.ztt = ztt;
 
 -----------------------------------------
 
+function Auctionator.Localization.Localize(stringToLocalize)
+  return ztt.ZT(stringToLocalize)
+end
+
 function ztt.ZT (s)
 
   if (s == nil or s == "") then

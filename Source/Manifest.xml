@@ -2,6 +2,11 @@
   <Script file="Objects.lua" />
 
   <Include file="Constants\Manifest.xml" />
+
+  <Script file="Localization\Main.lua" />
+
+  <Include file="Utilities\Manifest.xml" />
+
   <Include file="Events\Manifest.xml" />
   <Include file="Database\Manifest.xml" />
 </Ui>
