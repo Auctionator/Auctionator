@@ -1,4 +1,4 @@
-﻿function AtrBuildLTable_esES ()
+﻿function AtrBuildLTable_esMX ()
 
 -- Version 1.2
 
