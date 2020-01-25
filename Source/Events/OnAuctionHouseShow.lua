@@ -5,10 +5,10 @@ end
 
 function AutoScan()
   --Autoscan once per logon
-  if (not Auctionator.Scans.InitialScanComplete) then
+  if (not Auctionator.Scans.InitialScanStarted) then
       print("Starting Full Scan, please wait.");
       C_AuctionHouse.ReplicateItems();
-      Auctionator.Scans.InitialScanComplete = true;
+      Auctionator.Scans.InitialScanStarted = true;
   end
 end
 

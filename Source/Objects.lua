@@ -20,7 +20,7 @@ Auctionator = {
     LiveDB = nil,
   },
   Scans = {
-    InitialScanComplete = false,
+    InitialScanStarted = false,
     FinishedReplication = false
   },
   Tooltip = {},
