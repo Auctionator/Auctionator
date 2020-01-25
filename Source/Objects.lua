@@ -38,7 +38,9 @@ Auctionator = {
   },
   Tooltip = {},
   Localization = {},
-  Variables = {}
+  Variables = {},
+  BlizzAPI = {},
+  ShoppingLists = {}
 }
 
 -- TODO: Move this to Utilities when re-organizing code

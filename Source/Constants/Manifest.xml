@@ -13,4 +13,5 @@
   <Script file="DisenchantingProbabilities.lua" />
 
   <Script file="Tabs.lua" />
+  <Script file="DialogNames.lua" />
 </Ui>
