@@ -69,7 +69,7 @@ function Auctionator.Database.AppendResults(results)
 
   -- This is incredibly inefficient, WIP
   for i = 1, #results do
-    Auctionator.Database.AddItem(results[i])
+    Auctionator.Database.AddItem(results[i].itemKey.itemID, results[i].minPrice)
   end
   -- if C_AuctionHouse.HasFullBrowseResults() then
   --   Auctionator.Debug.Message("Finished processing results")
@@ -103,37 +103,52 @@ function Auctionator.Database.ProcessLastScan()
 
 end
 
-function Auctionator.Database.AddItem(item)
+function Auctionator.Database.AddItem(itemID, buyoutPrice)
   -- Auctionator.Debug.Message("Auctionator.Database.AddItem", item)
 
-  local itemID = item.itemKey.itemID
   local db = Auctionator.State.LiveDB
 
   if (not db[itemID]) then
     db[itemID] = {};
   end
 
-  if db[itemID].mr == nil or item.minPrice > db[itemID].mr then
-    db[itemID].mr = item.minPrice
+  if db[itemID].mr == nil or buyoutPrice > db[itemID].mr then
+    db[itemID].mr = buyoutPrice
   end
+  Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
+end
 
+function Auctionator.Database.AddItemFullScan(itemID, buyoutPrice)
+  local db = Auctionator.State.LiveDB
+  if (not db[itemID]) then
+    db[itemID] = {};
+  end
+  if db[itemID].mr == nil or buyoutPrice < db[itemID].mr then
+    db[itemID].mr = buyoutPrice
+  end
+  Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
+end
+
+--(I'm guessing) Records historical price data.
+function Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
+  local db = Auctionator.State.LiveDB
   local daysSinceZero = Atr_GetScanDay_Today();
 
   local lowlow  = db[itemID]["L" .. daysSinceZero];
   local highlow = db[itemID]["H" .. daysSinceZero];
 
-  if (highlow == nil or item.minPrice > highlow) then
-    db[itemID]["H"..daysSinceZero] = item.minPrice;
-    highlow = item.minPrice;
+  if (highlow == nil or buyoutPrice > highlow) then
+    db[itemID]["H"..daysSinceZero] = buyoutPrice;
+    highlow = buyoutPrice;
   end
 
   -- save memory by only saving lowlow when different from highlow
 
-  local isLowerThanLow    = (lowlow ~= nil and item.minPrice < lowlow);
-  local isNewAndDifferent   = (lowlow == nil and item.minPrice < highlow);
+  local isLowerThanLow    = (lowlow ~= nil and buyoutPrice < lowlow);
+  local isNewAndDifferent   = (lowlow == nil and buyoutPrice < highlow);
 
   if (isLowerThanLow or isNewAndDifferent) then
-    db[itemID]["L"..daysSinceZero] = item.minPrice;
+    db[itemID]["L"..daysSinceZero] = buyoutPrice;
   end
 end
 

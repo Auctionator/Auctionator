@@ -17,7 +17,11 @@ Auctionator = {
     CurrentPane = {
       UINeedsUpdate = false
     },
-    LiveDB = nil
+    LiveDB = nil,
+  },
+  Scans = {
+    InitialScanComplete = false,
+    FinishedReplication = false
   },
   Tooltip = {},
   Localization = {}

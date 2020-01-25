@@ -1,15 +1,21 @@
 function Auctionator.Events.OnAuctionHouseShow()
-  print("In OnAuctionHouseShow")
-  -- AuctionatorFrame:Show();
-
   Atr_OnAuctionHouseShow();
+  AutoScan();
+end
+
+function AutoScan()
+  --Autoscan once per logon
+  if (not Auctionator.Scans.InitialScanComplete) then
+      print("Starting Full Scan, please wait.");
+      C_AuctionHouse.ReplicateItems();
+      Auctionator.Scans.InitialScanComplete = true;
+  end
 end
 
 -----------------------------------------
 
 function Atr_OnAuctionHouseShow()
-  Auctionator.Debug.Message( 'Atr_OnAuctionHouseShow' )
-
+  Auctionator.Debug.Message( 'Atr_OnAuctionHouseShow' );
   -- local frame = CreateFrame("Frame", "AuctionatorMain", AuctionHouseFrame, "SimplePanelTemplate");
   -- frame:SetPoint("TOPLEFT", AuctionHouseFrame, "TOPRIGHT", -2, -20)
   -- frame:SetPoint("BOTTOMLEFT", AuctionHouseFrame, "BOTTOMRIGHT", -2, 5)
