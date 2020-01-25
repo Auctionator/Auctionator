@@ -38,14 +38,15 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemId, itemCount)
     icon,
     sellPrice,
     classID,
-    bindType = GetItemInfo(itemId);
+    unused,
+    cannotAuction = GetItemInfo(itemId);
 
   local vendorPrice = sellPrice * (showStackPrices and itemCount or 1)
 
   tooltipFrame:AddDoubleLine("ItemID", itemId)
 
   Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
-  Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, bindType)
+  Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
 
   -- TODO Disenchant price; still need to figure out d/e tables...
 
@@ -97,29 +98,14 @@ function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString
   end
 end
 
--- TODO bindType constants are wrong (Linen Bolt shows BOA currently?)
-function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countString, bindType)
+function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countString, cannotAuction)
   if AUCTIONATOR_A_TIPS == 1 then
 
-    if (bindType == ATR_BIND_ON_PICKUP) then
+    if (cannotAuction == 1) then
       tooltipFrame:AddDoubleLine(
         L("Auction") .. countString,
         WHITE_FONT_COLOR:WrapTextInColorCode(
-          L("BOP") .. "  "
-        )
-      )
-    elseif (bindType == ATR_BINDS_TO_ACCOUNT) then
-      tooltipFrame:AddDoubleLine(
-        L("Auction") .. countString,
-        WHITE_FONT_COLOR:WrapTextInColorCode(
-          L("BOA") .. "  "
-        )
-      )
-    elseif (bindType == ATR_QUEST_ITEM) then
-      tooltipFrame:AddDoubleLine(
-        L("Auction") .. countString,
-        WHITE_FONT_COLOR:WrapTextInColorCode(
-          L("Quest Item") .. "  "
+          L("Cannot Auction") .. "  "
         )
       )
     elseif (auctionPrice ~= nil) then
