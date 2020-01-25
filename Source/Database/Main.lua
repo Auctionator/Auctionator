@@ -105,8 +105,6 @@ function Auctionator.Database.AddItem(item)
   local itemID = item.itemKey.itemID
   local db = Auctionator.State.LiveDB
 
-  print(itemID)
-
   if (not db[itemID]) then
     db[itemID] = {};
   end
