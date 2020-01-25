@@ -1,9 +1,9 @@
-Auctionator.Search = {
+Auctionator.OldSearch = {
   query = nil,
   timeFinished = nil,
 
   -- itemName = nil, NOW query.text
-  -- IDString, These aren't yet used, need to find the DoSearch that passes these
+  -- IDString, These aren't yet used, need to find the DoOldSearch that passes these
   -- itemLink,
   -- rescanThreshold
 
@@ -15,7 +15,7 @@ Auctionator.Search = {
   sortOrder = Auctionator.Constants.Sort.PRICE_ASCENDING, -- Used to be sortHow
 }
 
-function Auctionator.Search:new( options )
+function Auctionator.OldSearch:new( options )
   options = options or {}
   setmetatable( options, self )
   self.__index = self
@@ -23,8 +23,8 @@ function Auctionator.Search:new( options )
   return options
 end
 
-function Auctionator.Search:Start()
-  Auctionator.Debug.Message( 'Auctionator.Search:Start' )
+function Auctionator.OldSearch:Start()
+  Auctionator.Debug.Message( 'Auctionator.OldSearch:Start' )
 
   if CanSendAuctionQuery() then
     QueryAuctionItems( self.query:ToParams( self.currentPage ) )
@@ -33,9 +33,9 @@ function Auctionator.Search:Start()
   end
 end
 
-function Auctionator.Search:Finish()
+function Auctionator.OldSearch:Finish()
   self.timeFinished = time()
-  -- TODO: Why is there just a FINISHED SearchState?
+  -- TODO: Why is there just a FINISHED OldSearchState?
   self.processingState = Auctionator.Constants.SearchStates.NULL
   self.currentPage = -1
 end

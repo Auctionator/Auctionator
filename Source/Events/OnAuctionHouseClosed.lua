@@ -1,6 +1,4 @@
 function Auctionator.Events.OnAuctionHouseClosed()
-  print("In OnAuctionHouseClosed")
-
   -- Atr_OnAuctionHouseClosed();
 end
 

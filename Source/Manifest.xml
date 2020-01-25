@@ -6,6 +6,7 @@
   <Script file="Localization\Main.lua" />
 
   <Include file="Utilities\Manifest.xml" />
+  <Include file="Search\Manifest.xml" />
 
   <Include file="Events\Manifest.xml" />
   <Include file="Database\Manifest.xml" />

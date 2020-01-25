@@ -76,7 +76,7 @@ end
 function AtrPane:DoSearch2( query )
   Auctionator.Util.Print( query, "Hook this new search object up" )
 
-  self.currentSearch = Auctionator.Search:new({ query = query })
+  self.currentSearch = Auctionator.OldSearch:new({ query = query })
   self.activeSearch = self.currentSearch
 
   self.currentSearch:Start()

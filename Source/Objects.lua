@@ -6,6 +6,7 @@ Auctionator = {
   Constants = {},
   Util = {},
   Utilities = {},
+  Search = {},
   Filters = {},
   FilterLookup = {},
   Events = {},
@@ -17,7 +18,8 @@ Auctionator = {
     CurrentPane = {
       UINeedsUpdate = false
     },
-    LiveDB = nil
+    LiveDB = nil,
+    InitialScanComplete = false
   },
   Tooltip = {},
   Localization = {}
