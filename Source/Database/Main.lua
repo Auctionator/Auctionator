@@ -118,15 +118,23 @@ function Auctionator.Database.AddItem(itemID, buyoutPrice)
   Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
 end
 
-function Auctionator.Database.AddItemFullScan(itemID, buyoutPrice)
-  local db = Auctionator.State.LiveDB
-  if (not db[itemID]) then
-    db[itemID] = {};
+--Takes all the items with a list of their prices, and determines the minimum
+--price.
+function Auctionator.Database.ProcessFullScan(priceIndexes)
+  local db = Auctionator.State.LiveDB;
+  for itemID, prices in pairs(priceIndexes) do
+      if (not db[itemID]) then
+        db[itemID] = {};
+      end
+      local minPrice = prices[1];
+      for i=1,#prices do
+          if prices[i]<minPrice then
+              minPrice = prices[i]
+          end
+      end
+      db[itemID].mr = minPrice;
+      Auctionator.Database.UpdateHistory(itemID, minPrice)
   end
-  if db[itemID].mr == nil or buyoutPrice < db[itemID].mr then
-    db[itemID].mr = buyoutPrice
-  end
-  Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
 end
 
 --(I'm guessing) Records historical price data.
