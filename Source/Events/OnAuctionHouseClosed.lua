@@ -1,8 +1,9 @@
 function Auctionator.Events.OnAuctionHouseClosed()
   -- Atr_OnAuctionHouseClosed();
-  if Auctionator.Scans.InitialScanStarted and (not Auctionator.Scans.FinishedReplication) then
-      Auctionator.Scans.InitialScanStarted = false;
-      print("Full Scan failed. Log out and back into WoW to try again.");
+  if (not Auctionator.Scans.FailureShown) and
+      Auctionator.Scans.ScanStarted and (not Auctionator.Scans.FinishedReplication) then
+      print("Full scan failed. Wait 15 minutes to try again.");
+      Auctionator.Scans.FailureShown = true;
   end
 end
 
