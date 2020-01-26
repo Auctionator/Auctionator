@@ -25,7 +25,8 @@ Auctionator = {
     FailureShown = false,
     TimeUntilScan = 0
   },
-  FullScan = {
+  FullScan = {},
+  FullScanState = {
     ---- Recorded in SAVEDVARS, initialzed in InitializeVariables
     ---- Records the time in seconds since epoch that the last ReplicateItems was called
     -- TimeOfLastScan = nil,

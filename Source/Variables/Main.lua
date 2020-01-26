@@ -17,14 +17,14 @@ end
 
 function Auctionator.Variables.InitializeFullScanVariables()
   if AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA == nil then
-    Auctionator.FullScan = {
+    AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA = {
       TimeOfLastScan = nil,
       Completed = false,
       InProgress = false
     }
   end
 
-  Auctionator.FullScan = AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA
+  Auctionator.FullScanState = AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA
 end
 
 function Auctionator.Variables.InitializeDatabase()
