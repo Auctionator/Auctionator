@@ -1,7 +1,7 @@
 function Auctionator.Events.OnAuctionHouseClosed()
   Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseClosed")
 
-  if Auctionator.FullScan.InProgress and not Auctionator.FullScan.Completed then
+  if Auctionator.FullScan.State.InProgress and not Auctionator.FullScan.State.Completed then
     Auctionator.FullScan.State.InProgress = false
 
     Auctionator.Utilities.Message(
