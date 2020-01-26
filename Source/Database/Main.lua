@@ -79,6 +79,8 @@ end
 --Takes all the items with a list of their prices, and determines the minimum
 --price.
 function Auctionator.Database.ProcessFullScan(priceIndexes)
+  Auctionator.Debug.Message("Auctionator.Database.ProcessFullScan", #priceIndexes .. " prices")
+
   local db = Auctionator.State.LiveDB;
   for itemID, prices in pairs(priceIndexes) do
       if (not db[itemID]) then
@@ -98,6 +100,8 @@ end
 --(I'm guessing) Records historical price data.
 function Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
   local db = Auctionator.State.LiveDB
+
+  -- TODO Move this into a namespaced function
   local daysSinceZero = Atr_GetScanDay_Today();
 
   local lowlow  = db[itemID]["L" .. daysSinceZero];
@@ -119,7 +123,7 @@ function Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
 end
 
 -- TODO DOCUMENTATION
--- id: ItemLink:IdString()
+-- id: itemId
 -- mr: currentLowPrice (most recent)
 -- cc: classID
 -- sc: subclassID
