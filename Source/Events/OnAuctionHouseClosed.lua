@@ -2,7 +2,7 @@ function Auctionator.Events.OnAuctionHouseClosed()
   Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseClosed")
 
   if Auctionator.FullScan.InProgress and not Auctionator.FullScan.Completed then
-    Auctionator.FullScan.InProgress = false
+    Auctionator.FullScan.State.InProgress = false
 
     Auctionator.Utilities.Message(
       "Full scan failed to complete. " ..
