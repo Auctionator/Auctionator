@@ -1,0 +1,4 @@
+<!-- FullScan directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Main.lua" />
+</Ui>

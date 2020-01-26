@@ -19,11 +19,10 @@
 function Auctionator.Events.BrowseResultsAdded(addedBrowseResults)
   Auctionator.Debug.Message("Auctionator.Events.BrowseResultsAdded", addedBrowseResults)
 
-  -- Auctionator.Util.Print(addedBrowseResults[1])
-
   Auctionator.Database.AppendResults(addedBrowseResults)
 
-  if not C_AuctionHouse.HasFullBrowseResults() then
+  -- We don't use the C_AuctionHouse.HasFullBrowseResults as it doesn't work.
+  if (#addedBrowseResults > 0) then
     C_AuctionHouse.RequestMoreBrowseResults()
   end
 end

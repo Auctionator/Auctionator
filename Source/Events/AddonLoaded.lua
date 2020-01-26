@@ -1,6 +1,5 @@
-function Auctionator.Events.AddonLoaded()
-  Auctionator.Debug.Message("Auctionator.Events.AddonLoaded")
-
+function Auctionator.Events.AddonLoaded(...)
+  Auctionator.Debug.Message("Auctionator.Events.AddonLoaded", ...)
 end
 
 local gPrevTime = 0;

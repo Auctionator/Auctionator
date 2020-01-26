@@ -1,45 +1,3 @@
-local VERSION_8_3 = 5
-
-function Auctionator.Database.Initialize()
-  Auctionator.Debug.Message("Auctionator.Database.Initialize()")
-  -- Auctionator.Util.Print(AUCTIONATOR_PRICE_DATABASE, "AUCTIONATOR_PRICE_DATABASE")
-
-  local realm = GetRealmName()
-
-  -- First time users need the price database initialized
-  if AUCTIONATOR_PRICE_DATABASE == nil then
-    AUCTIONATOR_PRICE_DATABASE = {
-      ["__dbversion"] = VERSION_8_3
-    }
-  end
-
-  -- Changing how we record item info, so need to reset the DB if prior to 8.3
-  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] < VERSION_8_3 then
-    AUCTIONATOR_PRICE_DATABASE = {
-      ["__dbversion"] = VERSION_8_3
-    }
-  end
-
-  -- Check for current realm and initialize if not present
-  if AUCTIONATOR_PRICE_DATABASE[realm] == nil then
-    AUCTIONATOR_PRICE_DATABASE[realm] = {}
-  end
-
-  Auctionator.State.LiveDB = AUCTIONATOR_PRICE_DATABASE[realm]
-
-  -- TODO Get rid of this just want to make sure shit persists
-  local count = 0
-  for _ in pairs(Auctionator.State.LiveDB) do count = count + 1 end
-  print(GREEN_FONT_COLOR:WrapTextInColorCode("Auctionator Db initialized with " .. count .. " entries."))
-
-  Auctionator.Debug.Message("Live DB Loaded", count .. " entries")
-  -- TODO leftover from Atr_InitDB
-  -- Atr_PruneScanDB ();
-  -- Atr_PrunePostDB ();
-
-  -- Atr_Broadcast_DBupdated (#gAtr_ScanDB, "dbinited");
-end
-
 -- C_AuctionHouse.GetBrowseResults()
 -- browseResults BrowseResultInfo[]
 --
@@ -69,7 +27,7 @@ function Auctionator.Database.AppendResults(results)
 
   -- This is incredibly inefficient, WIP
   for i = 1, #results do
-    Auctionator.Database.AddItem(results[i])
+    Auctionator.Database.AddItem(results[i].itemKey.itemID, results[i].minPrice)
   end
   -- if C_AuctionHouse.HasFullBrowseResults() then
   --   Auctionator.Debug.Message("Finished processing results")
@@ -103,42 +61,77 @@ function Auctionator.Database.ProcessLastScan()
 
 end
 
-function Auctionator.Database.AddItem(item)
+function Auctionator.Database.AddItem(itemID, buyoutPrice)
   -- Auctionator.Debug.Message("Auctionator.Database.AddItem", item)
 
-  local itemID = item.itemKey.itemID
   local db = Auctionator.State.LiveDB
 
   if (not db[itemID]) then
-    db[itemID] = {};
+    db[itemID] = {}
   end
 
-  if db[itemID].mr == nil or item.minPrice > db[itemID].mr then
-    db[itemID].mr = item.minPrice
+  if db[itemID].mr == nil or buyoutPrice > db[itemID].mr then
+    db[itemID].mr = buyoutPrice
+  end
+  Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
+end
+
+--Takes all the items with a list of their prices, and determines the minimum
+--price.
+function Auctionator.Database.ProcessFullScan(priceIndexes)
+  local count = 0
+  for _ in pairs(priceIndexes) do count = count + 1 end
+
+  Auctionator.Debug.Message("Auctionator.Database.ProcessFullScan", count .. " prices")
+
+  local db = Auctionator.State.LiveDB
+  for itemID, prices in pairs(priceIndexes) do
+    if not db[itemID] then
+      db[itemID] = {}
+    end
+
+    local minPrice = prices[1]
+
+    for i = 1, #prices do
+      if prices[i] < minPrice then
+        minPrice = prices[i]
+      end
+    end
+
+    db[itemID].mr = minPrice
+    Auctionator.Database.UpdateHistory(itemID, minPrice)
   end
 
-  local daysSinceZero = Atr_GetScanDay_Today();
+  Auctionator.Utilities.Message("Finished processing " .. count .. " items.")
+end
 
-  local lowlow  = db[itemID]["L" .. daysSinceZero];
-  local highlow = db[itemID]["H" .. daysSinceZero];
+--(I'm guessing) Records historical price data.
+function Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
+  local db = Auctionator.State.LiveDB
 
-  if (highlow == nil or item.minPrice > highlow) then
-    db[itemID]["H"..daysSinceZero] = item.minPrice;
-    highlow = item.minPrice;
+  -- TODO Move this into a namespaced function
+  local daysSinceZero = Atr_GetScanDay_Today()
+
+  local lowlow  = db[itemID]["L" .. daysSinceZero]
+  local highlow = db[itemID]["H" .. daysSinceZero]
+
+  if (highlow == nil or buyoutPrice > highlow) then
+    db[itemID]["H"..daysSinceZero] = buyoutPrice
+    highlow = buyoutPrice
   end
 
   -- save memory by only saving lowlow when different from highlow
 
-  local isLowerThanLow    = (lowlow ~= nil and item.minPrice < lowlow);
-  local isNewAndDifferent   = (lowlow == nil and item.minPrice < highlow);
+  local isLowerThanLow    = (lowlow ~= nil and buyoutPrice < lowlow)
+  local isNewAndDifferent   = (lowlow == nil and buyoutPrice < highlow)
 
   if (isLowerThanLow or isNewAndDifferent) then
-    db[itemID]["L"..daysSinceZero] = item.minPrice;
+    db[itemID]["L"..daysSinceZero] = buyoutPrice
   end
 end
 
 -- TODO DOCUMENTATION
--- id: ItemLink:IdString()
+-- id: itemId
 -- mr: currentLowPrice (most recent)
 -- cc: classID
 -- sc: subclassID

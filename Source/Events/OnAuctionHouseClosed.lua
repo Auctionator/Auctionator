@@ -1,25 +1,28 @@
 function Auctionator.Events.OnAuctionHouseClosed()
-  print("In OnAuctionHouseClosed")
+  Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseClosed")
 
-  -- Atr_OnAuctionHouseClosed();
+  if Auctionator.FullScan.State.InProgress and not Auctionator.FullScan.State.Completed then
+    Auctionator.FullScan.State.InProgress = false
+
+    Auctionator.Utilities.Message(
+      "Full scan failed to complete. " ..
+      Auctionator.FullScan.NextScanMessage()
+    )
+  end
 end
 
 
+-- function Atr_OnAuctionHouseClosed()
+--   Auctionator.Debug.Message( 'Atr_OnAuctionHouseClosed' )
 
+--   Atr_HideAllDialogs();
 
------------------------------------------
+--   Atr_CheckingActive_Finish ();
 
-function Atr_OnAuctionHouseClosed()
-  Auctionator.Debug.Message( 'Atr_OnAuctionHouseClosed' )
+--   Atr_ClearScanCache();
 
-  Atr_HideAllDialogs();
+--   gSellPane:ClearSearch();
+--   gShopPane:ClearSearch();
+--   gMorePane:ClearSearch();
 
-  Atr_CheckingActive_Finish ();
-
-  Atr_ClearScanCache();
-
-  gSellPane:ClearSearch();
-  gShopPane:ClearSearch();
-  gMorePane:ClearSearch();
-
-end
+-- end

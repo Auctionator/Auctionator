@@ -1,15 +1,14 @@
 function Auctionator.Events.OnAuctionHouseShow()
-  print("In OnAuctionHouseShow")
-  -- AuctionatorFrame:Show();
+  Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseShow")
 
-  Atr_OnAuctionHouseShow();
+  Auctionator.FullScan.Initialize()
+  Auctionator.FullScan.Completed = false
 end
 
 -----------------------------------------
 
 function Atr_OnAuctionHouseShow()
-  Auctionator.Debug.Message( 'Atr_OnAuctionHouseShow' )
-
+  Auctionator.Debug.Message( 'Atr_OnAuctionHouseShow' );
   -- local frame = CreateFrame("Frame", "AuctionatorMain", AuctionHouseFrame, "SimplePanelTemplate");
   -- frame:SetPoint("TOPLEFT", AuctionHouseFrame, "TOPRIGHT", -2, -20)
   -- frame:SetPoint("BOTTOMLEFT", AuctionHouseFrame, "BOTTOMRIGHT", -2, 5)
