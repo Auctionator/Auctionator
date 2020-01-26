@@ -16,6 +16,7 @@
   <Frame name="AuctionatorCore">
     <Scripts>
       <OnLoad>
+        Auctionator.Debug.Message("AuctionatorCore Frame", "OnLoad")
         Auctionator.Events.CoreFrameLoaded(self)
         <!-- Atr_RegisterEvents( self )
         self.TimeSinceLastUpdate = 0 -->
@@ -24,6 +25,7 @@
         <!-- Atr_OnUpdate( self, elapsed ) -->
       </OnUpdate>
       <OnEvent>
+        Auctionator.Debug.Message("AuctionatorCore Frame", "OnEvent")
         Auctionator.Events.Handler(self, event, ...)
       </OnEvent>
     </Scripts>

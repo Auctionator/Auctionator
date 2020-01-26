@@ -1,28 +1,28 @@
 function Auctionator.Events.OnAuctionHouseClosed()
-  -- Atr_OnAuctionHouseClosed();
-  if (not Auctionator.Scans.FailureShown) and
-      Auctionator.Scans.ScanStarted and (not Auctionator.Scans.FinishedReplication) then
-      print("Full scan failed. Wait 15 minutes to try again.");
-      Auctionator.Scans.FailureShown = true;
+  Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseClosed")
+
+  if Auctionator.FullScan.InProgress and not Auctionator.FullScan.Completed then
+    Auctionator.FullScan.InProgress = false
+
+    Auctionator.Utilities.Message(
+      "Full scan failed to complete. " ..
+      Auctionator.FullScan.NextScanMessage()
+    )
   end
 end
 
 
+-- function Atr_OnAuctionHouseClosed()
+--   Auctionator.Debug.Message( 'Atr_OnAuctionHouseClosed' )
 
+--   Atr_HideAllDialogs();
 
------------------------------------------
+--   Atr_CheckingActive_Finish ();
 
-function Atr_OnAuctionHouseClosed()
-  Auctionator.Debug.Message( 'Atr_OnAuctionHouseClosed' )
+--   Atr_ClearScanCache();
 
-  Atr_HideAllDialogs();
+--   gSellPane:ClearSearch();
+--   gShopPane:ClearSearch();
+--   gMorePane:ClearSearch();
 
-  Atr_CheckingActive_Finish ();
-
-  Atr_ClearScanCache();
-
-  gSellPane:ClearSearch();
-  gShopPane:ClearSearch();
-  gMorePane:ClearSearch();
-
-end
+-- end

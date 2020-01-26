@@ -1,27 +1,8 @@
 function Auctionator.Events.OnAuctionHouseShow()
-  Atr_OnAuctionHouseShow();
-  AutoScan();
-end
+  Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseShow")
 
-function AutoScan()
-  --Autoscan every 15 minutes. Testing indicates that this is the rate limit.
-  if Auctionator.Scans.TimeUntilScan<=0 then
-      print("Starting full scan, please wait.");
-      Auctionator.Scans.ScanStarted = true;
-      Auctionator.Scans.FinishedReplication = false;
-      Auctionator.Scans.FailureShown = false;
-      C_AuctionHouse.ReplicateItems();
-      Auctionator.Scans.TimeUntilScan = 15*60;
-      C_Timer.NewTicker(1, function ()
-              Auctionator.Scans.TimeUntilScan = Auctionator.Scans.TimeUntilScan-1;
-              if Auctionator.Scans.TimeUntilScan==0 then
-                  print("Full scan available.");
-              end
-          end, 15*60);
-  else
-      print("Full scan available in " .. math.floor(Auctionator.Scans.TimeUntilScan/60)
-        .. " mins and "..Auctionator.Scans.TimeUntilScan%60 .. "s");
-  end
+  Auctionator.FullScan.Initialize()
+  Auctionator.FullScan.Completed = false
 end
 
 -----------------------------------------

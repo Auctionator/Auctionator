@@ -25,8 +25,18 @@ Auctionator = {
     FailureShown = false,
     TimeUntilScan = 0
   },
+  FullScan = {
+    ---- Recorded in SAVEDVARS, initialzed in InitializeVariables
+    ---- Records the time in seconds since epoch that the last ReplicateItems was called
+    -- TimeOfLastScan = nil,
+    ---- Tracks whether or not a full scan is in progress
+    -- InProgress = false
+    ---- Tracks whether or not the last full scan completed (i.e. wasn't interrupted by AH close or other event)
+    -- Completed = false
+  },
   Tooltip = {},
-  Localization = {}
+  Localization = {},
+  Variables = {}
 }
 
 -- TODO: Move this to Utilities when re-organizing code

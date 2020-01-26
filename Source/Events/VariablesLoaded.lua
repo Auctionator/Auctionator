@@ -2,12 +2,11 @@
 function Auctionator.Events.VariablesLoaded()
   Auctionator.Debug.Message("Auctionator.Events.VariablesLoaded")
 
-  Auctionator.State.CurrentVersion = GetAddOnMetadata("Auctionator", "Version")
-  Auctionator.State.Loaded = true
+  Auctionator.Variables.Initialize()
 
   Auctionator.InitializeSlashCommands()
-  Auctionator.Database.Initialize()
 end
+
 
 function Auctionator.InitializeSlashCommands()
   SlashCmdList["Auctionator"] = Atr_SlashCmdFunction
@@ -16,8 +15,6 @@ function Auctionator.InitializeSlashCommands()
 
   -- TODO Finish setting up the slash commands in Atr_SlashCmdFunction
 end
-
-
 
 function Atr_OnLoad()
   Auctionator.Debug.Message( 'Atr_OnLoad' )
