@@ -67,7 +67,7 @@ function Auctionator.Database.AddItem(itemID, buyoutPrice)
   local db = Auctionator.State.LiveDB
 
   if (not db[itemID]) then
-    db[itemID] = {};
+    db[itemID] = {}
   end
 
   if db[itemID].mr == nil or buyoutPrice > db[itemID].mr then
@@ -84,13 +84,13 @@ function Auctionator.Database.ProcessFullScan(priceIndexes)
 
   Auctionator.Debug.Message("Auctionator.Database.ProcessFullScan", count .. " prices")
 
-  local db = Auctionator.State.LiveDB;
+  local db = Auctionator.State.LiveDB
   for itemID, prices in pairs(priceIndexes) do
     if not db[itemID] then
-      db[itemID] = {};
+      db[itemID] = {}
     end
 
-    local minPrice = prices[1];
+    local minPrice = prices[1]
 
     for i = 1, #prices do
       if prices[i] < minPrice then
@@ -98,7 +98,7 @@ function Auctionator.Database.ProcessFullScan(priceIndexes)
       end
     end
 
-    db[itemID].mr = minPrice;
+    db[itemID].mr = minPrice
     Auctionator.Database.UpdateHistory(itemID, minPrice)
   end
 
@@ -110,23 +110,23 @@ function Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
   local db = Auctionator.State.LiveDB
 
   -- TODO Move this into a namespaced function
-  local daysSinceZero = Atr_GetScanDay_Today();
+  local daysSinceZero = Atr_GetScanDay_Today()
 
-  local lowlow  = db[itemID]["L" .. daysSinceZero];
-  local highlow = db[itemID]["H" .. daysSinceZero];
+  local lowlow  = db[itemID]["L" .. daysSinceZero]
+  local highlow = db[itemID]["H" .. daysSinceZero]
 
   if (highlow == nil or buyoutPrice > highlow) then
-    db[itemID]["H"..daysSinceZero] = buyoutPrice;
-    highlow = buyoutPrice;
+    db[itemID]["H"..daysSinceZero] = buyoutPrice
+    highlow = buyoutPrice
   end
 
   -- save memory by only saving lowlow when different from highlow
 
-  local isLowerThanLow    = (lowlow ~= nil and buyoutPrice < lowlow);
-  local isNewAndDifferent   = (lowlow == nil and buyoutPrice < highlow);
+  local isLowerThanLow    = (lowlow ~= nil and buyoutPrice < lowlow)
+  local isNewAndDifferent   = (lowlow == nil and buyoutPrice < highlow)
 
   if (isLowerThanLow or isNewAndDifferent) then
-    db[itemID]["L"..daysSinceZero] = buyoutPrice;
+    db[itemID]["L"..daysSinceZero] = buyoutPrice
   end
 end
 
