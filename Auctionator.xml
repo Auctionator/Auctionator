@@ -25,7 +25,6 @@
         <!-- Atr_OnUpdate( self, elapsed ) -->
       </OnUpdate>
       <OnEvent>
-        Auctionator.Debug.Message("AuctionatorCore Frame", "OnEvent")
         Auctionator.Events.Handler(self, event, ...)
       </OnEvent>
     </Scripts>

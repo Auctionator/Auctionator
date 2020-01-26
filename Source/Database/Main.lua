@@ -79,22 +79,30 @@ end
 --Takes all the items with a list of their prices, and determines the minimum
 --price.
 function Auctionator.Database.ProcessFullScan(priceIndexes)
-  Auctionator.Debug.Message("Auctionator.Database.ProcessFullScan", #priceIndexes .. " prices")
+  local count = 0
+  for _ in pairs(priceIndexes) do count = count + 1 end
+
+  Auctionator.Debug.Message("Auctionator.Database.ProcessFullScan", count .. " prices")
 
   local db = Auctionator.State.LiveDB;
   for itemID, prices in pairs(priceIndexes) do
-      if (not db[itemID]) then
-        db[itemID] = {};
+    if not db[itemID] then
+      db[itemID] = {};
+    end
+
+    local minPrice = prices[1];
+
+    for i = 1, #prices do
+      if prices[i] < minPrice then
+        minPrice = prices[i]
       end
-      local minPrice = prices[1];
-      for i=1,#prices do
-          if prices[i]<minPrice then
-              minPrice = prices[i]
-          end
-      end
-      db[itemID].mr = minPrice;
-      Auctionator.Database.UpdateHistory(itemID, minPrice)
+    end
+
+    db[itemID].mr = minPrice;
+    Auctionator.Database.UpdateHistory(itemID, minPrice)
   end
+
+  Auctionator.Utilities.Message("Finished processing " .. count .. " items.")
 end
 
 --(I'm guessing) Records historical price data.

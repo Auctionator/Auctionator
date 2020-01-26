@@ -20,7 +20,8 @@ function Auctionator.Variables.InitializeFullScanVariables()
     AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA = {
       TimeOfLastScan = nil,
       Completed = false,
-      InProgress = false
+      InProgress = false,
+      ReceivedInitialEvent = false
     }
   end
 
@@ -59,7 +60,6 @@ function Auctionator.Variables.InitializeDatabase()
   -- TODO Get rid of this just want to make sure shit persists
   local count = 0
   for _ in pairs(Auctionator.State.LiveDB) do count = count + 1 end
-  print(GREEN_FONT_COLOR:WrapTextInColorCode("Auctionator Db initialized with " .. count .. " entries."))
 
   Auctionator.Debug.Message("Live DB Loaded", count .. " entries")
   -- TODO leftover from Atr_InitDB

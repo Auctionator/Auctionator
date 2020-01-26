@@ -18,14 +18,11 @@ function Auctionator.FullScan.Initialize()
     Auctionator.FullScan.State.TimeOfLastScan = time()
     Auctionator.FullScan.State.Completed = false
     Auctionator.FullScan.State.InProgress = true
-
-    Auctionator.Util.Print(Auctionator.FullScan.State, "Auctionator.FullScan.Initialize")
+    Auctionator.FullScan.State.ReceivedInitialEvent = false
 
     Auctionator.Utilities.Message("Starting a full scan.")
     C_AuctionHouse.ReplicateItems()
   else
-
-
     Auctionator.Utilities.Message(Auctionator.FullScan.NextScanMessage())
   end
 end
