@@ -24,7 +24,9 @@ function Auctionator.Variables.InitializeFullScanVariables()
     }
   end
 
-  Auctionator.FullScanState = AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA
+  Auctionator.FullScan.State = AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA
+
+  Auctionator.Util.Print(Auctionator.FullScan.State, "Auctionator.Variables.InitializeFullScanVariables")
 end
 
 function Auctionator.Variables.InitializeDatabase()

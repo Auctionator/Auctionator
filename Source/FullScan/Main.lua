@@ -1,4 +1,4 @@
-  -- FullScanState = {
+  -- FullScan.State = {
   --   TimeOfLastScan = nil,
   --   Completed = false,
   --   InProgress = false
@@ -6,15 +6,15 @@
 
 function Auctionator.FullScan.CanInitiate()
   return
-   ( Auctionator.FullScanState.TimeOfLastScan ~= nil and
-     time() - Auctionator.FullScanState.TimeOfLastScan > 60 * 15 and
-     not Auctionator.FullScanState.InProgress
-   ) or Auctionator.FullScanState.TimeOfLastScan == nil
+   ( Auctionator.FullScan.State.TimeOfLastScan ~= nil and
+     time() - Auctionator.FullScan.State.TimeOfLastScan > 60 * 15 and
+     not Auctionator.FullScan.State.InProgress
+   ) or Auctionator.FullScan.State.TimeOfLastScan == nil
 end
 
 function Auctionator.FullScan.Initialize()
   if Auctionator.FullScan.CanInitiate() then
-    Auctionator.FullScanState = {
+    Auctionator.FullScan.State = {
       TimeOfLastScan = time(),
       Completed = false,
       InProgress = true
@@ -30,12 +30,14 @@ function Auctionator.FullScan.Initialize()
 end
 
 function Auctionator.FullScan.NextScanMessage()
-  local timeUntilNextScan = time() - Auctionator.FullScanState.TimeOfLastScan
+  local timeSinceLastScan = time() - Auctionator.FullScan.State.TimeOfLastScan
+  local minutesUntilNextScan = 15 - math.floor(timeSinceLastScan / 60) - 1
+  local secondsUntilNextScan = (15 * 60 - timeSinceLastScan) % 60
 
   return
     "A full scan may be started in " ..
-    (timeUntilNextScan / 60) ..
+    minutesUntilNextScan ..
     " minutes and " ..
-    (timeUntilNextScan % 60) ..
-    "seconds."
+    secondsUntilNextScan ..
+    " seconds."
 end

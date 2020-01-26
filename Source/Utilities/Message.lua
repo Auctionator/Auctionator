@@ -1,6 +1,6 @@
 function Auctionator.Utilities.Message(message)
   print(
-    GREEN_FONT_COLOR:WrapTextInColorCode("Auctionator: ")
-    .. message
+    LIGHTBLUE_FONT_COLOR:WrapTextInColorCode("Auctionator: ")
+    .. Auctionator.Localization.Localize(message)
   )
 end
