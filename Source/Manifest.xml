@@ -1,6 +1,7 @@
 <!-- Source directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Objects.lua" />
+  <Include file="Events\Manifest.xml" />
 
   <Include file="Constants\Manifest.xml" />
 
@@ -11,7 +12,6 @@
   <Include file="Variables\Manifest.xml" />
   <Include file="FullScan\Manifest.xml"/>
 
-  <Include file="Events\Manifest.xml" />
+  <Include file="Events\OldManifest.xml" />
   <Include file="Database\Manifest.xml"/>
-  <Include file="FullScan\Manifest.xml"/>
 </Ui>

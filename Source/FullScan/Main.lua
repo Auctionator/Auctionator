@@ -27,6 +27,17 @@ function Auctionator.FullScan.Initialize()
   end
 end
 
+function Auctionator.FullScan.Abort()
+  if Auctionator.FullScan.State.InProgress and not Auctionator.FullScan.State.Completed then
+    Auctionator.FullScan.State.InProgress = false
+
+    Auctionator.Utilities.Message(
+      "Full scan failed to complete. " ..
+      Auctionator.FullScan.NextScanMessage()
+    )
+  end
+end
+
 function Auctionator.FullScan.NextScanMessage()
   local timeSinceLastScan = time() - Auctionator.FullScan.State.TimeOfLastScan
   local minutesUntilNextScan = 15 - math.floor(timeSinceLastScan / 60) - 1

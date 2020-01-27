@@ -1,25 +1,3 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="CoreFrameLoaded.lua"/>
-  <Script file="Handler.lua"/>
-
-  <Script file="VariablesLoaded.lua"/>
-  <Script file="AddonLoaded.lua"/>
-  <Script file="PlayerEnteringWorld.lua"/>
-
-  <Script file="OnAuctionHouseShow.lua" />
-  <Script file="OnAuctionHouseClosed.lua" />
-
-  <Script file="ReplicateItemListUpdate.lua"/>
-
-  <Script file="BrowseResultsAdded.lua"/>
-  <Script file="BrowseResultsUpdated.lua" />
-
-  <Script file="ItemSearchResultsAdded.lua"/>
-  <Script file="ItemSearchResultsUpdated.lua"/>
-
-  <Script file="AuctionMultisellStart.lua"/>
-  <Script file="AuctionMultisellUpdate.lua"/>
-  <Script file="AuctionMultisellFailure.lua"/>
-
-  <Script file="ChatMessageAddon.lua"/>
+  <Script file="Main.lua"/>
 </Ui>
