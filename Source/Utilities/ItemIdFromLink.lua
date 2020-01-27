@@ -1,6 +1,11 @@
 function Auctionator.Utilities.ItemIdFromLink(itemLink)
-  local _, _, itemString = string.find(itemLink, "^|c%x+|H(.+)|h%[.*%]")
-  local _, itemId = strsplit(":", itemString)
+  if itemLink == nil then
+    -- Just returning an invalid itemId (should be reported as unknown by Auctionator)
+    return 0
+  else
+    local _, _, itemString = string.find(itemLink, "^|c%x+|H(.+)|h%[.*%]")
+    local _, itemId = strsplit(":", itemString)
 
-  return tonumber(itemId)
+    return tonumber(itemId)
+  end
 end
