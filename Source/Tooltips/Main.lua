@@ -41,16 +41,19 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemId, itemCount)
     unused,
     cannotAuction = GetItemInfo(itemId);
 
-  local vendorPrice = sellPrice * (showStackPrices and itemCount or 1)
+  -- TODO Listen to GET_ITEM_INFO_RECEIVED to get info for non-cached items.
+  if name~=nil then
+    local vendorPrice = sellPrice * (showStackPrices and itemCount or 1)
 
-  tooltipFrame:AddDoubleLine("ItemID", itemId)
+    tooltipFrame:AddDoubleLine("ItemID", itemId)
 
-  Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
-  Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
+    Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
+    Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
 
-  -- TODO Disenchant price; still need to figure out d/e tables...
+    -- TODO Disenchant price; still need to figure out d/e tables...
 
-  tooltipFrame:Show()
+    tooltipFrame:Show()
+  end
 end
 
 -- Each itemId entry should contain
