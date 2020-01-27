@@ -2,7 +2,7 @@ function Auctionator.Events.OnAuctionHouseShow()
   Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseShow")
 
   Auctionator.FullScan.Initialize()
-  Auctionator.FullScan.Completed = false
+  Auctionator.FullScan.State.Completed = false
 end
 
 -----------------------------------------
