@@ -9,7 +9,7 @@ function Auctionator.Events.ReplicateItemListUpdate()
 
   Auctionator.Debug.Message(
     "Auctionator.Events.ReplicateItemListUpdate",
-    "Auctionator.FullScan.State.InProgress" .. RED_FONT_COLOR:WrapTextInColorCode(Auctionator.FullScan.State.InProgress and "is true" or "is false")
+    "Auctionator.FullScan.State.InProgress" .. RED_FONT_COLOR:WrapTextInColorCode(Auctionator.FullScan.State.InProgress and " is true" or " is false")
   )
 
   if Auctionator.FullScan.State.InProgress then

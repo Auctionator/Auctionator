@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Dialogs.lua" />
+  <Include file="Templates.xml" />
+
+  <Script file="Main.lua"/>
+
+  <Script file="ShoppingListMixins.lua"/>
+  <Script file="ResultsListMixins.lua"/>
+
+  <Include file="Frame.xml"/>
+
+</Ui>

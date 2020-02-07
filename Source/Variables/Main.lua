@@ -10,6 +10,7 @@ function Auctionator.Variables.Initialize()
 
   Auctionator.Variables.InitializeFullScanVariables()
   Auctionator.Variables.InitializeDatabase()
+  Auctionator.Variables.InitializeShoppingLists()
 
   Auctionator.State.CurrentVersion = GetAddOnMetadata("Auctionator", "Version")
   Auctionator.State.Loaded = true
@@ -26,8 +27,6 @@ function Auctionator.Variables.InitializeFullScanVariables()
   end
 
   Auctionator.FullScan.State = AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA
-
-  Auctionator.Util.Print(Auctionator.FullScan.State, "Auctionator.Variables.InitializeFullScanVariables")
 end
 
 function Auctionator.Variables.InitializeDatabase()
@@ -61,10 +60,18 @@ function Auctionator.Variables.InitializeDatabase()
   local count = 0
   for _ in pairs(Auctionator.State.LiveDB) do count = count + 1 end
 
-  Auctionator.Debug.Message("Live DB Loaded", count .. " entries")
+  Auctionator.Utilities.Message("Database loaded with " .. count .. " entries.")
   -- TODO leftover from Atr_InitDB
   -- Atr_PruneScanDB ();
   -- Atr_PrunePostDB ();
 
   -- Atr_Broadcast_DBupdated (#gAtr_ScanDB, "dbinited");
+end
+
+function Auctionator.Variables.InitializeShoppingLists()
+  if AUCTIONATOR_SHOPPING_LISTS == nil then
+    AUCTIONATOR_SHOPPING_LISTS = {}
+  end
+
+  Auctionator.ShoppingLists.Lists = AUCTIONATOR_SHOPPING_LISTS
 end

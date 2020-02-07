@@ -1,0 +1,32 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button name="AuctionatorScrollListLineTemplate" inherits="ScrollListLineTextTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString parentKey="Text" inherits="WhiteNormalNumberFont" justifyH="LEFT" maxLines="1">
+          <Anchors>
+            <Anchor point="LEFT" x="4" y="0"/>
+            <Anchor point="RIGHT" x="-4" y="0"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button parentKey="CloseButton" inherits="UIPanelButtonTemplate">
+        <Size>
+          <AbsDimension x="20" y="20"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-10" y="0"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\Buttons\UI-GroupLoot-Pass-Up" alpha="0.75" parentKey="texture"/>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnClick>self:GetParent():DeleteButtonClicked()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Button>
+</Ui>

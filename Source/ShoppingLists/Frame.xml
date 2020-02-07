@@ -1,0 +1,100 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorAHFrame" inherits="SimplePanelTemplate" parent="UIParent" hidden="true">
+    <Size x="500" />
+
+    <Scripts>
+      <OnShow>Auctionator.ShoppingLists.Initialize()</OnShow>
+    </Scripts>
+
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString inherits="GameFontNormal" text="Auctionator">
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP">
+              <Offset>
+                <AbsDimension x="0" y="-10"/>
+              </Offset>
+            </Anchor>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+
+    <Frames>
+      <!-- Shopping List Dropdown -->
+      <Frame inherits="UIDropDownMenuTemplate" name="$parent_ListDropDown">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
+            <Offset>
+              <AbsDimension x="0" y="-35"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+            <OnLoad>UIDropDownMenu_Initialize(self, Auctionator.ShoppingLists.InitializeListDropdown)</OnLoad>
+        </Scripts>
+      </Frame>
+
+      <!-- List Create/Delete Buttons -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_CreateList" text="Create List">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_ListDropDown" relativePoint="TOPRIGHT">
+            <Offset>
+              <AbsDimension x="0" y="-3" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+
+        <Scripts>
+          <OnClick>Auctionator.ShoppingLists.CreateButtonClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_DeleteList" text="Delete List">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_CreateList" relativePoint="TOPRIGHT" />
+        </Anchors>
+        <Scripts>
+          <OnClick>Auctionator.ShoppingLists.DeleteButtonClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <!-- List Editing Buttons -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_AddItem" text="Add Item">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="4" y="3"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+
+        <Scripts>
+          <OnClick>Auctionator.ShoppingLists.AddItemButtonClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <!-- Shopping List item scroll frame -->
+      <Frame name="$parent_ShoppingListItems" inherits="ScrollListTemplate" mixin="AuctionatorScrollListMixin">
+        <Size x="400" y="125"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="-8" y="-65"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" />
+        </Anchors>
+        <Scripts>
+          <OnShow method="OnShow" />
+        </Scripts>
+      </Frame>
+
+      <Frame name="$parent_ShoppingListResults" inherits="ScrollListTemplate" mixin="AuctionatorResultsScrollListMixin">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="-8" y="-192" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="26" />
+        </Anchors>
+        <Scripts>
+          <OnShow method="OnShow"/>
+        </Scripts>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

@@ -1,6 +1,8 @@
 function Auctionator.Events.OnAuctionHouseClosed()
   Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseClosed")
 
+  AuctionatorAHFrame:Hide()
+
   if Auctionator.FullScan.State.InProgress and not Auctionator.FullScan.State.Completed then
     Auctionator.FullScan.State.InProgress = false
 
