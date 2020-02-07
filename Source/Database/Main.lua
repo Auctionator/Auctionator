@@ -26,7 +26,8 @@ function Auctionator.Database.AppendResults(results)
 
   -- This is incredibly inefficient, WIP
   for i = 1, #results do
-    Auctionator.Database.AddItem(results[i].itemKey.itemID, results[i].minPrice)
+    local itemKey = Auctionator.Utilities.ItemKeyFromBrowseResult(results[i])
+    Auctionator.Database.AddItem(itemKey, results[i].minPrice)
   end
   -- if C_AuctionHouse.HasFullBrowseResults() then
   --   Auctionator.Debug.Message("Finished processing results")

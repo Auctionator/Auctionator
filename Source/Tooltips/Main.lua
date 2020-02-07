@@ -8,8 +8,8 @@ local L = Auctionator.Localization.Localize
 -- AUCTIONATOR_V_TIPS: 1 if should show vendor tips
 -- AUCTIONATOR_SHIFT_TIPS:
 -- AUCTIONATOR_A_TIPS:
-function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemId, itemCount)
-  if itemId==nil then
+function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount)
+  if itemKey==nil then
     return
   end
 
@@ -24,61 +24,57 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemId, itemCount)
     countString = "|cFFAAAAFF x" .. itemCount .. "|r"
   end
 
-  local auctionPrice = Auctionator.Database.GetPrice(itemId)
+  local auctionPrice = Auctionator.Database.GetPrice(itemKey)
   if auctionPrice ~= nil then
     auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
   end
+  
+  local vendorPrice = nil;
+  local cannotAuction = 0;
 
-  local
-    name,
-    link,
-    rarity,
-    level,
-    minLevel,
-    itemType,
-    itemSubType,
-    stackCount,
-    equipLocation,
-    icon,
-    sellPrice,
-    classID,
-    unused,
-    cannotAuction = GetItemInfo(itemId);
-
-  -- TODO Listen to GET_ITEM_INFO_RECEIVED to get info for non-cached items.
-  if name~=nil then
-    local vendorPrice = sellPrice * (showStackPrices and itemCount or 1)
-
-    tooltipFrame:AddDoubleLine("ItemID", itemId)
-
-    Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
-    Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
-
-    -- TODO Disenchant price; still need to figure out d/e tables...
-
-    tooltipFrame:Show()
+  if Auctionator.Utilities.IsPetItemKey(itemKey) then
+    if auctionPrice ~= nil then
+      Auctionator.Utilities.Message("Pet has AH price "..math.floor(auctionPrice/10000).."g "..math.floor((auctionPrice%10000)/100).."s");
+    end
+  else
+    local _, _, _, _, _, _, _, _, _, _, sellPrice, _, _, cannotAuctionTemp = GetItemInfo(itemKey);
+    cannotAuction = cannotAuctionTemp;
+    if sellPrice ~= nil then
+      vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
+    end
   end
+
+  if Auctionator.Debug.IsOn() then
+    tooltipFrame:AddDoubleLine("ItemID", itemKey)
+  end
+
+  if vendorPrice ~= nil then
+    Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
+  end
+  Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
+  -- TODO Disenchant price; still need to figure out d/e tables...
+  tooltipFrame:Show()
 end
 
--- Each itemId entry should contain
--- id
+-- Each itemKey entry should contain
+-- key
 -- link (which may be an item link or a string name)
 -- count
-function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemIds)
+function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
   local auctionPrice
   local total = 0
   local itemCount = 0
 
-  for _, itemEntry in ipairs(itemIds) do
+  for _, itemEntry in ipairs(itemKeys) do
     tooltipFrame:AddLine(itemEntry.link)
 
-    auctionPrice = Auctionator.Database.GetPrice(itemEntry.id)
+    auctionPrice = Auctionator.Database.GetPrice(itemEntry.key)
     if auctionPrice ~= nil then
       total = total + (auctionPrice * itemEntry.count)
     end
     itemCount = itemCount + itemEntry.count
 
-    Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemEntry.id, itemEntry.count)
+    Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemEntry.key, itemEntry.count)
   end
 
   tooltipFrame:AddLine("  ")

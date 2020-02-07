@@ -9,11 +9,11 @@
   <Include file="Utilities\Manifest.xml" />
 
   <Include file="Variables\Manifest.xml" />
+  <Include file="Database\Manifest.xml"/>
+
   <Include file="FullScan\Manifest.xml"/>
 
   <Include file="Events\Manifest.xml" />
-  <Include file="Database\Manifest.xml"/>
   <Include file="SlashCmd\Manifest.xml" />
-
   <Include file="ShoppingLists\Manifest.xml" />
 </Ui>
