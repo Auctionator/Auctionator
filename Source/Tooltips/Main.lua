@@ -8,7 +8,7 @@ local L = Auctionator.Localization.Localize
 -- AUCTIONATOR_V_TIPS: 1 if should show vendor tips
 -- AUCTIONATOR_SHIFT_TIPS:
 -- AUCTIONATOR_A_TIPS:
-function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemId, itemCount)
+function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount)
   if itemId==nil then
     return
   end
@@ -24,40 +24,32 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemId, itemCount)
     countString = "|cFFAAAAFF x" .. itemCount .. "|r"
   end
 
-  local auctionPrice = Auctionator.Database.GetPrice(itemId)
+  local auctionPrice = Auctionator.Database.GetPrice(itemKey)
   if auctionPrice ~= nil then
     auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
   end
+  
+  local vendorPrice = 0;
+  local cannotAuction = 0;
 
-  local
-    name,
-    link,
-    rarity,
-    level,
-    minLevel,
-    itemType,
-    itemSubType,
-    stackCount,
-    equipLocation,
-    icon,
-    sellPrice,
-    classID,
-    unused,
-    cannotAuction = GetItemInfo(itemId);
-
-  -- TODO Listen to GET_ITEM_INFO_RECEIVED to get info for non-cached items.
-  if name~=nil then
-    local vendorPrice = sellPrice * (showStackPrices and itemCount or 1)
-
-    tooltipFrame:AddDoubleLine("ItemID", itemId)
-
-    Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
-    Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
-
-    -- TODO Disenchant price; still need to figure out d/e tables...
-
-    tooltipFrame:Show()
+  if string.sub(itemKey,1,1)=="p" then
+    if auctionPrice~=nil then
+      Auctionator.Utilities.Message("Pet has AH price "..math.floor(auctionPrice/10000).."g "..math.floor((auctionPrice%10000)/100).."s");
+    end
+  else
+    local _, _, _, _, _, _, _, _, _, _, sellPrice, _, _, cannotAuctionTmp = GetItemInfo(itemKey);
+    cannotAuction = cannotAuctionTmp;
+    vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
   end
+
+  tooltipFrame:AddDoubleLine("ItemID", itemKey)
+
+  if sellPrice ~= nil then
+    Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
+  end
+  Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
+  -- TODO Disenchant price; still need to figure out d/e tables...
+  tooltipFrame:Show()
 end
 
 -- Each itemId entry should contain

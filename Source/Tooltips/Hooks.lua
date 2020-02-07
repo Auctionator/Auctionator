@@ -4,10 +4,11 @@ hooksecurefunc (GameTooltip, "SetBagItem",
     local itemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
 
     if itemLocation:IsValid() then
-      local itemId = C_Item.GetItemID(itemLocation)
+      local itemLink = C_Item.GetItemLink(itemLocation);
+      local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink);
       local itemCount = C_Item.GetStackCount(itemLocation)
 
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemId, itemCount)
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
     end
   end
 );

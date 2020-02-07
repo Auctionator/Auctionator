@@ -1,4 +1,5 @@
 function Auctionator.Events.ReplicateItemListUpdate()
+  --Looks like clutter that isn't needed
   if Auctionator.FullScan.State.ReceivedInitialEvent then
     return
   else
@@ -20,11 +21,17 @@ function Auctionator.Events.ReplicateItemListUpdate()
       local _, _, count, _, _, _, _, _, _, buyoutPrice, _, _, _, _, _, _,
          itemId = C_AuctionHouse.GetReplicateItemInfo(index);
       local effectivePrice = buyoutPrice / count
+      local dbRef = tostring(itemId);
+      --Special case for pets in cages
+      if itemId==82800 then
+        local _, petId = C_AuctionHouse.GetReplicateItemBattlePetInfo(index);
+        dbRef = "p:"..tostring(petId);
+      end
 
-      if prices[itemId] == nil then
-        prices[itemId] = { effectivePrice }
+      if prices[dbRef] == nil then
+        prices[dbRef] = { effectivePrice }
       else
-        table.insert(prices[itemId], effectivePrice)
+        table.insert(prices[dbRef], effectivePrice)
       end
     end
 
