@@ -30,7 +30,7 @@ function Auctionator.Database.AppendResults(results)
     if(results[i].itemKey.battlePetSpeciesID ~= 0) then
       itemKey = "p:" .. tostring(results[i].itemKey.battlePetSpeciesID);
     end
-    Auctionator.Database.AddItem(results[i].itemKey.itemID, results[i].minPrice)
+    Auctionator.Database.AddItem(itemKey, results[i].minPrice)
   end
   -- if C_AuctionHouse.HasFullBrowseResults() then
   --   Auctionator.Debug.Message("Finished processing results")
