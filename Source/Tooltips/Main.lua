@@ -52,25 +52,25 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
   tooltipFrame:Show()
 end
 
--- Each itemId entry should contain
--- id
+-- Each itemKey entry should contain
+-- key
 -- link (which may be an item link or a string name)
 -- count
-function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemIds)
+function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
   local auctionPrice
   local total = 0
   local itemCount = 0
 
-  for _, itemEntry in ipairs(itemIds) do
+  for _, itemEntry in ipairs(itemKeys) do
     tooltipFrame:AddLine(itemEntry.link)
 
-    auctionPrice = Auctionator.Database.GetPrice(itemEntry.id)
+    auctionPrice = Auctionator.Database.GetPrice(itemEntry.key)
     if auctionPrice ~= nil then
       total = total + (auctionPrice * itemEntry.count)
     end
     itemCount = itemCount + itemEntry.count
 
-    Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemEntry.id, itemEntry.count)
+    Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemEntry.key, itemEntry.count)
   end
 
   tooltipFrame:AddLine("  ")
