@@ -18,8 +18,11 @@ function Auctionator.Events.ReplicateItemListUpdate()
     local prices = {}
 
     for index = 0, C_AuctionHouse.GetNumReplicateItems() - 1 do
-      local name, _, count, _, _, _, _, _, _, buyoutPrice, _, _, _, _, _, _,
-         itemId = C_AuctionHouse.GetReplicateItemInfo(index);
+      local replicateItemInfo = {C_AuctionHouse.GetReplicateItemInfo(index)};
+      local name = replicateItemInfo[1];
+      local count = replicateItemInfo[3];
+      local buyoutPrice = replicateItemInfo[10];
+      local itemId = replicateItemInfo[17];
       local effectivePrice = buyoutPrice / count
       local itemKey = tostring(itemId);
       --Special case for pets in cages
