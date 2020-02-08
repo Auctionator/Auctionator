@@ -1,5 +1,5 @@
 function Auctionator.Events.ReplicateItemListUpdate()
-  --Looks like clutter that isn't needed
+  --Debugging
   if Auctionator.FullScan.State.ReceivedInitialEvent then
     return
   else

@@ -32,13 +32,13 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
   local vendorPrice = 0;
   local cannotAuction = 0;
 
-  if string.sub(itemKey,1,1) == "p" then
+  if Auctionator.Utilities.IsPetItemKey(itemKey) then
     if auctionPrice ~= nil then
       Auctionator.Utilities.Message("Pet has AH price "..math.floor(auctionPrice/10000).."g "..math.floor((auctionPrice%10000)/100).."s");
     end
   else
-    local _, _, _, _, _, _, _, _, _, _, sellPrice, _, _, cannotAuctionTmp = GetItemInfo(itemKey);
-    cannotAuction = cannotAuctionTmp;
+    local _, _, _, _, _, _, _, _, _, _, sellPrice, _, _, cannotAuctionTemp = GetItemInfo(itemKey);
+    cannotAuction = cannotAuctionTemp;
     vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
   end
 
