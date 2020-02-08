@@ -18,20 +18,20 @@ function Auctionator.Events.ReplicateItemListUpdate()
     local prices = {}
 
     for index = 0, C_AuctionHouse.GetNumReplicateItems() - 1 do
-      local _, _, count, _, _, _, _, _, _, buyoutPrice, _, _, _, _, _, _,
+      local name, _, count, _, _, _, _, _, _, buyoutPrice, _, _, _, _, _, _,
          itemId = C_AuctionHouse.GetReplicateItemInfo(index);
       local effectivePrice = buyoutPrice / count
-      local dbRef = tostring(itemId);
+      local itemKey = tostring(itemId);
       --Special case for pets in cages
       if itemId==82800 then
-        local _, petId = C_AuctionHouse.GetReplicateItemBattlePetInfo(index);
-        dbRef = "p:"..tostring(petId);
+        local speciesId, _ = C_PetJournal.FindPetIDByName(name);
+        itemKey = "p:"..tostring(speciesId);
       end
 
-      if prices[dbRef] == nil then
-        prices[dbRef] = { effectivePrice }
+      if prices[itemKey] == nil then
+        prices[itemKey] = { effectivePrice }
       else
-        table.insert(prices[dbRef], effectivePrice)
+        table.insert(prices[itemKey], effectivePrice)
       end
     end
 
