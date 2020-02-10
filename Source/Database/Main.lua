@@ -19,7 +19,6 @@ function Auctionator.Database.InitializeScan(results)
   -- Auctionator.Database.CurrentResults = results
 
   Auctionator.Database.AppendResults(results)
-  C_AuctionHouse.RequestMoreBrowseResults()
 end
 
 function Auctionator.Database.AppendResults(results)
