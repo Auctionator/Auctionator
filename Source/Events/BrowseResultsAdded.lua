@@ -21,8 +21,7 @@ function Auctionator.Events.BrowseResultsAdded(addedBrowseResults)
 
   Auctionator.Database.AppendResults(addedBrowseResults)
 
-  -- We don't use the C_AuctionHouse.HasFullBrowseResults as it doesn't work.
-  if (#addedBrowseResults > 0) then
+  if not C_AuctionHouse.HasFullBrowseResults() then
     C_AuctionHouse.RequestMoreBrowseResults()
   end
 end
