@@ -19,10 +19,8 @@ function Auctionator.Events.ReplicateItemListUpdate()
 
     for index = Auctionator.FullScan.State.ReplicationIndex, C_AuctionHouse.GetNumReplicateItems() - 1 do
       local replicateItemInfo = {C_AuctionHouse.GetReplicateItemInfo(index)};
-      local name = replicateItemInfo[1];
       local count = replicateItemInfo[3];
       local buyoutPrice = replicateItemInfo[10];
-      local itemId = replicateItemInfo[17];
       local effectivePrice = buyoutPrice / count
       local itemLink = C_AuctionHouse.GetReplicateItemLink(index)
       if itemLink == nil then
