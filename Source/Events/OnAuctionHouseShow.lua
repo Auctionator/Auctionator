@@ -1,10 +1,23 @@
 function Auctionator.Events.OnAuctionHouseShow()
-  Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseShow")
+  Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseShow()")
 
-  AuctionatorAHFrame:SetPoint("TOPLEFT", AuctionHouseFrame, "TOPRIGHT", -2, 0)
-  AuctionatorAHFrame:SetPoint("BOTTOMLEFT", AuctionHouseFrame, "BOTTOMRIGHT", -2, 0)
+  local frame
+  if Auctionator.State.ShoppingListFrameRef == nil then
+    frame = CreateFrame(
+      "FRAME",
+      "AuctionatorShoppingLists",
+      AuctionHouseFrame,
+      "AuctionatorShoppingListFrameTemplate"
+    )
 
-  AuctionatorAHFrame:Show()
+    Auctionator.State.ShoppingListFrameRef = frame
+  else
+    frame = Auctionator.State.ShoppingListFrameRef
+  end
+
+  frame:SetPoint("TOPLEFT", AuctionHouseFrame, "TOPRIGHT", -2, 0)
+  frame:SetPoint("BOTTOMLEFT", AuctionHouseFrame, "BOTTOMRIGHT", -2, 0)
+  frame:Show()
 
   Auctionator.FullScan.Initialize()
   Auctionator.FullScan.State.Completed = false
