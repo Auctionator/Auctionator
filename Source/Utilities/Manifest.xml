@@ -3,6 +3,7 @@
 
   <Script file="ItemIdFromLink.lua"/>
   <Script file="ItemKeyFromLink.lua"/>
+  <Script file="ItemKeyFromBrowseResult.lua"/>
   <Script file="IsPetItemKey.lua"/>
   <Script file="Message.lua"/>
   <Script file="ToggleAuctionHouseTab.lua"/>

@@ -26,10 +26,7 @@ function Auctionator.Database.AppendResults(results)
 
   -- This is incredibly inefficient, WIP
   for i = 1, #results do
-    local itemKey = tostring(results[i].itemKey.itemID);
-    if(results[i].itemKey.battlePetSpeciesID ~= 0) then
-      itemKey = "p:" .. tostring(results[i].itemKey.battlePetSpeciesID);
-    end
+    local itemKey = Auctionator.Utilities.ItemKeyFromBrowseResult(results[i])
     Auctionator.Database.AddItem(itemKey, results[i].minPrice)
   end
   -- if C_AuctionHouse.HasFullBrowseResults() then
