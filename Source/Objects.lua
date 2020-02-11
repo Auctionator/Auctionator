@@ -21,8 +21,6 @@ Auctionator = {
   },
   Scans = {
     ScanStarted = false,
-    FinishedReplication = false,
-    ReplicationIndex = 0,
     FailureShown = false,
     TimeUntilScan = 0
   },
@@ -35,6 +33,10 @@ Auctionator = {
     -- InProgress = false
     ---- Tracks whether or not the last full scan completed (i.e. wasn't interrupted by AH close or other event)
     -- Completed = false
+    },
+    ReplicationState = {
+      Index = 0,
+      Prices = {}
     }
   },
   Tooltip = {},

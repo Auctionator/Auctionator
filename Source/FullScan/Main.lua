@@ -21,7 +21,8 @@ function Auctionator.FullScan.Initialize()
     Auctionator.FullScan.State.ReceivedInitialEvent = false
     -- Used to accept multiple replication events while waiting for object
     -- information
-    Auctionator.FullScan.State.ReplicationIndex = 0
+    Auctionator.FullScan.ReplicationState.ReplicationIndex = 0
+    Auctionator.FullScan.ReplicationState.Prices = {}
 
     Auctionator.Utilities.Message("Starting a full scan.")
     C_AuctionHouse.ReplicateItems()
