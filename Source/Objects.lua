@@ -36,7 +36,8 @@ Auctionator = {
     },
     ReplicationState = {
       Index = 0,
-      Prices = {}
+      Prices = {},
+      LastPercent = 0,
     }
   },
   Tooltip = {},

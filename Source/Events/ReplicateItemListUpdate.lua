@@ -14,9 +14,9 @@ function Auctionator.Events.ReplicateItemListUpdate()
   --)
 
   if Auctionator.FullScan.State.InProgress then
-    if not Auctionator.FullScan.State.Skimmed then
+    if not Auctionator.FullScan.State.QuickCompleted then
       Auctionator.Debug.Message("Auctionator.Events.ReplicateItemListUpdate", "Aggregating pricing results")
-      Auctionator.FullScan.SkimReplication()
+      Auctionator.FullScan.QuickReplication()
       Auctionator.Utilities.Message("Quick scan complete. Starting detailed scan.")
     end
     Auctionator.FullScan.DetailedReplication()

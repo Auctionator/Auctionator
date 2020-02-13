@@ -2,5 +2,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Main.lua" />
   <Script file="DetailedReplication.lua" />
-  <Script file="SkimReplication.lua" />
+  <Script file="QuickReplication.lua" />
 </Ui>

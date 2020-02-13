@@ -3,13 +3,19 @@ function Auctionator.Events.OnAuctionHouseClosed()
 
   Auctionator.State.ShoppingListFrameRef:Hide()
 
-  if Auctionator.FullScan.State.InProgress and not Auctionator.FullScan.State.Completed then
+  if Auctionator.FullScan.State.InProgress then
     Auctionator.FullScan.State.InProgress = false
-
-    Auctionator.Utilities.Message(
-      "Full scan failed to complete. " ..
-      Auctionator.FullScan.NextScanMessage()
-    )
+    if not Auctionator.FullScan.State.QuickCompleted then
+      Auctionator.Utilities.Message(
+        "Full scan failed to complete. " ..
+        Auctionator.FullScan.NextScanMessage()
+      )
+    elseif not Auctionator.DetailedCompleted then
+      Auctionator.Utilities.Message(
+        "Detailed full scan failed to complete. Some gear or pet information may be inaccurate. " ..
+        Auctionator.FullScan.NextScanMessage()
+      )
+    end
   end
 end
 

@@ -16,13 +16,15 @@ function Auctionator.FullScan.Initialize()
   if Auctionator.FullScan.CanInitiate() then
 
     Auctionator.FullScan.State.TimeOfLastScan = time()
-    Auctionator.FullScan.State.Completed = false
+    Auctionator.FullScan.State.QuickCompleted = false
+    Auctionator.FullScan.State.DetailedCompleted = false
     Auctionator.FullScan.State.InProgress = true
     Auctionator.FullScan.State.ReceivedInitialEvent = false
     -- Used to accept multiple replication events while waiting for object
     -- information
     Auctionator.FullScan.ReplicationState.ReplicationIndex = 0
     Auctionator.FullScan.ReplicationState.Prices = {}
+    Auctionator.FullScan.ReplicationState.LastPercent = 0
 
     Auctionator.Utilities.Message("Starting a full scan.")
     C_AuctionHouse.ReplicateItems()
