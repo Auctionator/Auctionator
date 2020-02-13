@@ -9,7 +9,7 @@ local L = Auctionator.Localization.Localize
 -- AUCTIONATOR_SHIFT_TIPS:
 -- AUCTIONATOR_A_TIPS:
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount)
-  if itemId==nil then
+  if itemKey==nil then
     return
   end
 
@@ -32,6 +32,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
   local vendorPrice = 0;
   local cannotAuction = 0;
 
+  print(itemKey)
   if Auctionator.Utilities.IsPetItemKey(itemKey) then
     if auctionPrice ~= nil then
       Auctionator.Utilities.Message("Pet has AH price "..math.floor(auctionPrice/10000).."g "..math.floor((auctionPrice%10000)/100).."s");

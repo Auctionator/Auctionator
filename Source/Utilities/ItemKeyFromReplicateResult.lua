@@ -1,4 +1,4 @@
-function Auctionator.Utilities.ItemKeyFromReplicateResult(info)
+function Auctionator.Utilities.ItemKeyFromReplicateResult(replicateItemInfo)
   local name = replicateItemInfo[1]
   local itemId = replicateItemInfo[17]
   --Special case for pets in cages
@@ -11,4 +11,5 @@ function Auctionator.Utilities.ItemKeyFromReplicateResult(info)
     end
   else
     return tostring(itemId)
+  end
 end
