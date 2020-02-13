@@ -9,6 +9,10 @@ local L = Auctionator.Localization.Localize
 -- AUCTIONATOR_SHIFT_TIPS:
 -- AUCTIONATOR_A_TIPS:
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemId, itemCount)
+  if itemId==nil then
+    return
+  end
+
   local showStackPrices = IsShiftKeyDown();
 
   if (AUCTIONATOR_SHIFT_TIPS == 2) then
