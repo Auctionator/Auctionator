@@ -1,4 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="EventBus.lua" />
+
   <Script file="ItemIdFromLink.lua"/>
   <Script file="Message.lua"/>
   <Script file="ToggleAuctionHouseTab.lua"/>
