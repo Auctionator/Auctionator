@@ -8,10 +8,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create release folder
+        run: rsync -av --progress . ./release --exclude .travis.yml --exclude README.md --exclude ./release --exclude .git --exclude spec --exclude .gitignore --exclude .github
+      - name: Switch to release folder
+        run: cd release
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: false
+        
