@@ -97,13 +97,20 @@ function AuctionatorScrollListMixin:RefreshScrollFrame()
     return
   end
 
+  local buttons = HybridScrollFrame_GetButtons(self.ScrollFrame)
+  local buttonCount = #buttons
+
   local numResults = self:GetNumEntries()
   if numResults == 0 then
+    -- Make sure previous list items are removed from UI
+    for i = 1, buttonCount do
+      buttons[i]:SetShown(false)
+    end
+
     return
   end
 
-  local buttons = HybridScrollFrame_GetButtons(self.ScrollFrame)
-  local buttonCount = #buttons
+
   local buttonHeight = buttons[1]:GetHeight()
 
   local offset = self:GetScrollOffset()
