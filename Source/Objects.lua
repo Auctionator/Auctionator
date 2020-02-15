@@ -9,6 +9,7 @@ Auctionator = {
   Filters = {},
   FilterLookup = {},
   Events = {},
+  SlashCmd = {},
 
   SearchUI = {},
   State = {
