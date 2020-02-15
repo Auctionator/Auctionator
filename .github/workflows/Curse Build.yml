@@ -15,5 +15,7 @@ jobs:
       - name: Switch to release folder
         run: cd release
       - name: Derive version
-        run: echo "::set-env name=new_version::`awk -F'[. ]' '/## Version: / {$5=$5+1;printf "%d.%d.%d-alpha", $3, $4, $5}' Auctionator.toc`"
+        run: |
+          $v=`awk -F'[. ]' '/## Version: / {$5=$5+1;printf "%d.%d.%d-alpha", $3, $4, $5}' Auctionator.toc`
+          echo "::set-env name=new_version::$v"
         
