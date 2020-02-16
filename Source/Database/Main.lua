@@ -26,7 +26,8 @@ function Auctionator.Database.AppendResults(results)
 
   -- This is incredibly inefficient, WIP
   for i = 1, #results do
-    Auctionator.Database.AddItem(results[i].itemKey.itemID, results[i].minPrice)
+    local itemKey = Auctionator.Utilities.ItemKeyFromBrowseResult(results[i])
+    Auctionator.Database.AddItem(itemKey, results[i].minPrice)
   end
   -- if C_AuctionHouse.HasFullBrowseResults() then
   --   Auctionator.Debug.Message("Finished processing results")
@@ -78,13 +79,15 @@ end
 --Takes all the items with a list of their prices, and determines the minimum
 --price.
 function Auctionator.Database.ProcessFullScan(priceIndexes)
-  local count = 0
-  for _ in pairs(priceIndexes) do count = count + 1 end
+  Auctionator.Debug.Message("Auctionator.Database.ProcessFullScan")
+  local startTime = debugprofilestop()
 
-  Auctionator.Debug.Message("Auctionator.Database.ProcessFullScan", count .. " prices")
+  local count = 0
 
   local db = Auctionator.State.LiveDB
   for itemID, prices in pairs(priceIndexes) do
+    count = count + 1
+
     if not db[itemID] then
       db[itemID] = {}
     end
@@ -102,6 +105,7 @@ function Auctionator.Database.ProcessFullScan(priceIndexes)
   end
 
   Auctionator.Utilities.Message("Finished processing " .. count .. " items.")
+  Auctionator.Debug.Message("Processing time: " .. tostring(debugprofilestop() - startTime))
 end
 
 --(I'm guessing) Records historical price data.

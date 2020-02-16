@@ -2,7 +2,7 @@
 -- self: AuctionatorCore Frame (see Auctionator.xml)
 -- event: Event name string
 function Auctionator.Events.Handler(self, event, ...)
-  -- Auctionator.Debug.Message("Auctionator.Events.Handler", event)
+  -- Auctionator.Debug.Message("Auctionator.Events.Handler", event, ...)
 
   if event == "VARIABLES_LOADED" then
     Auctionator.Events.VariablesLoaded()
@@ -14,8 +14,6 @@ function Auctionator.Events.Handler(self, event, ...)
     Auctionator.Events.OnAuctionHouseShow()
   elseif event == "AUCTION_HOUSE_CLOSED" then
     Auctionator.Events.OnAuctionHouseClosed()
-  elseif event == "REPLICATE_ITEM_LIST_UPDATE" then
-    Auctionator.Events.ReplicateItemListUpdate(...)
   elseif event == "AUCTION_HOUSE_BROWSE_RESULTS_ADDED" then
     Auctionator.Events.BrowseResultsAdded(...)
   elseif event == "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED" then

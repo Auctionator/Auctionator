@@ -9,8 +9,6 @@
   <Script file="OnAuctionHouseShow.lua" />
   <Script file="OnAuctionHouseClosed.lua" />
 
-  <Script file="ReplicateItemListUpdate.lua"/>
-
   <Script file="BrowseResultsAdded.lua"/>
   <Script file="BrowseResultsUpdated.lua" />
 

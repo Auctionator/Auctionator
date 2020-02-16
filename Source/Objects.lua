@@ -22,7 +22,6 @@ Auctionator = {
   },
   Scans = {
     ScanStarted = false,
-    FinishedReplication = false,
     FailureShown = false,
     TimeUntilScan = 0
   },
