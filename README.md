@@ -1,5 +1,3 @@
-
-
 # Auctionator
 ![Curse Build Status](https://github.com/Auctionator/Auctionator/workflows/Curse%20Build/badge.svg)
 [![Auctionator Discord](https://img.shields.io/badge/discord-auctionator-blue.svg)](https://discord.gg/xgz75Pp)
@@ -11,20 +9,13 @@ Auctionator also eliminates the tedious process of item posting and auction mana
 
 ## Features
 
-* When buying, displays sorted auction listings along with details such as individual item price and stack size.
-* When selling, displays existing listings on the auction house for price comparison
-* Easy auction management with automatic price checks
-* Allows full scan of auction house and record historic item prices
+* Creation of shopping lists that allow you to search for all entries in your list simultaneously.
 * Displays auction house price on item tooltip
-* Allows parameters customization such as undercutting values for different price points
-
-## Quick Start
-
-Auctionator adds **'Buy'**, **'Sell'**, and **'More...'** tabs in the auction house interface to replace default functionalities.
-
-## FAQ
-
-Please visit the [wiki](https://github.com/Auctionator/Auctionator/wiki).
+* ~~When buying, displays sorted auction listings along with details such as individual item price and stack size.~~
+* ~~When selling, displays existing listings on the auction house for price comparison~~
+* ~~Easy auction management with automatic price checks~~
+* ~~Allows full scan of auction house and record historic item prices~~
+* ~~Allows parameters customization such as undercutting values for different price points~~
 
 ## Contribute
 
