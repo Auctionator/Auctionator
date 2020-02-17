@@ -15,7 +15,6 @@ function Auctionator.Events.Handler(self, event, ...)
   end
 end
 
-
 -- TODO Where are these registered?
 --   if (event == "UNIT_SPELLCAST_SENT")     then  Atr_OnSpellCastSent(...);     end;
 --   if (event == "UNIT_SPELLCAST_SUCCEEDED")  then  Atr_OnSpellCastSucess(...);     end;

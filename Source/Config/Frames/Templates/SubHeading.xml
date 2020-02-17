@@ -5,19 +5,19 @@
         <KeyValue key="subHeadingText" value="" type="string" />
       </KeyValues>
     -->
-    <Size y="25"/>
+    <Size y="20"/>
     <Scripts>
       <OnLoad method="OnLoad"/>
     </Scripts>
     <Anchors>
-      <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
-      <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT"/>
+      <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
     </Anchors>
     <Layers>
       <Layer level="ARTWORK">
         <FontString inherits="GameFontHighlight" justifyH="LEFT" parentKey="HeadingText">
           <Anchors>
-            <Anchor point="TOPLEFT" x="20" y="-10"/>
+            <Anchor point="TOPLEFT" x="20" y="-6"/>
           </Anchors>
         </FontString>
       </Layer>

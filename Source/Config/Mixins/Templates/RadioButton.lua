@@ -1,6 +1,10 @@
 AuctionatorConfigRadioButtonMixin = {}
 
 function AuctionatorConfigRadioButtonMixin:OnLoad()
+  -- This field is used by the RadioButtonGroup to ensure that the UI child it is positioning
+  -- is an auctionator radio button
+  self.isAuctionatorRadio = true
+
   if self.value == nil then
     error("A value is required for the radio button.")
   end

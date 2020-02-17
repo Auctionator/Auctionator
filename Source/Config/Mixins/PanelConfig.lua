@@ -9,9 +9,11 @@ function AuctionatorPanelConfigMixin:SetupPanel()
     self:Save()
   end
 
-  Auctionator.Debug.Message("Adding category ", self )
-
   InterfaceOptions_AddCategory(self)
+end
+
+function AuctionatorPanelConfigMixin:IndentationForSubSection()
+  return "   "
 end
 
 -- Derive

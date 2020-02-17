@@ -5,7 +5,9 @@
 
   <Script file="CheckBox.lua"/>
   <Script file="RadioButton.lua"/>
+  <Script file="RadioButtonGroup.lua"/>
   <Script file="NumericInputBox.lua"/>
+  <Script file="MoneyInput.lua"/>
 
   <Script file="Heading.lua"/>
   <Script file="SubHeading.lua"/>

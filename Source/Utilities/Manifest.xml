@@ -15,4 +15,5 @@
   <Script file="CreateMoneyString.lua"/>
 
   <Script file="VerifyListTypes.lua"/>
+  <Script file="ValidatePercentage.lua"/>
 </Ui>

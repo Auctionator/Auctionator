@@ -1,0 +1,95 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorConfigCommoditiesFrame" mixin="AuctionatorConfigCommoditiesFrameMixin" parent="InterfaceOptionsFrame">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
+    </Scripts>
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="Selling Commodities" type="string"/>
+          <KeyValue key="subTitleText" value="Options to set undercutting percent or values and duration for commodities." type="string"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="CommodityDurationGroup">
+        <KeyValues>
+          <KeyValue key="groupHeadingText" value="Default Auction Duration" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+        <Frames>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="12 Hours" type="string"/>
+              <KeyValue key="value" value="12" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="24 Hours" type="string"/>
+              <KeyValue key="value" value="24" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="48 Hours" type="string"/>
+              <KeyValue key="value" value="48" type="number"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="CommoditySalesPreference">
+        <KeyValues>
+          <KeyValue key="groupHeadingText" value="Sales Preference" type="string" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CommodityDurationGroup" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+        <Frames>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <!--
+              The values here should be populated by Auctionator.Config.SalesTypes but I don't know
+              how to do that programmatically?
+            -->
+            <KeyValues>
+              <KeyValue key="labelText" value="Percentage" type="string"/>
+              <KeyValue key="value" value="percentage" type="string"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="Set Value" type="string"/>
+              <KeyValue key="value" value="static" type="string"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="CommodityUndercutPercentage" hidden="true">
+        <KeyValues>
+          <KeyValue key="labelText" value="% Undercut" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Undercut Percentage" type="string"/>
+          <KeyValue key="tooltipText" value="The undercut percentage that will be used to calculate the sell price for commodities. For example, a value of 5 means that your item will be posted at 5% less than the current lowest price." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CommoditySalesPreference" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationMoneyInput" parentKey="CommodityUndercutValue" hidden="true">
+        <KeyValues>
+          <KeyValue key="labelText" value="Undercut" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Undercut Value" type="string"/>
+          <KeyValue key="tooltipText" value="The undercut value that will be used to calculate the sell price for commodities." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CommoditySalesPreference" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>
