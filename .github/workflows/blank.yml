@@ -22,10 +22,24 @@ jobs:
     - name: Create release folder
       run: rsync -av --progress . Auctionator --exclude .travis.yml --exclude BUILD_NUMBER --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec --exclude .gitignore --exclude .github
     - name: Create zip
-      run: zip -r Auctionator-${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator
-    - name: Upload to release
-      uses: JasonEtco/upload-to-release@master
+      run: zip -r Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        args: Auctionator-${{steps.buildnumber.outputs.build_number}}.zip
+        tag_name: ${{ steps.buildnumber.outputs.build_number }}
+        release_name: Release alpha-0.0.${{ steps.buildnumber.outputs.build_number }}
+        draft: false
+        prerelease: false
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip
+        asset_name: Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip
+        asset_content_type: application/zip
