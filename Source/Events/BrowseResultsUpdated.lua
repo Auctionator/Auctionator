@@ -8,4 +8,7 @@ function Auctionator.Events.BrowseResultsUpdated(...)
   end
 
   Auctionator.Database.InitializeScan(C_AuctionHouse.GetBrowseResults())
+  if not C_AuctionHouse.HasFullBrowseResults() then
+    C_AuctionHouse.RequestMoreBrowseResults()
+  end
 end
