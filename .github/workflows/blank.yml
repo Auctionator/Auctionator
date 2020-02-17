@@ -22,4 +22,4 @@ jobs:
     - name: Create release folder
       run: rsync -av --progress . Auctionator --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec --exclude .gitignore --exclude .github
     - name: Create zip
-      run: zip -r Auctionator-${steps.buildnumber.outputs.build_number}.zip ./Auctionator
+      run: zip -r Auctionator-${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator
