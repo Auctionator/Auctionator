@@ -1,0 +1,27 @@
+name: Curse Build
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Generate build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v2 
+      with:
+        token: ${{secrets.github_token}}  
+    - name: Create release folder
+      run: rsync -av --progress . Deploy/Auctionator --exclude .travis.yml --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec --exclude .gitignore --exclude .github
+    - name: Switch to release folder
+      run: |
+        cd Deploy
+        ls -la
+    - name: Create zip
+      run: zip -r Auctionator-${steps.buildnumber.outputs.build_number}.zip ./Auctionator
