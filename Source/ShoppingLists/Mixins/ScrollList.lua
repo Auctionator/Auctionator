@@ -19,6 +19,7 @@ end
 function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
+    Auctionator.MultiSearch(eventData["items"])
 
     -- Propogate events to children
     self:Fire(eventName, eventData)

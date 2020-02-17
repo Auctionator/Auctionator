@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorMultiSearchFrameTemplate" parent="UIParent" hidden="true" mixin="AuctionatorMultiSearchFrameMixin" virtual="true">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnEvent method="OnEvent" />
+    </Scripts>
+  </Frame>
+</Ui>

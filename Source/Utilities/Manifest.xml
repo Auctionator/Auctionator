@@ -7,5 +7,6 @@
   <Script file="ItemKeyFromReplicateResult.lua"/>
   <Script file="IsPetItemKey.lua"/>
   <Script file="Message.lua"/>
+  <Script file="Search.lua"/>
   <Script file="ToggleAuctionHouseTab.lua"/>
 </Ui>

@@ -37,9 +37,28 @@ local function InitializeScanFrame()
   frame:RegisterForEvents()
 end
 
+local function InitializeMultiSearchFrame()
+  local frame
+  if Auctionator.State.MultiSearchFrameRef == nil then
+    frame = CreateFrame(
+      "FRAME",
+      "AuctionatorMultiSearchFrame",
+      AuctionHouseFrame,
+      "AuctionatorMultiSearchFrameTemplate"
+    )
+
+    Auctionator.State.MultiSearchFrameRef = frame
+  else
+    frame = Auctionator.State.MultiSearchFrameRef
+  end
+
+  frame:RegisterForEvents()
+end
+
 function Auctionator.Events.OnAuctionHouseShow()
   Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseShow()")
 
   InitializeShoppingListFrame()
   InitializeScanFrame()
+  InitializeMultiSearchFrame()
 end

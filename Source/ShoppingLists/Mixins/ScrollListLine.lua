@@ -38,16 +38,7 @@ function AuctionatorScrollListLineMixin:UpdateDisplay()
 end
 
 function AuctionatorScrollListLineMixin:OnSelected()
-  local query = {}
-
-  query.searchString = self.searchTerm
-  query.minLevel = 0
-  query.maxLevel = 1000
-  query.filters = {}
-  query.itemClassFilters = {}
-  query.sorts = {}
-
-  C_AuctionHouse.SendBrowseQuery(query)
+  Auctionator.Utilities.Search(self.searchTerm)
 end
 
 function AuctionatorScrollListLineMixin:Populate(searchTerm, dataIndex)

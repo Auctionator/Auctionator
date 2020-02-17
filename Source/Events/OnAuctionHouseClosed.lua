@@ -2,6 +2,7 @@ function Auctionator.Events.OnAuctionHouseClosed()
   Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseClosed")
 
   Auctionator.State.ShoppingListFrameRef:Hide()
+  Auctionator.State.MultiSearchFrameRef:UnregisterForEvents()
 end
 
 
