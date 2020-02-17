@@ -12,17 +12,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        path: 'Auctionator'
+    - name: Delete files for curse
+      run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore
     - name: Generate build number
       id: buildnumber
       uses: einaregilsson/build-number@v2 
       with:
         token: ${{secrets.github_token}}  
-    - name: Create deploy directory
-      run: mkdir Auctionator
-    - name: Create release folder
-      run: rsync -av --progress . Auctionator --exclude .travis.yml --exclude BUILD_NUMBER --exclude README.md --exclude Deploy --exclude lua_install --exclude .git --exclude spec --exclude .gitignore --exclude .github
-    - name: See what is happening
-      run: ls -la Auctionator
     - name: Create zip
       run: zip -r Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator
     - name: Create Release
