@@ -1,24 +1,50 @@
 AuctionatorShoppingListTableBuilderMixin = CreateFromMixins(TableBuilderMixin)
 
-AuctionatorScrollListMixin = CreateFromMixins(AuctionatorEventBus)
+AuctionatorScrollListMixin = CreateFromMixins(AuctionatorEventBus, AuctionatorKeywordSearchProviderMixin)
 
 function AuctionatorScrollListMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorScrollListMixin:OnLoad()")
 
   self:SetLineTemplate("AuctionatorScrollListLineTemplate")
   self.getNumEntries = self.GetNumEntries
+  self.multiSearchComplete = false
 
   self:GetParent():Register(self, {
     Auctionator.ShoppingLists.Events.ListSelected,
-    Auctionator.ShoppingLists.Events.ListItemAdded
+    Auctionator.ShoppingLists.Events.ListItemAdded,
+    Auctionator.ShoppingLists.Events.ListSearchRequested
   })
 
   self:Register(self, { Auctionator.ShoppingLists.Events.ListItemDeleted })
+
+  self:InitSearch(
+    function(results)
+      self:EndSearch(results)
+    end,
+    function(current, total)
+      self.ResultsText:SetText("Searching for items in " .. self.currentList.name .. " (" .. current .. "/" .. total .. ")")
+    end
+  )
+end
+
+function AuctionatorScrollListMixin:OnEvent(eventName, ...)
+  self:OnSearchEvent(eventName, ...)
+
+  if eventName == "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED" and self.multiSearchComplete then
+    self:HideSpinner()
+    AuctionHouseFrame.SearchBar.SearchButton:Enable()
+
+    self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchEnded)
+  end
 end
 
 function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
+  Auctionator.Debug.Message("AuctionatorScrollListMixin:EventUpdate()", eventName, eventData)
+
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
+
+    self:StartSearch()
 
     -- Propogate events to children
     self:Fire(eventName, eventData)
@@ -27,9 +53,40 @@ function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemAdded then
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemDeleted then
-    Auctionator.Debug.Message("I got the deleted message")
     self:RefreshScrollFrame()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchRequested then
+    self:StartSearch()
   end
+end
+
+function AuctionatorScrollListMixin:StartSearch()
+  self.ResultsText:SetText("Searching for items in " .. self.currentList.name .. "...")
+  self.ResultsText:Show()
+
+  self.SpinnerAnim:Play()
+  self.LoadingSpinner:Show()
+  self.multiSearchComplete = false
+
+  AuctionHouseFrame.SearchBar.SearchButton:Disable()
+
+  local searchTerms = {}
+
+  for _, name in ipairs(self.currentList.items) do
+    table.insert(searchTerms, name)
+  end
+
+  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchStarted)
+  self:Search(searchTerms)
+end
+
+function AuctionatorScrollListMixin:EndSearch(results)
+  self.multiSearchComplete = true
+  C_AuctionHouse.SearchForItemKeys(results, {sortOrder = 1, reverseSort = false})
+end
+
+function AuctionatorScrollListMixin:HideSpinner()
+  self.LoadingSpinner:Hide()
+  self.ResultsText:Hide()
 end
 
 function AuctionatorScrollListMixin:GetNumEntries()

@@ -1,0 +1,16 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorAHFrameTemplate" mixin="AuctionatorAHFrameMixin" virtual="true">
+    <Scripts>
+      <OnLoad method="OnLoad" />
+      <OnEvent method="OnEvent" />
+    </Scripts>
+
+    <Frames>
+      <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="Auctionator">
+        <Scripts>
+          <OnClick>self:GetParent():ToggleShoppingLists()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

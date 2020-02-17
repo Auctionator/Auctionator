@@ -7,7 +7,12 @@ end
 function AuctionatorScrollListLineMixin:InitLine(scrollFrame)
   Auctionator.Debug.Message("AuctionatorScrollListLineMixin:InitLine()", scrollFrame)
 
-  scrollFrame:Register(self, { Auctionator.ShoppingLists.Events.ListItemDeleted, Auctionator.ShoppingLists.Events.ListSelected})
+  scrollFrame:Register(self, {
+    Auctionator.ShoppingLists.Events.ListItemDeleted,
+    Auctionator.ShoppingLists.Events.ListSelected,
+    Auctionator.ShoppingLists.Events.ListSearchStarted,
+    Auctionator.ShoppingLists.Events.ListSearchEnded
+  })
   self.scrollFrameParent = scrollFrame
 end
 
@@ -17,6 +22,10 @@ function AuctionatorScrollListLineMixin:EventUpdate(eventName, eventData)
   elseif eventName == Auctionator.ShoppingLists.Events.DeleteFromList then
     self:DeleteItem()
     self.scrollFrameParent:Fire(Auctionator.ShoppingLists.Events.ListItemDeleted)
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
+    self:Disable()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+    self:Enable()
   end
 end
 
@@ -37,19 +46,6 @@ function AuctionatorScrollListLineMixin:UpdateDisplay()
   self.Text:SetText(self.searchTerm)
 end
 
-function AuctionatorScrollListLineMixin:OnSelected()
-  local query = {}
-
-  query.searchString = self.searchTerm
-  query.minLevel = 0
-  query.maxLevel = 1000
-  query.filters = {}
-  query.itemClassFilters = {}
-  query.sorts = {}
-
-  C_AuctionHouse.SendBrowseQuery(query)
-end
-
 function AuctionatorScrollListLineMixin:Populate(searchTerm, dataIndex)
   self.searchTerm = searchTerm
   self.dataIndex = dataIndex
@@ -66,6 +62,19 @@ end
 
 function AuctionatorScrollListLineMixin:OnLeave()
   -- Auctionator.Debug.Message("AuctionatorScrollListLineMixin:OnLeave()")
+end
+
+function AuctionatorScrollListLineMixin:OnSelected()
+  local query = {}
+
+  query.searchString = self.searchTerm
+  query.minLevel = 0
+  query.maxLevel = 1000
+  query.filters = {}
+  query.itemClassFilters = {}
+  query.sorts = {}
+
+  C_AuctionHouse.SendBrowseQuery(query)
 end
 
 AuctionatorScrollListLineDeleteMixin = {}

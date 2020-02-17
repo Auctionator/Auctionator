@@ -51,7 +51,7 @@ local AUCTIONATOR_EVENTS = {
   "AUCTION_MULTISELL_UPDATE",
   "AUCTION_MULTISELL_FAILURE",
   -- Extended Funtionality
-  "CHAT_MSG_ADDON"
+  "CHAT_MSG_ADDON",
 }
 
 -- Called from AuctionatorCore frame's OnLoad (defined in Auctionator.xml)
