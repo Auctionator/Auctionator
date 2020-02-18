@@ -15,14 +15,14 @@ jobs:
       with:
         path: 'Auctionator'
     - name: Delete files for curse
-      run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore
+      run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore Auctionator/.git
     - name: Generate build number
       id: buildnumber
       uses: einaregilsson/build-number@v2 
       with:
         token: ${{secrets.github_token}}  
     - name: Create zip
-      run: zip -r Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator
+      run: zip -r Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
