@@ -1,9 +1,10 @@
 function Auctionator.Debug.IsOn()
-  return Auctionator.Config.Get("debug")
+  return Auctionator.Config.Get(Auctionator.Config.Option.DEBUG)
 end
 
 function Auctionator.Debug.Toggle()
-  Auctionator.Config.Set("debug", not Auctionator.Config.Get("debug"))
+  Auctionator.Config.Set(Auctionator.Config.Option.DEBUG,
+    not Auctionator.Config.Get(Auctionator.Config.Option.DEBUG))
 end
 
 function Auctionator.Debug.Message(message, ...)
@@ -11,9 +12,4 @@ function Auctionator.Debug.Message(message, ...)
     print(GREEN_FONT_COLOR:WrapTextInColorCode(message), ...)
     -- print( '|cff008000'..message..'|r', ... )
   end
-end
-
-function Auctionator.Debug.Override( message, ... )
-  -- Note this ignore Debug.IsOn(), so REMEMBER TO REMOVE
-  print( message, ... )
 end
