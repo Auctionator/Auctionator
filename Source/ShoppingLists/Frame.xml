@@ -142,7 +142,7 @@
           <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="3" y="5"/>
         </Anchors>
         <Scripts>
-          <OnClick>self:GetParent():Hide()</OnClick>
+          <OnClick>self:GetParent():CloseClicked()</OnClick>
         </Scripts>
       </Button>
     </Frames>

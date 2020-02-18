@@ -3,7 +3,8 @@ Auctionator.Config.Option = {
   MAILBOX_TOOLTIPS = "mailbox_tooltips",
   VENDOR_TOOLTIPS = "vendor_tooltips",
   AUCTION_TOOLTIPS = "auction_tooltips",
-  ENCHANT_TOOLTIPS = "enchant_tooltips"
+  ENCHANT_TOOLTIPS = "enchant_tooltips",
+  SHOW_LISTS = "show_lists",
 }
 
 local defaults = {
@@ -11,7 +12,8 @@ local defaults = {
   [Auctionator.Config.Option.MAILBOX_TOOLTIPS] = true,
   [Auctionator.Config.Option.VENDOR_TOOLTIPS] = true,
   [Auctionator.Config.Option.AUCTION_TOOLTIPS] = true,
-  [Auctionator.Config.Option.ENCHANT_TOOLTIPS] = true
+  [Auctionator.Config.Option.ENCHANT_TOOLTIPS] = true,
+  [Auctionator.Config.Option.SHOW_LISTS] = true,
 }
 
 function validOption(name)
