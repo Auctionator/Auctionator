@@ -174,9 +174,12 @@ hooksecurefunc (GameTooltip, "SetInboxItem",
 hooksecurefunc("InboxFrameItem_OnEnter",
   function(self)
     local itemCount = select(8, GetInboxHeaderInfo(self.index))
+    local O = Auctionator.Config.Option
     local tooltipEnabled =
-      Auctionator.Config.Get(Auctionator.Config.Option.MAILBOX_TOOLTIPS) and  (
-      AUCTIONATOR_V_TIPS == 1 or AUCTIONATOR_A_TIPS == 1 or AUCTIONATOR_D_TIPS == 1
+      Auctionator.Config.Get(O.MAILBOX_TOOLTIPS) and  (
+      Auctionator.Config.Get(O.VENDOR_TOOLTIPS) or
+      Auctionator.Config.Get(O.AUCTION_TOOLTIPS) or
+      Auctionator.Config.Get(O.ENCHANT_TOOLTIPS)
     )
 
     if tooltipEnabled and itemCount and itemCount > 1 then

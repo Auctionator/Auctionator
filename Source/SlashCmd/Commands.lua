@@ -40,6 +40,22 @@ function Auctionator.SlashCmd.CleanReset()
   Auctionator.SlashCmd.ResetDatabase()
 end
 
+function Auctionator.SlashCmd.Config(name)
+  if name == nil then
+    Auctionator.Utilities("Current config:")
+    for _, name in pairs(Auctionator.Config.Option) do
+      Auctionator.Utilities.Message(name .. "=" .. tostring(Auctionator.Config.Get(name)))
+    end
+  elseif type(Auctionator.Config.Get(name)) == "boolean" then
+    Auctionator.Config.Set(name, not Auctionator.Config.Get(name))
+    Auctionator.Utilities.Message("Config set " .. name .. " = " .. tostring(Auctionator.Config.Get(name)))
+  elseif Auctionator.Config.Get(name) ~= nil then
+    Auctionator.Utilities.Message("Unable to modify " .. name .. " at this time")
+  else
+    Auctionator.Utilities.Message("Unknown config " .. name)
+  end
+end
+
 function Auctionator.SlashCmd.Help()
   for index = 1, #SLASH_COMMAND_DESCRIPTIONS do
     local description = SLASH_COMMAND_DESCRIPTIONS[index]

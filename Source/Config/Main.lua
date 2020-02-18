@@ -1,14 +1,20 @@
 Auctionator.Config.Option = {
   DEBUG = "debug",
-  MAILBOX_TOOLTIPS = "mailbox_tooltips"
+  MAILBOX_TOOLTIPS = "mailbox_tooltips",
+  VENDOR_TOOLTIPS = "vendor_tooltips",
+  AUCTION_TOOLTIPS = "auction_tooltips",
+  ENCHANT_TOOLTIPS = "enchant_tooltips"
 }
 
 local defaults = {
   [Auctionator.Config.Option.DEBUG] = false,
-  [Auctionator.Config.Option.MAILBOX_TOOLTIPS] = true
+  [Auctionator.Config.Option.MAILBOX_TOOLTIPS] = true,
+  [Auctionator.Config.Option.VENDOR_TOOLTIPS] = true,
+  [Auctionator.Config.Option.AUCTION_TOOLTIPS] = true,
+  [Auctionator.Config.Option.ENCHANT_TOOLTIPS] = true
 }
 
-local function validOption(name)
+function validOption(name)
   for _, option in pairs(Auctionator.Config.Option) do
     if option == name then
       return true
