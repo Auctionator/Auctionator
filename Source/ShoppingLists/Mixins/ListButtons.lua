@@ -123,7 +123,7 @@ function AuctionatorListSearchButtonMixin:EventUpdate(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListCreated then
-    self:UpdateDisabled()
+    self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
