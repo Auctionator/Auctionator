@@ -8,7 +8,7 @@ function Auctionator.Variables.Initialize()
     AUCTIONATOR_SAVEDVARS = {}
   end
   if AUCTIONATOR_CONFIG == nil then
-    AUCTIONATOR_CONFIG = {}
+    Auctionator.Config.Reset()
   end
 
   Auctionator.Variables.InitializeFullScanVariables()

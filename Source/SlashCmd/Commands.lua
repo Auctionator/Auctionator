@@ -2,7 +2,10 @@ local SLASH_COMMAND_DESCRIPTIONS = {
   {commands = "ra, resetall", message = "Reset database and full scan timer." },
   {commands = "rdb, resetdatabase", message = "Reset Auctionator database."},
   {commands = "rt, resettimer", message = "Reset full scan timer."},
+  {commands = "rc, resetconfig", message = "Reset configuration to defaults."},
   {commands = "d, debug", message = "Toggle debug mode."},
+  {commands = "c, config", message = "Show current configuration values."},
+  {commands = "c [toggle-name], config [toggle-name]", message = "Toggle the value of the configuration value [toggle-name]."},
   {commands = "h, help", message = "Show this help message."}
 }
 
@@ -38,6 +41,15 @@ end
 function Auctionator.SlashCmd.CleanReset()
   Auctionator.SlashCmd.ResetTimer()
   Auctionator.SlashCmd.ResetDatabase()
+end
+
+function Auctionator.SlashCmd.ResetConfig()
+  if Auctionator.Debug.IsOn() then
+    Auctionator.Config.Reset()
+    Auctionator.Utilities.Message("Config reset.")
+  else
+    Auctionator.Utilities.Message("Requires debug mode.")
+  end
 end
 
 function Auctionator.SlashCmd.Config(name)

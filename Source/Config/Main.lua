@@ -37,12 +37,14 @@ end
 
 function Auctionator.Config.Reset()
   AUCTIONATOR_CONFIG = {}
+  for option, value in pairs(defaults) do
+    AUCTIONATOR_CONFIG[option] = value
+  end
 end
 
 function Auctionator.Config.Get(name)
+  -- This is ONLY if a config is asked for before variables are loaded
   if AUCTIONATOR_CONFIG == nil then
-    return nil
-  elseif AUCTIONATOR_CONFIG[name] == nil then
     return defaults[name]
   else
     return AUCTIONATOR_CONFIG[name]
