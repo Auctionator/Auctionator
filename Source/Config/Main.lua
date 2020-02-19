@@ -1,4 +1,4 @@
-Auctionator.Config.Option = {
+Auctionator.Config.Options = {
   DEBUG = "debug",
   MAILBOX_TOOLTIPS = "mailbox_tooltips",
   VENDOR_TOOLTIPS = "vendor_tooltips",
@@ -8,16 +8,16 @@ Auctionator.Config.Option = {
 }
 
 local defaults = {
-  [Auctionator.Config.Option.DEBUG] = false,
-  [Auctionator.Config.Option.MAILBOX_TOOLTIPS] = true,
-  [Auctionator.Config.Option.VENDOR_TOOLTIPS] = true,
-  [Auctionator.Config.Option.AUCTION_TOOLTIPS] = true,
-  [Auctionator.Config.Option.ENCHANT_TOOLTIPS] = true,
-  [Auctionator.Config.Option.SHOW_LISTS] = true,
+  [Auctionator.Config.Options.DEBUG] = false,
+  [Auctionator.Config.Options.MAILBOX_TOOLTIPS] = true,
+  [Auctionator.Config.Options.VENDOR_TOOLTIPS] = true,
+  [Auctionator.Config.Options.AUCTION_TOOLTIPS] = true,
+  [Auctionator.Config.Options.ENCHANT_TOOLTIPS] = true,
+  [Auctionator.Config.Options.SHOW_LISTS] = true,
 }
 
-function validOption(name)
-  for _, option in pairs(Auctionator.Config.Option) do
+local function isValidOption(name)
+  for _, option in pairs(Auctionator.Config.Options) do
     if option == name then
       return true
     end
@@ -28,7 +28,7 @@ end
 function Auctionator.Config.Set(name, value)
   if AUCTIONATOR_CONFIG == nil then
     error("AUCTIONATOR_CONFIG not initialized")
-  elseif not validOption(name) then
+  elseif not isValidOption(name) then
     error("Invalid option '" .. name .. "'")
   else
     AUCTIONATOR_CONFIG[name] = value

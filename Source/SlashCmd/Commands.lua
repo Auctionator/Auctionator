@@ -42,8 +42,8 @@ end
 
 function Auctionator.SlashCmd.Config(name)
   if name == nil then
-    Auctionator.Utilities("Current config:")
-    for _, name in pairs(Auctionator.Config.Option) do
+    Auctionator.Utilities.Message("Current config:")
+    for _, name in pairs(Auctionator.Config.Options) do
       Auctionator.Utilities.Message(name .. "=" .. tostring(Auctionator.Config.Get(name)))
     end
   elseif type(Auctionator.Config.Get(name)) == "boolean" then

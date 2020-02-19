@@ -1,10 +1,10 @@
 function Auctionator.Debug.IsOn()
-  return Auctionator.Config.Get(Auctionator.Config.Option.DEBUG)
+  return Auctionator.Config.Get(Auctionator.Config.Options.DEBUG)
 end
 
 function Auctionator.Debug.Toggle()
-  Auctionator.Config.Set(Auctionator.Config.Option.DEBUG,
-    not Auctionator.Config.Get(Auctionator.Config.Option.DEBUG))
+  Auctionator.Config.Set(Auctionator.Config.Options.DEBUG,
+    not Auctionator.Config.Get(Auctionator.Config.Options.DEBUG))
 end
 
 function Auctionator.Debug.Message(message, ...)

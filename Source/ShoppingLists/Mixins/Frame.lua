@@ -13,8 +13,3 @@ function AuctionatorShoppingListFrameMixin:OnHide()
   Auctionator.Debug.Message("AuctionatorShoppingListFrameMixin:OnHide()")
   self.ScrollList:UnregisterProviderEvents()
 end
-
-function AuctionatorShoppingListFrameMixin:CloseClicked()
-  self:Hide()
-  Auctionator.Config.Set(Auctionator.Config.Option.SHOW_LISTS, false);
-end

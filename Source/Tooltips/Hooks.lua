@@ -157,7 +157,7 @@ hooksecurefunc (GameTooltip, "SetSendMailItem",
 -- 2. mousing over an item in the Inbox frame
 hooksecurefunc (GameTooltip, "SetInboxItem",
   function(tip, index, attachIndex)
-    if Auctionator.Config.Get(Auctionator.Config.Option.MAILBOX_TOOLTIPS) then
+    if Auctionator.Config.Get(Auctionator.Config.Options.MAILBOX_TOOLTIPS) then
       local attachmentIndex = attachIndex or 1
 
       local itemLink = GetInboxItemLink(index, attachmentIndex)
@@ -174,12 +174,11 @@ hooksecurefunc (GameTooltip, "SetInboxItem",
 hooksecurefunc("InboxFrameItem_OnEnter",
   function(self)
     local itemCount = select(8, GetInboxHeaderInfo(self.index))
-    local O = Auctionator.Config.Option
     local tooltipEnabled =
-      Auctionator.Config.Get(O.MAILBOX_TOOLTIPS) and  (
-      Auctionator.Config.Get(O.VENDOR_TOOLTIPS) or
-      Auctionator.Config.Get(O.AUCTION_TOOLTIPS) or
-      Auctionator.Config.Get(O.ENCHANT_TOOLTIPS)
+      Auctionator.Config.Get(Auctionator.Config.Options.MAILBOX_TOOLTIPS) and  (
+      Auctionator.Config.Get(Auctionator.Config.Options.VENDOR_TOOLTIPS) or
+      Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) or
+      Auctionator.Config.Get(Auctionator.Config.Options.ENCHANT_TOOLTIPS)
     )
 
     if tooltipEnabled and itemCount and itemCount > 1 then

@@ -17,7 +17,7 @@ local function InitializeShoppingListFrame()
 
   frame:SetPoint("TOPLEFT", AuctionHouseFrame, "TOPRIGHT", -2, 0)
   frame:SetPoint("BOTTOMLEFT", AuctionHouseFrame, "BOTTOMRIGHT", -2, 0)
-  if Auctionator.Config.Get(Auctionator.Config.Option.SHOW_LISTS) then
+  if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_LISTS) then
     frame:Show()
   end
 end
@@ -65,10 +65,8 @@ AuctionatorButtonFrameMixin = {}
 
 function AuctionatorButtonFrameMixin:ToggleShoppingLists()
   if AuctionatorShoppingLists:IsVisible() then
-    Auctionator.Config.Set(Auctionator.Config.Option.SHOW_LISTS, false);
     AuctionatorShoppingLists:Hide()
   else
-    Auctionator.Config.Set(Auctionator.Config.Option.SHOW_LISTS, true);
     AuctionatorShoppingLists:Show()
   end
 end

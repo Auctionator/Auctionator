@@ -5,9 +5,9 @@ local zc = addonTable.zc;
 local L = Auctionator.Localization.Localize
 
 -- TODO DOCUMENTATION
--- Auctionator.Config.Option.VENDOR_TOOLTIPS: true if should show vendor tips
+-- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
 -- AUCTIONATOR_SHIFT_TIPS:
--- Auctionator.Config.Option.AUCTION_TOOLTIPS: true if should show auction tips
+-- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount)
   if itemKey==nil then
     return
@@ -91,7 +91,7 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
 end
 
 function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
-  if Auctionator.Config.Get(Auctionator.Config.Option.VENDOR_TOOLTIPS) and vendorPrice > 0 then
+  if Auctionator.Config.Get(Auctionator.Config.Options.VENDOR_TOOLTIPS) and vendorPrice > 0 then
     tooltipFrame:AddDoubleLine(
       L("Vendor") .. countString,
       WHITE_FONT_COLOR:WrapTextInColorCode(
@@ -102,7 +102,7 @@ function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString
 end
 
 function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countString, cannotAuction)
-  if Auctionator.Config.Get(Auctionator.Config.Option.AUCTION_TOOLTIPS) then
+  if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) then
 
     if (cannotAuction == 1) then
       tooltipFrame:AddDoubleLine(
