@@ -7,9 +7,7 @@ function Auctionator.Variables.Initialize()
   if AUCTIONATOR_SAVEDVARS == nil then
     AUCTIONATOR_SAVEDVARS = {}
   end
-  if AUCTIONATOR_CONFIG == nil then
-    Auctionator.Config.Reset()
-  end
+  Auctionator.Config.Initialize()
 
   Auctionator.Variables.InitializeFullScanVariables()
   Auctionator.Variables.InitializeDatabase()
