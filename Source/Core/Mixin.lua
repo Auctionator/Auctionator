@@ -35,8 +35,6 @@ local function InitializeScanFrame()
     frame = Auctionator.State.ScanFrameRef
     frame:InitiateScan()
   end
-
-  frame:RegisterForEvents()
 end
 
 local function InitializeAuctionatorButtonFrame()
