@@ -44,7 +44,9 @@ function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
 
-    self:StartSearch()
+    if Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
+      self:StartSearch()
+    end
 
     -- Propogate events to children
     self:Fire(eventName, eventData)

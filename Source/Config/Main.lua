@@ -6,6 +6,7 @@ Auctionator.Config.Options = {
   ENCHANT_TOOLTIPS = "enchant_tooltips",
   SHOW_LISTS = "show_lists",
   AUTOSCAN = "autoscan",
+  AUTO_LIST_SEARCH = "auto_list_search",
 }
 
 local defaults = {
@@ -16,6 +17,7 @@ local defaults = {
   [Auctionator.Config.Options.ENCHANT_TOOLTIPS] = true,
   [Auctionator.Config.Options.SHOW_LISTS] = true,
   [Auctionator.Config.Options.AUTOSCAN] = true,
+  [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
 }
 
 local function isValidOption(name)
