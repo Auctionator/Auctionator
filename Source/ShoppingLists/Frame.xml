@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame name="AuctionatorShoppingListFrameTemplate" inherits="SimplePanelTemplate" parent="UIParent" hidden="true" mixin="AuctionatorShoppingListFrameMixin, AuctionatorEventBus" virtual="true">
-    <Size x="500" />
+    <Size x="350" />
 
     <Scripts>
       <OnLoad method="OnLoad" />
@@ -10,7 +10,7 @@
 
     <Layers>
       <Layer level="OVERLAY">
-        <FontString inherits="GameFontNormal" text="Auctionator">
+        <FontString inherits="GameFontNormal" text="Auctionator Shopping Lists">
           <Anchors>
             <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP">
               <Offset>
@@ -38,7 +38,7 @@
       </Frame>
 
       <!-- List Create/Delete Buttons -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_CreateList" text="Create List" mixin="AuctionatorListCreateButtonMixin">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_CreateList" text="Create" mixin="AuctionatorListCreateButtonMixin">
         <Anchors>
           <Anchor point="TOPLEFT" relativeTo="$parent_ListDropDown" relativePoint="TOPRIGHT">
             <Offset>
@@ -53,7 +53,7 @@
         </Scripts>
       </Button>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_DeleteList" text="Delete List" mixin="AuctionatorListDeleteButtonMixin">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_DeleteList" text="Delete" mixin="AuctionatorListDeleteButtonMixin">
         <Anchors>
           <Anchor point="TOPLEFT" relativeTo="$parent_CreateList" relativePoint="TOPRIGHT" />
         </Anchors>

@@ -35,8 +35,11 @@ local function InitializeScanFrame()
     frame = Auctionator.State.ScanFrameRef
     frame:InitiateScan()
   end
+end
 
-  frame:RegisterForEvents()
+local function InitializeAuctionatorButtonFrame()
+  AuctionatorButtonFrame:SetPoint("BOTTOMRIGHT", AuctionHouseFrame, "TOPRIGHT")
+  AuctionatorButtonFrame:Show()
 end
 
 function AuctionatorAHFrameMixin:OnLoad()
@@ -44,9 +47,7 @@ function AuctionatorAHFrameMixin:OnLoad()
 
   InitializeShoppingListFrame()
   InitializeScanFrame()
-
-  AuctionatorToggle:SetPoint("BOTTOMRIGHT", AuctionHouseFrame, "TOPRIGHT")
-  AuctionatorToggle:Show()
+  InitializeAuctionatorButtonFrame()
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
@@ -58,10 +59,16 @@ function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
   end
 end
 
-function AuctionatorAHFrameMixin:ToggleShoppingLists()
+AuctionatorButtonFrameMixin = {}
+
+function AuctionatorButtonFrameMixin:ToggleShoppingLists()
   if AuctionatorShoppingLists:IsVisible() then
     AuctionatorShoppingLists:Hide()
   else
     AuctionatorShoppingLists:Show()
   end
+end
+
+function AuctionatorButtonFrameMixin:AutoScan()
+  Auctionator.State.ScanFrameRef:InitiateScan()
 end

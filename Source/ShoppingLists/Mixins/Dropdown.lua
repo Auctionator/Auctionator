@@ -2,7 +2,7 @@ AuctionatorShoppingListDropdownMixin = {}
 
 function AuctionatorShoppingListDropdownMixin:OnLoad()
   UIDropDownMenu_Initialize(self, self.Initialize)
-  UIDropDownMenu_SetWidth(self, 220)
+  UIDropDownMenu_SetWidth(self, 120)
 
   self.frame = self
   self:GetParent():Register(self, {

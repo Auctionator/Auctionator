@@ -29,6 +29,7 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
     self.state.TimeOfLastScan = time()
     self.state.InProgress = true
 
+    self:RegisterForEvents()
     Auctionator.Utilities.Message("Starting a full scan.")
     C_AuctionHouse.ReplicateItems()
   else
