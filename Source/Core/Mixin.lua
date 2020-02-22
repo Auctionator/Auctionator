@@ -35,6 +35,8 @@ local function InitializeScanFrame()
     Auctionator.State.ScanFrameRef = frame
   else
     frame = Auctionator.State.ScanFrameRef
+  end
+  if Auctionator.Config.Get(Auctionator.Options.AUTOSCAN) then
     frame:InitiateScan()
   end
 end

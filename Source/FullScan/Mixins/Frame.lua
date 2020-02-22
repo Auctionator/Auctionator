@@ -12,8 +12,6 @@ function AuctionatorFullScanFrameMixin:OnLoad()
   self.state = Auctionator.FullScan.State
   self.prices = {}
   self.startTime = nil
-
-  self:InitiateScan()
 end
 
 function AuctionatorFullScanFrameMixin:InitiateScan()
