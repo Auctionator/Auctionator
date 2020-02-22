@@ -13,15 +13,7 @@ function AuctionatorFullScanFrameMixin:OnLoad()
   self.prices = {}
   self.startTime = nil
 
-  if self:CanInitiate() then
-    self.state.TimeOfLastScan = time()
-    self.state.InProgress = true
-
-    Auctionator.Utilities.Message("Starting a full scan.")
-    C_AuctionHouse.ReplicateItems()
-  else
-    Auctionator.Utilities.Message(self:NextScanMessage())
-  end
+  self:InitiateScan()
 end
 
 function AuctionatorFullScanFrameMixin:InitiateScan()
