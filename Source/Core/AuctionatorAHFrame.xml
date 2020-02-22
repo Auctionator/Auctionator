@@ -6,11 +6,31 @@
     </Scripts>
 
     <Frames>
-      <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="Auctionator">
-        <Scripts>
-          <OnClick>self:GetParent():ToggleShoppingLists()</OnClick>
-        </Scripts>
-      </Button>
+      <Frame name="AuctionatorButtonFrame" mixin="AuctionatorButtonFrameMixin">
+        <Frames>
+          <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="Shopping Lists">
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeTo="AuctionHouseFrame" relativePoint="TOPRIGHT">
+                <Offset>
+                  <AbsDimension x="-24" y="-1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Scripts>
+              <OnClick>self:GetParent():ToggleShoppingLists()</OnClick>
+            </Scripts>
+          </Button>
+
+          <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="Full Scan">
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeTo="AuctionatorToggle" relativePoint="TOPLEFT" />
+            </Anchors>
+            <Scripts>
+              <OnClick>self:GetParent():AutoScan()</OnClick>
+            </Scripts>
+          </Button>
+        </Frames>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>
