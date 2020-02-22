@@ -17,7 +17,9 @@ local function InitializeShoppingListFrame()
 
   frame:SetPoint("TOPLEFT", AuctionHouseFrame, "TOPRIGHT", -2, 0)
   frame:SetPoint("BOTTOMLEFT", AuctionHouseFrame, "BOTTOMRIGHT", -2, 0)
-  frame:Show()
+  if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_LISTS) then
+    frame:Show()
+  end
 end
 
 local function InitializeScanFrame()

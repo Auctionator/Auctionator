@@ -15,8 +15,12 @@ local SLASH_COMMANDS = {
   ["resettimer"] = Auctionator.SlashCmd.ResetTimer,
   ["rdb"] = Auctionator.SlashCmd.ResetDatabase,
   ["resetdatabase"] = Auctionator.SlashCmd.ResetDatabase,
+  ["rc"] = Auctionator.SlashCmd.ResetConfig,
+  ["resetconfig"] = Auctionator.SlashCmd.ResetConfig,
   ["d"] = Auctionator.SlashCmd.ToggleDebug,
   ["debug"] = Auctionator.SlashCmd.ToggleDebug,
+  ["config"] = Auctionator.SlashCmd.Config,
+  ["c"] = Auctionator.SlashCmd.Config,
   ["h"] = Auctionator.SlashCmd.Help,
   ["help"] = Auctionator.SlashCmd.Help,
 }
@@ -33,7 +37,7 @@ function Auctionator.SlashCmd.Handler(input)
       Auctionator.Utilities.Message("Unrecognized command '" .. command[1] .. "'")
       Auctionator.SlashCmd.Help()
     else
-      handler()
+      handler(command[2])
     end
   end
 end
