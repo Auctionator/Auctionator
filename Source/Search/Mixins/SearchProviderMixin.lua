@@ -20,6 +20,10 @@ end
 function AuctionatorSearchProviderMixin:UnregisterProviderEvents()
 end
 
+-- Derive
+function AuctionatorSearchProviderMixin:HasCompleteTermResults()
+end
+
 function AuctionatorSearchProviderMixin:RegisterEvents(events)
   Auctionator.Debug.Message("AuctionatorSearchProviderMixin:RegisterEvents()", events)
 

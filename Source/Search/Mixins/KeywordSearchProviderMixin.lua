@@ -25,6 +25,11 @@ function AuctionatorKeywordSearchProviderMixin:GetSearchProvider()
   return C_AuctionHouse.SendBrowseQuery
 end
 
+function AuctionatorKeywordSearchProviderMixin:HasCompleteTermResults()
+  Auctionator.Debug.Message("AuctionatorKeywordSearchProviderMixin:HasCompleteTermResults()")
+  return C_AuctionHouse.HasFullBrowseResults()
+end
+
 function AuctionatorKeywordSearchProviderMixin:OnSearchEventReceived(eventName, ...)
   Auctionator.Debug.Message("AuctionatorKeywordSearchProviderMixin:OnSearchEventReceived()", eventName, ...)
 
