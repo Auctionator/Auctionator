@@ -30,17 +30,19 @@ function AuctionatorMultiSearchMixin:Search(terms)
   self:NextSearch()
 end
 
-function AuctionatorSearchProviderMixin:AddResults(results)
+function AuctionatorMultiSearchMixin:AddResults(results)
   Auctionator.Debug.Message("AuctionatorSearchProviderMixin:AddResults()")
 
   for index = 0, #results do
     table.insert(self.results, results[index])
   end
 
-  self:NextSearch()
+  if self:HasCompleteTermResults() then
+    self:NextSearch()
+  end
 end
 
-function AuctionatorSearchProviderMixin:NextSearch()
+function AuctionatorMultiSearchMixin:NextSearch()
   if self:HasMoreTerms() then
     self.onNextSearch(self:GetCurrentSearchIndex(), self:GetSearchTermCount())
     self:GetSearchProvider()(self:GetNextSearchParameter())
