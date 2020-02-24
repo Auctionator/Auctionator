@@ -2,7 +2,6 @@ layout: page
 title: "Auctionator"
 permalink: /
 
-
 Follow the development status [here](https://github.com/Auctionator/Auctionator/projects/2).
 
 Blizzard's revamp to the auction house broke virtually everything in the 8.2 Auctionator release, we are reimplementing features one by one. Asking repeatedly for a particular feature will not make it get implemented faster!
@@ -11,6 +10,8 @@ Blizzard's revamp to the auction house broke virtually everything in the 8.2 Auc
 
 #### Shopping Lists
 All your old shopping lists still work, they're shown as a sidebar on the right of the Auction House "Buy" tab. Advanced search terms don't work [yet](https://github.com/Auctionator/Auctionator/issues/477).
+
+![Shopping List Example]({{ site.url }}/images/shopping-list-example.png)
 
 #### Autoscan
 Unlike in the 8.2 Auction House it is now possible to scan for auction prices in the background when the AH is opened. You should see messages in your chat window indicating this is happening.
