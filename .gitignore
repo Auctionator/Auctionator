@@ -1,3 +1,5 @@
 *.DS_Store
 Changelog*
 .vscode/*
+*.swp
+tmp
