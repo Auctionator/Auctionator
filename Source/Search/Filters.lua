@@ -1,5 +1,5 @@
 --
---  Auctionator.Filters is an empty table on load, need to populate
+--  Auctionator.Search.Filters is an empty table on load, need to populate
 --  with the possible filters
 --
 --  Here's what one entry looks like:
@@ -30,7 +30,7 @@ local ITEM_CLASS_IDS = {
   LE_ITEM_CLASS_MISCELLANEOUS
 }
 
-Auctionator.Filter = {
+Auctionator.Search.Filter = {
   classID = 0,
   name = Auctionator.Constants.FilterDefault,
   key = 0,
@@ -42,23 +42,23 @@ Auctionator.Filter = {
 -- TODO: Make this work, then can remove check in Atr_ASDD_Subclass_Initialize
 -- Provides a null object for invalid lookups; intended use is for
 -- rendering subclasses in Advanced Search UI
--- Auctionator.FilterLookup.__index = function()
---   return Auctionator.Filter:new()
+-- Auctionator.Search.FilterLookup.__index = function()
+--   return Auctionator.Search.Filter:new()
 -- end
 
-function Auctionator.Filter.Find( key )
-  local filter = Auctionator.FilterLookup[ key ]
+function Auctionator.Search.Filter.Find( key )
+  local filter = Auctionator.Search.FilterLookup[ key ]
 
   if filter == nil then
-    return Auctionator.Filter:new(), Auctionator.Filter:new()
+    return Auctionator.Search.Filter:new(), Auctionator.Search.Filter:new()
   elseif filter.parentKey == nil then
-    return filter, Auctionator.Filter:new()
+    return filter, Auctionator.Search.Filter:new()
   else
-    return Auctionator.FilterLookup[ filter.parentKey ], filter
+    return Auctionator.Search.FilterLookup[ filter.parentKey ], filter
   end
 end
 
-function Auctionator.Filter:new( options )
+function Auctionator.Search.Filter:new( options )
   options = options or {}
   setmetatable( options, self )
   self.__index = self
@@ -76,7 +76,7 @@ local function GenerateSubClasses( classID, parentName, parentKey )
     local name = GetItemSubClassInfo( classID, subClassID )
 
     local filter = { classID = classID, subClassID = subClassID }
-    local subClass = Auctionator.Filter:new({
+    local subClass = Auctionator.Search.Filter:new({
       classID = subClassID,
       name = name,
       key = parentKey .. [[/]] .. name,
@@ -97,7 +97,7 @@ for index, classID in ipairs( ITEM_CLASS_IDS ) do
   local key = name
   local subClasses, filter = GenerateSubClasses( classID, name, key )
 
-  local categoryFilter = Auctionator.Filter:new({
+  local categoryFilter = Auctionator.Search.Filter:new({
     classID = classID,
     name = name,
     key = key,
@@ -105,15 +105,15 @@ for index, classID in ipairs( ITEM_CLASS_IDS ) do
     subClasses = subClasses
   })
 
-  table.insert( Auctionator.Filters, categoryFilter )
+  table.insert( Auctionator.Search.Filters, categoryFilter )
 end
 
-for index, filter in ipairs( Auctionator.Filters ) do
-  Auctionator.FilterLookup[ filter.key ] = filter
+for index, filter in ipairs( Auctionator.Search.Filters ) do
+  Auctionator.Search.FilterLookup[ filter.key ] = filter
 
   for i = 1, #filter.subClasses do
     local subFilter = filter.subClasses[ i ]
 
-    Auctionator.FilterLookup[ subFilter.key ] = subFilter
+    Auctionator.Search.FilterLookup[ subFilter.key ] = subFilter
   end
 end

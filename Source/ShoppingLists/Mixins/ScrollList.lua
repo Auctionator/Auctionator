@@ -1,6 +1,6 @@
 AuctionatorShoppingListTableBuilderMixin = CreateFromMixins(TableBuilderMixin)
 
-AuctionatorScrollListMixin = CreateFromMixins(AuctionatorEventBus, AuctionatorKeywordSearchProviderMixin)
+AuctionatorScrollListMixin = CreateFromMixins(AuctionatorEventBus, AuctionatorAdvancedSearchProviderMixin)
 
 function AuctionatorScrollListMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorScrollListMixin:OnLoad()")
