@@ -120,7 +120,7 @@ function Auctionator.ItemLink:BattlePetIdString()
   if not self.pet_id_string then
     self.pet_id_string = self:GetField( Auctionator.Constants.ItemLink.ID ) ..
       ':' .. self:GetField( Auctionator.Constants.ItemLink.PET_LEVEL )
-    Auctionator.Util.Print( self.parsed_item_link, self.pet_id_string )
+    Auctionator.Utilities.TablePrint( self.parsed_item_link, self.pet_id_string )
   end
 
   return self.pet_id_string

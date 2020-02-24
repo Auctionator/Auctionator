@@ -1,0 +1,19 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigUndercuttingFrame"
+    mixin="AuctionatorConfigUndercuttingFrameMixin"
+    parent="InterfaceOptionsFrame">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+    <Frames>
+      <Frame name="$parent_TitleArea" inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="Undercutting" type="string" />
+          <KeyValue key="subTitleText" value="Options to set undercutting percent or values." type="string"/>
+        </KeyValues>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

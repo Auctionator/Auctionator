@@ -32,7 +32,7 @@ end
 
 function Auctionator.Variables.InitializeDatabase()
   Auctionator.Debug.Message("Auctionator.Database.Initialize()")
-  -- Auctionator.Util.Print(AUCTIONATOR_PRICE_DATABASE, "AUCTIONATOR_PRICE_DATABASE")
+  -- Auctionator.Utilities.TablePrint(AUCTIONATOR_PRICE_DATABASE, "AUCTIONATOR_PRICE_DATABASE")
 
   local realm = GetRealmName()
 

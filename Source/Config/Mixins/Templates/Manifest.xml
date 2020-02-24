@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="TitleFrame.lua"/>
+  <Script file="CheckBox.lua"/>
+  <Script file="Heading.lua"/>
+</Ui>

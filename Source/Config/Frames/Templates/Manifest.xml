@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="TitleFrame.xml"/>
+  <Include file="CheckBox.xml"/>
+  <Include file="Heading.xml"/>
+</Ui>

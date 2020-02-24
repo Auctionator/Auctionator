@@ -341,5 +341,5 @@ Auctionator.Constants.DisenchantingProbability = {
 -- end
 
 -- for i, element in pairs( Auctionator.Constants.DisenchantingProbability[ LE_ITEM_CLASS_ARMOR ][ Auctionator.Constants.Rarity.UNCOMMON ] ) do
---    Auctionator.Util.FlatPrint( DEMap( element ) )
+--    Auctionator.Utilities.FlatPrint( DEMap( element ) )
 -- end

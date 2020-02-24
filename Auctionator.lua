@@ -2982,7 +2982,7 @@ function Atr_ShowSearchSummary()
     end
 
     Auctionator.Debug.Message( 'Atr_ShowSearchSummary line ', line )
-    -- Auctionator.Util.Print( scn, 'Scan ' .. line )
+    -- Auctionator.Utilities.TablePrint( scn, 'Scan ' .. line )
 
 
     if (dataOffset > numrows or not scn) then
@@ -3018,7 +3018,7 @@ function Atr_ShowSearchSummary()
       lineEntry_text:SetTextColor (r, g, b)
       lineEntry_stack:SetTextColor (1, 1, 1)
 
-      -- Auctionator.Util.Print( scn, "Atr_ShowSearchSummary Scan" )
+      -- Auctionator.Utilities.TablePrint( scn, "Atr_ShowSearchSummary Scan" )
       local icon = Atr_GetUCIcon( scn.itemLink )
 
       if (not scn:IsNil()) then
@@ -3557,7 +3557,7 @@ function Atr_CancelAuction_ByIndex(index)
     end
   end
 
-  Auctionator.Util.Print( gAtr_Owner_Item_Indices, 'Owner Items' )
+  Auctionator.Utilities.TablePrint( gAtr_Owner_Item_Indices, 'Owner Items' )
 
   -- cancel the last item in the list and remove it
 

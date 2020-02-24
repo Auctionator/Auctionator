@@ -74,7 +74,7 @@ function AtrPane:DoSearch (searchText, IDstring, itemLink, rescanThreshold)
 end
 
 function AtrPane:DoSearch2( query )
-  Auctionator.Util.Print( query, "Hook this new search object up" )
+  Auctionator.Utilities.TablePrint( query, "Hook this new search object up" )
 
   self.currentSearch = Auctionator.Search:new({ query = query })
   self.activeSearch = self.currentSearch
