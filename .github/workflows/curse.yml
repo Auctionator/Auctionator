@@ -5,6 +5,10 @@ on:
     branches:
     - master
 
+    paths-ignore:
+    - "docs/**"
+    - ".github/workflows/curse.yml"
+
 jobs:
   build:
 
