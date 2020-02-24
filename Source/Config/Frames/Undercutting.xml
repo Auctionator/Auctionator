@@ -1,0 +1,50 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigUndercuttingFrame"
+    mixin="AuctionatorConfigUndercuttingFrameMixin"
+    parent="InterfaceOptionsFrame">
+    <Scripts>
+    <!-- Moving this to Selling; I dont understand the distinction between undercut setting and selling settings given they're both
+         specifying settings for actual sales? -->
+      <!-- <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/> -->
+    </Scripts>
+    <Frames>
+      <Frame name="$parent_TitleArea" inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="Undercutting" type="string" />
+          <KeyValue key="subTitleText" value="Options to set undercutting percent or values." type="string"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame name="$parent_SellingSettings" inherits="AuctionatorConfigurationHeadingFrame" parentKey="SellingSettings">
+        <KeyValues>
+          <KeyValue key="headingText" value="Selling Settings" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_UndercuttingHeading" inherits="AuctionatorConfigurationHeadingFrame" parentKey="UndercuttingHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="Undercutting Settings" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_SellingSettings" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_UndercutPercentage" inherits="AuctionatorConfigurationNumericInput" parentKey="UndercutPercentage">
+        <KeyValues>
+          <KeyValue key="labelText" value="Undercut percentage" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Undercut Percentage" type="string"/>
+          <KeyValue key="tooltipText" value="The undercut percentage that will be used to calculate the sell price for items. For example, a value of 5 means that your item will be posted at 5% less than the current lowest price." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_UndercuttingHeading" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

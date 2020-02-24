@@ -85,7 +85,7 @@ function AtrSearch:Init (searchText, IDstring, itemLink, rescanThreshold)
     _, _, _, _, self.minItemLevel, self.maxItemLevel = Atr_ParseCompoundSearch( self.searchText )
   end
 
-  Auctionator.Util.Print( self, 'AtrSearch:Init' )
+  Auctionator.Utilities.TablePrint( self, 'AtrSearch:Init' )
 
   if (IDstring) then
 
@@ -200,7 +200,7 @@ function AtrScan:UpdateItemLink (itemLink)
       self.itemSubclass = 0;
 
     else
-      Auctionator.Util.Print( { GetItemInfo( itemLink ) }, 'GET ITEM INFO' .. itemLink )
+      Auctionator.Utilities.TablePrint( { GetItemInfo( itemLink ) }, 'GET ITEM INFO' .. itemLink )
       -- TODO: Capture this knowledge somewhere
       -- 1: name
       -- 2: itemLink
@@ -288,7 +288,7 @@ end
 
 function AtrSearch:Start ()
   Auctionator.Debug.Message( 'AtrSearch:Start' )
-  Auctionator.Util.Print( self, 'AtrSearch:Start' )
+  Auctionator.Utilities.TablePrint( self, 'AtrSearch:Start' )
 
   if self.searchText == "" then
     return
@@ -461,7 +461,7 @@ function AtrSearch:AnalyzeResultsPage()
 
         if zc.IsBattlePetLink( item.itemLink ) then
           Auctionator.Debug.Message( 'AtrSearch:AnalyzeResultsPage isBattlePet ', item_link:IdString() )
-          Auctionator.Util.Print( item_link, 'Battle Pet Item Link')
+          Auctionator.Utilities.TablePrint( item_link, 'Battle Pet Item Link')
           ATR_AddToBattlePetIconCache( item.itemLink, item.texture )
         end
 
@@ -724,11 +724,11 @@ function AtrSearch:Continue()
       filter = filterData.filter
     end
 
-    queryString = Auctionator.Util.UTF8_Truncate( queryString ) -- attempting to reduce number of disconnects
+    queryString = Auctionator.Utilities.UTF8_Truncate( queryString ) -- attempting to reduce number of disconnects
 
-    Auctionator.Util.Print( filter )
+    Auctionator.Utilities.TablePrint( filter )
 
-    Auctionator.Util.Print(
+    Auctionator.Utilities.TablePrint(
       { queryString, minLevel, maxLevel, self.current_page, nil, nil, false, exactMatch, filter },
       'QUERY AUCTION ITEMS PARAMS'
     )

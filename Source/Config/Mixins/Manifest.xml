@@ -1,0 +1,15 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="MainConfigurationPanel.lua" />
+
+  <Include file="Templates\Manifest.xml" />
+
+  <Script file="Configuration.lua"/>
+
+  <Script file="BasicOptions.lua"/>
+  <Script file="Tooltips.lua"/>
+  <Script file="Undercutting.lua"/>
+  <Script file="Selling.lua"/>
+  <Script file="Database.lua"/>
+  <Script file="ClearData.lua"/>
+  <Script file="About.lua"/>
+</Ui>

@@ -99,7 +99,7 @@ function Atr_AddSellTab (tabtext, whichTab)
 
   local n = AuctionHouseFrame.numTabs + 1;
 
-  Auctionator.Util.Print(AuctionHouseFrame.numTabs)
+  Auctionator.Utilities.TablePrint(AuctionHouseFrame.numTabs)
   local framename = "AuctionHouseFrameTab"..n;
 
   local frame = CreateFrame("Button", framename, AuctionHouseFrame, "AuctionHouseFrameTabTemplate");

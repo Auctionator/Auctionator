@@ -1,0 +1,41 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <!-- Template for a radio button with label -->
+  <Frame name="AuctionatorConfigurationRadioButton" mixin="AuctionatorConfigRadioButtonMixin" inherits="AuctionatorConfigurationTooltip" virtual="true">
+    <!-- <KeyValues>
+      <KeyValue key="value" value="" type="string"/>
+      <KeyValue key="labelText" value="" type="string"/>
+      <KeyValue key="tooltipTitleText" value="" type="string"/>
+      <KeyValue key="tooltipText" value="" type="string"/>
+    </KeyValues> -->
+    <Size y="20" />
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT" />
+      <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" />
+    </Anchors>
+    <Frames>
+      <CheckButton inherits="UIRadioButtonTemplate" parentKey="RadioButton">
+        <Size x="18" y="18" />
+        <Anchors>
+          <Anchor point="TOPLEFT" x="20" y="-5" />
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <FontString inherits="GameFontHighlight" parentKey="Label">
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="40" y="-8" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnEnter>self:GetParent():OnEnter()</OnEnter>
+          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+          <OnClick>self:GetParent():OnClick()</OnClick>
+        </Scripts>
+      </CheckButton>
+    </Frames>
+  </Frame>
+</Ui>

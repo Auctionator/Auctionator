@@ -1,0 +1,38 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <!-- Template for a single option "box" containing a checkbox -->
+  <Frame name="AuctionatorConfigurationCheckbox" mixin="AuctionatorConfigCheckboxMixin" inherits="AuctionatorConfigurationTooltip" virtual="true">
+    <!-- <KeyValues>
+      <KeyValue key="labelText" value="" type="string"/>
+      <KeyValue key="tooltipTitleText" value="" type="string"/>
+      <KeyValue key="tooltipText" value="" type="string"/>
+    </KeyValues> -->
+    <Size y="40" />
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT" />
+      <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" />
+    </Anchors>
+    <Frames>
+      <CheckButton inherits="UICheckButtonTemplate" parentKey="CheckBox">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="20" />
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <FontString inherits="GameFontHighlight" parentKey="Label">
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="58" y="-8" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnEnter>self:GetParent():OnEnter()</OnEnter>
+          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+        </Scripts>
+      </CheckButton>
+    </Frames>
+  </Frame>
+</Ui>

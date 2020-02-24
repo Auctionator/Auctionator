@@ -86,7 +86,7 @@ function Auctionator.SearchQuery:Filter()
 end
 
 function Auctionator.SearchQuery:SearchText()
-  return Auctionator.Util.UTF8_Truncate( self.text )
+  return Auctionator.Utilities.UTF8_Truncate( self.text )
 end
 
 function Auctionator.SearchQuery:SearchMinLevel()

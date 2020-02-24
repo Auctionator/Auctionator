@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Tooltip.xml"/>
+
+  <Include file="TitleFrame.xml"/>
+
+  <Include file="CheckBox.xml"/>
+  <Include file="RadioButton.xml"/>
+  <Include file="NumericInputBox.xml"/>
+
+  <Include file="Heading.xml"/>
+  <Include file="SubHeading.xml"/>
+</Ui>
