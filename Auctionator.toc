@@ -21,11 +21,8 @@ Locales\Manifest.xml
 Source\Manifest.xml
 
 AuctionatorUtil.lua
-AuctionatorFilters.lua
 
 AuctionatorItemLink.lua
-AuctionatorSearch.lua
-AuctionatorSearchQuery.lua
 
 Auctionator.lua
 AuctionatorShop.lua

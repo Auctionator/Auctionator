@@ -11,11 +11,9 @@ function AuctionatorKeywordSearchProviderMixin:CreateSearchTerm(term)
 
   return  {
     searchString = term,
-    minLevel = 0,
-    maxLevel = 1000,
     filters = {},
     itemClassFilters = {},
-    sorts = {},
+    sorts = {}
   }
 end
 
