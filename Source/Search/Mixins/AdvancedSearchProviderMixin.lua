@@ -67,7 +67,7 @@ local function ParseCompoundSearch(searchString)
       maxLevel = maxLevel,
       filters = {},
       itemClassFilters = itemClassFilters,
-      sorts = {sortOrder=1, reverseSort=false},
+      sorts = {},
     },
     extraFilters = {
       minItemLevel = minItemLevel,
