@@ -7,20 +7,12 @@ local ADVANCED_SEARCH_EVENTS = {
 }
 
 local function GetItemClassFilters(filterKey)
-  --Convert Auctionator.Search.FilterLookup results to right format
-  local result = {}
-  local itemClassEntry = {}
-  local subFilter = Auctionator.Search.FilterLookup[filterKey]
-  if subFilter ~= nil then
-    if subFilter.parentKey ~= nil then
-      itemClassEntry.subClassID = subFilter.classID
-      itemClassEntry.classID = Auctionator.Search.FilterLookup[subFilter.parentKey].classID
-    else
-      itemClassEntry.classID = subFilter.classID
-    end
-    table.insert(result, itemClassEntry)
+  local lookup = Auctionator.Search.FilterLookup[filterKey]
+  if lookup ~= nil then
+    return lookup.filter
+  else
+    return {}
   end
-  return result
 end
 
 local function IsCompoundSearch(searchString)
