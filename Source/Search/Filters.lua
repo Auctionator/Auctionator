@@ -29,6 +29,16 @@ local ITEM_CLASS_IDS = {
   LE_ITEM_CLASS_QUESTITEM,
   LE_ITEM_CLASS_MISCELLANEOUS
 }
+local INVENTORY_TYPE_IDS = {
+  LE_INVENTORY_TYPE_HEAD_TYPE,
+  LE_INVENTORY_TYPE_SHOULDER_TYPE,
+  LE_INVENTORY_TYPE_CHEST_TYPE,
+  LE_INVENTORY_TYPE_WAIST_TYPE,
+  LE_INVENTORY_TYPE_LEGS_TYPE,
+  LE_INVENTORY_TYPE_FEET_TYPE,
+  LE_INVENTORY_TYPE_WRIST_TYPE,
+  LE_INVENTORY_TYPE_HAND_TYPE,
+}
 
 Auctionator.Search.Filter = {
   classID = 0,
@@ -39,6 +49,7 @@ Auctionator.Search.Filter = {
   subClasses = {}
 }
 
+-- XXX: Ununsed in current code (was used in advanced search dialog)
 function Auctionator.Search.Filter.Find( key )
   local filter = Auctionator.Search.FilterLookup[ key ]
 
@@ -59,10 +70,32 @@ function Auctionator.Search.Filter:new( options )
   return options
 end
 
-local function GenerateSubClasses( classID, parentName, parentKey )
+local function GenerateArmorInventorySlots(parentKey, parentFilter)
+  local inventorySlots = {}
+  for index = 1, #INVENTORY_TYPE_IDS do
+    local name = GetItemInventorySlotInfo(INVENTORY_TYPE_IDS[index])
+
+    local filter = {
+      classID = parentFilter.classID,
+      subClassID = parentFilter.subClassID,
+      inventoryType = INVENTORY_TYPE_IDS[index],
+    }
+    local subSubClass = Auctionator.Search.Filter:new({
+      classID = subClassID,
+      name = name,
+      key = parentKey .. [[/]] .. name,
+      parentKey = parentKey,
+      filter = { filter }
+    })
+
+    table.insert( inventorySlots, subSubClass )
+  end
+  return inventorySlots
+end
+
+local function GenerateSubClasses( classID, parentKey )
   local subClassesTable = C_AuctionHouse.GetAuctionItemSubClasses( classID )
   local subClasses = {}
-  local subFilters = {}
 
   for index = 1, #subClassesTable do
     local subClassID = subClassesTable[ index ]
@@ -77,24 +110,28 @@ local function GenerateSubClasses( classID, parentName, parentKey )
       filter = { filter }
     })
 
-    table.insert( subFilters, filter )
     table.insert( subClasses, subClass )
+    if classID == LE_ITEM_CLASS_ARMOR then
+      local inventorySlots = GenerateArmorInventorySlots(subClass.key, filter)
+      for _, slot in ipairs(inventorySlots) do
+        table.insert(subClasses, slot)
+      end
+    end
   end
 
-  return subClasses, subFilters
+  return subClasses
 end
 
--- TODO: Will probably want to special case Armor for inventoryTypeFilters
 for index, classID in ipairs( ITEM_CLASS_IDS ) do
-  local name = GetItemClassInfo( classID )
-  local key = name
-  local subClasses, filter = GenerateSubClasses( classID, name, key )
+  local key = GetItemClassInfo( classID )
+  local subClasses = GenerateSubClasses( classID, key )
+  local filter = {classID = classID}
 
   local categoryFilter = Auctionator.Search.Filter:new({
     classID = classID,
     name = name,
     key = key,
-    filter = filter,
+    filter = {filter},
     subClasses = subClasses
   })
 
