@@ -70,6 +70,9 @@ function Auctionator.Search.Filter:new( options )
   return options
 end
 
+--Given a key and filter (classID and subClassID supplied, assumed to be for
+--armor), creates a new filter for each possible inventory slot.
+--Returns array of new filters
 local function GenerateArmorInventorySlots(parentKey, parentFilter)
   local inventorySlots = {}
   for index = 1, #INVENTORY_TYPE_IDS do
@@ -111,6 +114,8 @@ local function GenerateSubClasses( classID, parentKey )
     })
 
     table.insert( subClasses, subClass )
+
+    --Armor special case, adds inventory slot filters
     if classID == LE_ITEM_CLASS_ARMOR then
       local inventorySlots = GenerateArmorInventorySlots(subClass.key, filter)
       for _, slot in ipairs(inventorySlots) do

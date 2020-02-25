@@ -106,6 +106,7 @@ end
 function AuctionatorAdvancedSearchProviderMixin:GetSearchProvider()
   Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:GetSearchProvider()")
 
+  --Run the query, and save extra filter data for processing
   return function(searchTerm)
     C_AuctionHouse.SendBrowseQuery(searchTerm.query)
     self.currentFilter = searchTerm.extraFilters
@@ -115,6 +116,8 @@ end
 
 function AuctionatorAdvancedSearchProviderMixin:HasCompleteTermResults()
   Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:HasCompleteTermResults()")
+
+  --Loaded all the terms from API, and we have filtered every item
   return C_AuctionHouse.HasFullBrowseResults() and #(self.itemKeyInfoQueue) == 0
 end
 
@@ -140,9 +143,12 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults(addedResult
   local results = {}
 
   for index = 1, #addedResults do
-    if self:FilterByItemLevel(addedResults[index].itemKey) and
-      self:FilterByExact(addedResults[index].itemKey) then
-      table.insert(results, addedResults[index].itemKey)
+    -- Run filter checks on every item key. Some might not be added to the
+    -- results yet, but when the relevant information arrives in an event
+    if self:FilterByItemLevel(addedResults[index].itemKey) then
+      if self:FilterByExact(addedResults[index].itemKey) then
+        table.insert(results, addedResults[index].itemKey)
+      end
     end
   end
 
@@ -150,18 +156,23 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults(addedResult
 end
 
 function AuctionatorAdvancedSearchProviderMixin:ProcessItemKeyInfo(itemID)
-  --Work through all the items missing the info. They are only queued here if an
-  --exact search is taking place, so the check is run on any info found.
+  --Event for missing info received about itemID.
   for index, itemKey in ipairs(self.itemKeyInfoQueue) do
     local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(itemKey)
     if itemKeyInfo then
+      --Remove key from list of those with missing info
       table.remove(self.itemKeyInfoQueue, index)
+
+    --Only exact search uses this info, and the event won't have been queued
+    --otherwise.
       if self:ExactMatchCheck(itemKeyInfo) then
         self:AddResults({itemKey})
-      --Cause MultiSearch to move onto the next term
-      elseif #self.itemKeyInfoQueue == 0 then
+      else
+        --Post empty results, so the mixin supplying it runs
+        --self:HasCompleteTermResults() and can see if the search is complete
         self:AddResults({})
       end
+
       --Only one new result per event
       break
     end
@@ -169,10 +180,13 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessItemKeyInfo(itemID)
 end
 
 function AuctionatorAdvancedSearchProviderMixin:FilterByItemLevel(itemKey)
+  -- Check for 0 is to avoid filtering issues with glitchy AH APIs.
   if itemKey.itemLevel ~= nil and itemKey.itemLevel ~= 0 then
+    --Minimum item level check
     if (self.currentFilter.minItemLevel ~= nil and self.currentFilter.minItemLevel>itemKey.itemLevel) then
       return false
     end
+    --Maximum item level check
     if (self.currentFilter.maxItemLevel ~= nil and self.currentFilter.maxItemLevel<itemKey.itemLevel) then
       return false
     end
@@ -183,13 +197,18 @@ end
 function AuctionatorAdvancedSearchProviderMixin:FilterByExact(itemKey)
   if self.currentFilter.exactSearch ~= nil then
     local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(itemKey)
+
     if itemKeyInfo == nil then
-      --Remember key for use when the event supplying the missing info comes in
       Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:FilterByExact Missing itemKeyInfo")
+
+      --Put key in the queue for completing filtering later in an
+      --ITEM_KEY_ITEM_INFO_RECEIVED event
       table.insert(self.itemKeyInfoQueue, itemKey)
+
       return false
     else
       Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:FilterByExact Got itemKeyInfo", itemKeyInfo.itemName)
+
       return self:ExactMatchCheck(itemKeyInfo)
     end
   end
