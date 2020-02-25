@@ -39,10 +39,7 @@ local function ParseCompoundSearch(searchString)
     queryString = ""
   end
 
-  local itemClassFilters = {}
-  if filterKey~=nil then
-    itemClassFilters = GetItemClassFilters(filterKey)
-  end
+  local itemClassFilters = GetItemClassFilters(filterKey)
 
   minLevel = tonumber( minLevel )
   maxLevel = tonumber( maxLevel )
