@@ -6,7 +6,7 @@ local L = Auctionator.Localization.Localize
 
 -- TODO DOCUMENTATION
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
--- AUCTIONATOR_SHIFT_TIPS:
+-- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount)
   if itemKey==nil then
@@ -15,7 +15,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
 
   local showStackPrices = IsShiftKeyDown();
 
-  if (AUCTIONATOR_SHIFT_TIPS == 2) then
+  if not Auctionator.Config.Get(Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS) then
     showStackPrices = not IsShiftKeyDown();
   end
 
