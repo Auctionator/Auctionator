@@ -39,13 +39,6 @@ Auctionator.Search.Filter = {
   subClasses = {}
 }
 
--- TODO: Make this work, then can remove check in Atr_ASDD_Subclass_Initialize
--- Provides a null object for invalid lookups; intended use is for
--- rendering subclasses in Advanced Search UI
--- Auctionator.Search.FilterLookup.__index = function()
---   return Auctionator.Search.Filter:new()
--- end
-
 function Auctionator.Search.Filter.Find( key )
   local filter = Auctionator.Search.FilterLookup[ key ]
 
