@@ -1,6 +1,6 @@
 
 -- https://coronalabs.com/blog/2014/09/02/tutorial-printing-table-contents/
-function Auctionator.Util.Print( t, name )
+function Auctionator.Utilities.TablePrint( t, name )
   if not Auctionator.Debug.IsOn() then
     return
   end
@@ -8,7 +8,7 @@ function Auctionator.Util.Print( t, name )
   name = name or 'Unknown'
 
   print( '*************** TABLE ' .. name .. ' *****************' )
-  -- print( 'Util.Print', debugstack( 2, 1, 0 ) )
+  -- print( 'Utilities.Print', debugstack( 2, 1, 0 ) )
   local print_r_cache={}
 
   local function sub_print_r(t,indent)
@@ -45,7 +45,7 @@ function Auctionator.Util.Print( t, name )
   print()
 end
 
-function Auctionator.Util.FlatPrint( t )
+function Auctionator.Utilities.FlatPrint( t )
   local buffer = {}
 
   for position, value in pairs( t ) do
@@ -55,7 +55,7 @@ function Auctionator.Util.FlatPrint( t )
   print( [[{]] .. table.concat( buffer, ',' ) .. [[}]] )
 end
 
-function Auctionator.Util.UTF8_Truncate( string, options )
+function Auctionator.Utilities.UTF8_Truncate( string, options )
   options = options or {}
   local newLength = options.newLength or 127
 

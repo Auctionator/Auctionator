@@ -1,0 +1,87 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigSellingFrame"
+    mixin="AuctionatorConfigSellingFrameMixin"
+    parent="InterfaceOptionsFrame">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+    <Frames>
+      <Frame name="$parent_TitleArea" inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="Undercutting" type="string" />
+          <KeyValue key="subTitleText" value="Options to set undercutting percent or values." type="string"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame name="$parent_SalesSettings" inherits="AuctionatorConfigurationHeadingFrame" parentKey="SalesSettings">
+        <KeyValues>
+          <KeyValue key="headingText" value="Sales Settings" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_DurationHeading" inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="DurationHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="Default Auction Duration" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_SalesSettings" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_Duration12" inherits="AuctionatorConfigurationRadioButton" parentKey="Duration12">
+        <KeyValues>
+          <KeyValue key="labelText" value="12 Hours" type="string"/>
+          <KeyValue key="value" value="12" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_DurationHeading" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_Duration24" inherits="AuctionatorConfigurationRadioButton" parentKey="Duration24">
+        <KeyValues>
+          <KeyValue key="labelText" value="24 Hours" type="string"/>
+          <KeyValue key="value" value="24" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_Duration12" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_Duration48" inherits="AuctionatorConfigurationRadioButton" parentKey="Duration48">
+        <KeyValues>
+          <KeyValue key="labelText" value="48 Hours" type="string"/>
+          <KeyValue key="value" value="48" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_Duration24" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_UndercuttingHeading" inherits="AuctionatorConfigurationHeadingFrame" parentKey="UndercuttingHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="Undercutting Settings" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_Duration48" relativePoint="BOTTOMLEFT" y="-8" />
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_UndercutPercentage" inherits="AuctionatorConfigurationNumericInput" parentKey="UndercutPercentage">
+        <KeyValues>
+          <KeyValue key="labelText" value="Undercut percentage" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Undercut Percentage" type="string"/>
+          <KeyValue key="tooltipText" value="The undercut percentage that will be used to calculate the sell price for items. For example, a value of 5 means that your item will be posted at 5% less than the current lowest price." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_UndercuttingHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

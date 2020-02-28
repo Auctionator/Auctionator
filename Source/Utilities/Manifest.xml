@@ -8,5 +8,6 @@
   <Script file="IsPetItemKey.lua"/>
   <Script file="Message.lua"/>
   <Script file="ToggleAuctionHouseTab.lua"/>
+  <Script file="Table.lua" />
   <Script file="Debug.lua"/>
 </Ui>

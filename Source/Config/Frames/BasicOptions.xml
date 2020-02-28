@@ -1,0 +1,81 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigBasicOptionsFrame"
+    mixin="AuctionatorConfigBasicOptionsFrameMixin"
+    parent="InterfaceOptionsFrame">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+    <Frames>
+      <Frame name="$parent_TitleArea" inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="Basic Options" type="string" />
+          <KeyValue key="subTitleText" value="Basic options for enabling features in Auctionator." type="string"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame name="$parent_ShoppingListHeading" inherits="AuctionatorConfigurationHeadingFrame" parentKey="ShoppingListHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="Shopping List Settings" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_ShowLists" inherits="AuctionatorConfigurationCheckbox" parentKey="ShowLists">
+        <KeyValues>
+          <KeyValue key="labelText" value="Show shopping list sidebar when Auction House is opened." type="string" />
+          <KeyValue key="tooltipTitleText" value="Shopping List Sidebar" type="string" />
+          <KeyValue key="tooltipText" value="Shows the shopping list sidebar when the auction house is opened. If the sidebar is hidden, you may show it by clicking the 'Shopping Lists' button in the auction house." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_ShoppingListHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_Autoscan" inherits="AuctionatorConfigurationCheckbox" parentKey="Autoscan">
+        <KeyValues>
+          <KeyValue key="labelText" value="Run autoscan when Auction House is opened." type="string" />
+          <KeyValue key="tooltipTitleText" value="Autoscan" type="string" />
+          <KeyValue key="tooltipText" value="Run a full scan when the auction house is opened. If not selected, you may run a full scan by clicking the 'Full Scan' button in the auction house." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_ShowLists" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_AutoListSearch" inherits="AuctionatorConfigurationCheckbox" parentKey="AutoListSearch">
+        <KeyValues>
+          <KeyValue key="labelText" value="Automatically scan for shopping list items." type="string" />
+          <KeyValue key="tooltipTitleText" value="Automatic List Search" type="string" />
+          <KeyValue key="tooltipText" value="When a list is selected, automatically scan the auction house for the list entries. When this option is off, you may scan for the entire list when selecting the 'Search' button in the Shopping List sidebar." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_Autoscan" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_DebugHeading" inherits="AuctionatorConfigurationHeadingFrame" parentKey="DebugHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="Developer Settings" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_AutoListSearch" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_Debug" inherits="AuctionatorConfigurationCheckbox" parentKey="Debug">
+        <KeyValues>
+          <KeyValue key="labelText" value="Toggle debug output." type="string" />
+          <KeyValue key="tooltipTitleText" value="Auctionator Debug" type="string" />
+          <KeyValue key="tooltipText" value="This is used by the maintainers to output debug messages to the chat frame." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parent_DebugHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

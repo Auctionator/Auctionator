@@ -883,7 +883,7 @@ function Atr_ASDD_Subclass_Initialize( self )
   local parentFilter = Auctionator.FilterLookup[ parentFilterKey ]
 
   Auctionator.Debug.Message( 'parent filter key is ', parentFilterKey )
-  Auctionator.Util.Print( parentFilter, parentFilterKey )
+  Auctionator.Utilities.TablePrint( parentFilter, parentFilterKey )
 
   -- TODO not a fan of this special casing bullshit
   if parentFilterKey == 0 then

@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Tooltip.lua"/>
+
+  <Script file="TitleFrame.lua"/>
+
+  <Script file="CheckBox.lua"/>
+  <Script file="RadioButton.lua"/>
+  <Script file="NumericInputBox.lua"/>
+
+  <Script file="Heading.lua"/>
+  <Script file="SubHeading.lua"/>
+</Ui>

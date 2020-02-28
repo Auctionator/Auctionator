@@ -8,6 +8,8 @@ Auctionator.Config.Options = {
   SHOW_LISTS = "show_lists",
   AUTOSCAN = "autoscan",
   AUTO_LIST_SEARCH = "auto_list_search",
+  UNDERCUT_PERCENTAGE = "undercut_percentage",
+  AUCTION_DURATION = "auction_duration",
 }
 
 local defaults = {
@@ -20,6 +22,8 @@ local defaults = {
   [Auctionator.Config.Options.SHOW_LISTS] = true,
   [Auctionator.Config.Options.AUTOSCAN] = true,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
+  [Auctionator.Config.Options.UNDERCUT_PERCENTAGE] = 5,
+  [Auctionator.Config.Options.AUCTION_DURATION] = 24,
 }
 
 local function isValidOption(name)
