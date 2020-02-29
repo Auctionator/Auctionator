@@ -20,11 +20,7 @@ zcUtils.lua
 Locales\Manifest.xml
 Source\Manifest.xml
 
-AuctionatorFilters.lua
-
 AuctionatorItemLink.lua
-AuctionatorSearch.lua
-AuctionatorSearchQuery.lua
 
 Auctionator.lua
 AuctionatorShop.lua

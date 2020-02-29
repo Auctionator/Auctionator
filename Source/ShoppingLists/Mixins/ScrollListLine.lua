@@ -1,7 +1,16 @@
-AuctionatorScrollListLineMixin = CreateFromMixins(ScrollListLineMixin, TableBuilderRowMixin, AuctionatorEventBus)
+AuctionatorScrollListLineMixin = CreateFromMixins(ScrollListLineMixin, TableBuilderRowMixin, AuctionatorEventBus, AuctionatorAdvancedSearchProviderMixin)
 
 function AuctionatorScrollListLineMixin:OnLoad()
   self:Register(self, { Auctionator.ShoppingLists.Events.DeleteFromList })
+  self:InitSearch(
+    function(results)
+      self:EndSearch(results)
+    end
+  )
+end
+
+function AuctionatorScrollListLineMixin:OnEvent(eventName, ...)
+  self:OnSearchEvent(eventName, ...)
 end
 
 function AuctionatorScrollListLineMixin:InitLine(scrollFrame)
@@ -65,16 +74,11 @@ function AuctionatorScrollListLineMixin:OnLeave()
 end
 
 function AuctionatorScrollListLineMixin:OnSelected()
-  local query = {}
+  self:Search({self.searchTerm})
+end
 
-  query.searchString = self.searchTerm
-  query.minLevel = 0
-  query.maxLevel = 1000
-  query.filters = {}
-  query.itemClassFilters = {}
-  query.sorts = {}
-
-  C_AuctionHouse.SendBrowseQuery(query)
+function AuctionatorScrollListLineMixin:EndSearch(results)
+  C_AuctionHouse.SearchForItemKeys(results, {sortOrder = 1, reverseSort = false})
 end
 
 AuctionatorScrollListLineDeleteMixin = {}

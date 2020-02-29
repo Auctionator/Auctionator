@@ -6,8 +6,6 @@ Auctionator = {
   Constants = {},
   Util = {},
   Utilities = {},
-  Filters = {},
-  FilterLookup = {},
   Events = {},
   SlashCmd = {},
 
@@ -35,6 +33,10 @@ Auctionator = {
     ---- Tracks whether or not the last full scan completed (i.e. wasn't interrupted by AH close or other event)
     -- Completed = false
     }
+  },
+  Search = {
+    Filters = {},
+    FilterLookup = {}
   },
   Tooltip = {},
   Localization = {},
