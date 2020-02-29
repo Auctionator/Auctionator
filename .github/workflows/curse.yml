@@ -19,7 +19,7 @@ jobs:
       with:
         path: 'Auctionator'
     - name: Delete files for curse
-      run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore Auctionator/.git Auctionator/docs
+      run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore Auctionator/.git Auctionator/docs Auctionator/test-data
     - name: Generate build number
       id: buildnumber
       uses: einaregilsson/build-number@v2 
