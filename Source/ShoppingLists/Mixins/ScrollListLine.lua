@@ -78,7 +78,7 @@ function AuctionatorScrollListLineMixin:OnSelected()
 end
 
 function AuctionatorScrollListLineMixin:EndSearch(results)
-  C_AuctionHouse.SearchForItemKeys(results, {sortOrder = 1, reverseSort = false})
+  Auctionator.Search.SafeItemKeysSearch(results)
 end
 
 AuctionatorScrollListLineDeleteMixin = {}
