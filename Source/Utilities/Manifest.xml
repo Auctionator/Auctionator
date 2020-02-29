@@ -11,4 +11,5 @@
   <Script file="ToggleAuctionHouseTab.lua"/>
   <Script file="Table.lua" />
   <Script file="Debug.lua"/>
+  <Script file="Slice.lua"/>
 </Ui>
