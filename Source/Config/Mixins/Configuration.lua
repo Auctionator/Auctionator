@@ -6,16 +6,6 @@ function AuctionatorConfigFrameMixin:OnLoad()
   self.name = "Auctionator"
 
   self:SetupPanel()
-
-  -- AuctionatorConfigBasicOptionsFrame:Init()
-  -- AuctionatorConfigTooltipsFrame:Init()
-  -- AuctionatorConfigUndercuttingFrame:Init()
-  -- AuctionatorConfigSellingFrame:Init()
-  -- AuctionatorConfigDatabaseFrame:Init()
-  -- AuctionatorConfigClearDataFrame:Init()
-  -- AuctionatorConfigAboutFrame:Init()
-
-  -- self.AuctionatorDebug.CheckBox.Label:SetText("Debug")
 end
 
 function AuctionatorConfigFrameMixin:Show()
