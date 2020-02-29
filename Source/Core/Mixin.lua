@@ -46,8 +46,8 @@ local function InitializeAuctionatorButtonFrame()
   AuctionatorButtonFrame:Show()
 end
 
-function AuctionatorAHFrameMixin:OnLoad()
-  Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnLoad()")
+function AuctionatorAHFrameMixin:OnShow()
+  Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
   InitializeShoppingListFrame()
   InitializeScanFrame()
