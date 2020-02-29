@@ -3,11 +3,14 @@
     name="AuctionatorConfigTooltipsFrame"
     mixin="AuctionatorConfigTooltipsFrameMixin"
     parent="InterfaceOptionsFrame">
+
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
     </Scripts>
-      <Frames>
+
+    <Frames>
       <Frame name="$parent_TitleArea" inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
           <KeyValue key="titleText" value="Tooltips" type="string" />

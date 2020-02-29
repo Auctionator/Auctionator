@@ -3,10 +3,13 @@
     name="AuctionatorConfigBasicOptionsFrame"
     mixin="AuctionatorConfigBasicOptionsFrameMixin"
     parent="InterfaceOptionsFrame">
+
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
     </Scripts>
+
     <Frames>
       <Frame name="$parent_TitleArea" inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
