@@ -49,7 +49,7 @@ Auctionator.Search.Filter = {
   subClasses = {}
 }
 
--- XXX: Ununsed in current code (was used in advanced search dialog)
+-- TODO: Ununsed in current code (was used in advanced search dialog)
 function Auctionator.Search.Filter.Find( key )
   local filter = Auctionator.Search.FilterLookup[ key ]
 

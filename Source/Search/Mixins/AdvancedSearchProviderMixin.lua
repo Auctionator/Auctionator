@@ -21,11 +21,7 @@ local function GetItemClassFilters(filterKey)
 end
 
 local function IsCompoundSearch(searchString)
-  if searchString == nil then
-    return false;
-  else
-    return Auctionator.Utilities.StringContains (searchString, Auctionator.Constants.AdvancedSearchDivider);
-  end
+  return Auctionator.Utilities.StringContains(searchString, Auctionator.Constants.AdvancedSearchDivider);
 end
 
 local function ParseCompoundSearch(searchString)
@@ -38,8 +34,6 @@ local function ParseCompoundSearch(searchString)
   if queryString == nil then
     queryString = ""
   end
-
-  local itemClassFilters = GetItemClassFilters(filterKey)
 
   minLevel = tonumber( minLevel )
   maxLevel = tonumber( maxLevel )
@@ -62,23 +56,26 @@ local function ParseCompoundSearch(searchString)
     maxItemLevel = nil
   end
 
-  local exactSearch = ExtractExactSearch(queryString)
-
   return {
     query = {
       searchString = queryString,
       minLevel = minLevel,
       maxLevel = maxLevel,
       filters = {},
-      itemClassFilters = itemClassFilters,
+      itemClassFilters = GetItemClassFilters(filterKey),
       sorts = {},
     },
     extraFilters = {
       minItemLevel = minItemLevel,
       maxItemLevel = maxItemLevel,
-      exactSearch = exactSearch,
+      exactSearch = ExtractExactSearch(queryString),
     }
   }
+end
+
+local function HasItemLevel(itemKey)
+  -- Check for 0 is to avoid filtering issues with glitchy AH APIs.
+  return itemKey.itemLevel ~= nil and itemKey.itemLevel ~= 0
 end
 
 function AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm(term)
@@ -142,10 +139,9 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults(addedResult
   for index = 1, #addedResults do
     -- Run filter checks on every item key. Some might not be added to the
     -- results yet, but when the relevant information arrives in an event
-    if self:FilterByItemLevel(addedResults[index].itemKey) then
-      if self:FilterByExact(addedResults[index].itemKey) then
-        table.insert(results, addedResults[index].itemKey)
-      end
+    if self:FilterByItemLevel(addedResults[index].itemKey) and
+       self:FilterByExact(addedResults[index].itemKey) then
+      table.insert(results, addedResults[index].itemKey)
     end
   end
 
@@ -160,13 +156,13 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessItemKeyInfo(itemID)
       --Remove key from list of those with missing info
       table.remove(self.itemKeyInfoQueue, index)
 
-    --Only exact search uses this info, and the event won't have been queued
-    --otherwise.
+      --Only exact search uses this info, and the event won't have been queued
+      --otherwise.
       if self:ExactMatchCheck(itemKeyInfo) then
         self:AddResults({itemKey})
       else
-        --Post empty results, so the mixin supplying it runs
-        --self:HasCompleteTermResults() and can see if the search is complete
+      --Post empty results, so the mixin supplying it runs
+      --self:HasCompleteTermResults() and can see if the search is complete
         self:AddResults({})
       end
 
@@ -177,18 +173,20 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessItemKeyInfo(itemID)
 end
 
 function AuctionatorAdvancedSearchProviderMixin:FilterByItemLevel(itemKey)
-  -- Check for 0 is to avoid filtering issues with glitchy AH APIs.
-  if itemKey.itemLevel ~= nil and itemKey.itemLevel ~= 0 then
-    --Minimum item level check
-    if (self.currentFilter.minItemLevel ~= nil and self.currentFilter.minItemLevel>itemKey.itemLevel) then
-      return false
-    end
-    --Maximum item level check
-    if (self.currentFilter.maxItemLevel ~= nil and self.currentFilter.maxItemLevel<itemKey.itemLevel) then
-      return false
-    end
-  end
-  return true
+  return (not HasItemLevel(itemKey)) or self:ItemLevelFilterSatisfied(itemKey)
+end
+
+function AuctionatorAdvancedSearchProviderMixin:ItemLevelFilterSatisfied(itemKey)
+  return
+    (
+      --Minimum item level check
+      self.currentFilter.minItemLevel == nil or
+      self.currentFilter.minItemLevel <= itemKey.itemLevel
+    ) and (
+      --Maximum item level check
+      self.currentFilter.maxItemLevel == nil or
+      self.currentFilter.maxItemLevel >= itemKey.itemLevel
+    )
 end
 
 function AuctionatorAdvancedSearchProviderMixin:FilterByExact(itemKey)
@@ -209,11 +207,12 @@ function AuctionatorAdvancedSearchProviderMixin:FilterByExact(itemKey)
       return self:ExactMatchCheck(itemKeyInfo)
     end
   end
+
   return true
 end
 
 function AuctionatorAdvancedSearchProviderMixin:ExactMatchCheck(itemKeyInfo)
-  return (string.lower(itemKeyInfo.itemName) == string.lower(self.currentFilter.exactSearch))
+  return string.lower(itemKeyInfo.itemName) == string.lower(self.currentFilter.exactSearch)
 end
 
 function AuctionatorAdvancedSearchProviderMixin:RegisterProviderEvents()

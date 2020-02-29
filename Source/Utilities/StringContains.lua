@@ -3,12 +3,8 @@ function Auctionator.Utilities.StringContains(s, sub, ...)
     return false;
   end
 
-  local start, stop = string.find(string.lower(s), string.lower(sub), 1, true);
-
-  local found = (start ~= nil);
-
-  if found or select("#", ...) == 0 then
-    return found;
+  if string.find(string.lower(s), string.lower(sub), 1, true) ~= nil then
+    return true;
   end
 
   return Auctionator.Utilities.StringContains(s, ...);
