@@ -14,10 +14,6 @@ function Auctionator.Events.Handler(self, event, ...)
     Auctionator.Events.OnAuctionHouseShow()
   elseif event == "AUCTION_HOUSE_CLOSED" then
     Auctionator.Events.OnAuctionHouseClosed()
-  elseif event == "AUCTION_HOUSE_BROWSE_RESULTS_ADDED" then
-    Auctionator.Events.BrowseResultsAdded(...)
-  elseif event == "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED" then
-    Auctionator.Events.BrowseResultsUpdated(...)
   elseif event == "ITEM_SEARCH_RESULTS_ADDED" then
     Auctionator.Events.ItemSearchResultsAdded(...)
   elseif event == "ITEM_SEARCH_RESULTS_UPDATED" then

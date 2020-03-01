@@ -22,9 +22,9 @@ local function InitializeShoppingListFrame()
   end
 end
 
-local function InitializeScanFrame()
+local function InitializeFullScanFrame()
   local frame
-  if Auctionator.State.ScanFrameRef == nil then
+  if Auctionator.State.FullScanFrameRef == nil then
     frame = CreateFrame(
       "FRAME",
       "AuctionatorFullScanFrame",
@@ -32,12 +32,27 @@ local function InitializeScanFrame()
       "AuctionatorFullScanFrameTemplate"
     )
 
-    Auctionator.State.ScanFrameRef = frame
+    Auctionator.State.FullScanFrameRef = frame
   else
-    frame = Auctionator.State.ScanFrameRef
+    frame = Auctionator.State.FullScanFrameRef
   end
   if Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) then
     frame:InitiateScan()
+  end
+end
+
+local function InitializeIncrementalScanFrame()
+  if Auctionator.State.IncrementalScanFrameRef == nil then
+    frame = CreateFrame(
+      "FRAME",
+      "AuctionatorIncrementalScanFrame",
+      AuctionHouseFrame,
+      "AuctionatorIncrementalScanFrameTemplate"
+    )
+
+    Auctionator.State.IncrementalScanFrameRef = frame
+  else
+    frame = Auctionator.State.IncrementalScanFrameRef
   end
 end
 
@@ -50,7 +65,8 @@ function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
   InitializeShoppingListFrame()
-  InitializeScanFrame()
+  InitializeFullScanFrame()
+  InitializeIncrementalScanFrame()
   InitializeAuctionatorButtonFrame()
 end
 
@@ -74,5 +90,5 @@ function AuctionatorButtonFrameMixin:ToggleShoppingLists()
 end
 
 function AuctionatorButtonFrameMixin:AutoScan()
-  Auctionator.State.ScanFrameRef:InitiateScan()
+  Auctionator.State.FullScanFrameRef:InitiateScan()
 end
