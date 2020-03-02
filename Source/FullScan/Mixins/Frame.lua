@@ -105,7 +105,8 @@ end
 function AuctionatorFullScanFrameMixin:EndProcessing()
   Auctionator.Debug.Message("BeginProcessing() completed in " .. tostring(debugprofilestop() - self.startTime))
 
-  Auctionator.Database.ProcessScan(self.prices)
+  local count = Auctionator.Database.ProcessScan(self.prices)
+  Auctionator.Utilities.Message("Finished processing " .. count .. " items.")
 
   self.processingComplete = true
   self.state.InProgress = false
