@@ -64,9 +64,9 @@ end
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
-  InitializeShoppingListFrame()
   InitializeFullScanFrame()
   InitializeIncrementalScanFrame()
+  InitializeShoppingListFrame()
   InitializeAuctionatorButtonFrame()
 end
 
