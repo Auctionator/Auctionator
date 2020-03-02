@@ -26,8 +26,8 @@ function Auctionator.Database.ProcessScan(priceIndexes)
     Auctionator.Database.UpdateHistory(itemID, minPrice)
   end
 
-  Auctionator.Utilities.Message("Finished processing " .. count .. " items.")
   Auctionator.Debug.Message("Processing time: " .. tostring(debugprofilestop() - startTime))
+  return count
 end
 
 --(I'm guessing) Records historical price data.
