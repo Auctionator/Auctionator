@@ -20,55 +20,23 @@ local function GetItemClassFilters(filterKey)
   end
 end
 
-local function IsCompoundSearch(searchString)
-  return Auctionator.Utilities.StringContains(searchString, Auctionator.Constants.AdvancedSearchDivider);
-end
+local function ParseAdvancedSearch(searchString)
 
-local function ParseCompoundSearch(searchString)
-  local delimiter = Auctionator.Constants.AdvancedSearchDivider
-
-  local queryString, filterKey, minItemLevel, maxItemLevel, minLevel, maxLevel =
-    strsplit( delimiter, searchString )
-
-  -- A nil queryString causes a disconnect, but an empty one doesn't
-  if queryString == nil then
-    queryString = ""
-  end
-
-  minLevel = tonumber( minLevel )
-  maxLevel = tonumber( maxLevel )
-  minItemLevel = tonumber( minItemLevel )
-  maxItemLevel = tonumber( maxItemLevel )
-
-  if minLevel == 0 then
-    minLevel = nil
-  end
-
-  if maxLevel == 0 then
-    maxLevel = nil
-  end
-
-  if minItemLevel == 0 then
-    minItemLevel = nil
-  end
-
-  if maxItemLevel == 0 then
-    maxItemLevel = nil
-  end
+  local parsed = Auctionator.Search.SplitAdvancedSearch(searchString)
 
   return {
     query = {
-      searchString = queryString,
-      minLevel = minLevel,
-      maxLevel = maxLevel,
+      searchString = parsed.queryString,
+      minLevel = parsed.minLevel,
+      maxLevel = parsed.maxLevel,
       filters = {},
-      itemClassFilters = GetItemClassFilters(filterKey),
+      itemClassFilters = GetItemClassFilters(parsed.filterKey),
       sorts = {},
     },
     extraFilters = {
-      minItemLevel = minItemLevel,
-      maxItemLevel = maxItemLevel,
-      exactSearch = ExtractExactSearch(queryString),
+      minItemLevel = parsed.minItemLevel,
+      maxItemLevel = parsed.maxItemLevel,
+      exactSearch = ExtractExactSearch(parsed.queryString),
     }
   }
 end
@@ -80,8 +48,8 @@ end
 
 function AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm(term)
   Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm()", term)
-  if IsCompoundSearch(term) then
-    return ParseCompoundSearch(term)
+  if Auctionator.Search.IsAdvancedSearch(term) then
+    return ParseAdvancedSearch(term)
   else
     return  {
       query = {
