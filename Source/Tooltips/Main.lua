@@ -21,7 +21,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
 
   local countString = ""
   if itemCount and showStackPrices then
-    countString = "|cFFAAAAFF x" .. itemCount .. "|r"
+    countString = Auctionator.Utilities.CreateCountString(itemCount)
   end
 
   local auctionPrice = Auctionator.Database.GetPrice(itemKey)
