@@ -12,4 +12,6 @@
   <Script file="Table.lua" />
   <Script file="Debug.lua"/>
   <Script file="Slice.lua"/>
+  <Script file="CreateCountString.lua"/>
+  <Script file="CreateMoneyString.lua"/>
 </Ui>

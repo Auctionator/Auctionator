@@ -56,6 +56,21 @@ local function InitializeIncrementalScanFrame()
   end
 end
 
+local function InitializeAuctionChatLogFrame()
+  if Auctionator.State.AuctionChatLogFrameRef == nil then
+    frame = CreateFrame(
+      "FRAME",
+      "AuctionatorAuctionChatLogFrame",
+      AuctionHouseFrame,
+      "AuctionatorAuctionChatLogFrameTemplate"
+    )
+
+    Auctionator.State.AuctionChatLogFrameRef = frame
+  else
+    frame = Auctionator.State.AuctionChatLogFrameRef
+  end
+end
+
 local function InitializeAuctionatorButtonFrame()
   AuctionatorButtonFrame:SetPoint("BOTTOMRIGHT", AuctionHouseFrame, "TOPRIGHT")
   AuctionatorButtonFrame:Show()
@@ -66,6 +81,7 @@ function AuctionatorAHFrameMixin:OnShow()
 
   InitializeFullScanFrame()
   InitializeIncrementalScanFrame()
+  InitializeAuctionChatLogFrame()
   InitializeShoppingListFrame()
   InitializeAuctionatorButtonFrame()
 end
