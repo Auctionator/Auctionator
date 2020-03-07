@@ -7,11 +7,11 @@ function Auctionator.Database.ProcessScan(priceIndexes)
   local count = 0
 
   local db = Auctionator.State.LiveDB
-  for itemID, prices in pairs(priceIndexes) do
+  for itemKey, prices in pairs(priceIndexes) do
     count = count + 1
 
-    if not db[itemID] then
-      db[itemID] = {}
+    if not db[itemKey] then
+      db[itemKey] = {}
     end
 
     local minPrice = prices[1]
@@ -22,8 +22,8 @@ function Auctionator.Database.ProcessScan(priceIndexes)
       end
     end
 
-    db[itemID].mr = minPrice
-    Auctionator.Database.UpdateHistory(itemID, minPrice)
+    db[itemKey].mr = minPrice
+    Auctionator.Database.InternalUpdateHistory(itemKey, minPrice)
   end
 
   Auctionator.Debug.Message("Processing time: " .. tostring(debugprofilestop() - startTime))
@@ -31,17 +31,17 @@ function Auctionator.Database.ProcessScan(priceIndexes)
 end
 
 --(I'm guessing) Records historical price data.
-function Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
+function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice)
   local db = Auctionator.State.LiveDB
 
   -- TODO Move this into a namespaced function
   local daysSinceZero = Atr_GetScanDay_Today()
 
-  local lowlow  = db[itemID]["L" .. daysSinceZero]
-  local highlow = db[itemID]["H" .. daysSinceZero]
+  local lowlow  = db[itemKey]["L" .. daysSinceZero]
+  local highlow = db[itemKey]["H" .. daysSinceZero]
 
   if (highlow == nil or buyoutPrice > highlow) then
-    db[itemID]["H"..daysSinceZero] = buyoutPrice
+    db[itemKey]["H"..daysSinceZero] = buyoutPrice
     highlow = buyoutPrice
   end
 
@@ -51,12 +51,12 @@ function Auctionator.Database.UpdateHistory(itemID, buyoutPrice)
   local isNewAndDifferent   = (lowlow == nil and buyoutPrice < highlow)
 
   if (isLowerThanLow or isNewAndDifferent) then
-    db[itemID]["L"..daysSinceZero] = buyoutPrice
+    db[itemKey]["L"..daysSinceZero] = buyoutPrice
   end
 end
 
 -- TODO DOCUMENTATION
--- id: itemId
+-- id: itemKey
 -- mr: currentLowPrice (most recent)
 -- cc: classID
 -- sc: subclassID
@@ -64,9 +64,9 @@ end
 -- H[age]: highest price seen *today* (of the lowest prices for all scans today)?
 -- po: mark for purge (!= nil)
 
-function Auctionator.Database.GetPrice(itemId)
-  if Auctionator.State.LiveDB[itemId] ~= nil then
-    return Auctionator.State.LiveDB[itemId].mr
+function Auctionator.Database.GetPrice(itemKey)
+  if Auctionator.State.LiveDB[itemKey] ~= nil then
+    return Auctionator.State.LiveDB[itemKey].mr
   else
     return nil
   end
