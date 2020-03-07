@@ -52,7 +52,7 @@ function AuctionatorScrollListLineMixin:DeleteItem()
 end
 
 function AuctionatorScrollListLineMixin:UpdateDisplay()
-  self.Text:SetText(self.searchTerm)
+  self.Text:SetText(Auctionator.Search.PrettifySearchString(self.searchTerm))
 end
 
 function AuctionatorScrollListLineMixin:Populate(searchTerm, dataIndex)
