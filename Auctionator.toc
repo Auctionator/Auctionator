@@ -10,35 +10,9 @@
 ## SavedVariablesPerCharacter: AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_OPEN_FIRST, AUCTIONATOR_OPEN_BUY, AUCTIONATOR_DEF_DURATION, AUCTIONATOR_SHOW_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_DE_DETAILS_TIPS, AUCTIONATOR_DEFTAB
 ## SavedVariables: AUCTIONATOR_CONFIG, AUCTIONATOR_SAVEDVARS, AUCTIONATOR_PRICING_HISTORY, AUCTIONATOR_SHOPPING_LISTS, AUCTIONATOR_PRICE_DATABASE, AUCTIONATOR_TOONS, AUCTIONATOR_STACKING_PREFS, AUCTIONATOR_DB_MAXITEM_AGE, AUCTIONATOR_DB_MAXHIST_AGE, AUCTIONATOR_DB_MAXHIST_DAYS, AUCTIONATOR_FS_CHUNK, AUCTIONATOR_DE_DATA, AUCTIONATOR_DE_DATA_BAK, ITEM_ID_VERSION
 
-Patches\UIDropDownMenuTaintHonor.lua
-Patches\UIDropDownMenuTaintCommunities.lua
-
-Libs\LibItemUpgradeInfo-1.0\LibItemUpgradeInfo-1.0.xml
-
 zcUtils.lua
 
 Locales\Manifest.xml
 Source\Manifest.xml
 
-AuctionatorItemLink.lua
-
-Auctionator.lua
-AuctionatorShop.lua
-
 Auctionator.xml
-
-AuctionatorPane.lua
-AuctionatorDatabase.lua
-AuctionatorScan.lua
-AuctionatorScanFull.lua
-AuctionatorQuery.lua
-
-Source\Tooltips\Manifest.xml
-
-AuctionatorVendor.lua
-AuctionatorConflicts.lua
-AuctionatorAPI.lua
-# AuctionatorConfig.lua
-AuctionatorBuy.lua
-
-# AuctionatorConfig.xml

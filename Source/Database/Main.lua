@@ -36,6 +36,14 @@ function Auctionator.Database.ProcessScan(priceIndexes)
   return count
 end
 
+--IMPORTED FROM OLD CODE START
+gScanHistDayZero = time({year=2010, month=11, day=15, hour=0});   -- never ever change
+
+function Atr_GetScanDay_Today()
+  return (math.floor ((time() - gScanHistDayZero) / (86400)));
+end
+--IMPORTED FROM OLD CODE END
+
 --(I'm guessing) Records historical price data.
 function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice)
   local db = Auctionator.State.LiveDB

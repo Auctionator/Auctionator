@@ -1,9 +1,0 @@
-## Interface: 80000
-## Title: Lib: ItemUpgradeInfo-1.0
-## Notes: Database of item upgrade IDs
-## Author: eridius
-## Version: Release-80000-30 70200
-## X-Revision: bb6dcff
-## X-Category: Library
-
-LibItemUpgradeInfo-1.0.xml

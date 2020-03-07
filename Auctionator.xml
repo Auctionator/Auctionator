@@ -1,16 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <!-- Template Includes -->
-  <Include file="UI/Templates/Fonts.xml" />
-
-  <Include file="UI/Templates/Buttons/SmallButtonTemplate.xml" />
-  <Include file="UI/Templates/Buttons/ClickableColumnHeading.xml" />
-
-  <Include file="UI/Templates/Dialogs/Default.xml" />
-
-  <Include file="UI/Templates/Buttons/ResultRow.xml" />
-  <Include file="UI/Templates/Buttons/HistoryRow.xml" />
-
-  <Include file="UI/Templates/Frames/Sell.xml" />
 
   <!-- Frame to handle all core events -->
   <Frame name="AuctionatorCore">
@@ -18,25 +6,10 @@
       <OnLoad>
         Auctionator.Debug.Message("AuctionatorCore Frame", "OnLoad")
         Auctionator.Events.CoreFrameLoaded(self)
-        <!-- Atr_RegisterEvents( self )
-        self.TimeSinceLastUpdate = 0 -->
        </OnLoad>
-      <OnUpdate>
-        <!-- Atr_OnUpdate( self, elapsed ) -->
-      </OnUpdate>
       <OnEvent>
         Auctionator.Events.Handler(self, event, ...)
       </OnEvent>
     </Scripts>
   </Frame>
-
-  <!-- UI Components -->
-  <Include file="UI/Frames/ErrorMessage.xml" />
-  <Include file="UI/Frames/ConfirmationDialog.xml" />
-  <Include file="UI/Frames/MaskFrame.xml" />
-  <Include file="UI/Frames/BuyConfirmationDialog.xml" />
-  <Include file="UI/Frames/CheckActives.xml" />
-  <Include file="UI/Frames/CancelAuctionConfirmation.xml" />
-  <Include file="UI/Frames/FullScan.xml" />
-  <Include file="UI/Frames/AdvancedSearchDialog.xml" />
 </Ui>

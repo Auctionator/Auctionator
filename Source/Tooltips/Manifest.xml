@@ -1,7 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <!-- TODO Possibly remove... -->
-  <Script file="OldStuff.lua" />
-
   <Script file="Main.lua"/>
 
   <Script file="Hooks.lua"/>
