@@ -1,3 +1,15 @@
+function Auctionator.Database.SetPrice(itemKey, newMinPrice)
+  local db = Auctionator.State.LiveDB
+
+  if not db[itemKey] then
+    db[itemKey] = {}
+  end
+
+  db[itemKey].mr = newMinPrice
+
+  Auctionator.Database.InternalUpdateHistory(itemKey, newMinPrice)
+end
+
 --Takes all the items with a list of their prices, and determines the minimum
 --price.
 function Auctionator.Database.ProcessScan(priceIndexes)
@@ -6,13 +18,8 @@ function Auctionator.Database.ProcessScan(priceIndexes)
 
   local count = 0
 
-  local db = Auctionator.State.LiveDB
   for itemKey, prices in pairs(priceIndexes) do
     count = count + 1
-
-    if not db[itemKey] then
-      db[itemKey] = {}
-    end
 
     local minPrice = prices[1]
 
@@ -22,8 +29,7 @@ function Auctionator.Database.ProcessScan(priceIndexes)
       end
     end
 
-    db[itemKey].mr = minPrice
-    Auctionator.Database.InternalUpdateHistory(itemKey, minPrice)
+    Auctionator.Database.SetPrice(itemKey, minPrice)
   end
 
   Auctionator.Debug.Message("Processing time: " .. tostring(debugprofilestop() - startTime))
