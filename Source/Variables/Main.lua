@@ -33,9 +33,6 @@ function Auctionator.Variables.InitializeFullScanVariables()
   if AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA == nil then
     AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA = {
       TimeOfLastScan = nil,
-      Completed = false,
-      InProgress = false,
-      ReceivedInitialEvent = false
     }
   end
 

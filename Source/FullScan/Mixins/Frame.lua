@@ -17,7 +17,7 @@ end
 function AuctionatorFullScanFrameMixin:InitiateScan()
   if self:CanInitiate() then
     self.state.TimeOfLastScan = time()
-    self.state.InProgress = true
+    self.inProgress = true
 
     self:RegisterForEvents()
     Auctionator.Utilities.Message("Starting a full scan.")
@@ -31,7 +31,7 @@ function AuctionatorFullScanFrameMixin:CanInitiate()
   return
    ( self.state.TimeOfLastScan ~= nil and
      time() - self.state.TimeOfLastScan > 60 * 15 and
-     not self.state.InProgress
+     not self.inProgress
    ) or self.state.TimeOfLastScan == nil
 end
 
@@ -69,8 +69,8 @@ function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
   elseif event =="AUCTION_HOUSE_CLOSED" then
     self:UnregisterForEvents()
 
-    if self.state.InProgress then
-      self.state.InProgress = false
+    if self.inProgress then
+      self.inProgress = false
       self.prices = {}
 
       Auctionator.Utilities.Message(
@@ -109,7 +109,7 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
   Auctionator.Utilities.Message("Finished processing " .. count .. " items.")
 
   self.processingComplete = true
-  self.state.InProgress = false
+  self.inProgress = false
   self.startTime = nil
   self.prices = {}
 
@@ -117,7 +117,7 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
 end
 
 function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, totalCount)
-  if not self.state.InProgress then
+  if not self.inProgress then
     Auctionator.Utilities.Message("Stopped processing at " .. startIndex .. " out of " .. totalCount .. ".")
     self:EndProcessing()
     return
