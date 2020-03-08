@@ -1,7 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Button name="Atr_SmallButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
-    <NormalFont style="GameFontNormalSmall"/>
-    <HighlightFont style="GameFontHighlightSmall"/>
-    <DisabledFont style="GameFontDisableSmall"/>
-  </Button>
-</Ui>

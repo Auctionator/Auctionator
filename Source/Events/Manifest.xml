@@ -4,17 +4,8 @@
 
   <Script file="VariablesLoaded.lua"/>
   <Script file="AddonLoaded.lua"/>
-  <Script file="PlayerEnteringWorld.lua"/>
 
   <Script file="OnAuctionHouseShow.lua" />
-  <Script file="OnAuctionHouseClosed.lua" />
-
-  <Script file="ItemSearchResultsAdded.lua"/>
-  <Script file="ItemSearchResultsUpdated.lua"/>
-
-  <Script file="AuctionMultisellStart.lua"/>
-  <Script file="AuctionMultisellUpdate.lua"/>
-  <Script file="AuctionMultisellFailure.lua"/>
 
   <Script file="ChatMessageAddon.lua"/>
 </Ui>

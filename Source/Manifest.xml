@@ -1,14 +1,16 @@
 <!-- Source directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Objects.lua" />
+  <Script file="Localization\Main.lua" />
+
   <Include file="Search\Manifest.xml" />
   <Include file="Core\Manifest.xml" />
 
   <Include file="Constants\Manifest.xml" />
 
-  <Script file="Localization\Main.lua" />
-
   <Include file="Utilities\Manifest.xml" />
+
+  <Include file="Tooltips\Manifest.xml"/>
 
   <Include file="Variables\Manifest.xml" />
   <Include file="Database\Manifest.xml"/>
