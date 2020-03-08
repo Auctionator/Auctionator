@@ -13,4 +13,6 @@
   <Script file="Slice.lua"/>
   <Script file="CreateCountString.lua"/>
   <Script file="CreateMoneyString.lua"/>
+
+  <Script file="VerifyListTypes.lua"/>
 </Ui>

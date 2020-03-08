@@ -27,5 +27,9 @@ Auctionator = {
   Localization = {},
   Config = {},
   Variables = {},
-  ShoppingLists = {}
+  ShoppingLists = {},
+  
+  API = {
+    v1 = {}
+  },
 }
