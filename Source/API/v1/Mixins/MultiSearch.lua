@@ -1,6 +1,6 @@
-AuctionatorAPIMultiSearchFrame = CreateFromMixins(AuctionatorKeywordSearchProviderMixin)
+AuctionatorAPIv1MultiSearchFrame = CreateFromMixins(AuctionatorKeywordSearchProviderMixin)
 
-function AuctionatorAPIMultiSearchFrame:OnLoad()
+function AuctionatorAPIv1MultiSearchFrame:OnLoad()
   self:InitSearch(
     function(results)
       self:EndSearch(results)
@@ -11,24 +11,24 @@ function AuctionatorAPIMultiSearchFrame:OnLoad()
   )
 end
 
-function AuctionatorAPIMultiSearchFrame:OnEvent(eventName, ...)
+function AuctionatorAPIv1MultiSearchFrame:OnEvent(eventName, ...)
   self:OnSearchEvent(eventName, ...)
 end
 
-function AuctionatorAPIMultiSearchFrame:ShowSpinner()
+function AuctionatorAPIv1MultiSearchFrame:ShowSpinner()
   AuctionHouseFrame.BrowseResultsFrame.ItemList.LoadingSpinner:Show()
 end
 
-function AuctionatorAPIMultiSearchFrame:HideSpinner()
+function AuctionatorAPIv1MultiSearchFrame:HideSpinner()
   AuctionHouseFrame.BrowseResultsFrame.ItemList.LoadingSpinner:Hide()
 end
 
-function AuctionatorAPIMultiSearchFrame:StartSearch(searchTerms)
+function AuctionatorAPIv1MultiSearchFrame:StartSearch(searchTerms)
   self:Search(searchTerms)
   self:ShowSpinner()
 end
 
-function AuctionatorAPIMultiSearchFrame:EndSearch(results)
+function AuctionatorAPIv1MultiSearchFrame:EndSearch(results)
   Auctionator.Search.SafeItemKeysSearch(results)
   self:HideSpinner()
 end

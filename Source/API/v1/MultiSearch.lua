@@ -1,13 +1,13 @@
-local function InitializeAPIMultiSearchFrame()
-  if Auctionator.State.APIMultiSearchFrameRef == nil then
+local function InitializeAPIv1MultiSearchFrame()
+  if Auctionator.State.APIv1MultiSearchFrameRef == nil then
     local frame = CreateFrame(
       "FRAME",
-      "AuctionatorAPIMultiSearchFrame",
+      "AuctionatorAPIv1MultiSearchFrame",
       AuctionHouseFrame,
-      "AuctionatorAPIMultiSearchFrameTemplate"
+      "AuctionatorAPIv1MultiSearchFrameTemplate"
     )
 
-    Auctionator.State.AuctionAPIMultiSearchFrameRef = frame
+    Auctionator.State.AuctionAPIv1MultiSearchFrameRef = frame
   end
 end
 
@@ -26,6 +26,6 @@ function Auctionator.API.v1.MultiSearch(callerID, searchTerms)
     Auctionator.API.ComposeError(callerID, "Auction house is not open")
   end
 
-  InitializeAPIMultiSearchFrame()
-  Auctionator.State.AuctionAPIMultiSearchFrameRef:StartSearch(cloned)
+  InitializeAPIv1MultiSearchFrame()
+  Auctionator.State.AuctionAPIv1MultiSearchFrameRef:StartSearch(cloned)
 end

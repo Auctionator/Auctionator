@@ -2,17 +2,21 @@
 -- typeStr: Type to ensure every item is
 --
 -- Returns a new array with only valid entries
-function Auctionator.Utilities.VerifyListTypes(array, typeStr)
-  if array and type(array) == "table" then
-    local result = {}
-    for _, item in ipairs(array) do
-      if type(item) == typeStr then
-        table.insert(result, item)
-      else
-        return nil
-      end
-    end
-    return result
+
+
+function Auctionator.Utilities.VerifyListTypes(list, requiredTypeString)
+  if list == nil or type(list) ~= "table" then
+    return nil
   end
-  return nil
+
+  local result = {}
+  for _, item in ipairs(list) do
+    if type(item) == requiredTypeString then
+      table.insert(result, item)
+    else
+      return nil
+    end
+  end
+
+  return result
 end

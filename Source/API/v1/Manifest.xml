@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Frames\Manifest.xml"/>
+  <Include file="Mixins\Manifest.xml"/>
+
+  <Script file="MultiSearch.lua" />
+  <Script file="GetAuctionPrice.lua" />
+</Ui>

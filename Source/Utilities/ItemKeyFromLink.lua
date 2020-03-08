@@ -1,7 +1,7 @@
 function Auctionator.Utilities.ItemKeyFromLink(itemLink)
   if itemLink ~= nil then
     local _, _, itemString = string.find(itemLink, "^|c%x+|H(.+)|h%[.*%]")
-    if itemString then
+    if itemString ~= nil then
       local linkType, itemId, _, _, _, _, _, _, _ = strsplit(":", itemString)
       if linkType == "battlepet" then
         return "p:"..itemId;
