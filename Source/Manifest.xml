@@ -23,4 +23,6 @@
   <Include file="SlashCmd\Manifest.xml" />
   <Include file="ShoppingLists\Manifest.xml" />
   <Include file="Config\Manifest.xml" />
+
+  <Include file="API\Manifest.xml" />
 </Ui>
