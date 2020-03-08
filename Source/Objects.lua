@@ -1,28 +1,17 @@
 Auctionator = {
   Debug = {},
-  Database = {
-    Scanning = false
-  },
+  Database = {},
   Constants = {},
-  Util = {},
   Utilities = {},
   Events = {},
   SlashCmd = {},
 
-  SearchUI = {},
   State = {
     Loaded = false,
     CurrentVersion = nil,
-    CurrentPane = {
-      UINeedsUpdate = false
-    },
     LiveDB = nil,
   },
-  Scans = {
-    ScanStarted = false,
-    FailureShown = false,
-    TimeUntilScan = 0
-  },
+
   FullScan = {
     State = {
     ---- Recorded in SAVEDVARS, initialzed in InitializeVariables
@@ -42,6 +31,5 @@ Auctionator = {
   Localization = {},
   Config = {},
   Variables = {},
-  BlizzAPI = {},
   ShoppingLists = {}
 }
