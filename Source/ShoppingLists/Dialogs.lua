@@ -39,6 +39,10 @@ local function InitializeAddItemDialog()
       self.editBox:SetText("");
       self.editBox:SetFocus();
     end,
+    OnCancel = function()
+      -- Should probably set this programatically, but :shrug:
+      AuctionatorShoppingLists_AddItem:Enable()
+    end,
     timeout = 0,
     exclusive = 1,
     whileDead = 1,
