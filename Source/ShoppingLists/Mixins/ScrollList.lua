@@ -22,7 +22,7 @@ function AuctionatorScrollListMixin:OnLoad()
       self:EndSearch(results)
     end,
     function(current, total)
-      self.ResultsText:SetText("Searching for items in " .. self.currentList.name .. " (" .. current .. "/" .. total .. ")")
+      self.ResultsText:SetText("Searching for item " .. current .. "/" .. total .. " in\n" .. self.currentList.name)
     end
   )
 end
