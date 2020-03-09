@@ -21,12 +21,6 @@
     <Frames>
       <Frame inherits="LargeMoneyInputFrameTemplate" parentKey="MoneyInput">
         <Size x="150" y="20"/>
-        <KeyValues>
-          <KeyValue key="hideCopper" value="true" type="boolean"/>
-          <KeyValue key="labelText" value="Undercut value" type="string"/>
-          <KeyValue key="tooltipTitleText" value="Undercut Value" type="string"/>
-          <KeyValue key="tooltipText" value="The undercut value that will be used to calculate the sell price for commodities." type="string"/>
-        </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="25"/>
         </Anchors>

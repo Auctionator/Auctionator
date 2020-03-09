@@ -71,8 +71,8 @@
 
       <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="ItemUndercutPercentage" hidden="true">
         <KeyValues>
-          <KeyValue key="labelText" value="% Undercut percentage" type="string"/>
-          <KeyValue key="tooltipTitleText" value="% Undercut" type="string"/>
+          <KeyValue key="labelText" value="% Undercut" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Undercut Percentage" type="string"/>
           <KeyValue key="tooltipText" value="The undercut percentage that will be used to calculate the sell price for commodities. For example, a value of 5 means that your item will be posted at 5% less than the current lowest price." type="string"/>
         </KeyValues>
         <Anchors>
