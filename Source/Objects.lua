@@ -28,6 +28,7 @@ Auctionator = {
   Config = {},
   Variables = {},
   ShoppingLists = {},
+  Enchant = {},
   
   API = {
     v1 = {}

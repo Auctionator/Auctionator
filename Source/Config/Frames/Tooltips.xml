@@ -50,9 +50,9 @@
       </Frame>
       <Frame name="$parent_EnchantTooltips" inherits="AuctionatorConfigurationCheckbox" parentKey="EnchantTooltips">
         <KeyValues>
-          <KeyValue key="labelText" value="Show enchant tooltips. (CURRENTLY DISABLED)" type="string"/>
+          <KeyValue key="labelText" value="Show enchant tooltips (WoD, Legion &amp; BfA only.)" type="string"/>
           <KeyValue key="tooltipTitleText" value="Enchant Tooltip Information" type="string"/>
-          <KeyValue key="tooltipText" value="Show enchant information in tooltip on mouseover. (Not functional at the moment.)" type="string"/>
+          <KeyValue key="tooltipText" value="Show enchant information in tooltip on mouseover." type="string"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeTo="$parent_AuctionTooltips" relativePoint="BOTTOMLEFT"/>

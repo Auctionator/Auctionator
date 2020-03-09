@@ -8,8 +8,11 @@ local L = Auctionator.Localization.Localize
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
-function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount)
-  if itemKey==nil then
+function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCount)
+
+  local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
+
+  if itemKey == nil then
     return
   end
 
@@ -29,7 +32,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
     auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
   end
 
-  local vendorPrice = nil;
+  local vendorPrice, disenchantParams, disenchantPrice
   local cannotAuction = 0;
 
   if Auctionator.Utilities.IsPetItemKey(itemKey) then
@@ -37,10 +40,16 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
       Auctionator.Debug.Message("Pet has AH price "..math.floor(auctionPrice/10000).."g "..math.floor((auctionPrice%10000)/100).."s");
     end
   else
-    local _, _, _, _, _, _, _, _, _, _, sellPrice, _, _, cannotAuctionTemp = GetItemInfo(itemKey);
-    cannotAuction = cannotAuctionTemp;
-    if sellPrice ~= nil then
-      vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
+    local itemInfo = { GetItemInfo(itemLink) };
+    if (#itemInfo) ~= 0 then
+      cannotAuction = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE];
+      local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
+      if sellPrice ~= nil then
+        vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
+      end
+
+      disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
+      disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink)
     end
   end
 
@@ -52,13 +61,14 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemKey, itemCount
     Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
   end
   Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
-  -- TODO Disenchant price; still need to figure out d/e tables...
+  if disenchantStatus ~= nil then
+    Auctionator.Tooltip.AddDisenchantTip(tooltipFrame, disenchantPrice, disenchantStatus)
+  end
   tooltipFrame:Show()
 end
 
 -- Each itemKey entry should contain
--- key
--- link (which may be an item link or a string name)
+-- link
 -- count
 function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
   local auctionPrice
@@ -68,13 +78,15 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
   for _, itemEntry in ipairs(itemKeys) do
     tooltipFrame:AddLine(itemEntry.link)
 
-    auctionPrice = Auctionator.Database.GetPrice(itemEntry.key)
+    auctionPrice = Auctionator.Database.GetPrice(
+      Auctionator.UtilitiesItemKeyFromLink(itemEntry.link)
+    )
     if auctionPrice ~= nil then
       total = total + (auctionPrice * itemEntry.count)
     end
     itemCount = itemCount + itemEntry.count
 
-    Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemEntry.key, itemEntry.count)
+    Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemEntry.link, itemEntry.count)
   end
 
   tooltipFrame:AddLine("  ")
@@ -126,5 +138,30 @@ function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countStr
         )
       )
     end
+  end
+end
+
+function Auctionator.Tooltip.AddDisenchantTip (
+  tooltipFrame, disenchantPrice, disenchantStatus
+)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.ENCHANT_TOOLTIPS) then
+    return
+  end
+
+  if disenchantPrice ~= nil then
+    tooltipFrame:AddDoubleLine(
+      L("Disenchant"),
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        zc.priceToMoneyString(disenchantPrice)
+      )
+    )
+  elseif disenchantStatus.isDisenchantable and
+         disenchantStatus.supportedXpac then
+    tooltipFrame:AddDoubleLine(
+      L("Disenchant"),
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        L("unknown") .. "  "
+      )
+    )
   end
 end

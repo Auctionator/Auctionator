@@ -1,0 +1,5 @@
+<!-- FullScan directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Main.lua"/>
+  <Include file="Constants.lua"/>
+</Ui>
