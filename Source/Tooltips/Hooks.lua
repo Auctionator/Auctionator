@@ -5,10 +5,9 @@ hooksecurefunc (GameTooltip, "SetBagItem",
 
     if itemLocation:IsValid() then
       local itemLink = C_Item.GetItemLink(itemLocation);
-      local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
       local itemCount = C_Item.GetStackCount(itemLocation)
 
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
     end
   end
 );
@@ -17,10 +16,9 @@ hooksecurefunc (GameTooltip, "SetBagItem",
 hooksecurefunc (GameTooltip, "SetBuybackItem",
   function(tip, slotIndex)
     local itemLink = GetBuybackItemLink(slotIndex)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
     local _, _, _, itemCount = GetBuybackItemInfo(slotIndex);
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -28,10 +26,9 @@ hooksecurefunc (GameTooltip, "SetBuybackItem",
 hooksecurefunc (GameTooltip, "SetMerchantItem",
   function(tip, index)
     local itemLink = GetMerchantItemLink(index)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
     local _, _, _, itemCount = GetMerchantItemInfo(index);
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -39,12 +36,9 @@ hooksecurefunc (GameTooltip, "SetMerchantItem",
 hooksecurefunc (GameTooltip, "SetInventoryItem",
   function(tip, unit, slot)
     local itemLink = GetInventoryItemLink(unit, slot)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
     local itemCount = GetInventoryItemCount(unit, slot)
 
-    if itemKey ~= nil then
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount ~= 0 and itemCount or 1)
-    end
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount ~= 0 and itemCount or 1)
   end
 );
 
@@ -56,10 +50,7 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
     local itemLink = GetGuildBankItemLink(tab, slot)
     local _, itemCount = GetGuildBankItemInfo(tab, slot)
 
-    if itemLink ~= nil then
-      local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
-    end
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -67,11 +58,10 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
 hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
   function(tip, recipeResultItemId)
     local itemLink = C_TradeSkillUI.GetRecipeItemLink(recipeResultItemId)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
     local itemCount  = C_TradeSkillUI.GetRecipeNumItemsProduced(recipeResultItemId)
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -79,11 +69,10 @@ hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
 hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
   function( tip, reagentId, index )
     local itemLink = C_TradeSkillUI.GetRecipeReagentItemLink(reagentId, index)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
     local itemCount = select(3, C_TradeSkillUI.GetRecipeReagentInfo(reagentId, index))
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -92,9 +81,8 @@ hooksecurefunc (GameTooltip, "SetLootItem",
   function (tip, slot)
     if LootSlotHasItem(slot) then
       local itemLink, _, itemCount = GetLootSlotLink(slot);
-      local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
     end
   end
 );
@@ -104,11 +92,10 @@ hooksecurefunc (GameTooltip, "SetLootItem",
 hooksecurefunc (GameTooltip, "SetLootRollItem",
   function (tip, slot)
     local itemLink = GetLootRollItemLink(slot)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
     local _, _, itemCount = GetLootRollItemInfo(slot)
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -116,11 +103,10 @@ hooksecurefunc (GameTooltip, "SetLootRollItem",
 hooksecurefunc (GameTooltip, "SetQuestItem",
   function (tip, type, index)
     local itemLink = GetQuestItemLink(type, index)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
     local _, _, itemCount = GetQuestItemInfo(type, index);
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -128,7 +114,6 @@ hooksecurefunc (GameTooltip, "SetQuestItem",
 hooksecurefunc (GameTooltip, "SetQuestLogItem",
   function (tip, type, index)
     local itemLink = GetQuestLogItemLink(type, index)
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
     local itemCount;
     if type == "choice" then
@@ -137,7 +122,7 @@ hooksecurefunc (GameTooltip, "SetQuestLogItem",
       _, _, itemCount = GetQuestLogRewardInfo(index)
     end
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -146,9 +131,8 @@ hooksecurefunc (GameTooltip, "SetSendMailItem",
   function (tip, id)
     local _, _, _, itemCount = GetSendMailItem(id)
     local itemLink = GetSendMailItemLink(id);
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
   end
 );
 
@@ -161,11 +145,10 @@ hooksecurefunc (GameTooltip, "SetInboxItem",
       local attachmentIndex = attachIndex or 1
 
       local itemLink = GetInboxItemLink(index, attachmentIndex)
-      local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
       local _, _, _, itemCount = GetInboxItem(index, attachmentIndex);
 
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
     end
   end
 );
@@ -182,18 +165,16 @@ hooksecurefunc("InboxFrameItem_OnEnter",
     )
 
     if tooltipEnabled and itemCount and itemCount > 1 then
-      local itemKeys = {}
-      local name, itemCount, itemLink, itemKey
+      local itemEntries = {}
+      local name, itemCount, itemLink
 
       for attachmentIndex = 1, ATTACHMENTS_MAX_RECEIVE do
         name, _, _, itemCount = GetInboxItem(self.index, attachmentIndex)
 
         if name then
           itemLink = GetInboxItemLink(self.index, attachmentIndex)
-          itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
-          table.insert(itemKeys, {
-            key = itemKey,
+          table.insert(itemEntries, {
             link = itemLink,
             count = itemCount,
             name = name
@@ -201,7 +182,7 @@ hooksecurefunc("InboxFrameItem_OnEnter",
         end
       end
 
-      Auctionator.Tooltip.ShowTipWithMultiplePricing(GameTooltip, itemKeys)
+      Auctionator.Tooltip.ShowTipWithMultiplePricing(GameTooltip, itemEntries)
     end
   end
 );
@@ -210,9 +191,8 @@ hooksecurefunc("InboxFrameItem_OnEnter",
 hooksecurefunc(ItemRefTooltip, "SetHyperlink",
   function(tip, itemstring)
     local _, itemLink = GetItemInfo(itemstring);
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, 1)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
 
@@ -221,11 +201,9 @@ hooksecurefunc (GameTooltip, "SetTradePlayerItem",
   function (tip, id)
     local itemLink = GetTradePlayerItemLink(id)
     if itemLink ~= nil then
-      local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
-
       local _, _, itemCount = GetTradePlayerItemInfo(id);
 
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
     end
   end
 );
@@ -235,11 +213,9 @@ hooksecurefunc (GameTooltip, "SetTradeTargetItem",
   function (tip, id)
     local itemLink = GetTradeTargetItemLink(id)
     if itemLink ~= nil then
-      local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
-
       local _, _, itemCount = GetTradeTargetItemInfo(id)
 
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, itemCount)
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
     end
   end
 );
@@ -248,8 +224,7 @@ hooksecurefunc (GameTooltip, "SetTradeTargetItem",
 hooksecurefunc (GameTooltip, "SetHyperlink",
   function (tip, itemstring, num)
     local _, itemLink = GetItemInfo(itemstring);
-    local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemKey, 1)
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
