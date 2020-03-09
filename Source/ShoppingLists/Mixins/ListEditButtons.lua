@@ -25,11 +25,14 @@ end
 
 function AuctionatorListItemAddButtonMixin:OnClick()
   StaticPopup_Show(Auctionator.Constants.DialogNames.AddItemToShoppingList)
+  self:Disable()
 end
 
 function AuctionatorListItemAddButtonMixin:AddItem(searchTerm)
+  self:Enable()
+
   if self.selectedList == nil then
-    Auctionator.Utilities.Message("An error occurred attempting to add and item to a list.")
+    Auctionator.Utilities.Message("An error occurred attempting to add an item to a list.")
     return
   end
 
