@@ -8,8 +8,21 @@ Auctionator.Config.Options = {
   SHOW_LISTS = "show_lists",
   AUTOSCAN = "autoscan",
   AUTO_LIST_SEARCH = "auto_list_search",
-  UNDERCUT_PERCENTAGE = "undercut_percentage",
-  AUCTION_DURATION = "auction_duration",
+
+  ITEM_AUCTION_DURATION = "item_auction_duration",
+  ITEM_AUCTION_SALES_PREFERENCE = "item_auction_sales_preference",
+  ITEM_UNDERCUT_PERCENTAGE = "item_undercut_percentage",
+  ITEM_UNDERCUT_STATIC_VALUE = "item_undercut_static_value",
+
+  COMMODITY_AUCTION_DURATION = "commodity_auction_duration",
+  COMMODITY_AUCTION_SALES_PREFERENCE = "commodity_auction_sales_preference",
+  COMMODITY_UNDERCUT_PERCENTAGE = "commodity_undercut_percentage",
+  COMMODITY_UNDERCUT_STATIC_VALUE = "commodity_undercut_static_value",
+}
+
+Auctionator.Config.SalesTypes = {
+  PERCENTAGE = "percentage",
+  STATIC = "static"
 }
 
 local defaults = {
@@ -22,8 +35,16 @@ local defaults = {
   [Auctionator.Config.Options.SHOW_LISTS] = true,
   [Auctionator.Config.Options.AUTOSCAN] = true,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
-  [Auctionator.Config.Options.UNDERCUT_PERCENTAGE] = 5,
-  [Auctionator.Config.Options.AUCTION_DURATION] = 24,
+
+  [Auctionator.Config.Options.ITEM_AUCTION_DURATION] = 48,
+  [Auctionator.Config.Options.ITEM_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
+  [Auctionator.Config.Options.ITEM_UNDERCUT_PERCENTAGE] = 5,
+  [Auctionator.Config.Options.ITEM_UNDERCUT_STATIC_VALUE] = 100,
+
+  [Auctionator.Config.Options.COMMODITY_AUCTION_DURATION] = 24,
+  [Auctionator.Config.Options.COMMODITY_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
+  [Auctionator.Config.Options.COMMODITY_UNDERCUT_PERCENTAGE] = 0,
+  [Auctionator.Config.Options.COMMODITY_UNDERCUT_STATIC_VALUE] = 0,
 }
 
 local function isValidOption(name)

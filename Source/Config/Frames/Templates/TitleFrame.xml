@@ -11,8 +11,8 @@
       <OnLoad method="OnLoad" />
     </Scripts>
     <Anchors>
-      <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" />
-      <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" />
+      <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
     </Anchors>
     <Layers>
       <Layer level="ARTWORK">

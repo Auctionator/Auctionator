@@ -3,8 +3,11 @@
 
   <Include file="BasicOptions.xml"/>
   <Include file="Tooltips.xml"/>
-  <Include file="Undercutting.xml"/>
+
   <Include file="Selling.xml"/>
+  <Include file="Commodities.xml"/>
+  <Include file="Items.xml"/>
+
   <Include file="Database.xml"/>
   <Include file="ClearData.xml"/>
   <Include file="About.xml"/>

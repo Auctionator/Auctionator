@@ -1,18 +1,20 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <!-- Template for a simple input box -->
   <Frame name="AuctionatorConfigurationNumericInput" mixin="AuctionatorConfigNumericInputMixin"  inherits="AuctionatorConfigurationTooltip" virtual="true">
-    <!-- <KeyValues>
-      <KeyValue key="labelText" value="" type="string"/>
-      <KeyValue key="tooltipTitleText" value="" type="string"/>
-      <KeyValue key="tooltipText" value="" type="string"/>
-    </KeyValues> -->
+    <!--
+      <KeyValues>
+        <KeyValue key="labelText" value="" type="string"/>
+        <KeyValue key="tooltipTitleText" value="" type="string"/>
+        <KeyValue key="tooltipText" value="" type="string"/>
+      </KeyValues>
+    -->
     <Size y="40" />
     <Scripts>
       <OnLoad method="OnLoad"/>
     </Scripts>
     <Anchors>
-      <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT" />
-      <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" />
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" />
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
     </Anchors>
     <Frames>
       <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="InputBox" letters="3">
@@ -25,7 +27,7 @@
           <Layer level="BACKGROUND">
             <FontString inherits="GameFontHighlight" parentKey="Label">
               <Anchors>
-                <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeTo="$parent" x="78" y="-4" />
+                <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="58" y="-4" />
               </Anchors>
             </FontString>
           </Layer>

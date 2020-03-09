@@ -1,0 +1,27 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+<!-- Template for a radio button with label -->
+  <Frame name="AuctionatorConfigurationRadioButtonGroup" mixin="AuctionatorConfigRadioButtonGroupMixin" virtual="true">
+    <!--
+      <KeyValues>
+        <KeyValue key="subHeadingText" value="" type="string"/>
+      </KeyValues>
+    -->
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+    </Anchors>
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GroupHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="Default Auction Duration" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

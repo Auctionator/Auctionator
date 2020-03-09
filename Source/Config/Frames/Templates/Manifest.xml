@@ -5,7 +5,9 @@
 
   <Include file="CheckBox.xml"/>
   <Include file="RadioButton.xml"/>
+  <Include file="RadioButtonGroup.xml"/>
   <Include file="NumericInputBox.xml"/>
+  <Include file="MoneyInput.xml"/>
 
   <Include file="Heading.xml"/>
   <Include file="SubHeading.xml"/>

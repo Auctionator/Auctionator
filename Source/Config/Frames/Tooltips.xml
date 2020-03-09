@@ -11,61 +11,65 @@
     </Scripts>
 
     <Frames>
-      <Frame name="$parent_TitleArea" inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+      <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
           <KeyValue key="titleText" value="Tooltips" type="string" />
           <KeyValue key="subTitleText" value="Options to display different auction related information on game tooltips." type="string"/>
         </KeyValues>
       </Frame>
 
-      <Frame name="$parent_MailboxTooltips" inherits="AuctionatorConfigurationCheckbox" parentKey="MailboxTooltips">
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="MailboxTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="Show mailbox tooltips." type="string"/>
           <KeyValue key="tooltipTitleText" value="Mailbox Tooltips" type="string"/>
           <KeyValue key="tooltipText" value="Shows Auctionator information for items in your mailbox on mouseover." type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeTo="$parent_TitleArea" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
-      <Frame name="$parent_VendorTooltips" inherits="AuctionatorConfigurationCheckbox" parentKey="VendorTooltips">
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="VendorTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="Show vendor tooltips." type="string"/>
           <KeyValue key="tooltipTitleText" value="Vendor Tooltip Information" type="string"/>
           <KeyValue key="tooltipText" value="Show vendor information in tooltip on mouseover." type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeTo="$parent_MailboxTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.MailboxTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
-      <Frame name="$parent_AuctionTooltips" inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionTooltips">
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="Show auction tooltips." type="string"/>
           <KeyValue key="tooltipTitleText" value="Auction Tooltip Information" type="string"/>
           <KeyValue key="tooltipText" value="Show auction information in tooltip on mouseover." type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeTo="$parent_VendorTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.VendorTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
-      <Frame name="$parent_EnchantTooltips" inherits="AuctionatorConfigurationCheckbox" parentKey="EnchantTooltips">
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="EnchantTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="Show enchant tooltips (WoD, Legion &amp; BfA only.)" type="string"/>
           <KeyValue key="tooltipTitleText" value="Enchant Tooltip Information" type="string"/>
           <KeyValue key="tooltipText" value="Show enchant information in tooltip on mouseover." type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeTo="$parent_AuctionTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
-      <Frame name="$parent_ShiftStackTooltips" inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftStackTooltips">
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftStackTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="Show stack price when holding shift." type="string"/>
           <KeyValue key="tooltipTitleText" value="Stack Prices" type="string"/>
           <KeyValue key="tooltipText" value="When selected, the shift key must be held to see stack prices. When not selected, stack prices show by default." type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeTo="$parent_EnchantTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.EnchantTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
     </Frames>

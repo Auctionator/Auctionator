@@ -42,6 +42,7 @@ local function InitializeFullScanFrame()
 end
 
 local function InitializeIncrementalScanFrame()
+  local frame
   if Auctionator.State.IncrementalScanFrameRef == nil then
     frame = CreateFrame(
       "FRAME",
@@ -57,6 +58,7 @@ local function InitializeIncrementalScanFrame()
 end
 
 local function InitializeAuctionChatLogFrame()
+  local frame
   if Auctionator.State.AuctionChatLogFrameRef == nil then
     frame = CreateFrame(
       "FRAME",
@@ -76,6 +78,17 @@ local function InitializeAuctionatorButtonFrame()
   AuctionatorButtonFrame:Show()
 end
 
+local function InitializeSellingFrame()
+  if Auctionator.State.SellingFrameRef == nil then
+    Auctionator.State.SellingFrameRef = CreateFrame(
+      "FRAME",
+      "AuctionatorSellingFrame",
+      AuctionHouseFrame,
+      "AuctionatorSellingFrameTemplate"
+    )
+  end
+end
+
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
@@ -84,6 +97,7 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeAuctionChatLogFrame()
   InitializeShoppingListFrame()
   InitializeAuctionatorButtonFrame()
+  InitializeSellingFrame()
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
