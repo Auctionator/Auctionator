@@ -103,7 +103,7 @@ function AuctionatorItemSellingMixin:ProcessItemResults()
     -- use this price
     postingPrice = results[1].buyoutAmount
   else
-    -- Otherwise, we're no the lowest price, so calculate based on user preferences
+    -- Otherwise, we're not the lowest price, so calculate based on user preferences
     postingPrice = self:CalculateItemPriceFromResults(results[1])
   end
 
