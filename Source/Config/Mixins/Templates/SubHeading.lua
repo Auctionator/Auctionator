@@ -1,6 +1,8 @@
 AuctionatorConfigurationSubHeadingMixin = {}
 
-function AuctionatorConfigurationSubHeadingMixin:OnLoad()
+function AuctionatorConfigurationSubHeadingMixin:InitializeSubHeading()
+  Auctionator.Debug.Message("AuctionatorConfigurationSubHeadingMixin:InitializeSubHeading()")
+
   if self.subHeadingText ~= nil then
     self.HeadingText:SetText(self.subHeadingText)
   end

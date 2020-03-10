@@ -7,7 +7,7 @@
     -->
     <Size y="20"/>
     <Scripts>
-      <OnLoad method="OnLoad"/>
+      <OnLoad method="InitializeSubHeading"/>
     </Scripts>
     <Anchors>
       <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
