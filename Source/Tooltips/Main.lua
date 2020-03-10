@@ -79,7 +79,7 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
     tooltipFrame:AddLine(itemEntry.link)
 
     auctionPrice = Auctionator.Database.GetPrice(
-      Auctionator.UtilitiesItemKeyFromLink(itemEntry.link)
+      Auctionator.Utilities.ItemKeyFromLink(itemEntry.link)
     )
     if auctionPrice ~= nil then
       total = total + (auctionPrice * itemEntry.count)
