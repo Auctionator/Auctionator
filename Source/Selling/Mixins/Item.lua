@@ -51,7 +51,7 @@ end
 
 local function checkFullResults(itemKey)
   local entryCount = C_AuctionHouse.GetNumItemSearchResults(itemKey)
-  local hasFullResults = entryCount > 0 and C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
+  local hasFullResults = C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
 
   return entryCount, hasFullResults
 end
