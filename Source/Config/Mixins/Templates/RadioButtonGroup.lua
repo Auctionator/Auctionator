@@ -1,8 +1,11 @@
 AuctionatorConfigRadioButtonGroupMixin = {}
 
-function AuctionatorConfigRadioButtonGroupMixin:OnLoad()
+function AuctionatorConfigRadioButtonGroupMixin:InitializeRadioButtonGroup()
+  Auctionator.Debug.Message("AuctionatorConfigRadioButtonGroupMixin:InitializeRadioButtonGroup()")
+
   if self.groupHeadingText ~= nil then
-    self.GroupHeading:SetText(self.groupHeadingText)
+    self.GroupHeading.subHeadingText = self.groupHeadingText
+    self.GroupHeading:InitializeSubHeading()
   end
 
   self.radioButtons = {}

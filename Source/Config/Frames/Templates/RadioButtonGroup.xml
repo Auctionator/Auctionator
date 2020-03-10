@@ -7,7 +7,7 @@
       </KeyValues>
     -->
     <Scripts>
-      <OnLoad method="OnLoad"/>
+      <OnLoad method="InitializeRadioButtonGroup"/>
     </Scripts>
     <Anchors>
       <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
@@ -15,9 +15,6 @@
     </Anchors>
     <Frames>
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GroupHeading">
-        <KeyValues>
-          <KeyValue key="subHeadingText" value="Unset" type="string"/>
-        </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
         </Anchors>
