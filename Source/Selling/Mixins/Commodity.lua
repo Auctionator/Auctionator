@@ -69,16 +69,9 @@ function AuctionatorCommoditySellingMixin:ProcessCommodityResults()
   if #results == 0 then
     -- This commodity was not found in the AH, so use the last lowest price from DB
     postingPrice = Auctionator.Database.GetPrice(dbKey)
-  elseif #results > 0 and results[1].containsOwnerItem then
-    -- No need to undercut myself (although the user probably wants to re-post existing auctions
-    -- at the same price if they are not first)
+  elseif #results > 0 and results[1].containsOwnerItem and results[1].owners[1] == "player" then
+    -- No need to undercut myself
     postingPrice = results[1].unitPrice
-
-    if results[1].owners[1] ~= "player" then
-      Auctionator.Utilities.Message(
-        RED_FONT_COLOR:WrapTextInColorCode("You have auctions for this commodity that are not the most recent.")
-      )
-    end
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
     postingPrice = self:CalculateCommodityPriceFromResults(results[1])
