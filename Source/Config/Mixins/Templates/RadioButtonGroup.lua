@@ -2,12 +2,13 @@ AuctionatorConfigRadioButtonGroupMixin = {}
 
 function AuctionatorConfigRadioButtonGroupMixin:OnLoad()
   if self.groupHeadingText ~= nil then
-    self.GroupHeading.subHeadingText = self.groupHeadingText
+    self.GroupHeading:SetText(self.groupHeadingText)
   end
 
   self.radioButtons = {}
   self:SetupRadioButtons()
   self.radioButtonGroupOnChangeEvent = function() end
+  self:Show()
 end
 
 function AuctionatorConfigRadioButtonGroupMixin:SetupRadioButtons()

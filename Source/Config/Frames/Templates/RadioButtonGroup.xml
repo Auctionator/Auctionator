@@ -16,7 +16,7 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GroupHeading">
         <KeyValues>
-          <KeyValue key="subHeadingText" value="Default Auction Duration" type="string"/>
+          <KeyValue key="subHeadingText" value="Unset" type="string"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>

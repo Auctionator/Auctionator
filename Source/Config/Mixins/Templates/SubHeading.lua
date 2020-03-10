@@ -5,3 +5,8 @@ function AuctionatorConfigurationSubHeadingMixin:OnLoad()
     self.HeadingText:SetText(self.subHeadingText)
   end
 end
+
+function AuctionatorConfigurationSubHeadingMixin:SetText(newHeading)
+  self.subHeadingText = newHeading
+  self:OnLoad()
+end
