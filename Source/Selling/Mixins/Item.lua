@@ -51,7 +51,7 @@ end
 
 local function checkFullResults(itemKey)
   local entryCount = C_AuctionHouse.GetNumItemSearchResults(itemKey)
-  local hasFullResults = entryCount > 0 and C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
+  local hasFullResults = entryCount == 0 or C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
 
   return entryCount, hasFullResults
 end
@@ -82,7 +82,7 @@ function AuctionatorItemSellingMixin:ProcessItemResults()
   local entryCount, hasFullResults = checkFullResults(itemKey)
 
   if not hasFullResults then
-    Auctionator.Debug.Message("AuctionatorItemSellingMixin:ProcessItemResults()", "Does not have full results or no items found.")
+    Auctionator.Debug.Message("AuctionatorItemSellingMixin:ProcessItemResults()", "Does not have full results.")
     return
   end
 
