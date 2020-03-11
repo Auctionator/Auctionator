@@ -18,7 +18,7 @@ function Auctionator.API.v1.MultiSearch(callerID, searchTerms)
   local cloned = Auctionator.Utilities.VerifyListTypes(searchTerms, "string")
   if not cloned then
     Auctionator.API.ComposeError(
-      callerID, "Usage Auctionator.API.v1.MultiSearch(string[])"
+      callerID, "Usage Auctionator.API.v1.MultiSearch(string, string[])"
     )
   end
   -- Validate state

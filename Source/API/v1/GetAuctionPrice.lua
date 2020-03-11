@@ -3,7 +3,8 @@ function Auctionator.API.v1.GetAuctionPriceByItemID(callerID, itemID)
 
   if type(itemID) ~= "number" then
     Auctionator.API.ComposeError(
-      callerID, "Usage Auctionator.API.v1.GetAuctionPriceByItemID(number)"
+      callerID,
+      "Usage Auctionator.API.v1.GetAuctionPriceByItemID(string, number)"
     )
   end
 
@@ -15,7 +16,8 @@ function Auctionator.API.v1.GetAuctionPriceByItemLink(callerID, itemLink)
 
   if type(itemLink) ~= "string" then
     Auctionator.API.ComposeError(
-      callerID, "Usage Auctionator.API.v1.GetAuctionPriceByItemLink(string)"
+      callerID,
+      "Usage Auctionator.API.v1.GetAuctionPriceByItemLink(string, string)"
     )
   end
 
