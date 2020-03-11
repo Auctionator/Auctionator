@@ -15,8 +15,18 @@ local AUCTION_DURATIONS = {
   }
 }
 
+local AUCTIONATOR_THROTTLE_EVENTS = {
+  "AUCTION_HOUSE_THROTTLED_MESSAGE_DROPPED",
+  "AUCTION_HOUSE_THROTTLED_MESSAGE_QUEUED",
+  "AUCTION_HOUSE_THROTTLED_MESSAGE_SENT",
+  "AUCTION_HOUSE_THROTTLED_SYSTEM_READY",
+}
+
 function AuctionatorSellingFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorSellingFrameMixin:OnLoad()")
+
+  self.throttled = false
+  FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_THROTTLE_EVENTS)
 
   AuctionatorCommoditySellingMixin.Initialize(self)
   AuctionatorItemSellingMixin.Initialize(self)
@@ -40,6 +50,25 @@ function AuctionatorSellingFrameMixin:OnEvent(eventName, ...)
     self:ProcessCommodityResults(...)
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
     self:ProcessItemResults(...)
+
+  elseif eventName == "AUCTION_HOUSE_THROTTLED_MESSSAGE_DROPPED" or
+    eventName == "AUCTION_HOUSE_THROTTLED_MESSAGE_QUEUED" or
+    eventName == "AUCTION_HOUSE_THROTTLED_MESSAGE_SENT" then
+
+    Auctionator.Debug.Message("AuctionatorSellingFrameMixin:OnEvent Throttled")
+
+    self.throttled = true
+
+    self:UpdateItemSellButton()
+    self:UpdateCommoditySellButton()
+
+  elseif eventName == "AUCTION_HOUSE_THROTTLED_SYSTEM_READY" then
+    Auctionator.Debug.Message("AuctionatorSellingFrameMixin:OnEvent No throttling")
+
+    self.throttled = false
+
+    self:UpdateItemSellButton()
+    self:UpdateCommoditySellButton()
   end
 end
 

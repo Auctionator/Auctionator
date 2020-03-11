@@ -20,24 +20,38 @@ function AuctionatorItemSellingMixin:Initialize()
       FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_ITEM_EVENTS)
     end
   )
+  -- Used to grey out the post button when throttling takes place
+  hooksecurefunc(AuctionHouseFrame.ItemSellFrame,
+    "UpdatePostButtonState",
+    function()
+      self:UpdateItemSellButton()
+    end
+  )
 end
 
-function AuctionatorItemSellingMixin:AggregateItemResults(itemKey, itemCount, itemLevel)
-  local results = {}
+function AuctionatorItemSellingMixin:UpdateItemSellButton()
+  Auctionator.Utilities.ApplyThrottlingButton(
+    AuctionHouseFrame.ItemSellFrame.PostButton,
+    self.throttled
+  )
+end
+
+function AuctionatorItemSellingMixin:GetItemResult(itemKey, itemCount, itemLevel)
   local currentResult
 
   for index = 1, itemCount do
     currentResult = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
 
     if currentResult == nil then
+      Auctionator.Debug.Message("Missing, break")
       break
     elseif currentResult.itemKey.itemLevel == itemLevel then
-      -- Only aggregate items at the same iLvl as the posted piece
-      table.insert(results, currentResult)
+      -- Only get items at the same iLvl as the posted piece
+      return currentResult
     end
   end
 
-  return results
+  return nil
 end
 
 local function copyKey(originalItemKey)
@@ -86,25 +100,25 @@ function AuctionatorItemSellingMixin:ProcessItemResults()
     return
   end
 
-  local results = self:AggregateItemResults(itemKey, entryCount, originalCopy.itemLevel)
+  local result = self:GetItemResult(itemKey, entryCount, originalCopy.itemLevel)
   -- Update DB with current lowest price
-  if #results > 0 then
-    Auctionator.Database.SetPrice(dbKey, results[1].buyoutAmount)
+  if results ~= nil then
+    Auctionator.Database.SetPrice(dbKey, result.buyoutAmount)
   end
 
   local postingPrice = nil
 
-  if #results == 0 then
+  if result == nil then
     -- This item was not found in the AH, so use the lowest price from the dbKey
     -- TODO: DB price does not account for iLvl
     postingPrice = Auctionator.Database.GetPrice(dbKey)
-  elseif #results > 0 and results[1].containsOwnerItem then
+  elseif result ~= nil and result.containsOwnerItem then
     -- Posting an item I have alread posted, and that is the current lowest price, so just
     -- use this price
-    postingPrice = results[1].buyoutAmount
+    postingPrice = result.buyoutAmount
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    postingPrice = self:CalculateItemPriceFromResults(results[1])
+    postingPrice = self:CalculateItemPriceFromResults(result)
   end
 
   -- Didn't find anything currently posted, and nothing in DB

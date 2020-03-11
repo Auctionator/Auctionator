@@ -20,23 +20,29 @@ function AuctionatorCommoditySellingMixin:Initialize()
       FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_COMMODITY_EVENTS)
     end
   )
+  -- Used to grey out the post button when throttling takes place
+  hooksecurefunc(AuctionHouseFrame.CommoditiesSellFrame,
+    "UpdatePostButtonState",
+    function()
+      self:UpdateCommoditySellButton()
+    end
+  )
 end
 
-function AuctionatorCommoditySellingMixin:AggregateCommodityResults(itemId)
-  local results = {}
-  local currentResult
 
-  for index = 1, C_AuctionHouse.GetCommoditySearchResultsQuantity(itemId) do
-    currentResult = C_AuctionHouse.GetCommoditySearchResultInfo(itemId, index)
+function AuctionatorCommoditySellingMixin:UpdateCommoditySellButton()
+  Auctionator.Utilities.ApplyThrottlingButton(
+    AuctionHouseFrame.CommoditiesSellFrame.PostButton,
+    self.throttled
+  )
+end
 
-    if currentResult == nil then
-      break
-    end
-
-    table.insert(results, currentResult)
+function AuctionatorCommoditySellingMixin:GetCommodityResult(itemId)
+  if C_AuctionHouse.GetCommoditySearchResultsQuantity(itemId) > 0 then
+    return C_AuctionHouse.GetCommoditySearchResultInfo(itemId, index)
+  else
+    return nil
   end
-
-  return results
 end
 
 function AuctionatorCommoditySellingMixin:ProcessCommodityResults()
@@ -52,29 +58,29 @@ function AuctionatorCommoditySellingMixin:ProcessCommodityResults()
 
   local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
 
-  local results = self:AggregateCommodityResults(itemId)
+  local result = self:GetCommodityResult(itemId)
   -- Update DB with current lowest price
-  if #results > 0 then
-    Auctionator.Database.SetPrice(dbKey, results[1].unitPrice)
+  if result ~= nil then
+    Auctionator.Database.SetPrice(dbKey, result.unitPrice)
   end
 
   -- A few cases to process here:
-  -- 1. If entry at results[1] has containsOwnerItem=true, I should
-  --    use this price as my calculated posting price (i.e. I do not want to undercut myself)
-  -- 2. Otherwise, entry at results[1] is what to base my calculation on:
+  -- 1. If the entry containsOwnerItem=true, I should use this price as my
+  -- calculated posting price (i.e. I do not want to undercut myself)
+  -- 2. Otherwise, this entry is what to base my calculation on:
   --    a. Undercut by percentage (player can choose 0% to become first item chosen via LIFO)
   --    b. Undercut by static value
   local postingPrice = nil
 
-  if #results == 0 then
+  if result == nil then
     -- This commodity was not found in the AH, so use the last lowest price from DB
     postingPrice = Auctionator.Database.GetPrice(dbKey)
-  elseif #results > 0 and results[1].containsOwnerItem and results[1].owners[1] == "player" then
+  elseif result ~= nil and result.containsOwnerItem and result.owners[1] == "player" then
     -- No need to undercut myself
-    postingPrice = results[1].unitPrice
+    postingPrice = result.unitPrice
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    postingPrice = self:CalculateCommodityPriceFromResults(results[1])
+    postingPrice = self:CalculateCommodityPriceFromResults(result)
   end
 
   -- Didn't find anything currently posted, and nothing in DB
