@@ -38,8 +38,8 @@ local defaults = {
 
   [Auctionator.Config.Options.ITEM_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.ITEM_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
-  [Auctionator.Config.Options.ITEM_UNDERCUT_PERCENTAGE] = 5,
-  [Auctionator.Config.Options.ITEM_UNDERCUT_STATIC_VALUE] = 100,
+  [Auctionator.Config.Options.ITEM_UNDERCUT_PERCENTAGE] = 0,
+  [Auctionator.Config.Options.ITEM_UNDERCUT_STATIC_VALUE] = 0,
 
   [Auctionator.Config.Options.COMMODITY_AUCTION_DURATION] = 24,
   [Auctionator.Config.Options.COMMODITY_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
