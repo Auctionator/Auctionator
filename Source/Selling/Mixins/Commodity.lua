@@ -29,17 +29,18 @@ function AuctionatorCommoditySellingMixin:Initialize()
   )
 end
 
-
 function AuctionatorCommoditySellingMixin:UpdateCommoditySellButton()
-  Auctionator.Utilities.ApplyThrottlingButton(
-    AuctionHouseFrame.CommoditiesSellFrame.PostButton,
-    self.throttled
-  )
+  if AuctionHouseFrame.CommoditiesSellFrame:CanPostItem() then
+    Auctionator.Utilities.ApplyThrottlingButton(
+      AuctionHouseFrame.CommoditiesSellFrame.PostButton,
+      self.throttled
+    )
+  end
 end
 
 function AuctionatorCommoditySellingMixin:GetCommodityResult(itemId)
   if C_AuctionHouse.GetCommoditySearchResultsQuantity(itemId) > 0 then
-    return C_AuctionHouse.GetCommoditySearchResultInfo(itemId, index)
+    return C_AuctionHouse.GetCommoditySearchResultInfo(itemId, 1)
   else
     return nil
   end
@@ -80,7 +81,7 @@ function AuctionatorCommoditySellingMixin:ProcessCommodityResults()
     postingPrice = result.unitPrice
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    postingPrice = self:CalculateCommodityPriceFromResults(result)
+    postingPrice = self:CalculateCommodityPriceFromResult(result)
   end
 
   -- Didn't find anything currently posted, and nothing in DB
@@ -111,8 +112,8 @@ local function getSetAmount()
   return Auctionator.Config.Get(Auctionator.Config.Options.COMMODITY_UNDERCUT_STATIC_VALUE)
 end
 
-function AuctionatorCommoditySellingMixin:CalculateCommodityPriceFromResults(result)
-  Auctionator.Debug.Message(" AuctionatorCommoditySellingMixin:CalculateCommodityPriceFromResults")
+function AuctionatorCommoditySellingMixin:CalculateCommodityPriceFromResult(result)
+  Auctionator.Debug.Message(" AuctionatorCommoditySellingMixin:CalculateCommodityPriceFromResult")
   local value
 
   if userPrefersPercentage() then

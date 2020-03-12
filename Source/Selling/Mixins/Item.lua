@@ -30,10 +30,12 @@ function AuctionatorItemSellingMixin:Initialize()
 end
 
 function AuctionatorItemSellingMixin:UpdateItemSellButton()
-  Auctionator.Utilities.ApplyThrottlingButton(
-    AuctionHouseFrame.ItemSellFrame.PostButton,
-    self.throttled
-  )
+  if AuctionHouseFrame.ItemSellFrame:CanPostItem() then
+    Auctionator.Utilities.ApplyThrottlingButton(
+      AuctionHouseFrame.ItemSellFrame.PostButton,
+      self.throttled
+    )
+  end
 end
 
 function AuctionatorItemSellingMixin:GetItemResult(itemKey, itemCount, itemLevel)
@@ -118,7 +120,7 @@ function AuctionatorItemSellingMixin:ProcessItemResults()
     postingPrice = result.buyoutAmount
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    postingPrice = self:CalculateItemPriceFromResults(result)
+    postingPrice = self:CalculateItemPriceFromResult(result)
   end
 
   -- Didn't find anything currently posted, and nothing in DB
@@ -149,8 +151,8 @@ local function getSetAmount()
   return Auctionator.Config.Get(Auctionator.Config.Options.ITEM_UNDERCUT_STATIC_VALUE)
 end
 
-function AuctionatorItemSellingMixin:CalculateItemPriceFromResults(result)
-  Auctionator.Debug.Message(" AuctionatorItemSellingMixin:CalculateItemPriceFromResults")
+function AuctionatorItemSellingMixin:CalculateItemPriceFromResult(result)
+  Auctionator.Debug.Message(" AuctionatorItemSellingMixin:CalculateItemPriceFromResult")
   local value
 
   if userPrefersPercentage() then
