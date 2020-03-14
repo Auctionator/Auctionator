@@ -6,7 +6,8 @@ local SLASH_COMMAND_DESCRIPTIONS = {
   {commands = "d, debug", message = "Toggle debug mode."},
   {commands = "c, config", message = "Show current configuration values."},
   {commands = "c [toggle-name], config [toggle-name]", message = "Toggle the value of the configuration value [toggle-name]."},
-  {commands = "h, help", message = "Show this help message."}
+  {commands = "v, version", message = "Show current version."},
+  {commands = "h, help", message = "Show this help message."},
 }
 
 function Auctionator.SlashCmd.ToggleDebug()
@@ -66,6 +67,10 @@ function Auctionator.SlashCmd.Config(name)
   else
     Auctionator.Utilities.Message("Unknown config " .. name)
   end
+end
+
+function Auctionator.SlashCmd.Version()
+  Auctionator.Utilities.PrintVersion()
 end
 
 function Auctionator.SlashCmd.Help()
