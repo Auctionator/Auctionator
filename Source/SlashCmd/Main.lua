@@ -21,6 +21,8 @@ local SLASH_COMMANDS = {
   ["debug"] = Auctionator.SlashCmd.ToggleDebug,
   ["config"] = Auctionator.SlashCmd.Config,
   ["c"] = Auctionator.SlashCmd.Config,
+  ["v"] = Auctionator.SlashCmd.Version,
+  ["version"] = Auctionator.SlashCmd.Version,
   ["h"] = Auctionator.SlashCmd.Help,
   ["help"] = Auctionator.SlashCmd.Help,
 }
