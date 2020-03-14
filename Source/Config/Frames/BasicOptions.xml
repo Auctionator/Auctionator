@@ -60,12 +60,23 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionChatLog">
+        <KeyValues>
+          <KeyValue key="labelText" value="Show your new auctions in chat" type="string" />
+          <KeyValue key="tooltipTitleText" value="Auction Chat Log" type="string" />
+          <KeyValue key="tooltipText" value="If this option is off your auctions will not be scanned to find your new auctions." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AutoListSearch" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DebugHeading">
         <KeyValues>
           <KeyValue key="headingText" value="Developer Settings" type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AutoListSearch" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 

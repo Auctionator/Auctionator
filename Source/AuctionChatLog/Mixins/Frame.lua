@@ -60,6 +60,10 @@ function AuctionatorAuctionChatLogFrameMixin:UnregisterForEvents()
 end
 
 function AuctionatorAuctionChatLogFrameMixin:OnEvent(event, ...)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG) then
+    return
+  end
+
   if event == "AUCTION_HOUSE_AUCTION_CREATED" then
     Auctionator.Debug.Message("AUCTION_HOUSE_AUCTION_CREATED", ...)
 

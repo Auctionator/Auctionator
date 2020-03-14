@@ -8,6 +8,7 @@ Auctionator.Config.Options = {
   SHOW_LISTS = "show_lists",
   AUTOSCAN = "autoscan",
   AUTO_LIST_SEARCH = "auto_list_search",
+  AUCTION_CHAT_LOG = "auction_chat_log",
 
   ITEM_AUCTION_DURATION = "item_auction_duration",
   ITEM_AUCTION_SALES_PREFERENCE = "item_auction_sales_preference",
@@ -35,6 +36,7 @@ local defaults = {
   [Auctionator.Config.Options.SHOW_LISTS] = true,
   [Auctionator.Config.Options.AUTOSCAN] = true,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
+  [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
 
   [Auctionator.Config.Options.ITEM_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.ITEM_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
