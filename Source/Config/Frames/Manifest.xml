@@ -4,9 +4,8 @@
   <Include file="BasicOptions.xml"/>
   <Include file="Tooltips.xml"/>
 
-  <Include file="Selling.xml"/>
-  <Include file="Commodities.xml"/>
-  <Include file="Items.xml"/>
+  <Include file="LIFO.xml"/>
+  <Include file="NotLIFO.xml"/>
 
   <Include file="Database.xml"/>
   <Include file="ClearData.xml"/>

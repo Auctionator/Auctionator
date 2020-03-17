@@ -29,6 +29,7 @@ Auctionator = {
   Variables = {},
   ShoppingLists = {},
   Enchant = {},
+  Selling = {},
   
   API = {
     v1 = {}

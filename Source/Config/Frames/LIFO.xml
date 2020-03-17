@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorConfigCommoditiesFrame" mixin="AuctionatorConfigCommoditiesFrameMixin" parent="InterfaceOptionsFrame">
+  <Frame name="AuctionatorConfigLIFOFrame" mixin="AuctionatorConfigLIFOFrameMixin" parent="InterfaceOptionsFrame">
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
@@ -8,8 +8,8 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
-          <KeyValue key="titleText" value="Selling Commodities" type="string"/>
-          <KeyValue key="subTitleText" value="Options to set undercutting percent or values and duration for commodities." type="string"/>
+        <KeyValue key="titleText" value="Selling" type="string"/>
+          <KeyValue key="subTitleText" value="Options to set undercutting percent or values and duration for most items." type="string"/>
         </KeyValues>
       </Frame>
 

@@ -10,15 +10,15 @@ Auctionator.Config.Options = {
   AUTO_LIST_SEARCH = "auto_list_search",
   AUCTION_CHAT_LOG = "auction_chat_log",
 
-  ITEM_AUCTION_DURATION = "item_auction_duration",
-  ITEM_AUCTION_SALES_PREFERENCE = "item_auction_sales_preference",
-  ITEM_UNDERCUT_PERCENTAGE = "item_undercut_percentage",
-  ITEM_UNDERCUT_STATIC_VALUE = "item_undercut_static_value",
+  NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
+  NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
+  NOT_LIFO_UNDERCUT_PERCENTAGE = "not_lifo_undercut_percentage",
+  NOT_LIFO_UNDERCUT_STATIC_VALUE = "not_lifo_undercut_static_value",
 
-  COMMODITY_AUCTION_DURATION = "commodity_auction_duration",
-  COMMODITY_AUCTION_SALES_PREFERENCE = "commodity_auction_sales_preference",
-  COMMODITY_UNDERCUT_PERCENTAGE = "commodity_undercut_percentage",
-  COMMODITY_UNDERCUT_STATIC_VALUE = "commodity_undercut_static_value",
+  LIFO_AUCTION_DURATION = "lifo_auction_duration",
+  LIFO_AUCTION_SALES_PREFERENCE = "lifo_auction_sales_preference",
+  LIFO_UNDERCUT_PERCENTAGE = "lifo_undercut_percentage",
+  LIFO_UNDERCUT_STATIC_VALUE = "lifo_undercut_static_value",
 }
 
 Auctionator.Config.SalesTypes = {
@@ -38,15 +38,15 @@ local defaults = {
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
 
-  [Auctionator.Config.Options.ITEM_AUCTION_DURATION] = 48,
-  [Auctionator.Config.Options.ITEM_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
-  [Auctionator.Config.Options.ITEM_UNDERCUT_PERCENTAGE] = 0,
-  [Auctionator.Config.Options.ITEM_UNDERCUT_STATIC_VALUE] = 0,
+  [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
+  [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
+  [Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE] = 0,
+  [Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE] = 0,
 
-  [Auctionator.Config.Options.COMMODITY_AUCTION_DURATION] = 24,
-  [Auctionator.Config.Options.COMMODITY_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
-  [Auctionator.Config.Options.COMMODITY_UNDERCUT_PERCENTAGE] = 0,
-  [Auctionator.Config.Options.COMMODITY_UNDERCUT_STATIC_VALUE] = 0,
+  [Auctionator.Config.Options.LIFO_AUCTION_DURATION] = 24,
+  [Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
+  [Auctionator.Config.Options.LIFO_UNDERCUT_PERCENTAGE] = 0,
+  [Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE] = 0,
 }
 
 local function isValidOption(name)
