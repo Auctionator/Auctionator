@@ -30,7 +30,8 @@ function AuctionatorCommoditySellingMixin:Initialize()
 end
 
 function AuctionatorCommoditySellingMixin:UpdateCommoditySellButton()
-  if AuctionHouseFrame.CommoditiesSellFrame:CanPostItem() then
+  if self.throttled or
+     AuctionHouseFrame.CommoditiesSellFrame:CanPostItem() then
     Auctionator.Utilities.ApplyThrottlingButton(
       AuctionHouseFrame.CommoditiesSellFrame.PostButton,
       self.throttled
