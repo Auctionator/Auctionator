@@ -1,6 +1,6 @@
 -- TODO Initialize all the things here!
 -- TODO Document all of our saved vars (started in Objects, should aggregate somewhere)
-local VERSION_8_3 = 5
+local VERSION_8_3 = 6
 
 -- All the saved variables from the TOC
 -- SavedVariablesPerCharacter:
@@ -71,11 +71,8 @@ function Auctionator.Variables.InitializeDatabase()
   for _ in pairs(Auctionator.State.LiveDB) do count = count + 1 end
 
   Auctionator.Utilities.Message("Database loaded with " .. count .. " entries.")
-  -- TODO leftover from Atr_InitDB
-  -- Atr_PruneScanDB ();
-  -- Atr_PrunePostDB ();
 
-  -- Atr_Broadcast_DBupdated (#gAtr_ScanDB, "dbinited");
+  Auctionator.Database.Prune()
 end
 
 function Auctionator.Variables.InitializeShoppingLists()

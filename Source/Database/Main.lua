@@ -2,12 +2,24 @@ function Auctionator.Database.SetPrice(itemKey, newMinPrice)
   local db = Auctionator.State.LiveDB
 
   if not db[itemKey] then
-    db[itemKey] = {}
+    db[itemKey] = {
+      l={}, -- Lowest low price on a given day
+      h={}, -- Highest low price on a given day
+      m=0   -- Last seen minimum price
+    }
   end
 
-  db[itemKey].mr = newMinPrice
+  db[itemKey].m = newMinPrice
 
   Auctionator.Database.InternalUpdateHistory(itemKey, newMinPrice)
+end
+
+function Auctionator.Database.GetPrice(itemKey)
+  if Auctionator.State.LiveDB[itemKey] ~= nil then
+    return Auctionator.State.LiveDB[itemKey].m
+  else
+    return nil
+  end
 end
 
 --Takes all the items with a list of their prices, and determines the minimum
@@ -36,52 +48,80 @@ function Auctionator.Database.ProcessScan(priceIndexes)
   return count
 end
 
---IMPORTED FROM OLD CODE START
-gScanHistDayZero = time({year=2010, month=11, day=15, hour=0});   -- never ever change
-
-function Atr_GetScanDay_Today()
-  return (math.floor ((time() - gScanHistDayZero) / (86400)));
+local function GetScanDay()
+  return (math.floor ((time() - Auctionator.Constants.SCAN_DAY_0) / (86400)));
 end
---IMPORTED FROM OLD CODE END
 
---(I'm guessing) Records historical price data.
 function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice)
   local db = Auctionator.State.LiveDB
 
-  -- TODO Move this into a namespaced function
-  local daysSinceZero = Atr_GetScanDay_Today()
+  local daysSinceZero = GetScanDay()
 
-  local lowlow  = db[itemKey]["L" .. daysSinceZero]
-  local highlow = db[itemKey]["H" .. daysSinceZero]
+  local lowestLow  = db[itemKey].l[daysSinceZero]
+  local highestLow = db[itemKey].h[daysSinceZero]
 
-  if (highlow == nil or buyoutPrice > highlow) then
-    db[itemKey]["H"..daysSinceZero] = buyoutPrice
-    highlow = buyoutPrice
+  if highestLow == nil or buyoutPrice > highestLow then
+    db[itemKey].h[daysSinceZero] = buyoutPrice
+    highestLow = buyoutPrice
   end
 
-  -- save memory by only saving lowlow when different from highlow
-
-  local isLowerThanLow    = (lowlow ~= nil and buyoutPrice < lowlow)
-  local isNewAndDifferent   = (lowlow == nil and buyoutPrice < highlow)
-
-  if (isLowerThanLow or isNewAndDifferent) then
-    db[itemKey]["L"..daysSinceZero] = buyoutPrice
+  -- save memory by only saving lowestLow when different from highestLow
+  if buyoutPrice < highestLow then
+    db[itemKey].l[daysSinceZero] = buyoutPrice
   end
 end
 
--- TODO DOCUMENTATION
--- id: itemKey
--- mr: currentLowPrice (most recent)
--- cc: classID
--- sc: subclassID
--- L[age]: lowest price seen *today*
--- H[age]: highest price seen *today* (of the lowest prices for all scans today)?
--- po: mark for purge (!= nil)
+function Auctionator.Database.Prune()
+  local cutoffDay = GetScanDay() - Auctionator.Config.Get(Auctionator.Config.Options.PRICE_HISTORY_DAYS)
 
-function Auctionator.Database.GetPrice(itemKey)
-  if Auctionator.State.LiveDB[itemKey] ~= nil then
-    return Auctionator.State.LiveDB[itemKey].mr
-  else
-    return nil
+  local entriesPruned = 0
+
+  for itemKey, priceData in pairs(Auctionator.State.LiveDB) do
+
+    for day, _ in pairs(priceData.h) do
+      if day <= cutoffDay then
+        priceData.h[day] = nil
+
+        entriesPruned = entriesPruned +1
+      end
+    end
+
+    for day, _ in pairs(priceData.l) do
+      if day <= cutoffDay then
+        priceData.l[day] = nil
+
+        entriesPruned = entriesPruned +1
+      end
+    end
   end
+
+  Auctionator.Debug.Message("Auctionator.Database.Prune Pruned " .. tostring(entriesPruned) .. " prices")
+end
+
+function Auctionator.Database.GetPriceHistory(itemKey)
+  local db = Auctionator.State.LiveDB
+
+  if db[itemKey] == nil then
+    return {}
+  end
+
+  local itemData = db[itemKey]
+
+  local results = {}
+
+  local sortedDays = Auctionator.Utilities.TableKeys(itemData.h)
+  table.sort(sortedDays)
+
+  for _, day in ipairs(sortedDays) do
+    table.insert(results, {
+     date = date(
+        "%A, %B %d",
+        day * 86400 + Auctionator.Constants.SCAN_DAY_0
+     ),
+     minSeen = itemData.l[day] or itemData.h[day],
+     maxSeen = itemData.h[day]
+   })
+ end
+
+ return results
 end

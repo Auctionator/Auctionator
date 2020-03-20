@@ -19,4 +19,5 @@
 
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>
+  <Script file="TableKeys.lua"/>
 </Ui>
