@@ -19,6 +19,8 @@ Auctionator.Config.Options = {
   LIFO_AUCTION_SALES_PREFERENCE = "lifo_auction_sales_preference",
   LIFO_UNDERCUT_PERCENTAGE = "lifo_undercut_percentage",
   LIFO_UNDERCUT_STATIC_VALUE = "lifo_undercut_static_value",
+
+  PRICE_HISTORY_DAYS = "price_history_days",
 }
 
 Auctionator.Config.SalesTypes = {
@@ -47,6 +49,8 @@ local defaults = {
   [Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
   [Auctionator.Config.Options.LIFO_UNDERCUT_PERCENTAGE] = 0,
   [Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE] = 0,
+
+  [Auctionator.Config.Options.PRICE_HISTORY_DAYS] = 21,
 }
 
 local function isValidOption(name)
