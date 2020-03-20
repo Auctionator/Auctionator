@@ -14,7 +14,7 @@ function AuctionatorCommoditySellingMixin:Initialize()
     function()
       self:SetDuration(
         AuctionHouseFrame.CommoditiesSellFrame.DurationDropDown,
-        Auctionator.Config.Get(Auctionator.Config.Options.COMMODITY_AUCTION_DURATION)
+        Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
       )
 
       FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_COMMODITY_EVENTS)
@@ -82,7 +82,7 @@ function AuctionatorCommoditySellingMixin:ProcessCommodityResults()
     postingPrice = result.unitPrice
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    postingPrice = self:CalculateCommodityPriceFromResult(result)
+    postingPrice = Auctionator.Selling.CalculateLIFOPriceFromPrice(result.unitPrice)
   end
 
   -- Didn't find anything currently posted, and nothing in DB
@@ -97,35 +97,4 @@ function AuctionatorCommoditySellingMixin:ProcessCommodityResults()
   )
 
   FrameUtil.UnregisterFrameForEvents(self, AUCTIONATOR_COMMODITY_EVENTS)
-end
-
-local function userPrefersPercentage()
-  return
-    Auctionator.Config.Get(Auctionator.Config.Options.COMMODITY_AUCTION_SALES_PREFERENCE) ==
-    Auctionator.Config.SalesTypes.PERCENTAGE
-end
-
-local function getPercentage()
-  return (100 - Auctionator.Config.Get(Auctionator.Config.Options.COMMODITY_UNDERCUT_PERCENTAGE)) / 100
-end
-
-local function getSetAmount()
-  return Auctionator.Config.Get(Auctionator.Config.Options.COMMODITY_UNDERCUT_STATIC_VALUE)
-end
-
-function AuctionatorCommoditySellingMixin:CalculateCommodityPriceFromResult(result)
-  Auctionator.Debug.Message(" AuctionatorCommoditySellingMixin:CalculateCommodityPriceFromResult")
-  local value
-
-  if userPrefersPercentage() then
-    value = result.unitPrice * getPercentage()
-
-    Auctionator.Debug.Message("Percentage calculation", result.unitPrice, getPercentage(), value)
-  else
-    value = result.unitPrice - getSetAmount()
-
-    Auctionator.Debug.Message("Static value calculation", result.unitPrice, getSetAmount(), value)
-  end
-
-  return value
 end

@@ -15,6 +15,7 @@
   <Script file="CreateMoneyString.lua"/>
   <Script file="ApplyThrottlingButton.lua"/>
   <Script file="PrintVersion.lua"/>
+  <Script file="IsNotLIFOItemKey.lua"/>
 
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>

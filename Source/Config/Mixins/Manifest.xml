@@ -8,9 +8,8 @@
   <Script file="BasicOptions.lua"/>
   <Script file="Tooltips.lua"/>
 
-  <Script file="Selling.lua"/>
-  <Script file="Commodities.lua"/>
-  <Script file="Items.lua"/>
+  <Script file="LIFO.lua"/>
+  <Script file="NotLIFO.lua"/>
 
   <Script file="Database.lua"/>
   <Script file="ClearData.lua"/>

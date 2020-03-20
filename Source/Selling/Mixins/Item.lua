@@ -5,6 +5,21 @@ local AUCTIONATOR_ITEM_EVENTS = {
   "ITEM_SEARCH_RESULTS_ADDED"
 }
 
+local function GetItemDuration(itemLocation)
+  if itemLocation == nil then
+    return Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
+  end
+
+  local itemKey = C_AuctionHouse.GetItemKeyFromItem(itemLocation)
+  if Auctionator.Utilities.IsNotLIFOItemKey(itemKey) then
+    Auctionator.Debug.Message("Not LIFO itemKey")
+    return Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION)
+  else
+    Auctionator.Debug.Message("LIFO itemKey")
+    return Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
+  end
+end
+
 function AuctionatorItemSellingMixin:Initialize()
   Auctionator.Debug.Message("AuctionatorItemSellingMixin:Initialize()")
 
@@ -14,7 +29,9 @@ function AuctionatorItemSellingMixin:Initialize()
     function()
       self:SetDuration(
         AuctionHouseFrame.ItemSellFrame.DurationDropDown,
-        Auctionator.Config.Get(Auctionator.Config.Options.ITEM_AUCTION_DURATION)
+        GetItemDuration(
+          AuctionHouseFrame.ItemSellFrame.ItemDisplay:GetItemLocation()
+        )
       )
 
       FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_ITEM_EVENTS)
@@ -105,7 +122,7 @@ function AuctionatorItemSellingMixin:ProcessItemResults()
 
   local result = self:GetItemResult(itemKey, entryCount, originalCopy.itemLevel)
   -- Update DB with current lowest price
-  if results ~= nil then
+  if result ~= nil then
     Auctionator.Database.SetPrice(dbKey, result.buyoutAmount)
   end
 
@@ -121,7 +138,11 @@ function AuctionatorItemSellingMixin:ProcessItemResults()
     postingPrice = result.buyoutAmount
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    postingPrice = self:CalculateItemPriceFromResult(result)
+    if Auctionator.Utilities.IsNotLIFOItemKey(itemKey) then
+      postingPrice = Auctionator.Selling.CalculateNotLIFOPriceFromPrice(result.buyoutAmount)
+    else --Not LIFO
+      postingPrice = Auctionator.Selling.CalculateLIFOPriceFromPrice(result.buyoutAmount)
+    end
   end
 
   -- Didn't find anything currently posted, and nothing in DB
@@ -136,35 +157,4 @@ function AuctionatorItemSellingMixin:ProcessItemResults()
   )
 
   FrameUtil.UnregisterFrameForEvents(self, AUCTIONATOR_ITEM_EVENTS)
-end
-
-local function userPrefersPercentage()
-  return
-    Auctionator.Config.Get(Auctionator.Config.Options.ITEM_AUCTION_SALES_PREFERENCE) ==
-    Auctionator.Config.SalesTypes.PERCENTAGE
-end
-
-local function getPercentage()
-  return (100 - Auctionator.Config.Get(Auctionator.Config.Options.ITEM_UNDERCUT_PERCENTAGE)) / 100
-end
-
-local function getSetAmount()
-  return Auctionator.Config.Get(Auctionator.Config.Options.ITEM_UNDERCUT_STATIC_VALUE)
-end
-
-function AuctionatorItemSellingMixin:CalculateItemPriceFromResult(result)
-  Auctionator.Debug.Message(" AuctionatorItemSellingMixin:CalculateItemPriceFromResult")
-  local value
-
-  if userPrefersPercentage() then
-    value = result.buyoutAmount * getPercentage()
-
-    Auctionator.Debug.Message("Percentage calculation", result.buyoutAmount, getPercentage(), value)
-  else
-    value = result.buyoutAmount - getSetAmount()
-
-    Auctionator.Debug.Message("Static value calculation", result.buyoutAmount, getSetAmount(), value)
-  end
-
-  return value
 end

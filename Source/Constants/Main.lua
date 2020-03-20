@@ -4,5 +4,7 @@ Auctionator.Constants = {
   },
   RESULTS_DISPLAY_LIMIT = 100,
 
-  AdvancedSearchDivider = ';'
+  AdvancedSearchDivider = ';',
+
+  PET_CAGE_ID = 82800,
 }
