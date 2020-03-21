@@ -32,7 +32,7 @@
 
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="Contributors">
         <KeyValues>
-          <KeyValue key="subHeadingText" value="Plusmouse" type="string"/>
+          <KeyValue key="subHeadingText" value="plusmouse" type="string"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ContributorsHeading" relativePoint="BOTTOMLEFT"/>

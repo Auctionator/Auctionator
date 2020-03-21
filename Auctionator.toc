@@ -1,7 +1,7 @@
 ## Interface: 80300
 ## Title: Auctionator
 ## Version: AUTO_GENERATED_VERSION
-## Author: Borjamacare, Plusmouse
+## Author: Borjamacare, plusmouse
 ## X-Website: http://mods.curse.com/addons/wow/auctionator
 ## X-Localizations: enUS, itIT, deDE, ruRU, svSE, frFR, esES, esMX, zhTW
 ## Notes: A lightweight addon that makes it easy and fast to buy, sell and manage auctions
