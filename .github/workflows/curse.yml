@@ -25,10 +25,11 @@ jobs:
       uses: einaregilsson/build-number@v2 
       with:
         token: ${{secrets.github_token}}  
-    - name: Store build version for printing on startup
-      run: echo "Auctionator.Constants.CURRENT_VERSION = \"0.0."${{steps.buildnumber.outputs.build_number}}"\"" >Auctionator/Version.lua
-    - name: Set prerelease flag
-      run: echo "Auctionator.Constants.PRERELEASE = true" >>Auctionator/Version.lua
+    - name: Update version
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "AUTO_GENERATED_VERSION"
+        replace: "8.3.${{steps.buildnumber.outputs.build_number}} (alpha)"
     - name: Create zip
       run: zip -r Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator 
     - name: Create Release
