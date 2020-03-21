@@ -21,11 +21,13 @@ function Auctionator.Variables.Initialize()
   end
   Auctionator.Config.Initialize()
 
+  Auctionator.State.CurrentVersion = GetAddOnMetadata("Auctionator", "Version")
+  Auctionator.Utilities.PrintVersion()
+
   Auctionator.Variables.InitializeFullScanVariables()
   Auctionator.Variables.InitializeDatabase()
   Auctionator.Variables.InitializeShoppingLists()
 
-  Auctionator.State.CurrentVersion = GetAddOnMetadata("Auctionator", "Version")
   Auctionator.State.Loaded = true
 end
 

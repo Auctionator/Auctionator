@@ -27,5 +27,6 @@
   <Include file="Config\Manifest.xml" />
   <Include file="Selling\Manifest.xml"/>
 
+  <Include file="Tabs\Manifest.xml" />
   <Include file="API\Manifest.xml" />
 </Ui>

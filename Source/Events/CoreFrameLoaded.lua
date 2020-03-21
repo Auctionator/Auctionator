@@ -47,8 +47,7 @@ local AUCTIONATOR_EVENTS = {
 -- coreFrame: AuctionatorCore Frame (see Auctionator.xml)
 function Auctionator.Events.CoreFrameLoaded(coreFrame)
   Auctionator.Debug.Message("Auctionator.Events.CoreFrameLoaded")
-  Auctionator.Utilities.PrintVersion()
-  Auctionator.Utilities.Message("Limited functionality due to 8.3 AH updates.");
+  Auctionator.Utilities.Message("Limited functionality due to 8.3 AH updates.")
 
   for _, eventName in ipairs(AUCTIONATOR_EVENTS) do
     coreFrame:RegisterEvent(eventName)

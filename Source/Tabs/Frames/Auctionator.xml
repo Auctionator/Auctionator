@@ -1,0 +1,70 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigurationTabFrameTemplate"
+    virtual="true"
+    inherits="AuctionatorTabFrameTemplate"
+    parentKey="AuctionatorConfigFrame"
+  >
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="AuthorHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="Author" type="string"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="Author">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="Borj(amacare)" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuthorHeading" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ContributorsHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="Contributors" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Author" relativePoint="BOTTOMLEFT" y="-15" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="Contributors">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="Plusmouse" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ContributorsHeading" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="VersionHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="Version" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Contributors" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="Version">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="Auctionator.State.CurrentVersion" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.VersionHeading" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Open Addon Options" parentKey="OptionsButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.AuthorHeading" relativePoint="TOPRIGHT" x="-10" y="-10" />
+        </Anchors>
+        <Scripts>
+          <OnClick>InterfaceOptionsFrame_OpenToCategory("Basic Options")</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

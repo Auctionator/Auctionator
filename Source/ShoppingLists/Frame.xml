@@ -26,11 +26,7 @@
       <!-- Shopping List Dropdown -->
       <Frame inherits="UIDropDownMenuTemplate" name="$parent_ListDropDown" mixin="AuctionatorShoppingListDropdownMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT">
-            <Offset>
-              <AbsDimension x="0" y="-35"/>
-            </Offset>
-          </Anchor>
+          <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="0" y="-35" />
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad" />

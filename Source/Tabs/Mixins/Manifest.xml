@@ -1,0 +1,9 @@
+<!-- Tabs/Mixins directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="DisplayModes.lua" />
+  <Script file="TabButton.lua" />
+
+  <Script file="Auctionator.lua" />
+
+  <Script file="TabContainer.lua"/>
+</Ui>
