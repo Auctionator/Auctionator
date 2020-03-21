@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorTabFrameTemplate"
+    virtual="true"
+    inherits="InsetFrameTemplate"
+    parent="AuctionHouseFrame"
+  >
+    <!-- Note that inheriting frames need to set their own parentKey! -->
+    <KeyValues>
+      <KeyValue key="backgroundAtlas" value="auctionhouse-background-buy-commodities" type="string"/>
+    </KeyValues>
+
+    <Anchors>
+      <Anchor point="LEFT" x="4" y="0"/>
+      <Anchor point="RIGHT" x="-4" y="0" />
+      <Anchor point="BOTTOM" y="27" />
+      <Anchor point="TOPLEFT" relativeKey="$parent.CategoriesList" relativePoint="TOPLEFT" />
+    </Anchors>
+  </Frame>
+</Ui>

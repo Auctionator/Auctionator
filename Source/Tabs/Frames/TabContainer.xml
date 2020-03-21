@@ -1,0 +1,23 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorAHTabsContainerTemplate" virtual="true" mixin="AuctionatorTabContainerMixin">
+    <Frames>
+      <Button name="AuctionatorTabs_Auctionator" inherits="AuctionatorTabButtonTemplate" text="Auctionator">
+        <KeyValues>
+          <!-- From AuctionHouseFrameDisplayModeTabTemplate -->
+          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Auctionator" type="global" />
+          <!-- For creation of Auctionator Frame -->
+          <KeyValue key="displayModeKey" value="Auctionator" type="string" />
+          <KeyValue key="frameTemplate" value="AuctionatorConfigurationTabFrameTemplate" type="string" />
+          <KeyValue key="ahTabIndex" value="4" type="number" />
+          <KeyValue key="ahTitle" value="Auctionator - Info" type="string" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="LEFT" relativeKey="$parent.AuctionsTab" relativePoint="RIGHT" x="-15" y="0" />
+        </Anchors>
+      </Button>
+    </Frames>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+  </Frame>
+</Ui>

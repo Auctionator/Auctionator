@@ -10,6 +10,7 @@ Auctionator = {
     Loaded = false,
     CurrentVersion = nil,
     LiveDB = nil,
+    Tabs = {}
   },
 
   FullScan = {
@@ -30,7 +31,7 @@ Auctionator = {
   ShoppingLists = {},
   Enchant = {},
   Selling = {},
-  
+
   API = {
     v1 = {}
   },

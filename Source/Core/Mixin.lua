@@ -89,6 +89,17 @@ local function InitializeSellingFrame()
   end
 end
 
+local function InitializeAuctionHouseTabs()
+  if Auctionator.State.TabFrameRef == nil then
+    Auctionator.State.TabFrameRef = CreateFrame(
+      "Frame",
+      "AuctionatorAHTabsContainer",
+      AuctionHouseFrame,
+      "AuctionatorAHTabsContainerTemplate"
+    )
+  end
+end
+
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
@@ -98,6 +109,8 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeShoppingListFrame()
   InitializeAuctionatorButtonFrame()
   InitializeSellingFrame()
+
+  InitializeAuctionHouseTabs()
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)

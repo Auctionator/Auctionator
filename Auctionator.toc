@@ -1,7 +1,7 @@
 ## Interface: 80300
 ## Title: Auctionator
-## Version: 8.3.0
-## Author: Borjamacare, Zirco
+## Version: AUTO_GENERATED_VERSION
+## Author: Borjamacare, Plusmouse
 ## X-Website: http://mods.curse.com/addons/wow/auctionator
 ## X-Localizations: enUS, itIT, deDE, ruRU, svSE, frFR, esES, esMX, zhTW
 ## Notes: A lightweight addon that makes it easy and fast to buy, sell and manage auctions
@@ -14,8 +14,6 @@ zcUtils.lua
 
 Locales\Manifest.xml
 Source\Manifest.xml
-
-Version.lua
 
 Auctionator.xml
 
