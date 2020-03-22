@@ -1,0 +1,115 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorShoppingListTabFrameTemplate"
+    virtual="true"
+    inherits="AuctionatorTabFrameTemplate"
+    parentKey="AuctionatorShoppingListFrame"
+    mixin="AuctionatorShoppingListTabMixin, AuctionatorShoppingListFrameMixin, AuctionatorEventBus"
+  >
+    <Scripts>
+      <OnShow method="OnShow" />
+    </Scripts>
+    <Frames>
+      <!-- Shopping List Dropdown -->
+      <Frame inherits="UIDropDownMenuTemplate" parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="50" y="35" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+        </Scripts>
+      </Frame>
+
+      <!-- List Create/Delete Buttons -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Create" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ListDropdown" relativePoint="TOPRIGHT" x="-3" y="-3" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Delete" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CreateList" relativePoint="TOPRIGHT"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <!-- List Manual Search Button -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DeleteList" relativePoint="TOPRIGHT" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <!-- Shopping List item scroll frame -->
+      <Frame name="$parent_ShoppingListItems" parentKey="ScrollList" inherits="ScrollListTemplate" mixin="AuctionatorScrollListMixin">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="400" />
+        </Anchors>
+        <Layers>
+          <Layer level="OVERLAY">
+            <FontString parentKey="ResultsText" inherits="GameFontNormal" hidden="true">
+              <Anchors>
+                <Anchor point="TOP" relativeKey="$parent.LoadingSpinner" relativePoint="CENTER"/>
+                <Anchor point="LEFT" x="45"/>
+                <Anchor point="RIGHT" x="-67"/>
+              </Anchors>
+              <Color color="NORMAL_FONT_COLOR"/>
+              <Shadow>
+                <Offset>
+                  <AbsDimension x="1" y="-1"/>
+                </Offset>
+                <Color r="0" g="0" b="0"/>
+              </Shadow>
+            </FontString>
+            <Texture parentKey="LoadingSpinner" atlas="auctionhouse-ui-loadingspinner" hidden="true">
+              <Size x="146" y="146"/>
+              <Anchors>
+                <Anchor point="CENTER" x="-12" y="0"/>
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Animations>
+          <AnimationGroup parentKey="SpinnerAnim" looping="REPEAT">
+            <Rotation childKey="LoadingSpinner" order="1" duration="1" degrees="-360"/>
+          </AnimationGroup>
+        </Animations>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnEvent method="OnEvent"/>
+        </Scripts>
+      </Frame>
+
+      <!-- List Add Item Button -->
+      <!--
+        TODO
+        There's a bug here where OnCancel of the dialog, this button does not re-enable -
+        there's a conflict with the existing dialog and i dont want to duplicate code to fix
+        it; I'll just fix it when we deprecate the sidebar
+      -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Add Item" parentKey="AddItem" mixin="AuctionatorListItemAddButtonMixin">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>
