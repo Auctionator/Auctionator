@@ -4,6 +4,7 @@
     virtual="true"
     inherits="AuctionatorTabFrameTemplate"
     parentKey="AuctionatorConfigFrame"
+    mixin="AuctionatorConfigTabMixin"
   >
     <Frames>
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="AuthorHeading">

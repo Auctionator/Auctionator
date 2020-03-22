@@ -1,6 +1,26 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame name="AuctionatorAHTabsContainerTemplate" virtual="true" mixin="AuctionatorTabContainerMixin">
     <Frames>
+      <Button
+        name="AuctionatorTabs_ShoppingLists"
+        inherits="AuctionatorTabButtonTemplate"
+        text="Shopping"
+        parentKey="AuctionatorShoppingListTab"
+      >
+        <KeyValues>
+        <!-- From AuctionHouseFrameDisplayModeTabTemplate -->
+          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.ShoppingLists" type="global"/>
+          <!-- For creation of Auctionator Frame -->
+          <KeyValue key="displayModeKey" value="ShoppingLists" type="string"/>
+          <KeyValue key="frameTemplate" value="AuctionatorShoppingListTabFrameTemplate" type="string"/>
+          <KeyValue key="ahTabIndex" value="4" type="number"/>
+          <KeyValue key="ahTitle" value="Auctionator - Shopping Lists" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="LEFT" relativeKey="$parent.AuctionsTab" relativePoint="RIGHT" x="-15" y="0"/>
+        </Anchors>
+      </Button>
+
       <Button name="AuctionatorTabs_Auctionator" inherits="AuctionatorTabButtonTemplate" text="Auctionator">
         <KeyValues>
           <!-- From AuctionHouseFrameDisplayModeTabTemplate -->
@@ -8,11 +28,11 @@
           <!-- For creation of Auctionator Frame -->
           <KeyValue key="displayModeKey" value="Auctionator" type="string" />
           <KeyValue key="frameTemplate" value="AuctionatorConfigurationTabFrameTemplate" type="string" />
-          <KeyValue key="ahTabIndex" value="4" type="number" />
+          <KeyValue key="ahTabIndex" value="5" type="number" />
           <KeyValue key="ahTitle" value="Auctionator - Info" type="string" />
         </KeyValues>
         <Anchors>
-          <Anchor point="LEFT" relativeKey="$parent.AuctionsTab" relativePoint="RIGHT" x="-15" y="0" />
+          <Anchor point="LEFT" relativeKey="$parent.AuctionatorShoppingListTab" relativePoint="RIGHT" x="-15" y="0" />
         </Anchors>
       </Button>
     </Frames>

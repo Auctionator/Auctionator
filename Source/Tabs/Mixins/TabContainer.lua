@@ -5,30 +5,41 @@ function AuctionatorTabContainerMixin:OnLoad()
 
   -- Set up self references since parented to the AH Frame
   self.Tabs = {
-    Auctionator = AuctionatorTabs_Auctionator
+    ShoppingLists = AuctionatorTabs_ShoppingLists,
+    Auctionator = AuctionatorTabs_Auctionator,
   }
 
   self:HookTabs()
+end
+
+function AuctionatorTabContainerMixin:IsAuctionatorFrame(displayMode)
+  for _, frame in pairs(self.Tabs) do
+    if frame.displayMode == displayMode then
+      return true, frame
+    end
+  end
+
+  return false, nil
 end
 
 function AuctionatorTabContainerMixin:HookTabs()
   hooksecurefunc(AuctionHouseFrame, "SetDisplayMode", function(frame)
     Auctionator.Debug.Message("SetDisplayMode", frame.displayMode)
 
-    -- Bail if our tab was not selected
-    -- Written `not ()` so we can add tabs
-    if not (frame.displayMode == AuctionatorTabDisplayModes.Auctionator) then
-      -- Ensure our tabs get deselected
-      for _, tab in pairs(self.Tabs) do
-        tab:DeselectTab()
-      end
+    local isAuctionatorFrame, tab = self:IsAuctionatorFrame(frame.displayMode)
 
+    for _, auctionatorTab in pairs(self.Tabs) do
+      if auctionatorTab ~= tab then
+        auctionatorTab:DeselectTab()
+      end
+    end
+
+    -- Bail if our tab was not selected
+    if not isAuctionatorFrame then
       return
     end
 
-    if frame.displayMode == AuctionatorTabDisplayModes.Auctionator then
-      self.Tabs.Auctionator:Selected()
-    end
+    tab:Selected()
   end)
 end
 
