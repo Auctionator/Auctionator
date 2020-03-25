@@ -36,9 +36,11 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
   local cannotAuction = 0;
 
   if Auctionator.Utilities.IsPetItemKey(itemKey) then
-    if auctionPrice ~= nil then
-      Auctionator.Debug.Message("Pet has AH price "..math.floor(auctionPrice/10000).."g "..math.floor((auctionPrice%10000)/100).."s");
-    end
+    -- If for a pet the tooltip doesn't have any content, so it shows the first
+    -- line as a title line; larger than the later linjes.
+    tooltipFrame:AddLine(
+      WHITE_FONT_COLOR:WrapTextInColorCode("Auctionator")
+    )
   else
     local itemInfo = { GetItemInfo(itemLink) };
     if (#itemInfo) ~= 0 then
