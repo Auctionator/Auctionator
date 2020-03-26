@@ -12,7 +12,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
 
   local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
-  if itemKey == nil then
+  if itemKey == nil or Auctionator.Utilities.IsPetItemKey(itemKey) then
     return
   end
 
@@ -35,18 +35,16 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
   local vendorPrice, disenchantParams, disenchantPrice
   local cannotAuction = 0;
 
-  if not Auctionator.Utilities.IsPetItemKey(itemKey) then
-    local itemInfo = { GetItemInfo(itemLink) };
-    if (#itemInfo) ~= 0 then
-      cannotAuction = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE];
-      local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
-      if sellPrice ~= nil then
-        vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
-      end
-
-      disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
-      disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink)
+  local itemInfo = { GetItemInfo(itemLink) };
+  if (#itemInfo) ~= 0 then
+    cannotAuction = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE];
+    local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
+    if sellPrice ~= nil then
+      vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
     end
+
+    disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
+    disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink)
   end
 
   if Auctionator.Debug.IsOn() then
