@@ -1,3 +1,9 @@
+hooksecurefunc (_G, "BattlePetToolTip_Show",
+  function(speciesID, ...)
+    Auctionator.Tooltip.AddPetTip(speciesID)
+  end
+)
+
 -- This is called when mousing over an item in your bags
 hooksecurefunc (GameTooltip, "SetBagItem",
   function(tip, bag, slot)
