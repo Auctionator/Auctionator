@@ -1,6 +1,6 @@
 hooksecurefunc (_G, "BattlePetToolTip_Show",
-  function()
-    BattlePetTooltip:SetPoint("BOTTOM", GameTooltip, "TOP")
+  function(speciesID, ...)
+    Auctionator.Tooltip.AddPetTip(speciesID)
   end
 )
 

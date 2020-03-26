@@ -35,13 +35,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
   local vendorPrice, disenchantParams, disenchantPrice
   local cannotAuction = 0;
 
-  if Auctionator.Utilities.IsPetItemKey(itemKey) then
-    -- If for a pet the tooltip doesn't have any content, so it shows the first
-    -- line as a title line; larger than the later linjes.
-    tooltipFrame:AddLine(
-      WHITE_FONT_COLOR:WrapTextInColorCode("Auctionator")
-    )
-  else
+  if not Auctionator.Utilities.IsPetItemKey(itemKey) then
     local itemInfo = { GetItemInfo(itemLink) };
     if (#itemInfo) ~= 0 then
       cannotAuction = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE];
@@ -163,6 +157,30 @@ function Auctionator.Tooltip.AddDisenchantTip (
       L("Disenchant"),
       WHITE_FONT_COLOR:WrapTextInColorCode(
         L("unknown") .. "  "
+      )
+    )
+  end
+end
+
+local PET_TOOLTIP_SPACING = " "
+function Auctionator.Tooltip.AddPetTip(
+  speciesID
+)
+  local key = "p:" .. tostring(speciesID)
+  local price = Auctionator.Database.GetPrice(key)
+  BattlePetTooltip:AddLine(" ")
+  if price ~= nil then
+    BattlePetTooltip:AddLine(
+      L("Auction") .. PET_TOOLTIP_SPACING ..
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        zc.priceToMoneyString(price)
+      )
+    )
+  else
+    BattlePetTooltip:AddLine(
+      L("Auction") .. PET_TOOLTIP_SPACING ..
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        "unknown"
       )
     )
   end
