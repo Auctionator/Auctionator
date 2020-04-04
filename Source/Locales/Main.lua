@@ -30,6 +30,6 @@ function Auctionator.Locales.Apply(s, ...)
   if currentLocale[s] ~= nil then
     return string.format(currentLocale[s], ...)
   else
-    error("Unknown/missing locale string")
+    error("Unknown/missing locale string '" .. s .. "'")
   end
 end
