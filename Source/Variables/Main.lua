@@ -72,7 +72,9 @@ function Auctionator.Variables.InitializeDatabase()
   local count = 0
   for _ in pairs(Auctionator.State.LiveDB) do count = count + 1 end
 
-  Auctionator.Utilities.Message("Database loaded with " .. count .. " entries.")
+  Auctionator.Utilities.Message(
+    Auctionator.Locales.Apply("DATABASE_LOADED", count)
+  )
 
   Auctionator.Database.Prune()
 end

@@ -73,6 +73,22 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["STACK_AUCTION_INFO"] = "%s for %s (at %s each)"
   L["BIDDING_AUCTION_INFO"] = "%s bidding at %s"
   L["BUYOUT_AUCTION_INFO"] = "%s buyout at %s"
+  L["VERSION_MESSAGE"] = "Version %s"
+  L["DATABASE_LOADED"] = "Database loaded with %s entries."
+  L["LIMITED_FUNCTIONALITY_MESSAGE"] = "Limited functionality due to 8.3 AH updates."
+
+  L["STARTING_FULL_SCAN"] = "Starting a full scan."
+  L["NEXT_SCAN_MESSAGE"] = "A full scan may be started in %s minutes and %s seconds."
+  L["SCAN_FAILED"] = "Full scan failed to complete."
+  L["FINISHED_PROCESSING"] = "Finished processing %s items."
+  L["STOPPED_PROCESSING"] = "Stopped processing at %s out of %s."
+
+  L["TOO_MANY_SEARCH_RESULTS"] = "Too many search results. Limiting results displayed." 
+  L["LIST_DELETE_ERROR"] = "An error occurred attempting to delete a list."
+  L["LIST_ADD_ERROR"] = "An error occurred attempting to add an item to a list."
+
+  L["TOO_SMALL_PERCENTAGE"] = "%% must be >= 0 (provided %s)"
+  L["TOO_BIG_PERCENTAGE"] = "%% must be <= 100 (provided %s)"
 
   return L
 end
