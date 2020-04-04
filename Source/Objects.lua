@@ -13,13 +13,7 @@ Auctionator = {
     Tabs = {}
   },
 
-  FullScan = {
-    State = {
-    ---- Recorded in SAVEDVARS, initialzed in InitializeVariables
-    ---- Records the time in seconds since epoch that the last ReplicateItems was called
-    -- TimeOfLastScan = nil,
-    }
-  },
+  SavedState = {},
   Search = {
     Filters = {},
     FilterLookup = {}

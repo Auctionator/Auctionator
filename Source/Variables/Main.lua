@@ -15,30 +15,24 @@ local VERSION_8_3 = 6
 
 
 function Auctionator.Variables.Initialize()
+  Auctionator.Variables.InitializeSavedState()
 
-  if AUCTIONATOR_SAVEDVARS == nil then
-    AUCTIONATOR_SAVEDVARS = {}
-  end
   Auctionator.Config.Initialize()
 
   Auctionator.State.CurrentVersion = GetAddOnMetadata("Auctionator", "Version")
   Auctionator.Utilities.PrintVersion()
 
-  Auctionator.Variables.InitializeFullScanVariables()
   Auctionator.Variables.InitializeDatabase()
   Auctionator.Variables.InitializeShoppingLists()
 
   Auctionator.State.Loaded = true
 end
 
-function Auctionator.Variables.InitializeFullScanVariables()
-  if AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA == nil then
-    AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA = {
-      TimeOfLastScan = nil,
-    }
+function Auctionator.Variables.InitializeSavedState()
+  if AUCTIONATOR_SAVEDVARS == nil then
+    AUCTIONATOR_SAVEDVARS = {}
   end
-
-  Auctionator.FullScan.State = AUCTIONATOR_SAVEDVARS.FULL_SCAN_DATA
+  Auctionator.SavedState = AUCTIONATOR_SAVEDVARS
 end
 
 function Auctionator.Variables.InitializeDatabase()

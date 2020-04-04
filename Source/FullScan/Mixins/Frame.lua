@@ -9,7 +9,7 @@ function AuctionatorFullScanFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:OnLoad")
 
   -- Updates to self.state should store in the SAVED_VARIABLE
-  self.state = Auctionator.FullScan.State
+  self.state = Auctionator.SavedState
   self.prices = {}
   self.startTime = nil
 end

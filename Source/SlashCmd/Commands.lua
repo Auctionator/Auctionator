@@ -32,7 +32,7 @@ end
 
 function Auctionator.SlashCmd.ResetTimer()
   if Auctionator.Debug.IsOn() then
-    Auctionator.FullScan.State.TimeOfLastScan = nil
+    Auctionator.SavedState.TimeOfLastScan = nil
     Auctionator.Utilities.Message("Scan timer reset.")
   else
     Auctionator.Utilities.Message("Requires debug mode.")
