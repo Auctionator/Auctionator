@@ -3,7 +3,7 @@ AuctionatorConfigTooltipsFrameMixin = CreateFromMixins(AuctionatorPanelConfigMix
 function AuctionatorConfigTooltipsFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorConfigTooltipsFrameMixin:OnLoad()")
 
-  self.name = "Tooltips"
+  self.name = AUCTIONATOR_L_CONFIG_TOOLTIPS_CATEGORY
   self.parent = "Auctionator"
 
   self:SetupPanel()

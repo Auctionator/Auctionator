@@ -3,7 +3,7 @@ AuctionatorConfigLIFOFrameMixin = CreateFromMixins(AuctionatorPanelConfigMixin)
 function AuctionatorConfigLIFOFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorConfigLIFOFrameMixin:OnLoad()")
 
-  self.name = "Selling"
+  self.name = AUCTIONATOR_L_CONFIG_LIFO_CATEGORY
   self.parent = "Auctionator"
 
   self:SetupPanel()

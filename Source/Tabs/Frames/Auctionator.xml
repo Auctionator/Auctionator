@@ -9,7 +9,7 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="AuthorHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="Author" type="string"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_AUTHOR_HEADER" type="global"/>
         </KeyValues>
       </Frame>
 
@@ -24,7 +24,7 @@
 
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ContributorsHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="Contributors" type="string"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONTRIBUTORS_HEADER" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Author" relativePoint="BOTTOMLEFT" y="-15" />
@@ -42,7 +42,7 @@
 
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="VersionHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="Version" type="string"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_VERSION_HEADER" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Contributors" relativePoint="BOTTOMLEFT" y="-15"/>
@@ -58,12 +58,12 @@
         </Anchors>
       </Frame>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Open Addon Options" parentKey="OptionsButton">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_OPEN_ADDON_OPTIONS" parentKey="OptionsButton">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.AuthorHeading" relativePoint="TOPRIGHT" x="-10" y="-10" />
         </Anchors>
         <Scripts>
-          <OnClick>InterfaceOptionsFrame_OpenToCategory("Basic Options")</OnClick>
+          <OnClick>InterfaceOptionsFrame_OpenToCategory(AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY)</OnClick>
         </Scripts>
       </Button>
     </Frames>

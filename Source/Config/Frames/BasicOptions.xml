@@ -13,14 +13,14 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
-          <KeyValue key="titleText" value="Basic Options" type="string" />
-          <KeyValue key="subTitleText" value="Basic options for enabling features in Auctionator." type="string"/>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY" type="global" />
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_TEXT" type="global"/>
         </KeyValues>
       </Frame>
 
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ShoppingListHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="Shopping List Settings" type="string"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_SHOPPING_LIST" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
@@ -29,9 +29,9 @@
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowLists">
         <KeyValues>
-          <KeyValue key="labelText" value="Show shopping list sidebar when Auction House is opened." type="string" />
-          <KeyValue key="tooltipTitleText" value="Shopping List Sidebar" type="string" />
-          <KeyValue key="tooltipText" value="Shows the shopping list sidebar when the auction house is opened. If the sidebar is hidden, you may show it by clicking the 'Shopping Lists' button in the auction house." type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHOW_LISTS" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SHOW_LISTS_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHOW_LISTS_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ShoppingListHeading" relativePoint="BOTTOMLEFT" />
@@ -40,9 +40,9 @@
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Autoscan">
         <KeyValues>
-          <KeyValue key="labelText" value="Run autoscan when Auction House is opened." type="string" />
-          <KeyValue key="tooltipTitleText" value="Autoscan" type="string" />
-          <KeyValue key="tooltipText" value="Run a full scan when the auction house is opened. If not selected, you may run a full scan by clicking the 'Full Scan' button in the auction house." type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ShowLists" relativePoint="BOTTOMLEFT" />
@@ -51,9 +51,9 @@
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AutoListSearch">
         <KeyValues>
-          <KeyValue key="labelText" value="Automatically scan for shopping list items." type="string" />
-          <KeyValue key="tooltipTitleText" value="Automatic List Search" type="string" />
-          <KeyValue key="tooltipText" value="When a list is selected, automatically scan the auction house for the list entries. When this option is off, you may scan for the entire list when selecting the 'Search' button in the Shopping List sidebar." type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUTO_LIST_SEARCH" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_AUTO_LIST_SEARCH_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_AUTO_LIST_SEARCH_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Autoscan" relativePoint="BOTTOMLEFT" />
@@ -62,9 +62,9 @@
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionChatLog">
         <KeyValues>
-          <KeyValue key="labelText" value="Show your new auctions in chat" type="string" />
-          <KeyValue key="tooltipTitleText" value="Auction Chat Log" type="string" />
-          <KeyValue key="tooltipText" value="If this option is off your auctions will not be scanned to find your new auctions." type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CHAT_LOG" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_CHAT_LOG_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CHAT_LOG_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.AutoListSearch" relativePoint="BOTTOMLEFT" />
@@ -73,7 +73,7 @@
 
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DebugHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="Developer Settings" type="string"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_DEVELOPER" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT"/>
@@ -82,9 +82,9 @@
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Debug">
         <KeyValues>
-          <KeyValue key="labelText" value="Toggle debug output." type="string" />
-          <KeyValue key="tooltipTitleText" value="Auctionator Debug" type="string" />
-          <KeyValue key="tooltipText" value="This is used by the maintainers to output debug messages to the chat frame." type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_DEBUG" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_DEBUG_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_DEBUG_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.DebugHeading" relativePoint="BOTTOMLEFT" />

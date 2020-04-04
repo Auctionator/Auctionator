@@ -76,7 +76,7 @@
       </Button>
 
       <!-- List Manual Search Button -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_ListSearch" text="Search" mixin="AuctionatorListSearchButtonMixin">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" name="$parent_ListSearch" text="AUCTION_HOUSE_SEARCH_BUTTON" mixin="AuctionatorListSearchButtonMixin">
         <Anchors>
           <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT">
             <Offset>

@@ -1,8 +1,7 @@
-
 local _, addonTable = ...;
 local zc = addonTable.zc;
 
-local L = Auctionator.Localization.Localize
+local L = Auctionator.Locales.Apply
 
 -- TODO DOCUMENTATION
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
