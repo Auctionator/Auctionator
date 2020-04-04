@@ -1,0 +1,14 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button
+    name="AuctionatorStringCellTemplate"
+    mixin="AuctionatorStringCellTemplateMixin"
+    inherits="AuctionatorCell"
+    virtual="true"
+  >
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString parentKey="text" inherits="Game12Font" setAllPoints="true"/>
+      </Layer>
+    </Layers>
+  </Button>
+</Ui>

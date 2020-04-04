@@ -21,7 +21,8 @@ function AuctionatorScrollListMixin:OnLoad()
     function(results)
       self:EndSearch(results)
     end,
-    function(current, total)
+    function(current, total, results)
+      self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
       self.ResultsText:SetText("Searching for item " .. current .. "/" .. total .. " in\n" .. self.currentList.name)
     end
   )
@@ -29,13 +30,6 @@ end
 
 function AuctionatorScrollListMixin:OnEvent(eventName, ...)
   self:OnSearchEvent(eventName, ...)
-
-  if eventName == "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED" and self.multiSearchComplete then
-    self:HideSpinner()
-    AuctionHouseFrame.SearchBar.SearchButton:Enable()
-
-    self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchEnded)
-  end
 end
 
 function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
@@ -67,9 +61,6 @@ function AuctionatorScrollListMixin:StartSearch()
 
   self.SpinnerAnim:Play()
   self.LoadingSpinner:Show()
-  self.multiSearchComplete = false
-
-  AuctionHouseFrame.SearchBar.SearchButton:Disable()
 
   local searchTerms = {}
 
@@ -77,13 +68,13 @@ function AuctionatorScrollListMixin:StartSearch()
     table.insert(searchTerms, name)
   end
 
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchStarted)
+  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchStarted, #self.currentList.items)
   self:Search(searchTerms)
 end
 
 function AuctionatorScrollListMixin:EndSearch(results)
-  self.multiSearchComplete = true
-  Auctionator.Search.SafeItemKeysSearch(results)
+  self:HideSpinner()
+  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchEnded, results)
 end
 
 function AuctionatorScrollListMixin:HideSpinner()

@@ -78,7 +78,7 @@ function AuctionatorScrollListLineMixin:OnSelected()
 end
 
 function AuctionatorScrollListLineMixin:EndSearch(results)
-  Auctionator.Search.SafeItemKeysSearch(results)
+  self.scrollFrameParent:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
 end
 
 AuctionatorScrollListLineDeleteMixin = {}
