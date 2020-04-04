@@ -1,0 +1,44 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorResultsListingTemplate"
+    virtual="true"
+    parentKey="ResultsListing"
+    mixin="AuctionatorResultsListingMixin"
+  >
+
+    <Scripts>
+      <OnShow method="OnShow" />
+      <OnUpdate method="OnUpdate" />
+    </Scripts>
+
+    <Frames>
+      <Frame parentKey="HeaderContainer">
+        <Size y="19"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="-7" x="-20" />
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+        </Anchors>
+      </Frame>
+      <ScrollFrame parentKey="ScrollFrame" inherits="HybridScrollFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.HeaderContainer" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="RIGHT" relativeKey="$parent.HeaderContainer" relativePoint="RIGHT" x="-20"/>
+          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+        <Frames>
+          <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPRIGHT" y="-16"/>
+              <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="17"/>
+            </Anchors>
+            <Layers>
+              <Layer level="BACKGROUND">
+                <Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true" setAllPoints="true"/>
+              </Layer>
+            </Layers>
+          </Slider>
+        </Frames>
+      </ScrollFrame>
+    </Frames>
+  </Frame>
+</Ui>

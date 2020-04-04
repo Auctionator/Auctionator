@@ -4,47 +4,55 @@
     virtual="true"
     inherits="AuctionatorTabFrameTemplate"
     parentKey="AuctionatorShoppingListFrame"
-    mixin="AuctionatorShoppingListTabMixin, AuctionatorShoppingListFrameMixin, AuctionatorEventBus"
+    mixin="AuctionatorShoppingListTabMixin, AuctionatorEventBus"
   >
     <Scripts>
-      <OnShow method="OnShow" />
+      <OnLoad method="OnLoad" />
     </Scripts>
+
     <Frames>
+      <Frame parentKey="DataProvider" mixin="ShoppingListDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnEvent method="OnEvent"/>
+        </Scripts>
+      </Frame>
+
       <!-- Shopping List Dropdown -->
       <Frame inherits="UIDropDownMenuTemplate" parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="50" y="35" />
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="50" y="55" />
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
         </Scripts>
       </Frame>
 
-      <!-- List Create/Delete Buttons -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Create" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ListDropdown" relativePoint="TOPRIGHT" x="-3" y="-3" />
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Delete" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CreateList" relativePoint="TOPRIGHT"/>
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
       <!-- List Manual Search Button -->
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.DeleteList" relativePoint="TOPRIGHT" />
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMRIGHT" x="-15" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <!-- List Create/Delete Buttons -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Delete" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ManualSearch" relativePoint="TOPLEFT" x="-5"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Create" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.DeleteList" relativePoint="TOPLEFT" x="-5"/>
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
@@ -53,10 +61,10 @@
       </Button>
 
       <!-- Shopping List item scroll frame -->
-      <Frame name="$parent_ShoppingListItems" parentKey="ScrollList" inherits="ScrollListTemplate" mixin="AuctionatorScrollListMixin">
+      <Frame parentKey="ScrollList" inherits="ScrollListTemplate" mixin="AuctionatorScrollListMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="400" />
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="-3" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="300" y="35" />
         </Anchors>
         <Layers>
           <Layer level="OVERLAY">
@@ -95,21 +103,42 @@
       </Frame>
 
       <!-- List Add Item Button -->
-      <!--
-        TODO
-        There's a bug here where OnCancel of the dialog, this button does not re-enable -
-        there's a conflict with the existing dialog and i dont want to duplicate code to fix
-        it; I'll just fix it when we deprecate the sidebar
-      -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Add Item" parentKey="AddItem" mixin="AuctionatorListItemAddButtonMixin">
+      <!-- This frame creates a background for us to put buttons on below the ListItem scroll frame -->
+      <Frame>
+        <Size x="296" y="55" />
+
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMLEFT" y="20" x="4" />
+        </Anchors>
+
+        <Layers>
+          <Layer level="BACKGROUND" textureSubLevel="-6">
+            <Texture name="$parentBg" file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true" parentKey="Bg">
+              <Anchors>
+                <Anchor point="TOPLEFT" x="" y="-21"/>
+                <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+      </Frame>
+
+      <Button name="AuctionatorShoppingLists_AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="Add Item" parentKey="AddItem" mixin="AuctionatorListItemAddButtonMixin">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" y="-4" />
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnClick method="OnClick"/>
         </Scripts>
       </Button>
+
+      <Frame inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPRIGHT" y="27" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>
