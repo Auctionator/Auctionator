@@ -70,5 +70,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["VERSION_HEADER"] = "Version"
   L["OPEN_ADDON_OPTIONS"] = "Open Addon Options"
 
+  L["STACK_AUCTION_INFO"] = "%s for %s (at %s each)"
+  L["BIDDING_AUCTION_INFO"] = "%s bidding at %s"
+  L["BUYOUT_AUCTION_INFO"] = "%s buyout at %s"
+
   return L
 end

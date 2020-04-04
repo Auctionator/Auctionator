@@ -23,6 +23,6 @@ for key, value in pairs(ATR_L) do
   _G["AUCTIONATOR_L_"..key] = value
 end
 
-function Auctionator.Locales.Apply(s)
-  return ATR_L[s] or s
+function Auctionator.Locales.Apply(s, ...)
+  return string.format(ATR_L[s] or s, ...)
 end
