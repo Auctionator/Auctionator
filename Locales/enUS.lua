@@ -90,5 +90,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["TOO_SMALL_PERCENTAGE"] = "%% must be >= 0 (provided %s)"
   L["TOO_BIG_PERCENTAGE"] = "%% must be <= 100 (provided %s)"
 
+  L["AUCTION"] = "Auction"
+  L["CANNOT_AUCTION"] = "Cannot Auction"
+  L["UNKNOWN"] = "unknown"
+  L["VENDOR"] = "Vendor"
+  L["DISENCHANT"] = "Disenchant"
+
   return L
 end
