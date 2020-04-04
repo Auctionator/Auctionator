@@ -95,6 +95,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["UNKNOWN"] = "unknown"
   L["VENDOR"] = "Vendor"
   L["DISENCHANT"] = "Disenchant"
+  L["TOTAL_ITEMS_COLORED"] = "Total |cFFAAAAFF %s items|r"
 
   return L
 end

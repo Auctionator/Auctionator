@@ -85,8 +85,7 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
   tooltipFrame:AddLine("  ")
 
   tooltipFrame:AddDoubleLine(
-    -- TODO Is "Total" localized?
-    "Total " .. "|cFFAAAAFF " .. itemCount .. " items|r",
+    Auctionator.Locales.Apply("TOTAL_ITEMS_COLORED", itemCount),
     WHITE_FONT_COLOR:WrapTextInColorCode(
       zc.priceToMoneyString(total)
     )
