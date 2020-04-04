@@ -1,0 +1,32 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorResultsRowTemplate"
+    mixin="AuctionatorResultsRowTemplateMixin"
+    virtual="true"
+    enableMouse="true"
+  >
+    <Size y="20"/>
+
+    <Anchors>
+      <Anchor point="LEFT"/>
+      <Anchor point="RIGHT"/>
+    </Anchors>
+
+    <Layers>
+      <Layer level="OVERLAY">
+        <Texture parentKey="SelectedHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true"/>
+
+        <!-- Using a normal texture for highlight to control the behavior. -->
+        <Texture parentKey="HighlightTexture" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" setAllPoints="true" hidden="true"/>
+      </Layer>
+    </Layers>
+
+    <Scripts>
+      <OnClick method="OnClick" />
+      <OnEnter method="OnEnter" />
+      <OnLeave method="OnLeave" />
+    </Scripts>
+
+    <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
+  </Frame>
+</Ui>

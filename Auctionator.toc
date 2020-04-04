@@ -16,4 +16,3 @@ Locales\Manifest.xml
 Source\Manifest.xml
 
 Auctionator.xml
-

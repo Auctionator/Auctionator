@@ -8,6 +8,7 @@ Auctionator.ShoppingLists.Events = {
   DeleteFromList = "AUCTIONATOR_DELETE_FROM_CURRENT_LIST",
 
   ListSearchStarted = "AUCTIONATOR_LIST_SEARCH_STARTED",
+  ListSearchIncrementalUpdate = "AUCTIONATOR_LIST_SEARCH_INCREMENTAL_UPDATE",
   ListSearchEnded = "AUCTIONATOR_LIST_SEARCH_ENDED",
   ListSearchRequested = "AUCTIONATOR_LIST_SEARCH_REQUESTED"
 }

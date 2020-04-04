@@ -10,7 +10,6 @@ function AuctionatorConfigBasicOptionsFrameMixin:OnLoad()
 end
 
 function AuctionatorConfigBasicOptionsFrameMixin:OnShow()
-  self.ShowLists:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_LISTS))
   self.Autoscan:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN))
   self.AuctionChatLog:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG))
   self.AutoListSearch:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH))
@@ -21,7 +20,6 @@ end
 function AuctionatorConfigBasicOptionsFrameMixin:Save()
   Auctionator.Debug.Message("AuctionatorConfigBasicOptionsFrameMixin:Save()")
 
-  Auctionator.Config.Set(Auctionator.Config.Options.SHOW_LISTS, self.ShowLists:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.AUTOSCAN, self.Autoscan:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.AUTO_LIST_SEARCH, self.AutoListSearch:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_CHAT_LOG, self.AuctionChatLog:GetChecked())

@@ -108,8 +108,8 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults(addedResult
     -- Run filter checks on every item key. Some might not be added to the
     -- results yet, but when the relevant information arrives in an event
     if self:FilterByItemLevel(addedResults[index].itemKey) and
-       self:FilterByExact(addedResults[index].itemKey) then
-      table.insert(results, addedResults[index].itemKey)
+       self:FilterByExact(addedResults[index]) then
+      table.insert(results, addedResults[index])
     end
   end
 
@@ -117,17 +117,21 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults(addedResult
 end
 
 function AuctionatorAdvancedSearchProviderMixin:ProcessItemKeyInfo(itemID)
+  Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:ProcessItemKeyInfo. Waiting", #self.itemKeyInfoQueue)
   --Event for missing info received about itemID.
-  for index, itemKey in ipairs(self.itemKeyInfoQueue) do
-    local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(itemKey)
-    if itemKeyInfo then
+  for index, browseResult in ipairs(self.itemKeyInfoQueue) do
+    if browseResult.itemKey.itemID == itemID then
+      local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(browseResult.itemKey)
+
+      Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:ProcessItemKeyInfo", itemKeyInfo.itemName)
+
       --Remove key from list of those with missing info
       table.remove(self.itemKeyInfoQueue, index)
 
       --Only exact search uses this info, and the event won't have been queued
       --otherwise.
       if self:ExactMatchCheck(itemKeyInfo) then
-        self:AddResults({itemKey})
+        self:AddResults({browseResult})
       else
       --Post empty results, so the mixin supplying it runs
       --self:HasCompleteTermResults() and can see if the search is complete
@@ -157,7 +161,9 @@ function AuctionatorAdvancedSearchProviderMixin:ItemLevelFilterSatisfied(itemKey
     )
 end
 
-function AuctionatorAdvancedSearchProviderMixin:FilterByExact(itemKey)
+function AuctionatorAdvancedSearchProviderMixin:FilterByExact(browseResult)
+  local itemKey = browseResult.itemKey
+
   if self.currentFilter.exactSearch ~= nil then
     local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(itemKey)
 
@@ -166,7 +172,7 @@ function AuctionatorAdvancedSearchProviderMixin:FilterByExact(itemKey)
 
       --Put key in the queue for completing filtering later in an
       --ITEM_KEY_ITEM_INFO_RECEIVED event
-      table.insert(self.itemKeyInfoQueue, itemKey)
+      table.insert(self.itemKeyInfoQueue, browseResult)
 
       return false
     else

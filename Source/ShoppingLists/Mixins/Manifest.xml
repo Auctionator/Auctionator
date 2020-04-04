@@ -6,6 +6,4 @@
 
   <Script file="ScrollListLine.lua" />
   <Script file="ScrollList.lua" />
-
-  <Script file="Frame.lua" />
 </Ui>

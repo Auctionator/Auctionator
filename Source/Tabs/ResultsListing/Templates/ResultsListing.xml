@@ -1,0 +1,73 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorResultsListingTemplate"
+    virtual="true"
+    parentKey="ResultsListing"
+    mixin="AuctionatorResultsListingMixin"
+  >
+
+    <Scripts>
+      <OnShow method="OnShow" />
+      <OnUpdate method="OnUpdate" />
+    </Scripts>
+
+    <Frames>
+      <Frame parentKey="HeaderContainer">
+        <Size y="19"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="-7" x="-20" />
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+        </Anchors>
+      </Frame>
+      <ScrollFrame parentKey="ScrollFrame" inherits="HybridScrollFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.HeaderContainer" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="RIGHT" relativeKey="$parent.HeaderContainer" relativePoint="RIGHT" x="-20"/>
+          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+        <Frames>
+          <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPRIGHT" y="-16"/>
+              <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="17"/>
+            </Anchors>
+            <Layers>
+              <Layer level="BACKGROUND">
+                <Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true" setAllPoints="true"/>
+              </Layer>
+            </Layers>
+          </Slider>
+        </Frames>
+        <Layers>
+          <Layer level="OVERLAY">
+            <FontString parentKey="ResultsText" inherits="GameFontNormal" hidden="true" text="Fetching item info...">
+              <Anchors>
+                <Anchor point="TOP" relativeKey="$parent.LoadingSpinner" relativePoint="CENTER" y="8"/>
+                <Anchor point="LEFT" x="45"/>
+                <Anchor point="RIGHT" x="-67"/>
+              </Anchors>
+              <Color color="NORMAL_FONT_COLOR"/>
+              <Shadow>
+                <Offset>
+                  <AbsDimension x="1" y="-1"/>
+                </Offset>
+                <Color r="0" g="0" b="0"/>
+              </Shadow>
+            </FontString>
+            <Texture parentKey="LoadingSpinner" atlas="auctionhouse-ui-loadingspinner" hidden="true">
+              <Size x="146" y="146"/>
+              <Anchors>
+                <Anchor point="CENTER" x="-12" y="0"/>
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Animations>
+          <AnimationGroup parentKey="SpinnerAnim" looping="REPEAT">
+            <Rotation childKey="LoadingSpinner" order="1" duration="1" degrees="-360"/>
+          </AnimationGroup>
+        </Animations>
+      </ScrollFrame>
+    </Frames>
+  </Frame>
+</Ui>
