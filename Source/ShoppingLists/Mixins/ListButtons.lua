@@ -77,7 +77,9 @@ end
 
 function AuctionatorListDeleteButtonMixin:DeleteList()
   if self.currentList == nil then
-    Auctionator.Utilities.Message("An error occurred attempting to delete a list.")
+    Auctionator.Utilities.Message(
+      Auctionator.Locales.Apply("LIST_DELETE_ERROR")
+    )
     return
   end
 

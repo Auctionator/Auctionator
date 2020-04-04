@@ -25,7 +25,7 @@ Auctionator = {
     FilterLookup = {}
   },
   Tooltip = {},
-  Localization = {},
+  Locales = {},
   Config = {},
   Variables = {},
   ShoppingLists = {},

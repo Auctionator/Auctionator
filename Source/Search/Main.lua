@@ -2,7 +2,7 @@ function Auctionator.Search.SafeItemKeysSearch(itemKeys, sorts)
   sorts = sorts or {sortOrder = 1, reverseSort = false}
 
   if #itemKeys > Auctionator.Constants.RESULTS_DISPLAY_LIMIT then
-    Auctionator.Utilities.Message("Too many search results. Limiting results displayed.")
+    Auctionator.Utilities.Message(Auctionator.Locales.Apply("TOO_MANY_SEARCH_RESULTS"))
 
     itemKeys = Auctionator.Utilities.Slice(
       itemKeys,

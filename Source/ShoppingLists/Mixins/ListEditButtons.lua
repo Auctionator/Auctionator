@@ -32,7 +32,9 @@ function AuctionatorListItemAddButtonMixin:AddItem(searchTerm)
   self:Enable()
 
   if self.selectedList == nil then
-    Auctionator.Utilities.Message("An error occurred attempting to add an item to a list.")
+    Auctionator.Utilities.Message(
+      Auctionator.Locales.Apply("LIST_ADD_ERROR")
+    )
     return
   end
 

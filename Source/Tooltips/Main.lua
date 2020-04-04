@@ -1,8 +1,7 @@
-
 local _, addonTable = ...;
 local zc = addonTable.zc;
 
-local L = Auctionator.Localization.Localize
+local L = Auctionator.Locales.Apply
 
 -- TODO DOCUMENTATION
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
@@ -86,8 +85,7 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
   tooltipFrame:AddLine("  ")
 
   tooltipFrame:AddDoubleLine(
-    -- TODO Is "Total" localized?
-    "Total " .. "|cFFAAAAFF " .. itemCount .. " items|r",
+    Auctionator.Locales.Apply("TOTAL_ITEMS_COLORED", itemCount),
     WHITE_FONT_COLOR:WrapTextInColorCode(
       zc.priceToMoneyString(total)
     )
@@ -99,7 +97,7 @@ end
 function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
   if Auctionator.Config.Get(Auctionator.Config.Options.VENDOR_TOOLTIPS) and vendorPrice > 0 then
     tooltipFrame:AddDoubleLine(
-      L("Vendor") .. countString,
+      L("VENDOR") .. countString,
       WHITE_FONT_COLOR:WrapTextInColorCode(
         zc.priceToMoneyString(vendorPrice)
       )
@@ -112,23 +110,23 @@ function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countStr
 
     if (cannotAuction == 1) then
       tooltipFrame:AddDoubleLine(
-        L("Auction") .. countString,
+        L("AUCTION") .. countString,
         WHITE_FONT_COLOR:WrapTextInColorCode(
-          L("Cannot Auction") .. "  "
+          L("CANNOT_AUCTION") .. "  "
         )
       )
     elseif (auctionPrice ~= nil) then
       tooltipFrame:AddDoubleLine(
-        L("Auction") .. countString,
+        L("AUCTION") .. countString,
         WHITE_FONT_COLOR:WrapTextInColorCode(
           zc.priceToMoneyString(auctionPrice)
         )
       )
     else
       tooltipFrame:AddDoubleLine(
-        L("Auction") .. countString,
+        L("AUCTION") .. countString,
         WHITE_FONT_COLOR:WrapTextInColorCode(
-          L("unknown") .. "  "
+          L("UNKNOWN") .. "  "
         )
       )
     end
@@ -144,7 +142,7 @@ function Auctionator.Tooltip.AddDisenchantTip (
 
   if disenchantPrice ~= nil then
     tooltipFrame:AddDoubleLine(
-      L("Disenchant"),
+      L("DISENCHANT"),
       WHITE_FONT_COLOR:WrapTextInColorCode(
         zc.priceToMoneyString(disenchantPrice)
       )
@@ -152,9 +150,9 @@ function Auctionator.Tooltip.AddDisenchantTip (
   elseif disenchantStatus.isDisenchantable and
          disenchantStatus.supportedXpac then
     tooltipFrame:AddDoubleLine(
-      L("Disenchant"),
+      L("DISENCHANT"),
       WHITE_FONT_COLOR:WrapTextInColorCode(
-        L("unknown") .. "  "
+        L("UNKNOWN") .. "  "
       )
     )
   end
@@ -169,16 +167,16 @@ function Auctionator.Tooltip.AddPetTip(
   BattlePetTooltip:AddLine(" ")
   if price ~= nil then
     BattlePetTooltip:AddLine(
-      L("Auction") .. PET_TOOLTIP_SPACING ..
+      L("AUCTION") .. PET_TOOLTIP_SPACING ..
       WHITE_FONT_COLOR:WrapTextInColorCode(
         zc.priceToMoneyString(price)
       )
     )
   else
     BattlePetTooltip:AddLine(
-      L("Auction") .. PET_TOOLTIP_SPACING ..
+      L("AUCTION") .. PET_TOOLTIP_SPACING ..
       WHITE_FONT_COLOR:WrapTextInColorCode(
-        "unknown"
+        L("UNKNOWN")
       )
     )
   end

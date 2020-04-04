@@ -4,6 +4,9 @@ function Auctionator.Utilities.PrintVersion()
   end
 
   Auctionator.Utilities.Message(
-    "Version " .. Auctionator.State.CurrentVersion
+    Auctionator.Locales.Apply(
+      "VERSION_MESSAGE",
+      Auctionator.State.CurrentVersion
+    )
   )
 end

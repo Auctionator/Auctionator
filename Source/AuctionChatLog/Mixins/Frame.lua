@@ -9,22 +9,29 @@ local function ComposeAuctionInfoMessage(auctionInfo)
   local result = auctionInfo.itemLink
   -- Stacks display, total and individual price
   if auctionInfo.quantity > 1 then
-    result = result .. Auctionator.Utilities.CreateCountString(auctionInfo.quantity)
-      .. " for "
-      .. Auctionator.Utilities.CreateMoneyString(auctionInfo.quantity * auctionInfo.buyoutAmount)
-      .. " (at " .. Auctionator.Utilities.CreateMoneyString(auctionInfo.buyoutAmount)
-      .. " each)"
+    result = Auctionator.Locales.Apply(
+      "STACK_AUCTION_INFO",
+      result .. Auctionator.Utilities.CreateCountString(auctionInfo.quantity),
+      Auctionator.Utilities.CreateMoneyString(auctionInfo.quantity * auctionInfo.buyoutAmount),
+      Auctionator.Utilities.CreateMoneyString(auctionInfo.buyoutAmount)
+    )
 
   -- Single item sales
   else
     if auctionInfo.bidAmount ~= nil then
-      result = result .. " bidding at " ..
-          Auctionator.Utilities.CreateMoneyString(auctionInfo.bidAmount)
+      result = Auctionator.Locales.Apply(
+        "BIDDING_AUCTION_INFO",
+        result,
+        Auctionator.Utilities.CreateMoneyString(auctionInfo.bidAmount)
+      )
     end
 
     if auctionInfo.buyoutAmount ~= nil then
-      result = result .. " buyout at " ..
-          Auctionator.Utilities.CreateMoneyString(auctionInfo.buyoutAmount)
+      result = Auctionator.Locales.Apply(
+        "BUYOUT_AUCTION_INFO",
+        result,
+        Auctionator.Utilities.CreateMoneyString(auctionInfo.buyoutAmount)
+      )
     end
   end
   return result

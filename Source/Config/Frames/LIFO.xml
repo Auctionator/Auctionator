@@ -8,14 +8,14 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
-        <KeyValue key="titleText" value="Selling" type="string"/>
-          <KeyValue key="subTitleText" value="Options to set undercutting percent or values and duration for most items." type="string"/>
+        <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_SELLING_LIFO_HEADER" type="global"/>
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_LIFO_TEXT" type="global"/>
         </KeyValues>
       </Frame>
 
       <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="CommodityDurationGroup">
         <KeyValues>
-          <KeyValue key="groupHeadingText" value="Default Auction Duration" type="string"/>
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DEFAULT_AUCTION_DURATION" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
@@ -23,19 +23,19 @@
         <Frames>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="12 Hours" type="string"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_12" type="global"/>
               <KeyValue key="value" value="12" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="24 Hours" type="string"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_24" type="global"/>
               <KeyValue key="value" value="24" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="48 Hours" type="string"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_48" type="global"/>
               <KeyValue key="value" value="48" type="number"/>
             </KeyValues>
           </Frame>
@@ -44,7 +44,7 @@
 
       <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="CommoditySalesPreference">
         <KeyValues>
-          <KeyValue key="groupHeadingText" value="Sales Preference" type="string" />
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_SALES_PREFERENCE" type="global" />
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.CommodityDurationGroup" relativePoint="BOTTOMLEFT" />
@@ -56,13 +56,13 @@
               how to do that programmatically?
             -->
             <KeyValues>
-              <KeyValue key="labelText" value="Percentage" type="string"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_PERCENTAGE" type="global"/>
               <KeyValue key="value" value="percentage" type="string"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="Set Value" type="string"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_SET_VALUE" type="global"/>
               <KeyValue key="value" value="static" type="string"/>
             </KeyValues>
           </Frame>
@@ -71,9 +71,9 @@
 
       <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="CommodityUndercutPercentage" hidden="true">
         <KeyValues>
-          <KeyValue key="labelText" value="% Undercut" type="string"/>
-          <KeyValue key="tooltipTitleText" value="Undercut Percentage" type="string"/>
-          <KeyValue key="tooltipText" value="The undercut percentage that will be used to calculate the sell price for commodities. For example, a value of 5 means that your item will be posted at 5% less than the current lowest price." type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_PERCENTAGE_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_PERCENTAGE_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_PERCENTAGE_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.CommoditySalesPreference" relativePoint="BOTTOMLEFT"/>
@@ -82,9 +82,9 @@
 
       <Frame inherits="AuctionatorConfigurationMoneyInput" parentKey="CommodityUndercutValue" hidden="true">
         <KeyValues>
-          <KeyValue key="labelText" value="Undercut" type="string"/>
-          <KeyValue key="tooltipTitleText" value="Undercut Value" type="string"/>
-          <KeyValue key="tooltipText" value="The undercut value that will be used to calculate the sell price for commodities." type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_SET_VALUE_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_UNDERCUT_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_UNDERCUT_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.CommoditySalesPreference" relativePoint="BOTTOMLEFT" />

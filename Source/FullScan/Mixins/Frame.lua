@@ -20,7 +20,7 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
     self.inProgress = true
 
     self:RegisterForEvents()
-    Auctionator.Utilities.Message("Starting a full scan.")
+    Auctionator.Utilities.Message(Auctionator.Locales.Apply("STARTING_FULL_SCAN"))
     C_AuctionHouse.ReplicateItems()
   else
     Auctionator.Utilities.Message(self:NextScanMessage())
@@ -41,11 +41,11 @@ function AuctionatorFullScanFrameMixin:NextScanMessage()
   local secondsUntilNextScan = (15 * 60 - timeSinceLastScan) % 60
 
   return
-    "A full scan may be started in " ..
-    minutesUntilNextScan ..
-    " minutes and " ..
-    secondsUntilNextScan ..
-    " seconds."
+    Auctionator.Locales.Apply(
+      "NEXT_SCAN_MESSAGE",
+      minutesUntilNextScan,
+      secondsUntilNextScan
+    )
 end
 
 function AuctionatorFullScanFrameMixin:RegisterForEvents()
@@ -74,8 +74,8 @@ function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
       self.prices = {}
 
       Auctionator.Utilities.Message(
-        "Full scan failed to complete. " ..
-        self:NextScanMessage()
+        Auctionator.Locales.Apply("FULL_SCAN_FAILED") ..
+        " " .. self:NextScanMessage()
       )
     end
   end
@@ -106,7 +106,7 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
   Auctionator.Debug.Message("BeginProcessing() completed in " .. tostring(debugprofilestop() - self.startTime))
 
   local count = Auctionator.Database.ProcessScan(self.prices)
-  Auctionator.Utilities.Message("Finished processing " .. count .. " items.")
+  Auctionator.Utilities.Message(Auctionator.Locales.Apply("FINISHED_PROCESSING", count))
 
   self.processingComplete = true
   self.inProgress = false
@@ -118,7 +118,9 @@ end
 
 function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, totalCount)
   if not self.inProgress then
-    Auctionator.Utilities.Message("Stopped processing at " .. startIndex .. " out of " .. totalCount .. ".")
+    Auctionator.Utilities.Message(
+      Auctionator.Locales.Apply("STOPPED_PROCESSING", startIndex, totalCount)
+    )
     self:EndProcessing()
     return
   end
