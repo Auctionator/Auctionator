@@ -8,14 +8,14 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
-        <KeyValue key="titleText" value="ATR_L.CONFIG_SELLING_NOT_LIFO_HEADER" type="global"/>
-          <KeyValue key="subTitleText" value="ATR_L.CONFIG_SELLING_NOT_LIFO_TEXT" type="global"/>
+        <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_SELLING_NOT_LIFO_HEADER" type="global"/>
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_NOT_LIFO_TEXT" type="global"/>
         </KeyValues>
       </Frame>
 
       <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="ItemDurationGroup">
         <KeyValues>
-          <KeyValue key="groupHeadingText" value="ATR_L.DEFAULT_AUCTION_DURATION" type="global"/>
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DEFAULT_AUCTION_DURATION" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
@@ -23,19 +23,19 @@
         <Frames>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="ATR_L.AUCTION_DURATION_12" type="global"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_12" type="global"/>
               <KeyValue key="value" value="12" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="ATR_L.AUCTION_DURATION_24" type="global"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_24" type="global"/>
               <KeyValue key="value" value="24" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="ATR_L.AUCTION_DURATION_48" type="global"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_48" type="global"/>
               <KeyValue key="value" value="48" type="number"/>
             </KeyValues>
           </Frame>
@@ -44,7 +44,7 @@
 
       <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="ItemSalesPreference">
         <KeyValues>
-          <KeyValue key="groupHeadingText" value="ATR_L.SALES_PREFERENCE" type="global" />
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_SALES_PREFERENCE" type="global" />
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ItemDurationGroup" relativePoint="BOTTOMLEFT"/>
@@ -56,13 +56,13 @@
               how to do that programmatically?
             -->
             <KeyValues>
-              <KeyValue key="labelText" value="ATR_L.PERCENTAGE" type="global"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_PERCENTAGE" type="global"/>
               <KeyValue key="value" value="percentage" type="string"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
             <KeyValues>
-              <KeyValue key="labelText" value="ATR_L.SET_VALUE" type="global"/>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_SET_VALUE" type="global"/>
               <KeyValue key="value" value="static" type="string"/>
             </KeyValues>
           </Frame>
@@ -71,9 +71,9 @@
 
       <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="ItemUndercutPercentage" hidden="true">
         <KeyValues>
-          <KeyValue key="labelText" value="ATR_L.PERCENTAGE_SUFFIX" type="global"/>
-          <KeyValue key="tooltipTitleText" value="ATR_L.PERCENTAGE_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="ATR_L.PERCENTAGE_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_PERCENTAGE_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_PERCENTAGE_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_PERCENTAGE_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ItemSalesPreference" relativePoint="BOTTOMLEFT"/>
@@ -82,9 +82,9 @@
 
       <Frame inherits="AuctionatorConfigurationMoneyInput" parentKey="ItemUndercutValue" hidden="true">
         <KeyValues>
-          <KeyValue key="labelText" value="ATR_L.SET_VALUE_SUFFIX" type="global"/>
-          <KeyValue key="tooltipTitleText" value="ATR_L.UNDERCUT_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="ATR_L.UNDERCUT_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_SET_VALUE_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_UNDERCUT_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_UNDERCUT_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ItemSalesPreference" relativePoint="BOTTOMLEFT"/>
