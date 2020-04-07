@@ -18,11 +18,7 @@ function AuctionatorListCreateButtonMixin:OnClick()
 end
 
 function AuctionatorListCreateButtonMixin:CreateList(listName)
-  table.insert(Auctionator.ShoppingLists.Lists, {
-    name = listName,
-    index = #Auctionator.ShoppingLists.Lists + 1,
-    items = {}
-  })
+  Auctionator.ShoppingLists.Create(listName)
 
   self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListCreated, Auctionator.ShoppingLists.Lists[#Auctionator.ShoppingLists.Lists])
 end
@@ -83,15 +79,8 @@ function AuctionatorListDeleteButtonMixin:DeleteList()
     return
   end
 
-  local listIndex = 0
-  for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
-    if list.name == self.currentList.name then
-      listIndex = index
-      break
-    end
-  end
+  Auctionator.ShoppingLists.Delete(self.currentList.name)
 
-  table.remove(Auctionator.ShoppingLists.Lists, listIndex)
   self.currentList = nil
   self:UpdateDisabled()
 
