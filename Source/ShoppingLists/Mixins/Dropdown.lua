@@ -5,9 +5,11 @@ function AuctionatorShoppingListDropdownMixin:OnLoad()
   UIDropDownMenu_SetWidth(self, 190)
 
   self.frame = self
+
   self:GetParent():Register(self, {
     Auctionator.ShoppingLists.Events.ListCreated,
-    Auctionator.ShoppingLists.Events.ListDeleted
+    Auctionator.ShoppingLists.Events.ListDeleted,
+    Auctionator.ShoppingLists.Events.ListRenamed
   })
 end
 
@@ -38,6 +40,10 @@ function AuctionatorShoppingListDropdownMixin:EventUpdate(eventName, eventData)
   end
 
   if eventName == Auctionator.ShoppingLists.Events.ListCreated then
+    self:SelectList(eventData)
+  end
+
+  if eventName == Auctionator.ShoppingLists.Events.ListRenamed then
     self:SelectList(eventData)
   end
 

@@ -29,8 +29,8 @@
         </Scripts>
       </Frame>
 
-      <!-- List Manual Search Button -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
+      <!-- List Rename Button -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Rename" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMRIGHT" x="-15" />
         </Anchors>
@@ -43,7 +43,7 @@
       <!-- List Create/Delete Buttons -->
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Delete" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.ManualSearch" relativePoint="TOPLEFT" x="-5"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Rename" relativePoint="TOPLEFT" x="-5"/>
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
@@ -124,9 +124,21 @@
         </Layers>
       </Frame>
 
+      <!-- List Add Item Button -->
       <Button name="AuctionatorShoppingLists_AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="Add Item" parentKey="AddItem" mixin="AuctionatorListItemAddButtonMixin">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" y="-4" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMLEFT" x="4" y="-4" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <!-- List Manual Search Button -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" y="-4"/>
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>

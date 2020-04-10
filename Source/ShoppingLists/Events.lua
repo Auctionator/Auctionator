@@ -2,6 +2,7 @@ Auctionator.ShoppingLists.Events = {
   ListSelected = "AUCTIONATOR_LIST_SELECTED",
   ListDeleted = "AUCTIONATOR_LIST_DELETED",
   ListCreated = "AUCTIONATOR_LIST_CREATED",
+  ListRenamed = "AUCTIONATOR_LIST_RENAMED",
 
   ListItemAdded = "AUCTIONATOR_LIST_ITEM_ADDED",
   ListItemDeleted = "AUCTIONATOR_LIST_ITEM_DELETED",
