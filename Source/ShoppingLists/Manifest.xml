@@ -6,5 +6,4 @@
   <Script file="Dialogs.lua" />
 
   <Include file="Templates.xml" />
-  <Include file="Frame.xml"/>
 </Ui>

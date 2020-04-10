@@ -22,7 +22,7 @@ end
 function AuctionatorEventBus:Fire(eventName, eventData)
   Auctionator.Debug.Message("AuctionatorEventBus:Fire()", eventName, eventData)
 
-  if self.registeredFrames[eventName] == nil then
+  if self.registeredFrames == nil or self.registeredFrames[eventName] == nil then
     return
   end
 

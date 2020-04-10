@@ -8,22 +8,9 @@
     <Frames>
       <Frame name="AuctionatorButtonFrame" mixin="AuctionatorButtonFrameMixin">
         <Frames>
-          <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="Shopping Lists">
-            <Anchors>
-              <Anchor point="TOPRIGHT" relativeTo="AuctionHouseFrame" relativePoint="TOPRIGHT">
-                <Offset>
-                  <AbsDimension x="-24" y="-1"/>
-                </Offset>
-              </Anchor>
-            </Anchors>
-            <Scripts>
-              <OnClick>self:GetParent():ToggleShoppingLists()</OnClick>
-            </Scripts>
-          </Button>
-
           <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="Full Scan">
             <Anchors>
-              <Anchor point="TOPRIGHT" relativeTo="AuctionatorToggle" relativePoint="TOPLEFT" />
+              <Anchor point="TOPRIGHT" relativeTo="AuctionHouseFrame" relativePoint="TOPRIGHT" x="-24" y="-1" />
             </Anchors>
             <Scripts>
               <OnClick>self:GetParent():AutoScan()</OnClick>

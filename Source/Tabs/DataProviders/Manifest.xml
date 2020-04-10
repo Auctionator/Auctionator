@@ -1,0 +1,5 @@
+<!-- DataProviders directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="DataProvider.lua"/>
+  <Script file="ShoppingList.lua"/>
+</Ui>

@@ -60,7 +60,7 @@ function AuctionatorListDeleteButtonMixin:OnClick()
   local message = "You must select a list to delete."
 
   if self.currentList ~= nil then
-    message = "Are you SURE you want to delete " .. self.currentList.name .. "?"
+    message = "Are you SURE you want to delete '" .. self.currentList.name .. "'?"
   end
 
   StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = message
@@ -114,7 +114,7 @@ function AuctionatorListSearchButtonMixin:EventUpdate(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListCreated then
-    self:Disable()
+    self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then

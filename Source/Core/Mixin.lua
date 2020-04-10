@@ -1,27 +1,5 @@
 AuctionatorAHFrameMixin = {}
 
-local function InitializeShoppingListFrame()
-  local frame
-  if Auctionator.State.ShoppingListFrameRef == nil then
-    frame = CreateFrame(
-      "FRAME",
-      "AuctionatorShoppingLists",
-      AuctionHouseFrame,
-      "AuctionatorShoppingListFrameTemplate"
-    )
-
-    Auctionator.State.ShoppingListFrameRef = frame
-  else
-    frame = Auctionator.State.ShoppingListFrameRef
-  end
-
-  frame:SetPoint("TOPLEFT", AuctionHouseFrame, "TOPRIGHT", -2, 0)
-  frame:SetPoint("BOTTOMLEFT", AuctionHouseFrame, "BOTTOMRIGHT", -2, 0)
-  if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_LISTS) then
-    frame:Show()
-  end
-end
-
 local function InitializeFullScanFrame()
   local frame
   if Auctionator.State.FullScanFrameRef == nil then
@@ -106,7 +84,6 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeFullScanFrame()
   InitializeIncrementalScanFrame()
   InitializeAuctionChatLogFrame()
-  InitializeShoppingListFrame()
   InitializeAuctionatorButtonFrame()
   InitializeSellingFrame()
 
@@ -118,19 +95,10 @@ function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
     self:Show()
   elseif eventName == "AUCTION_HOUSE_CLOSED" then
     self:Hide()
-    Auctionator.State.ShoppingListFrameRef:Hide()
   end
 end
 
 AuctionatorButtonFrameMixin = {}
-
-function AuctionatorButtonFrameMixin:ToggleShoppingLists()
-  if AuctionatorShoppingLists:IsVisible() then
-    AuctionatorShoppingLists:Hide()
-  else
-    AuctionatorShoppingLists:Show()
-  end
-end
 
 function AuctionatorButtonFrameMixin:AutoScan()
   Auctionator.State.FullScanFrameRef:InitiateScan()

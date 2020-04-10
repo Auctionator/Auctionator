@@ -1,0 +1,22 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button
+    name="AuctionatorPriceCellTemplate"
+    mixin="AuctionatorPriceCellTemplateMixin"
+    inherits="AuctionatorCell"
+    virtual="true"
+  >
+    <Frames>
+      <Frame parentKey="MoneyDisplay" inherits="MoneyDisplayFrameTemplate">
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-20" />
+        </Anchors>
+
+        <KeyValues>
+          <KeyValue key="hideCopper" value="true" type="boolean"/>
+          <KeyValue key="useAuctionHouseIcons" value="true" type="boolean"/>
+          <KeyValue key="resizeToFit" value="false" type="boolean"/>
+        </KeyValues>
+      </Frame>
+    </Frames>
+  </Button>
+</Ui>
