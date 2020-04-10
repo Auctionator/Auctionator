@@ -26,6 +26,10 @@ function Auctionator.ShoppingLists.Delete(listName)
   table.remove(Auctionator.ShoppingLists.Lists, listIndex)
 end
 
+function Auctionator.ShoppingLists.Rename(listIndex, newListName)
+  Auctionator.ShoppingLists.Lists[listIndex].name = newListName
+end
+
 function Auctionator.ShoppingLists.GetListByName(listName)
   local listIndex = Auctionator.ShoppingLists.ListIndex(listName)
 
@@ -38,7 +42,7 @@ end
 
 function Auctionator.ShoppingLists.GetExportString(listName)
   local list = Auctionator.ShoppingLists.GetListByName(listName)
-  
+
   local result = ""
   for _, item in ipairs(list.items) do
     result = result .. item .. "\n"

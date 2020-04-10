@@ -50,8 +50,27 @@ local function InitializeAddItemDialog()
   };
 end
 
+local function InitializeRenameDialog()
+  StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
+    text = "Enter the new name for the shopping list:",
+    button1 = ACCEPT,
+    button2 = CANCEL,
+    hasEditBox = 1,
+    maxLetters = 32,
+    OnShow = function(self)
+      self.editBox:SetText("");
+      self.editBox:SetFocus();
+    end,
+    timeout = 0,
+    exclusive = 1,
+    whileDead = 1,
+    hideOnEscape = 1
+  };
+end
+
 function Auctionator.ShoppingLists.InitializeDialogs()
   InitializeCreateDialog()
   InitializeDeleteDialog()
   InitializeAddItemDialog()
+  InitializeRenameDialog()
 end
