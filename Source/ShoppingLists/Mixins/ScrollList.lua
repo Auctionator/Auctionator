@@ -23,7 +23,7 @@ function AuctionatorScrollListMixin:OnLoad()
     end,
     function(current, total, results)
       self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
-      self.ResultsText:SetText("Searching for item " .. current .. "/" .. total .. " in\n" .. self.currentList.name)
+      self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
     end
   )
 end
@@ -56,7 +56,7 @@ function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
 end
 
 function AuctionatorScrollListMixin:StartSearch()
-  self.ResultsText:SetText("Searching for items in " .. self.currentList.name .. "...")
+  self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self.currentList.name))
   self.ResultsText:Show()
 
   self.SpinnerAnim:Play()

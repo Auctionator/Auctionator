@@ -8,7 +8,7 @@
     <Frames>
       <Frame name="AuctionatorButtonFrame" mixin="AuctionatorButtonFrameMixin">
         <Frames>
-          <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="Full Scan">
+          <Button name="AuctionatorToggle" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_FULL_SCAN_BUTTON">
             <Anchors>
               <Anchor point="TOPRIGHT" relativeTo="AuctionHouseFrame" relativePoint="TOPRIGHT" x="-24" y="-1" />
             </Anchors>

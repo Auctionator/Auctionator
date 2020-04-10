@@ -1,6 +1,6 @@
 local function InitializeCreateDialog()
   StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList] = {
-    text = "Enter the name of the new shopping list:",
+    text = AUCTIONATOR_L_CREATE_LIST_DIALOG,
     button1 = ACCEPT,
     button2 = CANCEL,
     hasEditBox = 1,
@@ -30,7 +30,7 @@ end
 
 local function InitializeAddItemDialog()
   StaticPopupDialogs[Auctionator.Constants.DialogNames.AddItemToShoppingList] = {
-    text = "Enter the search term to add:",
+    text = AUCTIONATOR_L_ADD_TERM_TO_LIST_DIALOG,
     button1 = ACCEPT,
     button2 = CANCEL,
     hasEditBox = 1,
@@ -52,7 +52,7 @@ end
 
 local function InitializeRenameDialog()
   StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
-    text = "Enter the new name for the shopping list:",
+    text = AUCTIONATOR_L_RENAME_LIST_DIALOG,
     button1 = ACCEPT,
     button2 = CANCEL,
     hasEditBox = 1,

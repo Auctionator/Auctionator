@@ -97,5 +97,27 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DISENCHANT"] = "Disenchant"
   L["TOTAL_ITEMS_COLORED"] = "Total |cFFAAAAFF %s items|r"
 
+  L["DELETE_LIST_NONE_SELECTED"] = "You must select a list to delete."
+  L["DELETE_LIST_CONFIRM"] = "Are you SURE you want to delete '%s'?"
+  L["CREATE_LIST_DIALOG"] = "Enter the name of the new shopping list:"
+  L["RENAME_LIST_DIALOG"] = "Enter the new name for the shopping list:"
+  L["ADD_TERM_TO_LIST_DIALOG"] = "Enter the search term to add:"
+
+  L["RENAME"] = "Rename"
+  L["DELETE"] = "Delete"
+  L["CREATE"] = "Create"
+  L["ADD_ITEM"] = "Add Item"
+  L["SEARCH"] = "Search"
+
+  L["SHOPPING_TAB"] = "Shopping"
+  L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"
+  L["AUCTIONATOR_INFO_TAB_HEADER"] = "Auctionator - Info"
+
+  L["FETCHING_ITEM_INFO"] = "Fetching item info..."
+  L["LIST_SEARCH_START"] = "Searching for items in %s..."
+  L["LIST_SEARCH_STATUS"] = "Search for item %s/%s in\n %s"
+
+  L["FULL_SCAN_BUTTON"] = "Full Scan"
+
   return L
 end

@@ -30,7 +30,7 @@
       </Frame>
 
       <!-- List Rename Button -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Rename" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RENAME" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMRIGHT" x="-15" />
         </Anchors>
@@ -41,7 +41,7 @@
       </Button>
 
       <!-- List Create/Delete Buttons -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Delete" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.Rename" relativePoint="TOPLEFT" x="-5"/>
         </Anchors>
@@ -51,7 +51,7 @@
         </Scripts>
       </Button>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Create" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.DeleteList" relativePoint="TOPLEFT" x="-5"/>
         </Anchors>
@@ -125,7 +125,7 @@
       </Frame>
 
       <!-- List Add Item Button -->
-      <Button name="AuctionatorShoppingLists_AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="Add Item" parentKey="AddItem" mixin="AuctionatorListItemAddButtonMixin">
+      <Button name="AuctionatorShoppingLists_AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_ADD_ITEM" parentKey="AddItem" mixin="AuctionatorListItemAddButtonMixin">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMLEFT" x="4" y="-4" />
         </Anchors>
@@ -136,7 +136,7 @@
       </Button>
 
       <!-- List Manual Search Button -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" y="-4"/>
         </Anchors>

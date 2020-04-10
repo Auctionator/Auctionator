@@ -40,7 +40,7 @@
         </Frames>
         <Layers>
           <Layer level="OVERLAY">
-            <FontString parentKey="ResultsText" inherits="GameFontNormal" hidden="true" text="Fetching item info...">
+            <FontString parentKey="ResultsText" inherits="GameFontNormal" hidden="true" text="AUCTIONATOR_L_FETCHING_ITEM_INFO">
               <Anchors>
                 <Anchor point="TOP" relativeKey="$parent.LoadingSpinner" relativePoint="CENTER" y="8"/>
                 <Anchor point="LEFT" x="45"/>

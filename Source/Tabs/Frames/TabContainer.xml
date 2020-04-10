@@ -4,7 +4,7 @@
       <Button
         name="AuctionatorTabs_ShoppingLists"
         inherits="AuctionatorTabButtonTemplate"
-        text="Shopping"
+        text="AUCTIONATOR_L_SHOPPING_TAB"
         parentKey="AuctionatorShoppingListTab"
       >
         <KeyValues>
@@ -14,7 +14,7 @@
           <KeyValue key="displayModeKey" value="ShoppingLists" type="string"/>
           <KeyValue key="frameTemplate" value="AuctionatorShoppingListTabFrameTemplate" type="string"/>
           <KeyValue key="ahTabIndex" value="4" type="number"/>
-          <KeyValue key="ahTitle" value="Auctionator - Shopping Lists" type="string"/>
+          <KeyValue key="ahTitle" value="AUCTIONATOR_L_SHOPPPING_TAB_HEADER" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="LEFT" relativeKey="$parent.AuctionsTab" relativePoint="RIGHT" x="-15" y="0"/>
@@ -29,7 +29,7 @@
           <KeyValue key="displayModeKey" value="Auctionator" type="string" />
           <KeyValue key="frameTemplate" value="AuctionatorConfigurationTabFrameTemplate" type="string" />
           <KeyValue key="ahTabIndex" value="5" type="number" />
-          <KeyValue key="ahTitle" value="Auctionator - Info" type="string" />
+          <KeyValue key="ahTitle" value="AUCTIONATOR_L_INFO_TAB_HEADER" type="string" />
         </KeyValues>
         <Anchors>
           <Anchor point="LEFT" relativeKey="$parent.AuctionatorShoppingListTab" relativePoint="RIGHT" x="-15" y="0" />

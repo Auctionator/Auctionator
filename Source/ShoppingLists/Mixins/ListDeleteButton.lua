@@ -32,10 +32,10 @@ end
 
 function AuctionatorListDeleteButtonMixin:OnClick()
   -- Probably not needed since I disable, but just to be safe...
-  local message = "You must select a list to delete."
+  local message = AUCTIONATOR_L_DELETE_LIST_NONE_SELECTED
 
   if self.currentList ~= nil then
-    message = "Are you SURE you want to delete '" .. self.currentList.name .. "'?"
+    message = Auctionator.Locales.Apply("DELETE_LIST_CONFIRM", self.currentList.name)
   end
 
   StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = message
