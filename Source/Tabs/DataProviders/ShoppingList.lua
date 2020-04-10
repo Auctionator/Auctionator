@@ -2,7 +2,7 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "minPrice" },
-    headerText = "Price",
+    headerText = AUCTIONATOR_L_RESULTS_PRICE_COLUMN,
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "minPrice" },
     width = 140
@@ -10,12 +10,12 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "name" },
-    headerText = "Name",
+    headerText = AUCTIONATOR_L_RESULTS_NAME_COLUMN,
     cellTemplate = "AuctionatorItemKeyCellTemplate"
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Available",
+    headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "totalQuantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "totalQuantity" },

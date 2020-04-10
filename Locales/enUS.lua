@@ -113,6 +113,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["FETCHING_ITEM_INFO"] = "Fetching item info..."
   L["LIST_SEARCH_START"] = "Searching for items in %s..."
   L["LIST_SEARCH_STATUS"] = "Search for item %s/%s in\n %s"
+  L["RESULTS_PRICE_COLUMN"] = "Price"
+  L["RESULTS_NAME_COLUMN"] = "Name"
+  L["RESULTS_AVAILABLE_COLUMN"] = "Available"
 
   L["FULL_SCAN_BUTTON"] = "Full Scan"
 
