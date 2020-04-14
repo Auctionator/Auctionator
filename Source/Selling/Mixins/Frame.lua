@@ -23,6 +23,10 @@ local AUCTIONATOR_THROTTLE_EVENTS = {
 }
 
 function AuctionatorSellingFrameMixin:OnLoad()
+  if not Auctionator.Config.Get(Auctionator.Config.Options.FEATURE_SELLING_1) then
+    return
+  end
+
   Auctionator.Debug.Message("AuctionatorSellingFrameMixin:OnLoad()")
 
   self.throttled = false

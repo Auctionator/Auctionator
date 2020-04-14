@@ -20,6 +20,8 @@ Auctionator.Config.Options = {
   LIFO_UNDERCUT_STATIC_VALUE = "lifo_undercut_static_value",
 
   PRICE_HISTORY_DAYS = "price_history_days",
+
+  FEATURE_SELLING_1 = "feature_selling_1",
 }
 
 Auctionator.Config.SalesTypes = {
@@ -49,6 +51,7 @@ local defaults = {
   [Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE] = 0,
 
   [Auctionator.Config.Options.PRICE_HISTORY_DAYS] = 21,
+  [Auctionator.Config.Options.FEATURE_SELLING_1] = true,
 }
 
 local function isValidOption(name)
