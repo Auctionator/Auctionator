@@ -1,0 +1,32 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorUndercuttingTabFrameTemplate"
+    virtual="true"
+    inherits="AuctionatorTabFrameTemplate"
+    parentKey="AuctionatorUndercuttingFrame"
+    mixin="AuctionatorUndercuttingFrameMixin, AuctionatorEventBus"
+  >
+    <Scripts>
+      <OnLoad method="OnLoad" />
+    </Scripts>
+
+    <Frames>
+      <!-- Temporary Magic Button -->
+      <Button
+        inherits="UIPanelDynamicResizeButtonTemplate"
+        text="Click me pretty plox"
+        mixin="AuctionatorMagicButton"
+        parentKey="Rename"
+      >
+        <Anchors>
+          <Anchor point="CENTER" relativeKey="$parent" relativePoint="CENTER" />
+        </Anchors>
+
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

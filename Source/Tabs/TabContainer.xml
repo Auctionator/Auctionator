@@ -1,5 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorAHTabsContainerTemplate" virtual="true" mixin="AuctionatorTabContainerMixin">
+  <Frame
+    name="AuctionatorAHTabsContainerTemplate"
+    virtual="true"
+    mixin="AuctionatorTabContainerMixin"
+  >
     <Frames>
       <Button
         name="AuctionatorTabs_ShoppingLists"
@@ -21,6 +25,26 @@
         </Anchors>
       </Button>
 
+      <Button
+        name="AuctionatorTabs_Undercutting"
+        inherits="AuctionatorTabButtonTemplate"
+        text="Undercutting TODO"
+        parentKey="AuctionatorUndercuttingTab"
+      >
+        <KeyValues>
+          <!-- From AuctionHouseFrameDisplayModeTabTemplate -->
+          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Undercutting" type="global"/>
+          <!-- For creation of Auctionator Frame -->
+          <KeyValue key="displayModeKey" value="Undercutting" type="string"/>
+          <KeyValue key="frameTemplate" value="AuctionatorUndercuttingTabFrameTemplate" type="string"/>
+          <KeyValue key="ahTabIndex" value="5" type="number"/>
+          <KeyValue key="ahTitle" value="Undercutting TODO" type="text"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="LEFT" relativeKey="$parent.AuctionatorShoppingListTab" relativePoint="RIGHT" x="-15" y="0"/>
+        </Anchors>
+      </Button>
+
       <Button name="AuctionatorTabs_Auctionator" inherits="AuctionatorTabButtonTemplate" text="Auctionator">
         <KeyValues>
           <!-- From AuctionHouseFrameDisplayModeTabTemplate -->
@@ -28,11 +52,11 @@
           <!-- For creation of Auctionator Frame -->
           <KeyValue key="displayModeKey" value="Auctionator" type="string" />
           <KeyValue key="frameTemplate" value="AuctionatorConfigurationTabFrameTemplate" type="string" />
-          <KeyValue key="ahTabIndex" value="5" type="number" />
+          <KeyValue key="ahTabIndex" value="6" type="number" />
           <KeyValue key="ahTitle" value="AUCTIONATOR_L_INFO_TAB_HEADER" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="LEFT" relativeKey="$parent.AuctionatorShoppingListTab" relativePoint="RIGHT" x="-15" y="0" />
+          <Anchor point="LEFT" relativeKey="$parent.AuctionatorUndercuttingTab" relativePoint="RIGHT" x="-15" y="0" />
         </Anchors>
       </Button>
     </Frames>
