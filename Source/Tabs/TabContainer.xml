@@ -18,7 +18,7 @@
           <KeyValue key="displayModeKey" value="ShoppingLists" type="string"/>
           <KeyValue key="frameTemplate" value="AuctionatorShoppingListTabFrameTemplate" type="string"/>
           <KeyValue key="ahTabIndex" value="4" type="number"/>
-          <KeyValue key="ahTitle" value="AUCTIONATOR_L_SHOPPPING_TAB_HEADER" type="global"/>
+          <KeyValue key="ahTitle" value="AUCTIONATOR_L_SHOPPING_TAB_HEADER" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="LEFT" relativeKey="$parent.AuctionsTab" relativePoint="RIGHT" x="-15" y="0"/>
