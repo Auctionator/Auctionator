@@ -11,22 +11,7 @@
     </Scripts>
 
     <Frames>
-      <!-- Temporary Magic Button -->
-      <Button
-        inherits="UIPanelDynamicResizeButtonTemplate"
-        text="Click me pretty plox"
-        mixin="AuctionatorMagicButton"
-        parentKey="Rename"
-      >
-        <Anchors>
-          <Anchor point="CENTER" relativeKey="$parent" relativePoint="CENTER" />
-        </Anchors>
 
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
     </Frames>
   </Frame>
 </Ui>
