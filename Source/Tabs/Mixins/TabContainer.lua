@@ -6,6 +6,7 @@ function AuctionatorTabContainerMixin:OnLoad()
   -- Set up self references since parented to the AH Frame
   self.Tabs = {
     ShoppingLists = AuctionatorTabs_ShoppingLists,
+    Undercutting = AuctionatorTabs_Undercutting,
     Auctionator = AuctionatorTabs_Auctionator,
   }
 

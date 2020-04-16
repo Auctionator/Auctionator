@@ -2,9 +2,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Include file="TabFrame.xml"/>
   <Include file="TabButton.xml"/>
-
-  <Include file="ShoppingLists.xml" />
-  <Include file="Auctionator.xml"/>
-
-  <Include file="TabContainer.xml"/>
 </Ui>
