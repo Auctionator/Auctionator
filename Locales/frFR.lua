@@ -1,6 +1,9 @@
 AUCTIONATOR_LOCALES.frFR = function()
   local L = {}
 
+  --@localization(locale="frFR", format="lua_additive_table")@
+
+  --@debug@
   L["CONFIG_TOOLTIPS_CATEGORY"] = "Infobulles"
   L["CONFIG_LIFO_CATEGORY"] = "Ventes"
   L["DEFAULT_AUCTION_DURATION"] = "Durée des enchères par défaut"
@@ -9,8 +12,7 @@ AUCTIONATOR_LOCALES.frFR = function()
   L["AUCTION_DURATION_48"] = "48 Heures"
 
   L["SALES_PREFERENCE"] = "Préférence de vente"
-
-  --@localization(locale="frFR", format="lua_additive_table")@
+  --@end-debug@
 
   return L
 end

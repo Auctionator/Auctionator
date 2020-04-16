@@ -1,6 +1,9 @@
 AUCTIONATOR_LOCALES.deDE = function()
   local L = {}
 
+  --@localization(locale="deDE", format="lua_additive_table")@
+
+  --@debug@
   L["CONFIG_BASIC_OPTIONS_CATEGORY"] = "Grundlegende Optionen"
   L["CONFIG_BASIC_OPTIONS_TEXT"] = "Grundlegende Optionen zum Aktivieren von Funktionen in Auctionator."
   L["CONFIG_SHOPPING_LIST"] = "Einkaufslisteneinstellungen"
@@ -101,8 +104,8 @@ AUCTIONATOR_LOCALES.deDE = function()
 
   L["RENAME"] = "Umbenennen"
   L["DELETE"] = "Löschen"
-  L["CREATE"] = "Erstellen"
-  L["ADD_ITEM"] = "Gegenstand hinzufügen"
+  L["CREATE"] = "Neu"
+  L["ADD_ITEM"] = "Hinzufügen"
   L["SEARCH"] = "Suchen"
 
   L["SHOPPING_TAB"] = "Einkaufen"
@@ -116,6 +119,7 @@ AUCTIONATOR_LOCALES.deDE = function()
   L["RESULTS_NAME_COLUMN"] = "Name"
   L["RESULTS_AVAILABLE_COLUMN"] = "Verfügbar"
   L["FULL_SCAN_BUTTON"] = "Vollständiger Scan"
+  --@end-debug@
 
   return L
 end
