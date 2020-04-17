@@ -1,0 +1,60 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorSplashScreenTemplate"
+    virtual="true"
+    inherits="SimplePanelTemplate"
+    mixin="AuctionatorSplashScreenMixin"
+    frameStrata="DIALOG"
+    hidden="true"
+  >
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+
+    <Size x="600" y="600" />
+
+    <Anchors>
+      <Anchor point="CENTER" />
+    </Anchors>
+
+    <Frames>
+      <!-- Frame Close Button -->
+      <Button parentKey="Close" inherits="UIStaticPopupSpecialCloseButton">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="2" y="1"/>
+        </Anchors>
+      </Button>
+
+      <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="10" y="-7"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-23" y="3"/>
+        </Anchors>
+
+        <ScrollChild>
+          <Frame parentKey="Content" />
+        </ScrollChild>
+      </ScrollFrame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="HideCheckbox">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_SPLASH_HIDE_MESSAGE" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT" x="-20" y="2"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+
+    <Layers>
+      <Layer>
+        <FontString text="AUCTIONATOR_L_SPLASH_SCREEN_HEADER" inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

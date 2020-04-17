@@ -58,6 +58,51 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="EngageHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_ENGAGE_HEADER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Version" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="DiscordLink">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_DISCORD" type="global"/>
+          <KeyValue key="copyText" value="https://tinyurl.com/AuctionatorDiscord" type="string"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_DISCORD_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_DISCORD_TOOLTIP_TEXT" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.EngageHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="BugReportLink">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_BUG_REPORT" type="global"/>
+          <KeyValue key="copyText" value="https://tinyurl.com/AuctionatorBug" type="string"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_BUG_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_BUG_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DiscordLink" relativePoint="BOTTOMLEFT" y="5" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="TechnicalRoadmap">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_ROADMAP" type="global"/>
+          <KeyValue key="copyText" value="https://tinyurl.com/Auctionator83Release" type="string"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_ROADMAP" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_ROADMAP_TOOLTIP_TEXT" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BugReportLink" relativePoint="BOTTOMLEFT" y="5" />
+        </Anchors>
+      </Frame>
+
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_OPEN_ADDON_OPTIONS" parentKey="OptionsButton">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.AuthorHeading" relativePoint="TOPRIGHT" x="-10" y="-10" />

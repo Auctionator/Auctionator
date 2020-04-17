@@ -17,7 +17,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_DEBUG"] = "Toggle debug output."
   L["CONFIG_DEBUG_TOOLTIP_HEADER"] = "Auctionator Debug"
   L["CONFIG_DEBUG_TOOLTIP_TEXT"] = "This is used by the maintainers to output debug messages to the chat frame."
-  
 
 
   L["CONFIG_TOOLTIPS_CATEGORY"] = "Tooltips"
@@ -66,6 +65,15 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONTRIBUTORS_HEADER"] = "Contributors"
   L["VERSION_HEADER"] = "Version"
   L["OPEN_ADDON_OPTIONS"] = "Open Addon Options"
+  L["ENGAGE_HEADER"] = "Engage With Auctionator"
+  L["DISCORD"] = "Discord"
+  L["DISCORD_TOOLTIP_HEADER"] = "Join us in Discord!"
+  L["DISCORD_TOOLTIP_TEXT"] = "We have an active community of Auctionator users that can help answer any questions you might have."
+  L["BUG_REPORT"] = "Report a Bug"
+  L["BUG_TOOLTIP_HEADER"] = "Report a Bug on Github"
+  L["BUG_TOOLTIP_TEXT"] = "If you encounter an error while using Auctionator, please report on Github. Please provide enough details so that we can reproduce the bug! Using !BugGrabber and BugSack addons will help us as well."
+  L["ROADMAP"] = "Technical Roadmap"
+  L["ROADMAP_TOOLTIP_TEXT"] = "The technical roadmap defined the work we have planned for upcoming releases of Auctionator. Please check here for implementation progress towards your favorite feature!"
 
   L["STACK_AUCTION_INFO"] = "%s for %s (at %s each)"
   L["BIDDING_AUCTION_INFO"] = "%s bidding at %s"
@@ -80,7 +88,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["FINISHED_PROCESSING"] = "Finished processing %s items."
   L["STOPPED_PROCESSING"] = "Stopped processing at %s out of %s."
 
-  L["TOO_MANY_SEARCH_RESULTS"] = "Too many search results. Limiting results displayed." 
+  L["TOO_MANY_SEARCH_RESULTS"] = "Too many search results. Limiting results displayed."
   L["LIST_DELETE_ERROR"] = "An error occurred attempting to delete a list."
   L["LIST_ADD_ERROR"] = "An error occurred attempting to add an item to a list."
 
@@ -118,6 +126,26 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["RESULTS_AVAILABLE_COLUMN"] = "Available"
 
   L["FULL_SCAN_BUTTON"] = "Full Scan"
+
+  L["SPLASH_SCREEN_HEADER"] = "Welcome to Auctionator"
+  L["SPLASH_830_DESCRIPTION"] = "Auctionator 8.3.0 is a complete re-write of Auctionator to work with the changes that Blizzard made to the Auction House in their 8.3 release. Please note that many of the features you may be used to from previous versions of Auctionator may not be implemented yet or may be in a different location! Please read the notes below for details."
+  L["SPLASH_830_BUGS_HEADER"] = "Communication and Bug Reports"
+  L["SPLASH_830_BUGS_1"] = "Please join us in the Auctionator Discord server %s"
+  L["SPLASH_830_BUGS_2"] = "Please report bugs on Github %s"
+  L["SPLASH_830_BUGS_3"] = "We are most active on Discord, and do not take bug reports on curseforge or Auctionator forums"
+  L["SPLASH_830_BUGS_4"] = "For the roadmap of upcoming features, visit %s"
+
+  L["SPLASH_830_DONE_HEADER"] = "Implemented Features"
+  L["SPLASH_830_DONE_1"] = "Automatic scanning of the Auction House when opened (limited by Blizzard to every 15 minutes)"
+  L["SPLASH_830_DONE_2"] = "Manual scanning of the Auction House from the 'Auctionator' tab in the Auction House"
+  L["SPLASH_830_DONE_3"] = "Shopping Lists with advanced search terms from the 'Shopping' tab in the Auction House"
+
+  L["SPLASH_830_NOT_DONE_HEADER"] = "Not Yet Implemented (But Coming Soon!)"
+  L["SPLASH_830_NOT_DONE_1"] = "Undercut Scanning"
+  L["SPLASH_830_NOT_DONE_2"] = "Price Histories"
+  L["SPLASH_830_NOT_DONE_3"] = "Advanced Selling Functionality"
+
+  L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
   return L
 end
