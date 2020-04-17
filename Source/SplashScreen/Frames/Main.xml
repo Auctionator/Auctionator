@@ -39,7 +39,7 @@
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="HideCheckbox">
         <KeyValues>
-          <KeyValue key="labelText" value="Do not show until next update" type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_SPLASH_HIDE_MESSAGE" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT" x="-20" y="2"/>
@@ -49,8 +49,7 @@
 
     <Layers>
       <Layer>
-        <!-- Title String TODO Needs Localization -->
-        <FontString text="Welcome to Auctionator TODO VERSION" inherits="GameFontHighlight">
+        <FontString text="AUCTIONATOR_L_SPLASH_SCREEN_HEADER" inherits="GameFontHighlight">
           <Anchors>
             <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10" />
           </Anchors>

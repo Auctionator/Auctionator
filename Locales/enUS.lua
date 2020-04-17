@@ -19,7 +19,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_DEBUG_TOOLTIP_TEXT"] = "This is used by the maintainers to output debug messages to the chat frame."
   
 
-
   L["CONFIG_TOOLTIPS_CATEGORY"] = "Tooltips"
   L["CONFIG_TOOLTIPS_TEXT"] = "Options to display different auction related information on game tooltips."
   L["CONFIG_MAIL_TOOLTIP"] = "Show mailbox tooltips"
@@ -118,6 +117,26 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["RESULTS_AVAILABLE_COLUMN"] = "Available"
 
   L["FULL_SCAN_BUTTON"] = "Full Scan"
+
+  L["SPLASH_SCREEN_HEADER"] = "Welcome to Auctionator"
+  L["SPLASH_830_DESCRIPTION"] = "Auctionator 8.3.0 is a complete re-write of Auctionator to work with the changes that Blizzard made to the Auction House in their 8.3 release. Please note that many of the features you may be used to from previous versions of Auctionator may not be implemented yet or may be in a different location! Please read the notes below for details."
+  L["SPLASH_830_BUGS_HEADER"] = "Communication and Bug Reports"
+  L["SPLASH_830_BUGS_1"] = "Please join us in the Auctionator Discord server "
+  L["SPLASH_830_BUGS_2"] = "Please report bugs on Github %s"
+  L["SPLASH_830_BUGS_3"] = "We are most active on Discord, and do not take bug reports on curseforge or Auctionator forums"
+  L["SPLASH_830_BUGS_4"] = "For the roadmap of upcoming features, visit %s"
+
+  L["SPLASH_830_DONE_HEADER"] = "Implemented Features"
+  L["SPLASH_830_DONE_1"] = "Automatic scanning of the Auction House when opened (limited by Blizzard to every 15 minutes)"
+  L["SPLASH_830_DONE_2"] = "Manual scanning of the Auction House from the 'Auctionator' tab in the Auction House"
+  L["SPLASH_830_DONE_3"] = "Shopping Lists with advanced search terms from the 'Shopping' tab in the Auction House"
+
+  L["SPLASH_830_NOT_DONE_HEADER"] = "Not Yet Implemented (But Coming Soon!)"
+  L["SPLASH_830_NOT_DONE_1"] = "Undercut Scanning"
+  L["SPLASH_830_NOT_DONE_2"] = "Price Histories"
+  L["SPLASH_830_NOT_DONE_3"] = "Advanced Selling Functionality"
+
+  L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
   return L
 end

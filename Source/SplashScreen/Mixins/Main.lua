@@ -3,31 +3,31 @@
 local MESSAGES = {
   {
     Version = "8.3.0",
-    Description = "Auctionator 8.3.0 is a complete re-write of Auctionator to work with the changes that Blizzard made to the Auction House in their 8.3 release. Please note that many of the features you may be used to from previous versions of Auctionator may not be implemented yet or may be in a different location! Please read the notes below for details.",
+    Description = AUCTIONATOR_L_SPLASH_830_DESCRIPTION,
     Sections = {
       {
-        Title = "Communication and Bug Reports",
+        Title = AUCTIONATOR_L_SPLASH_830_BUGS_HEADER,
         Entries = {
-          "Please join us in the Auctionator Discord server https://discord.gg/xgz75Pp (TODO Make this a link?)",
-          "Please report bugs on Github https://github.com/Auctionator/Auctionator/issues/new (TODO Make this a link?)",
-          "We are most active on Discord, and do not take bug reports on curseforge or Auctionator forums",
-          "For the roadmap of upcoming features, visit https://github.com/Auctionator/Auctionator/wiki/The-8.3-Release (TODO Make this a link?)"
+          AUCTIONATOR_L_SPLASH_830_BUGS_1:format("https://discord.gg/xgz75Pp"),
+          AUCTIONATOR_L_SPLASH_830_BUGS_2:format("https://github.com/Auctionator/Auctionator/issues/new"),
+          AUCTIONATOR_L_SPLASH_830_BUGS_3,
+          AUCTIONATOR_L_SPLASH_830_BUGS_4:format("https://github.com/Auctionator/Auctionator/wiki/The-8.3-Release")
         }
       },
       {
-        Title = "Implemented Features",
+        Title = AUCTIONATOR_L_SPLASH_830_DONE_HEADER,
         Entries = {
-          "Automatic scanning of the Auction House when opened (limited by Blizzard to every 15 minutes)",
-          "Manual scanning of the Auction House from the 'Auctionator' tab in the Auction House",
-          "Shopping Lists with advanced search terms from the 'Shopping' tab in the Auction House"
+          AUCTIONATOR_L_SPLASH_830_DONE_1,
+          AUCTIONATOR_L_SPLASH_830_DONE_2,
+          AUCTIONATOR_L_SPLASH_830_DONE_3
         }
       },
       {
-        Title = "Not Yet Implemented (But Coming Soon!)",
+        Title = AUCTIONATOR_L_SPLASH_830_NOT_DONE_HEADER,
         Entries = {
-          "Undercut Scanning",
-          "Price Histories",
-          "Advanced Selling Functionality"
+          AUCTIONATOR_L_SPLASH_830_NOT_DONE_1,
+          AUCTIONATOR_L_SPLASH_830_NOT_DONE_2,
+          AUCTIONATOR_L_SPLASH_830_NOT_DONE_3
         }
       }
     }
