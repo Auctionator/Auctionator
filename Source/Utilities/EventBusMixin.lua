@@ -27,10 +27,11 @@ end
 -- Assumes events have been registered exactly once
 function AuctionatorEventBusMixin:Unregister(listener, eventNames)
   for _, eventName in ipairs(eventNames) do
-    local allListeners = self.registeredListeners[eventName]
-    local index = Auctionator.Utilities.ArrayIndex(allListeners, listener)
-    table.remove(allListeners, index)
-    Auctionator.Debug.Message("AuctionatorEventBusMixin:Unegister", eventName)
+    table.remove(
+      self.registeredListeners[eventName],
+      Auctionator.Utilities.ArrayIndex(self.registeredListeners[eventName], listener)
+    )
+    Auctionator.Debug.Message("AuctionatorEventBusMixin:Unregister", eventName)
   end
 
   return self
@@ -53,7 +54,7 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
     error("All sources must be registered")
   end
 
-  table.insert(self.queue, {sourceName = self.sources[source], eventName = eventName, remainder = {...}})
+  table.insert(self.queue, {sourceName = self.sources[source], eventName = eventName, params = {...}})
 
   Auctionator.Debug.Message(
     "AuctionatorEventBus:Fire()",
@@ -74,7 +75,7 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
     current = self.queue[1]
 
     if self.registeredListeners[current.eventName] ~= nil then
-      Auctionator.Debug.Message("RecieveEvent", #self.registeredListeners[current.eventName], current.eventName)
+      Auctionator.Debug.Message("ReceiveEvent", #self.registeredListeners[current.eventName], current.eventName)
 
       local allListeners = Auctionator.Utilities.Slice(
         self.registeredListeners[current.eventName],
@@ -82,7 +83,7 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
         #self.registeredListeners[current.eventName]
       )
       for _, listener in ipairs(allListeners) do
-        listener:ReceiveEvent(current.eventName, unpack(current.remainder))
+        listener:ReceiveEvent(current.eventName, unpack(current.params))
       end
     end
 
