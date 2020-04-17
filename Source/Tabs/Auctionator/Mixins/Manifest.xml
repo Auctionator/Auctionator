@@ -1,4 +1,5 @@
 <!-- Tabs/Auctionator/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="ScanButton.lua" />
   <Script file="Main.lua"/>
 </Ui>

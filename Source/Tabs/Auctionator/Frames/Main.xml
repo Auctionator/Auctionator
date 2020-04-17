@@ -66,6 +66,20 @@
           <OnClick>InterfaceOptionsFrame_OpenToCategory(AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY)</OnClick>
         </Scripts>
       </Button>
+
+      <Button
+        inherits="UIPanelDynamicResizeButtonTemplate"
+        text="AUCTIONATOR_L_FULL_SCAN_BUTTON"
+        mixin="AuctionatorScanButtonMixin"
+        parentKey="ScanButton"
+      >
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.OptionsButton" relativePoint="TOPRIGHT" y="18"/>
+        </Anchors>
+        <Scripts>
+          <OnClick method="OnClick" />
+        </Scripts>
+      </Button>
     </Frames>
   </Frame>
 </Ui>
