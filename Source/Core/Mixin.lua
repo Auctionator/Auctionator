@@ -78,6 +78,32 @@ local function InitializeAuctionHouseTabs()
   end
 end
 
+local function InitializeSplashScreen()
+  -- TODO Check for display setting before creating
+  if Auctionator.State.SplashScreenRef == nil then
+    Auctionator.State.SplashScreenRef = CreateFrame(
+      "Frame",
+      "AuctionatorSplashScreen",
+      UIParent,
+      "AuctionatorSplashScreenTemplate"
+    )
+  end
+
+  local lastViewedSplashScreenVersion = Auctionator.Config.Get(Auctionator.Config.Options.SPLASH_SCREEN_VERSION)
+  local mostRecentSplashScreenVersion = Auctionator.State.SplashScreenRef:GetMostRecentVersion()
+
+  if lastViewedSplashScreenVersion ~= mostRecentSplashScreenVersion then
+    Auctionator.Config.Set(
+      Auctionator.Config.Options.HIDE_SPLASH_SCREEN,
+      false
+    )
+  end
+
+  if not Auctionator.Config.Get(Auctionator.Config.Options.HIDE_SPLASH_SCREEN) then
+    Auctionator.State.SplashScreenRef:Show()
+  end
+end
+
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
@@ -88,6 +114,7 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeSellingFrame()
 
   InitializeAuctionHouseTabs()
+  InitializeSplashScreen()
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)

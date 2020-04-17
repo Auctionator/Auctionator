@@ -29,4 +29,6 @@
 
   <Include file="Tabs\Manifest.xml" />
   <Include file="API\Manifest.xml" />
+
+  <Include file="SplashScreen\Manifest.xml" />
 </Ui>

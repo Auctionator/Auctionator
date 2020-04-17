@@ -22,6 +22,9 @@ Auctionator.Config.Options = {
   PRICE_HISTORY_DAYS = "price_history_days",
 
   FEATURE_SELLING_1 = "feature_selling_1",
+
+  SPLASH_SCREEN_VERSION = "splash_screen_version",
+  HIDE_SPLASH_SCREEN = "hide_splash_screen"
 }
 
 Auctionator.Config.SalesTypes = {
@@ -52,6 +55,9 @@ local defaults = {
 
   [Auctionator.Config.Options.PRICE_HISTORY_DAYS] = 21,
   [Auctionator.Config.Options.FEATURE_SELLING_1] = true,
+
+  [Auctionator.Config.Options.SPLASH_SCREEN_VERSION] = "anything",
+  [Auctionator.Config.Options.HIDE_SPLASH_SCREEN] = false,
 }
 
 local function isValidOption(name)
