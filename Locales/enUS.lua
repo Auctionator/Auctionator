@@ -17,7 +17,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_DEBUG"] = "Toggle debug output."
   L["CONFIG_DEBUG_TOOLTIP_HEADER"] = "Auctionator Debug"
   L["CONFIG_DEBUG_TOOLTIP_TEXT"] = "This is used by the maintainers to output debug messages to the chat frame."
-  
+
 
   L["CONFIG_TOOLTIPS_CATEGORY"] = "Tooltips"
   L["CONFIG_TOOLTIPS_TEXT"] = "Options to display different auction related information on game tooltips."
@@ -65,6 +65,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONTRIBUTORS_HEADER"] = "Contributors"
   L["VERSION_HEADER"] = "Version"
   L["OPEN_ADDON_OPTIONS"] = "Open Addon Options"
+  L["ENGAGE_HEADER"] = "Engage With Auctionator"
 
   L["STACK_AUCTION_INFO"] = "%s for %s (at %s each)"
   L["BIDDING_AUCTION_INFO"] = "%s bidding at %s"
@@ -79,7 +80,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["FINISHED_PROCESSING"] = "Finished processing %s items."
   L["STOPPED_PROCESSING"] = "Stopped processing at %s out of %s."
 
-  L["TOO_MANY_SEARCH_RESULTS"] = "Too many search results. Limiting results displayed." 
+  L["TOO_MANY_SEARCH_RESULTS"] = "Too many search results. Limiting results displayed."
   L["LIST_DELETE_ERROR"] = "An error occurred attempting to delete a list."
   L["LIST_ADD_ERROR"] = "An error occurred attempting to add an item to a list."
 
@@ -121,7 +122,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_SCREEN_HEADER"] = "Welcome to Auctionator"
   L["SPLASH_830_DESCRIPTION"] = "Auctionator 8.3.0 is a complete re-write of Auctionator to work with the changes that Blizzard made to the Auction House in their 8.3 release. Please note that many of the features you may be used to from previous versions of Auctionator may not be implemented yet or may be in a different location! Please read the notes below for details."
   L["SPLASH_830_BUGS_HEADER"] = "Communication and Bug Reports"
-  L["SPLASH_830_BUGS_1"] = "Please join us in the Auctionator Discord server "
+  L["SPLASH_830_BUGS_1"] = "Please join us in the Auctionator Discord server %s"
   L["SPLASH_830_BUGS_2"] = "Please report bugs on Github %s"
   L["SPLASH_830_BUGS_3"] = "We are most active on Discord, and do not take bug reports on curseforge or Auctionator forums"
   L["SPLASH_830_BUGS_4"] = "For the roadmap of upcoming features, visit %s"

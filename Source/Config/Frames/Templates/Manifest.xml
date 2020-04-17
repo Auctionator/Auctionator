@@ -8,6 +8,7 @@
   <Include file="RadioButtonGroup.xml"/>
   <Include file="NumericInputBox.xml"/>
   <Include file="MoneyInput.xml"/>
+  <Include file="CopyAndPasteBox.xml"/>
 
   <Include file="Heading.xml"/>
   <Include file="SubHeading.xml"/>

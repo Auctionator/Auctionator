@@ -58,6 +58,51 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="EngageHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_ENGAGE_HEADER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Version" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="DiscordLink">
+        <KeyValues>
+          <KeyValue key="labelText" value="Discord" type="string"/>
+          <KeyValue key="copyText" value="https://tinyurl.com/AuctionatorDiscord" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Join us in Discord!" type="string" />
+          <KeyValue key="tooltipText" value="We have an active community of Auctionator users that can help answer any questions you might have." type="string" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.EngageHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="BugReportLink">
+        <KeyValues>
+          <KeyValue key="labelText" value="Report a Bug" type="string"/>
+          <KeyValue key="copyText" value="https://tinyurl.com/AuctionatorBug" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Report a Bug on Github" type="string"/>
+          <KeyValue key="tooltipText" value="If you encounter an error while using Auctionator, please report on Github. Please provide enough details so that we can reproduce the bug! Using !BugGrabber and BugSack addons will help us as well." type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DiscordLink" relativePoint="BOTTOMLEFT" y="5" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="TechnicalRoadmap">
+        <KeyValues>
+          <KeyValue key="labelText" value="Technical Roadmap" type="string"/>
+          <KeyValue key="copyText" value="https://tinyurl.com/Auctionator83Release" type="string"/>
+          <KeyValue key="tooltipTitleText" value="Technical Roadmap" type="string" />
+          <KeyValue key="tooltipText" value="The technical roadmap defined the work we have planned for upcoming releases of Auctionator. Please check here for implementation progress towards your favorite feature!" type="string" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BugReportLink" relativePoint="BOTTOMLEFT" y="5" />
+        </Anchors>
+      </Frame>
+
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_OPEN_ADDON_OPTIONS" parentKey="OptionsButton">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.AuthorHeading" relativePoint="TOPRIGHT" x="-10" y="-10" />

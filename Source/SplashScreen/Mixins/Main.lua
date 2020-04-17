@@ -1,4 +1,3 @@
--- TODO All this needs Localization
 -- We should probably move this into another file too
 local MESSAGES = {
   {
@@ -8,10 +7,10 @@ local MESSAGES = {
       {
         Title = AUCTIONATOR_L_SPLASH_830_BUGS_HEADER,
         Entries = {
-          AUCTIONATOR_L_SPLASH_830_BUGS_1:format("https://discord.gg/xgz75Pp"),
-          AUCTIONATOR_L_SPLASH_830_BUGS_2:format("https://github.com/Auctionator/Auctionator/issues/new"),
+          AUCTIONATOR_L_SPLASH_830_BUGS_1:format("https://tinyurl.com/AuctionatorDiscord"),
+          AUCTIONATOR_L_SPLASH_830_BUGS_2:format("https://tinyurl.com/AuctionatorBug"),
           AUCTIONATOR_L_SPLASH_830_BUGS_3,
-          AUCTIONATOR_L_SPLASH_830_BUGS_4:format("https://github.com/Auctionator/Auctionator/wiki/The-8.3-Release")
+          AUCTIONATOR_L_SPLASH_830_BUGS_4:format("https://tinyurl.com/Auctionator83Release")
         }
       },
       {
@@ -54,6 +53,7 @@ AuctionatorSplashScreenMixin = {}
 
 function AuctionatorSplashScreenMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorSplashScreenMixin:OnLoad()")
+  table.insert(UISpecialFrames, self:GetName())
 
   self:ReformatCheckbox()
   self:CreateMessagesText()

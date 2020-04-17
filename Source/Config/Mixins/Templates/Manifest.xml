@@ -8,6 +8,7 @@
   <Script file="RadioButtonGroup.lua"/>
   <Script file="NumericInputBox.lua"/>
   <Script file="MoneyInput.lua"/>
+  <Script file="CopyAndPasteBox.lua"/>
 
   <Script file="Heading.lua"/>
   <Script file="SubHeading.lua"/>
