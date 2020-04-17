@@ -29,31 +29,31 @@
         </Scripts>
       </Frame>
 
+      <!-- List Create/Delete Buttons -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
+        <Anchors>
+          <Anchor point="LEFT" relativeKey="$parent.ListDropdown" relativePoint="RIGHT" x="-12" y="2" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CreateList" relativePoint="TOPRIGHT" x="3"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
       <!-- List Rename Button -->
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RENAME" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMRIGHT" x="-15" />
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
-      <!-- List Create/Delete Buttons -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
-        <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.Rename" relativePoint="TOPLEFT" x="-5"/>
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
-        <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.DeleteList" relativePoint="TOPLEFT" x="-5"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DeleteList" relativePoint="TOPRIGHT" x="3" />
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>

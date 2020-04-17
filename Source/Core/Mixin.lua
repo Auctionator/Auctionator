@@ -51,11 +51,6 @@ local function InitializeAuctionChatLogFrame()
   end
 end
 
-local function InitializeAuctionatorButtonFrame()
-  AuctionatorButtonFrame:SetPoint("BOTTOMRIGHT", AuctionHouseFrame, "TOPRIGHT")
-  AuctionatorButtonFrame:Show()
-end
-
 local function InitializeSellingFrame()
   if Auctionator.State.SellingFrameRef == nil then
     Auctionator.State.SellingFrameRef = CreateFrame(
@@ -84,7 +79,6 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeFullScanFrame()
   InitializeIncrementalScanFrame()
   InitializeAuctionChatLogFrame()
-  InitializeAuctionatorButtonFrame()
   InitializeSellingFrame()
 
   InitializeAuctionHouseTabs()
@@ -96,10 +90,4 @@ function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
   elseif eventName == "AUCTION_HOUSE_CLOSED" then
     self:Hide()
   end
-end
-
-AuctionatorButtonFrameMixin = {}
-
-function AuctionatorButtonFrameMixin:AutoScan()
-  Auctionator.State.FullScanFrameRef:InitiateScan()
 end
