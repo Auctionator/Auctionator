@@ -16,7 +16,8 @@ Auctionator = {
   SavedState = {},
   Search = {
     Filters = {},
-    FilterLookup = {}
+    FilterLookup = {},
+    Processors = {}
   },
   Tooltip = {},
   Locales = {},

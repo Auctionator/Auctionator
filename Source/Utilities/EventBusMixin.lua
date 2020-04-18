@@ -89,6 +89,7 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
 
     table.remove(self.queue, 1)
   end
+  print("out")
 
   return self
 end

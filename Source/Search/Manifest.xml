@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Processors\Manifest.xml" />
   <Script file="Filters.lua"/>
   <Script file="Main.lua"/>
   <Script file="Advanced.lua"/>
