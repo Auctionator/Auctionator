@@ -1,8 +1,6 @@
 AUCTIONATOR_LOCALES.frFR = function()
   local L = {}
 
-  --@localization(locale="frFR", format="lua_additive_table")@
-
   --@debug@
   L["CONFIG_TOOLTIPS_CATEGORY"] = "Infobulles"
   L["CONFIG_LIFO_CATEGORY"] = "Ventes"
@@ -13,6 +11,8 @@ AUCTIONATOR_LOCALES.frFR = function()
 
   L["SALES_PREFERENCE"] = "Préférence de vente"
   --@end-debug@
+
+  --@localization(locale="frFR", format="lua_additive_table")@
 
   return L
 end
