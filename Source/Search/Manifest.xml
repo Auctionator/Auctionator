@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="Filters.lua"/>
+  <Script file="Categories.lua"/>
   <Script file="Main.lua"/>
   <Script file="Advanced.lua"/>
   <Script file="Mixins\SearchProviderMixin.lua"/>

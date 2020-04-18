@@ -5,7 +5,7 @@ end
 -- Extract components of an advanced search string. Assumes searchString is an
 -- advanced search.
 function Auctionator.Search.SplitAdvancedSearch(searchString)
-  local queryString, filterKey, minItemLevel, maxItemLevel, minLevel, maxLevel =
+  local queryString, categoryKey, minItemLevel, maxItemLevel, minLevel, maxLevel =
     strsplit( Auctionator.Constants.AdvancedSearchDivider, searchString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
@@ -37,7 +37,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchString)
 
   return {
     queryString = queryString,
-    filterKey = filterKey,
+    categoryKey = categoryKey,
     minLevel = minLevel,
     maxLevel = maxLevel,
     minItemLevel = minItemLevel,
@@ -61,8 +61,8 @@ end
 
 local separator = ", "
 
-local function FilterKey(splitSearch)
-  return splitSearch.filterKey .. separator
+local function CategoryKey(splitSearch)
+  return splitSearch.categoryKey .. separator
 end
 
 local function ItemLevelRange(splitSearch)
@@ -87,7 +87,7 @@ function Auctionator.Search.PrettifySearchString(searchString)
 
     local result = splitSearch.queryString
       .. " ["
-      .. FilterKey(splitSearch)
+      .. CategoryKey(splitSearch)
       .. LevelRange(splitSearch)
       .. ItemLevelRange(splitSearch)
       .. "]"

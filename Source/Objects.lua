@@ -15,8 +15,8 @@ Auctionator = {
 
   SavedState = {},
   Search = {
-    Filters = {},
-    FilterLookup = {}
+    Categories = {},
+    CategoryLookup = {}
   },
   Tooltip = {},
   Locales = {},

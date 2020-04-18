@@ -11,10 +11,10 @@ local function ExtractExactSearch(queryString)
   return string.match(queryString, "^\"(.*)\"$")
 end
 
-local function GetItemClassFilters(filterKey)
-  local lookup = Auctionator.Search.FilterLookup[filterKey]
+local function GetItemClassCategories(categoryKey)
+  local lookup = Auctionator.Search.CategoryLookup[categoryKey]
   if lookup ~= nil then
-    return lookup.filter
+    return lookup.category
   else
     return {}
   end
@@ -30,7 +30,7 @@ local function ParseAdvancedSearch(searchString)
       minLevel = parsed.minLevel,
       maxLevel = parsed.maxLevel,
       filters = {},
-      itemClassFilters = GetItemClassFilters(parsed.filterKey),
+      itemClassFilters = GetItemClassCategories(parsed.categoryKey),
       sorts = {},
     },
     extraFilters = {
@@ -170,7 +170,7 @@ function AuctionatorAdvancedSearchProviderMixin:FilterByExact(browseResult)
     if itemKeyInfo == nil then
       Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:FilterByExact Missing itemKeyInfo")
 
-      --Put key in the queue for completing filtering later in an
+      --Put key in the queue for completing the filter later in an
       --ITEM_KEY_ITEM_INFO_RECEIVED event
       table.insert(self.itemKeyInfoQueue, browseResult)
 

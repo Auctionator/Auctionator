@@ -1,17 +1,17 @@
 --
---  Auctionator.Search.Filters is an empty table on load, need to populate
---  with the possible filters
+--  Auctionator.Search.Categories is an empty table on load, need to populate
+--  with the possible categories
 --
 --  Here's what one entry looks like:
 --  {
 --    classID    = integer (corresponding to ITEM_CLASS_IDS )
 --    name       = string  (resolved by GetItemClassInfo( classID ))
---    filter     = table   (new QueryAuctionItems filterData format, { classID, subClassID (nil), inventoryType (nil) } )
+--    category     = table   (new QueryAuctionItems categoryData format, { classID, subClassID (nil), inventoryType (nil) } )
 --    subClasses = {
 --      classID  = integer (subClassID)
 --      name     = string  (resolved by GetItemSubClassInfo( subClassID ))
---      filter   = table   (new QueryAuctionItems filterData format, { classID, subClassID, inventoryType (nil) } )
---      TODO: Probably want to use the inventoryType to create Armor slot filters as well...
+--      category   = table   (new QueryAuctionItems categoryData format, { classID, subClassID, inventoryType (nil) } )
+--      TODO: Probably want to use the inventoryType to create Armor slot categories as well...
 --    }
 --  }
 
@@ -40,29 +40,29 @@ local INVENTORY_TYPE_IDS = {
   LE_INVENTORY_TYPE_HAND_TYPE,
 }
 
-Auctionator.Search.Filter = {
+Auctionator.Search.Category = {
   classID = 0,
-  name = Auctionator.Constants.FilterDefault,
+  name = Auctionator.Constants.CategoryDefault,
   key = 0,
   parentKey = nil,
-  filter = {},
+  category = {},
   subClasses = {}
 }
 
 -- TODO: Ununsed in current code (was used in advanced search dialog)
-function Auctionator.Search.Filter.Find( key )
-  local filter = Auctionator.Search.FilterLookup[ key ]
+function Auctionator.Search.Category.Find( key )
+  local category = Auctionator.Search.CategoryLookup[ key ]
 
-  if filter == nil then
-    return Auctionator.Search.Filter:new(), Auctionator.Search.Filter:new()
-  elseif filter.parentKey == nil then
-    return filter, Auctionator.Search.Filter:new()
+  if category == nil then
+    return Auctionator.Search.Category:new(), Auctionator.Search.Category:new()
+  elseif category.parentKey == nil then
+    return category, Auctionator.Search.Category:new()
   else
-    return Auctionator.Search.FilterLookup[ filter.parentKey ], filter
+    return Auctionator.Search.CategoryLookup[ category.parentKey ], category
   end
 end
 
-function Auctionator.Search.Filter:new( options )
+function Auctionator.Search.Category:new( options )
   options = options or {}
   setmetatable( options, self )
   self.__index = self
@@ -70,25 +70,25 @@ function Auctionator.Search.Filter:new( options )
   return options
 end
 
---Given a key and filter (classID and subClassID supplied, assumed to be for
---armor), creates a new filter for each possible inventory slot.
---Returns array of new filters
-local function GenerateArmorInventorySlots(parentKey, parentFilter)
+--Given a key and category (classID and subClassID supplied, assumed to be for
+--armor), creates a new category for each possible inventory slot.
+--Returns array of new categories
+local function GenerateArmorInventorySlots(parentKey, parentCategory)
   local inventorySlots = {}
   for index = 1, #INVENTORY_TYPE_IDS do
     local name = GetItemInventorySlotInfo(INVENTORY_TYPE_IDS[index])
 
-    local filter = {
-      classID = parentFilter.classID,
-      subClassID = parentFilter.subClassID,
+    local category = {
+      classID = parentCategory.classID,
+      subClassID = parentCategory.subClassID,
       inventoryType = INVENTORY_TYPE_IDS[index],
     }
-    local subSubClass = Auctionator.Search.Filter:new({
+    local subSubClass = Auctionator.Search.Category:new({
       classID = subClassID,
       name = name,
       key = parentKey .. [[/]] .. name,
       parentKey = parentKey,
-      filter = { filter }
+      category = { category }
     })
 
     table.insert( inventorySlots, subSubClass )
@@ -104,20 +104,20 @@ local function GenerateSubClasses( classID, parentKey )
     local subClassID = subClassesTable[ index ]
     local name = GetItemSubClassInfo( classID, subClassID )
 
-    local filter = { classID = classID, subClassID = subClassID }
-    local subClass = Auctionator.Search.Filter:new({
+    local category = { classID = classID, subClassID = subClassID }
+    local subClass = Auctionator.Search.Category:new({
       classID = subClassID,
       name = name,
       key = parentKey .. [[/]] .. name,
       parentKey = parentKey,
-      filter = { filter }
+      category = { category }
     })
 
     table.insert( subClasses, subClass )
 
-    --Armor special case, adds inventory slot filters
+    --Armor special case, adds inventory slot categories
     if classID == LE_ITEM_CLASS_ARMOR then
-      local inventorySlots = GenerateArmorInventorySlots(subClass.key, filter)
+      local inventorySlots = GenerateArmorInventorySlots(subClass.key, category)
       for _, slot in ipairs(inventorySlots) do
         table.insert(subClasses, slot)
       end
@@ -130,25 +130,25 @@ end
 for index, classID in ipairs( ITEM_CLASS_IDS ) do
   local key = GetItemClassInfo( classID )
   local subClasses = GenerateSubClasses( classID, key )
-  local filter = {classID = classID}
+  local category = {classID = classID}
 
-  local categoryFilter = Auctionator.Search.Filter:new({
+  local categoryCategory = Auctionator.Search.Category:new({
     classID = classID,
     name = name,
     key = key,
-    filter = {filter},
+    category = {category},
     subClasses = subClasses
   })
 
-  table.insert( Auctionator.Search.Filters, categoryFilter )
+  table.insert( Auctionator.Search.Categories, categoryCategory )
 end
 
-for index, filter in ipairs( Auctionator.Search.Filters ) do
-  Auctionator.Search.FilterLookup[ filter.key ] = filter
+for index, category in ipairs( Auctionator.Search.Categories ) do
+  Auctionator.Search.CategoryLookup[ category.key ] = category
 
-  for i = 1, #filter.subClasses do
-    local subFilter = filter.subClasses[ i ]
+  for i = 1, #category.subClasses do
+    local subCategory = category.subClasses[ i ]
 
-    Auctionator.Search.FilterLookup[ subFilter.key ] = subFilter
+    Auctionator.Search.CategoryLookup[ subCategory.key ] = subCategory
   end
 end
