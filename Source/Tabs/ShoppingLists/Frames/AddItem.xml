@@ -1,0 +1,160 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorAddItemTemplate"
+    mixin="AuctionatorAddItemMixin"
+    inherits="SimplePanelTemplate"
+    frameStrata="Dialog"
+    virtual="true"
+    hidden="true"
+  >
+    <Scripts>
+      <OnLoad method="OnLoad" />
+      <OnShow method="OnShow" />
+    </Scripts>
+
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="SearchStringHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="Search Term" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" y="-5" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="SearchContainer">
+        <Size y="48" />
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchStringHeading" relativePoint="BOTTOMLEFT" />
+          <Anchor point="RIGHT" />
+        </Anchors>
+        <Frames>
+          <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
+            <Size x="180" y="20"/>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="24" y="-4" />
+            </Anchors>
+            <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
+            <Scripts>
+              <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+            </Scripts>
+          </EditBox>
+
+          <Button parentKey="ResetSearchStringButton" inherits="AuctionatorResetButton">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT" x="3" y="-3"/>
+            </Anchors>
+          </Button>
+
+          <CheckButton inherits="UICheckButtonTemplate" parentKey="IsExact">
+            <Size x="20" y="20" />
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.SearchString"  relativePoint="BOTTOMLEFT" x="-8" />
+            </Anchors>
+            <Layers>
+              <Layer level="BACKGROUND">
+                <FontString inherits="GameFontHighlight" text="Exact Search">
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="25" y="-4" />
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+          </CheckButton>
+        </Frames>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="ItemClassHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="Item Class" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchContainer" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame name="$parent_FilterKeySelector" parentKey="FilterKeySelector" inherits="AuctionatorFilterKeySelectorTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemClassHeading" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="ItemLevelRange">
+        <KeyValues>
+          <KeyValue key="titleText" value="Item Level" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.FilterKeySelector" relativePoint="BOTTOMLEFT" y="-4" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="LevelRange">
+        <KeyValues>
+          <KeyValue key="titleText" value="Level" type="string"/>
+        </KeyValues>
+
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevelRange" relativePoint="TOPRIGHT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="PriceRange" hidden="true">
+        <KeyValues>
+          <KeyValue key="titleText" value="Price" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevelRange" relativePoint="BOTTOMLEFT" y="-8"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="CraftedLevelRange" hidden="true">
+        <KeyValues>
+          <KeyValue key="titleText" value="Crafted Level" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PriceRange" relativePoint="TOPRIGHT"/>
+        </Anchors>
+      </Frame>
+
+      <!-- Action Buttons -->
+      <Button parentKey="AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="Add Item">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" />
+        </Anchors>
+
+        <Scripts>
+          <OnClick>self:GetParent():OnAddItemClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button parentKey="Cancel" inherits="UIPanelDynamicResizeButtonTemplate" text="Cancel">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+
+        <Scripts>
+          <OnClick>self:GetParent():OnCancelClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button parentKey="ResetAllButton" inherits="UIPanelDynamicResizeButtonTemplate" text="Reset All">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Cancel" relativePoint="TOPRIGHT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ResetAll()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+
+    <Layers>
+      <Layer>
+        <FontString text="Add Shopping List Item" inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

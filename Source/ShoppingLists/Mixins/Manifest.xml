@@ -6,8 +6,6 @@
   <Script file="ListSearchButton.lua"/>
   <Script file="ListRenameButton.lua"/>
 
-  <Script file="ListEditButtons.lua" />
-
   <Script file="ScrollListLine.lua" />
   <Script file="ScrollList.lua" />
 </Ui>
