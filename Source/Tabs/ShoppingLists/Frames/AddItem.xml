@@ -36,7 +36,9 @@
             </Anchors>
             <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
             <Scripts>
+              <OnEnterPressed>self:GetParent():GetParent():OnAddItemClicked()</OnEnterPressed>
               <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+              <OnTabPressed>self:GetParent():GetParent().ItemLevelRange:SetFocus()</OnTabPressed>
             </Scripts>
           </EditBox>
 

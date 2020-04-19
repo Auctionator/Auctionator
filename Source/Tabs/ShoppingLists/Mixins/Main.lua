@@ -3,6 +3,8 @@ AuctionatorShoppingListTabMixin = {}
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
 
+  self:RegisterEvent("AUCTION_HOUSE_CLOSED")
+
   self.AddItem:Disable()
   self:Register(self, { Auctionator.ShoppingLists.Events.ListSelected })
 
@@ -19,6 +21,17 @@ function AuctionatorShoppingListTabMixin:OnLoad()
   end)
 
   self.ResultsListing:Init(self.DataProvider)
+end
+
+function AuctionatorShoppingListTabMixin:OnShow()
+  if self.selectedList ~= nil then
+    self.AddItem:Enable()
+  end
+end
+
+function AuctionatorShoppingListTabMixin:OnEvent(event, ...)
+  self.addItemDialog:ResetAll()
+  self.addItemDialog:Hide()
 end
 
 function AuctionatorShoppingListTabMixin:EventUpdate(eventName, eventData)

@@ -7,6 +7,40 @@ function AuctionatorAddItemMixin:OnLoad()
   self.SearchContainer.ResetSearchStringButton:SetClickCallback(function()
     self.SearchContainer.SearchString:SetText("")
   end)
+
+  local onEnterCallback = function()
+    self:OnAddItemClicked()
+  end
+
+  self.ItemLevelRange:SetCallbacks({
+    OnEnter = onEnterCallback,
+    OnTab = function()
+      self.LevelRange:SetFocus()
+    end
+  })
+
+  self.LevelRange:SetCallbacks({
+    OnEnter = onEnterCallback,
+    OnTab = function()
+      -- self.PriceRange:SetFocus()
+      self.SearchContainer.SearchString:SetFocus()
+    end
+  })
+
+  -- When implemented, these can be restored
+  -- self.PriceRange:SetCallbacks({
+  --   OnEnter = onEnterCallback,
+  --   OnTab = function()
+  --     self.CraftedLevelRange:SetFocus()
+  --   end
+  -- })
+
+  -- self.CraftedLevelRange:SetCallbacks({
+  --   OnEnter = onEnterCallback,
+  --   OnTab = function()
+  --     self.SearchContainer.SearchString:SetFocus()
+  --   end
+  -- })
 end
 
 function AuctionatorAddItemMixin:OnShow()
@@ -43,7 +77,6 @@ function AuctionatorAddItemMixin:HasItemInfo()
       :gsub(Auctionator.Constants.AdvancedSearchDivider, "")
       :gsub("\"", "")
       :len() > 0
-
 end
 
 function AuctionatorAddItemMixin:GetItemString()
