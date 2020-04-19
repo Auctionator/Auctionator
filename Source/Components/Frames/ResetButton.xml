@@ -1,0 +1,21 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button
+    name="AuctionatorResetButton"
+    virtual="true"
+    inherits="UIPanelButtonTemplate"
+    mixin="AuctionatorResetButtonMixin"
+  >
+    <Size x="15" y="15" />
+
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture file="Interface\Buttons\UI-GroupLoot-Pass-Up" alpha="0.75" parentKey="texture"/>
+      </Layer>
+    </Layers>
+
+    <Scripts>
+      <OnLoad method="OnLoad" />
+      <OnClick method="OnClick"/>
+    </Scripts>
+  </Button>
+</Ui>

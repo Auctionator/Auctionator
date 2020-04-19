@@ -1,6 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="Templates\Manifest.xml" />
-
   <Include file="BasicOptions.xml"/>
   <Include file="Tooltips.xml"/>
 

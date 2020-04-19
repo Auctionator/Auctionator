@@ -3,6 +3,8 @@
   <Script file="Objects.lua" />
   <Script file="Locales\Main.lua" />
 
+  <Include file="Components\Manifest.xml" />
+
   <Include file="Search\Manifest.xml" />
   <Include file="Core\Manifest.xml" />
 

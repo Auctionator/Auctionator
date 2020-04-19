@@ -8,6 +8,8 @@
   >
     <Scripts>
       <OnLoad method="OnLoad" />
+      <OnShow method="OnShow" />
+      <OnEvent method="OnEvent" />
     </Scripts>
 
     <Frames>
@@ -125,13 +127,17 @@
       </Frame>
 
       <!-- List Add Item Button -->
-      <Button name="AuctionatorShoppingLists_AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_ADD_ITEM" parentKey="AddItem" mixin="AuctionatorListItemAddButtonMixin">
+      <Button
+        name="AuctionatorShoppingLists_AddItem"
+        inherits="UIPanelDynamicResizeButtonTemplate"
+        text="AUCTIONATOR_L_ADD_ITEM"
+        parentKey="AddItem"
+      >
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMLEFT" x="4" y="-4" />
         </Anchors>
         <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
+          <OnClick>self:GetParent():AddItemClicked()</OnClick>
         </Scripts>
       </Button>
 

@@ -1,8 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="PanelConfig.lua" />
 
-  <Include file="Templates\Manifest.xml" />
-
   <Script file="Configuration.lua"/>
 
   <Script file="BasicOptions.lua"/>
