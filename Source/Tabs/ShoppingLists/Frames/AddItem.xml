@@ -141,7 +141,7 @@
         </Scripts>
       </Button>
 
-      <Button parentKey="ResetAllButton" inherits="UIPanelDynamicResizeButtonTemplate" text="   AUCTIONATOR_L_RESET_ALL">
+      <Button parentKey="ResetAllButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RESET_ALL">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Cancel" relativePoint="TOPRIGHT"/>
         </Anchors>
