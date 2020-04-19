@@ -7,6 +7,8 @@
     virtual="true"
     hidden="true"
   >
+    <Size x="350" y="255" />
+
     <Scripts>
       <OnLoad method="OnLoad" />
       <OnShow method="OnShow" />

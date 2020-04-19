@@ -28,6 +28,7 @@ function AuctionatorAddItemMixin:OnLoad()
   })
 
   -- When implemented, these can be restored
+  -- Remember to updated the <Size> to accommodate these elements...
   -- self.PriceRange:SetCallbacks({
   --   OnEnter = onEnterCallback,
   --   OnTab = function()
