@@ -18,20 +18,16 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: 'Auctionator'
-    - name: Start Locales
-      run: cd Auctionator
-    - run: ./.github/workflows/get-translations.sh frFR
-    - run: ./.github/workflows/get-translations.sh deDE
-    - run: ./.github/workflows/get-translations.sh itIT
-    - run: ./.github/workflows/get-translations.sh koKR
-    - run: ./.github/workflows/get-translations.sh zhCN
-    - run: ./.github/workflows/get-translations.sh zhTW
-    - run: ./.github/workflows/get-translations.sh ruRU
-    - run: ./.github/workflows/get-translations.sh esES
-    - run: ./.github/workflows/get-translations.sh esMX
-    - run: ./.github/workflows/get-translations.sh ptBR
-    - name: End Locales
-      run: cd ../
+    - run: ./Auctionator/.github/workflows/get-translations.sh frFR
+    - run: ./Auctionator/.github/workflows/get-translations.sh deDE
+    - run: ./Auctionator/.github/workflows/get-translations.sh itIT
+    - run: ./Auctionator/.github/workflows/get-translations.sh koKR
+    - run: ./Auctionator/.github/workflows/get-translations.sh zhCN
+    - run: ./Auctionator/.github/workflows/get-translations.sh zhTW
+    - run: ./Auctionator/.github/workflows/get-translations.sh ruRU
+    - run: ./Auctionator/.github/workflows/get-translations.sh esES
+    - run: ./Auctionator/.github/workflows/get-translations.sh esMX
+    - run: ./Auctionator/.github/workflows/get-translations.sh ptBR
     - name: Delete files for curse
       run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore Auctionator/.git Auctionator/docs Auctionator/test-data
     - name: Generate build number
