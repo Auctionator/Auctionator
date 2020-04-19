@@ -17,7 +17,7 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="SearchStringHeading">
         <KeyValues>
-          <KeyValue key="subHeadingText" value="Search Term" type="string"/>
+          <KeyValue key="subHeadingText" value="AUCTIONATOR_L_SEARCH_TERM" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" y="-5" />
@@ -57,7 +57,7 @@
             </Anchors>
             <Layers>
               <Layer level="BACKGROUND">
-                <FontString inherits="GameFontHighlight" text="Exact Search">
+                <FontString inherits="GameFontHighlight" text="AUCTIONATOR_L_EXACT_SEARCH">
                   <Anchors>
                     <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="25" y="-4" />
                   </Anchors>
@@ -70,7 +70,7 @@
 
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="ItemClassHeading">
         <KeyValues>
-          <KeyValue key="subHeadingText" value="Item Class" type="string"/>
+          <KeyValue key="subHeadingText" value="AUCTIONATOR_L_ITEM_CLASS" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.SearchContainer" relativePoint="BOTTOMLEFT"/>
@@ -85,7 +85,7 @@
 
       <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="ItemLevelRange">
         <KeyValues>
-          <KeyValue key="titleText" value="Item Level" type="string"/>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_ITEM_LEVEL" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.FilterKeySelector" relativePoint="BOTTOMLEFT" y="-4" />
@@ -94,7 +94,7 @@
 
       <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="LevelRange">
         <KeyValues>
-          <KeyValue key="titleText" value="Level" type="string"/>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_LEVEL" type="global"/>
         </KeyValues>
 
         <Anchors>
@@ -104,7 +104,7 @@
 
       <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="PriceRange" hidden="true">
         <KeyValues>
-          <KeyValue key="titleText" value="Price" type="string"/>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_PRICE" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevelRange" relativePoint="BOTTOMLEFT" y="-8"/>
@@ -113,7 +113,7 @@
 
       <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="CraftedLevelRange" hidden="true">
         <KeyValues>
-          <KeyValue key="titleText" value="Crafted Level" type="string"/>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_CRAFTED_LEVEL" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.PriceRange" relativePoint="TOPRIGHT"/>
@@ -153,7 +153,7 @@
 
     <Layers>
       <Layer>
-        <FontString text="Add Shopping List Item" inherits="GameFontHighlight">
+        <FontString text="AUCTIONATOR_L_LIST_ADD_ITEM_HEADER" inherits="GameFontHighlight">
           <Anchors>
             <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
           </Anchors>

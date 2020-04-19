@@ -54,7 +54,7 @@
 
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormalSmall" text="Min" justifyH="CENTER">
+            <FontString inherits="GameFontNormalSmall" text="AUCTIONATOR_L_MIN" justifyH="CENTER">
               <Size x="50" />
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" />
@@ -83,7 +83,7 @@
 
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontNormalSmall" text="Max" justifyH="CENTER">
+            <FontString inherits="GameFontNormalSmall" text="AUCTIONATOR_L_MAX" justifyH="CENTER">
               <Size x="50" />
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT"/>

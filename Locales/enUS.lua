@@ -147,5 +147,16 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
+  L["LIST_ADD_ITEM_HEADER"] = "Add Shopping List Item"
+  L["SEARCH_TERM"] = "Search Term"
+  L["EXACT_SEARCH"]= "Exact Search"
+  L["ITEM_CLASS"] = "Item Class"
+  L["ITEM_LEVEL"] = "Item Level"
+  L["LEVEL"] = "Level"
+  L["PRICE"] = "Price"
+  L["CRAFTED_lEVEL"] = "Crafted Level"
+  L["MIN"] = "Min"
+  L["MAX"] = "Max"
+
   return L
 end
