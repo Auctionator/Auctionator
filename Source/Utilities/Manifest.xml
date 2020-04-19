@@ -22,6 +22,7 @@
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>
   <Script file="TableKeys.lua"/>
+  <Script file="ArrayIndex.lua"/>
 
   <Script file="Sorting.lua" />
 </Ui>
