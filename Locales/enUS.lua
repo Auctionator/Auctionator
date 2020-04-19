@@ -170,6 +170,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CRAFTED_lEVEL"] = "Crafted Level"
   L["MIN"] = "Min"
   L["MAX"] = "Max"
+  L["CANCEL"] = "Cancel"
+  L["RESET_ALL"] = "Reset All"
 
   return L
 end

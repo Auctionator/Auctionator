@@ -121,7 +121,7 @@
       </Frame>
 
       <!-- Action Buttons -->
-      <Button parentKey="AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="Add Item">
+      <Button parentKey="AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_ADD_ITEM">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" />
         </Anchors>
@@ -131,7 +131,7 @@
         </Scripts>
       </Button>
 
-      <Button parentKey="Cancel" inherits="UIPanelDynamicResizeButtonTemplate" text="Cancel">
+      <Button parentKey="Cancel" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT"/>
         </Anchors>
@@ -141,7 +141,7 @@
         </Scripts>
       </Button>
 
-      <Button parentKey="ResetAllButton" inherits="UIPanelDynamicResizeButtonTemplate" text="Reset All">
+      <Button parentKey="ResetAllButton" inherits="UIPanelDynamicResizeButtonTemplate" text="   AUCTIONATOR_L_RESET_ALL">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Cancel" relativePoint="TOPRIGHT"/>
         </Anchors>
