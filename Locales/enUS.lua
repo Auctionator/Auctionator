@@ -63,6 +63,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["AUTHOR_HEADER"] = "Author"
   L["CONTRIBUTORS_HEADER"] = "Contributors"
+  L["TRANSLATORS_HEADER"] = "Translators"
   L["VERSION_HEADER"] = "Version"
   L["OPEN_ADDON_OPTIONS"] = "Open Addon Options"
   L["ENGAGE_HEADER"] = "Engage With Auctionator"
