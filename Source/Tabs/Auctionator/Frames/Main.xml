@@ -50,8 +50,7 @@
       </Frame>
 
       <Frame parentKey="Translators">
-        <!-- Not to future me, if you add a language, increase this by ~20 -->
-        <Size y="75" />
+        <Size y="92" />
 
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TranslatorsHeading" relativePoint="BOTTOMLEFT" y="10" />
@@ -61,7 +60,7 @@
         <Layers>
           <Layer level="ARTWORK">
             <FontString parentKey="deDE" inherits="GameFontHighlight" justifyH="LEFT" text="German:">
-              <Size x="200" />
+              <Size x="160"/>
 
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="20" y="-8" />
@@ -69,8 +68,8 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="plusmouse, flow0284, SunnySunflow">
-              <Size x="300"/>
+            <FontString parentKey="deDETranslators" inherits="GameFontHighlight" justifyH="LEFT" text="flow0284, SunnySunflow">
+              <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.deDE" relativePoint="TOPRIGHT" />
               </Anchors>
@@ -79,15 +78,15 @@
 
           <Layer level="ARTWORK">
             <FontString parentKey="ptBR" inherits="GameFontHighlight" justifyH="LEFT" text="Brazilian Portuguese:">
-              <Size x="200"/>
+              <Size x="160"/>
               <Anchors>
-                <Anchor point="TOPLEFT" relativeKey="$parent.deDE" relativePoint="BOTTOMLEFT" y="-5" />
+                <Anchor point="TOPLEFT" relativeKey="$parent.deDETranslators" relativePoint="TOPRIGHT" />
               </Anchors>
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
             <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Dagnet, dalanwoopy">
-              <Size x="300"/>
+              <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.ptBR" relativePoint="TOPRIGHT"/>
               </Anchors>
@@ -96,15 +95,15 @@
 
           <Layer level="ARTWORK">
             <FontString parentKey="zhCN" inherits="GameFontHighlight" justifyH="LEFT" text="Simplified Chinese:">
-              <Size x="200"/>
+              <Size x="160"/>
               <Anchors>
-                <Anchor point="TOPLEFT" relativeKey="$parent.ptBR" relativePoint="BOTTOMLEFT" y="-5"/>
+                <Anchor point="TOPLEFT" relativeKey="$parent.deDE" relativePoint="BOTTOMLEFT" y="-5"/>
               </Anchors>
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="dalanwoopy, LvWind">
-              <Size x="300"/>
+            <FontString parentKey="zhCNTranslators" inherits="GameFontHighlight" justifyH="LEFT" text="dalanwoopy, LvWind">
+              <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.zhCN" relativePoint="TOPRIGHT"/>
               </Anchors>
@@ -113,17 +112,119 @@
 
           <Layer level="ARTWORK">
             <FontString parentKey="zhTW" inherits="GameFontHighlight" justifyH="LEFT" text="Traditional Chinese:">
-              <Size x="200"/>
+              <Size x="160"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.zhCNTranslators" relativePoint="TOPRIGHT" />
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="ARTWORK">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="RainbowUI">
+              <Size x="225"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.zhTW" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+
+          <Layer level="ARTWORK">
+            <FontString parentKey="esES" inherits="GameFontHighlight" justifyH="LEFT" text="Spanish:">
+              <Size x="160"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.zhCN" relativePoint="BOTTOMLEFT" y="-5"/>
               </Anchors>
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="RainbowUI">
-              <Size x="300"/>
+            <FontString parentKey="esESTranslators" inherits="GameFontHighlight" justifyH="LEFT" text="Please help translate!">
+              <Size x="225"/>
               <Anchors>
-                <Anchor point="TOPLEFT" relativeKey="$parent.zhTW" relativePoint="TOPRIGHT"/>
+                <Anchor point="TOPLEFT" relativeKey="$parent.esES" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+
+          <Layer level="ARTWORK">
+            <FontString parentKey="esMX" inherits="GameFontHighlight" justifyH="LEFT" text="Latin American Spanish:">
+              <Size x="160"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.esESTranslators" relativePoint="TOPRIGHT" />
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="ARTWORK">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Please help translate!">
+              <Size x="225"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.esMX" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+
+          <Layer level="ARTWORK">
+            <FontString parentKey="frFR" inherits="GameFontHighlight" justifyH="LEFT" text="French:">
+              <Size x="160"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.esES" relativePoint="BOTTOMLEFT" y="-5"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="ARTWORK">
+            <FontString parentKey="frFRTranslators" inherits="GameFontHighlight" justifyH="LEFT" text="Please help translate!">
+              <Size x="225"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.frFR" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+
+          <Layer level="ARTWORK">
+            <FontString parentKey="itIT" inherits="GameFontHighlight" justifyH="LEFT" text="Italian:">
+              <Size x="160"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.frFRTranslators" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="ARTWORK">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Please help translate!">
+              <Size x="225"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.itIT" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+
+          <Layer level="ARTWORK">
+            <FontString parentKey="koKR" inherits="GameFontHighlight" justifyH="LEFT" text="Korean:">
+              <Size x="160"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.frFR" relativePoint="BOTTOMLEFT" y="-5"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="ARTWORK">
+            <FontString parentKey="koKRTranslators" inherits="GameFontHighlight" justifyH="LEFT" text="Please help translate!">
+              <Size x="225"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.koKR" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+
+          <Layer level="ARTWORK">
+            <FontString parentKey="ruRU" inherits="GameFontHighlight" justifyH="LEFT" text="Russian:">
+              <Size x="160"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.koKRTranslators" relativePoint="TOPRIGHT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="ARTWORK">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Please help translate!">
+              <Size x="225"/>
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.ruRU" relativePoint="TOPRIGHT"/>
               </Anchors>
             </FontString>
           </Layer>
