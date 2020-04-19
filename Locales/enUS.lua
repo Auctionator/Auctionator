@@ -79,6 +79,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["TRANSLATORS_GERMAN"] = "German:"
   L["TRANSLATORS_BRAZIL_PORTUGUEUSE"] = "Brazilian Portuguese:"
   L["TRANSLATORS_TRADITIONAL_CHINESE"] = "Traditional Chinese:"
+  L["TRANSLATORS_SIMPLIFIED_CHINESE"] = "Simplified Chinese:"
   L["TRANSLATORS_SPANISH"] = "Spanish:"
   L["TRANSLATORS_LATIN_SPANISH"] = "Latin American Spanish:"
   L["TRANSLATORS_FRENCH"] = "French:"

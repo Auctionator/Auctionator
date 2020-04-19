@@ -94,7 +94,7 @@
           </Layer>
 
           <Layer level="ARTWORK">
-            <FontString parentKey="zhCN" inherits="GameFontHighlight" justifyH="LEFT" text="Simplified Chinese:">
+            <FontString parentKey="zhCN" inherits="GameFontHighlight" justifyH="LEFT" text="AUCTIONATOR_L_TRANSLATORS_SIMPLIFIED_CHINESE">
               <Size x="160"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.deDE" relativePoint="BOTTOMLEFT" y="-5"/>
