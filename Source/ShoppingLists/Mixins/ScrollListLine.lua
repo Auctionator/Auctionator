@@ -20,8 +20,7 @@ function AuctionatorScrollListLineMixin:InitLine(scrollFrame)
   Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListSelected,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
-    Auctionator.ShoppingLists.Events.ListSearchEnded,
-    Auctionator.ShoppingLists.Events.DeleteFromList
+    Auctionator.ShoppingLists.Events.ListSearchEnded
   })
 
   self.scrollFrameParent = scrollFrame
@@ -30,9 +29,6 @@ end
 function AuctionatorScrollListLineMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
-  elseif eventName == Auctionator.ShoppingLists.Events.DeleteFromList then
-    self:DeleteItem()
-    Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemDeleted)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
@@ -51,6 +47,7 @@ function AuctionatorScrollListLineMixin:DeleteItem()
   end
 
   table.remove(self.currentList.items, itemIndex)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemDeleted)
 end
 
 function AuctionatorScrollListLineMixin:UpdateDisplay()
@@ -90,5 +87,5 @@ function AuctionatorScrollListLineDeleteMixin:OnLoad()
 end
 
 function AuctionatorScrollListLineDeleteMixin:OnClick()
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.DeleteFromList)
+  self:GetParent():DeleteItem()
 end
