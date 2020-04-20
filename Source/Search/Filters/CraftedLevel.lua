@@ -65,7 +65,7 @@ end
 function Auctionator.Search.Filters.CraftedLevelMixin:PostComplete(result)
   Auctionator.EventBus
     :RegisterSource(self, "Crafted Level Search Filter")
-    :Fire(self, Auctionator.Search.Events.FilterComplete, self.browseResult, true)
+    :Fire(self, Auctionator.Search.Events.FilterComplete, self.browseResult, result)
     :UnregisterSource(self)
     :Unregister(self, CRAFTED_EVENTS)
 end
