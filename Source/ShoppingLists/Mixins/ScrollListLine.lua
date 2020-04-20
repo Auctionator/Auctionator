@@ -1,7 +1,7 @@
 AuctionatorScrollListLineMixin = CreateFromMixins(
   ScrollListLineMixin,
   TableBuilderRowMixin,
-  AuctionatorAdvancedSearchProviderMixin
+  AuctionatorAdvancedSearchRank3
 )
 
 function AuctionatorScrollListLineMixin:OnLoad()
@@ -30,7 +30,8 @@ function AuctionatorScrollListLineMixin:InitLine(scrollFrame)
   self.scrollFrameParent = scrollFrame
 end
 
-function AuctionatorScrollListLineMixin:ReceiveEvent(eventName, eventData)
+function AuctionatorScrollListLineMixin:ReceiveEvent(eventName, eventData, ...)
+  AuctionatorAdvancedSearchRank3.ReceiveEvent(self, eventName, eventData, ...)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then

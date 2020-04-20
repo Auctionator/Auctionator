@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="FilterTracker.lua"/>
+  <Script file="CraftedLevel.lua"/>
+  <Script file="BlankFilter.lua"/>
+  <Script file="ItemLevel.lua"/>
+  <Script file="Price.lua"/>
+  <Script file="Exact.lua"/>
+  <Script file="Create.lua"/>
+</Ui>
