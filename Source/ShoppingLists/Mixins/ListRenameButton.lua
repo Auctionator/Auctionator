@@ -1,23 +1,25 @@
 AuctionatorListRenameButtonMixin = {}
 
+local ListRenamed = Auctionator.ShoppingLists.Events.ListRenamed
+local ListSelected = Auctionator.ShoppingLists.Events.ListSelected
+local ListCreated = Auctionator.ShoppingLists.Events.ListCreated
+local RenameDialogOnAccept = Auctionator.ShoppingLists.Events.RenameDialogOnAccept
+
 function AuctionatorListRenameButtonMixin:OnLoad()
   DynamicResizeButton_Resize(self)
-
   self:Disable()
 
-  self:GetParent():Register(self, {
-    Auctionator.ShoppingLists.Events.ListSelected,
-    Auctionator.ShoppingLists.Events.ListCreated
+  self:SetUpEvents()
+end
+
+function AuctionatorListRenameButtonMixin:SetUpEvents()
+  Auctionator.EventBus:RegisterSource(self, "Shopping List Rename Button")
+
+  Auctionator.EventBus:Register(self, {
+    ListSelected,
+    ListCreated,
+    RenameDialogOnAccept
   })
-
-  StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].OnAccept = function(dialog)
-    self:RenameList(dialog.editBox:GetText())
-  end
-
-  StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].EditBoxOnEnterPressed = function(dialog)
-    self:RenameList(dialog:GetParent().editBox:GetText())
-    dialog:GetParent():Hide()
-  end
 end
 
 function AuctionatorListRenameButtonMixin:OnClick()
@@ -27,17 +29,19 @@ end
 function AuctionatorListRenameButtonMixin:RenameList(newListName)
   Auctionator.ShoppingLists.Rename(self.currentList.index, newListName)
 
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListRenamed, self.currentList)
+  Auctionator.EventBus:Fire(self, ListRenamed, self.currentList)
 end
 
-function AuctionatorListRenameButtonMixin:EventUpdate(eventName, eventData)
-  Auctionator.Debug.Message("AuctionatorListRenameButtonMixin:EventUpdate " .. eventName, eventData)
+function AuctionatorListRenameButtonMixin:ReceiveEvent(eventName, eventData)
+  Auctionator.Debug.Message("AuctionatorListRenameButtonMixin:ReceiveEvent " .. eventName, eventData)
 
-  if eventName == Auctionator.ShoppingLists.Events.ListSelected then
+  if eventName == ListSelected then
     self.currentList = eventData
     self:Enable()
-  elseif eventName == Auctionator.ShoppingLists.Events.ListCreated then
+  elseif eventName == ListCreated then
     self.currentList = eventData
     self:Enable()
+  elseif eventName == RenameDialogOnAccept then
+    self:RenameList(eventData)
   end
 end

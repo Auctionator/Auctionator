@@ -4,7 +4,7 @@
     virtual="true"
     inherits="AuctionatorTabFrameTemplate"
     parentKey="AuctionatorShoppingListFrame"
-    mixin="AuctionatorShoppingListTabMixin, AuctionatorEventBus"
+    mixin="AuctionatorShoppingListTabMixin"
   >
     <Scripts>
       <OnLoad method="OnLoad" />

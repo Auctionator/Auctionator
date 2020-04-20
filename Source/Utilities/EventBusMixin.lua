@@ -51,7 +51,7 @@ end
 
 function AuctionatorEventBusMixin:Fire(source, eventName, ...)
   if self.sources[source] == nil then
-    error("All sources must be registered")
+    error("All sources must be registered (" .. eventName .. ")")
   end
 
   table.insert(self.queue, {sourceName = self.sources[source], eventName = eventName, params = {...}})

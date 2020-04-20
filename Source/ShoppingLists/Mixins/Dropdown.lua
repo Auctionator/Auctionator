@@ -4,9 +4,13 @@ function AuctionatorShoppingListDropdownMixin:OnLoad()
   UIDropDownMenu_Initialize(self, self.Initialize)
   UIDropDownMenu_SetWidth(self, 190)
 
-  self.frame = self
+  self:SetUpEvents()
+end
 
-  self:GetParent():Register(self, {
+function AuctionatorShoppingListDropdownMixin:SetUpEvents()
+  Auctionator.EventBus:RegisterSource(self, "Shopping List Dropdown")
+
+  Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListCreated,
     Auctionator.ShoppingLists.Events.ListDeleted,
     Auctionator.ShoppingLists.Events.ListRenamed
@@ -31,10 +35,10 @@ end
 
 function AuctionatorShoppingListDropdownMixin:SelectList(selectedList)
   UIDropDownMenu_SetText(self, selectedList.name)
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSelected, selectedList)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSelected, selectedList)
 end
 
-function AuctionatorShoppingListDropdownMixin:EventUpdate(eventName, eventData)
+function AuctionatorShoppingListDropdownMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListDeleted or eventName == Auctionator.ShoppingLists.Events.ListCreated then
     UIDropDownMenu_Initialize(self, self.Initialize)
   end

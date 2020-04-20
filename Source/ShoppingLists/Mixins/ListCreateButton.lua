@@ -1,15 +1,23 @@
 AuctionatorListCreateButtonMixin = {}
 
+local CreateDialogOnAccept = Auctionator.ShoppingLists.Events.CreateDialogOnAccept
+local ListCreated = Auctionator.ShoppingLists.Events.ListCreated
+
 function AuctionatorListCreateButtonMixin:OnLoad()
   DynamicResizeButton_Resize(self)
 
-  StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList].OnAccept = function(dialog)
-    self:CreateList(dialog.editBox:GetText())
-  end
+  self:SetUpEvents()
+end
 
-  StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList].EditBoxOnEnterPressed = function(dialog)
-    self:CreateList(dialog:GetParent().editBox:GetText())
-    dialog:GetParent():Hide()
+function AuctionatorListCreateButtonMixin:SetUpEvents()
+  Auctionator.EventBus:RegisterSource(self, "Shopping List Create Button")
+
+  Auctionator.EventBus:Register( self, { CreateDialogOnAccept })
+end
+
+function AuctionatorListCreateButtonMixin:ReceiveEvent(eventName, listName)
+  if eventName == CreateDialogOnAccept then
+    self:CreateList(listName)
   end
 end
 
@@ -20,5 +28,7 @@ end
 function AuctionatorListCreateButtonMixin:CreateList(listName)
   Auctionator.ShoppingLists.Create(listName)
 
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListCreated, Auctionator.ShoppingLists.Lists[#Auctionator.ShoppingLists.Lists])
+  Auctionator.EventBus:Fire(
+    self, ListCreated, Auctionator.ShoppingLists.Lists[#Auctionator.ShoppingLists.Lists]
+  )
 end

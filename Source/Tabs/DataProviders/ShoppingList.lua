@@ -32,17 +32,21 @@ function ShoppingListDataProviderMixin:OnLoad()
 
   self.pendingItemIds = {}
 
-  DataProviderMixin.OnLoad(self)
+  self:SetUpEvents()
 
-  self:GetParent():Register( self, {
-    Auctionator.ShoppingLists.Events.ListSearchStarted,
-    Auctionator.ShoppingLists.Events.ListSearchEnded,
-    Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate
-  })
+  DataProviderMixin.OnLoad(self)
 
   self:SetOnEntryProcessedCallback(function(entry)
     self:FetchItemKey(entry)
   end)
+end
+
+function ShoppingListDataProviderMixin:SetUpEvents()
+  Auctionator.EventBus:Register( self, {
+    Auctionator.ShoppingLists.Events.ListSearchStarted,
+    Auctionator.ShoppingLists.Events.ListSearchEnded,
+    Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate
+  })
 end
 
 function ShoppingListDataProviderMixin:OnEvent(event, ...)
@@ -57,9 +61,7 @@ function ShoppingListDataProviderMixin:OnEvent(event, ...)
   end
 end
 
-function ShoppingListDataProviderMixin:EventUpdate(eventName, eventData)
-  Auctionator.Debug.Message(eventName, eventData)
-
+function ShoppingListDataProviderMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Reset()
     if eventData ~= 0 then
