@@ -109,7 +109,7 @@ function AuctionatorAdvancedSearchRank3:OnSearchEventReceived(eventName, ...)
     Auctionator.EventBus
       :RegisterSource(self, "Advanced Search Provider")
       :Fire(self, Auctionator.Search.Events.BlizzardInfo, eventName, ...)
-      :UnregisterSource(self)
+      --:UnregisterSource(self) Unregistering here breaks shopping list events
   end
 end
 
