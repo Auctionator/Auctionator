@@ -130,11 +130,16 @@ function AuctionatorAdvancedSearchRank3:ProcessSearchResults(addedResults)
 
     filterTracker:SetWaiting(#filters)
   end
+  self:AddResults({})
 end
 
 function AuctionatorAdvancedSearchRank3:ReceiveEvent(eventName, results)
   if eventName == Auctionator.Search.Events.SearchResultsReady then
     self.waiting = self.waiting - 1
+    if self:HasCompleteTermResults() then
+      self.registeredForEvents = false
+      Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
+    end
     self:AddResults(results)
   end
 end
