@@ -4,6 +4,7 @@
     mixin="AuctionatorAddItemMixin"
     inherits="SimplePanelTemplate"
     frameStrata="Dialog"
+    enableMouse="true"
     virtual="true"
     hidden="true"
   >
