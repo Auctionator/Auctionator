@@ -6,14 +6,34 @@ local function InitializeCreateDialog()
     hasEditBox = 1,
     maxLetters = 32,
     OnShow = function(self)
+      Auctionator.EventBus:RegisterSource(self, "Create Shopping List Dialog")
+
       self.editBox:SetText("");
       self.editBox:SetFocus();
+    end,
+    OnHide = function(self)
+      Auctionator.EventBus:UnregisterSource(self)
+    end,
+    OnAccept = function(self)
+      Auctionator.EventBus:Fire(
+        self,
+        Auctionator.ShoppingLists.Events.CreateDialogOnAccept,
+        self.editBox:GetText()
+      )
+    end,
+    EditBoxOnEnterPressed = function(self)
+      Auctionator.EventBus:Fire(
+        self:GetParent(),
+        Auctionator.ShoppingLists.Events.CreateDialogOnAccept,
+        self:GetText()
+      )
+      self:GetParent():Hide()
     end,
     timeout = 0,
     exclusive = 1,
     whileDead = 1,
     hideOnEscape = 1
-  };
+  }
 end
 
 local function InitializeDeleteDialog()
@@ -24,7 +44,19 @@ local function InitializeDeleteDialog()
     timeout = 0,
     exclusive = 1,
     whileDead = 1,
-    hideOnEscape = 1
+    hideOnEscape = 1,
+    OnShow = function(self)
+      Auctionator.EventBus:RegisterSource(self, "Delete Shopping List Dialog")
+    end,
+    OnHide = function(self)
+      Auctionator.EventBus:UnregisterSource(self)
+    end,
+    OnAccept = function(self)
+      Auctionator.EventBus:Fire(
+        self,
+        Auctionator.ShoppingLists.Events.DeleteDialogOnAccept
+      )
+    end
   };
 end
 
@@ -36,8 +68,28 @@ local function InitializeRenameDialog()
     hasEditBox = 1,
     maxLetters = 32,
     OnShow = function(self)
+      Auctionator.EventBus:RegisterSource(self, "Rename Shopping List Dialog")
+
       self.editBox:SetText("");
       self.editBox:SetFocus();
+    end,
+    OnHide = function(self)
+      Auctionator.EventBus:UnregisterSource(self)
+    end,
+    OnAccept = function(self)
+      Auctionator.EventBus:Fire(
+        self,
+        Auctionator.ShoppingLists.Events.RenameDialogOnAccept,
+        self.editBox:GetText()
+      )
+    end,
+    EditBoxOnEnterPressed = function(self)
+      Auctionator.EventBus:Fire(
+        self:GetParent(),
+        Auctionator.ShoppingLists.Events.RenameDialogOnAccept,
+        self:GetText()
+      )
+      self:GetParent():Hide()
     end,
     timeout = 0,
     exclusive = 1,

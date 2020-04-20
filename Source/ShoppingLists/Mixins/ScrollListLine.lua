@@ -1,7 +1,6 @@
-AuctionatorScrollListLineMixin = CreateFromMixins(ScrollListLineMixin, TableBuilderRowMixin, AuctionatorEventBus, AuctionatorAdvancedSearchProviderMixin)
+AuctionatorScrollListLineMixin = CreateFromMixins(ScrollListLineMixin, TableBuilderRowMixin, AuctionatorAdvancedSearchProviderMixin)
 
 function AuctionatorScrollListLineMixin:OnLoad()
-  self:Register(self, { Auctionator.ShoppingLists.Events.DeleteFromList })
   self:InitSearch(
     function(results)
       self:EndSearch(results)
@@ -14,23 +13,26 @@ function AuctionatorScrollListLineMixin:OnEvent(eventName, ...)
 end
 
 function AuctionatorScrollListLineMixin:InitLine(scrollFrame)
-  Auctionator.Debug.Message("AuctionatorScrollListLineMixin:InitLine()", scrollFrame)
+  Auctionator.Debug.Message("AuctionatorScrollListLineMixin:InitLine()")
 
-  scrollFrame:Register(self, {
-    Auctionator.ShoppingLists.Events.ListItemDeleted,
+  Auctionator.EventBus:RegisterSource(self, "Shopping List Line Item")
+
+  Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListSelected,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
-    Auctionator.ShoppingLists.Events.ListSearchEnded
+    Auctionator.ShoppingLists.Events.ListSearchEnded,
+    Auctionator.ShoppingLists.Events.DeleteFromList
   })
+
   self.scrollFrameParent = scrollFrame
 end
 
-function AuctionatorScrollListLineMixin:EventUpdate(eventName, eventData)
+function AuctionatorScrollListLineMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
   elseif eventName == Auctionator.ShoppingLists.Events.DeleteFromList then
     self:DeleteItem()
-    self.scrollFrameParent:Fire(Auctionator.ShoppingLists.Events.ListItemDeleted)
+    Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemDeleted)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
@@ -83,6 +85,10 @@ end
 
 AuctionatorScrollListLineDeleteMixin = {}
 
+function AuctionatorScrollListLineDeleteMixin:OnLoad()
+  Auctionator.EventBus:RegisterSource(self, "Shopping Item Delete Button")
+end
+
 function AuctionatorScrollListLineDeleteMixin:OnClick()
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.DeleteFromList)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.DeleteFromList)
 end

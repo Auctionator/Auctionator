@@ -45,6 +45,7 @@
         </Layers>
 
         <Scripts>
+          <OnLoad method="OnLoad" />
           <OnClick method="OnClick" />
         </Scripts>
       </Button>

@@ -4,10 +4,16 @@ function AuctionatorListSearchButtonMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorListSearchButtonMixin:OnLoad()")
 
   DynamicResizeButton_Resize(self)
-
   self:Disable()
 
-  self:GetParent():Register(self, {
+  self:SetUpEvents()
+end
+
+function AuctionatorListSearchButtonMixin:SetUpEvents()
+  -- Auctionator Events
+  Auctionator.EventBus:RegisterSource(self, "List Search Button")
+
+  Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListSelected,
     Auctionator.ShoppingLists.Events.ListCreated,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
@@ -16,11 +22,11 @@ function AuctionatorListSearchButtonMixin:OnLoad()
 end
 
 function AuctionatorListSearchButtonMixin:OnClick()
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchRequested)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchRequested)
 end
 
-function AuctionatorListSearchButtonMixin:EventUpdate(eventName, eventData)
-  Auctionator.Debug.Message("AuctionatorListSearchButtonMixin:EventUpdate " .. eventName, eventData)
+function AuctionatorListSearchButtonMixin:ReceiveEvent(eventName, eventData)
+  Auctionator.Debug.Message("AuctionatorListSearchButtonMixin:ReceiveEvent " .. eventName, eventData)
 
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self:Enable()

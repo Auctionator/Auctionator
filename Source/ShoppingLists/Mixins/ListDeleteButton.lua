@@ -1,14 +1,20 @@
 AuctionatorListDeleteButtonMixin = {}
 
+local ListSelected = Auctionator.ShoppingLists.Events.ListSelected
+local ListCreated = Auctionator.ShoppingLists.Events.ListCreated
+local DeleteDialogOnAccept = Auctionator.ShoppingLists.Events.DeleteDialogOnAccept
+
 function AuctionatorListDeleteButtonMixin:OnLoad()
   DynamicResizeButton_Resize(self)
-
   self:Disable()
 
-  self:GetParent():Register(self, {
-    Auctionator.ShoppingLists.Events.ListSelected,
-    Auctionator.ShoppingLists.Events.ListCreated
-  })
+  self:SetUpEvents()
+end
+
+function AuctionatorListDeleteButtonMixin:SetUpEvents()
+  Auctionator.EventBus:RegisterSource(self, "Shopping List Delete Button")
+
+  Auctionator.EventBus:Register(self, { ListSelected, ListCreated, DeleteDialogOnAccept })
 end
 
 function AuctionatorListDeleteButtonMixin:UpdateDisabled()
@@ -19,19 +25,20 @@ function AuctionatorListDeleteButtonMixin:UpdateDisabled()
   end
 end
 
-function AuctionatorListDeleteButtonMixin:EventUpdate(eventName, eventData)
-  Auctionator.Debug.Message("AuctionatorListDeleteButtonMixin:EventUpdate " .. eventName, eventData)
+function AuctionatorListDeleteButtonMixin:ReceiveEvent(eventName, eventData)
+  Auctionator.Debug.Message("AuctionatorListDeleteButtonMixin:ReceiveEvent " .. eventName, eventData)
 
-  if eventName == Auctionator.ShoppingLists.Events.ListSelected then
+  if eventName == ListSelected then
     self.currentList = eventData
     self:UpdateDisabled()
-  elseif eventName == Auctionator.ShoppingLists.Events.ListCreated then
+  elseif eventName == ListCreated then
     self:UpdateDisabled()
+  elseif eventName == DeleteDialogOnAccept then
+    self:DeleteList()
   end
 end
 
 function AuctionatorListDeleteButtonMixin:OnClick()
-  -- Probably not needed since I disable, but just to be safe...
   local message = AUCTIONATOR_L_DELETE_LIST_NONE_SELECTED
 
   if self.currentList ~= nil then
@@ -39,10 +46,6 @@ function AuctionatorListDeleteButtonMixin:OnClick()
   end
 
   StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = message
-  StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].OnAccept = function(dialog)
-    self:DeleteList()
-  end
-
   StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList)
 end
 
@@ -59,5 +62,5 @@ function AuctionatorListDeleteButtonMixin:DeleteList()
   self.currentList = nil
   self:UpdateDisabled()
 
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListDeleted)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListDeleted)
 end

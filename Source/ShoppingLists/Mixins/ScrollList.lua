@@ -1,39 +1,45 @@
 AuctionatorShoppingListTableBuilderMixin = CreateFromMixins(TableBuilderMixin)
 
-AuctionatorScrollListMixin = CreateFromMixins(AuctionatorEventBus, AuctionatorAdvancedSearchProviderMixin)
+AuctionatorScrollListMixin = CreateFromMixins(AuctionatorAdvancedSearchProviderMixin)
 
 function AuctionatorScrollListMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorScrollListMixin:OnLoad()")
 
+  self:SetUpEvents()
+
   self:SetLineTemplate("AuctionatorScrollListLineTemplate")
   self.getNumEntries = self.GetNumEntries
   self.multiSearchComplete = false
-
-  self:GetParent():Register(self, {
-    Auctionator.ShoppingLists.Events.ListSelected,
-    Auctionator.ShoppingLists.Events.ListItemAdded,
-    Auctionator.ShoppingLists.Events.ListSearchRequested
-  })
-
-  self:Register(self, { Auctionator.ShoppingLists.Events.ListItemDeleted })
 
   self:InitSearch(
     function(results)
       self:EndSearch(results)
     end,
     function(current, total, results)
-      self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
+      Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
       self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
     end
   )
+end
+
+function AuctionatorScrollListMixin:SetUpEvents()
+  -- Auctionator Events
+  Auctionator.EventBus:RegisterSource(self, "Shopping List Scroll Frame")
+
+  Auctionator.EventBus:Register(self, {
+    Auctionator.ShoppingLists.Events.ListSelected,
+    Auctionator.ShoppingLists.Events.ListItemAdded,
+    Auctionator.ShoppingLists.Events.ListSearchRequested,
+    Auctionator.ShoppingLists.Events.ListItemDeleted
+  })
 end
 
 function AuctionatorScrollListMixin:OnEvent(eventName, ...)
   self:OnSearchEvent(eventName, ...)
 end
 
-function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
-  Auctionator.Debug.Message("AuctionatorScrollListMixin:EventUpdate()", eventName, eventData)
+function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData)
+  Auctionator.Debug.Message("AuctionatorScrollListMixin:ReceiveEvent()", eventName, eventData)
 
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
@@ -41,9 +47,6 @@ function AuctionatorScrollListMixin:EventUpdate(eventName, eventData)
     if Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
       self:StartSearch()
     end
-
-    -- Propogate events to children
-    self:Fire(eventName, eventData)
 
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemAdded then
@@ -68,13 +71,13 @@ function AuctionatorScrollListMixin:StartSearch()
     table.insert(searchTerms, name)
   end
 
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchStarted, #self.currentList.items)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchStarted, #self.currentList.items)
   self:Search(searchTerms)
 end
 
 function AuctionatorScrollListMixin:EndSearch(results)
   self:HideSpinner()
-  self:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchEnded, results)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchEnded, results)
 end
 
 function AuctionatorScrollListMixin:HideSpinner()
@@ -159,7 +162,6 @@ function AuctionatorScrollListMixin:RefreshScrollFrame()
 
     return
   end
-
 
   local buttonHeight = buttons[1]:GetHeight()
 

@@ -1,13 +1,32 @@
 AuctionatorShoppingListTabMixin = {}
 
+local ListDeleted = Auctionator.ShoppingLists.Events.ListDeleted
+local ListSelected = Auctionator.ShoppingLists.Events.ListSelected
+
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
 
+  Auctionator.ShoppingLists.InitializeDialogs()
+
+  self:SetUpEvents()
+  self:SetUpAddItemDialog()
+
+  -- Add Item button starts in the default state until a list is selected
+  self.AddItem:Disable()
+
+  self.ResultsListing:Init(self.DataProvider)
+end
+
+function AuctionatorShoppingListTabMixin:SetUpEvents()
+  -- System Events
   self:RegisterEvent("AUCTION_HOUSE_CLOSED")
 
-  self.AddItem:Disable()
-  self:Register(self, { Auctionator.ShoppingLists.Events.ListSelected })
+  -- Auctionator Events
+  Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Tab")
+  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted })
+end
 
+function AuctionatorShoppingListTabMixin:SetUpAddItemDialog()
   self.addItemDialog = CreateFrame("Frame", "AuctionatorAddItemFrame", self, "AuctionatorAddItemTemplate")
   self.addItemDialog:SetPoint("CENTER")
 
@@ -19,8 +38,6 @@ function AuctionatorShoppingListTabMixin:OnLoad()
     self.AddItem:Enable()
     self:AddItemToList(newItemString)
   end)
-
-  self.ResultsListing:Init(self.DataProvider)
 end
 
 function AuctionatorShoppingListTabMixin:OnShow()
@@ -34,10 +51,15 @@ function AuctionatorShoppingListTabMixin:OnEvent(event, ...)
   self.addItemDialog:Hide()
 end
 
-function AuctionatorShoppingListTabMixin:EventUpdate(eventName, eventData)
-  if eventName == Auctionator.ShoppingLists.Events.ListSelected then
+function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
+  if eventName == ListSelected then
     self.selectedList = eventData
     self.AddItem:Enable()
+  elseif eventName == ListDeleted and #Auctionator.ShoppingLists.Lists == 0 then
+    -- If no more lists, need to clean up the UI
+    self.Rename:Disable()
+    self.AddItem:Disable()
+    self.ManualSearch:Disable()
   end
 end
 
@@ -51,7 +73,7 @@ function AuctionatorShoppingListTabMixin:AddItemToList(newItemString)
 
   table.insert(self.selectedList.items, newItemString)
 
-  self:Fire(Auctionator.ShoppingLists.Events.ListItemAdded, self.selectedList)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemAdded, self.selectedList)
 end
 
 function AuctionatorShoppingListTabMixin:AddItemClicked()
