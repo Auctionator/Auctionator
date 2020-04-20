@@ -1,4 +1,8 @@
-AuctionatorScrollListLineMixin = CreateFromMixins(ScrollListLineMixin, TableBuilderRowMixin, AuctionatorAdvancedSearchProviderMixin)
+AuctionatorScrollListLineMixin = CreateFromMixins(
+  ScrollListLineMixin,
+  TableBuilderRowMixin,
+  AuctionatorAdvancedSearchProviderMixin
+)
 
 function AuctionatorScrollListLineMixin:OnLoad()
   self:InitSearch(
@@ -59,17 +63,12 @@ function AuctionatorScrollListLineMixin:Populate(searchTerm, dataIndex)
   self.dataIndex = dataIndex
 end
 
-function AuctionatorScrollListLineMixin:OnDeleteClicked(self)
-  Auctionator.Debug.Message("OnDeleteClicked", self.searchTerm)
-end
-
--- Have to override since we arent building rows (see TableBuilder.lua)
 function AuctionatorScrollListLineMixin:OnEnter()
-  -- Auctionator.Debug.Message("AuctionatorScrollListLineMixin:OnEnter()")
+  -- Have to override since we arent building rows (see TableBuilder.lua)
 end
 
 function AuctionatorScrollListLineMixin:OnLeave()
-  -- Auctionator.Debug.Message("AuctionatorScrollListLineMixin:OnLeave()")
+  -- Have to override since we arent building rows (see TableBuilder.lua)
 end
 
 function AuctionatorScrollListLineMixin:OnSelected()
@@ -77,15 +76,5 @@ function AuctionatorScrollListLineMixin:OnSelected()
 end
 
 function AuctionatorScrollListLineMixin:EndSearch(results)
-  self.scrollFrameParent:GetParent():Fire(Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
-end
-
-AuctionatorScrollListLineDeleteMixin = {}
-
-function AuctionatorScrollListLineDeleteMixin:OnLoad()
-  Auctionator.EventBus:RegisterSource(self, "Shopping Item Delete Button")
-end
-
-function AuctionatorScrollListLineDeleteMixin:OnClick()
-  self:GetParent():DeleteItem()
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
 end
