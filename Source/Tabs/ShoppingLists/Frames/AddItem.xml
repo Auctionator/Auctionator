@@ -7,7 +7,7 @@
     virtual="true"
     hidden="true"
   >
-    <Size x="350" y="255" />
+    <Size x="350" y="320" />
 
     <Scripts>
       <OnLoad method="OnLoad" />
@@ -102,7 +102,7 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="PriceRange" hidden="true">
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="PriceRange">
         <KeyValues>
           <KeyValue key="titleText" value="AUCTIONATOR_L_PRICE" type="global"/>
         </KeyValues>
@@ -111,7 +111,7 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="CraftedLevelRange" hidden="true">
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="CraftedLevelRange">
         <KeyValues>
           <KeyValue key="titleText" value="AUCTIONATOR_L_CRAFTED_LEVEL" type="global"/>
         </KeyValues>

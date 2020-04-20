@@ -22,26 +22,24 @@ function AuctionatorAddItemMixin:OnLoad()
   self.LevelRange:SetCallbacks({
     OnEnter = onEnterCallback,
     OnTab = function()
-      -- self.PriceRange:SetFocus()
+      self.PriceRange:SetFocus()
       self.SearchContainer.SearchString:SetFocus()
     end
   })
 
-  -- When implemented, these can be restored
-  -- Remember to updated the <Size> to accommodate these elements...
-  -- self.PriceRange:SetCallbacks({
-  --   OnEnter = onEnterCallback,
-  --   OnTab = function()
-  --     self.CraftedLevelRange:SetFocus()
-  --   end
-  -- })
+  self.PriceRange:SetCallbacks({
+    OnEnter = onEnterCallback,
+    OnTab = function()
+      self.CraftedLevelRange:SetFocus()
+    end
+  })
 
-  -- self.CraftedLevelRange:SetCallbacks({
-  --   OnEnter = onEnterCallback,
-  --   OnTab = function()
-  --     self.SearchContainer.SearchString:SetFocus()
-  --   end
-  -- })
+  self.CraftedLevelRange:SetCallbacks({
+    OnEnter = onEnterCallback,
+    OnTab = function()
+      self.SearchContainer.SearchString:SetFocus()
+    end
+  })
 end
 
 function AuctionatorAddItemMixin:OnShow()
@@ -91,8 +89,8 @@ function AuctionatorAddItemMixin:GetItemString()
     self.FilterKeySelector:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
     self.ItemLevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
     self.LevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.PriceRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.CraftedLevelRange:GetValue()
+    self.CraftedLevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
+    self.PriceRange:GetValue()
 end
 
 function AuctionatorAddItemMixin:ResetAll()

@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Events.lua"/>
   <Script file="Categories.lua"/>
   <Script file="Main.lua"/>
   <Script file="Advanced.lua"/>
@@ -6,4 +7,6 @@
   <Script file="Mixins\MultiSearchMixin.lua"/>
   <Script file="Mixins\KeywordSearchProviderMixin.lua"/>
   <Script file="Mixins\AdvancedSearchProviderMixin.lua"/>
+  <Script file="Mixins\AdvancedSearchRank3.lua"/>
+  <Include file="Filters\Manifest.xml" />
 </Ui>

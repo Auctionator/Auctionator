@@ -1,6 +1,6 @@
 AuctionatorShoppingListTableBuilderMixin = CreateFromMixins(TableBuilderMixin)
 
-AuctionatorScrollListMixin = CreateFromMixins(AuctionatorAdvancedSearchProviderMixin)
+AuctionatorScrollListMixin = CreateFromMixins(AuctionatorAdvancedSearchRank3)
 
 function AuctionatorScrollListMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorScrollListMixin:OnLoad()")
@@ -38,8 +38,9 @@ function AuctionatorScrollListMixin:OnEvent(eventName, ...)
   self:OnSearchEvent(eventName, ...)
 end
 
-function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData)
+function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
   Auctionator.Debug.Message("AuctionatorScrollListMixin:ReceiveEvent()", eventName, eventData)
+  AuctionatorAdvancedSearchRank3.ReceiveEvent(self, eventName, eventData, ...)
 
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData

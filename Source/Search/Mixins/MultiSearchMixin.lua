@@ -40,7 +40,6 @@ function AuctionatorMultiSearchMixin:AddResults(results)
   if self:HasCompleteTermResults() then
     self:NextSearch()
   end
-  Auctionator.Debug.Message("queued", #self.itemKeyInfoQueue)
 end
 
 function AuctionatorMultiSearchMixin:NextSearch()
