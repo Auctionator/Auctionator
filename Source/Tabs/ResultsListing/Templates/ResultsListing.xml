@@ -40,6 +40,18 @@
         </Frames>
         <Layers>
           <Layer level="OVERLAY">
+            <FontString parentKey="NoResultsText" inherits="GameFontNormal" hidden="true" text="AUCTIONATOR_L_NO_RESULTS">
+              <Anchors>
+                <Anchor point="CENTER" />
+              </Anchors>
+              <Color color="NORMAL_FONT_COLOR"/>
+              <Shadow>
+                <Offset>
+                  <AbsDimension x="1" y="-1"/>
+                </Offset>
+                <Color r="0" g="0" b="0"/>
+              </Shadow>
+            </FontString>
             <FontString parentKey="ResultsText" inherits="GameFontNormal" hidden="true" text="AUCTIONATOR_L_FETCHING_ITEM_INFO">
               <Anchors>
                 <Anchor point="TOP" relativeKey="$parent.LoadingSpinner" relativePoint="CENTER" y="8"/>
