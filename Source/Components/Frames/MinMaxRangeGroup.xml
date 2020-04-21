@@ -43,7 +43,7 @@
     </Layers>
 
     <Frames>
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="MinBox" letters="3">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="MinBox" letters="6">
         <Size x="50" y="20" />
 
         <Anchors>
@@ -72,7 +72,7 @@
         </Scripts>
       </EditBox>
 
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="MaxBox" letters="3">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="MaxBox" letters="6">
         <Size x="50" y="20"/>
 
         <Anchors>

@@ -13,6 +13,7 @@
     <Scripts>
       <OnLoad method="OnLoad" />
       <OnShow method="OnShow" />
+      <OnKeyUp method="OnKeyUp" />
     </Scripts>
 
     <Frames>
@@ -41,7 +42,7 @@
             <Scripts>
               <OnEnterPressed>self:GetParent():GetParent():OnAddItemClicked()</OnEnterPressed>
               <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
-              <OnTabPressed>self:GetParent():GetParent().ItemLevelRange:SetFocus()</OnTabPressed>
+              <OnTabPressed>self:GetParent():GetParent().LevelRange:SetFocus()</OnTabPressed>
             </Scripts>
           </EditBox>
 
@@ -84,22 +85,21 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="LevelRange">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_LEVEL" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.FilterKeySelector" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="ItemLevelRange">
         <KeyValues>
           <KeyValue key="titleText" value="AUCTIONATOR_L_ITEM_LEVEL" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.FilterKeySelector" relativePoint="BOTTOMLEFT" y="-4" />
-        </Anchors>
-      </Frame>
-
-      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="LevelRange">
-        <KeyValues>
-          <KeyValue key="titleText" value="AUCTIONATOR_L_LEVEL" type="global"/>
-        </KeyValues>
-
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevelRange" relativePoint="TOPRIGHT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.LevelRange" relativePoint="TOPRIGHT" y="-4" />
         </Anchors>
       </Frame>
 
@@ -108,7 +108,7 @@
           <KeyValue key="titleText" value="AUCTIONATOR_L_PRICE" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ItemLevelRange" relativePoint="BOTTOMLEFT" y="-8"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.LevelRange" relativePoint="BOTTOMLEFT" y="-8"/>
         </Anchors>
       </Frame>
 

@@ -12,18 +12,17 @@ function AuctionatorAddItemMixin:OnLoad()
     self:OnAddItemClicked()
   end
 
-  self.ItemLevelRange:SetCallbacks({
-    OnEnter = onEnterCallback,
-    OnTab = function()
-      self.LevelRange:SetFocus()
-    end
-  })
-
   self.LevelRange:SetCallbacks({
     OnEnter = onEnterCallback,
     OnTab = function()
+      self.ItemLevelRange:SetFocus()
+    end
+  })
+
+  self.ItemLevelRange:SetCallbacks({
+    OnEnter = onEnterCallback,
+    OnTab = function()
       self.PriceRange:SetFocus()
-      self.SearchContainer.SearchString:SetFocus()
     end
   })
 
@@ -44,6 +43,16 @@ end
 
 function AuctionatorAddItemMixin:OnShow()
   self:ResetAll()
+  self.SearchContainer.SearchString:SetFocus()
+end
+
+function AuctionatorAddItemMixin:OnKeyUp(key)
+  Auctionator.Debug.Message("AuctionatorAddItemMixin:OnKeyUp()", key)
+
+  if key == "ESCAPE" then
+    self:Hide()
+    self.onCancelClicked()
+  end
 end
 
 function AuctionatorAddItemMixin:SetOnCancelClicked(callback)
