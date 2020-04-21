@@ -173,5 +173,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CANCEL"] = "Cancel"
   L["RESET_ALL"] = "Reset All"
 
+  L["NO_RESULTS"] = "No results found."
+
   return L
 end
