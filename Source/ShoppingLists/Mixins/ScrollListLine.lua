@@ -73,7 +73,7 @@ function AuctionatorScrollListLineMixin:OnLeave()
 end
 
 function AuctionatorScrollListLineMixin:OnSelected()
-  self:Search({self.searchTerm})
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemSelected, self.searchTerm)
 end
 
 function AuctionatorScrollListLineMixin:EndSearch(results)
