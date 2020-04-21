@@ -103,7 +103,7 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="PriceRange">
+      <Frame inherits="AuctionatorConfigurationMinMaxFrame" parentKey="PriceRange" hidden="true">
         <KeyValues>
           <KeyValue key="titleText" value="AUCTIONATOR_L_PRICE" type="global"/>
         </KeyValues>
