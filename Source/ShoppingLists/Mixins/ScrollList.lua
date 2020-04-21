@@ -28,6 +28,7 @@ function AuctionatorScrollListMixin:SetUpEvents()
 
   Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListSelected,
+    Auctionator.ShoppingLists.Events.ListItemSelected,
     Auctionator.ShoppingLists.Events.ListItemAdded,
     Auctionator.ShoppingLists.Events.ListSearchRequested,
     Auctionator.ShoppingLists.Events.ListItemDeleted
@@ -38,6 +39,16 @@ function AuctionatorScrollListMixin:OnEvent(eventName, ...)
   self:OnSearchEvent(eventName, ...)
 end
 
+function AuctionatorScrollListMixin:GetAllSearchTerms()
+  local searchTerms = {}
+
+  for _, name in ipairs(self.currentList.items) do
+    table.insert(searchTerms, name)
+  end
+
+  return searchTerms
+end
+
 function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
   Auctionator.Debug.Message("AuctionatorScrollListMixin:ReceiveEvent()", eventName, eventData)
   AuctionatorAdvancedSearchRank3.ReceiveEvent(self, eventName, eventData, ...)
@@ -46,33 +57,33 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
     self.currentList = eventData
 
     if Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
-      self:StartSearch()
+      self:StartSearch(self:GetAllSearchTerms())
     end
 
     self:RefreshScrollFrame()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListItemSelected then
+    self:StartSearch({ eventData })
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemAdded then
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemDeleted then
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchRequested then
-    self:StartSearch()
+    self:StartSearch(self:GetAllSearchTerms())
   end
 end
 
-function AuctionatorScrollListMixin:StartSearch()
+function AuctionatorScrollListMixin:StartSearch(searchTerms)
   self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self.currentList.name))
   self.ResultsText:Show()
 
   self.SpinnerAnim:Play()
   self.LoadingSpinner:Show()
 
-  local searchTerms = {}
-
-  for _, name in ipairs(self.currentList.items) do
-    table.insert(searchTerms, name)
-  end
-
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchStarted, #self.currentList.items)
+  Auctionator.EventBus:Fire(
+    self,
+    Auctionator.ShoppingLists.Events.ListSearchStarted,
+    #self.currentList.items
+  )
   self:Search(searchTerms)
 end
 

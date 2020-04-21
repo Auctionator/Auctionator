@@ -2,6 +2,7 @@ AuctionatorShoppingListTabMixin = {}
 
 local ListDeleted = Auctionator.ShoppingLists.Events.ListDeleted
 local ListSelected = Auctionator.ShoppingLists.Events.ListSelected
+local ListItemSelected = Auctionator.ShoppingLists.Events.ListItemSelected
 
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
@@ -23,7 +24,7 @@ function AuctionatorShoppingListTabMixin:SetUpEvents()
 
   -- Auctionator Events
   Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Tab")
-  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted })
+  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected })
 end
 
 function AuctionatorShoppingListTabMixin:SetUpAddItemDialog()
