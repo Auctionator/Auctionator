@@ -25,11 +25,6 @@
 
     <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
 
-    <Scripts>
-      <OnLoad method="OnLoad" />
-      <OnEvent method="OnEvent"/>
-    </Scripts>
-
     <Frames>
       <Button parentKey="DeleteButton" inherits="UIPanelButtonTemplate">
         <Size>

@@ -1,4 +1,4 @@
-AuctionatorAPIv1MultiSearchFrame = CreateFromMixins(AuctionatorKeywordSearchProviderMixin)
+AuctionatorAPIv1MultiSearchFrame = CreateFromMixins(AuctionatorAdvancedSearchRank3)
 
 function AuctionatorAPIv1MultiSearchFrame:OnLoad()
   self:InitSearch(
@@ -29,6 +29,10 @@ function AuctionatorAPIv1MultiSearchFrame:StartSearch(searchTerms)
 end
 
 function AuctionatorAPIv1MultiSearchFrame:EndSearch(results)
-  Auctionator.Search.SafeItemKeysSearch(results)
+  local keys = {}
+  for _, browseResult in ipairs(results) do
+    table.insert(keys, browseResult.itemKey)
+  end
+  Auctionator.Search.SafeItemKeysSearch(keys)
   self:HideSpinner()
 end

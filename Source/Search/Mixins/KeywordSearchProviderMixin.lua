@@ -45,13 +45,7 @@ end
 function AuctionatorKeywordSearchProviderMixin:ProcessSearchResults(addedResults)
   Auctionator.Debug.Message("AuctionatorKeywordSearchProviderMixin:ProcessSearchResults()")
 
-  local results = {}
-
-  for index = 1, #addedResults do
-    table.insert(results, addedResults[index].itemKey)
-  end
-
-  self:AddResults(results)
+  self:AddResults(addedResults)
 end
 
 function AuctionatorKeywordSearchProviderMixin:RegisterProviderEvents()
