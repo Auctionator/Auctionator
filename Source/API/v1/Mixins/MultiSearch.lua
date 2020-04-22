@@ -1,4 +1,4 @@
-AuctionatorAPIv1MultiSearchFrame = CreateFromMixins(AuctionatorAdvancedSearchRank3)
+AuctionatorAPIv1MultiSearchFrame = CreateFromMixins(AuctionatorAdvancedSearchProviderMixin)
 
 function AuctionatorAPIv1MultiSearchFrame:OnLoad()
   self:InitSearch(

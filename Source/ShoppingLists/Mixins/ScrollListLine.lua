@@ -1,7 +1,6 @@
 AuctionatorScrollListLineMixin = CreateFromMixins(
   ScrollListLineMixin,
-  TableBuilderRowMixin,
-  AuctionatorAdvancedSearchRank3
+  TableBuilderRowMixin
 )
 
 function AuctionatorScrollListLineMixin:InitLine(scrollFrame)

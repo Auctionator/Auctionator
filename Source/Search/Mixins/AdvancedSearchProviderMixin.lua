@@ -1,4 +1,4 @@
-AuctionatorAdvancedSearchRank3 = CreateFromMixins(AuctionatorMultiSearchMixin, AuctionatorSearchProviderMixin)
+AuctionatorAdvancedSearchProviderMixin = CreateFromMixins(AuctionatorMultiSearchMixin, AuctionatorSearchProviderMixin)
 
 local ADVANCED_SEARCH_EVENTS = {
   "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED",
@@ -57,8 +57,8 @@ local function ParseAdvancedSearch(searchString)
   }
 end
 
-function AuctionatorAdvancedSearchRank3:CreateSearchTerm(term)
-  Auctionator.Debug.Message("AuctionatorAdvancedSearchRank3:CreateSearchTerm()", term)
+function AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm(term)
+  Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm()", term)
   if Auctionator.Search.IsAdvancedSearch(term) then
     return ParseAdvancedSearch(term)
   else
@@ -76,8 +76,8 @@ function AuctionatorAdvancedSearchRank3:CreateSearchTerm(term)
   end
 end
 
-function AuctionatorAdvancedSearchRank3:GetSearchProvider()
-  Auctionator.Debug.Message("AuctionatorAdvancedSearchRank3:GetSearchProvider()")
+function AuctionatorAdvancedSearchProviderMixin:GetSearchProvider()
+  Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:GetSearchProvider()")
 
   --Run the query, and save extra filter data for processing
   return function(searchTerm)
@@ -87,15 +87,15 @@ function AuctionatorAdvancedSearchRank3:GetSearchProvider()
   end
 end
 
-function AuctionatorAdvancedSearchRank3:HasCompleteTermResults()
-  Auctionator.Debug.Message("AuctionatorAdvancedSearchRank3:HasCompleteTermResults()")
+function AuctionatorAdvancedSearchProviderMixin:HasCompleteTermResults()
+  Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:HasCompleteTermResults()")
 
   --Loaded all the terms from API, and we have filtered every item
   return C_AuctionHouse.HasFullBrowseResults() and self.waiting == 0
 end
 
-function AuctionatorAdvancedSearchRank3:OnSearchEventReceived(eventName, ...)
-  Auctionator.Debug.Message("AuctionatorAdvancedSearchRank3:OnSearchEventReceived()", eventName, ...)
+function AuctionatorAdvancedSearchProviderMixin:OnSearchEventReceived(eventName, ...)
+  Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:OnSearchEventReceived()", eventName, ...)
 
   if eventName == "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED" then
     self:ProcessSearchResults(C_AuctionHouse.GetBrowseResults())
@@ -113,8 +113,8 @@ function AuctionatorAdvancedSearchRank3:OnSearchEventReceived(eventName, ...)
   end
 end
 
-function AuctionatorAdvancedSearchRank3:ProcessSearchResults(addedResults)
-  Auctionator.Debug.Message("AuctionatorAdvancedSearchRank3:ProcessSearchResults()")
+function AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults(addedResults)
+  Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults()")
   
   if not self.registeredForEvents then
     self.registeredForEvents = true
@@ -133,7 +133,7 @@ function AuctionatorAdvancedSearchRank3:ProcessSearchResults(addedResults)
   self:AddResults({})
 end
 
-function AuctionatorAdvancedSearchRank3:ReceiveEvent(eventName, results)
+function AuctionatorAdvancedSearchProviderMixin:ReceiveEvent(eventName, results)
   if eventName == Auctionator.Search.Events.SearchResultsReady then
     self.waiting = self.waiting - 1
     if self:HasCompleteTermResults() then
@@ -145,10 +145,10 @@ function AuctionatorAdvancedSearchRank3:ReceiveEvent(eventName, results)
 end
 
 
-function AuctionatorAdvancedSearchRank3:RegisterProviderEvents()
+function AuctionatorAdvancedSearchProviderMixin:RegisterProviderEvents()
   self:RegisterEvents(ADVANCED_SEARCH_EVENTS)
 end
 
-function AuctionatorAdvancedSearchRank3:UnregisterProviderEvents()
+function AuctionatorAdvancedSearchProviderMixin:UnregisterProviderEvents()
   self:UnregisterEvents(ADVANCED_SEARCH_EVENTS)
 end
