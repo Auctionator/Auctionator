@@ -36,11 +36,8 @@
 local AUCTIONATOR_EVENTS = {
   -- Addon Initialization Events
   "VARIABLES_LOADED",
-  "ADDON_LOADED",
   -- AH Window Initialization Events
   "AUCTION_HOUSE_SHOW",
-  -- Extended Funtionality
-  "CHAT_MSG_ADDON",
 }
 
 -- Called from AuctionatorCore frame's OnLoad (defined in Auctionator.xml)
