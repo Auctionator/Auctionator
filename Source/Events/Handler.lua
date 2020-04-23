@@ -6,12 +6,8 @@ function Auctionator.Events.Handler(self, event, ...)
 
   if event == "VARIABLES_LOADED" then
     Auctionator.Events.VariablesLoaded()
-  elseif event == "ADDON_LOADED" then
-    Auctionator.Events.AddonLoaded(...)
   elseif event == "AUCTION_HOUSE_SHOW" then
     Auctionator.Events.OnAuctionHouseShow()
-  elseif event == "CHAT_MSG_ADDON" then
-    Auctionator.Events.ChatMessageAddon(...)
   end
 end
 

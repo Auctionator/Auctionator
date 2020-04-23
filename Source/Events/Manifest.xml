@@ -3,9 +3,6 @@
   <Script file="Handler.lua"/>
 
   <Script file="VariablesLoaded.lua"/>
-  <Script file="AddonLoaded.lua"/>
 
   <Script file="OnAuctionHouseShow.lua" />
-
-  <Script file="ChatMessageAddon.lua"/>
 </Ui>
