@@ -12,50 +12,52 @@
         parentKey="AuctionatorShoppingListTab"
       >
         <KeyValues>
-        <!-- From AuctionHouseFrameDisplayModeTabTemplate -->
           <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.ShoppingLists" type="global"/>
-          <!-- For creation of Auctionator Frame -->
           <KeyValue key="displayModeKey" value="ShoppingLists" type="string"/>
           <KeyValue key="frameTemplate" value="AuctionatorShoppingListTabFrameTemplate" type="string"/>
           <KeyValue key="ahTabIndex" value="4" type="number"/>
           <KeyValue key="ahTitle" value="AUCTIONATOR_L_SHOPPING_TAB_HEADER" type="global"/>
         </KeyValues>
-        <Anchors>
-          <Anchor point="LEFT" relativeKey="$parent.AuctionsTab" relativePoint="RIGHT" x="-15" y="0"/>
-        </Anchors>
       </Button>
 
-      <!-- <Button
+      <Button
+        name="AuctionatorTabs_Selling"
+        inherits="AuctionatorTabButtonTemplate"
+        text="AUCTIONATOR_L_SELLING_TAB"
+        parentKey="AuctionatorSellTab"
+      >
+        <KeyValues>
+          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Selling" type="global"/>
+          <KeyValue key="displayModeKey" value="Selling" type="string"/>
+          <KeyValue key="frameTemplate" value="AuctionatorSellTabFrameTemplate" type="string"/>
+          <KeyValue key="ahTabIndex" value="5" type="number"/>
+          <KeyValue key="ahTitle" value="AUCTIONATOR_L_SELLING_TAB_HEADER" type="global"/>
+        </KeyValues>
+      </Button>
+
+      <Button
         name="AuctionatorTabs_Undercutting"
         inherits="AuctionatorTabButtonTemplate"
-        text="Undercutting TODO"
+        text="AUCTIONATOR_L_UNDERCUTTING_TAB"
         parentKey="AuctionatorUndercuttingTab"
       >
         <KeyValues>
           <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Undercutting" type="global"/>
           <KeyValue key="displayModeKey" value="Undercutting" type="string"/>
           <KeyValue key="frameTemplate" value="AuctionatorUndercuttingTabFrameTemplate" type="string"/>
-          <KeyValue key="ahTabIndex" value="5" type="number"/>
-          <KeyValue key="ahTitle" value="Undercutting TODO" type="text"/>
+          <KeyValue key="ahTabIndex" value="6" type="number"/>
+          <KeyValue key="ahTitle" value="AUCTIONATOR_L_UNDERCUTTING_TAB_HEADER" type="global"/>
         </KeyValues>
-        <Anchors>
-          <Anchor point="LEFT" relativeKey="$parent.AuctionatorShoppingListTab" relativePoint="RIGHT" x="-15" y="0"/>
-        </Anchors>
-      </Button> -->
+      </Button>
 
       <Button name="AuctionatorTabs_Auctionator" inherits="AuctionatorTabButtonTemplate" text="Auctionator">
         <KeyValues>
-          <!-- From AuctionHouseFrameDisplayModeTabTemplate -->
           <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Auctionator" type="global" />
-          <!-- For creation of Auctionator Frame -->
           <KeyValue key="displayModeKey" value="Auctionator" type="string" />
           <KeyValue key="frameTemplate" value="AuctionatorConfigurationTabFrameTemplate" type="string" />
-          <KeyValue key="ahTabIndex" value="6" type="number" />
+          <KeyValue key="ahTabIndex" value="7" type="number" />
           <KeyValue key="ahTitle" value="AUCTIONATOR_L_INFO_TAB_HEADER" type="global" />
         </KeyValues>
-        <Anchors>
-          <Anchor point="LEFT" relativeKey="$parent.AuctionatorShoppingListTab" relativePoint="RIGHT" x="-15" y="0" />
-        </Anchors>
       </Button>
     </Frames>
     <Scripts>

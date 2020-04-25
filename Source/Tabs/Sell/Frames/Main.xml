@@ -1,0 +1,19 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorSellTabFrameTemplate"
+    virtual="true"
+    inherits="AuctionatorTabFrameTemplate"
+    parentKey="AuctionatorSellFrame"
+    mixin="AuctionatorSellTabMixin"
+  >
+    <Scripts>
+      <OnLoad method="OnLoad" />
+      <OnShow method="OnShow" />
+      <OnEvent method="OnEvent" />
+    </Scripts>
+
+    <Frames>
+
+    </Frames>
+  </Frame>
+</Ui>

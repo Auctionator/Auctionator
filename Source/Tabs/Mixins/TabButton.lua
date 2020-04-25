@@ -32,6 +32,8 @@ function AuctionatorTabMixin:OnLoad()
   self.frameRef:Hide()
 
   AuctionHouseFrame.tabsForDisplayMode[self.displayModeKey] = self.ahTabIndex
+
+  self:SetPoint("LEFT", AuctionHouseFrame.Tabs[#AuctionHouseFrame.Tabs - 1], "RIGHT", -15, 0)
 end
 
 function AuctionatorTabMixin:Selected()
