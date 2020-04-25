@@ -99,6 +99,17 @@ local function InitializeSplashScreen()
   end
 end
 
+local setTooltiphooks = false
+local function InitializeLateTooltipHooks()
+  if setTooltiphooks then
+    return
+  end
+
+  Auctionator.Tooltip.LateHooks()
+
+  setTooltipHooks = true
+end
+
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
@@ -106,6 +117,7 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeIncrementalScanFrame()
   InitializeAuctionChatLogFrame()
   InitializeSellingFrame()
+  InitializeLateTooltipHooks()
 
   InitializeAuctionHouseTabs()
   InitializeSplashScreen()

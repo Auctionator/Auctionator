@@ -234,3 +234,22 @@ hooksecurefunc (GameTooltip, "SetHyperlink",
     Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
+
+function Auctionator.Tooltip.LateHooks()
+  -- As AuctionHouseUtil doesn't exist until the AH is opened this cannot be
+  -- called before the AH opens.
+  hooksecurefunc(AuctionHouseUtil, "SetAuctionHouseTooltip",
+    function(owner, rowData)
+      if rowData.itemLink then
+        Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, rowData.itemLink, 1)
+
+      else
+        local itemLink = select(2, GetItemInfo(rowData.itemKey.itemID))
+
+        if itemLink ~= nil then
+          Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, itemLink, 1)
+        end
+      end
+    end
+  )
+end
