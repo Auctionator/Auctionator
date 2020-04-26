@@ -6,6 +6,7 @@ labels: ''
 assignees: ''
 
 ---
+
 Please include as much of the following information as possible to help me fix the bug:
 
 ## Brief Description of Bug
