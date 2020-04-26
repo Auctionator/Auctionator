@@ -6,11 +6,13 @@ function AuctionatorTabContainerMixin:OnLoad()
   -- Set up self references since parented to the AH Frame
   self.Tabs = {
     ShoppingLists = AuctionatorTabs_ShoppingLists,
-    Undercutting = AuctionatorTabs_Undercutting,
+    Selling = AuctionatorTabs_Selling,
+    Cancelling = AuctionatorTabs_Cancelling,
     Auctionator = AuctionatorTabs_Auctionator,
   }
 
   self:HookTabs()
+  self:PositionTabs()
 end
 
 function AuctionatorTabContainerMixin:IsAuctionatorFrame(displayMode)
@@ -44,3 +46,20 @@ function AuctionatorTabContainerMixin:HookTabs()
   end)
 end
 
+function AuctionatorTabContainerMixin:PositionTabs()
+  local moveFrame
+  local nextFrame
+  local lastFrame = AuctionatorTabs_Auctionator
+  local numberToMove = #AuctionHouseFrame.Tabs - 7
+
+  while numberToMove > 0 do
+    nextFrame = AuctionHouseFrame.Tabs[5]
+    nextFrame:SetPoint("LEFT", AuctionHouseFrame.Tabs[3], "RIGHT", -15, 0)
+
+    moveFrame = AuctionHouseFrame.Tabs[4]
+    moveFrame:SetPoint("LEFT", lastFrame, "RIGHT", -15, 0)
+
+    lastFrame = moveFrame
+    numberToMove = numberToMove - 1
+  end
+end

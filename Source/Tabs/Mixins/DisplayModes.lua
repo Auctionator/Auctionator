@@ -5,7 +5,10 @@ AuctionatorTabDisplayModes = {
   ShoppingLists = {
     "AuctionatorShoppingListFrame"
   },
-  Undercutting = {
-    "AuctionatorUndercuttingFrame"
+  Selling ={
+    "AuctionatorSellingFrame"
+  },
+  Cancelling = {
+    "AuctionatorCancellingFrame"
   }
 }
