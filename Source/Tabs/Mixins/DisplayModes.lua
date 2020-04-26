@@ -8,7 +8,7 @@ AuctionatorTabDisplayModes = {
   Selling ={
     "AuctionatorSellingFrame"
   },
-  Undercutting = {
-    "AuctionatorUndercuttingFrame"
+  Cancelling = {
+    "AuctionatorCancellingFrame"
   }
 }

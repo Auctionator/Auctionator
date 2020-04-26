@@ -1,17 +1,17 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="AuctionatorUndercuttingTabFrameTemplate"
+    name="AuctionatorCancellingTabFrameTemplate"
     virtual="true"
     inherits="AuctionatorTabFrameTemplate"
-    parentKey="AuctionatorUndercuttingFrame"
-    mixin="AuctionatorUndercuttingFrameMixin"
+    parentKey="AuctionatorCancellingFrame"
+    mixin="AuctionatorCancellingFrameMixin"
   >
     <Scripts>
       <OnLoad method="OnLoad" />
     </Scripts>
 
     <Frames>
-      <Frame parentKey="DataProvider" mixin="UndercuttingDataProviderMixin">
+      <Frame parentKey="DataProvider" mixin="CancellingDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnEvent method="OnEvent"/>

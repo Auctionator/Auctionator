@@ -134,8 +134,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SELLING_TAB"] = "Selling"
   L["SELLING_TAB_HEADER"] = "Auctionator - Selling"
 
-  L["UNDERCUTTING_TAB"] = "Undercut"
-  L["UNDERCUTTING_TAB_HEADER"] = "Auctionator - Undercut"
+  L["CANCELLING_TAB"] = "Cancelling"
+  L["CANCELLING_TAB_HEADER"] = "Auctionator - Cancelling"
 
   L["FETCHING_ITEM_INFO"] = "Fetching item info..."
   L["LIST_SEARCH_START"] = "Searching for items in %s..."

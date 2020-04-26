@@ -36,17 +36,17 @@
       </Button>
 
       <Button
-        name="AuctionatorTabs_Undercutting"
+        name="AuctionatorTabs_Cancelling"
         inherits="AuctionatorTabButtonTemplate"
-        text="AUCTIONATOR_L_UNDERCUTTING_TAB"
-        parentKey="AuctionatorUndercuttingTab"
+        text="AUCTIONATOR_L_CANCELLING_TAB"
+        parentKey="AuctionatorCancellingTab"
       >
         <KeyValues>
-          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Undercutting" type="global"/>
-          <KeyValue key="displayModeKey" value="Undercutting" type="string"/>
-          <KeyValue key="frameTemplate" value="AuctionatorUndercuttingTabFrameTemplate" type="string"/>
+          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Cancelling" type="global"/>
+          <KeyValue key="displayModeKey" value="Cancelling" type="string"/>
+          <KeyValue key="frameTemplate" value="AuctionatorCancellingTabFrameTemplate" type="string"/>
           <KeyValue key="ahTabIndex" value="6" type="number"/>
-          <KeyValue key="ahTitle" value="AUCTIONATOR_L_UNDERCUTTING_TAB_HEADER" type="global"/>
+          <KeyValue key="ahTitle" value="AUCTIONATOR_L_CANCELLING_TAB_HEADER" type="global"/>
         </KeyValues>
       </Button>
 

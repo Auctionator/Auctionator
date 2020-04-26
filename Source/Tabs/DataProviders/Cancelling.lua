@@ -1,4 +1,4 @@
-local UNDERCUTTING_TABLE_LAYOUT = {
+local CANCELLING_TABLE_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "name" },
@@ -29,9 +29,9 @@ local UNDERCUTTING_TABLE_LAYOUT = {
   },
 }
 
-UndercuttingDataProviderMixin = CreateFromMixins(DataProviderMixin)
+CancellingDataProviderMixin = CreateFromMixins(DataProviderMixin)
 
-function UndercuttingDataProviderMixin:OnLoad()
+function CancellingDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
 
   -- Example entry (note that the field names can change but you need to update the layout, above)
@@ -53,13 +53,13 @@ function UndercuttingDataProviderMixin:OnLoad()
   )
 end
 
-function UndercuttingDataProviderMixin:OnEvent()
+function CancellingDataProviderMixin:OnEvent()
 end
 
-function UndercuttingDataProviderMixin:GetTableLayout()
-  return UNDERCUTTING_TABLE_LAYOUT
+function CancellingDataProviderMixin:GetTableLayout()
+  return CANCELLING_TABLE_LAYOUT
 end
 
-function UndercuttingDataProviderMixin:GetRowTemplate()
+function CancellingDataProviderMixin:GetRowTemplate()
   return "ShoppingListResultsRowTemplate"
 end

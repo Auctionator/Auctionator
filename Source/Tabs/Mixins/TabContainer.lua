@@ -7,7 +7,7 @@ function AuctionatorTabContainerMixin:OnLoad()
   self.Tabs = {
     ShoppingLists = AuctionatorTabs_ShoppingLists,
     Selling = AuctionatorTabs_Selling,
-    Undercutting = AuctionatorTabs_Undercutting,
+    Cancelling = AuctionatorTabs_Cancelling,
     Auctionator = AuctionatorTabs_Auctionator,
   }
 
