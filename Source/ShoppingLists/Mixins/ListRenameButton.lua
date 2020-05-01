@@ -27,7 +27,10 @@ function AuctionatorListRenameButtonMixin:OnClick()
 end
 
 function AuctionatorListRenameButtonMixin:RenameList(newListName)
-  Auctionator.ShoppingLists.Rename(self.currentList.index, newListName)
+  Auctionator.ShoppingLists.Rename(
+    Auctionator.ShoppingLists.ListIndex(self.currentList.name),
+    newListName
+  )
 
   Auctionator.EventBus:Fire(self, ListRenamed, self.currentList)
 end

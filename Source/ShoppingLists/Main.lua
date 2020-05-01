@@ -1,7 +1,6 @@
 function Auctionator.ShoppingLists.Create(listName)
   table.insert(Auctionator.ShoppingLists.Lists, {
     name = listName,
-    index = #Auctionator.ShoppingLists.Lists + 1,
     items = {}
   })
 end
