@@ -1,0 +1,323 @@
+{
+	["items"] = {
+		"Deathsilk sho", -- [1]
+		"frostwoven leg", -- [2]
+		"netherweave tun", -- [3]
+		"windwool hood", -- [4]
+	},
+	["name"] = "Baa'l (Jake)",
+}, -- [2]
+{
+	["items"] = {
+		"Darkmoon Deck:", -- [1]
+		"highborne compen", -- [2]
+		"of blockades", -- [3]
+		"of fathoms", -- [4]
+		"of squalls", -- [5]
+		"of the tides", -- [6]
+	},
+	["name"] = "BFA Decks (Jake)",
+}, -- [3]
+{
+	["items"] = {
+		"Deadly nav", -- [1]
+		"Gloom dust", -- [2]
+		"masterful nav", -- [3]
+		"pact of", -- [4]
+		"quick nav", -- [5]
+		"stalwart nav", -- [6]
+		"umbra shard", -- [7]
+		"veiled crystal", -- [8]
+		"versatile nav", -- [9]
+		"accord of", -- [10]
+		"torrent of elements", -- [11]
+	},
+	["name"] = "BFA enchants (Jake)",
+}, -- [4]
+{
+	["items"] = {
+		"Aromatic", -- [1]
+		"frenzied fangtooth", -- [2]
+		"Great sea Catfish", -- [3]
+		"lane snapper", -- [4]
+		"midnight salmon", -- [5]
+		"redtail Loach", -- [6]
+		"sand shifter", -- [7]
+		"slimy Mackerel", -- [8]
+		"tiragarde perch", -- [9]
+	},
+	["name"] = "BFA Fish (Jake)",
+}, -- [5]
+{
+	["items"] = {
+		"\"flask of endless fathoms\"", -- [1]
+		"\"flask of the currents\"", -- [2]
+		"\"flask of the undertow\"", -- [3]
+		"\"flask of the vast horizon\"", -- [4]
+		"Greater flask of", -- [5]
+	},
+	["name"] = "BFA Flask (Jake)",
+}, -- [6]
+{
+	["items"] = {
+		"\"Amber rallying horn\"", -- [1]
+		"\"crimson ink well\"", -- [2]
+		"\"kaleidoscopic lens\"", -- [3]
+		"\"magnetic mining pick\"", -- [4]
+		"\"makeshift azerite detector\"", -- [5]
+		"\"monelite fish finder\"", -- [6]
+		"\"platinum whetstone\"", -- [7]
+		"\"potion of herb tracking\"", -- [8]
+		"\"storm silver spurs\"", -- [9]
+		"\"tempest hide pouch\"", -- [10]
+		"comfortable rider's bard", -- [11]
+		"Inflatable mount", -- [12]
+		"saddlechute", -- [13]
+	},
+	["name"] = "BFA Follower Equipment (Jake)",
+}, -- [7]
+{
+	["items"] = {
+		"Abyssal-fri", -- [1]
+		"baked port tato", -- [2]
+		"bil'tong", -- [3]
+		"boralus blood", -- [4]
+		"bountiful capt", -- [5]
+		"famine eval", -- [6]
+		"Galley banq", -- [7]
+		"honey-glazed", -- [8]
+		"mech-dow", -- [9]
+		"ravenberry tar", -- [10]
+		"sailor's pie", -- [11]
+		"sanguinated feast", -- [12]
+		"spiced snapper", -- [13]
+		"swamp fish", -- [14]
+	},
+	["name"] = "BFA Food (Jake)",
+}, -- [8]
+{
+	["items"] = {
+		"Akund", -- [1]
+		"Anchor we", -- [2]
+		"riverbud", -- [3]
+		"sea stalk", -- [4]
+		"star moss", -- [5]
+		"winter's ki", -- [6]
+		"zin'anthid", -- [7]
+		"siren's pollen", -- [8]
+	},
+	["name"] = "bfa herbs (Jake)",
+}, -- [9]
+{
+	["items"] = {
+		"\"coarse leather\"", -- [1]
+		"\"shimmerscale\"", -- [2]
+		"\"tidespray linen\"", -- [3]
+		"blood-stained bone", -- [4]
+		"Deep sea satin", -- [5]
+		"abyssal frag", -- [6]
+	},
+	["name"] = "BFA Important Mats (Jake)",
+}, -- [10]
+{
+	["items"] = {
+		"\"Amberblaze\"", -- [1]
+		"\"masterful tidal amethyst\"", -- [2]
+		"\"owlseye\"", -- [3]
+		"\"royal quartz\"", -- [4]
+		"\"tidal amethyst\"", -- [5]
+		"\"versatile royal quartz\"", -- [6]
+		"Dark opal", -- [7]
+		"kraken's eye", -- [8]
+		"quick owls", -- [9]
+		"sage agate", -- [10]
+		"versatile roya", -- [11]
+		"lava lazuli", -- [12]
+		"sea currant", -- [13]
+		"sand spinel", -- [14]
+		"azsharine", -- [15]
+		"leviathan's eye", -- [16]
+	},
+	["name"] = "bfa jc (Jake)",
+}, -- [11]
+{
+	["items"] = {
+		"calcified bone", -- [1]
+		"coarse leather", -- [2]
+		"mistscale", -- [3]
+		"shimmerscale", -- [4]
+		"tempest hide", -- [5]
+	},
+	["name"] = "bfa leather (Jake)",
+}, -- [12]
+{
+	["items"] = {
+		"monelite ore", -- [1]
+		"platinum ore", -- [2]
+		"storm silver ore", -- [3]
+		"osmenite", -- [4]
+	},
+	["name"] = "bfa ores (Jake)",
+}, -- [13]
+{
+	["items"] = {
+		"Abyssal healing", -- [1]
+		"battle potion of", -- [2]
+		"coastal heal", -- [3]
+		"coastal man", -- [4]
+		"Demitri", -- [5]
+		"lightfoot", -- [6]
+		"potion of burstin", -- [7]
+		"potion of empow", -- [8]
+		"potion of focused res", -- [9]
+		"potion of rep", -- [10]
+		"potion of rising", -- [11]
+		"potion of unbrid", -- [12]
+		"potion of wild men", -- [13]
+	},
+	["name"] = "BFA Pots (Jake)",
+}, -- [14]
+{
+	["items"] = {
+		"\"coarse leather\"", -- [1]
+		"\"shimmerscale\"", -- [2]
+		"\"tidespray linen\"", -- [3]
+		"blood-stained bone", -- [4]
+	},
+	["name"] = "Bracers (Jake)",
+}, -- [15]
+{
+	["items"] = {
+		"bloodwak", -- [1]
+		"Dragonrider", -- [2]
+		"feralbark", -- [3]
+		"firekin", -- [4]
+		"frostwind", -- [5]
+		"Geocrag", -- [6]
+		"headshrink", -- [7]
+		"hydraxian", -- [8]
+		"miststalker", -- [9]
+		"mrrglurg", -- [10]
+		"plundered", -- [11]
+		"poro", -- [12]
+		"rattling", -- [13]
+		"razorfin", -- [14]
+		"saurok scale", -- [15]
+		"snort", -- [16]
+		"sparkleshell sand", -- [17]
+		"spider acolyte", -- [18]
+		"spiritbough", -- [19]
+		"stinkrot sm", -- [20]
+		"sunscale hat", -- [21]
+		"swarmfury", -- [22]
+		"tomb-keep", -- [23]
+		"tranquil path", -- [24]
+		"twilight d", -- [25]
+		"voodoo stalk", -- [26]
+		"whirling der", -- [27]
+		"wild mar", -- [28]
+	},
+	["name"] = "Expo Xmog (Jake)",
+}, -- [16]
+{
+	["items"] = {
+		"crimson ink", -- [1]
+		"crimson pig", -- [2]
+		"ultramarine ink", -- [3]
+		"ultramarine pig", -- [4]
+		"viridescent", -- [5]
+		"war-scroll", -- [6]
+		"maroon ink", -- [7]
+		"maroon pig", -- [8]
+		"tome of the tranq", -- [9]
+		"contract:", -- [10]
+	},
+	["name"] = "Inscrip (Jake)",
+}, -- [17]
+{
+	["items"] = {
+		"\"Kyparite\"", -- [1]
+		"\"lapis lazuli\"", -- [2]
+		"\"pandarian garnet\"", -- [3]
+		"\"primordial ruby\"", -- [4]
+		"\"river's heart\"", -- [5]
+		"\"serpent's eye\"", -- [6]
+		"\"sun's radiance\"", -- [7]
+		"\"sunstone\"", -- [8]
+		"\"wild jade\"", -- [9]
+		"Ghost Iron Bar", -- [10]
+		"Ghost Iron Ore", -- [11]
+		"Golden lotus", -- [12]
+		"mote of harmony", -- [13]
+		"spirit of harmony", -- [14]
+		"trillium bar", -- [15]
+		"trillium ore", -- [16]
+		"\"living steel\"", -- [17]
+		"\"alexandrite\"", -- [18]
+	},
+	["name"] = "MoP (Jake)",
+}, -- [18]
+{
+	["items"] = {
+		"captured dune", -- [1]
+		"chewed-on", -- [2]
+		"Depleted-", -- [3]
+		"Geosyn", -- [4]
+		"Goldenmane's", -- [5]
+		"Great sea r", -- [6]
+		"mechano-hog", -- [7]
+		"orb of mystery", -- [8]
+		"panther", -- [9]
+		"reins of a tamed", -- [10]
+		"sky gol", -- [11]
+		"mecha-mo", -- [12]
+		"atv", -- [13]
+	},
+	["name"] = "Mounts (Jake)",
+}, -- [19]
+{
+	["items"] = {
+		"\"shimmerscale\"", -- [1]
+		"Coastal Mana Potion", -- [2]
+		"Grilled cat", -- [3]
+		"Incendiary amm", -- [4]
+		"monel-hardened stirrups", -- [5]
+		"seal of crit", -- [6]
+		"spirit of free", -- [7]
+		"strad", -- [8]
+		"war-scroll of int", -- [9]
+	},
+	["name"] = "ThisWeekWF (Jake)",
+}, -- [20]
+{
+	["items"] = {
+		"\"coarse leather\"", -- [1]
+		"\"deadly solstone\"", -- [2]
+		"\"kyanite\"", -- [3]
+		"\"solstone\"", -- [4]
+		"\"straddling viridium\"", -- [5]
+		"\"tidespray linen\"", -- [6]
+		"\"versatile kyanite\"", -- [7]
+		"\"viridium\"", -- [8]
+		"battle flag", -- [9]
+		"coarse leather bard", -- [10]
+		"coastal mana", -- [11]
+		"crow's nest scope", -- [12]
+		"Drums of the mael", -- [13]
+		"f.r.i.e.d.", -- [14]
+		"frost-laced ammu", -- [15]
+		"Great sea Catfish", -- [16]
+		"Incendiary amm", -- [17]
+		"meaty haunch", -- [18]
+		"monel-hardened hoofpl", -- [19]
+		"monel-hardened stirrups", -- [20]
+		"monelite ore", -- [21]
+		"seal of crit", -- [22]
+		"seal of vers", -- [23]
+		"seasoned loi", -- [24]
+		"siren's p", -- [25]
+		"steelskin pot", -- [26]
+		"war-scroll", -- [27]
+	},
+	["name"] = "Warfront (Jake)",
+}
