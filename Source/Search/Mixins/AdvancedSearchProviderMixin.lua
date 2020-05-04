@@ -26,13 +26,17 @@ local function GetItemClassCategories(categoryKey)
   end
 end
 
+local function WrapQueryString(queryString)
+  return '"' .. queryString .. '"'
+end
+
 local function ParseAdvancedSearch(searchString)
 
   local parsed = Auctionator.Search.SplitAdvancedSearch(searchString)
 
   return {
     query = {
-      searchString = parsed.queryString,
+      searchString = WrapQueryString(parsed.queryString),
       minLevel = parsed.minLevel,
       maxLevel = parsed.maxLevel,
       filters = {},
@@ -64,7 +68,7 @@ function AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm(term)
   else
     return  {
       query = {
-        searchString = term,
+        searchString = WrapQueryString(term),
         filters = {},
         itemClassFilters = {},
         sorts = {},
