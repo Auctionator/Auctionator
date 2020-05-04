@@ -26,13 +26,22 @@ local function GetItemClassCategories(categoryKey)
   end
 end
 
+local function ApplyUnbreakingSpace(queryString, isUnbreakingSpace)
+  -- Surround term in " " to trigger the vanilla unbreaking space filter
+  if isUnbreakingSpace then
+    return '"' .. queryString .. '"'
+  else
+    return queryString
+  end
+end
+
 local function ParseAdvancedSearch(searchString)
 
   local parsed = Auctionator.Search.SplitAdvancedSearch(searchString)
 
   return {
     query = {
-      searchString = parsed.queryString,
+      searchString = ApplyUnbreakingSpace(parsed.queryString, parsed.unbreakingSpace),
       minLevel = parsed.minLevel,
       maxLevel = parsed.maxLevel,
       filters = {},

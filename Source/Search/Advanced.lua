@@ -6,7 +6,7 @@ end
 -- advanced search.
 function Auctionator.Search.SplitAdvancedSearch(searchString)
   local queryString, categoryKey, minItemLevel, maxItemLevel, minLevel, maxLevel,
-    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice =
+    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice, unbreakingSpace =
     strsplit( Auctionator.Constants.AdvancedSearchDivider, searchString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
@@ -14,6 +14,8 @@ function Auctionator.Search.SplitAdvancedSearch(searchString)
   if queryString == nil then
     queryString = ""
   end
+
+  unbreakingSpace = unbreakingSpace == "true"
 
   minLevel = tonumber( minLevel )
   maxLevel = tonumber( maxLevel )
@@ -69,7 +71,16 @@ function Auctionator.Search.SplitAdvancedSearch(searchString)
     maxItemLevel = maxItemLevel,
     minCraftedLevel = minCraftedLevel,
     maxCraftedLevel = maxCraftedLevel,
+    unbreakingSpace = unbreakingSpace
   }
+end
+
+local function UnbreakingSpace(queryString, isUnbreakingSpace)
+  if isUnbreakingSpace then
+    return string.gsub(queryString, " ", "_")
+  else
+    return queryString
+  end
 end
 
 local function RangeOptionString(name, min, max)
@@ -140,7 +151,7 @@ function Auctionator.Search.PrettifySearchString(searchString)
   if Auctionator.Search.IsAdvancedSearch(searchString) then
     local splitSearch = Auctionator.Search.SplitAdvancedSearch(searchString)
 
-    local result = splitSearch.queryString
+    local result = UnbreakingSpace(splitSearch.queryString, splitSearch.unbreakingSpace)
       .. " ["
       .. CategoryKey(splitSearch)
       .. PriceRange(splitSearch)
