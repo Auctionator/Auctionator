@@ -3,7 +3,7 @@
 ## Version: AUTO_GENERATED_VERSION
 ## Author: Borjamacare, plusmouse
 ## X-Website: http://mods.curse.com/addons/wow/auctionator
-## X-Localizations: enUS, itIT, deDE, ruRU, svSE, frFR, esES, esMX, zhTW
+## X-Localizations: enUS, itIT, deDE, ruRU, svSE, frFR, esES, esMX, zhTW, ptBR, zhCN
 ## Notes: A lightweight addon that makes it easy and fast to buy, sell and manage auctions
 ## Notes-esES: Un addon liviano que hace que comprar, vender y administrar subastas sea fácil y rápido
 ## Notes-esMX: Un addon liviano que hace que comprar, vender y administrar subastas sea fácil y rápido

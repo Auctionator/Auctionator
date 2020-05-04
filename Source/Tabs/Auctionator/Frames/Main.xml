@@ -183,7 +183,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="AUCTIONATOR_L_TRANSLATORS_HELP">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="dalanwoopy, Franxavis">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.esES" relativePoint="TOPRIGHT"/>
@@ -200,7 +200,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="AUCTIONATOR_L_TRANSLATORS_HELP">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="ftg3, dalanwoopy">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.esMX" relativePoint="TOPRIGHT"/>
@@ -217,7 +217,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="AUCTIONATOR_L_TRANSLATORS_HELP">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="podvibe">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.frFR" relativePoint="TOPRIGHT"/>
@@ -268,7 +268,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="AUCTIONATOR_L_TRANSLATORS_HELP">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Hubbotu, Arrogant_Dreamer">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.ruRU" relativePoint="TOPRIGHT"/>
