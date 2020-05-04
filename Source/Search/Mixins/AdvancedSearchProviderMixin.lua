@@ -27,7 +27,11 @@ local function GetItemClassCategories(categoryKey)
 end
 
 local function WrapQueryString(queryString)
-  return '"' .. queryString .. '"'
+  if queryString ~= "" then
+    return '"' .. queryString .. '"'
+  else
+    return queryString
+  end
 end
 
 local function ParseAdvancedSearch(searchString)
