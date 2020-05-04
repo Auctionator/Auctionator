@@ -28,7 +28,6 @@ jobs:
     - run: ./Auctionator/.github/workflows/get-translations.sh esES
     - run: ./Auctionator/.github/workflows/get-translations.sh esMX
     - run: ./Auctionator/.github/workflows/get-translations.sh ptBR
-    - run: ./Auctionator/.github/workflows/get-translations.sh svSE
     - name: Delete files for curse
       run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore Auctionator/.git Auctionator/docs Auctionator/test-data
     - name: Generate build number
