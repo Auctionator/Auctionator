@@ -162,7 +162,8 @@ local PET_TOOLTIP_SPACING = " "
 function Auctionator.Tooltip.AddPetTip(
   speciesID
 )
-  if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) then
+  if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) or
+     not Auctionator.Config.Get(Auctionator.Config.Options.PET_TOOLTIPS) then
     return
   end
 

@@ -1,6 +1,7 @@
 Auctionator.Config.Options = {
   DEBUG = "debug",
   MAILBOX_TOOLTIPS = "mailbox_tooltips",
+  PET_TOOLTIPS = "pet_tooltips",
   VENDOR_TOOLTIPS = "vendor_tooltips",
   AUCTION_TOOLTIPS = "auction_tooltips",
   ENCHANT_TOOLTIPS = "enchant_tooltips",
@@ -35,6 +36,7 @@ Auctionator.Config.SalesTypes = {
 local defaults = {
   [Auctionator.Config.Options.DEBUG] = false,
   [Auctionator.Config.Options.MAILBOX_TOOLTIPS] = true,
+  [Auctionator.Config.Options.PET_TOOLTIPS] = true,
   [Auctionator.Config.Options.VENDOR_TOOLTIPS] = true,
   [Auctionator.Config.Options.AUCTION_TOOLTIPS] = true,
   [Auctionator.Config.Options.ENCHANT_TOOLTIPS] = true,
