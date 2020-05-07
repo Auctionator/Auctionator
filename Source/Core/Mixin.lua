@@ -99,9 +99,9 @@ local function InitializeSplashScreen()
   end
 end
 
-local setTooltiphooks = false
+local setTooltipHooks = false
 local function InitializeLateTooltipHooks()
-  if setTooltiphooks then
+  if setTooltipHooks then
     return
   end
 
