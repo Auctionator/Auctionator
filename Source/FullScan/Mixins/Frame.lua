@@ -101,7 +101,7 @@ function AuctionatorFullScanFrameMixin:BeginProcessing()
   self.startTime = debugprofilestop()
   self:ProcessBatch(
     0,
-    Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_SPEED),
+    Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_STEP),
     C_AuctionHouse.GetNumReplicateItems()
   )
 end

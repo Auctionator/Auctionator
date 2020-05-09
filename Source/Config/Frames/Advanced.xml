@@ -22,7 +22,7 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="FullScanSpeed">
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="FullScanStep">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_FULL_SCAN_STEP_SIZE" type="global"/>
         </KeyValues>
@@ -36,7 +36,7 @@
           <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_DEVELOPER" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.FullScanSpeed" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.FullScanStep" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
