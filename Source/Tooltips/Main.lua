@@ -8,6 +8,7 @@ local L = Auctionator.Locales.Apply
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCount)
+  Auctionator.Debug.Message("Auctionator.Tooltip.ShowTipWithPricing", itemLink, itemCount)
 
   local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
@@ -162,6 +163,7 @@ local PET_TOOLTIP_SPACING = " "
 function Auctionator.Tooltip.AddPetTip(
   speciesID
 )
+  Auctionator.Debug.Message("Auctionator.Tooltip.AddPetTip", speciesID)
   if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) or
      not Auctionator.Config.Get(Auctionator.Config.Options.PET_TOOLTIPS) then
     return

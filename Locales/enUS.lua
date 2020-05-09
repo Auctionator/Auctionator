@@ -64,6 +64,12 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["UNDERCUT_TOOLTIP_HEADER"] = "Undercut Value"
   L["UNDERCUT_TOOLTIP_TEXT"] = "The undercut value that will be used to calculate the sell price."
 
+  L["CONFIG_ADVANCED_CATEGORY"] = "Advanced"
+  L["CONFIG_ADVANCED_TEXT"] = "Only look here if you know what you're doing"
+  L["CONFIG_FULL_SCAN_SPEED"] = "Full Scan speed control"
+  L["CONFIG_FULL_SCAN_SPEED_TOOLTIP_HEADER"] = "Full Scan speed control"
+  L["CONFIG_FULL_SCAN_SPEED_TOOLTIP_TEXT"] = "Full Scan speed control"
+
   L["AUTHOR_HEADER"] = "Author"
   L["CONTRIBUTORS_HEADER"] = "Contributors"
   L["TRANSLATORS_HEADER"] = "Translators"

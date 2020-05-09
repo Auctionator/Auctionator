@@ -7,5 +7,6 @@
 
   <Include file="Database.xml"/>
   <Include file="ClearData.xml"/>
+  <Include file="Advanced.xml"/>
   <Include file="About.xml"/>
 </Ui>
