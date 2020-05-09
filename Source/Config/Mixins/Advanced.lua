@@ -10,11 +10,15 @@ function AuctionatorConfigAdvancedFrameMixin:OnLoad()
 end
 
 function AuctionatorConfigAdvancedFrameMixin:OnShow()
+  self.Debug:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.DEBUG))
+
   self.FullScanSpeed:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_SPEED))
 end
 
 function AuctionatorConfigAdvancedFrameMixin:Save()
   Auctionator.Debug.Message("AuctionatorConfigAdvancedFrameMixin:Save()")
+
+  Auctionator.Config.Set(Auctionator.Config.Options.DEBUG, self.Debug:GetChecked())
 
   Auctionator.Config.Set(
     Auctionator.Config.Options.FULL_SCAN_SPEED,

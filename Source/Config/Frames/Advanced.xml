@@ -13,14 +13,41 @@
         </KeyValues>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="FullScanSpeed">
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ScanHeading">
         <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_FULL_SCAN_SPEED" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_FULL_SCAN_SPEED_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_FULL_SCAN_SPEED_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="headingText" value="Scan Settings" type="string"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="FullScanSpeed">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_FULL_SCAN_STEP_SIZE" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScanHeading" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DebugHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_DEVELOPER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.FullScanSpeed" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Debug">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_DEBUG" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_DEBUG_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_DEBUG_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DebugHeading" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
     </Frames>

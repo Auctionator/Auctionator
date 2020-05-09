@@ -40,10 +40,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["STACK_TOOLTIP_TOOLTIP_HEADER"] = "Stack Prices"
   L["STACK_TOOLTIP_TOOLTIP_TEXT"] = "When selected, the shift key must be held to see stack prices. When not selected, stack prices show by default."
 
-  L["CONFIG_LIFO_CATEGORY"] = "Selling"
-  L["CONFIG_NOT_LIFO_CATEGORY"] = "Gear/Pets"
-  L["CONFIG_SELLING_LIFO_HEADER"] = "Selling"
-  L["CONFIG_SELLING_NOT_LIFO_HEADER"] = "Selling Gear/Pets"
+  L["CONFIG_LIFO_CATEGORY"] = "Selling: Items"
+  L["CONFIG_NOT_LIFO_CATEGORY"] = "Selling: Gear/Pets"
+  L["CONFIG_SELLING_LIFO_HEADER"] = "Selling: Items"
+  L["CONFIG_SELLING_NOT_LIFO_HEADER"] = "Selling: Gear/Pets"
   L["CONFIG_SELLING_LIFO_TEXT"] = "Options to set undercutting percent or values and duration for most items."
   L["CONFIG_SELLING_NOT_LIFO_TEXT"] = "Options to set undercutting percent or values and duration for gear or pet cages."
   L["DEFAULT_AUCTION_DURATION"] = "Default Auction Duration"
@@ -66,9 +66,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["CONFIG_ADVANCED_CATEGORY"] = "Advanced"
   L["CONFIG_ADVANCED_TEXT"] = "Only look here if you know what you're doing"
-  L["CONFIG_FULL_SCAN_SPEED"] = "Full Scan speed control"
-  L["CONFIG_FULL_SCAN_SPEED_TOOLTIP_HEADER"] = "Full Scan speed control"
-  L["CONFIG_FULL_SCAN_SPEED_TOOLTIP_TEXT"] = "Full Scan speed control"
+  L["CONFIG_FULL_SCAN_STEP_SIZE"] = "Full scan step size"
 
   L["AUTHOR_HEADER"] = "Author"
   L["CONTRIBUTORS_HEADER"] = "Contributors"

@@ -5,7 +5,6 @@
 
   <Script file="BasicOptions.lua"/>
   <Script file="Tooltips.lua"/>
-
   <Script file="Advanced.lua"/>
 
   <Script file="LIFO.lua"/>

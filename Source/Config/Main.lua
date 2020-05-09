@@ -43,7 +43,7 @@ local defaults = {
   [Auctionator.Config.Options.ENCHANT_TOOLTIPS] = true,
   [Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS] = true,
   [Auctionator.Config.Options.AUTOSCAN] = true,
-  [Auctionator.Config.Options.FULL_SCAN_SPEED] = 500,
+  [Auctionator.Config.Options.FULL_SCAN_SPEED] = 150,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
 
