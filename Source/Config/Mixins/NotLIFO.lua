@@ -3,8 +3,8 @@ AuctionatorConfigNotLIFOFrameMixin = CreateFromMixins(AuctionatorPanelConfigMixi
 function AuctionatorConfigNotLIFOFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorConfigNotLIFOFrameMixin:OnLoad()")
 
-  self.name = self:IndentationForSubSection() .. AUCTIONATOR_L_CONFIG_NOT_LIFO_CATEGORY
-  self.parent = AUCTIONATOR_L_CONFIG_LIFO_CATEGORY
+  self.name = AUCTIONATOR_L_CONFIG_NOT_LIFO_CATEGORY
+  self.parent = "Auctionator"
 
   self:SetupPanel()
 
