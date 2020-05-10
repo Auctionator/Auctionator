@@ -27,6 +27,12 @@ local CANCELLING_TABLE_LAYOUT = {
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "duration" }
   },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = "",
+    cellTemplate = "AuctionatorDeleteButtonCellTemplate",
+    width = 40,
+  }
 }
 
 CancellingDataProviderMixin = CreateFromMixins(DataProviderMixin)
