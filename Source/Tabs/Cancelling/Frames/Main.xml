@@ -22,16 +22,47 @@
       <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="24"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="55" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="45" />
         </Anchors>
       </Frame>
 
-      <Frame>
-        <Size y="55"/>
+      <Frame mixin="AuctionatorCancellingButtonFrameMixin">
+        <Size y="45"/>
+
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMLEFT" y="20" x="-1"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
         </Anchors>
+
+        <Frames>
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Undercut Scan" parentKey="UndercutScanButton">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="3" y="-30" />
+            </Anchors>
+            <Scripts>
+              <OnClick>self:GetParent():OnUndercutScanButtonClick()</OnClick>
+            </Scripts>
+          </Button>
+
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Cancel All" parentKey="CancelAllButton">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.UndercutScanButton" relativePoint="TOPRIGHT" x="3" />
+            </Anchors>
+            <Scripts>
+              <OnClick>self:GetParent():OnCancelAllButtonClick()</OnClick>
+            </Scripts>
+          </Button>
+
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Cancel Undercut" parentKey="CancelUndercutScanButton">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.CancelAllButton" relativePoint="TOPRIGHT" x="3" />
+            </Anchors>
+            <Scripts>
+              <OnClick>self:GetParent():OnCancelUndercutScanButtonClick()</OnClick>
+            </Scripts>
+          </Button>
+        </Frames>
+
         <Layers>
           <Layer level="BACKGROUND" textureSubLevel="-6">
             <Texture name="$parentBg" file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true" parentKey="Bg">

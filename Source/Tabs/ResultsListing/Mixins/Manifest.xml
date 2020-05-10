@@ -7,6 +7,7 @@
   <Script file="StringCell.lua"/>
   <Script file="PriceCell.lua"/>
   <Script file="ItemKeyCell.lua"/>
+  <Script file="DeleteButtonCell.lua"/>
 
   <Script file="AuctionatorResultsRow.lua"/>
   <Script file="ShoppingListResultsRow.lua" />
