@@ -67,6 +67,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_ADVANCED_CATEGORY"] = "Advanced"
   L["CONFIG_ADVANCED_TEXT"] = "Only look here if you know what you're doing"
   L["CONFIG_FULL_SCAN_STEP_SIZE"] = "Full scan step size"
+  L["CONFIG_SCAN_SETTINGS"] = "Scan Settings"
 
   L["AUTHOR_HEADER"] = "Author"
   L["CONTRIBUTORS_HEADER"] = "Contributors"

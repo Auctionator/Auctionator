@@ -15,7 +15,7 @@
 
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ScanHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="Scan Settings" type="string"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_SCAN_SETTINGS" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
