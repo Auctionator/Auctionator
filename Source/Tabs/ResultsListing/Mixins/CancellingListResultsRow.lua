@@ -1,7 +1,7 @@
 AuctionatorCancellingListResultsRowMixin = CreateFromMixins(AuctionatorResultsRowTemplateMixin)
 
-function AuctionatorCancellingListResultsRowMixin:DeleteItem(...)
-  Auctionator.Debug.Message("AuctionatorCancellingListResultsRowMixin:DeleteItem", self.rowData and self.rowData.id)
+function AuctionatorCancellingListResultsRowMixin:OnClick(...)
+  Auctionator.Debug.Message("AuctionatorCancellingListResultsRowMixin:OnClick", self.rowData and self.rowData.id)
 
   self.rowData.cancelled = true
   self:ApplyFade()

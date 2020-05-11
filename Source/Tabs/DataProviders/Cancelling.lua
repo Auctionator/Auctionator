@@ -25,14 +25,9 @@ local CANCELLING_TABLE_LAYOUT = {
     headerText = "Time Left",
     headerParameters = { "timeLeft" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "timeLeft" }
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Cancel",
-    cellTemplate = "AuctionatorDeleteButtonCellTemplate",
+    cellParameters = { "timeLeft" },
     width = 80,
-  }
+  },
 }
 
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
