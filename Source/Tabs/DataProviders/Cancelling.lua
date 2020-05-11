@@ -37,6 +37,7 @@ function AuctionatorCancellingDataProviderMixin:OnLoad()
   AuctionatorItemKeyLoadingMixin.OnLoad(self)
   Auctionator.EventBus:Register(self, {Auctionator.Cancelling.Events.RequestCancel})
 
+  self.waitingforCancellation = {}
   self.beenCancelled = {}
 
   self:RegisterEvent("OWNED_AUCTIONS_UPDATED")
@@ -44,8 +45,6 @@ function AuctionatorCancellingDataProviderMixin:OnLoad()
 end
 
 function AuctionatorCancellingDataProviderMixin:OnShow()
-  self.beenCancelled = {}
-
   C_AuctionHouse.QueryOwnedAuctions({})
 end
 
@@ -65,9 +64,10 @@ function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, ...)
+function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ...)
   AuctionatorItemKeyLoadingMixin.OnEvent(self, event, ...)
   if eventName == "AUCTION_CANCELED" then
+    table.insert(self.beenCancelled, auctionID)
     C_AuctionHouse.QueryOwnedAuctions({})
 
   elseif eventName == "OWNED_AUCTIONS_UPDATED" then
@@ -78,7 +78,7 @@ end
 
 function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
-    table.insert(self.beenCancelled, eventData)
+    table.insert(self.waitingforCancellation, eventData)
   end
 end
 
@@ -88,14 +88,15 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 
     --Only look at unsold auctions
-    if info.status == 0 then
+    if info.status == 0 and
+       Auctionator.Utilities.ArrayIndex(self.beenCancelled, info.auctionID) == nil then
       table.insert(results, {
         id = info.auctionID,
         quantity = info.quantity,
         price = info.buyoutAmount or info.bidAmount,
         itemKey = info.itemKey,
         timeLeft = math.ceil(info.timeLeftSeconds/60/60),
-        cancelled = (Auctionator.Utilities.ArrayIndex(self.beenCancelled, info.auctionID) ~= nil)
+        cancelled = (Auctionator.Utilities.ArrayIndex(self.waitingforCancellation, info.auctionID) ~= nil)
       })
     end
   end
