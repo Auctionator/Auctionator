@@ -5,15 +5,18 @@
     inherits="AuctionatorTabFrameTemplate"
     parentKey="AuctionatorCancellingFrame"
     mixin="AuctionatorCancellingFrameMixin"
+    hidden="true"
   >
     <Scripts>
       <OnLoad method="OnLoad" />
     </Scripts>
 
     <Frames>
-      <Frame parentKey="DataProvider" mixin="CancellingDataProviderMixin">
+      <Frame parentKey="DataProvider" mixin="AuctionatorCancellingDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
           <OnEvent method="OnEvent"/>
           <OnUpdate method="OnUpdate"/>
         </Scripts>
@@ -35,7 +38,7 @@
         </Anchors>
 
         <Frames>
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Undercut Scan" parentKey="UndercutScanButton">
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNDERCUT_SCAN" parentKey="UndercutScanButton">
             <Anchors>
               <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="3" y="-30" />
             </Anchors>
@@ -44,18 +47,9 @@
             </Scripts>
           </Button>
 
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Cancel All" parentKey="CancelAllButton">
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL_UNDERCUT" parentKey="CancelUndercutScanButton">
             <Anchors>
               <Anchor point="TOPLEFT" relativeKey="$parent.UndercutScanButton" relativePoint="TOPRIGHT" x="3" />
-            </Anchors>
-            <Scripts>
-              <OnClick>self:GetParent():OnCancelAllButtonClick()</OnClick>
-            </Scripts>
-          </Button>
-
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Cancel Undercut" parentKey="CancelUndercutScanButton">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.CancelAllButton" relativePoint="TOPRIGHT" x="3" />
             </Anchors>
             <Scripts>
               <OnClick>self:GetParent():OnCancelUndercutScanButtonClick()</OnClick>

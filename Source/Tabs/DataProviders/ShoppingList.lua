@@ -23,23 +23,17 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   }
 }
 
-local ITEM_KEY_EVENT = "ITEM_KEY_ITEM_INFO_RECEIVED"
-
-ShoppingListDataProviderMixin = CreateFromMixins(DataProviderMixin)
+ShoppingListDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
 function ShoppingListDataProviderMixin:OnLoad()
   Auctionator.Debug.Message("ShoppingListDataProviderMixin:OnLoad()")
 
-  self.pendingItemIds = {}
   self.entriesCount = 0
 
   self:SetUpEvents()
 
   DataProviderMixin.OnLoad(self)
-
-  self:SetOnEntryProcessedCallback(function(entry)
-    self:FetchItemKey(entry)
-  end)
+  AuctionatorItemKeyLoadingMixin.OnLoad(self)
 end
 
 function ShoppingListDataProviderMixin:SetUpEvents()
@@ -50,18 +44,6 @@ function ShoppingListDataProviderMixin:SetUpEvents()
     Auctionator.ShoppingLists.Events.ListSearchEnded,
     Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate
   })
-end
-
-function ShoppingListDataProviderMixin:OnEvent(event, ...)
-  if event == ITEM_KEY_EVENT then
-    local itemId = ...
-
-    for _, entry in ipairs(self.results) do
-      if entry.itemKey.itemID == itemId then
-        self:FetchItemKey(entry)
-      end
-    end
-  end
 end
 
 function ShoppingListDataProviderMixin:ReceiveEvent(eventName, eventData)
@@ -93,37 +75,6 @@ function ShoppingListDataProviderMixin:AppendEntries(entries, isLastSetOfResults
   DataProviderMixin.AppendEntries(self, entries, isLastSetOfResults)
 end
 
-function ShoppingListDataProviderMixin:FetchItemKey(rowEntry)
-  local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(rowEntry.itemKey)
-
-  if not itemKeyInfo then
-    self:RegisterEvent(ITEM_KEY_EVENT)
-
-    table.insert(self.pendingItemIds, rowEntry.itemKey.itemID)
-    rowEntry.itemName = ""
-
-    return
-  end
-
-  for index, pendingId in ipairs(self.pendingItemIds) do
-    if pendingId == rowEntry.itemKey.itemID then
-      table.remove(self.pendingItemIds, index)
-    end
-  end
-
-  if #self.pendingItemIds == 0 then
-    self:UnregisterEvent(ITEM_KEY_EVENT)
-  end
-
-  local text = AuctionHouseUtil.GetItemDisplayTextFromItemKey(rowEntry.itemKey, itemKeyInfo, false)
-
-  rowEntry.itemName = text
-  rowEntry.name = Auctionator.Utilities.RemoveTextColor(text)
-  rowEntry.iconTexture = itemKeyInfo.iconFileID
-  rowEntry.noneAvailable = rowEntry.totalQuantity == 0
-
-  self.onUpdate(self.results)
-end
 
 function ShoppingListDataProviderMixin:UniqueKey(entry)
     return
