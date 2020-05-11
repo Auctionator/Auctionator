@@ -11,9 +11,10 @@
     </Scripts>
 
     <Frames>
-      <Frame parentKey="DataProvider" mixin="CancellingDataProviderMixin">
+      <Frame parentKey="DataProvider" mixin="AuctionatorCancellingDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
           <OnEvent method="OnEvent"/>
           <OnUpdate method="OnUpdate"/>
         </Scripts>

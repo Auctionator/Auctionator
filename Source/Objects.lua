@@ -24,6 +24,7 @@ Auctionator = {
   Config = {},
   Variables = {},
   ShoppingLists = {},
+  Cancelling = {},
   Enchant = {},
   Selling = {},
 
