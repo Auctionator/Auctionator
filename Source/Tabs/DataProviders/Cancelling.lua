@@ -87,7 +87,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 
-    --Only look at unsold auctions
+    --Only look at unsold and uncancelled (yet) auctions
     if info.status == 0 and
        Auctionator.Utilities.ArrayIndex(self.beenCancelled, info.auctionID) == nil then
       table.insert(results, {
