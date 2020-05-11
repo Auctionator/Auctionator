@@ -30,6 +30,11 @@ local CANCELLING_TABLE_LAYOUT = {
   },
 }
 
+local DATA_EVENTS = {
+  "OWNED_AUCTIONS_UPDATED",
+  "AUCTION_CANCELED"
+}
+
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
 function AuctionatorCancellingDataProviderMixin:OnLoad()
@@ -40,12 +45,16 @@ function AuctionatorCancellingDataProviderMixin:OnLoad()
   self.waitingforCancellation = {}
   self.beenCancelled = {}
 
-  self:RegisterEvent("OWNED_AUCTIONS_UPDATED")
-  self:RegisterEvent("AUCTION_CANCELED")
 end
 
 function AuctionatorCancellingDataProviderMixin:OnShow()
   C_AuctionHouse.QueryOwnedAuctions({})
+
+  FrameUtil.RegisterFrameForEvents(self, DATA_EVENTS)
+end
+
+function AuctionatorCancellingDataProviderMixin:OnHide()
+  FrameUtil.UnregisterFrameForEvents(self, DATA_EVENTS)
 end
 
 local COMPARATORS = {

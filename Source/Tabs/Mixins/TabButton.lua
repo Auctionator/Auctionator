@@ -40,6 +40,7 @@ function AuctionatorTabMixin:Selected()
   PanelTemplates_SetTab(AuctionHouseFrame, self)
   PanelTemplates_SelectTab(self)
 
+  self.frameRef:Show()
   AuctionHouseFrame:SetTitle(self.ahTitle)
 end
 

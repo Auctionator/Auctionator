@@ -5,6 +5,7 @@
     inherits="AuctionatorTabFrameTemplate"
     parentKey="AuctionatorCancellingFrame"
     mixin="AuctionatorCancellingFrameMixin"
+    hidden="true"
   >
     <Scripts>
       <OnLoad method="OnLoad" />
@@ -15,6 +16,7 @@
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
           <OnEvent method="OnEvent"/>
           <OnUpdate method="OnUpdate"/>
         </Scripts>
