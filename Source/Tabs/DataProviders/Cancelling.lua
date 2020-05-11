@@ -2,12 +2,12 @@ local CANCELLING_TABLE_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "name" },
-    headerText = "Name",
-    cellTemplate = "AuctionatorItemKeyCellTemplate"
+    headerText = AUCTIONATOR_L_NAME,
+    cellTemplate = "AuctionatorItemKeyCellTemplate",
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Quantity",
+    headerText = AUCTIONATOR_L_QUANTITY,
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "quantity" },
@@ -15,18 +15,19 @@ local CANCELLING_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Unit Price",
+    headerText = AUCTIONATOR_L_UNIT_PRICE,
     headerParameters = { "price" },
     cellTemplate = "AuctionatorPriceCellTemplate",
-    cellParameters = { "price" }
+    cellParameters = { "price" },
+    width = 150,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Time Left",
+    headerText = AUCTIONATOR_L_TIME_LEFT_H,
     headerParameters = { "timeLeft" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "timeLeft" },
-    width = 80,
+    width = 120,
   },
 }
 
