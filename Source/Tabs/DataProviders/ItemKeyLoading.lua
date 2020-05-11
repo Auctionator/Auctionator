@@ -1,6 +1,7 @@
 AuctionatorItemKeyLoadingMixin = {}
 
 local ITEM_KEY_EVENT = "ITEM_KEY_ITEM_INFO_RECEIVED"
+
 function AuctionatorItemKeyLoadingMixin:OnLoad()
   self.pendingItemIds = {}
 

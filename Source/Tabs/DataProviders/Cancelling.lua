@@ -92,14 +92,21 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
   end
 end
 
+function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
+  return
+    auctionInfo.status == 0 and
+    Auctionator.Utilities.ArrayIndex(self.beenCancelled, auctionInfo.auctionID) == nil
+end
+
 function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   local results = {}
+
+  local index
   for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 
     --Only look at unsold and uncancelled (yet) auctions
-    if info.status == 0 and
-       Auctionator.Utilities.ArrayIndex(self.beenCancelled, info.auctionID) == nil then
+    if self:IsValidAuction(info) then
       table.insert(results, {
         id = info.auctionID,
         quantity = info.quantity,
