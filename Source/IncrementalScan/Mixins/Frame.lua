@@ -2,11 +2,14 @@ AuctionatorIncrementalScanFrameMixin = {}
 
 local INCREMENTAL_SCAN_EVENTS = {
   "AUCTION_HOUSE_BROWSE_RESULTS_ADDED",
-  "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED"
+  "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED",
+  "AUCTION_HOUSE_CLOSED"
 }
 
 function AuctionatorIncrementalScanFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorIncrementalScanFrameMixin:OnLoad")
+
+  self.doingFullScan = false
 
   self:RegisterForEvents()
 end
@@ -32,7 +35,17 @@ function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
   elseif event == "AUCTION_HOUSE_BROWSE_RESULTS_ADDED" then
     self:AddPrices(...)
     self:NextStep()
+
+  elseif event == "AUCTION_HOUSE_CLOSED" and self.doingFullScan then
+    self.doingFullScan = false
+    Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_ALTERNATE_FAILED)
   end
+end
+
+function AuctionatorIncrementalScanFrameMixin:InitiateScan()
+  Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_ALTERNATE)
+  C_AuctionHouse.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
+  self.doingFullScan = true
 end
 
 function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
@@ -52,7 +65,12 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
   if not C_AuctionHouse.HasFullBrowseResults() then
     C_AuctionHouse.RequestMoreBrowseResults()
   else
-    Auctionator.Database.ProcessScan(self.prices)
+    local count = Auctionator.Database.ProcessScan(self.prices)
+
+    if self.doingFullScan then
+      Auctionator.Utilities.Message(AUCTIONATOR_L_FINISHED_PROCESSING:format(count))
+      self.doingFullScan = false
+    end
 
     self.prices = {} --Already processed, so clear
   end

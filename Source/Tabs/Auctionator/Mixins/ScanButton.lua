@@ -1,5 +1,9 @@
 AuctionatorScanButtonMixin = {}
 
 function AuctionatorScanButtonMixin:OnClick()
-  Auctionator.State.FullScanFrameRef:InitiateScan()
+  if IsShiftKeyDown() then
+    Auctionator.State.IncrementalScanFrameRef:InitiateScan()
+  else
+    Auctionator.State.FullScanFrameRef:InitiateScan()
+  end
 end
