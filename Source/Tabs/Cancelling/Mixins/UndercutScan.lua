@@ -19,8 +19,6 @@ end
 function AuctionatorUndercutScanMixin:StartScan()
   Auctionator.Debug.Message("AuctionatorUndercutScanMixin:OnUndercutScanButtonClick()")
 
-  self:GetParent().DataProvider.QueryAuctions()
-
   self.currentAuction = nil
   self.undercutAuctions = {}
 
@@ -30,6 +28,14 @@ function AuctionatorUndercutScanMixin:StartScan()
 
   self.StartScanButton:SetEnabled(false)
   self:SetCancel()
+
+  if C_AuctionHouse.GetNumOwnedAuctions() > 0 then
+    self.scanIndex = C_AuctionHouse.GetNumOwnedAuctions() + 1
+    self:NextStep()
+
+  else
+    self:GetParent().DataProvider.QueryAuctions()
+  end
 end
 
 function AuctionatorUndercutScanMixin:SetCancel()
@@ -73,6 +79,7 @@ end
 
 function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
   if eventName == "OWNED_AUCTIONS_UPDATED" then
+    print("query update")
     if not self.currentAuction then
       Auctionator.Debug.Message("next step auto")
 
