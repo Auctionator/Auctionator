@@ -149,7 +149,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="dalanwoopy, LvWind">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="LvWind, dalanwoopy">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.zhCN" relativePoint="TOPRIGHT"/>
