@@ -119,7 +119,7 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
     table.insert(self.waitingforCancellation, eventData)
 
   elseif eventName == Auctionator.Cancelling.Events.UndercutScanStart then
-    self.undercutInfo[eventData] = {}
+    self.undercutInfo = {}
     self:Reset()
     self:PopulateAuctions()
 

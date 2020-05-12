@@ -4,10 +4,12 @@ local UNDERCUT_EVENTS = {
   "OWNED_AUCTIONS_UPDATED",
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
+  "AUCTION_HOUSE_CLOSED"
 }
 
 function AuctionatorUndercutScanMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorUndercutScanMixin")
+  Auctionator.EventBus:Register(self, {Auctionator.Cancelling.Events.RequestCancel})
 
   self.undercutAuctions = {}
 
@@ -22,9 +24,9 @@ function AuctionatorUndercutScanMixin:StartScan()
   self.currentAuction = nil
   self.undercutAuctions = {}
 
-  FrameUtil.RegisterFrameForEvents(self, UNDERCUT_EVENTS)
+  Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.UndercutScanStart)
 
-  Auctionator.EventBus:Register(self, {Auctionator.Cancelling.Events.RequestCancel})
+  FrameUtil.RegisterFrameForEvents(self, UNDERCUT_EVENTS)
 
   self.StartScanButton:SetEnabled(false)
   self:SetCancel()
@@ -35,7 +37,7 @@ function AuctionatorUndercutScanMixin:SetCancel()
 end
 
 function AuctionatorUndercutScanMixin:EndScan()
-  Auctionator.Debug.Message("undercut scan complete")
+  Auctionator.Debug.Message("undercut scan ended")
 
   FrameUtil.UnregisterFrameForEvents(self, UNDERCUT_EVENTS)
 
@@ -75,6 +77,9 @@ function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
     else
       Auctionator.Debug.Message("list no step auto")
     end
+
+  elseif eventName == "AUCTION_HOUSE_CLOSED" then
+    self:EndScan()
 
   else
     Auctionator.Debug.Message("search results")
