@@ -1,4 +1,5 @@
 Auctionator.Cancelling.Events = {
   RequestCancel = "request_auction_cancellation",
-  AuctionCancelled = "auction_cancelled"
+  UndercutStatus = "undercut_status",
+  UndercutScanStart = "undercut_scan_start",
 }
