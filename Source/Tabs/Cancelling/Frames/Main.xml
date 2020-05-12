@@ -29,7 +29,11 @@
         </Anchors>
       </Frame>
 
-      <Frame mixin="AuctionatorCancellingButtonFrameMixin">
+      <Frame mixin="AuctionatorUndercutScanMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnEvent method="OnEvent"/>
+        </Scripts>
         <Size y="45"/>
 
         <Anchors>
@@ -38,21 +42,21 @@
         </Anchors>
 
         <Frames>
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNDERCUT_SCAN" parentKey="UndercutScanButton">
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNDERCUT_SCAN" parentKey="StartScanButton">
             <Anchors>
               <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="3" y="-30" />
             </Anchors>
             <Scripts>
-              <OnClick>self:GetParent():OnUndercutScanButtonClick()</OnClick>
+              <OnClick>self:GetParent():StartScan()</OnClick>
             </Scripts>
           </Button>
 
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL_UNDERCUT" parentKey="CancelUndercutScanButton">
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL_UNDERCUT" parentKey="CancelNextButton">
             <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.UndercutScanButton" relativePoint="TOPRIGHT" x="3" />
+              <Anchor point="TOPLEFT" relativeKey="$parent.StartScanButton" relativePoint="TOPRIGHT" x="3" />
             </Anchors>
             <Scripts>
-              <OnClick>self:GetParent():OnCancelUndercutScanButtonClick()</OnClick>
+              <OnClick>self:GetParent():CancelNextAuction()</OnClick>
             </Scripts>
           </Button>
         </Frames>

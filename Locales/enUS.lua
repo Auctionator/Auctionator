@@ -197,6 +197,12 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["QUANTITY"] = "Quantity"
   L["UNIT_PRICE"] = "Unit Price"
   L["TIME_LEFT_H"] = "Time Left (h)"
+  L["IS_UNDERCUT"] = "Undercut?"
+  --L["UNDERCUT_YES"] ="|TInterface\\RAIDFRAME\\ReadyCheck-NotReady:18:18:0:0|t"
+  --L["UNDERCUT_NO"] = "|TInterface\\RAIDFRAME\\ReadyCheck-Ready:18:18:0:0|t"
+  L["UNDERCUT_YES"] ="Yes"
+  L["UNDERCUT_NO"] = "No"
+  L["UNDERCUT_UNKNOWN"] = "?"
 
   return L
 end

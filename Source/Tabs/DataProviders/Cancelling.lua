@@ -29,6 +29,14 @@ local CANCELLING_TABLE_LAYOUT = {
     cellParameters = { "timeLeft" },
     width = 120,
   },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_IS_UNDERCUT,
+    headerParameters = { "undercut" },
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "undercut" },
+    width = 120,
+  },
 }
 
 local DATA_EVENTS = {
@@ -36,32 +44,48 @@ local DATA_EVENTS = {
   "AUCTION_CANCELED"
 }
 
+local EVENT_BUS_EVENTS = {
+  Auctionator.Cancelling.Events.RequestCancel,
+  Auctionator.Cancelling.Events.UndercutStatus
+}
+
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
 function AuctionatorCancellingDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
   AuctionatorItemKeyLoadingMixin.OnLoad(self)
-  Auctionator.EventBus:Register(self, {Auctionator.Cancelling.Events.RequestCancel})
 
   self.waitingforCancellation = {}
   self.beenCancelled = {}
 
+  self.undercutInfo = {}
 end
 
 function AuctionatorCancellingDataProviderMixin:OnShow()
-  C_AuctionHouse.QueryOwnedAuctions({})
+
+  Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
+
+  self:QueryAuctions()
 
   FrameUtil.RegisterFrameForEvents(self, DATA_EVENTS)
 end
 
 function AuctionatorCancellingDataProviderMixin:OnHide()
+  Auctionator.EventBus:Unregister(self, EVENT_BUS_EVENTS)
+
   FrameUtil.UnregisterFrameForEvents(self, DATA_EVENTS)
+end
+
+function AuctionatorCancellingDataProviderMixin:QueryAuctions()
+  C_AuctionHouse.QueryOwnedAuctions({{sortOrder = 1, reverseSort = true}})
 end
 
 local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
-  quantity = Auctionator.Utilities.NumberComparator
+  quantity = Auctionator.Utilities.NumberComparator,
+  timeLeft = Auctionator.Utilities.NumberComparator,
+  undercut = Auctionator.Utilities.StringComparator,
 }
 
 function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
@@ -78,9 +102,13 @@ function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ..
   AuctionatorItemKeyLoadingMixin.OnEvent(self, event, ...)
   if eventName == "AUCTION_CANCELED" then
     table.insert(self.beenCancelled, auctionID)
-    C_AuctionHouse.QueryOwnedAuctions({})
+    self:QueryAuctions()
 
   elseif eventName == "OWNED_AUCTIONS_UPDATED" then
+    -- Reset columns
+    self.onSearchStarted()
+    self.onSearchEnded()
+
     self:Reset()
     self:PopulateAuctions()
   end
@@ -89,6 +117,21 @@ end
 function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
     table.insert(self.waitingforCancellation, eventData)
+
+  elseif eventName == Auctionator.Cancelling.Events.UndercutScanStart then
+    self.undercutInfo[eventData] = {}
+    self:Reset()
+    self:PopulateAuctions()
+
+  elseif eventName == Auctionator.Cancelling.Events.UndercutStatus then
+    local isUndercut = ...
+    if isUndercut then
+      self.undercutInfo[eventData] = AUCTIONATOR_L_UNDERCUT_YES
+    else
+      self.undercutInfo[eventData] = AUCTIONATOR_L_UNDERCUT_NO
+    end
+    self:Reset()
+    self:PopulateAuctions()
   end
 end
 
@@ -113,7 +156,8 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         price = info.buyoutAmount or info.bidAmount,
         itemKey = info.itemKey,
         timeLeft = math.ceil(info.timeLeftSeconds/60/60),
-        cancelled = (Auctionator.Utilities.ArrayIndex(self.waitingforCancellation, info.auctionID) ~= nil)
+        cancelled = (Auctionator.Utilities.ArrayIndex(self.waitingforCancellation, info.auctionID) ~= nil),
+        undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN
       })
     end
   end
