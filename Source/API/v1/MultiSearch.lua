@@ -1,16 +1,3 @@
-local function InitializeAPIv1MultiSearchFrame()
-  if Auctionator.State.APIv1MultiSearchFrameRef == nil then
-    local frame = CreateFrame(
-      "FRAME",
-      "AuctionatorAPIv1MultiSearchFrame",
-      AuctionHouseFrame,
-      "AuctionatorAPIv1MultiSearchFrameTemplate"
-    )
-
-    Auctionator.State.AuctionAPIv1MultiSearchFrameRef = frame
-  end
-end
-
 local function ValidateState(callerID, searchTerms)
   Auctionator.API.InternalVerifyID(callerID)
 
@@ -41,18 +28,24 @@ end
 function Auctionator.API.v1.MultiSearch(callerID, searchTerms)
   local cloned = ValidateState(callerID, searchTerms)
 
-  InitializeAPIv1MultiSearchFrame()
-  Auctionator.State.AuctionAPIv1MultiSearchFrameRef:StartSearch(cloned)
+  AuctionatorTabs_ShoppingLists:Click()
+
+  Auctionator.EventBus:RegisterSource(Auctionator.API.v1.MultiSearch, "api v1 multisearch")
+    :Fire(Auctionator.API.v1.MultiSearch, Auctionator.ShoppingLists.Events.FreeSearchRequested, cloned)
+    :UnregisterSource(Auctionator.API.v1)
 end
 
 function Auctionator.API.v1.MultiSearchExact(callerID, searchTerms)
   local cloned = ValidateState(callerID, searchTerms)
+
+  AuctionatorTabs_ShoppingLists:Click()
 
   -- Make all the terms advanced search terms  which are exact
   for index, term in ipairs(cloned) do
     cloned[index] = '"' .. term .. '"'
   end
 
-  InitializeAPIv1MultiSearchFrame()
-  Auctionator.State.AuctionAPIv1MultiSearchFrameRef:StartSearch(cloned)
+  Auctionator.EventBus:RegisterSource(Auctionator.API.v1.MultiSearchExact, "api v1 multisearch exact")
+    :Fire(Auctionator.API.v1.MultiSearchExact, Auctionator.ShoppingLists.Events.FreeSearchRequested, cloned)
+    :UnregisterSource(Auctionator.API.v1)
 end

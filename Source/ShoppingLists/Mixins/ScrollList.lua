@@ -17,7 +17,9 @@ function AuctionatorScrollListMixin:OnLoad()
     end,
     function(current, total, results)
       Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
-      self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
+      if self.isListSearch then
+        self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
+      end
     end
   )
 end
@@ -31,7 +33,8 @@ function AuctionatorScrollListMixin:SetUpEvents()
     Auctionator.ShoppingLists.Events.ListItemSelected,
     Auctionator.ShoppingLists.Events.ListItemAdded,
     Auctionator.ShoppingLists.Events.ListSearchRequested,
-    Auctionator.ShoppingLists.Events.ListItemDeleted
+    Auctionator.ShoppingLists.Events.ListItemDeleted,
+    Auctionator.ShoppingLists.Events.FreeSearchRequested,
   })
 end
 
@@ -69,21 +72,33 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchRequested then
     self:StartSearch(self:GetAllSearchTerms())
+  elseif eventName == Auctionator.ShoppingLists.Events.FreeSearchRequested then
+    self:StartSearch(eventData, false)
   end
 end
 
-function AuctionatorScrollListMixin:StartSearch(searchTerms)
-  self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self.currentList.name))
-  self.ResultsText:Show()
+function AuctionatorScrollListMixin:StartSearch(searchTerms, isListSearch)
+  if isListSearch == nil then
+    isListSearch = true
+  end
+
+  self.isListSearch = isListSearch
+
+  if isListSearch then
+    self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self.currentList.name))
+    self.ResultsText:Show()
+
+    self.LoadingSpinner:Show()
+  end
 
   self.SpinnerAnim:Play()
-  self.LoadingSpinner:Show()
 
   Auctionator.EventBus:Fire(
     self,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
-    #self.currentList.items
+    searchTerms
   )
+
   self:Search(searchTerms)
 end
 
