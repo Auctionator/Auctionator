@@ -108,6 +108,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["FULL_SCAN_FAILED"] = "Full scan failed to complete."
   L["FINISHED_PROCESSING"] = "Finished processing %s items."
   L["STOPPED_PROCESSING"] = "Stopped processing at %s out of %s."
+  L["STARTING_FULL_SCAN_ALTERNATE"] = "Starting a full scan (alternate mode)."
+  L["FULL_SCAN_ALTERNATE_FAILED"] = "Full scan (alternate mode) failed to complete."
 
   L["TOO_MANY_SEARCH_RESULTS"] = "Too many search results. Limiting results displayed."
   L["LIST_DELETE_ERROR"] = "An error occurred attempting to delete a list."
