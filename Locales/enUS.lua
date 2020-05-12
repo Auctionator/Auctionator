@@ -51,6 +51,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["AUCTION_DURATION_24"] = "24 Hours"
   L["AUCTION_DURATION_48"] = "48 Hours"
 
+  L["CONFIG_UNDERCUT_SCAN_NOT_LIFO"] = "Include gear and pets in undercut scans"
+  L["CONFIG_UNDERCUT_SCAN_NOT_LIFO_TOOLTIP_HEADER"] = "Gear/Pets Undercut Scans"
+  L["CONFIG_UNDERCUT_SCAN_NOT_LIFO_TOOLTIP_TEXT"] = "Leave this on to include any pets and gear auctions when using the undercut scan. Turn this off to exclude pets and gear."
+
   L["SALES_PREFERENCE"] = "Sales Preference"
   L["PERCENTAGE"] = "Percentage"
   L["SET_VALUE"] = "Set Value"

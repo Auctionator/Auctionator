@@ -46,6 +46,10 @@ function AuctionatorUndercutScanMixin:EndScan()
   self:SetCancel()
 end
 
+local function ShouldInclude(itemKey)
+  return Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO) or
+        (itemKey.itemLevel == 0 and itemKey.battlePetSpeciesID == 0)
+end
 function AuctionatorUndercutScanMixin:NextStep()
   Auctionator.Debug.Message("next step")
   self.scanIndex = self.scanIndex - 1
@@ -57,9 +61,10 @@ function AuctionatorUndercutScanMixin:NextStep()
 
   self.currentAuction = C_AuctionHouse.GetOwnedAuctionInfo(self.scanIndex)
 
-  if self.currentAuction.status == 1 then
+  if (self.currentAuction.status == 1 or
+      not ShouldInclude(self.currentAuction.itemKey)) then
     self:NextStep()
-    Auctionator.Debug.Message("undercut scan skip sold")
+    Auctionator.Debug.Message("undercut scan skip")
   else
     Auctionator.Debug.Message("undercut scan searching for undercuts", self.currentAuction.auctionID)
     self:SearchForUndercuts(self.currentAuction)
