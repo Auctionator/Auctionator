@@ -46,7 +46,8 @@ local DATA_EVENTS = {
 
 local EVENT_BUS_EVENTS = {
   Auctionator.Cancelling.Events.RequestCancel,
-  Auctionator.Cancelling.Events.UndercutStatus
+  Auctionator.Cancelling.Events.UndercutStatus,
+  Auctionator.Cancelling.Events.UndercutScanStart,
 }
 
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
