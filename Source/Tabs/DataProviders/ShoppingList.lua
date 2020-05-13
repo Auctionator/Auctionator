@@ -77,11 +77,7 @@ end
 
 
 function ShoppingListDataProviderMixin:UniqueKey(entry)
-    return
-      entry.itemKey.itemID .. " " ..
-      entry.itemKey.itemSuffix .. " " ..
-      entry.itemKey.itemLevel .. " " ..
-      entry.itemKey.battlePetSpeciesID
+    return Auctionator.Utilities.ItemKeyString(entry.itemKey)
 end
 
 local COMPARATORS = {

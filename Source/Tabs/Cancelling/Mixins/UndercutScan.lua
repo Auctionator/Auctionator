@@ -12,6 +12,7 @@ function AuctionatorUndercutScanMixin:OnLoad()
   Auctionator.EventBus:Register(self, {Auctionator.Cancelling.Events.RequestCancel})
 
   self.undercutAuctions = {}
+  self.seenItemKeys = {}
 
   self:SetCancel()
 end
@@ -21,6 +22,7 @@ function AuctionatorUndercutScanMixin:StartScan()
 
   self.currentAuction = nil
   self.undercutAuctions = {}
+  self.seenItemKeys = {}
 
   Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.UndercutScanStart)
 
@@ -66,20 +68,31 @@ function AuctionatorUndercutScanMixin:NextStep()
   end
 
   self.currentAuction = C_AuctionHouse.GetOwnedAuctionInfo(self.scanIndex)
+  local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
 
   if (self.currentAuction.status == 1 or
       not ShouldInclude(self.currentAuction.itemKey)) then
-    self:NextStep()
     Auctionator.Debug.Message("undercut scan skip")
+
+    self:NextStep()
+  elseif self.seenItemKeys[itemKeyString] ~= nil then
+    Auctionator.Debug.Message("undercut scan already seen")
+
+    self:ProcessUndercutResult(
+      self.currentAuction,
+      self.seenItemKeys[itemKeyString]
+    )
+
+    self:NextStep()
   else
     Auctionator.Debug.Message("undercut scan searching for undercuts", self.currentAuction.auctionID)
+
     self:SearchForUndercuts(self.currentAuction)
   end
 end
 
 function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
   if eventName == "OWNED_AUCTIONS_UPDATED" then
-    print("query update")
     if not self.currentAuction then
       Auctionator.Debug.Message("next step auto")
 
@@ -140,25 +153,25 @@ function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
     return
   end
 
-  if resultInfo.owners[1] ~= "player" then
-    Auctionator.EventBus:Fire(
-      self,
-      Auctionator.Cancelling.Events.UndercutStatus,
-      auctionInfo.auctionID,
-      true
-    )
-
-    table.insert(self.undercutAuctions, auctionInfo)
-  else
-    Auctionator.EventBus:Fire(
-      self,
-      Auctionator.Cancelling.Events.UndercutStatus,
-      auctionInfo.auctionID,
-      false
-    )
-  end
+  self:ProcessUndercutResult(resultInfo.owners[1] ~= "player")
 
   self:NextStep()
+end
+
+function AuctionatorUndercutScanMixin:ProcessUndercutResult(auctionInfo, result)
+  if result then
+    table.insert(self.undercutAuctions, auctionInfo)
+  end
+
+  local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
+  self.seenItemKeys[itemKeyString] = result
+
+  Auctionator.EventBus:Fire(
+    self,
+    Auctionator.Cancelling.Events.UndercutStatus,
+    auctionInfo.auctionID,
+    result
+  )
 end
 
 function AuctionatorUndercutScanMixin:CancelNextAuction()
