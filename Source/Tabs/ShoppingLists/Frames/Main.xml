@@ -88,7 +88,7 @@
             <Texture parentKey="LoadingSpinner" atlas="auctionhouse-ui-loadingspinner" hidden="true">
               <Size x="146" y="146"/>
               <Anchors>
-                <Anchor point="CENTER" x="-12" y="0"/>
+                <Anchor point="CENTER" x="-12" y="-13"/>
               </Anchors>
             </Texture>
           </Layer>
