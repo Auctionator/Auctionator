@@ -12,7 +12,6 @@ function AuctionatorTabContainerMixin:OnLoad()
   }
 
   self:HookTabs()
-  self:PositionTabs()
 end
 
 function AuctionatorTabContainerMixin:IsAuctionatorFrame(displayMode)
@@ -44,22 +43,4 @@ function AuctionatorTabContainerMixin:HookTabs()
 
     tab:Selected()
   end)
-end
-
-function AuctionatorTabContainerMixin:PositionTabs()
-  local moveFrame
-  local nextFrame
-  local lastFrame = AuctionatorTabs_Auctionator
-  local numberToMove = #AuctionHouseFrame.Tabs - 7
-
-  while numberToMove > 0 do
-    nextFrame = AuctionHouseFrame.Tabs[5]
-    nextFrame:SetPoint("LEFT", AuctionHouseFrame.Tabs[3], "RIGHT", -15, 0)
-
-    moveFrame = AuctionHouseFrame.Tabs[4]
-    moveFrame:SetPoint("LEFT", lastFrame, "RIGHT", -15, 0)
-
-    lastFrame = moveFrame
-    numberToMove = numberToMove - 1
-  end
 end
