@@ -153,7 +153,7 @@ function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
     return
   end
 
-  self:ProcessUndercutResult(resultInfo.owners[1] ~= "player")
+  self:ProcessUndercutResult(auctionInfo, resultInfo.owners[1] ~= "player")
 
   self:NextStep()
 end
