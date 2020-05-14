@@ -1,6 +1,7 @@
 AuctionatorSellingTabMixin = {}
 
 function AuctionatorSellingTabMixin:OnLoad()
+  self.BagResultsListing:Init(self.BagDataProvider)
 end
 
 function AuctionatorSellingTabMixin:OnShow()

@@ -13,7 +13,20 @@
     </Scripts>
 
     <Frames>
+      <Frame parentKey="BagDataProvider" mixin="BagDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnEvent method="OnEvent"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
 
+      <Frame parentKey="BagResultsListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="45"/>
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>
