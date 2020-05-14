@@ -136,7 +136,9 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auctionInfo)
     sortingOrder = {sortOrder = 4, reverseSort = false}
   end
 
-  C_AuctionHouse.SendSearchQuery(auctionInfo.itemKey, {sortingOrder}, true)
+  C_Timer.After(0.7, function()
+    C_AuctionHouse.SendSearchQuery(auctionInfo.itemKey, {sortingOrder}, true)
+  end)
 end
 
 function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
