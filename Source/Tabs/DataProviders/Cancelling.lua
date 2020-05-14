@@ -78,7 +78,9 @@ function AuctionatorCancellingDataProviderMixin:OnHide()
 end
 
 function AuctionatorCancellingDataProviderMixin:QueryAuctions()
-  C_AuctionHouse.QueryOwnedAuctions({{sortOrder = 1, reverseSort = true}})
+  Auctionator.AH.Queue:Push(function()
+    C_AuctionHouse.QueryOwnedAuctions({{sortOrder = 1, reverseSort = true}})
+  end)
 end
 
 local COMPARATORS = {
