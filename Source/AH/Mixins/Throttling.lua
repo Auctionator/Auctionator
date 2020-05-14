@@ -1,7 +1,5 @@
 AuctionatorAHThrottlingFrameMixin = {}
 
-local Mixin = AuctionatorAHThrottlingFrameMixin
-
 local THROTTLING_EVENTS = {
   "AUCTION_HOUSE_THROTTLED_MESSAGE_DROPPED",
   "AUCTION_HOUSE_THROTTLED_MESSAGE_QUEUED",
@@ -12,39 +10,44 @@ local THROTTLING_EVENTS = {
   "AUCTION_HOUSE_BROWSE_FAILURE"
 }
 
-function Mixin:OnLoad()
-  print("loaded")
+function AuctionatorAHThrottlingFrameMixin:OnLoad()
+  Auctionator.Debug.Message("AuctionatorAHThrottlingFrameMixin:OnLoad")
   self.ready = false
   self.searchReady = false
+  self.normalReady = false
 
-  self._lastCall = nil
+  self.lastCall = nil
 
   FrameUtil.RegisterFrameForEvents(self, THROTTLING_EVENTS)
 
-  Auctionator.EventBus:RegisterSource(self, "Auctionator.AH.ThrottlingFrameMixin")
+  Auctionator.EventBus:RegisterSource(self, "AuctionatorAHThrottlingFrameMixin")
 end
 
-function Mixin:OnEvent(eventName, ...)
+function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
   if eventName == "AUCTION_HOUSE_THROTTLED_SYSTEM_READY" then
-    print("ready")
-    self.ready = true
-    Auctionator.EventBus:Fire(self, Auctionator.AH.Events.Ready)
+    Auctionator.Debug.Message("normal ready")
+    self.normalReady = true
   elseif eventName == "AUCTION_HOUSE_THROTTLED_SPECIFIC_SEARCH_READY" then
-    print("search ready")
-    Auctionator.EventBus:Fire(self, Auctionator.AH.Events.SearchReady)
+    Auctionator.Debug.Message("search ready")
     self.searchReady = true
   elseif eventName == "AUCTION_HOUSE_BROWSE_FAILURE" then
-    print("fail")
-    self._lastCall()
+    Auctionator.Debug.Message("fail")
+    self.lastCall()
   else
-    print("not ready", eventName)
-    self.ready = false
+    Auctionator.Debug.Message("not ready", eventName)
+    self.normalReady = false
     self.searchReady = false
+  end
+
+  self.ready = self.normalReady and self.searchReady
+
+  if self.ready then
+    Auctionator.EventBus:Fire(self, Auctionator.AH.Events.Ready)
   end
 end
 
-function Mixin:Call(func)
+function AuctionatorAHThrottlingFrameMixin:Call(func)
   func()
-  self._lastCall = func
+  self.lastCall = func
   self.ready = false
 end
