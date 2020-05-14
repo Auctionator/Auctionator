@@ -17,6 +17,7 @@ function AuctionatorAHThrottlingFrameMixin:OnLoad()
   self.normalReady = false
 
   self.lastCall = nil
+  self.failed = false
 
   FrameUtil.RegisterFrameForEvents(self, THROTTLING_EVENTS)
 
@@ -32,7 +33,7 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     self.searchReady = true
   elseif eventName == "AUCTION_HOUSE_BROWSE_FAILURE" then
     Auctionator.Debug.Message("fail")
-    self.lastCall()
+    self.failed = true
   else
     Auctionator.Debug.Message("not ready", eventName)
     self.normalReady = false
@@ -41,7 +42,9 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
 
   self.ready = self.normalReady and self.searchReady
 
-  if self.ready then
+  if self.ready and self.failed then
+    self:Call(self.lastCall)
+  elseif self.ready then
     Auctionator.EventBus:Fire(self, Auctionator.AH.Events.Ready)
   end
 end
@@ -50,4 +53,7 @@ function AuctionatorAHThrottlingFrameMixin:Call(func)
   func()
   self.lastCall = func
   self.ready = false
+  self.failed = false
+  self.normalReady = false
+  self.searchReady = false
 end
