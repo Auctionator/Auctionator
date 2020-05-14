@@ -178,6 +178,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_830_NOT_DONE_2"] = "Price Histories"
   L["SPLASH_830_NOT_DONE_3"] = "Advanced Selling Functionality"
 
+  L["SPLASH_831_CANCELLING"] = "New Cancelling Tab"
+  L["SPLASH_831_CANCELLING_1"] = "Click once on any auction to cancel it."
+  L["SPLASH_831_CANCELLING_2"] ="Scan for undercuts for all your auctions by clicking \"Undercut Scan\""
+  L["SPLASH_831_CANCELLING_3"] ="Click \"Cancel Undercut\" repeatedly to cancel all undercut auctions."
+
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
   L["LIST_ADD_ITEM_HEADER"] = "Add Shopping List Item"
