@@ -21,6 +21,21 @@
       </Button>
 
       <Button
+        name="AuctionatorTabs_Selling"
+        inherits="AuctionatorTabButtonTemplate"
+        text="AUCTIONATOR_L_SELLING_TAB"
+        parentKey="AuctionatorSellingTab"
+      >
+        <KeyValues>
+          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Selling" type="global"/>
+          <KeyValue key="displayModeKey" value="Selling" type="string"/>
+          <KeyValue key="frameTemplate" value="AuctionatorSellingTabFrameTemplate" type="string"/>
+          <KeyValue key="ahTabIndex" value="5" type="number"/>
+          <KeyValue key="ahTitle" value="AUCTIONATOR_L_SELLING_TAB_HEADER" type="global"/>
+        </KeyValues>
+      </Button>
+
+      <Button
         name="AuctionatorTabs_Cancelling"
         inherits="AuctionatorTabButtonTemplate"
         text="AUCTIONATOR_L_CANCELLING_TAB"
