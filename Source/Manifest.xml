@@ -35,4 +35,6 @@
   <Include file="API\Manifest.xml" />
 
   <Include file="SplashScreen\Manifest.xml" />
+
+  <Include file="AH\Manifest.xml"/>
 </Ui>

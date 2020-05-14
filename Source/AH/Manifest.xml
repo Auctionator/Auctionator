@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Events.lua" />
+  <Script file="Initialize.lua" />
+  <Script file="Wrappers.lua" />
+
+  <Include file="Mixins\Manifest.xml" />
+  <Include file="Templates\Manifest.xml" />
+</Ui>

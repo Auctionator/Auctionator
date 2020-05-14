@@ -90,7 +90,7 @@ function AuctionatorAuctionChatLogFrameMixin:AuctionAdded(auctionID)
    -- Used to restart going through auction info if information was missing
   self.auctionInfoIndex = 1
 
-  C_AuctionHouse.QueryOwnedAuctions({})
+  Auctionator.AH.QueryOwnedAuctions({})
 end
 
 function AuctionatorAuctionChatLogFrameMixin:ContinueProcessing()

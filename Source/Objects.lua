@@ -31,4 +31,6 @@ Auctionator = {
   API = {
     v1 = {}
   },
+  
+  AH = {}
 }
