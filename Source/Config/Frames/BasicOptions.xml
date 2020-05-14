@@ -60,7 +60,7 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="CancellingHeading" hidden="true">
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="CancellingHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_CANCELLING_TAB" type="global"/>
         </KeyValues>
@@ -69,7 +69,7 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="UndercutScanPetsGear" hidden="true">
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="UndercutScanPetsGear">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_SCAN_NOT_LIFO" type="global" />
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_SCAN_NOT_LIFO_TOOLTIP_HEADER" type="global" />
