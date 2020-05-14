@@ -60,6 +60,6 @@ function AuctionatorAHThrottlingFrameMixin:Call(func)
   self.searchReady = false
 end
 
-function AuctionatorAHThrottlingFrameMixin:IsReady(func)
+function AuctionatorAHThrottlingFrameMixin:IsReady()
   return self.ready
 end
