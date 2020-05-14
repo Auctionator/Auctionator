@@ -78,7 +78,7 @@ function AuctionatorCancellingDataProviderMixin:OnHide()
 end
 
 function AuctionatorCancellingDataProviderMixin:QueryAuctions()
-  Auctionator.AH.Queue:Push(function()
+  Auctionator.AH.Queue:Enqueue(function()
     C_AuctionHouse.QueryOwnedAuctions({{sortOrder = 1, reverseSort = true}})
   end)
 end

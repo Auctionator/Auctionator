@@ -7,21 +7,21 @@ function Auctionator.AH.Queue:Init()
   })
 end
 
-local function Pop(self)
+local function Dequeue(self)
   if #self.queue > 0 then
-    Auctionator.AH.internals.throttling:Call(self.queue[1])
+    Auctionator.AH.Internals.throttling:Call(self.queue[1])
     table.remove(self.queue, 1)
   end
 end
 
-function Auctionator.AH.Queue:Push(func)
+function Auctionator.AH.Queue:Enqueue(func)
   table.insert(self.queue, func)
 
-  if Auctionator.AH.internals.throttling.ready then
-    Pop(self)
+  if Auctionator.AH.Internals.throttling:IsReady() then
+    Dequeue(self)
   end
 end
 
 function Auctionator.AH.Queue:ReceiveEvent(event)
-  Pop(self)
+  Dequeue(self)
 end

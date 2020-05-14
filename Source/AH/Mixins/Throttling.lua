@@ -45,6 +45,8 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
   if self.ready and self.failed then
     self:Call(self.lastCall)
   elseif self.ready then
+    self.lastCall = nil
+
     Auctionator.EventBus:Fire(self, Auctionator.AH.Events.Ready)
   end
 end
@@ -56,4 +58,8 @@ function AuctionatorAHThrottlingFrameMixin:Call(func)
   self.failed = false
   self.normalReady = false
   self.searchReady = false
+end
+
+function AuctionatorAHThrottlingFrameMixin:IsReady(func)
+  return self.ready
 end

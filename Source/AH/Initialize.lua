@@ -1,13 +1,15 @@
 function Auctionator.AH.Initialize()
-  if Auctionator.AH.internals ~= nil then
+  if Auctionator.AH.Internals ~= nil then
     return
   end
-  Auctionator.AH.internals = {}
+  Auctionator.AH.Internals = {}
 
-  -- Silence excessive errors
-  ERR_AUCTION_DATABASE_ERROR = ""
+  if Auctionator.Config.Get(Auctionator.Config.Options.SILENCE_AUCTION_ERRORS) then
+    -- Silence excessive errors
+    ERR_AUCTION_DATABASE_ERROR = ""
+  end
 
-  Auctionator.AH.internals.throttling = CreateFrame(
+  Auctionator.AH.Internals.throttling = CreateFrame(
     "FRAME",
     "AuctionatorAHThrottlingFrame",
     AuctionHouseFrame,

@@ -29,6 +29,8 @@ Auctionator.Config.Options = {
   HIDE_SPLASH_SCREEN = "hide_splash_screen",
 
   UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo",
+
+  SILENCE_AUCTION_ERRORS = "silence_auction_errors"
 }
 
 Auctionator.Config.SalesTypes = {
@@ -66,6 +68,8 @@ local defaults = {
   [Auctionator.Config.Options.HIDE_SPLASH_SCREEN] = false,
 
   [Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true,
+
+  [Auctionator.Config.Options.SILENCE_AUCTION_ERRORS] = true,
 }
 
 local function isValidOption(name)
