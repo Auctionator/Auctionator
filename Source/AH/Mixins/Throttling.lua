@@ -42,7 +42,7 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
 
   self.ready = self.normalReady and self.searchReady
 
-  if self.ready and self.failed then
+  if self.ready and self.failed and self.lastCall then
     self:Call(self.lastCall)
   elseif self.ready then
     self.lastCall = nil
