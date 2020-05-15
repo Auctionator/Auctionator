@@ -29,8 +29,11 @@ function AuctionatorAHItemKeyLoaderFrameMixin:Get(itemKey)
 end
 
 function AuctionatorAHItemKeyLoaderFrameMixin:OnEvent(event, itemID)
-  if (event == "ITEM_KEY_ITEM_INFO_RECEIVED" and
-      self.waiting[itemID] ~= nil) then
+  if (
+    event == "ITEM_KEY_ITEM_INFO_RECEIVED" and
+    self.waiting[itemID] ~= nil
+  ) then
+
     local itemKeys = self.waiting[itemID]
     self.waiting[itemID] = {}
 
