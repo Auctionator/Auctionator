@@ -130,7 +130,9 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auctionInfo)
   local sortingOrder = nil
 
   local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(auctionInfo.itemKey)
-  if itemKeyInfo.isCommodity then
+  if itemKeyInfo == nil then
+    self:EndScan()
+  elseif itemKeyInfo.isCommodity then
     sortingOrder = {sortOrder = 0, reverseSort = false}
   else
     sortingOrder = {sortOrder = 4, reverseSort = false}
