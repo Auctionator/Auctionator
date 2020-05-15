@@ -89,11 +89,7 @@ function AuctionatorAdvancedSearchProviderMixin:GetSearchProvider()
 
   --Run the query, and save extra filter data for processing
   return function(searchTerm)
-    self.fired = false
-    Auctionator.AH.Queue:Enqueue(function()
-      C_AuctionHouse.SendBrowseQuery(searchTerm.query)
-      self.fired = true
-    end)
+    Auctionator.AH.SendBrowseQuery(searchTerm.query)
     self.currentFilter = searchTerm.extraFilters
     self.waiting = 0
   end
@@ -103,7 +99,7 @@ function AuctionatorAdvancedSearchProviderMixin:HasCompleteTermResults()
   Auctionator.Debug.Message("AuctionatorAdvancedSearchProviderMixin:HasCompleteTermResults()")
 
   --Loaded all the terms from API, and we have filtered every item
-  return self.fired and C_AuctionHouse.HasFullBrowseResults() and self.waiting == 0
+  return Auctionator.AH.HasFullBrowseResults() and self.waiting == 0
 end
 
 function AuctionatorAdvancedSearchProviderMixin:OnSearchEventReceived(eventName, ...)

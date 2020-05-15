@@ -31,8 +31,9 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
   elseif eventName == "AUCTION_HOUSE_THROTTLED_SPECIFIC_SEARCH_READY" then
     Auctionator.Debug.Message("search ready")
     self.searchReady = true
-  elseif eventName == "AUCTION_HOUSE_BROWSE_FAILURE" then
-    Auctionator.Debug.Message("fail")
+  elseif eventName == "AUCTION_HOUSE_BROWSE_FAILURE" or
+         eventName == "AUCTION_HOUSE_THROTTLED_MESSAGE_DROPPED" then
+    Auctionator.Debug.Message("fail", eventName)
     self.failed = true
   else
     Auctionator.Debug.Message("not ready", eventName)
