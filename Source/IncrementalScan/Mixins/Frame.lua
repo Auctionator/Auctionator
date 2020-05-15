@@ -44,7 +44,7 @@ end
 
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
   Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_ALTERNATE)
-  C_AuctionHouse.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
+  Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
   self.doingFullScan = true
 end
 
@@ -62,8 +62,8 @@ function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
 end
 
 function AuctionatorIncrementalScanFrameMixin:NextStep()
-  if not C_AuctionHouse.HasFullBrowseResults() then
-    C_AuctionHouse.RequestMoreBrowseResults()
+  if not Auctionator.AH.HasFullBrowseResults() then
+    Auctionator.AH.RequestMoreBrowseResults()
   else
     local count = Auctionator.Database.ProcessScan(self.prices)
 
