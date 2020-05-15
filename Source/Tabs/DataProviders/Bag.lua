@@ -7,6 +7,18 @@ BAG_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "class" },
+    headerText = "Class",
+    cellTemplate = "AuctionatorStringCellTemplate"
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "subClass" },
+    headerText = "Sub Class",
+    cellTemplate = "AuctionatorStringCellTemplate"
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = "Count",
     headerParameters = { "count" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -66,6 +78,16 @@ function BagDataProviderMixin:LoadBagData()
 
   for _, entry in pairs(itemMap) do
     table.insert( results, entry )
+
+    local item = Item:CreateFromItemID(entry.itemKey.itemID)
+    item:ContinueOnItemLoad(function()
+      local _, _, _, _, _, itemType, itemSubType = GetItemInfo(item:GetItemID())
+      entry.class = itemType
+      entry.subClass = itemSubType
+
+      print(itemType, itemSubType)
+      self.onUpdate(self.results)
+    end)
   end
 
   self:AppendEntries(results, true)
@@ -91,6 +113,8 @@ end
 
 local COMPARATORS = {
   name = Auctionator.Utilities.StringComparator,
+  class = Auctionator.Utilities.NumberComparator,
+  subClass = Auctionator.Utilities.NumberComparator,
   count = Auctionator.Utilities.NumberComparator
 }
 
