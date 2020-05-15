@@ -3,13 +3,18 @@ AuctionatorCancellingListResultsRowMixin = CreateFromMixins(AuctionatorResultsRo
 function AuctionatorCancellingListResultsRowMixin:OnClick(...)
   Auctionator.Debug.Message("AuctionatorCancellingListResultsRowMixin:OnClick", self.rowData and self.rowData.id)
 
-  self.rowData.cancelled = true
-  self:ApplyFade()
+  if IsModifiedClick("DRESSUP") then
+    AuctionHouseBrowseResultsFrameMixin.OnBrowseResultSelected({}, self.rowData)
 
-  Auctionator.EventBus
-    :RegisterSource(self, "CancellingListResultRow")
-    :Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.rowData.id)
-    :UnregisterSource(self)
+  else
+    self.rowData.cancelled = true
+    self:ApplyFade()
+
+    Auctionator.EventBus
+      :RegisterSource(self, "CancellingListResultRow")
+      :Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.rowData.id)
+      :UnregisterSource(self)
+    end
 end
 
 function AuctionatorCancellingListResultsRowMixin:Populate(rowData, dataIndex)
