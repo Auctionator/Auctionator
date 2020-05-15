@@ -119,9 +119,9 @@ function DataProviderMixin:CheckForEntriesToProcess()
     key = self:UniqueKey(entry)
     if self.insertedKeys[key] == nil then
       self.insertedKeys[key] = entry
+      table.insert(self.results, entry)
 
       self.onEntryProcessed(entry)
-      table.insert(self.results, entry)
     end
   end
 

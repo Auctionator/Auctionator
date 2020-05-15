@@ -26,6 +26,13 @@ function Auctionator.AH.HasFullBrowseResults()
   return sentBrowseQuery and C_AuctionHouse.HasFullBrowseResults()
 end
 
+function Auctionator.AH.RequestMoreBrowseResults(...)
+  local args = {...}
+  Auctionator.AH.Queue:Enqueue(function()
+    C_AuctionHouse.RequestMoreBrowseResults(unpack(args))
+  end)
+end
+
 function Auctionator.AH.CancelAuction(...)
   -- Can't be queued, "protected" call
   C_AuctionHouse.CancelAuction(...)
@@ -33,4 +40,8 @@ end
 
 function Auctionator.AH.ReplicateItems(...)
   C_AuctionHouse.ReplicateItems(...)
+end
+
+function Auctionator.AH.GetItemKeyInfo(itemKey)
+  Auctionator.AH.Internals.itemKeyLoader:Get(itemKey)
 end
