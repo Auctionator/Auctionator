@@ -12,7 +12,7 @@ function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
     Auctionator.Debug.Message("Executing cancel request", eventData)
 
-    C_AuctionHouse.CancelAuction(eventData)
+    Auctionator.AH.CancelAuction(eventData)
 
     PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
   end

@@ -25,3 +25,8 @@ end
 function Auctionator.AH.HasFullBrowseResults()
   return sentBrowseQuery and C_AuctionHouse.HasFullBrowseResults()
 end
+
+function Auctionator.AH.CancelAuction(...)
+  -- Can't be queued, "protected" call
+  C_AuctionHouse.CancelAuction(...)
+end
