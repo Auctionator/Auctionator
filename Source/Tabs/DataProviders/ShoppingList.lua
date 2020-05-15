@@ -77,7 +77,7 @@ end
 
 
 function ShoppingListDataProviderMixin:UniqueKey(entry)
-    return Auctionator.Utilities.ItemKeyString(entry.itemKey)
+  return Auctionator.Utilities.ItemKeyString(entry.itemKey)
 end
 
 local COMPARATORS = {

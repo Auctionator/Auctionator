@@ -100,7 +100,7 @@ function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ...)
-  AuctionatorItemKeyLoadingMixin.OnEvent(self, event, ...)
+  AuctionatorItemKeyLoadingMixin.OnEvent(self, eventName, ...)
   if eventName == "AUCTION_CANCELED" then
     table.insert(self.beenCancelled, auctionID)
     self:QueryAuctions()
