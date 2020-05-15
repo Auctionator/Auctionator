@@ -10,6 +10,7 @@
   <Include file="AuctionatorResultsRow.xml"/>
   <Include file="ShoppingListResultsRow.xml"/>
   <Include file="CancellingListResultsRow.xml"/>
+  <Include file="BagListResultsRow.xml"/>
 
   <Include file="ResultsListing.xml"/>
 </Ui>

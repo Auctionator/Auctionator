@@ -21,12 +21,36 @@
         </Scripts>
       </Frame>
 
+      <!-- Refactor into component -->
+      <Frame>
+        <!-- Icon -->
+
+        <!-- Quantity (number) -->
+
+        <!-- Unit PRice (money) -->
+
+        <!-- Duration (radio 12/24/48) -->
+
+        <!-- Deposit (money display [non editable]) -->
+
+        <!-- Total price (money display [non editable]) -->
+      </Frame>
+
       <Frame parentKey="BagResultsListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="24"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="45"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="CENTER" />
         </Anchors>
       </Frame>
+
+      <Frame parentKey="SellDisplay" inherits="InsetFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagResultsListing" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="CENTER" />
+          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM"/>
+        </Anchors>
+      </Frame>
+
     </Frames>
   </Frame>
 </Ui>
