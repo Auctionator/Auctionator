@@ -16,5 +16,12 @@ function Auctionator.AH.Initialize()
     "AuctionatorAHThrottlingFrameTemplate"
   )
 
+  Auctionator.AH.Internals.itemKeyLoader = CreateFrame(
+    "FRAME",
+    "AuctionatorAHItemKeyLoaderFrame",
+    AuctionHouseFrame,
+    "AuctionatorAHItemKeyLoaderFrameTemplate"
+  )
+
   Auctionator.AH.Queue:Init()
 end
