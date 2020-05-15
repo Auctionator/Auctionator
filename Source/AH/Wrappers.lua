@@ -30,3 +30,10 @@ function Auctionator.AH.CancelAuction(...)
   -- Can't be queued, "protected" call
   C_AuctionHouse.CancelAuction(...)
 end
+
+function Auctionator.AH.ReplicateItems(...)
+  local args = {...}
+  Auctionator.AH.Queue:Enqueue(function()
+    C_AuctionHouse.ReplicateItems(unpack(args))
+  end)
+end

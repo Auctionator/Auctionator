@@ -21,7 +21,7 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
 
     self:RegisterForEvents()
     Auctionator.Utilities.Message(Auctionator.Locales.Apply("STARTING_FULL_SCAN"))
-    C_AuctionHouse.ReplicateItems()
+    Auctionator.AH.ReplicateItems()
   else
     Auctionator.Utilities.Message(self:NextScanMessage())
   end
