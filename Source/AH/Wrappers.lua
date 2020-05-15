@@ -32,8 +32,5 @@ function Auctionator.AH.CancelAuction(...)
 end
 
 function Auctionator.AH.ReplicateItems(...)
-  local args = {...}
-  Auctionator.AH.Queue:Enqueue(function()
-    C_AuctionHouse.ReplicateItems(unpack(args))
-  end)
+  C_AuctionHouse.ReplicateItems(...)
 end
