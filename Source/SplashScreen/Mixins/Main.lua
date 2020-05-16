@@ -1,6 +1,20 @@
 -- We should probably move this into another file too
 local MESSAGES = {
   {
+    Version = "8.3.1",
+    Description = nil,
+    Sections = {
+      {
+        Title = AUCTIONATOR_L_SPLASH_831_CANCELLING,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_831_CANCELLING_1,
+          AUCTIONATOR_L_SPLASH_831_CANCELLING_2,
+          AUCTIONATOR_L_SPLASH_831_CANCELLING_3,
+        }
+      },
+    }
+  },
+  {
     Version = "8.3.0",
     Description = AUCTIONATOR_L_SPLASH_830_DESCRIPTION,
     Sections = {
@@ -30,7 +44,7 @@ local MESSAGES = {
         }
       }
     }
-  }
+  },
 }
 
 local NEW_MESSAGE_FONTS = {
@@ -99,9 +113,11 @@ function AuctionatorSplashScreenMixin:CreateMessagesText()
     previous = current
 
     -- Add description string
-    current = self:CreateString(messageSpec.Description, fonts.description, previous)
-    height = height + current:GetStringHeight()
-    previous = current
+    if messageSpec.Description ~= nil then
+      current = self:CreateString(messageSpec.Description, fonts.description, previous)
+      height = height + current:GetStringHeight()
+      previous = current
+    end
 
     -- Add sections
     for _, section in ipairs(messageSpec.Sections or {}) do
