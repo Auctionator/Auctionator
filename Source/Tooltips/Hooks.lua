@@ -241,13 +241,13 @@ function Auctionator.Tooltip.LateHooks()
   hooksecurefunc(AuctionHouseUtil, "SetAuctionHouseTooltip",
     function(owner, rowData)
       if rowData.itemLink then
-        Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, rowData.itemLink, 1)
+        Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, rowData.itemLink, rowData.count ~= nil and rowData.count or 1 )
 
       else
         local itemLink = select(2, GetItemInfo(rowData.itemKey.itemID))
 
         if itemLink ~= nil then
-          Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, itemLink, 1)
+          Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, itemLink, rowData.count ~= nil and rowData.count or 1)
         end
       end
     end

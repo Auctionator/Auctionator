@@ -1,0 +1,148 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorSellingBagFrame"
+    virtual="true"
+    parentKey="BagListing"
+    mixin="AuctionatorSellingBagFrameMixin"
+  >
+    <Scripts>
+      <OnLoad method="OnLoad" />
+    </Scripts>
+
+    <Frames>
+      <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
+        </Anchors>
+
+        <ScrollChild>
+          <Frame parentKey="ItemListingFrame">
+            <Frames>
+              <Frame parentKey="WeaponItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_WEAPON" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="ArmorItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_ARMOR" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.WeaponItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="ContainerItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_CONTAINER" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.ArmorItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="GemItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_GEM" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.ContainerItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="EnhancementItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_ITEM_ENHANCEMENT" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.GemItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="ConsumableItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_CONSUMABLE" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.EnhancementItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="GlyphItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_GLYPH" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.ConsumableItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="TradeGoodItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_TRADEGOODS" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.GlyphItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="RecipeItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_RECIPE" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.TradeGoodItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="BattlePetItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_BATTLEPET" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.RecipeItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="QuestItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_QUESTITEM" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.BattlePetItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+
+              <Frame parentKey="MiscItems" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="classId" value="LE_ITEM_CLASS_MISCELLANEOUS" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent.QuestItems" relativePoint="BOTTOMLEFT"/>
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+              </Frame>
+            </Frames>
+          </Frame>
+        </ScrollChild>
+      </ScrollFrame>
+    </Frames>
+
+  </Frame>
+</Ui>

@@ -1,5 +1,7 @@
 <!-- Selling directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Events.lua" />
+
   <Include file="Mixins\Manifest.xml"/>
   <Include file="Frame.xml"/>
   <Script file="LIFOPrice.lua"/>
