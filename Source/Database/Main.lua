@@ -117,6 +117,7 @@ function Auctionator.Database.GetPriceHistory(itemKey)
      date = Auctionator.Utilities.PrettyDate(
         day * 86400 + Auctionator.Constants.SCAN_DAY_0
      ),
+     rawDay = day,
      minSeen = itemData.l[day] or itemData.h[day],
      maxSeen = itemData.h[day]
    })
