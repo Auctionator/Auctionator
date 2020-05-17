@@ -38,8 +38,8 @@ function Auctionator.AH.CancelAuction(...)
   C_AuctionHouse.CancelAuction(...)
 end
 
-function Auctionator.AH.ReplicateItems(...)
-  C_AuctionHouse.ReplicateItems(...)
+function Auctionator.AH.ReplicateItems()
+  C_AuctionHouse.ReplicateItems()
 end
 
 function Auctionator.AH.GetItemKeyInfo(itemKey)
