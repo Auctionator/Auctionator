@@ -58,7 +58,7 @@
         </KeyValues>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="Duration">
+      <Frame inherits="AuctionatorConfigurationHorizontalRadioButtonGroup" parentKey="Duration">
         <KeyValues>
           <KeyValue key="groupHeadingText" value="Duration" type="string"/>
         </KeyValues>

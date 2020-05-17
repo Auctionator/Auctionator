@@ -6,6 +6,7 @@
   <Script file="CheckBox.lua"/>
   <Script file="RadioButton.lua"/>
   <Script file="RadioButtonGroup.lua"/>
+  <Script file="HorizontalRadioButtonGroup.lua"/>
   <Script file="NumericInputBox.lua"/>
   <Script file="MoneyInput.lua"/>
   <Script file="CopyAndPasteBox.lua"/>
