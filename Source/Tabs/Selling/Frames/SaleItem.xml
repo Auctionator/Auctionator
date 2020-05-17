@@ -1,0 +1,103 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorSaleItemFrameTemplate"
+    virtual="true"
+
+    parentKey="AuctionatorSaleItem"
+    mixin="AuctionatorSaleItemMixin"
+  >
+    <Size x="600" y="100" />
+
+    <Scripts>
+      <OnLoad method="OnLoad" />
+    </Scripts>
+
+    <Frames>
+      <Frame parentKey="TitleArea" inherits="InsetFrameTemplate">
+        <Size y="24" />
+        <Anchors>
+          <Anchor point="TOPLEFT" />
+          <Anchor point="RIGHT" />
+        </Anchors>
+
+        <Layers>
+          <Layer>
+            <FontString parentKey="Text" inherits="Game15Font">
+              <Anchors>
+                <Anchor point="TOPLEFT" x="9" y="-5" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+
+      <Frame parentKey="Icon" inherits="AuctionatorBagItem">
+        <Size x="60" y="60" />
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-12" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInput">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" y="-2" />
+        </Anchors>
+
+        <KeyValues>
+          <KeyValue key="labelText" value="Quantity" type="string"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame parentKey="Price" inherits="AuctionatorConfigurationMoneyInput">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Quantity" relativePoint="BOTTOMLEFT" y="10" />
+        </Anchors>
+
+        <KeyValues>
+          <KeyValue key="labelText" value="Buyout Price" type="string"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="Duration">
+        <KeyValues>
+          <KeyValue key="groupHeadingText" value="Duration" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOP" relativeKey="$parent.TitleArea" relativePoint="BOTTOM" />
+          <Anchor point="LEFT" relativeKey="$parent" relativePoint="CENTER" x="50" />
+        </Anchors>
+        <Frames>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="12" type="string"/>
+              <KeyValue key="value" value="12" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="24" type="string"/>
+              <KeyValue key="value" value="24" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="48" type="string"/>
+              <KeyValue key="value" value="48" type="number"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
+
+      <!-- Deposit (money display [non editable]) -->
+
+      <!-- Total price (money display [non editable]) -->
+
+
+      <Button parentKey="Post" inherits="UIPanelDynamicResizeButtonTemplate" text="Post">
+        <Anchors>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-10" />
+        </Anchors>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

@@ -12,6 +12,10 @@
       <OnEvent method="OnEvent" />
     </Scripts>
 
+    <Anchors>
+      <Anchor point="TOPLEFT" relativeKey="$parent.CategoriesList" relativePoint="TOPLEFT" y="-70"/>
+    </Anchors>
+
     <Frames>
       <Frame parentKey="BagDataProvider" mixin="BagDataProviderMixin">
         <Scripts>
@@ -21,36 +25,48 @@
         </Scripts>
       </Frame>
 
-      <!-- Refactor into component -->
-      <Frame>
-        <!-- Icon -->
-
-        <!-- Quantity (number) -->
-
-        <!-- Unit PRice (money) -->
-
-        <!-- Duration (radio 12/24/48) -->
-
-        <!-- Deposit (money display [non editable]) -->
-
-        <!-- Total price (money display [non editable]) -->
-      </Frame>
-
-      <Frame parentKey="BagResultsListing" inherits="AuctionatorResultsListingTemplate">
+      <Frame inherits="AuctionatorSaleItemFrameTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="24"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="CENTER" />
+          <Anchor point="TOP" relativeKey="$parent" relativePoint="TOP" y="105" />
         </Anchors>
       </Frame>
 
-      <Frame parentKey="SellDisplay" inherits="InsetFrameTemplate">
+      <Frame inherits="AuctionatorSellingBagFrame">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagResultsListing" relativePoint="BOTTOMLEFT" />
-          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="CENTER" />
-          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="-5" />
+          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" y="3" />
         </Anchors>
       </Frame>
 
+      <Frame parentKey="HistoricalPriceProvider" mixin="HistoricalPriceProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnEvent method="OnEvent"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+
+      <Frame parentKey="HistoricalPriceListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" />
+          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="CurrentItemProvider" mixin="SearchProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnEvent method="OnEvent"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+
+      <Frame parentKey="CurrentItemListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionatorSellingBagFrame" relativePoint="TOPLEFT"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

@@ -1,0 +1,48 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorBagItem" mixin="AuctionatorBagItemMixin" virtual="true">
+    <Size x="42" y="42"/>
+
+    <Scripts>
+      <OnLoad method="OnLoad" />
+      <OnEnter method="OnEnter" />
+      <OnLeave method="OnLeave" />
+      <OnMouseDown method="OnClick" />
+    </Scripts>
+
+    <Layers>
+      <Layer level="BACKGROUND" textureSubLevel="2">
+        <Texture parentKey="Icon">
+          <Anchors>
+            <Anchor point="TOPLEFT" />
+            <Anchor point="BOTTOMRIGHT" />
+          </Anchors>
+        </Texture>
+      </Layer>
+      <Layer level="BACKGROUND" textureSubLevel="1">
+        <Texture parentKey="IconBorder" file="Interface\BUTTONS\UI-Slot-Background">
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT"/>
+          </Anchors>
+          <TexCoords left="0" right="0.640625" top="0" bottom="0.640625" />
+        </Texture>
+      </Layer>
+      <Layer>
+        <FontString parentKey="TextShadow" inherits="GameFontNormalLarge2" justifyH="RIGHT" maxLines="1">
+          <Size x="0" y="18"/>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-4" y="4"/>
+            <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
+          </Anchors>
+        </FontString>
+        <FontString parentKey="Text" inherits="GameFontNormalLarge" justifyH="RIGHT" maxLines="1">
+          <Size x="0" y="18"/>
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-3" y="3"/>
+            <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

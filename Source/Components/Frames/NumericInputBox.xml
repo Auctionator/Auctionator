@@ -17,7 +17,7 @@
       <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
     </Anchors>
     <Frames>
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="InputBox" letters="3">
+      <EditBox autoFocus="false" inherits="LargeInputBoxTemplate" numeric="true" parentKey="InputBox" letters="10">
         <Size x="50" y="20" />
         <Anchors>
           <Anchor point="TOPLEFT" x="25" />

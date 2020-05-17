@@ -9,13 +9,15 @@ BAG_TABLE_LAYOUT = {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "class" },
     headerText = "Class",
-    cellTemplate = "AuctionatorStringCellTemplate"
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "class" },
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "subClass" },
     headerText = "Sub Class",
-    cellTemplate = "AuctionatorStringCellTemplate"
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "subClass" },
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -62,14 +64,13 @@ function BagDataProviderMixin:LoadBagData()
   for _, location in ipairs(self.itemLocations) do
     if location:IsValid() then
       local itemKey = C_AuctionHouse.GetItemKeyFromItem(location)
+      local itemType = C_AuctionHouse.GetItemCommodityStatus(location)
 
-      local icon, itemCount, locked, quality, readable, lootable, itemLink, isFiltered, noValue, itemID =
-        GetContainerItemInfo(location:GetBagAndSlot())
-
+      local icon, itemCount = GetContainerItemInfo(location:GetBagAndSlot())
       local tempId = self:UniqueKey({ itemKey = itemKey })
 
       if itemMap[tempId] == nil then
-        itemMap[tempId] = { itemKey = itemKey, count = itemCount }
+        itemMap[tempId] = { itemKey = itemKey, count = itemCount, icon = icon, itemType = itemType }
       else
         itemMap[tempId].count = itemMap[tempId].count + itemCount
       end
@@ -81,11 +82,14 @@ function BagDataProviderMixin:LoadBagData()
 
     local item = Item:CreateFromItemID(entry.itemKey.itemID)
     item:ContinueOnItemLoad(function()
-      local _, _, _, _, _, itemType, itemSubType = GetItemInfo(item:GetItemID())
+      local _, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
       entry.class = itemType
+      entry.classId = classId
       entry.subClass = itemSubType
+      entry.subClassId = subClassId
+      entry.quality = itemRarity
+      entry.auctionable = bindType ~= 1
 
-      print(itemType, itemSubType)
       self.onUpdate(self.results)
     end)
   end
