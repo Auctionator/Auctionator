@@ -15,9 +15,10 @@ local function InitializeFullScanFrame()
     frame = Auctionator.State.FullScanFrameRef
   end
 
-  if (Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) and
-      not Auctionator.Config.Get(Auctionator.Config.Options.ALTERNATE_SCAN_MODE)
-      ) then
+  if (
+    Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) and
+    not Auctionator.Config.Get(Auctionator.Config.Options.ALTERNATE_SCAN_MODE)
+  ) then
     frame:InitiateScan()
   end
 end
@@ -37,9 +38,10 @@ local function InitializeIncrementalScanFrame()
     frame = Auctionator.State.IncrementalScanFrameRef
   end
 
-  if (Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) and
-      Auctionator.Config.Get(Auctionator.Config.Options.ALTERNATE_SCAN_MODE)
-      ) then
+  if (
+    Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) and
+    Auctionator.Config.Get(Auctionator.Config.Options.ALTERNATE_SCAN_MODE)
+  ) then
     frame:InitiateScan()
   end
 end
