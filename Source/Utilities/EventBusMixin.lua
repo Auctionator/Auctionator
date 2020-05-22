@@ -29,7 +29,7 @@ function AuctionatorEventBusMixin:Unregister(listener, eventNames)
   for _, eventName in ipairs(eventNames) do
     table.remove(
       self.registeredListeners[eventName],
-      Auctionator.Utilities.ArrayIndex(self.registeredListeners[eventName], listener)
+      tIndexOf(self.registeredListeners[eventName], listener)
     )
     Auctionator.Debug.Message("AuctionatorEventBusMixin:Unregister", eventName)
   end
