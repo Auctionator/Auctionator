@@ -1,9 +1,9 @@
 AuctionatorSellingTabMixin = {}
 
 function AuctionatorSellingTabMixin:OnLoad()
-  -- self.BagResultsListing:Init(self.BagDataProvider)
-
   self.BagListing:Init(self.BagDataProvider)
+  self.HistoricalPriceListing:Init(self.HistoricalPriceProvider)
+  self.HistoricalPriceListing:SetWidth(200)
 end
 
 function AuctionatorSellingTabMixin:OnShow()

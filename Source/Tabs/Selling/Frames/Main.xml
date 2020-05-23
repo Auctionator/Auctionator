@@ -41,14 +41,12 @@
       <Frame parentKey="HistoricalPriceProvider" mixin="HistoricalPriceProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
-          <OnEvent method="OnEvent"/>
-          <OnUpdate method="OnUpdate"/>
         </Scripts>
       </Frame>
 
       <Frame parentKey="HistoricalPriceListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" />
+          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-20" />
           <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" />
         </Anchors>
       </Frame>
@@ -56,8 +54,6 @@
       <Frame parentKey="CurrentItemProvider" mixin="SearchProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
-          <OnEvent method="OnEvent"/>
-          <OnUpdate method="OnUpdate"/>
         </Scripts>
       </Frame>
 
