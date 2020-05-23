@@ -31,7 +31,7 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorSellingBagFrame">
+      <Frame parentKey="BagListing" inherits="AuctionatorSellingBagFrame">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="-5" />
           <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" y="3" />
@@ -41,13 +41,16 @@
       <Frame parentKey="HistoricalPriceProvider" mixin="HistoricalPriceProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
+          <OnUpdate method="OnUpdate"/>
         </Scripts>
       </Frame>
 
       <Frame parentKey="HistoricalPriceListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" x="-20" />
+          <Anchor point="TOP" relativeKey="$parent" relativePoint="CENTER" />
+          <Anchor point="LEFT" relativeKey="$parent.BagListing" relativePoint="RIGHT" x="20" />
           <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" />
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-20" />
         </Anchors>
       </Frame>
 
@@ -60,7 +63,7 @@
       <Frame parentKey="CurrentItemListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.AuctionatorSellingBagFrame" relativePoint="TOPLEFT"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" relativePoint="BOTTOMRIGHT"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" relativePoint="TOPRIGHT"/>
         </Anchors>
       </Frame>
     </Frames>

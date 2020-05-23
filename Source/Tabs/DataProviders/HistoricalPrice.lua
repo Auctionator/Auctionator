@@ -4,16 +4,14 @@ HISTORICAL_PRICE_PROVIDER_LAYOUT ={
     headerText = AUCTIONATOR_L_UNIT_PRICE,
     headerParameters = { "minSeen" },
     cellTemplate = "AuctionatorPriceCellTemplate",
-    cellParameters = { "minSeen" },
-    width = 100,
+    cellParameters = { "minSeen" }
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_DATE,
     headerParameters = { "rawDay" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "date" },
-    width = 100,
+    cellParameters = { "date" }
   },
 }
 
@@ -29,7 +27,7 @@ function HistoricalPriceProviderMixin:SetItem(itemKey)
   self:Reset()
 
   local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
-  Auctionator.Utilities.TablePrint(Auctionator.Database.GetPriceHistory(dbKey), dbKey)
+
   self:AppendEntries(Auctionator.Database.GetPriceHistory(dbKey), true)
 end
 
@@ -41,4 +39,23 @@ function HistoricalPriceProviderMixin:ReceiveEvent(event, itemInfo)
   if event == Auctionator.Selling.Events.BagItemClicked then
     self:SetItem(itemInfo.itemKey)
   end
+end
+
+function HistoricalPriceProviderMixin:UniqueKey(entry)
+  return tostring(entry.rawDay)
+end
+
+local COMPARATORS = {
+  minSeen = Auctionator.Utilities.NumberComparator,
+  rawDay = Auctionator.Utilities.StringComparator
+}
+
+function HistoricalPriceProviderMixin:Sort(fieldName, sortDirection)
+  local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
+
+  table.sort(self.results, function(left, right)
+    return comparator(left, right)
+  end)
+
+  self.onUpdate(self.results)
 end

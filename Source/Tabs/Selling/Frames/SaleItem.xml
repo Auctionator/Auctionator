@@ -13,7 +13,7 @@
     </Scripts>
 
     <Frames>
-      <Frame parentKey="TitleArea" inherits="InsetFrameTemplate">
+      <Frame parentKey="TitleArea">
         <Size y="24" />
         <Anchors>
           <Anchor point="TOPLEFT" />
