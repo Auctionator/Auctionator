@@ -52,6 +52,8 @@ function BagDataProviderMixin:LoadBagData()
   local itemMap = {}
   local results = {}
 
+  local startTime = debugprofilestop()
+
   for bagId = 0, 4 do
     for slot = 0, GetContainerNumSlots(bagId) do
       table.insert(
@@ -60,6 +62,9 @@ function BagDataProviderMixin:LoadBagData()
       )
     end
   end
+
+  Auctionator.Debug.Message("Created item locations", tostring(debugprofilestop() - startTime))
+  startTime = debugprofilestop()
 
   for _, location in ipairs(self.itemLocations) do
     if location:IsValid() then
@@ -77,10 +82,16 @@ function BagDataProviderMixin:LoadBagData()
     end
   end
 
+  Auctionator.Debug.Message("Obtained AH item info", tostring(debugprofilestop() - startTime))
+  startTime = debugprofilestop()
+
   for _, entry in pairs(itemMap) do
     table.insert( results, entry )
 
     local item = Item:CreateFromItemID(entry.itemKey.itemID)
+    Auctionator.Debug.Message("Created item", tostring(debugprofilestop() - startTime))
+    startTime = debugprofilestop()
+
     item:ContinueOnItemLoad(function()
       local _, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
       entry.class = itemType
@@ -98,9 +109,22 @@ function BagDataProviderMixin:LoadBagData()
 end
 
 function BagDataProviderMixin:OnEvent(eventName, ...)
-  AuctionatorItemKeyLoadingMixin.OnEvent(self, eventName, ...)
   -- probably need to reload results on change, test different events tho
+  -- so far, I've only seen BAG_UPDATE called, with the parameter ... being the bag number
+  -- could probably load individual bags to prevent a full reload
+  if eventName == "BAG_UPDATE" then
+    Auctionator.Debug.Message("BAG_UPDATE", ...)
 
+    self:LoadBagData()
+  elseif eventName == "BAG_NEW_ITEMS_UPDATED" then
+    Auctionator.Debug.Message("BAG_NEW_ITEMS_UPDATED", ...)
+
+    self:LoadBagData()
+  elseif eventName == "BAG_SLOT_FLAGS_UPDATED" then
+    Auctionator.Debug.Message("BAG_SLOT_FLAGS_UPDATED", ...)
+
+    self:LoadBagData()
+  end
 end
 
 function BagDataProviderMixin:UniqueKey(entry)

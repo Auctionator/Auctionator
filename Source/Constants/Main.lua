@@ -15,6 +15,10 @@ Auctionator.Constants = {
     DESCENDING = 0
   },
   ITEM_TYPES = {
+    ITEM = 1,
+    COMMODITY = 2
+  },
+  ITEM_TYPE_STRINGS = {
     [0] = "Unknown",
     [1] = "Item",
     [2] = "Commodity"

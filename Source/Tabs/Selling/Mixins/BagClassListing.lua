@@ -5,11 +5,17 @@ local ROW_LENGTH = 5
 function AuctionatorBagClassListingMixin:OnLoad()
   self.items = {}
   self.buttons = {}
+  self.isAuctionatorBag = true
 
   self.title = GetItemClassInfo(self.classId)
+
   self:UpdateTitle()
   self:SetHeight(self.SectionTitle:GetHeight())
+
   self.SectionTitle:SetWidth(self:GetRowWidth())
+  self.SectionTitle.NormalTexture:SetWidth(self:GetRowWidth() + 8)
+  self.SectionTitle.Text:SetPoint("LEFT", 12, 0)
+  self.SectionTitle.HighlightTexture:SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
 
   self.buttonNamePrefix = self.title .. "Item"
   self:CreateEmptyButtons()
@@ -87,14 +93,6 @@ function AuctionatorBagClassListingMixin:DrawButtons()
   self.ItemContainer:SetSize( self.buttons[1]:GetWidth() * 3, rows * 42 + 2)
 
   self:SetSize(42 * ROW_LENGTH, self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
-end
-
-function AuctionatorBagClassListingMixin:OnEnter()
-  -- Something wrong with texture on enter (is not contained by button), leaving for now
-end
-
-function AuctionatorBagClassListingMixin:OnLeave()
-  -- Something wrong with texture on enter (is not contained by button), leaving for now
 end
 
 function AuctionatorBagClassListingMixin:OnClick()

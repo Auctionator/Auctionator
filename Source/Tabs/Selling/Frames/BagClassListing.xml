@@ -13,9 +13,7 @@
           <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
         </Anchors>
 
-        <Scripts>
-          <OnEnter>self:GetParent():OnEnter()</OnEnter>
-          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+        <Scripts>>
           <OnClick>self:GetParent():OnClick()</OnClick>
         </Scripts>
       </Button>

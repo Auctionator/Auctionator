@@ -3,6 +3,7 @@ AuctionatorSellingBagFrameMixin = {}
 function AuctionatorSellingBagFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:OnLoad()")
 
+  self.allShowing = true
   self.frameMap = {
     [LE_ITEM_CLASS_WEAPON] = self.ScrollFrame.ItemListingFrame.WeaponItems,
     [LE_ITEM_CLASS_ARMOR] = self.ScrollFrame.ItemListingFrame.ArmorItems,

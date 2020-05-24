@@ -49,3 +49,8 @@ function AuctionatorBagItemMixin:OnClick()
     Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)
   end
 end
+
+function AuctionatorBagItemMixin:HideCount()
+  self.TextShadow:Hide()
+  self.Text:Hide()
+end
