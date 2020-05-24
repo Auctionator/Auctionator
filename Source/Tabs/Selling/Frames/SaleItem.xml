@@ -90,6 +90,7 @@
       </Frame>
 
       <!-- Deposit (money display [non editable]) -->
+      <!-- C_AuctionHouse.CalculateCommodityDeposit(C_Item.GetItemID(item), duration, quantity); -->
 
       <!-- Total price (money display [non editable]) -->
 
