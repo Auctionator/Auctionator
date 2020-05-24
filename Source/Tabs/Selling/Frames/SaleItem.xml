@@ -89,17 +89,48 @@
         </Frames>
       </Frame>
 
-      <!-- Deposit (money display [non editable]) -->
-      <!-- C_AuctionHouse.CalculateCommodityDeposit(C_Item.GetItemID(item), duration, quantity); -->
-
-      <!-- Total price (money display [non editable]) -->
-
-
       <Button parentKey="Post" inherits="UIPanelDynamicResizeButtonTemplate" text="Post">
         <Anchors>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-10" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.Duration" relativePoint="BOTTOMLEFT" x="20" />
         </Anchors>
       </Button>
     </Frames>
+
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontNormal" parentKey="Deposit" Text="Deposit:">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Duration" />
+          </Anchors>
+        </FontString>
+      </Layer>
+
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="DepositPrice">
+          <Size y="25" />
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.Deposit"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+
+        <!-- Total price (money display [non editable]) -->
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontNormal" parentKey="Total" Text="Total Price:">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.DepositPrice"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="TotalPrice">
+          <Size y="25" />
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.Total"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
   </Frame>
 </Ui>

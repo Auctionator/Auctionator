@@ -8,17 +8,18 @@ function AuctionatorConfigHorizontalRadioButtonGroupMixin:SetupRadioButtons()
     if child.isAuctionatorRadio then
       table.insert(self.radioButtons, child)
 
-      child:SetPoint("TOPLEFT", 0, size * -1)
+      child:SetPoint("TOPLEFT", size, -20)
       child.RadioButton.Label:SetPoint("TOPLEFT", 20, -2)
 
       child.onSelectedCallback = function()
         self:RadioSelected(child)
       end
-    end
 
-    size = size + (child:GetHeight() or 20)
+      -- Hacky; only works for strings < 50 in width
+      size = size + 50
+    end
   end
 
   -- 8 is for bottom padding
-  self:SetHeight(size + 8)
+  self:SetSize(size, 48)
 end

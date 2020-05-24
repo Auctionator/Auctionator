@@ -138,6 +138,8 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(...)
     return
   end
 
+  -- C_AuctionHouse.CalculateCommodityDeposit(C_Item.GetItemID(item), duration, quantity)
+
   self:UpdateSalesPrice(postingPrice)
 
   FrameUtil.UnregisterFrameForEvents(self, AUCTIONATOR_COMMODITY_EVENTS)
