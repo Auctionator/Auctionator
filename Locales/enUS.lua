@@ -217,5 +217,26 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["UNDERCUT_NO"] = "No"
   L["UNDERCUT_UNKNOWN"] = "?"
 
+  L["MONTH_1"] = "January"
+  L["MONTH_2"] = "February"
+  L["MONTH_3"] = "March"
+  L["MONTH_4"] = "April"
+  L["MONTH_5"] = "May"
+  L["MONTH_6"] = "June"
+  L["MONTH_7"] = "July"
+  L["MONTH_8"] = "August"
+  L["MONTH_9"] = "September"
+  L["MONTH_10"] = "October"
+  L["MONTH_11"] = "November"
+  L["MONTH_12"] = "December"
+
+  L["DAY_1"] = "Sunday"
+  L["DAY_2"] = "Monday"
+  L["DAY_3"] = "Tuesday"
+  L["DAY_4"] = "Wednesday"
+  L["DAY_5"] = "Thursday"
+  L["DAY_6"] = "Friday"
+  L["DAY_7"] = "Saturday"
+
   return L
 end
