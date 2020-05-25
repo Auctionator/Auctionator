@@ -115,7 +115,7 @@ function Auctionator.Database.GetPriceHistory(itemKey)
   for _, day in ipairs(sortedDays) do
     table.insert(results, {
      date = date(
-        "%A, %B %d",
+        "%Y-%m-%d",
         day * 86400 + Auctionator.Constants.SCAN_DAY_0
      ),
      minSeen = itemData.l[day] or itemData.h[day],
