@@ -238,5 +238,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DAY_6"] = "Friday"
   L["DAY_7"] = "Saturday"
 
+  L["TEMPORARY_LOWER_CASE"] = "temporary"
+
   return L
 end
