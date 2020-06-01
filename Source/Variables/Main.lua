@@ -79,4 +79,5 @@ function Auctionator.Variables.InitializeShoppingLists()
   end
 
   Auctionator.ShoppingLists.Lists = AUCTIONATOR_SHOPPING_LISTS
+  Auctionator.ShoppingLists.Prune()
 end

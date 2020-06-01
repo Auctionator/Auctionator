@@ -1,7 +1,15 @@
 function Auctionator.ShoppingLists.Create(listName)
   table.insert(Auctionator.ShoppingLists.Lists, {
     name = listName,
-    items = {}
+    items = {},
+    isTemporary = false,
+  })
+end
+function Auctionator.ShoppingLists.CreateTemporary(listName)
+  table.insert(Auctionator.ShoppingLists.Lists, {
+    name = listName,
+    items = {},
+    isTemporary = true,
   })
 end
 
@@ -56,4 +64,14 @@ function Auctionator.ShoppingLists.ImportFromString(listName, importString)
   local list = Auctionator.ShoppingLists.GetListByName(listName)
 
   list.items = {strsplit("\n", importString)}
+end
+
+function Auctionator.ShoppingLists.Prune()
+  local indexShift = 0
+  for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
+    if list.isTemporary == true then
+      table.remove(Auctionator.ShoppingLists.Lists, index + indexShift)
+      indexShift = indexShift - 1
+    end
+  end
 end
