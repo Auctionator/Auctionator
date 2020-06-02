@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Events.lua"/>
   <Script file="Categories.lua"/>
-  <Script file="Main.lua"/>
   <Script file="Advanced.lua"/>
   <Script file="Mixins\SearchProviderMixin.lua"/>
   <Script file="Mixins\MultiSearchMixin.lua"/>

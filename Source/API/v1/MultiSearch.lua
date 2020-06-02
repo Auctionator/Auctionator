@@ -1,16 +1,3 @@
-local function InitializeAPIv1MultiSearchFrame()
-  if Auctionator.State.APIv1MultiSearchFrameRef == nil then
-    local frame = CreateFrame(
-      "FRAME",
-      "AuctionatorAPIv1MultiSearchFrame",
-      AuctionHouseFrame,
-      "AuctionatorAPIv1MultiSearchFrameTemplate"
-    )
-
-    Auctionator.State.AuctionAPIv1MultiSearchFrameRef = frame
-  end
-end
-
 local function ValidateState(callerID, searchTerms)
   Auctionator.API.InternalVerifyID(callerID)
 
@@ -38,21 +25,40 @@ local function ValidateState(callerID, searchTerms)
   return cloned
 end
 
+local function StartSearch(callerID, cloned)
+  -- Show the shopping list tab for results
+  AuctionHouseFrame.AuctionatorShoppingListTab:Click()
+
+  -- Remove any old searches
+  if Auctionator.ShoppingLists.ListIndex(callerID) ~= nil then
+    Auctionator.ShoppingLists.Delete(callerID)
+  end
+
+  local listName = callerID .. " (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
+
+  Auctionator.ShoppingLists.CreateTemporary(listName)
+
+  local list = Auctionator.ShoppingLists.GetListByName(listName)
+
+  list.items = cloned
+
+  Auctionator.EventBus:RegisterSource(StartSearch, "API v1 Multi search start")
+    :Fire(StartSearch, Auctionator.ShoppingLists.Events.ListCreated, list)
+    :Fire(StartSearch, Auctionator.ShoppingLists.Events.ListSearchRequested, list)
+    :UnregisterSource(StartSearch)
+end
+
 function Auctionator.API.v1.MultiSearch(callerID, searchTerms)
   local cloned = ValidateState(callerID, searchTerms)
-
-  InitializeAPIv1MultiSearchFrame()
-  Auctionator.State.AuctionAPIv1MultiSearchFrameRef:StartSearch(cloned)
+  StartSearch(callerID, cloned)
 end
 
 function Auctionator.API.v1.MultiSearchExact(callerID, searchTerms)
   local cloned = ValidateState(callerID, searchTerms)
-
   -- Make all the terms advanced search terms  which are exact
   for index, term in ipairs(cloned) do
     cloned[index] = '"' .. term .. '"'
   end
 
-  InitializeAPIv1MultiSearchFrame()
-  Auctionator.State.AuctionAPIv1MultiSearchFrameRef:StartSearch(cloned)
+  StartSearch(callerID, cloned)
 end
