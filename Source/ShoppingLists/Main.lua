@@ -67,11 +67,13 @@ function Auctionator.ShoppingLists.ImportFromString(listName, importString)
 end
 
 function Auctionator.ShoppingLists.Prune()
-  local indexShift = 0
-  for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
-    if list.isTemporary == true then
-      table.remove(Auctionator.ShoppingLists.Lists, index + indexShift)
-      indexShift = indexShift - 1
+  local lists = {}
+
+  for _, list in ipairs(Auctionator.ShoppingLists.Lists) do
+    if not list.isTemporary then
+      table.insert(lists, list)
     end
   end
+
+  Auctionator.ShoppingLists.Lists = lists
 end
