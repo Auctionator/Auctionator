@@ -240,5 +240,11 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["TEMPORARY_LOWER_CASE"] = "temporary"
 
+  L["CONFIG_PROFILE_CATEGORY"] = "Profile"
+  L["CONFIG_PROFILE_TEXT"] = "Setup per-character settings."
+  L["CONFIG_PROFILE_TOGGLE"] = "Only apply settings to this character"
+  L["PROFILE_TOGGLE_TOOLTIP_HEADER"] = "Enable per character settings"
+  L["PROFILE_TOGGLE_TOOLTIP_TEXT"] = "Makes changes to the Auctionator settings only affect this character."
+
   return L
 end

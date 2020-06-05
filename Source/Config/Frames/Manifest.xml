@@ -4,6 +4,9 @@
 
   <Include file="LIFO.xml"/>
   <Include file="NotLIFO.xml"/>
+
+  <Include file="Profile.xml"/>
+
   <Include file="Advanced.xml"/>
 
   <Include file="Database.xml"/>

@@ -88,13 +88,32 @@ function Auctionator.Config.Set(name, value)
     error("AUCTIONATOR_CONFIG not initialized")
   elseif not isValidOption(name) then
     error("Invalid option '" .. name .. "'")
+  elseif AUCTIONATOR_CHARACTER_CONFIG ~= nil then
+    AUCTIONATOR_CHARACTER_CONFIG[name] = value
   else
     AUCTIONATOR_CONFIG[name] = value
   end
 end
 
+function Auctionator.Config.SetCharacterConfig(enabled)
+  if enabled then
+    if AUCTIONATOR_CHARACTER_CONFIG == nil then
+      AUCTIONATOR_CHARACTER_CONFIG = {}
+    end
+
+    Auctionator.Config.InitializeCharacterConfig()
+  else
+    AUCTIONATOR_CHARACTER_CONFIG = nil
+  end
+end
+
+function Auctionator.Config.IsCharacterConfig()
+  return AUCTIONATOR_CHARACTER_CONFIG ~= nil
+end
+
 function Auctionator.Config.Reset()
   AUCTIONATOR_CONFIG = {}
+  AUCTIONATOR_CHARACTER_CONFIG = nil
   for option, value in pairs(defaults) do
     AUCTIONATOR_CONFIG[option] = value
   end
@@ -110,6 +129,17 @@ function Auctionator.Config.Initialize()
         AUCTIONATOR_CONFIG[option] = value
       end
     end
+    Auctionator.Config.InitializeCharacterConfig()
+  end
+end
+
+function Auctionator.Config.InitializeCharacterConfig()
+  if Auctionator.Config.IsCharacterConfig() then
+    for key, value in pairs(AUCTIONATOR_CONFIG) do
+      if AUCTIONATOR_CHARACTER_CONFIG[key] == nil then
+        AUCTIONATOR_CHARACTER_CONFIG[key] = value
+      end
+    end
   end
 end
 
@@ -117,6 +147,8 @@ function Auctionator.Config.Get(name)
   -- This is ONLY if a config is asked for before variables are loaded
   if AUCTIONATOR_CONFIG == nil then
     return defaults[name]
+  elseif AUCTIONATOR_CHARACTER_CONFIG ~= nil then
+    return AUCTIONATOR_CHARACTER_CONFIG[name]
   else
     return AUCTIONATOR_CONFIG[name]
   end

@@ -10,6 +10,8 @@
   <Script file="LIFO.lua"/>
   <Script file="NotLIFO.lua"/>
 
+  <Script file="Profile.lua"/>
+
   <Script file="Database.lua"/>
   <Script file="ClearData.lua"/>
   <Script file="About.lua"/>
