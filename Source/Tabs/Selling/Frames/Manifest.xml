@@ -6,5 +6,8 @@
   <Include file="Bag.xml" />
   <Include file="SaleItem.xml"/>
 
+  <Include file="CommodityListing.xml" />
+  <Include file="ItemListing.xml"/>
+
   <Include file="Main.xml"/>
 </Ui>

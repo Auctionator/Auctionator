@@ -6,5 +6,8 @@
   <Script file="Bag.lua"/>
   <Script file="SaleItem.lua"/>
 
+  <Script file="CommodityListing.lua"/>
+  <Script file="ItemListing.lua"/>
+
   <Script file="Main.lua"/>
 </Ui>
