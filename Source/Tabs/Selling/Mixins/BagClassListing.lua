@@ -46,15 +46,41 @@ function AuctionatorBagClassListingMixin:UpdateTitle()
   self.SectionTitle:SetText(self.title .. " (" .. #self.items .. ")")
 end
 
+function AuctionatorBagClassListingMixin:AddItems(itemList)
+  local startTime = debugprofilestop()
+
+  for _, item in ipairs(itemList) do
+    self:AddItem(item)
+  end
+
+  self:UpdateTitle()
+
+  print("Title updated", debugprofilestop() -  startTime)
+  startTime = debugprofilestop()
+
+  self:DrawButtons()
+
+  print("Buttons drawn", debugprofilestop() -  startTime)
+  startTime = debugprofilestop()
+end
+
 function AuctionatorBagClassListingMixin:AddItem(item)
+  local startTime = debugprofilestop()
+
+  print("Adding Item")
+
   local button = CreateFrame("Frame", self.buttonNamePrefix .. #self.items, self.ItemContainer, "AuctionatorBagItem")
+
+  print("Button created", debugprofilestop() -  startTime)
+  startTime = debugprofilestop()
+
   button:SetItemInfo(item)
+
+  print("Item info set", debugprofilestop() -  startTime)
+  startTime = debugprofilestop()
 
   table.insert(self.buttons, button)
   table.insert(self.items, item)
-
-  self:UpdateTitle()
-  self:DrawButtons()
 end
 
 function AuctionatorBagClassListingMixin:DrawButtons()
@@ -90,7 +116,9 @@ function AuctionatorBagClassListingMixin:DrawButtons()
     end
   end
 
-  self.ItemContainer:SetSize( self.buttons[1]:GetWidth() * 3, rows * 42 + 2)
+  if #self.buttons > 0 then
+    self.ItemContainer:SetSize( self.buttons[1]:GetWidth() * 3, rows * 42 + 2)
+  end
 
   self:SetSize(42 * ROW_LENGTH, self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
 end

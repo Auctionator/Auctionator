@@ -82,14 +82,14 @@ function BagDataProviderMixin:LoadBagData()
     end
   end
 
-  Auctionator.Debug.Message("Obtained AH item info", tostring(debugprofilestop() - startTime))
+  print("Obtained AH item info", tostring(debugprofilestop() - startTime))
   startTime = debugprofilestop()
 
   for _, entry in pairs(itemMap) do
     table.insert( results, entry )
 
     local item = Item:CreateFromItemID(entry.itemKey.itemID)
-    Auctionator.Debug.Message("Created item", tostring(debugprofilestop() - startTime))
+    print("Created item", tostring(debugprofilestop() - startTime))
     startTime = debugprofilestop()
 
     item:ContinueOnItemLoad(function()
