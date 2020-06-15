@@ -11,6 +11,9 @@
     <Size y="40" />
     <Scripts>
       <OnLoad method="OnLoad"/>
+      <OnMouseUp method="OnMouseUp"/>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
     </Scripts>
     <Anchors>
       <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" />
