@@ -97,7 +97,7 @@ function AuctionatorBagClassListingMixin:DrawButtons()
 
     if index == 1 then
       button:SetPoint("TOPLEFT", self.ItemContainer, "TOPLEFT", 0, -2)
-    elseif (index % (ROW_LENGTH + 1)) == 0 then
+    elseif ((index - 1) % ROW_LENGTH) == 0 then
       rows = rows + 1
       button:SetPoint("TOPLEFT", self.buttons[index - ROW_LENGTH], "BOTTOMLEFT")
     else

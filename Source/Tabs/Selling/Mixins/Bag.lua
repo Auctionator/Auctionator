@@ -73,7 +73,7 @@ function AuctionatorSellingBagFrameMixin:Update()
 
   for classId, frame in pairs(self.frameMap) do
     local items = self.items[classId]
-    frame:Hide()
+    --frame:Hide()
     frame:Reset()
 
     classItems = {}
