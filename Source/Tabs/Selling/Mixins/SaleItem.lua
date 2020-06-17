@@ -34,6 +34,13 @@ function AuctionatorSaleItemMixin:UpdateDisplay()
   self.Icon:HideCount()
   self.Icon:SetItemInfo(self.itemInfo)
   self.Quantity:SetNumber(self.itemInfo.count)
+
+  local price = Auctionator.Database.GetPrice(
+    Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
+  )
+  if price ~= nil then
+    self:UpdateSalesPrice(price)
+  end
 end
 
 function AuctionatorSaleItemMixin:SetDefaults()
@@ -63,6 +70,7 @@ function AuctionatorSaleItemMixin:SetNotLifoDefaults()
 end
 
 function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)
+  print("update", salesPrice)
   local normalizedPrice = salesPrice
 
   -- Attempting to post an auction with copper value silently failes
