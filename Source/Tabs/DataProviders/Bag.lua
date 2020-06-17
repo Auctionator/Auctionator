@@ -63,9 +63,6 @@ function BagDataProviderMixin:LoadBagData()
     end
   end
 
-  Auctionator.Debug.Message("Created item locations", tostring(debugprofilestop() - startTime))
-  startTime = debugprofilestop()
-
   for _, location in ipairs(self.itemLocations) do
     if location:IsValid() then
       local itemKey = C_AuctionHouse.GetItemKeyFromItem(location)
@@ -89,8 +86,6 @@ function BagDataProviderMixin:LoadBagData()
     table.insert( results, entry )
 
     local item = Item:CreateFromItemID(entry.itemKey.itemID)
-    print("Created item", tostring(debugprofilestop() - startTime))
-    startTime = debugprofilestop()
 
     item:ContinueOnItemLoad(function()
       local _, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())

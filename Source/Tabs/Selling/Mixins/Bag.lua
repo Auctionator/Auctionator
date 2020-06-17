@@ -65,8 +65,6 @@ end
 function AuctionatorSellingBagFrameMixin:Update()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:Update()")
 
-  local startTime = debugprofilestop()
-  print("Starting update")
 
   local height = 0
   local classItems = {}
@@ -78,8 +76,6 @@ function AuctionatorSellingBagFrameMixin:Update()
 
     classItems = {}
 
-    print("Hidden and reset", debugprofilestop() - startTime )
-    startTime = debugprofilestop()
     local loopTime = debugprofilestop()
 
     for _, item in ipairs(items) do
@@ -87,17 +83,12 @@ function AuctionatorSellingBagFrameMixin:Update()
         table.insert(classItems, item)
         -- frame:AddItem(item)
 
-        print("Added item", debugprofilestop() -  startTime)
-        startTime = debugprofilestop()
       end
     end
-    print("Added all items:", startTime - loopTime)
 
     frame:AddItems(classItems)
     frame:Show()
 
-    print("Showing frame", debugprofilestop() -  startTime)
-    startTime = debugprofilestop()
 
     height = height + frame:GetHeight()
   end
@@ -105,6 +96,4 @@ function AuctionatorSellingBagFrameMixin:Update()
   self:SetSize(self.frameMap[1]:GetRowWidth(), height)
   self.ScrollFrame.ItemListingFrame:SetSize(self.frameMap[1]:GetRowWidth(), height)
 
-  print("Scroll frame size set", debugprofilestop() -  startTime)
-  startTime = debugprofilestop()
 end

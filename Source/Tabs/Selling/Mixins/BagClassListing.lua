@@ -47,37 +47,23 @@ function AuctionatorBagClassListingMixin:UpdateTitle()
 end
 
 function AuctionatorBagClassListingMixin:AddItems(itemList)
-  local startTime = debugprofilestop()
-
   for _, item in ipairs(itemList) do
     self:AddItem(item)
   end
 
   self:UpdateTitle()
 
-  print("Title updated", debugprofilestop() -  startTime)
-  startTime = debugprofilestop()
 
   self:DrawButtons()
-
-  print("Buttons drawn", debugprofilestop() -  startTime)
-  startTime = debugprofilestop()
 end
 
 function AuctionatorBagClassListingMixin:AddItem(item)
   local startTime = debugprofilestop()
 
-  print("Adding Item")
-
   local button = CreateFrame("Frame", self.buttonNamePrefix .. #self.items, self.ItemContainer, "AuctionatorBagItem")
 
-  print("Button created", debugprofilestop() -  startTime)
-  startTime = debugprofilestop()
 
   button:SetItemInfo(item)
-
-  print("Item info set", debugprofilestop() -  startTime)
-  startTime = debugprofilestop()
 
   table.insert(self.buttons, button)
   table.insert(self.items, item)
