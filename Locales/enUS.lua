@@ -247,5 +247,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["PROFILE_TOGGLE_TOOLTIP_HEADER"] = "Enable per character settings"
   L["PROFILE_TOGGLE_TOOLTIP_TEXT"] = "Makes changes to the Auctionator settings only affect this character."
 
+  L["BUYOUT_PRICE"] = "Buyout Price"
+  L["DURATION"] = "Duration"
+
   return L
 end

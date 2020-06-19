@@ -45,7 +45,7 @@
         </Anchors>
 
         <KeyValues>
-          <KeyValue key="labelText" value="Quantity" type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_QUANTITY" type="global"/>
         </KeyValues>
       </Frame>
 
@@ -55,13 +55,13 @@
         </Anchors>
 
         <KeyValues>
-          <KeyValue key="labelText" value="Buyout Price" type="string"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_BUYOUT_PRICE" type="global"/>
         </KeyValues>
       </Frame>
 
       <Frame inherits="AuctionatorConfigurationHorizontalRadioButtonGroup" parentKey="Duration">
         <KeyValues>
-          <KeyValue key="groupHeadingText" value="Duration" type="string"/>
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DURATION" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent.TitleArea" relativePoint="BOTTOM" />
