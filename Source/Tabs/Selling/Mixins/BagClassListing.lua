@@ -64,8 +64,9 @@ function AuctionatorBagClassListingMixin:AddItems(itemList)
 
   self:UpdateTitle()
 
-
   self:DrawButtons()
+
+  self:UpdateForCollapsing()
 end
 
 function AuctionatorBagClassListingMixin:AddItem(item)
@@ -121,12 +122,19 @@ function AuctionatorBagClassListingMixin:DrawButtons()
   self:SetSize(42 * ROW_LENGTH, self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
 end
 
-function AuctionatorBagClassListingMixin:OnClick()
-  if self.ItemContainer:IsVisible() then
+function AuctionatorBagClassListingMixin:UpdateForCollapsing()
+  if not self.ItemContainer:IsVisible() then
     self:SetHeight(self.SectionTitle:GetHeight())
-    self.ItemContainer:Hide()
   else
     self:SetHeight(self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
+  end
+end
+function AuctionatorBagClassListingMixin:OnClick()
+  if self.ItemContainer:IsVisible() then
+    self.ItemContainer:Hide()
+  else
     self.ItemContainer:Show()
   end
+
+  self:UpdateForCollapsing()
 end
