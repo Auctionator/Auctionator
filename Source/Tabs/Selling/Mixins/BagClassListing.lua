@@ -5,6 +5,11 @@ local ROW_LENGTH = 5
 function AuctionatorBagClassListingMixin:OnLoad()
   self.items = {}
   self.buttons = {}
+  self.buttonPool = CreateAndInitFromMixin(Auctionator.Utilities.PoolMixin)
+  self.buttonPool:SetCreator(function()
+    return CreateFrame("Frame", self.buttonNamePrefix .. #self.items,
+                self.ItemContainer, "AuctionatorBagItem")
+  end)
   self.isAuctionatorBag = true
 
   self.title = GetItemClassInfo(self.classId)
@@ -35,6 +40,12 @@ end
 
 function AuctionatorBagClassListingMixin:Reset()
   self.items = {}
+
+  print("disposed of", #self.buttons)
+  for index, item in ipairs(self.buttons) do
+    self.buttonPool:Return(item)
+  end
+
   self.buttons = {}
 end
 
@@ -60,8 +71,7 @@ end
 function AuctionatorBagClassListingMixin:AddItem(item)
   local startTime = debugprofilestop()
 
-  local button = CreateFrame("Frame", self.buttonNamePrefix .. #self.items, self.ItemContainer, "AuctionatorBagItem")
-
+  local button = self.buttonPool:Get()
 
   button:SetItemInfo(item)
 
