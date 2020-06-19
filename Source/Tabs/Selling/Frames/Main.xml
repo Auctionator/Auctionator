@@ -23,6 +23,7 @@
           <OnEvent method="OnEvent"/>
           <OnUpdate method="OnUpdate"/>
           <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
         </Scripts>
       </Frame>
 

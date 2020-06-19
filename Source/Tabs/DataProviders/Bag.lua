@@ -29,24 +29,30 @@ BAG_TABLE_LAYOUT = {
   },
 }
 
+local BAG_EVENTS = {
+  "BAG_UPDATE",
+  "BAG_NEW_ITEMS_UPDATED",
+  "BAG_SLOT_FLAGS_UPDATED"
+}
+
 BagDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
 function BagDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
   AuctionatorItemKeyLoadingMixin.OnLoad(self)
 
-  FrameUtil.RegisterFrameForEvents(self, {
-    "BAG_UPDATE",
-    "BAG_NEW_ITEMS_UPDATED",
-    "BAG_SLOT_FLAGS_UPDATED"
-  })
-
-  self:LoadBagData()
+  self.itemLocations = {}
 end
 
 function BagDataProviderMixin:OnShow()
+  FrameUtil.RegisterFrameForEvents(self, BAG_EVENTS)
+
   self:Reset()
   self:LoadBagData()
+end
+
+function BagDataProviderMixin:OnHide()
+  FrameUtil.UnregisterFrameForEvents(self, BAG_EVENTS)
 end
 
 function BagDataProviderMixin:LoadBagData()
