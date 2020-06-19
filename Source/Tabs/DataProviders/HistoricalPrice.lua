@@ -26,6 +26,10 @@ end
 function HistoricalPriceProviderMixin:SetItem(itemKey)
   self:Reset()
 
+  -- Reset columns
+  self.onSearchStarted()
+  self.onSearchEnded()
+
   local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
 
   self:AppendEntries(Auctionator.Database.GetPriceHistory(dbKey), true)
