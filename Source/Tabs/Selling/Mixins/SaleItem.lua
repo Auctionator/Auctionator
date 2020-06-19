@@ -70,7 +70,6 @@ function AuctionatorSaleItemMixin:SetNotLifoDefaults()
 end
 
 function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)
-  print("update", salesPrice)
   local normalizedPrice = salesPrice
 
   -- Attempting to post an auction with copper value silently failes
