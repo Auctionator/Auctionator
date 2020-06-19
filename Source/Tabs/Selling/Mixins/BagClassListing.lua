@@ -41,8 +41,8 @@ end
 function AuctionatorBagClassListingMixin:Reset()
   self.items = {}
 
-  print("disposed of", #self.buttons)
   for index, item in ipairs(self.buttons) do
+    item:Hide()
     self.buttonPool:Return(item)
   end
 
@@ -72,6 +72,8 @@ function AuctionatorBagClassListingMixin:AddItem(item)
   local startTime = debugprofilestop()
 
   local button = self.buttonPool:Get()
+
+  button:Show()
 
   button:SetItemInfo(item)
 

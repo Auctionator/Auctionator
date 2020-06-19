@@ -44,6 +44,11 @@ function BagDataProviderMixin:OnLoad()
   self:LoadBagData()
 end
 
+function BagDataProviderMixin:OnShow()
+  self:Reset()
+  self:LoadBagData()
+end
+
 function BagDataProviderMixin:LoadBagData()
   Auctionator.Debug.Message("BagDataProviderMixin:LoadBagData()")
 
@@ -51,8 +56,6 @@ function BagDataProviderMixin:LoadBagData()
 
   local itemMap = {}
   local results = {}
-
-  local startTime = debugprofilestop()
 
   for bagId = 0, 4 do
     for slot = 0, GetContainerNumSlots(bagId) do
@@ -78,9 +81,6 @@ function BagDataProviderMixin:LoadBagData()
       end
     end
   end
-
-  print("Obtained AH item info", tostring(debugprofilestop() - startTime))
-  startTime = debugprofilestop()
 
   for _, entry in pairs(itemMap) do
     table.insert( results, entry )
@@ -110,14 +110,17 @@ function BagDataProviderMixin:OnEvent(eventName, ...)
   if eventName == "BAG_UPDATE" then
     Auctionator.Debug.Message("BAG_UPDATE", ...)
 
+    self:Reset()
     self:LoadBagData()
   elseif eventName == "BAG_NEW_ITEMS_UPDATED" then
     Auctionator.Debug.Message("BAG_NEW_ITEMS_UPDATED", ...)
 
+    self:Reset()
     self:LoadBagData()
   elseif eventName == "BAG_SLOT_FLAGS_UPDATED" then
     Auctionator.Debug.Message("BAG_SLOT_FLAGS_UPDATED", ...)
 
+    self:Reset()
     self:LoadBagData()
   end
 end
