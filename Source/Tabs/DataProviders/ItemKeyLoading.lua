@@ -21,6 +21,11 @@ function AuctionatorItemKeyLoadingMixin:ReceiveEvent(event, itemKey, itemKeyInfo
 end
 
 function AuctionatorItemKeyLoadingMixin:ProcessItemKey(rowEntry, itemKeyInfo)
+  -- Check if a name has already been loaded
+  if rowEntry.itemName ~= "" then
+    return
+  end
+
   local text = AuctionHouseUtil.GetItemDisplayTextFromItemKey(
     rowEntry.itemKey,
     itemKeyInfo,

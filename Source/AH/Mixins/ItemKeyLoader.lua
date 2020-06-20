@@ -34,8 +34,19 @@ function AuctionatorAHItemKeyLoaderFrameMixin:Get(itemKey)
       Auctionator.Debug.Message("AuctionatorAHItemKeyLoaderFrameMixin", self.registered)
     end
 
-    table.insert(self.waiting[itemKey.itemID], itemKey)
+    self:MergeRequests(itemKey)
   end
+end
+
+function AuctionatorAHItemKeyLoaderFrameMixin:MergeRequests(itemKey)
+  local keyString = Auctionator.Utilities.ItemKeyString(itemKey)
+  for _, key in ipairs(self.waiting[itemKey.itemID]) do
+    if keyString == Auctionator.Utilities.ItemKeyString(key) then
+      return
+    end
+  end
+
+  table.insert(self.waiting[itemKey.itemID], itemKey)
 end
 
 function AuctionatorAHItemKeyLoaderFrameMixin:OnEvent(event, itemID)
