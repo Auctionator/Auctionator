@@ -10,13 +10,16 @@ AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnLoad()
   Auctionator.EventBus:Register( self, { Auctionator.Selling.Events.BagItemClicked })
+  self:UpdatePostButtonState()
 end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)
   if event == Auctionator.Selling.Events.BagItemClicked then
+    self:UpdatePostButtonState()
     self.itemInfo = itemInfo
     self:UpdateDisplay()
     self:SetDefaults()
+    self:UpdatePostButtonState()
   end
 end
 
@@ -250,4 +253,20 @@ function AuctionatorSaleItemMixin:ProcessItemResults(...)
   self:UpdateSalesPrice(postingPrice)
 
   FrameUtil.UnregisterFrameForEvents(self, AUCTIONATOR_ITEM_EVENTS)
+end
+
+function AuctionatorSaleItemMixin:GetPostButtonState()
+  return self.itemInfo ~= nil
+end
+
+function AuctionatorSaleItemMixin:UpdatePostButtonState()
+  if self:GetPostButtonState() then
+    self.PostButton:Enable()
+  else
+    self.PostButton:Disable()
+  end
+end
+
+function AuctionatorSaleItemMixin:PostItem()
+  print("POST-POST-POST")
 end

@@ -89,10 +89,13 @@
         </Frames>
       </Frame>
 
-      <Button parentKey="Post" inherits="UIPanelDynamicResizeButtonTemplate" text="Post">
+      <Button parentKey="PostButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_POST">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Duration" relativePoint="BOTTOMLEFT" x="20" />
         </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():PostItem()</OnClick>
+        </Scripts>
       </Button>
     </Frames>
 
