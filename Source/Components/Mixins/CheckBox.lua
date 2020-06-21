@@ -12,7 +12,7 @@ end
 
 -- Makes clicking on the text flip the toggle
 function AuctionatorConfigCheckboxMixin:OnMouseUp()
-  self:SetChecked(not self:GetChecked())
+  self.CheckBox:Click()
 end
 
 function AuctionatorConfigCheckboxMixin:OnEnter()
