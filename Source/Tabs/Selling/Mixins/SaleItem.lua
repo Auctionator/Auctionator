@@ -9,16 +9,20 @@ local AUCTIONATOR_COMMODITY_EVENTS = {
 AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnLoad()
-  Auctionator.EventBus:Register( self, { Auctionator.Selling.Events.BagItemClicked })
+  Auctionator.EventBus:Register(self, {
+    Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.AH.Events.ThrottleUpdate,
+  })
   self:UpdatePostButtonState()
 end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)
   if event == Auctionator.Selling.Events.BagItemClicked then
-    self:UpdatePostButtonState()
     self.itemInfo = itemInfo
     self:UpdateDisplay()
     self:SetDefaults()
+    self:UpdatePostButtonState()
+  elseif Auctionator.AH.Events.ThrottleUpdate then
     self:UpdatePostButtonState()
   end
 end
@@ -256,7 +260,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(...)
 end
 
 function AuctionatorSaleItemMixin:GetPostButtonState()
-  return self.itemInfo ~= nil
+  return self.itemInfo ~= nil and Auctionator.AH.IsNotThrottled()
 end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()

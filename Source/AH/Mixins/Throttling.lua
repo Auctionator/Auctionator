@@ -37,9 +37,12 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     self.failed = true
   else
     Auctionator.Debug.Message("not ready", eventName)
+
     self.normalReady = false
     self.searchReady = false
   end
+
+  local oldReady = self.ready
 
   self.ready = self.normalReady and self.searchReady
 
@@ -49,16 +52,22 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     self.lastCall = nil
 
     Auctionator.EventBus:Fire(self, Auctionator.AH.Events.Ready)
+    Auctionator.EventBus:Fire(self, Auctionator.AH.Events.ThrottleUpdate, true)
+  elseif oldReady ~= self.ready then
+    Auctionator.EventBus:Fire(self, Auctionator.AH.Events.ThrottleUpdate, false)
   end
 end
 
 function AuctionatorAHThrottlingFrameMixin:Call(func)
-  func()
   self.lastCall = func
   self.ready = false
   self.failed = false
   self.normalReady = false
   self.searchReady = false
+
+  func()
+
+  Auctionator.EventBus:Fire(self, Auctionator.AH.Events.ThrottleUpdate, false)
 end
 
 function AuctionatorAHThrottlingFrameMixin:IsReady()

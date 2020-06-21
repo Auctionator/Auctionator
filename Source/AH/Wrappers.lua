@@ -33,6 +33,11 @@ function Auctionator.AH.RequestMoreBrowseResults(...)
   end)
 end
 
+-- Event ThrottleUpdate will fire whenever the state changes
+function Auctionator.AH.IsNotThrottled()
+  return Auctionator.AH.Internals.throttling:IsReady()
+end
+
 function Auctionator.AH.CancelAuction(...)
   -- Can't be queued, "protected" call
   C_AuctionHouse.CancelAuction(...)
