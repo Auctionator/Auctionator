@@ -1,3 +1,5 @@
 Auctionator.Selling.Events = {
-  BagItemClicked = "bag_item_clicked"
+  BagItemClicked = "bag_item_clicked",
+  RequestPost = "selling_request_post",
+  AuctionCreated = "selling_auction_created",
 }

@@ -58,7 +58,11 @@ function AuctionatorSellingBagFrameMixin:AggregateItemsByClass()
   for index = 1, bagItemCount do
     entry = self.dataProvider:GetEntryAt(index)
 
-    table.insert(self.items[entry.classId], entry)
+    if self.items[entry.classId] ~= nil then
+      table.insert(self.items[entry.classId], entry)
+    else
+      Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:AggregateItemsByClass Missing item class table", entry.classId)
+    end
   end
 end
 

@@ -77,11 +77,11 @@ function BagDataProviderMixin:LoadBagData()
       local itemKey = C_AuctionHouse.GetItemKeyFromItem(location)
       local itemType = C_AuctionHouse.GetItemCommodityStatus(location)
 
-      local icon, itemCount = GetContainerItemInfo(location:GetBagAndSlot())
+      local icon, itemCount, _, _, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
       local tempId = self:UniqueKey({ itemKey = itemKey })
 
       if itemMap[tempId] == nil then
-        itemMap[tempId] = { itemKey = itemKey, count = itemCount, icon = icon, itemType = itemType, location = location }
+        itemMap[tempId] = { itemKey = itemKey, link = itemLink, count = itemCount, icon = icon, itemType = itemType, location = location }
       else
         itemMap[tempId].count = itemMap[tempId].count + itemCount
       end

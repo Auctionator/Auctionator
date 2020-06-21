@@ -11,8 +11,10 @@ AuctionatorSaleItemMixin = {}
 function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
   })
+  Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
   self:UpdatePostButtonState()
 end
@@ -20,8 +22,10 @@ end
 function AuctionatorSaleItemMixin:OnHide()
   Auctionator.EventBus:Unregister(self, {
     Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
   })
+  Auctionator.EventBus:UnregisterSource(self)
 end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)
@@ -30,8 +34,11 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)
     self:UpdateDisplay()
     self:SetDefaults()
     self:UpdatePostButtonState()
-  elseif Auctionator.AH.Events.ThrottleUpdate then
+  elseif event == Auctionator.AH.Events.ThrottleUpdate then
     self:UpdatePostButtonState()
+  elseif event == Auctionator.Selling.Events.RequestPost and
+         self:GetPostButtonState() then
+      self:PostItem()
   end
 end
 
@@ -295,4 +302,12 @@ function AuctionatorSaleItemMixin:PostItem()
   else
     C_AuctionHouse.PostCommodity(self.itemInfo.location, duration, quantity, buyout)
   end
+  Auctionator.EventBus:Fire(self,
+    Auctionator.Selling.Events.AuctionCreated,
+    {
+      itemLink = self.itemInfo.link,
+      quantity = quantity,
+      buyoutAmount = buyout,
+    }
+  )
 end

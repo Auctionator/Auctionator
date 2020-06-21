@@ -250,6 +250,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["BUYOUT_PRICE"] = "Buyout Price"
   L["DURATION"] = "Duration"
   L["POST"] = "Post"
+  L["POST_BUTTON_MACRO"] = "Post Button Macro"
 
   return L
 end

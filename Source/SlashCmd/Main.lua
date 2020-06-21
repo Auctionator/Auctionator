@@ -9,6 +9,8 @@ end
 
 --Update SLASH_COMMAND_DESCRIPTIONS in Commands.lua for new commands
 local SLASH_COMMANDS = {
+  ["p"] = Auctionator.SlashCmd.Post,
+  ["post"] = Auctionator.SlashCmd.Post,
   ["ra"] = Auctionator.SlashCmd.CleanReset,
   ["resetall"] = Auctionator.SlashCmd.CleanReset,
   ["rt"] = Auctionator.SlashCmd.ResetTimer,
