@@ -8,12 +8,20 @@ local AUCTIONATOR_COMMODITY_EVENTS = {
 
 AuctionatorSaleItemMixin = {}
 
-function AuctionatorSaleItemMixin:OnLoad()
+function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.AH.Events.ThrottleUpdate,
   })
+
   self:UpdatePostButtonState()
+end
+
+function AuctionatorSaleItemMixin:OnHide()
+  Auctionator.EventBus:Unregister(self, {
+    Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.AH.Events.ThrottleUpdate,
+  })
 end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)

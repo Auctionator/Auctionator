@@ -9,8 +9,9 @@
     <Size x="600" y="100" />
 
     <Scripts>
-      <OnLoad method="OnLoad" />
       <OnEvent method="OnEvent" />
+      <OnShow method="OnShow" />
+      <OnHide method="OnHide" />
     </Scripts>
 
     <Frames>
