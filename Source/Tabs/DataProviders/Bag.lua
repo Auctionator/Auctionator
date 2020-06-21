@@ -81,7 +81,7 @@ function BagDataProviderMixin:LoadBagData()
       local tempId = self:UniqueKey({ itemKey = itemKey })
 
       if itemMap[tempId] == nil then
-        itemMap[tempId] = { itemKey = itemKey, count = itemCount, icon = icon, itemType = itemType }
+        itemMap[tempId] = { itemKey = itemKey, count = itemCount, icon = icon, itemType = itemType, location = location }
       else
         itemMap[tempId].count = itemMap[tempId].count + itemCount
       end

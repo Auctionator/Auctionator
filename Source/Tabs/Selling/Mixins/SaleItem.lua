@@ -279,6 +279,20 @@ function AuctionatorSaleItemMixin:UpdatePostButtonState()
   end
 end
 
+local AUCTION_DURATIONS = {
+  [12] = 1,
+  [24] = 2,
+  [48] = 3,
+}
+
 function AuctionatorSaleItemMixin:PostItem()
-  print("POST-POST-POST")
+  local quantity = self.Quantity:GetNumber()
+  local duration = AUCTION_DURATIONS[self.Duration:GetValue()]
+  local buyout = self.Price:GetAmount()
+
+  if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
+    C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, nil, buyout)
+  else
+    C_AuctionHouse.PostCommodity(self.itemInfo.location, duration, quantity, buyout)
+  end
 end
