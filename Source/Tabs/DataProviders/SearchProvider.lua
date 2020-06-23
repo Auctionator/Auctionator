@@ -94,13 +94,12 @@ end
 
 function SearchProviderMixin:OnEvent(eventName, ...)
   local entries = {}
-  local complete = true
+  local complete = false
 
 
   if eventName == "AUCTION_HOUSE_NEW_RESULTS_RECEIVED" then
     local itemKey = ...
     C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
-    C_AuctionHouse.RequestMoreCommoditySearchResults(itemKey.itemID)
 
   elseif eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
     local itemID = ...
