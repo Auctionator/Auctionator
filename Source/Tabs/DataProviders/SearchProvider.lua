@@ -1,10 +1,10 @@
 local SEARCH_PROVIDER_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerParameters = { "unitPrice" },
+    headerParameters = { "price" },
     headerText = AUCTIONATOR_L_RESULTS_PRICE_COLUMN,
     cellTemplate = "AuctionatorPriceCellTemplate",
-    cellParameters = { "unitPrice" },
+    cellParameters = { "price" },
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -35,11 +35,10 @@ local SEARCH_EVENTS = {
   "ITEM_SEARCH_RESULTS_UPDATED",
 }
 
-SearchProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
+SearchProviderMixin = CreateFromMixins(DataProviderMixin)
 
 function SearchProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
-  AuctionatorItemKeyLoadingMixin.OnLoad(self)
 
   self:Reset()
   self.onSearchStarted()
@@ -82,25 +81,59 @@ end
 
 function SearchProviderMixin:OnEvent(eventName, ...)
   print("event", eventName, ...)
+  local entries = {}
+
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
     local itemID = ...
-    local entries = {}
-    for index = 1, C_AuctionHouse.GetNumCommoditySearchResults(itemID) do
-      local entry = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
-      print(Auctionator.Utilities.TablePrint(entry))
-      entry.level = ""
-      if entry.containsOwnerItem or entry.containsAccountItem then
+    for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
+      local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
+      local entry = {
+        price = resultInfo.unitPrice,
+        owners = resultInfo.owners,
+        quantity = resultInfo.quantity,
+        level = "0",
+        index = index, --Used for unique entry key
+      }
+      if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
         entry.owned = AUCTIONATOR_L_UNDERCUT_YES
       else
         entry.owned = AUCTIONATOR_L_UNDERCUT_NO
       end
-      entry.index = index
+
       table.insert(entries, entry)
     end
+  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
+    local itemKey = ...
+    print(itemKey)
+    for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
+      print("round we go")
+      local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
+      local entry = {
+        price = resultInfo.buyoutAmount or resultInfo.bidAmount,
+        level = "Unknown",
+        owners = resultInfo.owners,
+        quantity = resultInfo.quantity,
+        itemLink = resultInfo.itemLink,
+        index = index,
+      }
+      if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+        entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+      else
+        entry.owned = AUCTIONATOR_L_UNDERCUT_NO
+      end
 
-    self:Reset()
-    self.onSearchStarted()
-    self.onSearchEnded()
-    self:AppendEntries(entries, true)
+      table.insert(entries, entry)
+    end
   end
+
+  self:Reset()
+
+  self.onSearchStarted()
+  self.onSearchEnded()
+
+  self:AppendEntries(entries, true)
+end
+
+function SearchProviderMixin:GetRowTemplate()
+  return "AuctionatorSellSearchRowTemplate"
 end
