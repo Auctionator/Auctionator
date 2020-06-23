@@ -33,6 +33,7 @@ local SEARCH_PROVIDER_LAYOUT = {
 local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
+  "AUCTION_HOUSE_NEW_RESULTS_RECEIVED",
 }
 
 SearchProviderMixin = CreateFromMixins(DataProviderMixin)
@@ -92,10 +93,16 @@ function SearchProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function SearchProviderMixin:OnEvent(eventName, ...)
-  print("event", eventName, ...)
   local entries = {}
+  local complete = true
 
-  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
+
+  if eventName == "AUCTION_HOUSE_NEW_RESULTS_RECEIVED" then
+    local itemKey = ...
+    C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
+    C_AuctionHouse.RequestMoreCommoditySearchResults(itemKey.itemID)
+
+  elseif eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
     local itemID = ...
     for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
       local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
@@ -114,14 +121,15 @@ function SearchProviderMixin:OnEvent(eventName, ...)
 
       table.insert(entries, entry)
     end
+
+    complete = C_AuctionHouse.RequestMoreCommoditySearchResults(itemID)
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
     local itemKey = ...
-    print(Auctionator.Utilities.ItemKeyString(itemKey), C_AuctionHouse.GetNumItemSearchResults(itemKey))
     for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
       local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
       local entry = {
         price = resultInfo.buyoutAmount or resultInfo.bidAmount,
-        level = "Unknown",
+        level = tostring(resultInfo.itemKey.itemLevel or 0),
         owners = resultInfo.owners,
         quantity = resultInfo.quantity,
         itemLink = resultInfo.itemLink,
@@ -135,13 +143,15 @@ function SearchProviderMixin:OnEvent(eventName, ...)
 
       table.insert(entries, entry)
     end
+
+    complete = C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
   end
 
 
   self.onSearchStarted()
   self.onSearchEnded()
 
-  self:AppendEntries(entries, true)
+  self:AppendEntries(entries, complete)
 end
 
 function SearchProviderMixin:GetRowTemplate()
