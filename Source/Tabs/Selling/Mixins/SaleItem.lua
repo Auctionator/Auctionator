@@ -305,7 +305,7 @@ function AuctionatorSaleItemMixin:PostItem()
   Auctionator.EventBus:Fire(self,
     Auctionator.Selling.Events.AuctionCreated,
     {
-      itemLink = self.itemInfo.link,
+      itemLink = self.itemInfo.itemLink,
       quantity = quantity,
       buyoutAmount = buyout,
     }

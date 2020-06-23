@@ -81,7 +81,7 @@ function BagDataProviderMixin:LoadBagData()
       local tempId = self:UniqueKey({ itemKey = itemKey })
 
       if itemMap[tempId] == nil then
-        itemMap[tempId] = { itemKey = itemKey, link = itemLink, count = itemCount, icon = icon, itemType = itemType, location = location }
+        itemMap[tempId] = { itemKey = itemKey, itemLink = itemLink, count = itemCount, icon = icon, itemType = itemType, location = location }
       else
         itemMap[tempId].count = itemMap[tempId].count + itemCount
       end
@@ -91,7 +91,7 @@ function BagDataProviderMixin:LoadBagData()
   for _, entry in pairs(itemMap) do
     table.insert( results, entry )
 
-    local item = Item:CreateFromItemID(entry.itemKey.itemID)
+    local item = Item:CreateFromItemLocation(entry.location)
 
     item:ContinueOnItemLoad(function()
       local _, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
