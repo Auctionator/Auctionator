@@ -48,10 +48,22 @@ end
 
 function SearchProviderMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, SEARCH_EVENTS)
+  Auctionator.EventBus:Register(self, {
+    Auctionator.Selling.Events.SellSearchStart
+  })
 end
 
 function SearchProviderMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, SEARCH_EVENTS)
+  Auctionator.EventBus:Unregister(self, {
+    Auctionator.Selling.Events.SellSearchStart
+  })
+end
+
+function SearchProviderMixin:ReceiveEvent(eventName)
+  if eventName == Auctionator.Selling.Events.SellSearchStart then
+    self:Reset()
+  end
 end
 
 function SearchProviderMixin:GetTableLayout()
@@ -104,9 +116,8 @@ function SearchProviderMixin:OnEvent(eventName, ...)
     end
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
     local itemKey = ...
-    print(itemKey)
+    print(Auctionator.Utilities.ItemKeyString(itemKey), C_AuctionHouse.GetNumItemSearchResults(itemKey))
     for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
-      print("round we go")
       local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
       local entry = {
         price = resultInfo.buyoutAmount or resultInfo.bidAmount,
@@ -126,7 +137,6 @@ function SearchProviderMixin:OnEvent(eventName, ...)
     end
   end
 
-  self:Reset()
 
   self.onSearchStarted()
   self.onSearchEnded()

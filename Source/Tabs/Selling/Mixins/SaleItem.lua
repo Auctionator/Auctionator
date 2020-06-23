@@ -79,7 +79,9 @@ function AuctionatorSaleItemMixin:SetLifoDefaults()
   )
 
   FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_COMMODITY_EVENTS)
+
   Auctionator.AH.SendSearchQuery(self.itemInfo.itemKey, {sortOrder = 0, reverseSort = false}, true)
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart)
 end
 
 function AuctionatorSaleItemMixin:SetNotLifoDefaults()
@@ -88,7 +90,9 @@ function AuctionatorSaleItemMixin:SetNotLifoDefaults()
   )
 
   FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_ITEM_EVENTS)
+
   Auctionator.AH.SendSearchQuery(self.itemInfo.itemKey, {sortOrder = 4, reverseSort = false}, true)
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart)
 end
 
 function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)

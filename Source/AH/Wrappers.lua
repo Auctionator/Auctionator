@@ -5,6 +5,13 @@ function Auctionator.AH.SendSearchQuery(...)
   end)
 end
 
+function Auctionator.AH.SendSellSearchQuery(...)
+  local args = {...}
+  Auctionator.AH.Queue:Enqueue(function()
+    C_AuctionHouse.SendSellSearchQuery(unpack(args))
+  end)
+end
+
 function Auctionator.AH.QueryOwnedAuctions(...)
   local args = {...}
   Auctionator.AH.Queue:Enqueue(function()
