@@ -27,7 +27,7 @@
         </Scripts>
       </Frame>
 
-      <Frame inherits="AuctionatorSaleItemFrameTemplate">
+      <Frame parentKey="SaleItemFrame" inherits="AuctionatorSaleItemFrameTemplate">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent" relativePoint="TOP" y="105" />
         </Anchors>
@@ -65,8 +65,10 @@
 
       <Frame parentKey="CurrentItemListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionatorSellingBagFrame" relativePoint="TOPLEFT"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" relativePoint="TOPRIGHT"/>
+          <Anchor point="TOP" relativeKey="$parent.SaleItemFrame" relativePoint="BOTTOM"/>
+          <Anchor point="LEFT" relativeKey="$parent.BagListing" relativePoint="RIGHT" x="35" />
+          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="CENTER"/>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-20" />
         </Anchors>
       </Frame>
     </Frames>
