@@ -22,6 +22,52 @@ function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 end
 
+function AuctionatorSaleItemMixin:OnUpdate()
+  self.TotalPrice:SetText(
+    Auctionator.Utilities.CreateMoneyString(
+      self.Quantity:GetNumber() * self.Price:GetAmount()
+    )
+  )
+
+  if self.Price:GetAmount() < 100 then
+    self.Price:SetAmount(100)
+  end
+
+  if self.itemInfo == nil then
+    return
+  end
+
+  if self.Quantity:GetNumber() > self.itemInfo.count then
+      self.Quantity:SetNumber(self.itemInfo.count)
+  end
+
+  local deposit = 100
+  if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+    deposit = C_AuctionHouse.CalculateCommodityDeposit(
+      self.itemInfo.itemKey.itemID,
+      self:GetDuration(),
+      self.Quantity:GetNumber()
+    )
+  else
+    deposit = C_AuctionHouse.CalculateItemDeposit(
+      self.itemInfo.location,
+      self:GetDuration(),
+      self.Quantity:GetNumber()
+    )
+  end
+
+  if deposit % 100 ~= 0 then
+    deposit = deposit + (100 - (deposit % 100))
+  end
+
+  -- Need to have a price of at least one silver
+  if deposit < 100 then
+    deposit = 100
+  end
+
+  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(deposit))
+end
+
 function AuctionatorSaleItemMixin:OnHide()
   Auctionator.EventBus:Unregister(self, {
     Auctionator.Selling.Events.BagItemClicked,
@@ -103,13 +149,13 @@ end
 
 function AuctionatorSaleItemMixin:Reset()
   self.itemInfo = nil
+  self.Icon:SetItemInfo(nil)
 
   self:Update()
-  self.Icon:SetItemInfo(nil)
 end
 
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
-  if C_AuctionHouse.GetItemCommodityStatus(itemInfo.location) ~= 2 and
+  if self.itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
      itemInfo.itemKey.battlePetSpeciesID == 0 then
     Auctionator.AH.SendSellSearchQuery({itemID = itemInfo.itemKey.itemID}, ...)
   else
@@ -213,8 +259,6 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(...)
     Auctionator.Debug.Message("No prices have been recorded for this item.")
     return
   end
-
-  -- C_AuctionHouse.CalculateCommodityDeposit(C_Item.GetItemID(item), duration, quantity)
 
   self:UpdateSalesPrice(postingPrice)
 
@@ -339,9 +383,13 @@ local AUCTION_DURATIONS = {
   [48] = 3,
 }
 
+function AuctionatorSaleItemMixin:GetDuration()
+  return AUCTION_DURATIONS[self.Duration:GetValue()]
+end
+
 function AuctionatorSaleItemMixin:PostItem()
   local quantity = self.Quantity:GetNumber()
-  local duration = AUCTION_DURATIONS[self.Duration:GetValue()]
+  local duration = self:GetDuration()
   local buyout = self.Price:GetAmount()
 
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
