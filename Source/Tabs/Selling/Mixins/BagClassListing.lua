@@ -117,6 +117,8 @@ function AuctionatorBagClassListingMixin:DrawButtons()
 
   if #self.buttons > 0 then
     self.ItemContainer:SetSize( self.buttons[1]:GetWidth() * 3, rows * 42 + 2)
+  else
+    self.ItemContainer:SetSize(0, 0)
   end
 
   self:SetSize(42 * ROW_LENGTH, self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
