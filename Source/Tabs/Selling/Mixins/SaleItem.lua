@@ -8,6 +8,10 @@ local AUCTIONATOR_COMMODITY_EVENTS = {
 
 AuctionatorSaleItemMixin = {}
 
+function AuctionatorSaleItemMixin:OnLoad()
+  self:Reset()
+end
+
 function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
@@ -16,8 +20,6 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.PriceSelected,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
-
-  self:UpdatePostButtonState()
 end
 
 function AuctionatorSaleItemMixin:OnHide()
@@ -33,9 +35,7 @@ end
 function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemClicked then
     self.itemInfo = ...
-    self:UpdateDisplay()
-    self:SetDefaults()
-    self:UpdatePostButtonState()
+    self:Update()
   elseif event == Auctionator.AH.Events.ThrottleUpdate then
     self:UpdatePostButtonState()
   elseif event == Auctionator.Selling.Events.RequestPost and
@@ -54,35 +54,58 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   end
 end
 
+function AuctionatorSaleItemMixin:Update()
+  self:UpdateDisplay()
+  self:SetDefaults()
+  self:UpdatePostButtonState()
+end
+
 function AuctionatorSaleItemMixin:UpdateDisplay()
-  self.TitleArea.Text:SetText(
-    self.itemInfo.name .. " - " ..
-    Auctionator.Constants.ITEM_TYPE_STRINGS[self.itemInfo.itemType]
-  )
-  self.TitleArea.Text:SetTextColor(
-    ITEM_QUALITY_COLORS[self.itemInfo.quality].r,
-    ITEM_QUALITY_COLORS[self.itemInfo.quality].g,
-    ITEM_QUALITY_COLORS[self.itemInfo.quality].b
-  )
+  if self.itemInfo ~= nil then
+    self.TitleArea.Text:SetText(
+      self.itemInfo.name .. " - " ..
+      Auctionator.Constants.ITEM_TYPE_STRINGS[self.itemInfo.itemType]
+    )
+    self.TitleArea.Text:SetTextColor(
+      ITEM_QUALITY_COLORS[self.itemInfo.quality].r,
+      ITEM_QUALITY_COLORS[self.itemInfo.quality].g,
+      ITEM_QUALITY_COLORS[self.itemInfo.quality].b
+    )
 
-  self.Icon:HideCount()
-  self.Icon:SetItemInfo(self.itemInfo)
-  self.Quantity:SetNumber(self.itemInfo.count)
+    self.Icon:HideCount()
+    self.Icon:SetItemInfo(self.itemInfo)
+    self.Quantity:SetNumber(self.itemInfo.count)
 
-  local price = Auctionator.Database.GetPrice(
-    Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
-  )
-  if price ~= nil then
-    self:UpdateSalesPrice(price)
+    local price = Auctionator.Database.GetPrice(
+      Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
+    )
+    if price ~= nil then
+      self:UpdateSalesPrice(price)
+    end
+  else
+    self.TitleArea.Text:SetText("")
+    self.Quantity:SetNumber(1)
+    self:UpdateSalesPrice(0)
   end
 end
 
 function AuctionatorSaleItemMixin:SetDefaults()
+  if self.itemInfo == nil then
+    return
+  end
+
   if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
     self:SetNotLifoDefaults()
   else
     self:SetLifoDefaults()
   end
+end
+
+function AuctionatorSaleItemMixin:Reset()
+  self.itemInfo = nil
+
+  self:Update()
+  self.Icon:SetItemInfo(nil)
 end
 
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
@@ -334,4 +357,6 @@ function AuctionatorSaleItemMixin:PostItem()
       buyoutAmount = buyout,
     }
   )
+
+  self:Reset()
 end
