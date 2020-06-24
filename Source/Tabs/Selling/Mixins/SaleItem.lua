@@ -30,9 +30,9 @@ function AuctionatorSaleItemMixin:OnHide()
   Auctionator.EventBus:UnregisterSource(self)
 end
 
-function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)
+function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemClicked then
-    self.itemInfo = itemInfo
+    self.itemInfo = ...
     self:UpdateDisplay()
     self:SetDefaults()
     self:UpdatePostButtonState()
@@ -42,7 +42,15 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)
          self:GetPostButtonState() then
       self:PostItem()
   elseif event == Auctionator.Selling.Events.PriceSelected then
-    self:UpdateSalesPrice(itemInfo)
+    local buyoutAmount, shouldUndercut = ...
+    if shouldUndercut then
+      if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
+        buyoutAmount = Auctionator.Selling.CalculateNotLIFOPriceFromPrice(buyoutAmount)
+      else --Not LIFO
+        buyoutAmount = Auctionator.Selling.CalculateLIFOPriceFromPrice(buyoutAmount)
+      end
+    end
+    self:UpdateSalesPrice(buyoutAmount)
   end
 end
 
@@ -80,7 +88,7 @@ end
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   if C_AuctionHouse.GetItemCommodityStatus(itemInfo.location) ~= 2 and
      itemInfo.itemKey.battlePetSpeciesID == 0 then
-    Auctionator.AH.SendSellSearchQuery(itemInfo.itemKey, ...)
+    Auctionator.AH.SendSellSearchQuery({itemID = itemInfo.itemKey.itemID}, ...)
   else
     Auctionator.AH.SendSearchQuery(itemInfo.itemKey, ...)
   end
