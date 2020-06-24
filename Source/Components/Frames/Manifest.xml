@@ -6,6 +6,7 @@
   <Include file="CheckBox.xml"/>
   <Include file="RadioButton.xml"/>
   <Include file="RadioButtonGroup.xml"/>
+  <Include file="HorizontalRadioButtonGroup.xml"/>
   <Include file="NumericInputBox.xml"/>
   <Include file="MoneyInput.xml"/>
   <Include file="CopyAndPasteBox.xml"/>

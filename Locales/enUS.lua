@@ -163,6 +163,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["RESULTS_PRICE_COLUMN"] = "Price"
   L["RESULTS_NAME_COLUMN"] = "Name"
   L["RESULTS_AVAILABLE_COLUMN"] = "Available"
+  L["ITEM_LEVEL_COLUMN"] = "Item Level"
+  L["OWNED_COLUMN"] = "Owned?"
 
   L["FULL_SCAN_BUTTON"] = "Full Scan"
 
@@ -198,6 +200,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ITEM_LEVEL"] = "Item Level"
   L["LEVEL"] = "Level"
   L["PRICE"] = "Price"
+  L["DATE"] = "Date"
   L["CRAFTED_LEVEL"] = "Crafted Level"
   L["MIN"] = "Min"
   L["MAX"] = "Max"
@@ -245,6 +248,16 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_PROFILE_TOGGLE"] = "Only apply settings to this character"
   L["PROFILE_TOGGLE_TOOLTIP_HEADER"] = "Enable per character settings"
   L["PROFILE_TOGGLE_TOOLTIP_TEXT"] = "Makes changes to the Auctionator settings only affect this character."
+
+  L["BUYOUT_PRICE"] = "Buyout Price"
+  L["DURATION"] = "Duration"
+  L["POST"] = "Post"
+  L["POST_BUTTON_MACRO"] = "Post Button Macro"
+  L["DEPOSIT"] = "Deposit:"
+  L["TOTAL_PRICE"] = "Total Price:"
+  L["UNKNOWN"] = "Unknown"
+  L["ITEM"] = "Item"
+  L["COMMODITY"] = "Commodity"
 
   return L
 end

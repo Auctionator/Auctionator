@@ -154,7 +154,7 @@
       <Frame inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPRIGHT" y="27" />
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
         </Anchors>
       </Frame>
     </Frames>

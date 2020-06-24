@@ -24,6 +24,7 @@
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>
   <Script file="TableKeys.lua"/>
+  <Script file="Pool.lua"/>
 
   <Script file="Sorting.lua" />
 </Ui>

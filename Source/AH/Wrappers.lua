@@ -5,6 +5,13 @@ function Auctionator.AH.SendSearchQuery(...)
   end)
 end
 
+function Auctionator.AH.SendSellSearchQuery(...)
+  local args = {...}
+  Auctionator.AH.Queue:Enqueue(function()
+    C_AuctionHouse.SendSellSearchQuery(unpack(args))
+  end)
+end
+
 function Auctionator.AH.QueryOwnedAuctions(...)
   local args = {...}
   Auctionator.AH.Queue:Enqueue(function()
@@ -31,6 +38,11 @@ function Auctionator.AH.RequestMoreBrowseResults(...)
   Auctionator.AH.Queue:Enqueue(function()
     C_AuctionHouse.RequestMoreBrowseResults(unpack(args))
   end)
+end
+
+-- Event ThrottleUpdate will fire whenever the state changes
+function Auctionator.AH.IsNotThrottled()
+  return Auctionator.AH.Internals.throttling:IsReady()
 end
 
 function Auctionator.AH.CancelAuction(...)

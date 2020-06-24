@@ -92,6 +92,8 @@ function DataProviderMixin:SetOnSearchEndedCallback(onSearchEndedCallback)
 end
 
 function DataProviderMixin:AppendEntries(entries, isLastSetOfResults)
+  Auctionator.Debug.Message("DataProviderMixin:AppendEntries()", #entries)
+
   self.searchCompleted = isLastSetOfResults
 
   for _, entry in ipairs(entries) do

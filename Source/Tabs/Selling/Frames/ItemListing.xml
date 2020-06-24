@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorSellItemListing" mixin="AuctionatorSellItemListingMixin" virtual="true">
+    <Scripts>
+      <OnShow method="OnShow" />
+      <OnHide method="OnHide" />
+    </Scripts>
+  </Frame>
+</Ui>

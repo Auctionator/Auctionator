@@ -1,4 +1,5 @@
 local SLASH_COMMAND_DESCRIPTIONS = {
+  {commands = "p, post", message = "Posts the chosen item from the \"Selling\" tab." },
   {commands = "ra, resetall", message = "Reset database and full scan timer." },
   {commands = "rdb, resetdatabase", message = "Reset Auctionator database."},
   {commands = "rt, resettimer", message = "Reset full scan timer."},
@@ -9,6 +10,14 @@ local SLASH_COMMAND_DESCRIPTIONS = {
   {commands = "v, version", message = "Show current version."},
   {commands = "h, help", message = "Show this help message."},
 }
+
+function Auctionator.SlashCmd.Post()
+  Auctionator.Utilities.Message(AUCTIONATOR_L_POST_BUTTON_MACRO)
+  Auctionator.EventBus
+    :RegisterSource(Auctionator.SlashCmd.Post, "Auctionator.SlashCmd.Post")
+    :Fire(Auctionator.SlashCmd.Post, Auctionator.Selling.Events.RequestPost)
+    :UnregisterSource(Auctionator.SlashCmd.Post)
+end
 
 function Auctionator.SlashCmd.ToggleDebug()
   Auctionator.Debug.Toggle()

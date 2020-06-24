@@ -1,0 +1,142 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorSaleItemFrameTemplate"
+    virtual="true"
+
+    parentKey="AuctionatorSaleItem"
+    mixin="AuctionatorSaleItemMixin"
+  >
+    <Size x="600" y="100" />
+
+    <Scripts>
+      <OnEvent method="OnEvent" />
+      <OnUpdate method="OnUpdate" />
+      <OnShow method="OnShow" />
+      <OnHide method="OnHide" />
+    </Scripts>
+
+    <Frames>
+      <Frame parentKey="TitleArea">
+        <Size y="24" />
+        <Anchors>
+          <Anchor point="TOPLEFT" />
+          <Anchor point="RIGHT" />
+        </Anchors>
+
+        <Layers>
+          <Layer>
+            <FontString parentKey="Text" inherits="Game15Font">
+              <Anchors>
+                <Anchor point="TOPLEFT" x="9" y="-5" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+
+      <Frame parentKey="Icon" inherits="AuctionatorBagItem">
+        <Size x="60" y="60" />
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-12" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInput">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" y="-2" />
+        </Anchors>
+
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_QUANTITY" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame parentKey="Price" inherits="AuctionatorConfigurationMoneyInput">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Quantity" relativePoint="BOTTOMLEFT" y="10" />
+        </Anchors>
+
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_BUYOUT_PRICE" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHorizontalRadioButtonGroup" parentKey="Duration">
+        <KeyValues>
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DURATION" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOP" relativeKey="$parent.TitleArea" relativePoint="BOTTOM" />
+          <Anchor point="LEFT" relativeKey="$parent" relativePoint="CENTER" x="50" />
+        </Anchors>
+        <Frames>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="12" type="string"/>
+              <KeyValue key="value" value="12" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="24" type="string"/>
+              <KeyValue key="value" value="24" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="48" type="string"/>
+              <KeyValue key="value" value="48" type="number"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
+
+      <Button parentKey="PostButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_POST">
+        <Size x="194" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Duration" relativePoint="BOTTOMLEFT" x="20" />
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():PostItem()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontNormal" parentKey="Deposit" Text="AUCTIONATOR_L_DEPOSIT">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Duration" x="-10" />
+          </Anchors>
+        </FontString>
+      </Layer>
+
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="DepositPrice">
+          <Size y="25" />
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.Deposit"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+
+        <!-- Total price (money display [non editable]) -->
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontNormal" parentKey="Total" Text="AUCTIONATOR_L_TOTAL_PRICE">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.DepositPrice"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="TotalPrice">
+          <Size y="25" />
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.Total"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

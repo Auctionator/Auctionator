@@ -76,7 +76,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_PERCENTAGE_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CommoditySalesPreference" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CommoditySalesPreference" relativePoint="BOTTOMLEFT" y="-7" />
         </Anchors>
       </Frame>
 
