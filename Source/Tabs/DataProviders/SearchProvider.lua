@@ -111,7 +111,7 @@ function SearchProviderMixin:OnEvent(eventName, ...)
       if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
         entry.owned = AUCTIONATOR_L_UNDERCUT_YES
       else
-        entry.owned = AUCTIONATOR_L_UNDERCUT_NO
+        entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
       end
 
       table.insert(entries, entry)
@@ -133,7 +133,7 @@ function SearchProviderMixin:OnEvent(eventName, ...)
       if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
         entry.owned = AUCTIONATOR_L_UNDERCUT_YES
       else
-        entry.owned = AUCTIONATOR_L_UNDERCUT_NO
+        entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
       end
 
       table.insert(entries, entry)
