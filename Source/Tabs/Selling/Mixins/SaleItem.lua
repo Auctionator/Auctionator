@@ -8,10 +8,6 @@ local AUCTIONATOR_COMMODITY_EVENTS = {
 
 AuctionatorSaleItemMixin = {}
 
-function AuctionatorSaleItemMixin:OnLoad()
-  self:Reset()
-end
-
 function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
@@ -20,22 +16,34 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.PriceSelected,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
+
+  self:Reset()
+end
+
+function AuctionatorSaleItemMixin:OnHide()
+  Auctionator.EventBus:Unregister(self, {
+    Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Selling.Events.RequestPost,
+    Auctionator.AH.Events.ThrottleUpdate,
+    Auctionator.Selling.Events.PriceSelected,
+  })
+  Auctionator.EventBus:UnregisterSource(self)
 end
 
 function AuctionatorSaleItemMixin:OnUpdate()
-  self.TotalPrice:SetText(
-    Auctionator.Utilities.CreateMoneyString(
-      self.Quantity:GetNumber() * self.Price:GetAmount()
-    )
-  )
+  if self.itemInfo == nil then
+    return
+  end
 
   if self.Price:GetAmount() < 100 then
     self.Price:SetAmount(100)
   end
 
-  if self.itemInfo == nil then
-    return
-  end
+  self.TotalPrice:SetText(
+    Auctionator.Utilities.CreateMoneyString(
+      self.Quantity:GetNumber() * self.Price:GetAmount()
+    )
+  )
 
   if self.Quantity:GetNumber() > self.itemInfo.count then
       self.Quantity:SetNumber(self.itemInfo.count)
@@ -66,16 +74,6 @@ function AuctionatorSaleItemMixin:OnUpdate()
   end
 
   self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(deposit))
-end
-
-function AuctionatorSaleItemMixin:OnHide()
-  Auctionator.EventBus:Unregister(self, {
-    Auctionator.Selling.Events.BagItemClicked,
-    Auctionator.Selling.Events.RequestPost,
-    Auctionator.AH.Events.ThrottleUpdate,
-    Auctionator.Selling.Events.PriceSelected,
-  })
-  Auctionator.EventBus:UnregisterSource(self)
 end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
@@ -132,6 +130,8 @@ function AuctionatorSaleItemMixin:UpdateDisplay()
     self.TitleArea.Text:SetText("")
     self.Quantity:SetNumber(1)
     self:UpdateSalesPrice(0)
+    self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
+    self.TotalPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
   end
 end
 

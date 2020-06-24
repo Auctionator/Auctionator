@@ -9,7 +9,6 @@
     <Size x="600" y="100" />
 
     <Scripts>
-      <OnLoad method="OnLoad" />
       <OnEvent method="OnEvent" />
       <OnUpdate method="OnUpdate" />
       <OnShow method="OnShow" />
@@ -107,7 +106,7 @@
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormal" parentKey="Deposit" Text="AUCTIONATOR_L_DEPOSIT">
           <Anchors>
-            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Duration" />
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Duration" x="-10" />
           </Anchors>
         </FontString>
       </Layer>
