@@ -70,8 +70,6 @@ function AuctionatorBagClassListingMixin:AddItems(itemList)
 end
 
 function AuctionatorBagClassListingMixin:AddItem(item)
-  local startTime = debugprofilestop()
-
   local button = self.buttonPool:Get()
 
   button:Show()
