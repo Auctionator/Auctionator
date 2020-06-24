@@ -9,3 +9,12 @@ function AuctionatorSellSearchRowMixin:OnLeave()
   AuctionHouseUtil.LineOnLeaveCallback(self, self.rowData)
   AuctionatorResultsRowTemplateMixin.OnLeave(self)
 end
+
+function AuctionatorSellSearchRowMixin:OnClick(...)
+  Auctionator.Debug.Message("AuctionatorSellSearchRowMixin:OnClick()")
+
+  Auctionator.EventBus
+    :RegisterSource(self, "SellSearchRow")
+    :Fire(self, Auctionator.Selling.Events.PriceSelected, self.rowData.price)
+    :UnregisterSource(self)
+end

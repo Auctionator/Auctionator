@@ -63,3 +63,7 @@ function HistoricalPriceProviderMixin:Sort(fieldName, sortDirection)
 
   self.onUpdate(self.results)
 end
+
+function HistoricalPriceProviderMixin:GetRowTemplate()
+  return "AuctionatorHistoricalPriceRowTemplate"
+end

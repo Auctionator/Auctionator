@@ -12,6 +12,7 @@
   <Include file="SellSearchRow.xml"/>
   <Include file="CancellingListResultsRow.xml"/>
   <Include file="BagListResultsRow.xml"/>
+  <Include file="HistoricalPriceRow.xml"/>
 
   <Include file="ResultsListing.xml"/>
 </Ui>

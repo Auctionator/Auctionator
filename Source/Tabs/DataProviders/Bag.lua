@@ -64,7 +64,7 @@ function BagDataProviderMixin:LoadBagData()
   local results = {}
 
   for bagId = 0, 4 do
-    for slot = 0, GetContainerNumSlots(bagId) do
+    for slot = 1, GetContainerNumSlots(bagId) do
       table.insert(
         self.itemLocations,
         ItemLocation:CreateFromBagAndSlot(bagId, slot)

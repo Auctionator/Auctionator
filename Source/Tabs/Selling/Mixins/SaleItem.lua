@@ -13,6 +13,7 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
+    Auctionator.Selling.Events.PriceSelected,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
@@ -24,6 +25,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
+    Auctionator.Selling.Events.PriceSelected,
   })
   Auctionator.EventBus:UnregisterSource(self)
 end
@@ -39,6 +41,8 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, itemInfo)
   elseif event == Auctionator.Selling.Events.RequestPost and
          self:GetPostButtonState() then
       self:PostItem()
+  elseif event == Auctionator.Selling.Events.PriceSelected then
+    self:UpdateSalesPrice(itemInfo)
   end
 end
 
@@ -74,7 +78,8 @@ function AuctionatorSaleItemMixin:SetDefaults()
 end
 
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
-  if C_AuctionHouse.GetItemCommodityStatus(itemInfo.location) == 1 then
+  if C_AuctionHouse.GetItemCommodityStatus(itemInfo.location) ~= 2 and
+     itemInfo.itemKey.battlePetSpeciesID == 0 then
     Auctionator.AH.SendSellSearchQuery(itemInfo.itemKey, ...)
   else
     Auctionator.AH.SendSearchQuery(itemInfo.itemKey, ...)

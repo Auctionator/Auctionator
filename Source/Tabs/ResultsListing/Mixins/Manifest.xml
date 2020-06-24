@@ -12,6 +12,7 @@
   <Script file="ShoppingListResultsRow.lua" />
   <Script file="CancellingListResultsRow.lua" />
   <Script file="SellSearchRow.lua"/>
+  <Script file="HistoricalPriceRow.lua"/>
   <Script file="BagListResultsRow.lua" />
 
   <Script file="ResultsListing.lua"/>
