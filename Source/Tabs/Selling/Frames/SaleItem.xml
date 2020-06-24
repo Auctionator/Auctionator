@@ -103,7 +103,7 @@
 
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontNormal" parentKey="Deposit" Text="Deposit:">
+        <FontString inherits="GameFontNormal" parentKey="Deposit" Text="AUCTIONATOR_L_DEPOSIT">
           <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Duration" />
           </Anchors>
@@ -121,7 +121,7 @@
 
         <!-- Total price (money display [non editable]) -->
       <Layer level="BACKGROUND">
-        <FontString inherits="GameFontNormal" parentKey="Total" Text="Total Price:">
+        <FontString inherits="GameFontNormal" parentKey="Total" Text="AUCTIONATOR_L_TOTAL_PRICE">
           <Anchors>
             <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.DepositPrice"/>
           </Anchors>

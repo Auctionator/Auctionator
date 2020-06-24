@@ -163,6 +163,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["RESULTS_PRICE_COLUMN"] = "Price"
   L["RESULTS_NAME_COLUMN"] = "Name"
   L["RESULTS_AVAILABLE_COLUMN"] = "Available"
+  L["ITEM_LEVEL_COLUMN"] = "Item Level"
+  L["OWNED_COLUMN"] = "Owned?"
 
   L["FULL_SCAN_BUTTON"] = "Full Scan"
 
@@ -251,6 +253,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DURATION"] = "Duration"
   L["POST"] = "Post"
   L["POST_BUTTON_MACRO"] = "Post Button Macro"
+  L["DEPOSIT"] = "Deposit:"
+  L["TOTAL_PRICE"] = "Total Price:"
+  L["UNKNOWN"] = "Unknown"
+  L["ITEM"] = "Item"
+  L["COMMODITY"] = "Commodity"
 
   return L
 end

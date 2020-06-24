@@ -15,7 +15,7 @@ local SEARCH_PROVIDER_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Item Level",
+    headerText = AUCTIONATOR_L_ITEM_LEVEL_COLUMN,
     headerParameters = { "level" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "level" },
@@ -23,7 +23,7 @@ local SEARCH_PROVIDER_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "owned" },
-    headerText = "Owned?",
+    headerText = AUCTIONATOR_L_OWNED_COLUMN,
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "owned" },
     width = 70
@@ -33,7 +33,6 @@ local SEARCH_PROVIDER_LAYOUT = {
 local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
-  "AUCTION_HOUSE_NEW_RESULTS_RECEIVED",
 }
 
 SearchProviderMixin = CreateFromMixins(DataProviderMixin)
