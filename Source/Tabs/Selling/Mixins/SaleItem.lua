@@ -13,8 +13,6 @@ function AuctionatorSaleItemMixin:OnShow()
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
-  FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
-
   self:Reset()
 end
 
@@ -26,8 +24,6 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.PriceSelected,
   })
   Auctionator.EventBus:UnregisterSource(self)
-
-  FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
 end
 
 function AuctionatorSaleItemMixin:OnUpdate()
@@ -147,6 +143,8 @@ function AuctionatorSaleItemMixin:SetDefaults()
     return
   end
 
+  FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
+
   if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
     self:SetNotLifoDefaults()
   else
@@ -209,6 +207,8 @@ function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
     self:ProcessItemResults(...)
   end
+
+  FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
 end
 
 function AuctionatorSaleItemMixin:GetCommodityResult(itemId)
