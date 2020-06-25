@@ -14,6 +14,18 @@ function AuctionatorConfigRadioButtonMixin:OnLoad()
   end
 end
 
+function AuctionatorConfigRadioButtonMixin:OnMouseUp()
+  self.RadioButton:Click()
+end
+
+function AuctionatorConfigRadioButtonMixin:OnEnter()
+  self.RadioButton:LockHighlight()
+end
+
+function AuctionatorConfigRadioButtonMixin:OnLeave()
+  self.RadioButton:UnlockHighlight()
+end
+
 function AuctionatorConfigRadioButtonMixin:SetChecked(value)
   self.RadioButton:SetChecked(value)
 end
