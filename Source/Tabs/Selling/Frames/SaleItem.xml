@@ -44,6 +44,7 @@
       <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInput">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" y="-2" />
+          <Anchor point="RIGHT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="20"/>
         </Anchors>
 
         <KeyValues>
@@ -66,7 +67,7 @@
           <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DURATION" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.TitleArea" relativePoint="BOTTOM" />
+          <Anchor point="TOP" relativeKey="$parent.TitleArea" relativePoint="BOTTOM"/>
           <Anchor point="LEFT" relativeKey="$parent" relativePoint="CENTER" x="50" />
         </Anchors>
         <Frames>
