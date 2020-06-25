@@ -1,5 +1,4 @@
-local SALE_ITEM_EVENTS = {
-  "ITEM_SEARCH_RESULTS_UPDATED",
+local SALE_ITEM_EVENTS = { "ITEM_SEARCH_RESULTS_UPDATED",
   "COMMODITY_SEARCH_RESULTS_UPDATED",
 }
 
@@ -276,43 +275,22 @@ local function copyKey(originalItemKey)
   }
 end
 
-local function checkFullResults(itemKey)
-  local entryCount = C_AuctionHouse.GetNumItemSearchResults(itemKey)
-  local hasFullResults = C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
-
-  return entryCount, hasFullResults
-end
-
-function AuctionatorSaleItemMixin:GetItemResult(itemKey, itemCount, itemLevel)
-  local currentResult
-
-  for index = 1, itemCount do
-    currentResult = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-
-    if currentResult == nil then
-      Auctionator.Debug.Message("Missing, break")
-      break
-    elseif currentResult.itemKey.itemLevel == itemLevel then
-      -- Only get items at the same iLvl as the posted piece
-      return currentResult
-    end
+--Prefer item results of the same ilvl, or any result if there are none of the
+--same ilvl
+function AuctionatorSaleItemMixin:GetItemResult(itemKey)
+  if C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) > 0 then
+    return C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1)
+  else
+    return nil
   end
-
-  return nil
 end
 
 function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessItemResults()")
   local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
 
-  local entryCount, hasFullResults = checkFullResults(itemKey)
+  local result = self:GetItemResult(itemKey)
 
-  if not hasFullResults then
-    Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessItemResults()", "Does not have full results or no items found.")
-    return
-  end
-
-  local result = self:GetItemResult(itemKey, entryCount, self.itemInfo.itemKey.itemLevel)
   -- Update DB with current lowest price
   if result ~= nil then
     Auctionator.Database.SetPrice(dbKey, result.buyoutAmount)
