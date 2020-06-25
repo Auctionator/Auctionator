@@ -37,15 +37,6 @@ local SEARCH_EVENTS = {
 
 SearchProviderMixin = CreateFromMixins(DataProviderMixin)
 
-function SearchProviderMixin:OnLoad()
-  DataProviderMixin.OnLoad(self)
-
-  self:Reset()
-  self.onSearchStarted()
-  self:AppendEntries({}, true)
-  self.onSearchEnded()
-end
-
 function SearchProviderMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, SEARCH_EVENTS)
   Auctionator.EventBus:Register(self, {
