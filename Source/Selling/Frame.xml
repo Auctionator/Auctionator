@@ -1,9 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorSellingFrameTemplate" parent="UIParent" hidden="true" mixin="AuctionatorSellingFrameMixin" virtual="true">
-    <Scripts>
-      <OnLoad method="OnLoad"/>
-      <OnEvent method="OnEvent"/>
-      <OnShow method="OnShow"/>
-    </Scripts>
-  </Frame>
-</Ui>
