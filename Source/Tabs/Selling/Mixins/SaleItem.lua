@@ -1,9 +1,6 @@
-local AUCTIONATOR_ITEM_EVENTS = {
-  "ITEM_SEARCH_RESULTS_UPDATED"
-}
-
-local AUCTIONATOR_COMMODITY_EVENTS = {
-  "COMMODITY_SEARCH_RESULTS_UPDATED"
+local SALE_ITEM_EVENTS = {
+  "ITEM_SEARCH_RESULTS_UPDATED",
+  "COMMODITY_SEARCH_RESULTS_UPDATED",
 }
 
 AuctionatorSaleItemMixin = {}
@@ -17,6 +14,8 @@ function AuctionatorSaleItemMixin:OnShow()
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
+  FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
+
   self:Reset()
 end
 
@@ -28,6 +27,8 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.PriceSelected,
   })
   Auctionator.EventBus:UnregisterSource(self)
+
+  FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
 end
 
 function AuctionatorSaleItemMixin:OnUpdate()
@@ -176,8 +177,6 @@ function AuctionatorSaleItemMixin:SetLifoDefaults()
     Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
   )
 
-  FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_COMMODITY_EVENTS)
-
   self:DoSearch(self.itemInfo, {sortOrder = 0, reverseSort = false}, true)
 end
 
@@ -185,8 +184,6 @@ function AuctionatorSaleItemMixin:SetNotLifoDefaults()
   self.Duration:SetSelectedValue(
     Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION)
   )
-
-  FrameUtil.RegisterFrameForEvents(self, AUCTIONATOR_ITEM_EVENTS)
 
   self:DoSearch(self.itemInfo, {sortOrder = 4, reverseSort = false}, true)
 end
@@ -268,8 +265,6 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(...)
   end
 
   self:UpdateSalesPrice(postingPrice)
-
-  FrameUtil.UnregisterFrameForEvents(self, AUCTIONATOR_COMMODITY_EVENTS)
 end
 
 local function copyKey(originalItemKey)
@@ -306,28 +301,9 @@ function AuctionatorSaleItemMixin:GetItemResult(itemKey, itemCount, itemLevel)
   return nil
 end
 
-function AuctionatorSaleItemMixin:ProcessItemResults(...)
+function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessItemResults()")
-
-  -- This issues a GetItemKeyInfo which causes something to happen such that we get the full results...
-  -- Blizzard_AuctionHouseUtil.lua#432
-  -- originalItemKey has the actual ilvl of the posted item (ilvls may differ in returned results...)
-  -- but gets overwritten when ConvertItemSellItemKey is called, so storing the itemLevel
-  local originalItemKey = self.itemInfo.itemKey
-
-  -- This event is called when in a few different situations where the entry may be nil, so check
-  if originalItemKey == nil then
-    return
-  end
-
-  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = originalItemKey })
-  local originalCopy = copyKey(originalItemKey)
-  local itemKey = AuctionHouseUtil.ConvertItemSellItemKey(originalItemKey)
-
-  if itemKey == nil then
-    Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessItemResults()", "Item key was nil")
-    return
-  end
+  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
 
   local entryCount, hasFullResults = checkFullResults(itemKey)
 
@@ -336,7 +312,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(...)
     return
   end
 
-  local result = self:GetItemResult(itemKey, entryCount, originalCopy.itemLevel)
+  local result = self:GetItemResult(itemKey, entryCount, self.itemInfo.itemKey.itemLevel)
   -- Update DB with current lowest price
   if result ~= nil then
     Auctionator.Database.SetPrice(dbKey, result.buyoutAmount)
@@ -368,8 +344,6 @@ function AuctionatorSaleItemMixin:ProcessItemResults(...)
   end
 
   self:UpdateSalesPrice(postingPrice)
-
-  FrameUtil.UnregisterFrameForEvents(self, AUCTIONATOR_ITEM_EVENTS)
 end
 
 function AuctionatorSaleItemMixin:GetPostButtonState()
