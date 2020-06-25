@@ -30,6 +30,7 @@
       <Frame parentKey="SaleItemFrame" inherits="AuctionatorSaleItemFrameTemplate">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent" relativePoint="TOP" y="105" />
+          <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" x="70" />
         </Anchors>
       </Frame>
 
