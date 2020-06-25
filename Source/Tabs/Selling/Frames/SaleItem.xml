@@ -72,18 +72,27 @@
         </Anchors>
         <Frames>
           <Frame inherits="AuctionatorConfigurationRadioButton">
+            <Anchors>
+              <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-180" />
+            </Anchors>
             <KeyValues>
               <KeyValue key="labelText" value="12" type="string"/>
               <KeyValue key="value" value="12" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
+            <Anchors>
+              <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-130" />
+            </Anchors>
             <KeyValues>
               <KeyValue key="labelText" value="24" type="string"/>
               <KeyValue key="value" value="24" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
+            <Anchors>
+              <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-80" />
+            </Anchors>
             <KeyValues>
               <KeyValue key="labelText" value="48" type="string"/>
               <KeyValue key="value" value="48" type="number"/>
