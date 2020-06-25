@@ -46,10 +46,17 @@ function AuctionatorSaleItemMixin:OnUpdate()
   )
 
   if self.Quantity:GetNumber() > self.itemInfo.count then
-      self.Quantity:SetNumber(self.itemInfo.count)
+    self.Quantity:SetNumber(self.itemInfo.count)
+  elseif self.Quantity:GetNumber() < 1 then
+    self.Quantity:SetNumber(1)
   end
 
-  local deposit = 100
+  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(self:GetDeposit()))
+end
+
+function AuctionatorSaleItemMixin:GetDeposit()
+  local deposit = 0
+
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
     deposit = C_AuctionHouse.CalculateCommodityDeposit(
       self.itemInfo.itemKey.itemID,
@@ -73,7 +80,7 @@ function AuctionatorSaleItemMixin:OnUpdate()
     deposit = 100
   end
 
-  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(deposit))
+  return deposit
 end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
@@ -366,7 +373,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(...)
 end
 
 function AuctionatorSaleItemMixin:GetPostButtonState()
-  return self.itemInfo ~= nil and Auctionator.AH.IsNotThrottled()
+  return self.itemInfo ~= nil and GetMoney() > self:GetDeposit() and Auctionator.AH.IsNotThrottled()
 end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
