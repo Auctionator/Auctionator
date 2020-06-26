@@ -44,7 +44,7 @@
       <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInput">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" y="-2" />
-          <Anchor point="RIGHT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="20"/>
+          <Anchor point="RIGHT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="200"/>
         </Anchors>
 
         <KeyValues>

@@ -31,10 +31,6 @@ function AuctionatorSaleItemMixin:OnUpdate()
     return
   end
 
-  if self.Price:GetAmount() < 100 then
-    self.Price:SetAmount(100)
-  end
-
   self.TotalPrice:SetText(
     Auctionator.Utilities.CreateMoneyString(
       self.Quantity:GetNumber() * self.Price:GetAmount()
@@ -43,11 +39,10 @@ function AuctionatorSaleItemMixin:OnUpdate()
 
   if self.Quantity:GetNumber() > self.itemInfo.count then
     self.Quantity:SetNumber(self.itemInfo.count)
-  elseif self.Quantity:GetNumber() < 1 then
-    self.Quantity:SetNumber(1)
   end
 
   self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(self:GetDeposit()))
+  self:UpdatePostButtonState()
 end
 
 function AuctionatorSaleItemMixin:GetDeposit()
@@ -325,7 +320,13 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
 end
 
 function AuctionatorSaleItemMixin:GetPostButtonState()
-  return self.itemInfo ~= nil and GetMoney() > self:GetDeposit() and Auctionator.AH.IsNotThrottled()
+  return
+    self.itemInfo ~= nil and
+    GetMoney() > self:GetDeposit() and
+    self.Quantity:GetNumber() > 0 and
+    self.Quantity:GetNumber() <= self.itemInfo.count and
+    self.Price:GetAmount() > 0 and
+    Auctionator.AH.IsNotThrottled()
 end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
@@ -347,6 +348,10 @@ function AuctionatorSaleItemMixin:GetDuration()
 end
 
 function AuctionatorSaleItemMixin:PostItem()
+  if not self:GetPostButtonState() then
+    return
+  end
+
   local quantity = self.Quantity:GetNumber()
   local duration = self:GetDuration()
   local buyout = self.Price:GetAmount()
