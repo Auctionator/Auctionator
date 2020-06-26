@@ -15,6 +15,7 @@ function AuctionatorConfigBasicOptionsFrameMixin:OnShow()
   self.AuctionChatLog:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG))
   self.AutoListSearch:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH))
   self.UndercutScanPetsGear:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO))
+  self.DefaultTab:SetSelectedValue(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_TAB))
 end
 
 function AuctionatorConfigBasicOptionsFrameMixin:Save()
@@ -25,6 +26,7 @@ function AuctionatorConfigBasicOptionsFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.AUTO_LIST_SEARCH, self.AutoListSearch:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_CHAT_LOG, self.AuctionChatLog:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO, self.UndercutScanPetsGear:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.DEFAULT_TAB, self.DefaultTab:GetValue())
 end
 
 function AuctionatorConfigBasicOptionsFrameMixin:Cancel()
