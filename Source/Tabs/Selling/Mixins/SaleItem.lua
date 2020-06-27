@@ -2,6 +2,24 @@ local SALE_ITEM_EVENTS = { "ITEM_SEARCH_RESULTS_UPDATED",
   "COMMODITY_SEARCH_RESULTS_UPDATED",
 }
 
+-- Necessary because attempting to post an auction with copper value silently
+-- failes
+local function NormalizePrice(price)
+  local normalizedPrice = price
+
+  -- Round up
+  if normalizedPrice % 100 ~= 0 then
+    normalizedPrice = normalizedPrice + (100 - normalizedPrice % 100)
+  end
+
+  -- Need to have a price of at least one silver
+  if normalizedPrice < 100 then
+    normalizedPrice = 100
+  end
+
+  return normalizedPrice
+end
+
 AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnShow()
@@ -54,6 +72,7 @@ function AuctionatorSaleItemMixin:GetDeposit()
       self:GetDuration(),
       self.Quantity:GetNumber()
     )
+
   else
     deposit = C_AuctionHouse.CalculateItemDeposit(
       self.itemInfo.location,
@@ -62,29 +81,24 @@ function AuctionatorSaleItemMixin:GetDeposit()
     )
   end
 
-  if deposit % 100 ~= 0 then
-    deposit = deposit + (100 - (deposit % 100))
-  end
-
-  -- Need to have a price of at least one silver
-  if deposit < 100 then
-    deposit = 100
-  end
-
-  return deposit
+  return NormalizePrice(deposit)
 end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemClicked then
     self.itemInfo = ...
     self:Update()
+
   elseif event == Auctionator.AH.Events.ThrottleUpdate then
     self:UpdatePostButtonState()
-  elseif event == Auctionator.Selling.Events.RequestPost and
-         self:GetPostButtonState() then
-      self:PostItem()
-  elseif event == Auctionator.Selling.Events.PriceSelected then
+
+  elseif event == Auctionator.Selling.Events.RequestPost then
+    self:PostItem()
+
+  elseif event == Auctionator.Selling.Events.PriceSelected and
+         self.itemInfo ~= nil then
     local buyoutAmount, shouldUndercut = ...
+
     if shouldUndercut then
       if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
         buyoutAmount = Auctionator.Selling.CalculateNotLIFOPriceFromPrice(buyoutAmount)
@@ -92,17 +106,27 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
         buyoutAmount = Auctionator.Selling.CalculateLIFOPriceFromPrice(buyoutAmount)
       end
     end
+
     self:UpdateSalesPrice(buyoutAmount)
   end
 end
 
 function AuctionatorSaleItemMixin:Update()
-  self:UpdateDisplay()
-  self:SetDefaults()
+  self:UpdateVisuals()
+
+  if self.itemInfo ~= nil then
+    self:UpdateForNewItem()
+  else
+    self:UpdateForNoItem()
+  end
+
   self:UpdatePostButtonState()
+
 end
 
-function AuctionatorSaleItemMixin:UpdateDisplay()
+function AuctionatorSaleItemMixin:UpdateVisuals()
+  self.Icon:SetItemInfo(self.itemInfo)
+
   if self.itemInfo ~= nil then
     self.TitleArea.Text:SetText(
       self.itemInfo.name .. " - " ..
@@ -115,89 +139,74 @@ function AuctionatorSaleItemMixin:UpdateDisplay()
     )
 
     self.Icon:HideCount()
-    self.Icon:SetItemInfo(self.itemInfo)
-    self.Quantity:SetNumber(self.itemInfo.count)
 
-    local price = Auctionator.Database.GetPrice(
-      Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
-    )
-    if price ~= nil then
-      self:UpdateSalesPrice(price)
-    end
   else
+    -- No item, reset all the visuals
     self.TitleArea.Text:SetText("")
-    self.Quantity:SetNumber(1)
-    self:UpdateSalesPrice(0)
-    self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
-    self.TotalPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
   end
 end
 
-function AuctionatorSaleItemMixin:SetDefaults()
-  if self.itemInfo == nil then
-    return
+function AuctionatorSaleItemMixin:UpdateForNewItem()
+  self:SetDuration()
+  self.Quantity:SetNumber(self.itemInfo.count)
+
+  local price = Auctionator.Database.GetPrice(
+    Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
+  )
+  if price ~= nil then
+    self:UpdateSalesPrice(price)
   end
 
   FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
 
-  self:DoDefaultSearch()
+  self:DoSearch(self.itemInfo)
 end
 
-function AuctionatorSaleItemMixin:DoDefaultSearch()
+function AuctionatorSaleItemMixin:UpdateForNoItem()
+  self.Quantity:SetNumber(1)
+  self:UpdateSalesPrice(0)
+
+  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
+  self.TotalPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
+end
+
+function AuctionatorSaleItemMixin:SetDuration()
   if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
-    self:SetNotLifoDefaults()
+    self.Duration:SetSelectedValue(
+      Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION)
+    )
+
   else
-    self:SetLifoDefaults()
+    self.Duration:SetSelectedValue(
+      Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
+    )
   end
 end
 
-function AuctionatorSaleItemMixin:Reset()
-  self.itemInfo = nil
-  self.Icon:SetItemInfo(nil)
-
-  self:Update()
-end
-
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
+  if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+    sortingOrder = {sortOrder = 0, reverseSort = false}
+  else
+    sortingOrder = {sortOrder = 4, reverseSort = false}
+  end
+
   if self.itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
      itemInfo.itemKey.battlePetSpeciesID == 0 then
-    Auctionator.AH.SendSellSearchQuery({itemID = itemInfo.itemKey.itemID}, ...)
+    Auctionator.AH.SendSellSearchQuery({itemID = itemInfo.itemKey.itemID}, sortingOrder, true)
   else
-    Auctionator.AH.SendSearchQuery(itemInfo.itemKey, ...)
+    Auctionator.AH.SendSearchQuery(itemInfo.itemKey, sortingOrder, true)
   end
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart)
 end
 
-function AuctionatorSaleItemMixin:SetLifoDefaults()
-  self.Duration:SetSelectedValue(
-    Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
-  )
+function AuctionatorSaleItemMixin:Reset()
+  self.itemInfo = nil
 
-  self:DoSearch(self.itemInfo, {sortOrder = 0, reverseSort = false}, true)
-end
-
-function AuctionatorSaleItemMixin:SetNotLifoDefaults()
-  self.Duration:SetSelectedValue(
-    Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION)
-  )
-
-  self:DoSearch(self.itemInfo, {sortOrder = 4, reverseSort = false}, true)
+  self:Update()
 end
 
 function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)
-  local normalizedPrice = salesPrice
-
-  -- Attempting to post an auction with copper value silently failes
-  if normalizedPrice % 100 ~= 0 then
-    normalizedPrice = normalizedPrice - (normalizedPrice % 100)
-  end
-
-  -- Need to have a price of at least one silver
-  if normalizedPrice < 100 then
-    normalizedPrice = 100
-  end
-
-  self.Price:SetAmount(normalizedPrice)
+  self.Price:SetAmount(NormalizePrice(salesPrice))
 end
 
 function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
@@ -257,17 +266,6 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
   self:UpdateSalesPrice(postingPrice)
 end
 
-local function copyKey(originalItemKey)
-  return {
-    itemLevel = originalItemKey.itemLevel,
-    itemSuffix = originalItemKey.itemSuffix,
-    itemID = originalItemKey.itemID,
-    battlePetSpeciesID = originalItemKey.battlePetSpeciesID
-  }
-end
-
---Prefer item results of the same ilvl, or any result if there are none of the
---same ilvl
 function AuctionatorSaleItemMixin:GetItemResult(itemKey)
   if C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) > 0 then
     return C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1)
@@ -278,6 +276,7 @@ end
 
 function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessItemResults()")
+
   local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
 
   local result = self:GetItemResult(itemKey)
@@ -318,10 +317,18 @@ end
 function AuctionatorSaleItemMixin:GetPostButtonState()
   return
     self.itemInfo ~= nil and
+
+    -- Sufficient money to cover deposit
     GetMoney() > self:GetDeposit() and
+
+    -- Valid quantity
     self.Quantity:GetNumber() > 0 and
     self.Quantity:GetNumber() <= self.itemInfo.count and
+
+    -- Positive price
     self.Price:GetAmount() > 0 and
+
+    -- Not throttled (to avoid silent post failure)
     Auctionator.AH.IsNotThrottled()
 end
 
@@ -345,6 +352,7 @@ end
 
 function AuctionatorSaleItemMixin:PostItem()
   if not self:GetPostButtonState() then
+    Auctionator.Debug.Message("Trying to post when we can't. Returning")
     return
   end
 
@@ -357,6 +365,7 @@ function AuctionatorSaleItemMixin:PostItem()
   else
     C_AuctionHouse.PostCommodity(self.itemInfo.location, duration, quantity, buyout)
   end
+
   Auctionator.EventBus:Fire(self,
     Auctionator.Selling.Events.AuctionCreated,
     {
@@ -366,6 +375,7 @@ function AuctionatorSaleItemMixin:PostItem()
     }
   )
 
-  self:DoDefaultSearch() --Search for auctions again
+  self:SetDuration()
+  self:DoSearch(self.itemInfo)
   self:Reset()
 end
