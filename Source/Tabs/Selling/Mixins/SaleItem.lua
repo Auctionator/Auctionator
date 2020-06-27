@@ -140,6 +140,10 @@ function AuctionatorSaleItemMixin:SetDefaults()
 
   FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
 
+  self:DoDefaultSearch()
+end
+
+function AuctionatorSaleItemMixin:DoDefaultSearch()
   if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
     self:SetNotLifoDefaults()
   else
@@ -214,20 +218,12 @@ function AuctionatorSaleItemMixin:GetCommodityResult(itemId)
   end
 end
 
-function AuctionatorSaleItemMixin:ProcessCommodityResults(...)
+function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessCommodityResults()")
 
-  local itemId = self.itemInfo.itemKey.itemID
-  local itemKey = self.itemInfo.itemKey
+  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = {itemID = itemID} })
 
-  -- This event is called when in a few different situations where the entry may be nil, so check
-  if itemId == nil or itemKey == nil then
-    return
-  end
-
-  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
-
-  local result = self:GetCommodityResult(itemId)
+  local result = self:GetCommodityResult(itemID)
   -- Update DB with current lowest price
   if result ~= nil then
     Auctionator.Database.SetPrice(dbKey, result.unitPrice)
@@ -370,5 +366,6 @@ function AuctionatorSaleItemMixin:PostItem()
     }
   )
 
+  self:DoDefaultSearch() --Search for auctions again
   self:Reset()
 end
