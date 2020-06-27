@@ -110,6 +110,21 @@ local function InitializeLateTooltipHooks()
   setTooltipHooks = true
 end
 
+function ShowDefaultTab()
+  local tabs = {
+    AuctionatorTabs_ShoppingLists,
+    AuctionatorTabs_Selling,
+    AuctionatorTabs_Cancelling,
+    AuctionatorTabs_Auctionator,
+  }
+
+  local chosenTab = tabs[Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_TAB)]
+
+  if chosenTab then
+    chosenTab:Click()
+  end
+end
+
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
@@ -120,6 +135,8 @@ function AuctionatorAHFrameMixin:OnShow()
 
   InitializeAuctionHouseTabs()
   InitializeSplashScreen()
+
+  ShowDefaultTab()
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)

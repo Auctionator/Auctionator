@@ -259,5 +259,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ITEM"] = "Item"
   L["COMMODITY"] = "Commodity"
 
+  L["DEFAULT_TAB"] = "Default Tab"
+  L["DEFAULT_TAB_TEXT"] = "Choose the default Auctionator tab to show"
+  L["NONE"] = "None"
+
   return L
 end
