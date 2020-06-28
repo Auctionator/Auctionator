@@ -48,6 +48,5 @@ function AuctionatorBagItemMixin:OnClick()
 end
 
 function AuctionatorBagItemMixin:HideCount()
-  self.TextShadow:Hide()
   self.Text:Hide()
 end
