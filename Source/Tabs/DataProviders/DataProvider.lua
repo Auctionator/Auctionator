@@ -1,13 +1,12 @@
 DataProviderMixin = {}
 
-local PROCESS_COUNT_PER_UPDATE = 10
-
 -- DataProviderMixin registers for the following events for derived mixins:
 --   1. Auctionator.ShoppingLists.Events.ListResultItemProcessed
 function DataProviderMixin:OnLoad()
   self.results = {}
   self.insertedKeys = {}
   self.entriesToProcess = {}
+  self.processCountPerUpdate = 100
 
   self.searchCompleted = false
 
@@ -114,7 +113,7 @@ function DataProviderMixin:CheckForEntriesToProcess()
   local entry
   local key
 
-  while processCount < PROCESS_COUNT_PER_UPDATE and #self.entriesToProcess > 0 do
+  while processCount < self.processCountPerUpdate and #self.entriesToProcess > 0 do
     processCount = processCount + 1
     entry = table.remove(self.entriesToProcess)
 
