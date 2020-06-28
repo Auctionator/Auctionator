@@ -23,6 +23,10 @@ function HistoricalPriceProviderMixin:OnLoad()
   Auctionator.EventBus:Register( self, { Auctionator.Selling.Events.BagItemClicked })
 end
 
+function HistoricalPriceProviderMixin:OnShow()
+  self:Reset()
+end
+
 function HistoricalPriceProviderMixin:SetItem(itemKey)
   self:Reset()
 

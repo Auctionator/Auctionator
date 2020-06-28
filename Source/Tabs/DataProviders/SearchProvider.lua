@@ -42,6 +42,8 @@ function SearchProviderMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.SellSearchStart
   })
+
+  self:Reset()
 end
 
 function SearchProviderMixin:OnHide()
