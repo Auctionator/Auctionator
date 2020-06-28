@@ -1,4 +1,5 @@
-local SALE_ITEM_EVENTS = { "ITEM_SEARCH_RESULTS_UPDATED",
+local SALE_ITEM_EVENTS = {
+  "ITEM_SEARCH_RESULTS_UPDATED",
   "COMMODITY_SEARCH_RESULTS_UPDATED",
 }
 
@@ -182,8 +183,6 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
     self:UpdateSalesPrice(price)
   end
 
-  FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
-
   self:DoSearch(self.itemInfo)
 end
 
@@ -209,6 +208,8 @@ function AuctionatorSaleItemMixin:SetDuration()
 end
 
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
+  FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
+
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
     sortingOrder = {sortOrder = 0, reverseSort = false}
   else
@@ -400,7 +401,6 @@ function AuctionatorSaleItemMixin:PostItem()
     }
   )
 
-  self:SetDuration()
   self:DoSearch(self.itemInfo)
   self:Reset()
 end
