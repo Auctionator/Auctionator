@@ -6,7 +6,7 @@ function DataProviderMixin:OnLoad()
   self.results = {}
   self.insertedKeys = {}
   self.entriesToProcess = {}
-  self.processCountPerUpdate = 100
+  self.processCountPerUpdate = 10
 
   self.searchCompleted = false
 
