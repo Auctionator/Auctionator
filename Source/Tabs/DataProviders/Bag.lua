@@ -74,16 +74,14 @@ function BagDataProviderMixin:LoadBagData()
 
   for _, location in ipairs(self.itemLocations) do
     if location:IsValid() then
-      local itemKey = C_AuctionHouse.GetItemKeyFromItem(location)
-      local itemType = C_AuctionHouse.GetItemCommodityStatus(location)
+      local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
 
-      local icon, itemCount, _, _, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
-      local tempId = self:UniqueKey({ itemKey = itemKey })
+      local tempId = self:UniqueKey({ itemKey = itemInfo.itemKey })
 
       if itemMap[tempId] == nil then
-        itemMap[tempId] = { itemKey = itemKey, itemLink = itemLink, count = itemCount, iconTexture = icon, itemType = itemType, location = location }
+        itemMap[tempId] = itemInfo
       else
-        itemMap[tempId].count = itemMap[tempId].count + itemCount
+        itemMap[tempId].count = itemMap[tempId].count + itemInfo.count
       end
     end
   end
@@ -94,13 +92,12 @@ function BagDataProviderMixin:LoadBagData()
     local item = Item:CreateFromItemLocation(entry.location)
 
     item:ContinueOnItemLoad(function()
-      local itemName, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
+      local itemName, _, _, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
       entry.name = itemName
       entry.class = itemType
       entry.classId = classId
       entry.subClass = itemSubType
       entry.subClassId = subClassId
-      entry.quality = itemRarity
       entry.auctionable = bindType ~= 1
 
       self.onUpdate(self.results)

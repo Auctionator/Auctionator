@@ -20,6 +20,7 @@
   <Script file="RemoveTextColor.lua"/>
   <Script file="ItemKeyString.lua"/>
   <Script file="PrettyDate.lua"/>
+  <Script file="ItemInfoFromLocation.lua"/>
 
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>
