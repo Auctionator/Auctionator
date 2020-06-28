@@ -35,11 +35,11 @@ local BAG_EVENTS = {
   "BAG_SLOT_FLAGS_UPDATED"
 }
 
-BagDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
+BagDataProviderMixin = CreateFromMixins(DataProviderMixin)
 
 function BagDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
-  AuctionatorItemKeyLoadingMixin.OnLoad(self)
+  self.processCountPerUpdate = 200
 
   self.itemLocations = {}
 end
@@ -81,7 +81,7 @@ function BagDataProviderMixin:LoadBagData()
       local tempId = self:UniqueKey({ itemKey = itemKey })
 
       if itemMap[tempId] == nil then
-        itemMap[tempId] = { itemKey = itemKey, itemLink = itemLink, count = itemCount, icon = icon, itemType = itemType, location = location }
+        itemMap[tempId] = { itemKey = itemKey, itemLink = itemLink, count = itemCount, iconTexture = icon, itemType = itemType, location = location }
       else
         itemMap[tempId].count = itemMap[tempId].count + itemCount
       end
@@ -94,7 +94,8 @@ function BagDataProviderMixin:LoadBagData()
     local item = Item:CreateFromItemLocation(entry.location)
 
     item:ContinueOnItemLoad(function()
-      local _, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
+      local itemName, _, itemRarity, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
+      entry.name = itemName
       entry.class = itemType
       entry.classId = classId
       entry.subClass = itemSubType
