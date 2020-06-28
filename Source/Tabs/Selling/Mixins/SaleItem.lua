@@ -74,7 +74,7 @@ function AuctionatorSaleItemMixin:GetDeposit()
       self.Quantity:GetNumber()
     )
 
-  else
+  elseif self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
     deposit = C_AuctionHouse.CalculateItemDeposit(
       self.itemInfo.location,
       self:GetDuration(),
