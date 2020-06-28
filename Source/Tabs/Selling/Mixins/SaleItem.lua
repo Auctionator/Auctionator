@@ -108,6 +108,16 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     end
 
     self:UpdateSalesPrice(buyoutAmount)
+
+  elseif event == Auctionator.AH.Events.ItemKeyInfo then
+    local itemKey, itemInfo = ...
+    if Auctionator.Utilities.ItemKeyString(self.itemInfo.itemKey) ==
+        Auctionator.Utilities.ItemKeyString(itemKey) then
+      Auctionator.EventBus:Unregister(self, {Auctionator.AH.Events.ItemKeyInfo})
+
+      self.itemInfo.keyName = itemInfo.itemName
+      self:UpdateVisuals()
+    end
   end
 end
 
@@ -128,8 +138,9 @@ function AuctionatorSaleItemMixin:UpdateVisuals()
   self.Icon:SetItemInfo(self.itemInfo)
 
   if self.itemInfo ~= nil then
+
     self.TitleArea.Text:SetText(
-      self.itemInfo.name .. " - " ..
+      self:GetItemName() .. " - " ..
       Auctionator.Constants.ITEM_TYPE_STRINGS[self.itemInfo.itemType]
     )
     self.TitleArea.Text:SetTextColor(
@@ -143,6 +154,20 @@ function AuctionatorSaleItemMixin:UpdateVisuals()
   else
     -- No item, reset all the visuals
     self.TitleArea.Text:SetText("")
+  end
+end
+
+-- The exact item name is only loaded when needed as it slows down loading the
+-- bag items too much to do in BagDataProvider.
+function AuctionatorSaleItemMixin:GetItemName()
+  if self.itemInfo.keyName ~= nil then
+    return self.itemInfo.keyName
+
+  else
+    Auctionator.EventBus:Register(self, {Auctionator.AH.Events.ItemKeyInfo})
+    Auctionator.AH.GetItemKeyInfo(self.itemInfo.itemKey)
+
+    return self.itemInfo.name
   end
 end
 
