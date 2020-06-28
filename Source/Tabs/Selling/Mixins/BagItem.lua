@@ -22,14 +22,6 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
     -- )
 
     self.Text:SetText(info.count)
-    self.Text:SetTextColor(
-      ITEM_QUALITY_COLORS[info.quality].r,
-      ITEM_QUALITY_COLORS[info.quality].g,
-      ITEM_QUALITY_COLORS[info.quality].b
-    )
-
-    self.TextShadow:SetText(info.count)
-    self.TextShadow:SetTextColor(0, 0, 0)
 
   else
     self.Icon:SetTexture("")

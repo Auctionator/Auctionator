@@ -28,14 +28,8 @@
         </Texture>
       </Layer>
       <Layer>
-        <FontString parentKey="TextShadow" inherits="GameFontNormal" justifyH="RIGHT" maxLines="1">
-          <Size x="0" y="18"/>
-          <Anchors>
-            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-4" y="4"/>
-            <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
-          </Anchors>
-        </FontString>
-        <FontString parentKey="Text" inherits="GameFontNormal" justifyH="RIGHT" maxLines="1">
+        <FontString parentKey="Text" inherits="GameFontNormalOutline" justifyH="RIGHT" maxLines="1">
+         <Color a="1" r="1" g="1" b="1" />
           <Size x="0" y="18"/>
           <Anchors>
             <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-3" y="3"/>
