@@ -15,6 +15,7 @@ Auctionator.Config.Options = {
 
   AUCTION_CHAT_LOG = "auction_chat_log",
   SHOW_SELLING_PRICE_HISTORY = "show_selling_price_history",
+  SELLING_BAG_COLLAPSED = "selling_bag_collapsed",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -59,6 +60,7 @@ local defaults = {
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
   [Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY] = true,
+  [Auctionator.Config.Options.SELLING_BAG_COLLAPSED] = false,
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,

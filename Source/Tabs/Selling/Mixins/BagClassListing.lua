@@ -24,6 +24,10 @@ function AuctionatorBagClassListingMixin:OnLoad()
 
   self.buttonNamePrefix = self.title .. "Item"
   self:CreateEmptyButtons()
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED) then
+    self.ItemContainer:Hide()
+  end
 end
 
 function AuctionatorBagClassListingMixin:CreateEmptyButtons()

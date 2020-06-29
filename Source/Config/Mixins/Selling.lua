@@ -12,6 +12,7 @@ end
 function AuctionatorConfigSellingFrameMixin:OnShow()
   self.AuctionChatLog:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG))
   self.PriceHistory:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY))
+  self.BagCollapsed:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))
 end
 
 function AuctionatorConfigSellingFrameMixin:Save()
@@ -19,6 +20,7 @@ function AuctionatorConfigSellingFrameMixin:Save()
 
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_CHAT_LOG, self.AuctionChatLog:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY, self.PriceHistory:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_COLLAPSED, self.BagCollapsed:GetChecked())
 end
 
 function AuctionatorConfigSellingFrameMixin:Cancel()
