@@ -1,34 +1,4 @@
-BAG_TABLE_LAYOUT = {
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerParameters = { "name" },
-    headerText = "Name",
-    cellTemplate = "AuctionatorItemKeyCellTemplate"
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerParameters = { "class" },
-    headerText = "Class",
-    cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "class" },
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerParameters = { "subClass" },
-    headerText = "Sub Class",
-    cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "subClass" },
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = "Count",
-    headerParameters = { "count" },
-    cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "count" },
-    width = 70
-  },
-}
-
+BAG_TABLE_LAYOUT = { }
 local BAG_EVENTS = {
   "BAG_UPDATE",
   "BAG_NEW_ITEMS_UPDATED",
@@ -88,20 +58,6 @@ function BagDataProviderMixin:LoadBagData()
 
   for _, entry in pairs(itemMap) do
     table.insert( results, entry )
-
-    local item = Item:CreateFromItemLocation(entry.location)
-
-    item:ContinueOnItemLoad(function()
-      local itemName, _, _, _, _, itemType, itemSubType, _, _, _, _, classId, subClassId, bindType = GetItemInfo(item:GetItemID())
-      entry.name = itemName
-      entry.class = itemType
-      entry.classId = classId
-      entry.subClass = itemSubType
-      entry.subClassId = subClassId
-      entry.auctionable = bindType ~= 1
-
-      self.onUpdate(self.results)
-    end)
   end
 
   self:AppendEntries(results, true)
@@ -144,7 +100,6 @@ end
 local COMPARATORS = {
   name = Auctionator.Utilities.StringComparator,
   class = Auctionator.Utilities.NumberComparator,
-  subClass = Auctionator.Utilities.NumberComparator,
   count = Auctionator.Utilities.NumberComparator
 }
 

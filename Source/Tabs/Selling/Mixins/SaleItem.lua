@@ -169,7 +169,7 @@ function AuctionatorSaleItemMixin:GetItemName()
     Auctionator.EventBus:Register(self, {Auctionator.AH.Events.ItemKeyInfo})
     Auctionator.AH.GetItemKeyInfo(self.itemInfo.itemKey)
 
-    return self.itemInfo.name
+    return ""
   end
 end
 

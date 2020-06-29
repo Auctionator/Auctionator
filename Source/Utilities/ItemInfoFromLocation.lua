@@ -6,5 +6,22 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
 
   local icon, itemCount, _, quality, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
 
-  return { name = "", itemKey = itemKey, itemLink = itemLink, count = itemCount, iconTexture = icon, itemType = itemType, location = location, quality = quality }
+  local _, _, _, _, _, classID, _ = GetItemInfoInstant(itemLink)
+
+  -- For some reason no class ID is returned on battle pets in cages
+  if itemKey.battlePetSpeciesID ~= 0 then
+    classID = LE_ITEM_CLASS_BATTLEPET
+  end
+
+  return {
+    itemKey = itemKey,
+    itemLink = itemLink,
+    count = itemCount,
+    iconTexture = icon,
+    itemType = itemType,
+    location = location,
+    quality = quality,
+    classId = classID,
+    auctionable = C_AuctionHouse.IsSellItemValid(location, false)
+  }
 end
