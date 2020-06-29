@@ -32,6 +32,7 @@ function AuctionatorSaleItemMixin:OnShow()
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
+  self.lastItemInfo = nil
   self:Reset()
 end
 
@@ -210,13 +211,13 @@ end
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
 
-  if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+  if itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
     sortingOrder = {sortOrder = 0, reverseSort = false}
   else
     sortingOrder = {sortOrder = 4, reverseSort = false}
   end
 
-  if self.itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
+  if itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
      itemInfo.itemKey.battlePetSpeciesID == 0 then
     Auctionator.AH.SendSellSearchQuery({itemID = itemInfo.itemKey.itemID}, sortingOrder, true)
   else
@@ -402,5 +403,16 @@ function AuctionatorSaleItemMixin:PostItem()
   )
 
   self:DoSearch(self.itemInfo)
+  -- Save item info for refreshing search results
+  self.lastItemInfo = self.itemInfo
   self:Reset()
+end
+
+function AuctionatorSaleItemMixin:RefreshButtonClicked()
+  -- Search for the current item or the last item posted
+  if self.itemInfo ~= nil then
+    self:DoSearch(self.itemInfo)
+  elseif self.lastItemInfo ~= nil then
+    self:DoSearch(self.lastItemInfo)
+  end
 end
