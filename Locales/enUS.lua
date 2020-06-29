@@ -268,7 +268,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_PRICE_HISTORY"] = "Show historical prices in the selling tab (reload required)"
   L["CONFIG_PRICE_HISTORY_TOOLTIP_HEADER"] = "Price History"
   L["CONFIG_PRICE_HISTORY_TOOLTIP_TEXT"] = "If this option is off the price history pane in the selling tab will be hidden."
-  L["CONFIG_BAG_COLLAPSED"] = "Bag sections start collapsed"
+  L["CONFIG_BAG_COLLAPSED"] = "Bag sections start collapsed (reload required)"
   L["CONFIG_BAG_COLLAPSED_TOOLTIP_HEADER"] = "Bag collapsing on start"
   L["CONFIG_BAG_COLLAPSED_TOOLTIP_TEXT"] = "If this option is on the bag sections will start closed, instead of open."
   return L
