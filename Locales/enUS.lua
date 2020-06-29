@@ -263,5 +263,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DEFAULT_TAB_TEXT"] = "Choose the default Auctionator tab to show"
   L["NONE"] = "None"
 
+  L["CONFIG_SELLING_CATEGORY"] = "Selling"
+  L["CONFIG_SELLING_TEXT"] = "Options to change the behaviour of the Selling tab"
+
+  L["CONFIG_PRICE_HISTORY"] = "Show historical prices in the selling tab"
+  L["CONFIG_PRICE_HISTORY_TOOLTIP_HEADER"] = "Price History"
+  L["CONFIG_PRICE_HISTORY_TOOLTIP_TEXT"] = "If this option is off the price history pane in the selling tab will be hidden."
   return L
 end

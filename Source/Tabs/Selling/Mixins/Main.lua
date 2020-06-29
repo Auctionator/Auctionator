@@ -11,6 +11,19 @@ function AuctionatorSellingTabMixin:OnLoad()
 end
 
 function AuctionatorSellingTabMixin:OnShow()
+  self:ApplyShowPriceHistorySetting()
+end
+
+function AuctionatorSellingTabMixin:ApplyShowPriceHistorySetting()
+  if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY) then
+    self.HistoricalPriceProvider:Show()
+    self.HistoricalPriceListing:Show()
+    self.CurrentItemListing:SetPoint("BOTTOM", self, "CENTER")
+  else
+    self.HistoricalPriceProvider:Hide()
+    self.HistoricalPriceListing:Hide()
+    self.CurrentItemListing:SetPoint("BOTTOM", self, "BOTTOM")
+  end
 end
 
 function AuctionatorSellingTabMixin:OnEvent()
