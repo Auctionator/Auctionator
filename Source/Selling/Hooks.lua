@@ -3,6 +3,11 @@ hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", function(self, bu
     AuctionatorTabs_Selling:Click()
 
     local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
+
+    if not C_AuctionHouse.IsSellItemValid(itemLocation) then
+      return
+    end
+
     local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
     itemInfo.count = C_AuctionHouse.GetAvailablePostCount(itemLocation)
 
