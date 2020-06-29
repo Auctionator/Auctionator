@@ -10,7 +10,11 @@ Auctionator.Config.Options = {
   ALTERNATE_SCAN_MODE = "alternate_scan_mode",
   FULL_SCAN_STEP = "full_scan_step",
   AUTO_LIST_SEARCH = "auto_list_search",
+
+  DEFAULT_TAB = "default_tab",
+
   AUCTION_CHAT_LOG = "auction_chat_log",
+  SHOW_PRICE_HISTORY = "show_price_history",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -54,6 +58,7 @@ local defaults = {
   [Auctionator.Config.Options.FULL_SCAN_STEP] = 250,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
+  [Auctionator.Config.Options.SHOW_PRICE_HISTORY] = true,
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
