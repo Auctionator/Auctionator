@@ -44,9 +44,6 @@ local AUCTIONATOR_EVENTS = {
 -- coreFrame: AuctionatorCore Frame (see Auctionator.xml)
 function Auctionator.Events.CoreFrameLoaded(coreFrame)
   Auctionator.Debug.Message("Auctionator.Events.CoreFrameLoaded")
-  Auctionator.Utilities.Message(
-    Auctionator.Locales.Apply("LIMITED_FUNCTIONALITY_MESSAGE")
-  )
 
   for _, eventName in ipairs(AUCTIONATOR_EVENTS) do
     coreFrame:RegisterEvent(eventName)

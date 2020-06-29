@@ -111,7 +111,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["BUYOUT_AUCTION_INFO"] = "%s buyout at %s"
   L["VERSION_MESSAGE"] = "Version %s"
   L["DATABASE_LOADED"] = "Database loaded with %s entries."
-  L["LIMITED_FUNCTIONALITY_MESSAGE"] = "Limited functionality due to 8.3 AH updates."
 
   L["STARTING_FULL_SCAN"] = "Starting a full scan."
   L["NEXT_SCAN_MESSAGE"] = "A full scan may be started in %s minutes and %s seconds."
