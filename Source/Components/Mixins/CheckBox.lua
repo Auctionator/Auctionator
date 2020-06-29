@@ -17,10 +17,14 @@ end
 
 function AuctionatorConfigCheckboxMixin:OnEnter()
   self.CheckBox:LockHighlight()
+
+  AuctionatorConfigTooltipMixin.OnEnter(self)
 end
 
 function AuctionatorConfigCheckboxMixin:OnLeave()
   self.CheckBox:UnlockHighlight()
+
+  AuctionatorConfigTooltipMixin.OnLeave(self)
 end
 
 function AuctionatorConfigCheckboxMixin:GetChecked()
