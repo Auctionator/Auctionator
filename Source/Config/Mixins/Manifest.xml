@@ -7,6 +7,7 @@
   <Script file="Tooltips.lua"/>
   <Script file="Advanced.lua"/>
 
+  <Script file="Selling.lua"/>
   <Script file="LIFO.lua"/>
   <Script file="NotLIFO.lua"/>
 
