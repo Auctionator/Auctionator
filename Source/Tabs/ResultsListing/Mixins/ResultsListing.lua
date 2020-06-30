@@ -55,9 +55,24 @@ function AuctionatorResultsListingMixin:InitializeDataProvider()
   end)
 
   self.dataProvider:SetOnSearchEndedCallback(function()
+    self:RestoreScrollPosition()
     self:EnableColumns()
     self:DisableSpinner()
   end)
+
+  self.dataProvider:SetOnPreserveScrollCallback(function()
+    self.savedScrollPosition = self.ScrollFrame.scrollBar:GetValue()
+  end)
+end
+
+function AuctionatorResultsListingMixin:RestoreScrollPosition()
+  if self.savedScrollPosition == nil then
+    return
+  end
+
+  local _, max = self.ScrollFrame.scrollBar:GetMinMaxValues()
+  local val = math.min(self.savedScrollPosition or 0, (max - 1) or 0)
+  self.ScrollFrame.scrollBar:SetValue(val)
 end
 
 function AuctionatorResultsListingMixin:PopulateOverride(offset, count)
