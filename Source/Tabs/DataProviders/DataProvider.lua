@@ -15,6 +15,7 @@ function DataProviderMixin:OnLoad()
   self.onUpdate = function() end
   self.onSearchStarted = function() end
   self.onSearchEnded = function() end
+  self.onPreserveScroll = function() end
 end
 
 function DataProviderMixin:OnUpdate(elapsed)
@@ -88,6 +89,10 @@ end
 
 function DataProviderMixin:SetOnSearchEndedCallback(onSearchEndedCallback)
   self.onSearchEnded = onSearchEndedCallback
+end
+
+function DataProviderMixin:SetOnPreserveScrollCallback(onPreserveScrollCallback)
+  self.onPreserveScroll = onPreserveScrollCallback
 end
 
 function DataProviderMixin:AppendEntries(entries, isLastSetOfResults)
