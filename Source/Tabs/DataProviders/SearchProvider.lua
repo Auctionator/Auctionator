@@ -56,6 +56,7 @@ end
 function SearchProviderMixin:ReceiveEvent(eventName)
   if eventName == Auctionator.Selling.Events.SellSearchStart then
     self:Reset()
+    self.onSearchStarted()
   end
 end
 
@@ -94,9 +95,6 @@ function SearchProviderMixin:OnEvent(eventName, ...)
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
     entries, complete = self:ProcessItemResults(...)
   end
-
-  self.onSearchStarted()
-  self.onSearchEnded()
 
   self:AppendEntries(entries, complete)
 end

@@ -94,6 +94,7 @@ function DataProviderMixin:AppendEntries(entries, isLastSetOfResults)
   Auctionator.Debug.Message("DataProviderMixin:AppendEntries()", #entries)
 
   self.searchCompleted = isLastSetOfResults
+  self.announcedCompletion = false
 
   for _, entry in ipairs(entries) do
     table.insert(self.entriesToProcess, entry)
@@ -104,6 +105,10 @@ end
 -- client.
 function DataProviderMixin:CheckForEntriesToProcess()
   if #self.entriesToProcess == 0 then
+    if not self.announcedCompletion and self.searchCompleted then
+      self.announcedCompletion = true
+      self.onSearchEnded()
+    end
     return
   end
 
@@ -128,6 +133,7 @@ function DataProviderMixin:CheckForEntriesToProcess()
 
   if #self.entriesToProcess == 0 and self.searchCompleted then
     self.onSearchEnded()
+    self.announcedCompletion = true
   end
 
   self.onUpdate(self.results)

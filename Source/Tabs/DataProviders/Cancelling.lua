@@ -105,11 +105,8 @@ function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ..
     self:QueryAuctions()
 
   elseif eventName == "OWNED_AUCTIONS_UPDATED" then
-    -- Reset columns
-    self.onSearchStarted()
-    self.onSearchEnded()
-
     self:Reset()
+    self.onSearchStarted()
     self:PopulateAuctions()
   end
 end
