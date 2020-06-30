@@ -69,35 +69,27 @@ end
 function AuctionatorSellingBagFrameMixin:Update()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:Update()")
 
-
   local height = 0
   local classItems = {}
 
   for classId, frame in pairs(self.frameMap) do
     local items = self.items[classId]
-    --frame:Hide()
     frame:Reset()
 
     classItems = {}
 
-    local loopTime = debugprofilestop()
-
     for _, item in ipairs(items) do
       if item.auctionable then
         table.insert(classItems, item)
-        -- frame:AddItem(item)
-
       end
     end
 
     frame:AddItems(classItems)
     frame:Show()
 
-
     height = height + frame:GetHeight()
   end
 
   self:SetSize(self.frameMap[1]:GetRowWidth(), height)
   self.ScrollFrame.ItemListingFrame:SetSize(self.frameMap[1]:GetRowWidth(), height)
-
 end

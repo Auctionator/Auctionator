@@ -88,57 +88,66 @@ function SearchProviderMixin:OnEvent(eventName, ...)
   local entries = {}
   local complete = false
 
-
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
-    local itemID = ...
-    for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
-      local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
-      local entry = {
-        price = resultInfo.unitPrice,
-        owners = resultInfo.owners,
-        quantity = resultInfo.quantity,
-        level = "0",
-        index = index, --Used for unique entry key
-      }
-      if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
-        entry.owned = AUCTIONATOR_L_UNDERCUT_YES
-      else
-        entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
-      end
+    entries, complete = self:ProcessCommodityResults(...)
 
-      table.insert(entries, entry)
-    end
-
-    complete = C_AuctionHouse.RequestMoreCommoditySearchResults(itemID)
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
-    local itemKey = ...
-    for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
-      local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-      local entry = {
-        price = resultInfo.buyoutAmount or resultInfo.bidAmount,
-        level = tostring(resultInfo.itemKey.itemLevel or 0),
-        owners = resultInfo.owners,
-        quantity = resultInfo.quantity,
-        itemLink = resultInfo.itemLink,
-        index = index,
-      }
-      if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
-        entry.owned = AUCTIONATOR_L_UNDERCUT_YES
-      else
-        entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
-      end
-
-      table.insert(entries, entry)
-    end
-
-    complete = C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
+    entries, complete = self:ProcessItemResults(...)
   end
-
 
   self.onSearchStarted()
   self.onSearchEnded()
 
   self:AppendEntries(entries, complete)
+end
+
+function SearchProviderMixin:ProcessCommodityResults(itemID)
+  local entries = {}
+
+  for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
+    local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
+    local entry = {
+      price = resultInfo.unitPrice,
+      owners = resultInfo.owners,
+      quantity = resultInfo.quantity,
+      level = "0",
+      index = index, --Used for unique entry key
+    }
+    if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+      entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+    else
+      entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
+    end
+
+    table.insert(entries, entry)
+  end
+
+  return entries, C_AuctionHouse.RequestMoreCommoditySearchResults(itemID)
+end
+
+function SearchProviderMixin:ProcessItemResults(itemKey)
+  local entries = {}
+
+  for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
+    local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
+    local entry = {
+      price = resultInfo.buyoutAmount or resultInfo.bidAmount,
+      level = tostring(resultInfo.itemKey.itemLevel or 0),
+      owners = resultInfo.owners,
+      quantity = resultInfo.quantity,
+      itemLink = resultInfo.itemLink,
+      index = index,
+    }
+    if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+      entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+    else
+      entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
+    end
+
+    table.insert(entries, entry)
+  end
+
+  return entries, C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
 end
 
 function SearchProviderMixin:GetRowTemplate()
