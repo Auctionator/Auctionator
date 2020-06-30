@@ -78,6 +78,7 @@ function AuctionatorCancellingDataProviderMixin:OnHide()
 end
 
 function AuctionatorCancellingDataProviderMixin:QueryAuctions()
+  self.onPreserveScroll()
   self.onSearchStarted()
 
   Auctionator.AH.QueryOwnedAuctions({{sortOrder = 1, reverseSort = true}})
@@ -139,7 +140,6 @@ function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
 end
 
 function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
-  self.onPreserveScroll()
   self:Reset()
 
   local results = {}

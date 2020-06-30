@@ -71,7 +71,7 @@ function AuctionatorResultsListingMixin:RestoreScrollPosition()
   end
 
   local _, max = self.ScrollFrame.scrollBar:GetMinMaxValues()
-  local val = math.min(self.savedScrollPosition or 0, (max - 1) or 0)
+  local val = math.min(self.savedScrollPosition or 0, max or 0)
   self.ScrollFrame.scrollBar:SetValue(val)
 end
 
