@@ -9,22 +9,23 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
 
   if info ~= nil then
     Auctionator.EventBus:RegisterSource(self, "BagItemMixin" .. Auctionator.Utilities.ItemKeyString(info.itemKey))
-    -- TODO Make this look better - maybe draw a border of the appropriate
-    -- color around the icon instead of the mask
+
     self.Icon:SetTexture(info.iconTexture)
     self.Icon:Show()
 
-    -- self.IconBorder:SetColorTexture(
-    --   ITEM_QUALITY_COLORS[info.quality].r,
-    --   ITEM_QUALITY_COLORS[info.quality].g,
-    --   ITEM_QUALITY_COLORS[info.quality].b,
-    --   0.02
-    -- )
+    self.IconBorder:SetVertexColor(
+      ITEM_QUALITY_COLORS[self.itemInfo.quality].r,
+      ITEM_QUALITY_COLORS[self.itemInfo.quality].g,
+      ITEM_QUALITY_COLORS[self.itemInfo.quality].b,
+      1
+    )
+    self.IconBorder:Show()
 
     self.Text:SetText(info.count)
 
   else
-    self.Icon:SetTexture("")
+    self.IconBorder:Hide()
+    self.Icon:Hide()
     self.Text:SetText("")
   end
 end

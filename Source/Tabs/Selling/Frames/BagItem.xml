@@ -13,18 +13,26 @@
       <Layer level="BACKGROUND" textureSubLevel="2">
         <Texture parentKey="Icon">
           <Anchors>
-            <Anchor point="TOPLEFT" />
-            <Anchor point="BOTTOMRIGHT" />
+            <Anchor point="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT"/>
           </Anchors>
         </Texture>
       </Layer>
       <Layer level="BACKGROUND" textureSubLevel="1">
-        <Texture parentKey="IconBorder" file="Interface\BUTTONS\UI-Slot-Background">
+        <Texture parentKey="EmptySlot" file="Interface\BUTTONS\UI-Slot-Background">
           <Anchors>
             <Anchor point="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT"/>
           </Anchors>
           <TexCoords left="0" right="0.640625" top="0" bottom="0.640625" />
+        </Texture>
+      </Layer>
+      <Layer level="BACKGROUND" textureSubLevel="3">
+        <Texture parentKey="IconBorder" file="Interface\AddOns\Auctionator\Images\Icon_Border">
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT"/>
+          </Anchors>
         </Texture>
       </Layer>
       <Layer>
