@@ -42,5 +42,10 @@ function AuctionatorTabContainerMixin:HookTabs()
     end
 
     tab:Selected()
+
+    -- Idea derived from similar issue found at
+    -- https://www.townlong-yak.com/bugs/Kjq4hm-DisplayModeCommunitiesTaint
+    -- This way the displayMode ISN'T tainted, its just nil :)
+    AuctionHouseFrame.displayMode = nil
   end)
 end
