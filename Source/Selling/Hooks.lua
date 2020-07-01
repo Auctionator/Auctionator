@@ -1,5 +1,6 @@
 hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", function(self, button)
-  if AuctionHouseFrame and AuctionHouseFrame:IsShown() and IsAltKeyDown() then
+  if (Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALT_CLICK) and 
+      AuctionHouseFrame and AuctionHouseFrame:IsShown() and IsAltKeyDown() and button == "LeftButton") then
     AuctionatorTabs_Selling:Click()
 
     local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());

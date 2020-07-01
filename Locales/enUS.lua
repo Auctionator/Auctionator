@@ -271,5 +271,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_BAG_COLLAPSED"] = "Bag sections start collapsed (reload required)"
   L["CONFIG_BAG_COLLAPSED_TOOLTIP_HEADER"] = "Bag collapsing on start"
   L["CONFIG_BAG_COLLAPSED_TOOLTIP_TEXT"] = "If this option is on the bag sections will start closed, instead of open."
+  L["CONFIG_ALT_CLICK"] = "Alt+Click on a bag item selects it for selling"
+  L["CONFIG_ALT_CLICK_TOOLTIP_HEADER"] = "Alt+Click Shortcut"
+  L["CONFIG_ALT_CLICK_TOOLTIP_TEXT"] = "When enabled holding down the Alt key and clicking on an item in your bags will put the item in the Selling tab ready to post."
   return L
 end
