@@ -11,6 +11,7 @@
 ## SavedVariablesPerCharacter: AUCTIONATOR_CHARACTER_CONFIG
 
 zcUtils.lua
+Taint.lua
 
 Locales\Manifest.xml
 Source\Manifest.xml
