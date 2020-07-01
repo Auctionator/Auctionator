@@ -1,7 +1,7 @@
 AuctionatorShoppingListDropdownMixin = {}
 
 function AuctionatorShoppingListDropdownMixin:OnLoad()
-  UIDropDownMenu_Initialize(self, self.Initialize)
+  UIDropDownMenu_Initialize(self, self.Initialize, "taint prevention")
   UIDropDownMenu_SetWidth(self, 190)
 
   self:SetUpEvents()

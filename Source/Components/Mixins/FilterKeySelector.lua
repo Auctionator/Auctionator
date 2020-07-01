@@ -17,7 +17,7 @@ function AuctionatorFilterKeySelectorMixin:OnLoad()
     elseif level == 3 then
       self:InitializeArmorSlots(menuList)
     end
-  end)
+  end, "taint prevention")
 end
 
 function AuctionatorFilterKeySelectorMixin:GetValue()
