@@ -33,7 +33,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
     auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
   end
 
-  local vendorPrice, disenchantParams, disenchantPrice
+  local vendorPrice, disenchantStatus, disenchantPrice
   local cannotAuction = 0;
 
   local itemInfo = { GetItemInfo(itemLink) };
