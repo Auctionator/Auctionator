@@ -25,7 +25,10 @@ function AuctionatorBagClassListingMixin:OnLoad()
   self.buttonNamePrefix = self.title .. "Item"
   self:CreateEmptyButtons()
 
+  self.collapsed = false
+
   if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED) then
+    self.collapsed = true
     self.ItemContainer:Hide()
   end
 end
@@ -129,13 +132,11 @@ function AuctionatorBagClassListingMixin:DrawButtons()
 end
 
 function AuctionatorBagClassListingMixin:UpdateForCollapsing()
-  if not self:IsVisible() then
-    return
-  end
-
-  if not self.ItemContainer:IsVisible() then
+  if self.collapsed then
+    self.ItemContainer:Hide()
     self:SetHeight(self.SectionTitle:GetHeight())
   else
+    self.ItemContainer:Show()
     self:SetHeight(self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
   end
 end
@@ -167,11 +168,7 @@ function AuctionatorBagClassListingMixin:UpdateForEmpty()
 end
 
 function AuctionatorBagClassListingMixin:OnClick()
-  if self.ItemContainer:IsVisible() then
-    self.ItemContainer:Hide()
-  else
-    self.ItemContainer:Show()
-  end
+  self.collapsed = not self.collapsed
 
   self:UpdateForCollapsing()
 end
