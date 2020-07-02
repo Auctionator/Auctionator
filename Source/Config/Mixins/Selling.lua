@@ -14,6 +14,7 @@ function AuctionatorConfigSellingFrameMixin:OnShow()
   self.PriceHistory:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY))
   self.BagCollapsed:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))
   self.AltClick:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALT_CLICK))
+  self.ShiftCancel:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL))
 end
 
 function AuctionatorConfigSellingFrameMixin:Save()
@@ -23,6 +24,7 @@ function AuctionatorConfigSellingFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY, self.PriceHistory:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_COLLAPSED, self.BagCollapsed:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_ALT_CLICK, self.AltClick:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_SHIFT_CANCEL, self.ShiftCancel:GetChecked())
 end
 
 function AuctionatorConfigSellingFrameMixin:Cancel()

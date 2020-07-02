@@ -274,5 +274,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_ALT_CLICK"] = "Alt+Click on a bag item selects it for selling"
   L["CONFIG_ALT_CLICK_TOOLTIP_HEADER"] = "Alt+Click Shortcut"
   L["CONFIG_ALT_CLICK_TOOLTIP_TEXT"] = "When enabled holding down the Alt key and clicking on an item in your bags will put the item in the Selling tab ready to post."
+  L["CONFIG_SHIFT_CANCEL"] = "Shift+Click an auction you own to cancel it"
+  L["CONFIG_SHIFT_CANCEL_TOOLTIP_HEADER"] = "Shift+Click To Cancel"
+  L["CONFIG_SHIFT_CANCEL_TOOLTIP_TEXT"] = "When enabled holding down the Control key and clicking on an auction you own in the Selling tab will cancel it."
   return L
 end

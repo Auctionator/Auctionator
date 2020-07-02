@@ -13,7 +13,7 @@ end
 function AuctionatorSellSearchRowMixin:OnClick(...)
   Auctionator.Debug.Message("AuctionatorSellSearchRowMixin:OnClick()")
 
-  if IsShiftKeyDown() then
+  if IsShiftKeyDown() and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL) then
     if C_AuctionHouse.CanCancelAuction(self.rowData.auctionID) then
       C_AuctionHouse.CancelAuction(self.rowData.auctionID)
     end
