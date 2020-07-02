@@ -85,7 +85,6 @@ function AuctionatorSellingBagFrameMixin:Update()
     end
 
     frame:AddItems(classItems)
-    frame:Show()
 
     height = height + frame:GetHeight()
   end

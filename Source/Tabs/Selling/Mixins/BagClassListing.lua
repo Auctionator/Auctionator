@@ -71,6 +71,8 @@ function AuctionatorBagClassListingMixin:AddItems(itemList)
   self:DrawButtons()
 
   self:UpdateForCollapsing()
+
+  self:UpdateForEmpty()
 end
 
 function AuctionatorBagClassListingMixin:AddItem(item)
@@ -127,12 +129,43 @@ function AuctionatorBagClassListingMixin:DrawButtons()
 end
 
 function AuctionatorBagClassListingMixin:UpdateForCollapsing()
+  if not self:IsVisible() then
+    return
+  end
+
   if not self.ItemContainer:IsVisible() then
     self:SetHeight(self.SectionTitle:GetHeight())
   else
     self:SetHeight(self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
   end
 end
+
+-- Hide the frame if there are no buttons in it.
+-- Anchors are updated to ensure a blank space isn't left behind
+function AuctionatorBagClassListingMixin:UpdateForEmpty()
+  -- Get the TOPLEFT anchor and its relative frame
+  local relativeTo, relativePoint
+  for i = 1, self:GetNumPoints() do
+    local point = {self:GetPoint(1)}
+    if point[1] == "TOPLEFT" then
+      relativeTo = point[2]
+      relativePoint = point[3]
+      break
+    end
+  end
+
+  -- Shift the title up slightly
+  if #self.buttons == 0 then
+    self:SetPoint("TOPLEFT", relativeTo, relativePoint, 0, self.SectionTitle:GetHeight())
+    self:SetPoint("RIGHT", self:GetParent(), "RIGHT")
+    self:Hide()
+  else
+    self:SetPoint("TOPLEFT", relativeTo, relativePoint, 0, 0)
+    self:SetPoint("RIGHT", self:GetParent(), "RIGHT")
+    self:Show()
+  end
+end
+
 function AuctionatorBagClassListingMixin:OnClick()
   if self.ItemContainer:IsVisible() then
     self.ItemContainer:Hide()
