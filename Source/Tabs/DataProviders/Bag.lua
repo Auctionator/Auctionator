@@ -1,8 +1,6 @@
 BAG_TABLE_LAYOUT = { }
 local BAG_EVENTS = {
   "BAG_UPDATE",
-  "BAG_NEW_ITEMS_UPDATED",
-  "BAG_SLOT_FLAGS_UPDATED"
 }
 
 BagDataProviderMixin = CreateFromMixins(DataProviderMixin)
@@ -11,7 +9,6 @@ function BagDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
   self.processCountPerUpdate = 200
 
-  self.itemLocations = {}
 end
 
 function BagDataProviderMixin:OnShow()
@@ -28,61 +25,49 @@ end
 function BagDataProviderMixin:LoadBagData()
   Auctionator.Debug.Message("BagDataProviderMixin:LoadBagData()")
 
-  self.itemLocations = {}
-
   local itemMap = {}
   local results = {}
 
   for bagId = 0, 4 do
     for slot = 1, GetContainerNumSlots(bagId) do
-      table.insert(
-        self.itemLocations,
-        ItemLocation:CreateFromBagAndSlot(bagId, slot)
-      )
-    end
-  end
+      local location = ItemLocation:CreateFromBagAndSlot(bagId, slot)
+      if location:IsValid() then
+        local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
 
-  for _, location in ipairs(self.itemLocations) do
-    if location:IsValid() then
-      local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+        local tempId = self:UniqueKey({ itemKey = itemInfo.itemKey })
 
-      local tempId = self:UniqueKey({ itemKey = itemInfo.itemKey })
-
-      if itemMap[tempId] == nil then
-        itemMap[tempId] = itemInfo
-      else
-        itemMap[tempId].count = itemMap[tempId].count + itemInfo.count
+        if itemMap[tempId] == nil then
+          itemMap[tempId] = itemInfo
+        else
+          itemMap[tempId].count = itemMap[tempId].count + itemInfo.count
+        end
       end
     end
   end
 
   for _, entry in pairs(itemMap) do
     table.insert( results, entry )
+
+    local item = Item:CreateFromItemLocation(entry.location)
+
+    -- We load the item info again here because in some cases running a full
+    -- scan can cause the quality and auctionable statuses to load wrong.
+    item:ContinueOnItemLoad(function()
+      local _, _, quality, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(item:GetItemID())
+
+      entry.quality = quality
+      entry.auctionable = bindType ~= 1
+
+      self.onUpdate(self.results)
+    end)
   end
 
   self:AppendEntries(results, true)
 end
 
-function BagDataProviderMixin:OnEvent(eventName, ...)
-  -- probably need to reload results on change, test different events tho
-  -- so far, I've only seen BAG_UPDATE called, with the parameter ... being the bag number
-  -- could probably load individual bags to prevent a full reload
-  if eventName == "BAG_UPDATE" then
-    Auctionator.Debug.Message("BAG_UPDATE", ...)
-
-    self:Reset()
-    self:LoadBagData()
-  elseif eventName == "BAG_NEW_ITEMS_UPDATED" then
-    Auctionator.Debug.Message("BAG_NEW_ITEMS_UPDATED", ...)
-
-    self:Reset()
-    self:LoadBagData()
-  elseif eventName == "BAG_SLOT_FLAGS_UPDATED" then
-    Auctionator.Debug.Message("BAG_SLOT_FLAGS_UPDATED", ...)
-
-    self:Reset()
-    self:LoadBagData()
-  end
+function BagDataProviderMixin:OnEvent(...)
+  self:Reset()
+  self:LoadBagData()
 end
 
 function BagDataProviderMixin:UniqueKey(entry)
