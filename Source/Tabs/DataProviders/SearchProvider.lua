@@ -33,6 +33,9 @@ local SEARCH_PROVIDER_LAYOUT = {
 local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
+
+  --Update the search when a cancel happens
+  "AUCTION_CANCELED",
 }
 
 SearchProviderMixin = CreateFromMixins(DataProviderMixin)
@@ -72,7 +75,7 @@ local COMPARATORS = {
 }
 
 function SearchProviderMixin:UniqueKey(entry)
-  return entry.index
+  return entry.auctionID
 end
 
 function SearchProviderMixin:Sort(fieldName, sortDirection)
@@ -90,17 +93,24 @@ function SearchProviderMixin:OnEvent(eventName, ...)
   local complete = false
 
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
-    entries, complete = self:ProcessCommodityResults(...)
+    self:Reset()
+    self:AppendEntries(self:ProcessCommodityResults(...))
 
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
-    entries, complete = self:ProcessItemResults(...)
-  end
+    self:Reset()
+    self:AppendEntries(self:ProcessItemResults(...))
 
-  self:AppendEntries(entries, complete)
+  elseif eventName == "AUCTION_CANCELED" then
+    Auctionator.EventBus
+      :RegisterSource(self, "SearchProviderMixin")
+      :Fire(self, Auctionator.Selling.Events.RefreshSearch)
+      :UnregisterSource(self)
+  end
 end
 
 function SearchProviderMixin:ProcessCommodityResults(itemID)
   local entries = {}
+  local anyOwnedCannotCancel = false
 
   for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
     local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
@@ -109,9 +119,14 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
       level = "0",
-      index = index, --Used for unique entry key
+      auctionID = resultInfo.auctionID,
+      itemID = itemID,
+      itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
     }
     if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+      if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
+        anyOwnedCannotCancel = true
+      end
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
     else
       entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
@@ -120,11 +135,16 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
     table.insert(entries, entry)
   end
 
+  if anyOwnedCannotCancel then
+    C_AuctionHouse.QueryOwnedAuctions({})
+  end
+
   return entries, C_AuctionHouse.RequestMoreCommoditySearchResults(itemID)
 end
 
 function SearchProviderMixin:ProcessItemResults(itemKey)
   local entries = {}
+  local anyOwnedCannotCancel = false
 
   for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
@@ -134,15 +154,23 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
       itemLink = resultInfo.itemLink,
-      index = index,
+      auctionID = resultInfo.auctionID,
+      itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
     }
     if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+      if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
+        anyOwnedCannotCancel = true
+      end
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
     else
       entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
 
     table.insert(entries, entry)
+  end
+
+  if anyOwnedCannotCancel then
+    Auctionator.AH.QueryOwnedAuctions({})
   end
 
   return entries, C_AuctionHouse.RequestMoreItemSearchResults(itemKey)

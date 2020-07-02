@@ -29,6 +29,7 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
+    Auctionator.Selling.Events.RefreshSearch,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
@@ -42,6 +43,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
+    Auctionator.Selling.Events.RefreshSearch,
   })
   Auctionator.EventBus:UnregisterSource(self)
 end
@@ -120,6 +122,9 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
       self.itemInfo.keyName = itemInfo.itemName
       self:UpdateVisuals()
     end
+
+  elseif event == Auctionator.Selling.Events.RefreshSearch then
+    self:RefreshButtonClicked()
   end
 end
 

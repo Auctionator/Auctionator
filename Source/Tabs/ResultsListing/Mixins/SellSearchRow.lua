@@ -13,8 +13,15 @@ end
 function AuctionatorSellSearchRowMixin:OnClick(...)
   Auctionator.Debug.Message("AuctionatorSellSearchRowMixin:OnClick()")
 
-  Auctionator.EventBus
-    :RegisterSource(self, "SellSearchRow")
-    :Fire(self, Auctionator.Selling.Events.PriceSelected, self.rowData.price, true)
-    :UnregisterSource(self)
+  if IsShiftKeyDown() then
+    if C_AuctionHouse.CanCancelAuction(self.rowData.auctionID) then
+      C_AuctionHouse.CancelAuction(self.rowData.auctionID)
+    end
+
+  else
+    Auctionator.EventBus
+      :RegisterSource(self, "SellSearchRow")
+      :Fire(self, Auctionator.Selling.Events.PriceSelected, self.rowData.price, true)
+      :UnregisterSource(self)
+  end
 end
