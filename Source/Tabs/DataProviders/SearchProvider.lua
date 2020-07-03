@@ -109,7 +109,7 @@ end
 
 function SearchProviderMixin:ProcessCommodityResults(itemID)
   local entries = {}
-  local anyOwnedCannotCancel = false
+  local anyOwnedNotLoaded = false
 
   for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
     local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
@@ -122,11 +122,15 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
       itemID = itemID,
       itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
     }
+
     if resultInfo.containsOwnerItem then
+      -- Test if the auction has been loaded for cancelling
       if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
-        anyOwnedCannotCancel = true
+        anyOwnedNotLoaded = true
       end
+
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+
     else
       entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
@@ -134,7 +138,12 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
     table.insert(entries, entry)
   end
 
-  if anyOwnedCannotCancel and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
+  -- To cancel an owned auction it must have been loaded by QueryOwnedAuctions.
+  -- Rather than call it unnecessarily (which wastes a request) it is only
+  -- called if an auction exists that hasn't been loaded for cancelling yet.
+  -- If a user really really wants to avoid an extra request they can turn the
+  -- feature off.
+  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
@@ -143,7 +152,7 @@ end
 
 function SearchProviderMixin:ProcessItemResults(itemKey)
   local entries = {}
-  local anyOwnedCannotCancel = false
+  local anyOwnedNotLoaded = false
 
   for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
@@ -156,11 +165,15 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
       auctionID = resultInfo.auctionID,
       itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
     }
+
     if resultInfo.containsOwnerItem then
+      -- Test if the auction has been loaded for cancelling
       if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
-        anyOwnedCannotCancel = true
+        anyOwnedNotLoaded = true
       end
+
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+
     else
       entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
@@ -168,7 +181,8 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
     table.insert(entries, entry)
   end
 
-  if anyOwnedCannotCancel and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
+  -- See comment in ProcessCommodityResults
+  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
