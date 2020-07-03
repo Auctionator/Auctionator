@@ -34,7 +34,7 @@ local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
 
-  --Update the search when a cancel happens
+  --Used to update the search when a cancel happens
   "AUCTION_CANCELED",
 }
 
@@ -89,9 +89,6 @@ function SearchProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function SearchProviderMixin:OnEvent(eventName, ...)
-  local entries = {}
-  local complete = false
-
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
     self:Reset()
     self:AppendEntries(self:ProcessCommodityResults(...))
