@@ -88,14 +88,16 @@ function SearchProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function SearchProviderMixin:OnEvent(eventName, ...)
+function SearchProviderMixin:OnEvent(eventName, itemRef, auctionID)
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
     self:Reset()
-    self:AppendEntries(self:ProcessCommodityResults(...))
+    self:AppendEntries(self:ProcessCommodityResults(itemRef), true)
 
-  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
+  -- Get item search results, excluding individual auction updates (which cause
+  -- the display to blank)
+  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" and auctionID == nil then
     self:Reset()
-    self:AppendEntries(self:ProcessItemResults(...))
+    self:AppendEntries(self:ProcessItemResults(itemRef), true)
 
   elseif eventName == "AUCTION_CANCELED" then
     Auctionator.EventBus
@@ -133,10 +135,10 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
   end
 
   if anyOwnedCannotCancel and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
-    C_AuctionHouse.QueryOwnedAuctions({})
+    Auctionator.AH.QueryOwnedAuctions({})
   end
 
-  return entries, C_AuctionHouse.RequestMoreCommoditySearchResults(itemID)
+  return entries
 end
 
 function SearchProviderMixin:ProcessItemResults(itemKey)
@@ -170,7 +172,7 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
-  return entries, C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
+  return entries
 end
 
 function SearchProviderMixin:GetRowTemplate()
