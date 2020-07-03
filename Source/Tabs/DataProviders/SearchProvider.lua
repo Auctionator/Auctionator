@@ -123,7 +123,7 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
       itemID = itemID,
       itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
     }
-    if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+    if resultInfo.containsOwnerItem then
       if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
         anyOwnedCannotCancel = true
       end
@@ -157,7 +157,7 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
       auctionID = resultInfo.auctionID,
       itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
     }
-    if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+    if resultInfo.containsOwnerItem then
       if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
         anyOwnedCannotCancel = true
       end
