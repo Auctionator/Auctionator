@@ -280,5 +280,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_BAG_SHOW_SELLING_BAG"] = "Bag items list is shown (reload required)"
   L["CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_HEADER"] = "Bag Items Listing"
   L["CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_TEXT"] = "If this option is off the bag items pane will be hidden."
+  L["CONFIG_BAG"] = "Bag"
   return L
 end

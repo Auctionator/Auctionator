@@ -37,26 +37,6 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagCollapsed">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
-        </Anchors>
-      </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagShown">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" />
-        </Anchors>
-      </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AltClick">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK" type="global" />
@@ -64,7 +44,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagShown" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ClickCancel">
@@ -77,7 +57,35 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.AltClick" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="BagHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_BAG" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ClickCancel" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagShown">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagCollapsed">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagShown" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>
