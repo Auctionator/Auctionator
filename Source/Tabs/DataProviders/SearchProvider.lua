@@ -33,6 +33,9 @@ local SEARCH_PROVIDER_LAYOUT = {
 local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
+
+  --Used to update the search when a cancel happens
+  "AUCTION_CANCELED",
 }
 
 SearchProviderMixin = CreateFromMixins(DataProviderMixin)
@@ -72,7 +75,7 @@ local COMPARATORS = {
 }
 
 function SearchProviderMixin:UniqueKey(entry)
-  return entry.index
+  return entry.auctionID
 end
 
 function SearchProviderMixin:Sort(fieldName, sortDirection)
@@ -85,22 +88,28 @@ function SearchProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function SearchProviderMixin:OnEvent(eventName, ...)
-  local entries = {}
-  local complete = false
-
+function SearchProviderMixin:OnEvent(eventName, itemRef, auctionID)
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
-    entries, complete = self:ProcessCommodityResults(...)
+    self:Reset()
+    self:AppendEntries(self:ProcessCommodityResults(itemRef), true)
 
-  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
-    entries, complete = self:ProcessItemResults(...)
+  -- Get item search results, excluding individual auction updates (which cause
+  -- the display to blank)
+  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" and auctionID == nil then
+    self:Reset()
+    self:AppendEntries(self:ProcessItemResults(itemRef), true)
+
+  elseif eventName == "AUCTION_CANCELED" then
+    Auctionator.EventBus
+      :RegisterSource(self, "SearchProviderMixin")
+      :Fire(self, Auctionator.Selling.Events.RefreshSearch)
+      :UnregisterSource(self)
   end
-
-  self:AppendEntries(entries, complete)
 end
 
 function SearchProviderMixin:ProcessCommodityResults(itemID)
   local entries = {}
+  local anyOwnedNotLoaded = false
 
   for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
     local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
@@ -109,10 +118,19 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
       level = "0",
-      index = index, --Used for unique entry key
+      auctionID = resultInfo.auctionID,
+      itemID = itemID,
+      itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
     }
-    if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+
+    if resultInfo.containsOwnerItem then
+      -- Test if the auction has been loaded for cancelling
+      if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
+        anyOwnedNotLoaded = true
+      end
+
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+
     else
       entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
@@ -120,11 +138,21 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
     table.insert(entries, entry)
   end
 
-  return entries, C_AuctionHouse.RequestMoreCommoditySearchResults(itemID)
+  -- To cancel an owned auction it must have been loaded by QueryOwnedAuctions.
+  -- Rather than call it unnecessarily (which wastes a request) it is only
+  -- called if an auction exists that hasn't been loaded for cancelling yet.
+  -- If a user really really wants to avoid an extra request they can turn the
+  -- feature off.
+  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
+    Auctionator.AH.QueryOwnedAuctions({})
+  end
+
+  return entries
 end
 
 function SearchProviderMixin:ProcessItemResults(itemKey)
   local entries = {}
+  local anyOwnedNotLoaded = false
 
   for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
@@ -134,10 +162,18 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
       itemLink = resultInfo.itemLink,
-      index = index,
+      auctionID = resultInfo.auctionID,
+      itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
     }
-    if resultInfo.containsOwnerItem or resultInfo.containsAccountItem then
+
+    if resultInfo.containsOwnerItem then
+      -- Test if the auction has been loaded for cancelling
+      if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
+        anyOwnedNotLoaded = true
+      end
+
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+
     else
       entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
@@ -145,7 +181,12 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
     table.insert(entries, entry)
   end
 
-  return entries, C_AuctionHouse.RequestMoreItemSearchResults(itemKey)
+  -- See comment in ProcessCommodityResults
+  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
+    Auctionator.AH.QueryOwnedAuctions({})
+  end
+
+  return entries
 end
 
 function SearchProviderMixin:GetRowTemplate()

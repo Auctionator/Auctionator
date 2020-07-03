@@ -4,4 +4,5 @@ Auctionator.Selling.Events = {
   AuctionCreated = "selling_auction_created",
   SellSearchStart = "sell_search_start",
   PriceSelected = "price_selected",
+  RefreshSearch = "selling_refresh_search",
 }
