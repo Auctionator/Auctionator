@@ -135,7 +135,7 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
     table.insert(entries, entry)
   end
 
-  if anyOwnedCannotCancel and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL) then
+  if anyOwnedCannotCancel and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
     C_AuctionHouse.QueryOwnedAuctions({})
   end
 
@@ -169,7 +169,7 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
     table.insert(entries, entry)
   end
 
-  if anyOwnedCannotCancel and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL) then
+  if anyOwnedCannotCancel and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
