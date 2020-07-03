@@ -18,6 +18,7 @@ Auctionator.Config.Options = {
   SELLING_BAG_COLLAPSED = "selling_bag_collapsed",
   SELLING_ALT_CLICK = "selling_alt_click",
   SELLING_CLICK_CANCEL = "selling_click_cancel",
+  SHOW_SELLING_BAG = "show_selling_bag",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -65,6 +66,7 @@ local defaults = {
   [Auctionator.Config.Options.SELLING_BAG_COLLAPSED] = false,
   [Auctionator.Config.Options.SELLING_ALT_CLICK] = true,
   [Auctionator.Config.Options.SELLING_CLICK_CANCEL] = true,
+  [Auctionator.Config.Options.SHOW_SELLING_BAG] = true,
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
