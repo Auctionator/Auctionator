@@ -3,27 +3,27 @@ local BAG_EVENTS = {
   "BAG_UPDATE",
 }
 
-BagDataProviderMixin = CreateFromMixins(DataProviderMixin)
+AuctionatorBagDataProviderMixin = CreateFromMixins(DataProviderMixin)
 
-function BagDataProviderMixin:OnLoad()
+function AuctionatorBagDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
   self.processCountPerUpdate = 200
 
 end
 
-function BagDataProviderMixin:OnShow()
+function AuctionatorBagDataProviderMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, BAG_EVENTS)
 
   self:Reset()
   self:LoadBagData()
 end
 
-function BagDataProviderMixin:OnHide()
+function AuctionatorBagDataProviderMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, BAG_EVENTS)
 end
 
-function BagDataProviderMixin:LoadBagData()
-  Auctionator.Debug.Message("BagDataProviderMixin:LoadBagData()")
+function AuctionatorBagDataProviderMixin:LoadBagData()
+  Auctionator.Debug.Message("AuctionatorBagDataProviderMixin:LoadBagData()")
 
   local itemMap = {}
   local results = {}
@@ -65,20 +65,20 @@ function BagDataProviderMixin:LoadBagData()
   self:AppendEntries(results, true)
 end
 
-function BagDataProviderMixin:OnEvent(...)
+function AuctionatorBagDataProviderMixin:OnEvent(...)
   self:Reset()
   self:LoadBagData()
 end
 
-function BagDataProviderMixin:UniqueKey(entry)
+function AuctionatorBagDataProviderMixin:UniqueKey(entry)
   return Auctionator.Utilities.ItemKeyString(entry.itemKey)
 end
 
-function BagDataProviderMixin:GetTableLayout()
+function AuctionatorBagDataProviderMixin:GetTableLayout()
   return BAG_TABLE_LAYOUT
 end
 
-function BagDataProviderMixin:GetRowTemplate()
+function AuctionatorBagDataProviderMixin:GetRowTemplate()
   return "AuctionatorBagListResultsRowTemplate"
 end
 
@@ -88,7 +88,7 @@ local COMPARATORS = {
   count = Auctionator.Utilities.NumberComparator
 }
 
-function BagDataProviderMixin:Sort(fieldName, sortDirection)
+function AuctionatorBagDataProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)

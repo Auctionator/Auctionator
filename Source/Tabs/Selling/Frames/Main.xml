@@ -16,7 +16,7 @@
     </Anchors>
 
     <Frames>
-      <Frame parentKey="BagDataProvider" mixin="BagDataProviderMixin">
+      <Frame parentKey="BagDataProvider" mixin="AuctionatorBagDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnEvent method="OnEvent"/>
@@ -58,7 +58,7 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="CurrentItemProvider" mixin="SearchProviderMixin">
+      <Frame parentKey="CurrentItemProvider" mixin="AuctionatorSearchDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>

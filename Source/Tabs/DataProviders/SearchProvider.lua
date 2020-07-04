@@ -38,9 +38,9 @@ local SEARCH_EVENTS = {
   "AUCTION_CANCELED",
 }
 
-SearchProviderMixin = CreateFromMixins(DataProviderMixin)
+AuctionatorSearchDataProviderMixin = CreateFromMixins(DataProviderMixin)
 
-function SearchProviderMixin:OnShow()
+function AuctionatorSearchDataProviderMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, SEARCH_EVENTS)
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.SellSearchStart
@@ -49,21 +49,21 @@ function SearchProviderMixin:OnShow()
   self:Reset()
 end
 
-function SearchProviderMixin:OnHide()
+function AuctionatorSearchDataProviderMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, SEARCH_EVENTS)
   Auctionator.EventBus:Unregister(self, {
     Auctionator.Selling.Events.SellSearchStart
   })
 end
 
-function SearchProviderMixin:ReceiveEvent(eventName)
+function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName)
   if eventName == Auctionator.Selling.Events.SellSearchStart then
     self:Reset()
     self.onSearchStarted()
   end
 end
 
-function SearchProviderMixin:GetTableLayout()
+function AuctionatorSearchDataProviderMixin:GetTableLayout()
   return SEARCH_PROVIDER_LAYOUT
 end
 
@@ -74,11 +74,11 @@ local COMPARATORS = {
   owned = Auctionator.Utilities.StringComparator,
 }
 
-function SearchProviderMixin:UniqueKey(entry)
+function AuctionatorSearchDataProviderMixin:UniqueKey(entry)
   return entry.auctionID
 end
 
-function SearchProviderMixin:Sort(fieldName, sortDirection)
+function AuctionatorSearchDataProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)
@@ -88,7 +88,7 @@ function SearchProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function SearchProviderMixin:OnEvent(eventName, itemRef, auctionID)
+function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionID)
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
     self:Reset()
     self:AppendEntries(self:ProcessCommodityResults(itemRef), true)
@@ -101,13 +101,13 @@ function SearchProviderMixin:OnEvent(eventName, itemRef, auctionID)
 
   elseif eventName == "AUCTION_CANCELED" then
     Auctionator.EventBus
-      :RegisterSource(self, "SearchProviderMixin")
+      :RegisterSource(self, "AuctionatorSearchDataProviderMixin")
       :Fire(self, Auctionator.Selling.Events.RefreshSearch)
       :UnregisterSource(self)
   end
 end
 
-function SearchProviderMixin:ProcessCommodityResults(itemID)
+function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   local entries = {}
   local anyOwnedNotLoaded = false
 
@@ -150,7 +150,7 @@ function SearchProviderMixin:ProcessCommodityResults(itemID)
   return entries
 end
 
-function SearchProviderMixin:ProcessItemResults(itemKey)
+function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   local entries = {}
   local anyOwnedNotLoaded = false
 
@@ -189,6 +189,6 @@ function SearchProviderMixin:ProcessItemResults(itemKey)
   return entries
 end
 
-function SearchProviderMixin:GetRowTemplate()
+function AuctionatorSearchDataProviderMixin:GetRowTemplate()
   return "AuctionatorSellSearchRowTemplate"
 end
