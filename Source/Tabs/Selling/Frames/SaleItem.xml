@@ -25,7 +25,7 @@
 
         <Layers>
           <Layer>
-            <FontString parentKey="Text" inherits="Game15Font">
+            <FontString parentKey="Text" inherits="GameFontNormalLarge">
               <Anchors>
                 <Anchor point="TOPLEFT" x="9" y="-5" />
               </Anchors>
