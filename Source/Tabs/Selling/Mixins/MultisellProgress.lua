@@ -17,6 +17,8 @@ end
 
 function AuctionatorMultisellProgress:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, MULTISELL_EVENTS)
+  C_AuctionHouse.CancelSell()
+  AuctionHouseMultisellProgressFrame:Hide()
 end
 
 function AuctionatorMultisellProgress:OnEvent(event, ...)
