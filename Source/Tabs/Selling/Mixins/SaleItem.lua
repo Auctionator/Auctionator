@@ -392,6 +392,8 @@ function AuctionatorSaleItemMixin:PostItem()
   local duration = self:GetDuration()
   local buyout = self.Price:GetAmount()
 
+  self.MultisellProgress:SetDetails(self.itemInfo.iconTexture, quantity)
+
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
     C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, nil, buyout)
   else

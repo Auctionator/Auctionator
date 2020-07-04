@@ -160,6 +160,16 @@
           </OnClick>
         </Scripts>
      </Button>
-    </Frames>
+     <Frame
+       parentKey="MultisellProgress"
+       mixin="AuctionatorMultisellProgress"
+     >
+       <Scripts>
+         <OnEvent method="OnEvent"/>
+         <OnShow method="OnShow"/>
+         <OnHide method="OnHide"/>
+       </Scripts>
+     </Frame>
+   </Frames>
   </Frame>
 </Ui>
