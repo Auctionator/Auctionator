@@ -143,7 +143,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   -- called if an auction exists that hasn't been loaded for cancelling yet.
   -- If a user really really wants to avoid an extra request they can turn the
   -- feature off.
-  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
+  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL) then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
@@ -182,7 +182,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   end
 
   -- See comment in ProcessCommodityResults
-  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CLICK_CANCEL) then
+  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL) then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 

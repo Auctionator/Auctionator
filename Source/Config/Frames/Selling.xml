@@ -47,11 +47,11 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ClickCancel">
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftCancel">
         <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CLICK_CANCEL" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_CLICK_CANCEL_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CLICK_CANCEL_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.AltClick" relativePoint="BOTTOMLEFT" />
@@ -62,7 +62,7 @@
           <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_BAG" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ClickCancel" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftCancel" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
