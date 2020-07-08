@@ -29,12 +29,12 @@ local function StartSearch(callerID, cloned)
   -- Show the shopping list tab for results
   AuctionHouseFrame.AuctionatorShoppingListTab:Click()
 
-  -- Remove any old searches
-  if Auctionator.ShoppingLists.ListIndex(callerID) ~= nil then
-    Auctionator.ShoppingLists.Delete(callerID)
-  end
-
   local listName = callerID .. " (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
+
+  -- Remove any old searches
+  if Auctionator.ShoppingLists.ListIndex(listName) ~= nil then
+    Auctionator.ShoppingLists.Delete(listName)
+  end
 
   Auctionator.ShoppingLists.CreateTemporary(listName)
 
