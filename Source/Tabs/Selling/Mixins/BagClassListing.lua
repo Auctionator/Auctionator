@@ -23,25 +23,12 @@ function AuctionatorBagClassListingMixin:OnLoad()
   self.SectionTitle.HighlightTexture:SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
 
   self.buttonNamePrefix = self.title .. "Item"
-  self:CreateEmptyButtons()
 
   self.collapsed = false
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED) then
     self.collapsed = true
     self.ItemContainer:Hide()
-  end
-end
-
-function AuctionatorBagClassListingMixin:CreateEmptyButtons()
-  self.emptyButtons = {}
-  local frame
-
-  for count = 1, ROW_LENGTH - 1 do
-    frame = CreateFrame("Frame", self.buttonNamePrefix .. "Empty" .. count, self.ItemContainer, "AuctionatorBagItem")
-    frame:Hide()
-
-    table.insert(self.emptyButtons, frame)
   end
 end
 
@@ -93,11 +80,6 @@ function AuctionatorBagClassListingMixin:DrawButtons()
   local rows = 1
   local lastButton
 
-  for _, button in ipairs(self.emptyButtons) do
-    button:ClearAllPoints()
-    button:Hide()
-  end
-
   for index, button in ipairs(self.buttons) do
     lastButton = button
 
@@ -108,17 +90,6 @@ function AuctionatorBagClassListingMixin:DrawButtons()
       button:SetPoint("TOPLEFT", self.buttons[index - ROW_LENGTH], "BOTTOMLEFT")
     else
       button:SetPoint("TOPLEFT", self.buttons[index - 1], "TOPRIGHT")
-    end
-  end
-
-  if (#self.buttons % ROW_LENGTH) ~= 0 then
-    local emptyCount = ROW_LENGTH - (#self.buttons % ROW_LENGTH)
-
-    for count = 1, emptyCount do
-      self.emptyButtons[count]:SetPoint("TOPLEFT", lastButton, "TOPRIGHT")
-      self.emptyButtons[count]:Show()
-
-      lastButton = self.emptyButtons[count]
     end
   end
 
