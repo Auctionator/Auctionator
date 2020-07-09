@@ -12,10 +12,10 @@ Auctionator also eliminates the tedious process of item posting and auction mana
 * Creation of shopping lists that allow you to search for all entries in your list simultaneously.
 * Displays auction house price on item tooltip
 * ~~When buying, displays sorted auction listings along with details such as individual item price and stack size.~~
-* ~~When selling, displays existing listings on the auction house for price comparison~~
-* ~~Easy auction management with automatic price checks~~
-* ~~Allows full scan of auction house and record historic item prices~~
-* ~~Allows parameters customization such as undercutting values for different price points~~
+* When selling, displays existing listings on the auction house for price comparison
+* Easy auction management with automatic price checks
+* Allows full scan of auction house and record historic item prices
+* Allows parameters customization such as undercutting values for different sales types
 
 ## Contribute
 
