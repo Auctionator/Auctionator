@@ -46,6 +46,18 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.RefreshSearch,
   })
   Auctionator.EventBus:UnregisterSource(self)
+  self:UnlockItem()
+end
+
+function AuctionatorSaleItemMixin:UnlockItem()
+  if self.itemInfo ~= nil then
+    C_Item.UnlockItem(self.itemInfo.location)
+    self.itemInfo = nil
+  end
+end
+
+function AuctionatorSaleItemMixin:LockItem()
+  C_Item.LockItem(self.itemInfo.location)
 end
 
 function AuctionatorSaleItemMixin:OnUpdate()
@@ -90,7 +102,9 @@ end
 
 function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemClicked then
+    self:UnlockItem()
     self.itemInfo = ...
+    self:LockItem()
     self:Update()
 
   elseif event == Auctionator.AH.Events.ThrottleUpdate then
@@ -232,7 +246,7 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
 end
 
 function AuctionatorSaleItemMixin:Reset()
-  self.itemInfo = nil
+  self:UnlockItem()
 
   self:Update()
 end
