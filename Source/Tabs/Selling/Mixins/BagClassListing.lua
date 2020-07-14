@@ -1,14 +1,21 @@
 AuctionatorBagClassListingMixin = {}
 
-local ROW_LENGTH = 5
 
 function AuctionatorBagClassListingMixin:OnLoad()
+  self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
+
   self.items = {}
   self.buttons = {}
   self.buttonPool = CreateAndInitFromMixin(Auctionator.Utilities.PoolMixin)
   self.buttonPool:SetCreator(function()
-    return CreateFrame("Frame", self.buttonNamePrefix .. #self.items,
+    local button = CreateFrame("Frame", self.buttonNamePrefix .. #self.items,
                 self.ItemContainer, "AuctionatorBagItem")
+    button:SetSize(
+      self.iconSize,
+      self.iconSize
+    )
+
+    return button
   end)
   self.isAuctionatorBag = true
 
@@ -43,8 +50,12 @@ function AuctionatorBagClassListingMixin:Reset()
   self.buttons = {}
 end
 
+function AuctionatorBagClassListingMixin:GetRowLength()
+  return math.floor(250/self.iconSize)
+end
+
 function AuctionatorBagClassListingMixin:GetRowWidth()
-  return ROW_LENGTH * 42
+  return self:GetRowLength() * self.iconSize
 end
 
 function AuctionatorBagClassListingMixin:UpdateTitle()
@@ -85,21 +96,21 @@ function AuctionatorBagClassListingMixin:DrawButtons()
 
     if index == 1 then
       button:SetPoint("TOPLEFT", self.ItemContainer, "TOPLEFT", 0, -2)
-    elseif ((index - 1) % ROW_LENGTH) == 0 then
+    elseif ((index - 1) % self:GetRowLength()) == 0 then
       rows = rows + 1
-      button:SetPoint("TOPLEFT", self.buttons[index - ROW_LENGTH], "BOTTOMLEFT")
+      button:SetPoint("TOPLEFT", self.buttons[index - self:GetRowLength()], "BOTTOMLEFT")
     else
       button:SetPoint("TOPLEFT", self.buttons[index - 1], "TOPRIGHT")
     end
   end
 
   if #self.buttons > 0 then
-    self.ItemContainer:SetSize( self.buttons[1]:GetWidth() * 3, rows * 42 + 2)
+    self.ItemContainer:SetSize(self.buttons[1]:GetWidth() * 3, rows * self.iconSize + 2)
   else
     self.ItemContainer:SetSize(0, 0)
   end
 
-  self:SetSize(42 * ROW_LENGTH, self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
+  self:SetSize(self.iconSize * self:GetRowLength(), self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
 end
 
 function AuctionatorBagClassListingMixin:UpdateForCollapsing()

@@ -86,6 +86,16 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.BagShown" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="IconSize">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>
