@@ -86,7 +86,7 @@ function AuctionatorSellingBagFrameMixin:Update()
 
     frame:AddItems(classItems)
 
-    height = height + frame:GetHeight()
+    height = height + frame.SectionTitle:GetHeight()
   end
 
   self:SetSize(self.frameMap[1]:GetRowWidth(), height)
