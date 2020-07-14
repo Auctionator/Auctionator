@@ -238,7 +238,7 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
 
   if itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
      itemInfo.itemKey.battlePetSpeciesID == 0 then
-    Auctionator.AH.SendSellSearchQuery({itemID = itemInfo.itemKey.itemID}, sortingOrder, true)
+    Auctionator.AH.SendSellSearchQuery(C_AuctionHouse.MakeItemKey(itemInfo.itemKey.itemID), sortingOrder, true)
   else
     Auctionator.AH.SendSearchQuery(itemInfo.itemKey, sortingOrder, true)
   end
