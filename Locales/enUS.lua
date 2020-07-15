@@ -280,6 +280,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_BAG_SHOW_SELLING_BAG"] = "Bag items list is shown (reload required)"
   L["CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_HEADER"] = "Bag Items Listing"
   L["CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_TEXT"] = "If this option is off the bag items pane will be hidden."
+  L["CONFIG_SELLING_ICON_SIZE"] = "Bag icon size (reload required)"
+  L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_HEADER"] = "Size of Icons"
+  L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT"] = "This lets you make the bag item icons in the selling tab larger (up to 50) or smaller (down to 10). Default size is 42."
   L["CONFIG_BAG"] = "Bag"
   return L
 end

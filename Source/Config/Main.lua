@@ -19,6 +19,7 @@ Auctionator.Config.Options = {
   SELLING_ALT_CLICK = "selling_alt_click",
   SELLING_SHIFT_CANCEL = "selling_shift_cancel",
   SHOW_SELLING_BAG = "show_selling_bag",
+  SELLING_ICON_SIZE = "selling_icon_size",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -67,6 +68,7 @@ local defaults = {
   [Auctionator.Config.Options.SELLING_ALT_CLICK] = true,
   [Auctionator.Config.Options.SELLING_SHIFT_CANCEL] = true,
   [Auctionator.Config.Options.SHOW_SELLING_BAG] = true,
+  [Auctionator.Config.Options.SELLING_ICON_SIZE] = 42,
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,

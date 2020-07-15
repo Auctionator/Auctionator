@@ -16,6 +16,7 @@ function AuctionatorConfigSellingFrameMixin:OnShow()
   self.AltClick:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALT_CLICK))
   self.ShiftCancel:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL))
   self.BagShown:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BAG))
+  self.IconSize:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
 end
 
 function AuctionatorConfigSellingFrameMixin:Save()
@@ -26,7 +27,7 @@ function AuctionatorConfigSellingFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_COLLAPSED, self.BagCollapsed:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_ALT_CLICK, self.AltClick:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_SHIFT_CANCEL, self.ShiftCancel:GetChecked())
-  Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_BAG, self.BagShown:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_ICON_SIZE, math.min(50, math.max(10, self.IconSize:GetNumber())))
 end
 
 function AuctionatorConfigSellingFrameMixin:Cancel()
