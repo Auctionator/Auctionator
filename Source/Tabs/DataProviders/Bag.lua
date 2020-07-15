@@ -56,7 +56,7 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
       local _, _, quality, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(item:GetItemID())
 
       entry.quality = quality
-      entry.auctionable = bindType ~= 1
+      entry.auctionable = C_AuctionHouse.IsSellItemValid(entry.location, false)
 
       self.onUpdate(self.results)
     end)
