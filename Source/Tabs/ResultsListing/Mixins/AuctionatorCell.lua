@@ -17,9 +17,9 @@ function AuctionatorCellMixin:OnLeave()
   end
 end
 
-function AuctionatorCellMixin:OnClick()
+function AuctionatorCellMixin:OnClick(...)
   if self:GetParent().OnClick ~= nil then
-    self:GetParent():OnClick()
+    self:GetParent():OnClick(...)
 
     Auctionator.Debug.Message("index", self.index)
 
