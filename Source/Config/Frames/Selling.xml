@@ -47,6 +47,21 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+      <Frame inherits="AuctionatorDropDown" parentKey="BagSelectShortcut">
+        <Scripts>
+          <OnLoad>
+            self.DropDown:Initialize({
+              "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click"
+              }, {
+              "right click", "alt left click", "alt right click", "shift left click", "shift right click"
+              }
+            )
+          </OnLoad>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AltClick" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftCancel">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL" type="global" />
@@ -54,7 +69,37 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AltClick" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagSelectShortcut" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorDropDown" parentKey="CancelShortcut">
+        <Scripts>
+          <OnLoad>
+            self.DropDown:Initialize({
+              "Left Click", "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click"
+              }, {
+              "left click", "right click", "alt left click", "alt right click", "shift left click", "shift right click"
+              }
+            )
+          </OnLoad>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftCancel" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorDropDown" parentKey="BuyShortcut">
+        <Scripts>
+          <OnLoad>
+            self.DropDown:Initialize({
+              "Left Click", "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click"
+              }, {
+              "left click", "right click", "alt left click", "alt right click", "shift left click", "shift right click"
+              }
+            )
+          </OnLoad>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CancelShortcut" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="BagHeading">
@@ -62,7 +107,7 @@
           <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_BAG" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftCancel" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BuyShortcut" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 

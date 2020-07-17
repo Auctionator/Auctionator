@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorDropDown" virtual="true">
+    <Size y="40"/>
+    <Frames>
+      <Frame inherits="UIDropDownMenuTemplate" mixin="AuctionatorDropDownMixin" parentKey="DropDown">
+        <Size x="150"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="10"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+    <Anchors>
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" />
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+    </Anchors>
+  </Frame>
+</Ui>
