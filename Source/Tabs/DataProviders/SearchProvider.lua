@@ -151,6 +151,10 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   return entries
 end
 
+local function cancelShortcutEnabled()
+  return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE
+end
+
 function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   local entries = {}
   local anyOwnedNotLoaded = false
@@ -184,7 +188,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   end
 
   -- See comment in ProcessCommodityResults
-  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE then
+  if anyOwnedNotLoaded and cancelShortcutEnabled() then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
