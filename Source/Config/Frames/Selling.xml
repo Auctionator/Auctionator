@@ -37,67 +37,47 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AltClick">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
-        </Anchors>
-      </Frame>
       <Frame inherits="AuctionatorDropDown" parentKey="BagSelectShortcut">
         <Scripts>
           <OnLoad>
-            self.DropDown:Initialize({
-              "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click"
-              }, {
-              "right click", "alt left click", "alt right click", "shift left click", "shift right click"
-              }
-            )
+            self.text = {"Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click", "Disabled"}
+            self.values = {"right click", "alt left click", "alt right click", "shift left click", "shift right click", "none"}
+            self.labelText = AUCTIONATOR_L_CONFIG_SELLING_BAG_SELECT_SHORTCUT
+
+            self:AuctionatorOnLoad()
           </OnLoad>
         </Scripts>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AltClick" relativePoint="BOTTOMLEFT"/>
-        </Anchors>
-      </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftCancel">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagSelectShortcut" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorDropDown" parentKey="CancelShortcut">
         <Scripts>
           <OnLoad>
-            self.DropDown:Initialize({
-              "Left Click", "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click"
-              }, {
-              "left click", "right click", "alt left click", "alt right click", "shift left click", "shift right click"
-              }
-            )
+            self.text = {"Left Click", "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click", "Disabled"}
+            self.values = {"left click", "right click", "alt left click", "alt right click", "shift left click", "shift right click", "none"}
+            self.labelText = AUCTIONATOR_L_CONFIG_SELLING_CANCEL_SHORTCUT
+
+            self:AuctionatorOnLoad()
           </OnLoad>
         </Scripts>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftCancel" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagSelectShortcut" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorDropDown" parentKey="BuyShortcut">
         <Scripts>
           <OnLoad>
-            self.DropDown:Initialize({
-              "Left Click", "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click"
-              }, {
-              "left click", "right click", "alt left click", "alt right click", "shift left click", "shift right click"
-              }
-            )
+            self.text = {"Left Click", "Right Click", "Alt + Left Click", "Alt + Right Click", "Shift + Left Click", "Shift + Right Click", "Disabled"}
+            self.values = {"left click", "right click", "alt left click", "alt right click", "shift left click", "shift right click", "none"}
+            self.labelText = AUCTIONATOR_L_CONFIG_SELLING_BUY_SHORTCUT
+
+            self:AuctionatorOnLoad()
           </OnLoad>
         </Scripts>
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_SELLING_BUY_SHORTCUT" type="global" />
+        </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.CancelShortcut" relativePoint="BOTTOMLEFT"/>
         </Anchors>

@@ -1,6 +1,22 @@
 AuctionatorDropDownMixin = {}
 
-function AuctionatorDropDownMixin:Initialize(text, values)
+function AuctionatorDropDownMixin:AuctionatorOnLoad()
+  self.DropDown:Initialize(self.text, self.values)
+
+  self.Label:SetText(self.labelText)
+end
+
+function AuctionatorDropDownMixin:SetValue(...)
+  self.DropDown:SetValue(...)
+end
+
+function AuctionatorDropDownMixin:GetValue(...)
+  return self.DropDown:GetValue(...)
+end
+
+AuctionatorDropDownInternalMixin = {}
+
+function AuctionatorDropDownInternalMixin:Initialize(text, values)
   self.text = text
   self.values = values
   self.value = self.values[1]
@@ -9,7 +25,7 @@ function AuctionatorDropDownMixin:Initialize(text, values)
   UIDropDownMenu_SetWidth(self, self:GetWidth())
 end
 
-function AuctionatorDropDownMixin:BlizzInitialize()
+function AuctionatorDropDownInternalMixin:BlizzInitialize()
   local listEntry
 
   for index = 1, #self.text do
@@ -27,11 +43,11 @@ function AuctionatorDropDownMixin:BlizzInitialize()
   self:SetValue(self.value)
 end
 
-function AuctionatorDropDownMixin:GetValue()
+function AuctionatorDropDownInternalMixin:GetValue()
   return self.value
 end
 
-function AuctionatorDropDownMixin:SetValue(newValue)
+function AuctionatorDropDownInternalMixin:SetValue(newValue)
   for index, value in ipairs(self.values) do
     if newValue == value then
       UIDropDownMenu_SetText(self, self.text[index])
