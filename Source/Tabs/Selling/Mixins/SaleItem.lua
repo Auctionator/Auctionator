@@ -276,7 +276,7 @@ end
 function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessCommodityResults()")
 
-  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = {itemID = itemID} })
+  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = C_AuctionHouse.MakeItemKey(itemID) })
 
   local result = self:GetCommodityResult(itemID)
   -- Update DB with current lowest price
