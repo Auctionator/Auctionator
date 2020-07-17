@@ -5,6 +5,9 @@
         <KeyValue key="labelText" value="" type="string"/>
       </KeyValues>
     -->
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
     <Size y="40"/>
 
     <Frames>

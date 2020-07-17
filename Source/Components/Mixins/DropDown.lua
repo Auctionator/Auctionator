@@ -1,7 +1,10 @@
 AuctionatorDropDownMixin = {}
 
-function AuctionatorDropDownMixin:AuctionatorOnLoad()
-  self.DropDown:Initialize(self.text, self.values)
+function AuctionatorDropDownMixin:OnLoad()
+  self.DropDown:Initialize(
+    {strsplit(";", self.textString)},
+    {strsplit(";", self.valuesString)}
+  )
 
   self.Label:SetText(self.labelText)
 end
