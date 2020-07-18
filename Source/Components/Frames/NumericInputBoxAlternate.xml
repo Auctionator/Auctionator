@@ -1,0 +1,44 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <!-- Template for a simple input box -->
+  <Frame name="AuctionatorConfigurationNumericInputAlternate" mixin="AuctionatorConfigNumericInputMixin"  inherits="AuctionatorConfigurationTooltip" virtual="true">
+    <!--
+      <KeyValues>
+        <KeyValue key="labelText" value="" type="string"/>
+        <KeyValue key="tooltipTitleText" value="" type="string"/>
+        <KeyValue key="tooltipText" value="" type="string"/>
+      </KeyValues>
+    -->
+    <Size y="40" />
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnMouseUp method="OnMouseUp"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" />
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+    </Anchors>
+    <Frames>
+      <EditBox autoFocus="false" inherits="LargeInputBoxTemplate" numeric="true" parentKey="InputBox" letters="10">
+        <Size x="70" y="20" />
+        <Anchors>
+          <Anchor point="TOPLEFT" x="120" />
+        </Anchors>
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
+        <Layers>
+          <Layer level="BACKGROUND">
+            <FontString inherits="GameFontHighlight" parentKey="Label">
+              <Anchors>
+                <Anchor point="TOPRIGHT" relativePoint="TOPLEFT" relativeKey="$parent" x="-10" y="-4" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnEnter>self:GetParent():OnEnter()</OnEnter>
+          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+        </Scripts>
+      </EditBox>
+    </Frames>
+  </Frame>
+</Ui>

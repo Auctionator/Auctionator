@@ -210,6 +210,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CANCEL_UNDERCUT"] = "Cancel Undercut"
   L["NAME"] = "Name"
   L["QUANTITY"] = "Quantity"
+  L["MAX"] = "Max"
   L["UNIT_PRICE"] = "Unit Price"
   L["TIME_LEFT_H"] = "Time Left (h)"
   L["IS_UNDERCUT"] = "Undercut?"

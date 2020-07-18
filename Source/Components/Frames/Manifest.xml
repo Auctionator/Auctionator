@@ -8,7 +8,9 @@
   <Include file="RadioButtonGroup.xml"/>
   <Include file="HorizontalRadioButtonGroup.xml"/>
   <Include file="NumericInputBox.xml"/>
+  <Include file="NumericInputBoxAlternate.xml"/>
   <Include file="MoneyInput.xml"/>
+  <Include file="MoneyInputAlternate.xml"/>
   <Include file="CopyAndPasteBox.xml"/>
   <Include file="MinMaxRangeGroup.xml" />
   <Include file="FilterKeySelector.xml"/>

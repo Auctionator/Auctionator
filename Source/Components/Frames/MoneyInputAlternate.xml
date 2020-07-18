@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <!-- Template for money input with label -->
-  <Frame name="AuctionatorConfigurationMoneyInput" mixin="AuctionatorConfigMoneyInputMixin" inherits="AuctionatorConfigurationTooltip" virtual="true">
+  <Frame name="AuctionatorConfigurationMoneyInputAlternate" mixin="AuctionatorConfigMoneyInputMixin" inherits="AuctionatorConfigurationTooltip" virtual="true">
     <!--
       <KeyValues>
         Number is in copper, but will round to next lowest silver since copper not used in AH
