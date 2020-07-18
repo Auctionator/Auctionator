@@ -1,9 +1,22 @@
 AuctionatorDropDownMixin = {}
 
+local ARRAY_DELIMITER = ";"
+local function splitStrArray(arrayString)
+  return {strsplit(ARRAY_DELIMITER, arrayString)}
+end
+
+local function localizeArray(array)
+  for index, itm in ipairs(array) do
+    array[index] = Auctionator.Locales.Apply(itm)
+  end
+
+  return array
+end
+
 function AuctionatorDropDownMixin:OnLoad()
   self.DropDown:Initialize(
-    {strsplit(";", self.textString)},
-    {strsplit(";", self.valuesString)}
+    localizeArray(splitStrArray(self.textString)),
+    splitStrArray(self.valuesString)
   )
 
   self.Label:SetText(self.labelText)
