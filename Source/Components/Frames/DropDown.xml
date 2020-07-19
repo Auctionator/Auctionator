@@ -3,6 +3,8 @@
     <!--
       <KeyValues>
         <KeyValue key="labelText" value="" type="string"/>
+        <KeyValue key="textString" value="CONSTANT_1;CONSTANT_2;..." type="string">
+        <KeyValue key="valuesString" value="string_1;string_2;..." type="string">
       </KeyValues>
     -->
     <Scripts>
