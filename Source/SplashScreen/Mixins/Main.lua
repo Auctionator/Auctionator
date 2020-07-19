@@ -1,6 +1,34 @@
 -- We should probably move this into another file too
 local MESSAGES = {
   {
+    Version = "8.3.2",
+    Description = AUCTIONATOR_L_SPLASH_832_DESCRIPTION,
+    Sections = {
+      {
+        Title = AUCTIONATOR_L_SPLASH_832_FEATURES_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_832_FEATURES_1,
+          AUCTIONATOR_L_SPLASH_832_FEATURES_2,
+          AUCTIONATOR_L_SPLASH_832_FEATURES_3,
+          AUCTIONATOR_L_SPLASH_832_FEATURES_4,
+          AUCTIONATOR_L_SPLASH_832_FEATURES_5,
+          AUCTIONATOR_L_SPLASH_832_FEATURES_6,
+          AUCTIONATOR_L_SPLASH_832_FEATURES_7,
+        }
+      },
+      {
+        Title = AUCTIONATOR_L_SPLASH_832_CUSTOMISATION_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_832_CUSTOMISATION_1,
+          AUCTIONATOR_L_SPLASH_832_CUSTOMISATION_2,
+          AUCTIONATOR_L_SPLASH_832_CUSTOMISATION_3,
+          AUCTIONATOR_L_SPLASH_832_CUSTOMISATION_4,
+          AUCTIONATOR_L_SPLASH_832_CUSTOMISATION_5,
+        }
+      },
+    }
+  },
+  {
     Version = "8.3.1",
     Description = nil,
     Sections = {
