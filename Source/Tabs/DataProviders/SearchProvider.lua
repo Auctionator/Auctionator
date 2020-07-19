@@ -121,6 +121,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       auctionID = resultInfo.auctionID,
       itemID = itemID,
       itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
+      canBuy = not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 
     if resultInfo.containsOwnerItem then
@@ -143,11 +144,15 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   -- called if an auction exists that hasn't been loaded for cancelling yet.
   -- If a user really really wants to avoid an extra request they can turn the
   -- feature off.
-  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL) then
+  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
   return entries
+end
+
+local function cancelShortcutEnabled()
+  return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE
 end
 
 function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
@@ -164,6 +169,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       itemLink = resultInfo.itemLink,
       auctionID = resultInfo.auctionID,
       itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
+      canBuy = not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 
     if resultInfo.containsOwnerItem then
@@ -182,7 +188,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   end
 
   -- See comment in ProcessCommodityResults
-  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHIFT_CANCEL) then
+  if anyOwnedNotLoaded and cancelShortcutEnabled() then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 

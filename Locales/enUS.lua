@@ -269,12 +269,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_BAG_COLLAPSED"] = "Bag sections start collapsed (reload required)"
   L["CONFIG_BAG_COLLAPSED_TOOLTIP_HEADER"] = "Bag collapsing on start"
   L["CONFIG_BAG_COLLAPSED_TOOLTIP_TEXT"] = "If this option is on the bag sections will start closed, instead of open."
-  L["CONFIG_ALT_CLICK"] = "Alt+Click on a bag item selects it for selling"
-  L["CONFIG_ALT_CLICK_TOOLTIP_HEADER"] = "Alt+Click Shortcut"
-  L["CONFIG_ALT_CLICK_TOOLTIP_TEXT"] = "When enabled holding down the Alt key and clicking on an item in your bags will put the item in the Selling tab ready to post."
-  L["CONFIG_SHIFT_CANCEL"] = "Shift+Click on an auction you own will cancel it"
-  L["CONFIG_SHIFT_CANCEL_TOOLTIP_HEADER"] = "Shift+Click To Cancel"
-  L["CONFIG_SHIFT_CANCEL_TOOLTIP_TEXT"] = "When enabled holding down shift and clicking on an auction you own will cancel it."
+  L["CONFIG_SELLING_BAG_SELECT_SHORTCUT"] = "on an item in your bag puts it in the Selling tab"
+  L["CONFIG_SELLING_CANCEL_SHORTCUT"] = "on an auction you own will cancel it"
+  L["CONFIG_SELLING_BUY_SHORTCUT"]  = "on an auction you don't own will buy it"
   L["CONFIG_BAG_SHOW_SELLING_BAG"] = "Bag items list is shown (reload required)"
   L["CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_HEADER"] = "Bag Items Listing"
   L["CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_TEXT"] = "If this option is off the bag items pane will be hidden."
@@ -282,5 +279,14 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_HEADER"] = "Size of Icons"
   L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT"] = "This lets you make the bag item icons in the selling tab larger (up to 50) or smaller (down to 10). Default size is 42."
   L["CONFIG_BAG"] = "Bag"
+
+  L["LEFT_CLICK"] = "Left Click"
+  L["RIGHT_CLICK"] = "Right Click"
+  L["ALT_LEFT_CLICK"] = "Alt Left Click"
+  L["ALT_RIGHT_CLICK"] = "Alt Right Click"
+  L["SHIFT_LEFT_CLICK"] = "Shift Left Click"
+  L["SHIFT_RIGHT_CLICK"] = "Shift Right Click"
+  L["DISABLED"] = "Disabled"
+
   return L
 end

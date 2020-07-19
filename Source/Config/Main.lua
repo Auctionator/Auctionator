@@ -16,8 +16,9 @@ Auctionator.Config.Options = {
   AUCTION_CHAT_LOG = "auction_chat_log",
   SHOW_SELLING_PRICE_HISTORY = "show_selling_price_history",
   SELLING_BAG_COLLAPSED = "selling_bag_collapsed",
-  SELLING_ALT_CLICK = "selling_alt_click",
-  SELLING_SHIFT_CANCEL = "selling_shift_cancel",
+  SELLING_BAG_SELECT_SHORTCUT = "selling_bag_select_shortcut",
+  SELLING_CANCEL_SHORTCUT = "selling_cancel_shortcut",
+  SELLING_BUY_SHORTCUT = "selling_buy_shortcut",
   SHOW_SELLING_BAG = "show_selling_bag",
   SELLING_ICON_SIZE = "selling_icon_size",
 
@@ -50,6 +51,16 @@ Auctionator.Config.SalesTypes = {
   STATIC = "static"
 }
 
+Auctionator.Config.Shortcuts = {
+  LEFT_CLICK = "left click",
+  RIGHT_CLICK = "right click",
+  ALT_LEFT_CLICK = "alt left click",
+  SHIFT_LEFT_CLICK = "shift left click",
+  ALT_RIGHT_CLICK = "alt right click",
+  SHIFT_RIGHT_CLICK = "shift right click",
+  NONE = "none",
+}
+
 local defaults = {
   [Auctionator.Config.Options.DEBUG] = false,
   [Auctionator.Config.Options.MAILBOX_TOOLTIPS] = true,
@@ -65,8 +76,9 @@ local defaults = {
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
   [Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY] = true,
   [Auctionator.Config.Options.SELLING_BAG_COLLAPSED] = false,
-  [Auctionator.Config.Options.SELLING_ALT_CLICK] = true,
-  [Auctionator.Config.Options.SELLING_SHIFT_CANCEL] = true,
+  [Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_LEFT_CLICK,
+  [Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT] = Auctionator.Config.Shortcuts.RIGHT_CLICK,
+  [Auctionator.Config.Options.SELLING_BUY_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_RIGHT_CLICK,
   [Auctionator.Config.Options.SHOW_SELLING_BAG] = true,
   [Auctionator.Config.Options.SELLING_ICON_SIZE] = 42,
 

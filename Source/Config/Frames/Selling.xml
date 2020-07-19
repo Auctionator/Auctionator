@@ -37,24 +37,34 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AltClick">
+      <Frame inherits="AuctionatorDropDown" parentKey="BagSelectShortcut">
         <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_ALT_CLICK_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_BAG_SELECT_SHORTCUT" type="global" />
+          <KeyValue key="textString" value="RIGHT_CLICK;ALT_LEFT_CLICK;ALT_RIGHT_CLICK;SHIFT_LEFT_CLICK;SHIFT_RIGHT_CLICK;DISABLED" type="string"/>
+          <KeyValue key="valuesString" value="right click;alt left click;alt right click;shift left click;shift right click;none" type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftCancel">
+      <Frame inherits="AuctionatorDropDown" parentKey="CancelShortcut">
         <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHIFT_CANCEL_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_CANCEL_SHORTCUT" type="global" />
+          <KeyValue key="textString" value="LEFT_CLICK;RIGHT_CLICK;ALT_LEFT_CLICK;ALT_RIGHT_CLICK;SHIFT_LEFT_CLICK;SHIFT_RIGHT_CLICK;DISABLED" type="string"/>
+          <KeyValue key="valuesString" value="left click;right click;alt left click;alt right click;shift left click;shift right click;none" type="string"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AltClick" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagSelectShortcut" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorDropDown" parentKey="BuyShortcut">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_BUY_SHORTCUT" type="global" />
+          <KeyValue key="textString" value="LEFT_CLICK;RIGHT_CLICK;ALT_LEFT_CLICK;ALT_RIGHT_CLICK;SHIFT_LEFT_CLICK;SHIFT_RIGHT_CLICK;DISABLED" type="string"/>
+          <KeyValue key="valuesString" value="left click;right click;alt left click;alt right click;shift left click;shift right click;none" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CancelShortcut" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="BagHeading">
@@ -62,7 +72,7 @@
           <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_BAG" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftCancel" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BuyShortcut" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
