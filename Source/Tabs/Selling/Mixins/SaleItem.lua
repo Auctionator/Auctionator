@@ -72,11 +72,17 @@ function AuctionatorSaleItemMixin:OnUpdate()
   )
 
   if self.Quantity:GetNumber() > self.itemInfo.count then
-    self.Quantity:SetNumber(self.itemInfo.count)
+    self:SetMax()
   end
+
+  self.MaxButton:SetEnabled(self.Quantity:GetNumber() ~= self.itemInfo.count)
 
   self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(self:GetDeposit()))
   self:UpdatePostButtonState()
+end
+
+function AuctionatorSaleItemMixin:SetMax()
+  self.Quantity:SetNumber(self.itemInfo.count)
 end
 
 function AuctionatorSaleItemMixin:GetDeposit()
@@ -208,6 +214,7 @@ end
 
 function AuctionatorSaleItemMixin:UpdateForNoItem()
   self.Quantity:SetNumber(1)
+  self.MaxButton:Disable()
   self:UpdateSalesPrice(0)
 
   self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))

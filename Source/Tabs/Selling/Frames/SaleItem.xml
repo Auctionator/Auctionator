@@ -41,7 +41,7 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInput">
+      <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInputAlternate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" y="-2" />
           <Anchor point="RIGHT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="200"/>
@@ -52,7 +52,17 @@
         </KeyValues>
       </Frame>
 
-      <Frame parentKey="Price" inherits="AuctionatorConfigurationMoneyInput">
+      <Button parentKey="MaxButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_MAX">
+        <Size x="70" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Quantity" relativePoint="TOPRIGHT" x="0" y="4" />
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():SetMax()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame parentKey="Price" inherits="AuctionatorConfigurationMoneyInputAlternate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Quantity" relativePoint="BOTTOMLEFT" y="10" />
         </Anchors>
