@@ -257,7 +257,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["COMMODITY"] = "Commodity"
 
   L["DEFAULT_TAB"] = "Default Tab"
-  L["DEFAULT_TAB_TEXT"] = "Choose the default Auctionator tab to show"
+  L["DEFAULT_TAB_TEXT"] = "shows as the default tab"
   L["NONE"] = "None"
 
   L["CONFIG_SELLING_CATEGORY"] = "Selling"
@@ -287,6 +287,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SHIFT_LEFT_CLICK"] = "Shift Left Click"
   L["SHIFT_RIGHT_CLICK"] = "Shift Right Click"
   L["DISABLED"] = "Disabled"
+  L["AUCTIONATOR"] = "Auctionator"
 
   return L
 end

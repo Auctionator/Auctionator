@@ -98,45 +98,15 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="DefaultTab">
+      <Frame inherits="AuctionatorDropDown" parentKey="DefaultTab">
        <KeyValues>
-         <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DEFAULT_TAB_TEXT" type="global"/>
+         <KeyValue key="labelText" value="AUCTIONATOR_L_DEFAULT_TAB_TEXT" type="global"/>
+         <KeyValue key="textString" value="NONE;SHOPPING_TAB;SELLING_TAB;CANCELLING_TAB;AUCTIONATOR"/>
+         <KeyValue key="valuesString" value="0;1;2;3;4"/>
        </KeyValues>
        <Anchors>
          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultTabHeading" relativePoint="BOTTOMLEFT"/>
        </Anchors>
-       <Frames>
-         <Frame inherits="AuctionatorConfigurationRadioButton">
-           <KeyValues>
-             <KeyValue key="labelText" value="AUCTIONATOR_L_NONE" type="global"/>
-             <KeyValue key="value" value="0" type="number"/>
-           </KeyValues>
-         </Frame>
-         <Frame inherits="AuctionatorConfigurationRadioButton">
-           <KeyValues>
-             <KeyValue key="labelText" value="AUCTIONATOR_L_SHOPPING_TAB" type="global"/>
-             <KeyValue key="value" value="1" type="number"/>
-           </KeyValues>
-         </Frame>
-         <Frame inherits="AuctionatorConfigurationRadioButton">
-           <KeyValues>
-             <KeyValue key="labelText" value="AUCTIONATOR_L_SELLING_TAB" type="global"/>
-             <KeyValue key="value" value="2" type="number"/>
-           </KeyValues>
-         </Frame>
-         <Frame inherits="AuctionatorConfigurationRadioButton">
-           <KeyValues>
-             <KeyValue key="labelText" value="AUCTIONATOR_L_CANCELLING_TAB" type="global"/>
-             <KeyValue key="value" value="3" type="number"/>
-           </KeyValues>
-         </Frame>
-         <Frame inherits="AuctionatorConfigurationRadioButton">
-           <KeyValues>
-             <KeyValue key="labelText" value="Auctionator" type="string"/>
-             <KeyValue key="value" value="4" type="number"/>
-           </KeyValues>
-         </Frame>
-       </Frames>
       </Frame>
    </Frames>
   </Frame>
