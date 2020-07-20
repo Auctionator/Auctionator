@@ -268,9 +268,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["POST_BUTTON_MACRO"] = "Post Button Macro"
   L["DEPOSIT"] = "Deposit:"
   L["TOTAL_PRICE"] = "Total Price:"
-  L["UNKNOWN"] = "Unknown"
-  L["ITEM"] = "Item"
-  L["COMMODITY"] = "Commodity"
 
   L["DEFAULT_TAB"] = "Default Tab"
   L["DEFAULT_TAB_TEXT"] = "shows as the default tab"

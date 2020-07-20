@@ -166,10 +166,8 @@ function AuctionatorSaleItemMixin:UpdateVisuals()
 
   if self.itemInfo ~= nil then
 
-    self.TitleArea.Text:SetText(
-      self:GetItemName() .. " - " ..
-      Auctionator.Constants.ITEM_TYPE_STRINGS[self.itemInfo.itemType]
-    )
+    self.TitleArea.Text:SetText(self:GetItemName())
+
     self.TitleArea.Text:SetTextColor(
       ITEM_QUALITY_COLORS[self.itemInfo.quality].r,
       ITEM_QUALITY_COLORS[self.itemInfo.quality].g,
