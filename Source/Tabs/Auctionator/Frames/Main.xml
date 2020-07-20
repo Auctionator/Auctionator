@@ -132,7 +132,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Dagnet, dalanwoopy">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="Dagnet, sugymaylis">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.ptBR" relativePoint="TOPRIGHT"/>
@@ -149,7 +149,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="LvWind, dalanwoopy">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="sugymaylis, LvWind">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.zhCN" relativePoint="TOPRIGHT"/>
@@ -183,7 +183,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="dalanwoopy, Franxavis">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="sugymaylis, Franxavis">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.esES" relativePoint="TOPRIGHT"/>
@@ -200,7 +200,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="ftg3, dalanwoopy">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="sugymaylis, ftg3">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.esMX" relativePoint="TOPRIGHT"/>
@@ -217,7 +217,7 @@
             </FontString>
           </Layer>
           <Layer level="ARTWORK">
-            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="podvibe">
+            <FontString inherits="GameFontHighlight" justifyH="LEFT" text="PodVibe">
               <Size x="225"/>
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent.frFR" relativePoint="TOPRIGHT"/>
