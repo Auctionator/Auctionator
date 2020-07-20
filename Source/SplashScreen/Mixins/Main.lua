@@ -95,6 +95,10 @@ AuctionatorSplashScreenMixin = {}
 
 function AuctionatorSplashScreenMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorSplashScreenMixin:OnLoad()")
+
+  --Trap mouse events (prevents click-through the frame)
+  self:EnableMouse(true)
+
   table.insert(UISpecialFrames, self:GetName())
 
   self:ReformatCheckbox()
