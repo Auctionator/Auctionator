@@ -200,7 +200,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_832_CUSTOMISATION_1"] = "The price history pane and the bag pane can be disabled"
   L["SPLASH_832_CUSTOMISATION_2"] = "The bag pane sections can start expanded (the default) or be configured to start collapsed"
   L["SPLASH_832_CUSTOMISATION_3"] = "The message in your chat telling you what auction you just created can be turned off"
-  L["SPLASH_832_CUSTOMISATION_4"] = "Gear/Pets have have their own undercutting and duration settings to configure, separate from the settings for most items"
+  L["SPLASH_832_CUSTOMISATION_4"] = "Gear/Pets have their own undercutting and duration settings to configure, separate from the settings for most items"
   L["SPLASH_832_CUSTOMISATION_5"] = "The shortcuts to buy auctions, cancel auctions and select an item from your bag can be changed"
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
