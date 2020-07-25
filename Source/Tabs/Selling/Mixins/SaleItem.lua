@@ -198,7 +198,8 @@ end
 
 function AuctionatorSaleItemMixin:UpdateForNewItem()
   self:SetDuration()
-  self.Quantity:SetNumber(self.itemInfo.count)
+
+  self:SetQuantity()
 
   local price = Auctionator.Database.GetPrice(
     Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
@@ -211,7 +212,7 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
 end
 
 function AuctionatorSaleItemMixin:UpdateForNoItem()
-  self.Quantity:SetNumber(1)
+  self.Quantity:SetNumber(0)
   self.MaxButton:Disable()
   self:UpdateSalesPrice(0)
 
@@ -229,6 +230,19 @@ function AuctionatorSaleItemMixin:SetDuration()
     self.Duration:SetSelectedValue(
       Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
     )
+  end
+end
+
+function AuctionatorSaleItemMixin:SetQuantity()
+  -- If a default quantity has been selected (ie non-zero amount)
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_DEFAULT_QUANTITY) > 0 then
+    self.Quantity:SetNumber(math.min(
+      self.itemInfo.count,
+      Auctionator.Config.Get(Auctionator.Config.Options.SELLING_DEFAULT_QUANTITY)
+    ))
+  -- No default quantity setting, use the maximum possible
+  else
+    self.Quantity:SetNumber(self.itemInfo.count)
   end
 end
 

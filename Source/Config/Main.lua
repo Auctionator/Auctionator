@@ -21,6 +21,7 @@ Auctionator.Config.Options = {
   SELLING_BUY_SHORTCUT = "selling_buy_shortcut",
   SHOW_SELLING_BAG = "show_selling_bag",
   SELLING_ICON_SIZE = "selling_icon_size",
+  SELLING_DEFAULT_QUANTITY = "lifo_default_quantity",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -91,6 +92,7 @@ local defaults = {
   [Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
   [Auctionator.Config.Options.LIFO_UNDERCUT_PERCENTAGE] = 0,
   [Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE] = 0,
+  [Auctionator.Config.Options.SELLING_DEFAULT_QUANTITY] = 0,
 
   [Auctionator.Config.Options.PRICE_HISTORY_DAYS] = 21,
   [Auctionator.Config.Options.FEATURE_SELLING_1] = true,

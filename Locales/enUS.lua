@@ -302,5 +302,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DISABLED"] = "Disabled"
   L["AUCTIONATOR"] = "Auctionator"
 
+  L["DEFAULT_QUANTITY"] = "Default Quantity"
+
+  L["CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX"] = "Set to 0 for maximum amount"
+  L["CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_HEADER"] = "Default Posting Quantity"
+  L["CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_TEXT"] = "This lets you change the default amount used when posting an item. Set this to 0 to use the maximum possible amount."
+
   return L
 end

@@ -106,6 +106,26 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" y="-15"/>
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="QuantityHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_DEFAULT_QUANTITY" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconSize" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="DefaultQuantity">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.QuantityHeading" relativePoint="BOTTOMLEFT" y="-7"/>
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

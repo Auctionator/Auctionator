@@ -20,6 +20,8 @@ function AuctionatorConfigSellingFrameMixin:OnShow()
 
   self.BagShown:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BAG))
   self.IconSize:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
+
+  self.DefaultQuantity:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_DEFAULT_QUANTITY))
 end
 
 function AuctionatorConfigSellingFrameMixin:Save()
@@ -35,6 +37,8 @@ function AuctionatorConfigSellingFrameMixin:Save()
 
   Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_BAG, self.BagShown:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_ICON_SIZE, math.min(50, math.max(10, self.IconSize:GetNumber())))
+
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_DEFAULT_QUANTITY, self.DefaultQuantity:GetNumber())
 end
 
 function AuctionatorConfigSellingFrameMixin:Cancel()

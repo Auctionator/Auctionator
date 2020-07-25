@@ -25,7 +25,7 @@
           <KeyValue key="hideCopper" value="true" type="boolean" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="120"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="25"/>
         </Anchors>
         <Scripts>
           <OnEnter>self:GetParent():OnEnter()</OnEnter>
@@ -37,7 +37,7 @@
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontHighlight" parentKey="Label">
           <Anchors>
-            <Anchor point="RIGHT" relativePoint="LEFT" relativeKey="$parent.MoneyInput" x="-10" />
+            <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.MoneyInput" x="5" />
           </Anchors>
         </FontString>
       </Layer>
