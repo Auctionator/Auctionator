@@ -206,6 +206,8 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   )
   if price ~= nil then
     self:UpdateSalesPrice(price)
+  else
+    self:UpdateSalesPrice(0)
   end
 
   self:DoSearch(self.itemInfo)
