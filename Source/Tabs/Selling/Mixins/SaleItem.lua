@@ -259,8 +259,10 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
 
   if itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
      itemInfo.itemKey.battlePetSpeciesID == 0 then
-    Auctionator.AH.SendSellSearchQuery(C_AuctionHouse.MakeItemKey(itemInfo.itemKey.itemID), sortingOrder, true)
+     self.expectedItemKey = C_AuctionHouse.MakeItemKey(itemInfo.itemKey.itemID)
+    Auctionator.AH.SendSellSearchQuery(self.expectedItemKey, sortingOrder, true)
   else
+    self.expectedItemKey = itemInfo.itemKey
     Auctionator.AH.SendSearchQuery(itemInfo.itemKey, sortingOrder, true)
   end
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart)
@@ -278,12 +280,25 @@ end
 
 function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
   if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
+    local itemID = ...
+    if itemID ~= self.expectedItemKey.itemID then
+      return
+    end
+
     self:ProcessCommodityResults(...)
+    FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
+
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
+    local itemKey = ...
+    if Auctionator.Utilities.ItemKeyString(itemKey) ~=
+        Auctionator.Utilities.ItemKeyString(self.expectedItemKey) then
+      return
+    end
+
     self:ProcessItemResults(...)
+    FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
   end
 
-  FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
 end
 
 function AuctionatorSaleItemMixin:GetCommodityResult(itemId)
