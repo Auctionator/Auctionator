@@ -12,6 +12,16 @@
     </Scripts>
 
     <Frames>
+      <Button inherits="RefreshButtonTemplate">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():RefreshButtonClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
       <Frame parentKey="DataProvider" mixin="AuctionatorCancellingDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
