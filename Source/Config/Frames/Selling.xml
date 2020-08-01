@@ -107,7 +107,7 @@
         </Anchors>
       </Frame>
 
-      <Button parentKey="ResetIgnoredKeys" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CONFIG_SELLING_RESET_IGNORED">
+      <Button parentKey="ResetIgnoredKeys" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CONFIG_SELLING_RESET_HIDDEN">
         <Size x="140" y="22"/>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.IconSize" relativePoint="BOTTOMLEFT" x="23"/>
