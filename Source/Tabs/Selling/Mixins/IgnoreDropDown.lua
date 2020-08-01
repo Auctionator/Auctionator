@@ -12,12 +12,6 @@ local function IgnoreItemKey(itemKey)
     :UnregisterSource(IgnoreItemKey)
 end
 
-function AuctionatorIgnoreDropDownLineCallback(line, dropDown)
-  local itemKey = line:GetRowData().itemKey
-  AuctionatorIgnoreDropDownCallback(dropDown, itemKey)
-end
-
-
 function AuctionatorIgnoreDropDownMixin:OnLoad()
   UIDropDownMenu_Initialize(self, AuctionatorIgnoreDropDownMixin.Initialize, "MENU")
   Auctionator.EventBus:Register(self, {
