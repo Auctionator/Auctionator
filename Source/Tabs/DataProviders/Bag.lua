@@ -38,20 +38,11 @@ local function IsIgnoredItemKey(location)
   return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), keyString) ~= nil
 end
 
-local function GetSortedKeys(t)
-  local keys = {}
-  for k, _ in pairs(t) do
-    table.insert(keys, k)
-  end
-  table.sort(keys)
-
-  return keys
-end
-
 function AuctionatorBagDataProviderMixin:LoadBagData()
   Auctionator.Debug.Message("AuctionatorBagDataProviderMixin:LoadBagData()")
 
   local itemMap = {}
+  local orderedKeys = {}
   local results = {}
   local index = 0
 
@@ -66,6 +57,7 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
         local tempId = self:UniqueKey({ itemKey = itemInfo.itemKey })
 
         if itemMap[tempId] == nil then
+          table.insert(orderedKeys, tempId)
           itemMap[tempId] = itemInfo
         else
           itemMap[tempId].count = itemMap[tempId].count + itemInfo.count
@@ -74,11 +66,11 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
     end
   end
 
-  local sortedKeys = GetSortedKeys(itemMap)
+  orderedKeys = Auctionator.Utilities.ReverseArray(orderedKeys)
 
   local entry = nil
 
-  for _, key in ipairs(sortedKeys) do
+  for _, key in ipairs(orderedKeys) do
     entry = itemMap[key]
 
     table.insert( results, entry )
