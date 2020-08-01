@@ -275,7 +275,11 @@ function AuctionatorSaleItemMixin:Reset()
 end
 
 function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)
-  self.Price:SetAmount(NormalizePrice(salesPrice))
+  if salesPrice == 0 then
+    self.Price:SetAmount(0)
+  else
+    self.Price:SetAmount(NormalizePrice(salesPrice))
+  end
 end
 
 function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
