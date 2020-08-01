@@ -1,9 +1,5 @@
 AuctionatorBagItemMixin = {}
 
-function AuctionatorBagItemMixin:OnLoad()
-
-end
-
 function AuctionatorBagItemMixin:SetItemInfo(info)
   self.itemInfo = info
 
@@ -42,9 +38,16 @@ function AuctionatorBagItemMixin:OnLeave()
   end
 end
 
-function AuctionatorBagItemMixin:OnClick()
+function AuctionatorBagItemMixin:OnClick(button)
   if self.itemInfo ~= nil then
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)
+    if button == "LeftButton" then
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)
+    elseif button == "RightButton" then
+      Auctionator.EventBus
+        :RegisterSource(self, "AuctionatorBagItemMixin")
+        :Fire(self, Auctionator.Selling.Events.IgnoreCallback, self.itemInfo.itemKey)
+        :UnregisterSource(self)
+    end
   end
 end
 

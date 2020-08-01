@@ -3,7 +3,6 @@
     <Size x="42" y="42"/>
 
     <Scripts>
-      <OnLoad method="OnLoad" />
       <OnEnter method="OnEnter" />
       <OnLeave method="OnLeave" />
       <OnMouseDown method="OnClick" />

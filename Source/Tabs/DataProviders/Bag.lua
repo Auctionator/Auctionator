@@ -9,6 +9,16 @@ function AuctionatorBagDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
   self.processCountPerUpdate = 200
 
+  Auctionator.EventBus:Register(self, {
+    Auctionator.Selling.Events.BagRefresh,
+  })
+end
+
+function AuctionatorBagDataProviderMixin:ReceiveEvent(event)
+  if event == Auctionator.Selling.Events.BagRefresh then
+    self:Reset()
+    self:LoadBagData()
+  end
 end
 
 function AuctionatorBagDataProviderMixin:OnShow()
@@ -22,21 +32,32 @@ function AuctionatorBagDataProviderMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, BAG_EVENTS)
 end
 
+local function IsIgnoredItemKey(location)
+  local keyString = Auctionator.Utilities.ItemKeyString(C_AuctionHouse.GetItemKeyFromItem(location))
+
+  return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), keyString) ~= nil
+end
+
 function AuctionatorBagDataProviderMixin:LoadBagData()
   Auctionator.Debug.Message("AuctionatorBagDataProviderMixin:LoadBagData()")
 
   local itemMap = {}
+  local orderedKeys = {}
   local results = {}
+  local index = 0
 
   for bagId = 0, 4 do
     for slot = 1, GetContainerNumSlots(bagId) do
+      index = index + 1
+
       local location = ItemLocation:CreateFromBagAndSlot(bagId, slot)
-      if location:IsValid() then
+      if location:IsValid() and not IsIgnoredItemKey(location) then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
 
         local tempId = self:UniqueKey({ itemKey = itemInfo.itemKey })
 
         if itemMap[tempId] == nil then
+          table.insert(orderedKeys, tempId)
           itemMap[tempId] = itemInfo
         else
           itemMap[tempId].count = itemMap[tempId].count + itemInfo.count
@@ -45,7 +66,13 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
     end
   end
 
-  for _, entry in pairs(itemMap) do
+  orderedKeys = Auctionator.Utilities.ReverseArray(orderedKeys)
+
+  local entry = nil
+
+  for _, key in ipairs(orderedKeys) do
+    entry = itemMap[key]
+
     table.insert( results, entry )
 
     local item = Item:CreateFromItemLocation(entry.location)
