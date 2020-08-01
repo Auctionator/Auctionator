@@ -293,6 +293,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT"] = "This lets you make the bag item icons in the selling tab larger (up to 50) or smaller (down to 10). Default size is 42."
   L["CONFIG_SELLING_RESET_IGNORED"] = "Restore Ignored Items"
   L["CONFIG_BAG"] = "Bag"
+  L["IGNORE"] = "Ignore"
 
   L["LEFT_CLICK"] = "Left Click"
   L["RIGHT_CLICK"] = "Right Click"

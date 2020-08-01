@@ -41,7 +41,7 @@ function AuctionatorIgnoreDropDownMixin:Initialize()
 
   local info = UIDropDownMenu_CreateInfo()
   info.notCheckable = 1
-  info.text = "Ignore"
+  info.text = AUCTIONATOR_L_IGNORE
 
   info.disabled = false
   info.func = function()
