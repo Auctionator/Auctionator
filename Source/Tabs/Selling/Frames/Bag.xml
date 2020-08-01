@@ -10,6 +10,8 @@
     </Scripts>
 
     <Frames>
+      <Frame parentKey="IgnoreDropDown" inherits="AuctionatorIgnoreDropDownTemplate" hidden="true"/>
+
       <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />

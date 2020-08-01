@@ -22,6 +22,7 @@ Auctionator.Config.Options = {
   SHOW_SELLING_BAG = "show_selling_bag",
   SELLING_ICON_SIZE = "selling_icon_size",
   SELLING_DEFAULT_QUANTITY = "lifo_default_quantity",
+  SELLING_IGNORED_KEYS = "selling_ignored_keys",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -82,6 +83,7 @@ local defaults = {
   [Auctionator.Config.Options.SELLING_BUY_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_RIGHT_CLICK,
   [Auctionator.Config.Options.SHOW_SELLING_BAG] = true,
   [Auctionator.Config.Options.SELLING_ICON_SIZE] = 42,
+  [Auctionator.Config.Options.SELLING_IGNORED_KEYS] = {},
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,

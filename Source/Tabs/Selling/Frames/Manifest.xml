@@ -2,6 +2,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Include file="BagItem.xml" />
   <Include file="BagClassListing.xml" />
+  <Include file="IgnoreDropDown.xml"/>
 
   <Include file="Bag.xml" />
   <Include file="SaleItem.xml"/>

@@ -107,12 +107,22 @@
         </Anchors>
       </Frame>
 
+      <Button parentKey="ResetIgnoredKeys" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CONFIG_SELLING_RESET_IGNORED">
+        <Size x="140" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconSize" relativePoint="BOTTOMLEFT" x="23"/>
+        </Anchors>
+        <Scripts>
+        <OnClick>self:GetParent():OnRestoreBagItems()</OnClick>
+        </Scripts>
+      </Button>
+
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="QuantityHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_DEFAULT_QUANTITY" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.IconSize" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResetIgnoredKeys" relativePoint="BOTTOMLEFT" x="-23"/>
         </Anchors>
       </Frame>
 
