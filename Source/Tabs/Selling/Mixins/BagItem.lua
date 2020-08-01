@@ -40,8 +40,12 @@ end
 
 function AuctionatorBagItemMixin:OnClick(button)
   if self.itemInfo ~= nil then
-    if button == "LeftButton" then
+    if IsModifiedClick("DRESSUP") then
+      AuctionHouseBrowseResultsFrameMixin.OnBrowseResultSelected({}, self.itemInfo)
+
+    elseif button == "LeftButton" then
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)
+
     elseif button == "RightButton" then
       Auctionator.EventBus
         :RegisterSource(self, "AuctionatorBagItemMixin")
