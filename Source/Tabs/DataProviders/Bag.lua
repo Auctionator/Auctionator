@@ -38,14 +38,27 @@ local function IsIgnoredItemKey(location)
   return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), keyString) ~= nil
 end
 
+local function GetSortedKeys(t)
+  local keys = {}
+  for k, _ in pairs(t) do
+    table.insert(keys, k)
+  end
+  table.sort(keys)
+
+  return keys
+end
+
 function AuctionatorBagDataProviderMixin:LoadBagData()
   Auctionator.Debug.Message("AuctionatorBagDataProviderMixin:LoadBagData()")
 
   local itemMap = {}
   local results = {}
+  local index = 0
 
   for bagId = 0, 4 do
     for slot = 1, GetContainerNumSlots(bagId) do
+      index = index + 1
+
       local location = ItemLocation:CreateFromBagAndSlot(bagId, slot)
       if location:IsValid() and not IsIgnoredItemKey(location) then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
@@ -61,7 +74,13 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
     end
   end
 
-  for _, entry in pairs(itemMap) do
+  local sortedKeys = GetSortedKeys(itemMap)
+
+  local entry = nil
+
+  for _, key in ipairs(sortedKeys) do
+    entry = itemMap[key]
+
     table.insert( results, entry )
 
     local item = Item:CreateFromItemLocation(entry.location)
