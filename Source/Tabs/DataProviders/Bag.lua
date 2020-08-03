@@ -2,34 +2,45 @@ BAG_TABLE_LAYOUT = { }
 local BAG_EVENTS = {
   "BAG_UPDATE",
 }
+local BAG_AUCTIONATOR_EVENTS = {
+  Auctionator.Selling.Events.BagRefresh,
+}
 
 AuctionatorBagDataProviderMixin = CreateFromMixins(DataProviderMixin)
 
 function AuctionatorBagDataProviderMixin:OnLoad()
   DataProviderMixin.OnLoad(self)
   self.processCountPerUpdate = 200
+end
 
-  Auctionator.EventBus:Register(self, {
-    Auctionator.Selling.Events.BagRefresh,
-  })
+function AuctionatorBagDataProviderMixin:Reload()
+  self:Reset()
+  self:LoadBagData()
+
+  --Reload once more, as in some cases a full scan running/having run will cause
+  --the initial load to miss items and some information
+  C_Timer.After(0.01, function()
+    self:Reset()
+    self:LoadBagData()
+  end)
 end
 
 function AuctionatorBagDataProviderMixin:ReceiveEvent(event)
   if event == Auctionator.Selling.Events.BagRefresh then
-    self:Reset()
-    self:LoadBagData()
+    self:Reload()
   end
 end
 
 function AuctionatorBagDataProviderMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, BAG_EVENTS)
+  Auctionator.EventBus:Register(self, BAG_AUCTIONATOR_EVENTS)
 
-  self:Reset()
-  self:LoadBagData()
+  self:Reload()
 end
 
 function AuctionatorBagDataProviderMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, BAG_EVENTS)
+  Auctionator.EventBus:Unregister(self, BAG_AUCTIONATOR_EVENTS)
 end
 
 local function IsIgnoredItemKey(location)
@@ -68,33 +79,15 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
 
   orderedKeys = Auctionator.Utilities.ReverseArray(orderedKeys)
 
-  local entry = nil
-
   for _, key in ipairs(orderedKeys) do
-    entry = itemMap[key]
-
-    table.insert( results, entry )
-
-    local item = Item:CreateFromItemLocation(entry.location)
-
-    -- We load the item info again here because in some cases running a full
-    -- scan can cause the quality and auctionable statuses to load wrong.
-    item:ContinueOnItemLoad(function()
-      local _, _, quality, _, _, _, _, _, _, _, _, _, _, bindType = GetItemInfo(item:GetItemID())
-
-      entry.quality = quality
-      entry.auctionable = C_AuctionHouse.IsSellItemValid(entry.location, false)
-
-      self.onUpdate(self.results)
-    end)
+    table.insert( results, itemMap[key] )
   end
 
   self:AppendEntries(results, true)
 end
 
 function AuctionatorBagDataProviderMixin:OnEvent(...)
-  self:Reset()
-  self:LoadBagData()
+  self:Reload()
 end
 
 function AuctionatorBagDataProviderMixin:UniqueKey(entry)
