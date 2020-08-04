@@ -10,5 +10,10 @@ end
 function AuctionatorPriceCellTemplateMixin:Populate(rowData, index)
   AuctionatorCellMixin.Populate(self, rowData, index)
 
-  self.MoneyDisplay:SetAmount(rowData[self.columnName])
+  if rowData[self.columnName] ~= nil then
+    self.MoneyDisplay:SetAmount(rowData[self.columnName])
+    self:Show()
+  else
+    self:Hide()
+  end
 end

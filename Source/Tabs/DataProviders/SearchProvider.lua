@@ -5,6 +5,15 @@ local SEARCH_PROVIDER_LAYOUT = {
     headerText = AUCTIONATOR_L_RESULTS_PRICE_COLUMN,
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "price" },
+    width = 140
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "bidPrice" },
+    headerText = "Bid Price",
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "bidPrice" },
+    width = 140
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -115,6 +124,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
     local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
     local entry = {
       price = resultInfo.unitPrice,
+      bidPrice = nil,
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
       level = "0",
@@ -162,7 +172,8 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
     local entry = {
-      price = resultInfo.buyoutAmount or resultInfo.bidAmount,
+      price = resultInfo.buyoutAmount,
+      bidPrice = resultInfo.bidAmount,
       level = tostring(resultInfo.itemKey.itemLevel or 0),
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
