@@ -172,6 +172,10 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       canBuy = not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 
+    if itemKey.battlePetSpeciesID ~= nil and entry.itemLink ~= nil then
+      entry.level = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
+    end
+
     if resultInfo.containsOwnerItem then
       -- Test if the auction has been loaded for cancelling
       if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
