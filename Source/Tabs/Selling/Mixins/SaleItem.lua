@@ -151,7 +151,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     end
 
     self:UpdateSalesPrice(buyoutAmount)
-    self.bidPrice:ResetAmount()
+    self.BidPrice:ResetAmount()
 
   elseif event == Auctionator.AH.Events.ItemKeyInfo then
     local itemKey, itemInfo = ...
