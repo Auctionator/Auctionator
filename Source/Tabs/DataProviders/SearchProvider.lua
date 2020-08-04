@@ -69,7 +69,7 @@ end
 
 local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
-  available = Auctionator.Utilities.NumberComparator,
+  quantity = Auctionator.Utilities.NumberComparator,
   level = Auctionator.Utilities.NumberComparator,
   owned = Auctionator.Utilities.StringComparator,
 }
