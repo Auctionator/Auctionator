@@ -172,8 +172,8 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       canBuy = not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 
-    if itemKey.battlePetSpeciesID ~= nil and entry.itemLink ~= nil then
-      entry.level = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
+    if resultInfo.itemKey.battlePetSpeciesID ~= 0 and entry.itemLink ~= nil then
+      entry.level = tostring(Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink))
     end
 
     if resultInfo.containsOwnerItem then
