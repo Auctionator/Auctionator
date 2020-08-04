@@ -263,6 +263,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["PROFILE_TOGGLE_TOOLTIP_TEXT"] = "Makes changes to the Auctionator settings only affect this character."
 
   L["BUYOUT_PRICE"] = "Buyout Price"
+  L["BID_PRICE"] = "Bid Price"
   L["DURATION"] = "Duration"
   L["POST"] = "Post"
   L["POST_BUTTON_MACRO"] = "Post Button Macro"

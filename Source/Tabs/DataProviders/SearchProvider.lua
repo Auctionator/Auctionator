@@ -2,9 +2,18 @@ local SEARCH_PROVIDER_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "price" },
-    headerText = AUCTIONATOR_L_RESULTS_PRICE_COLUMN,
+    headerText = AUCTIONATOR_L_BUYOUT_PRICE,
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "price" },
+    width = 140
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "bidPrice" },
+    headerText = AUCTIONATOR_L_BID_PRICE,
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "bidPrice" },
+    width = 140
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -69,6 +78,7 @@ end
 
 local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
+  bidPrice = Auctionator.Utilities.NumberComparator,
   quantity = Auctionator.Utilities.NumberComparator,
   level = Auctionator.Utilities.NumberComparator,
   owned = Auctionator.Utilities.StringComparator,
@@ -115,6 +125,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
     local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
     local entry = {
       price = resultInfo.unitPrice,
+      bidPrice = nil,
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
       level = "0",
@@ -162,14 +173,15 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
     local entry = {
-      price = resultInfo.buyoutAmount or resultInfo.bidAmount,
+      price = resultInfo.buyoutAmount,
+      bidPrice = resultInfo.bidAmount,
       level = tostring(resultInfo.itemKey.itemLevel or 0),
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
       itemLink = resultInfo.itemLink,
       auctionID = resultInfo.auctionID,
       itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
-      canBuy = not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
+      canBuy = resultInfo.buyoutAmount ~= nil and not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 
     if resultInfo.itemKey.battlePetSpeciesID ~= 0 and entry.itemLink ~= nil then
