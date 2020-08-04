@@ -30,3 +30,9 @@ end
 function AuctionatorConfigCheckboxMixin:GetChecked()
   return self.CheckBox:GetChecked()
 end
+
+function AuctionatorConfigCheckboxMixin:OnCheckChanged(callback)
+  self.CheckBox:SetScript("OnClick", function()
+    callback(self:GetChecked())
+  end)
+end

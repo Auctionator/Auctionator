@@ -23,6 +23,18 @@ end
 
 AuctionatorSaleItemMixin = {}
 
+function AuctionatorSaleItemMixin:OnLoad()
+  self.BidPrice:Disable()
+
+  self.EnableBid:OnCheckChanged(function(isChecked)
+    if isChecked then
+      self.BidPrice:Enable()
+    else
+      self.BidPrice:Disable()
+    end
+  end)
+end
+
 function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,

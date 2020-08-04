@@ -20,3 +20,14 @@ end
 function AuctionatorConfigMoneyInputMixin:GetAmount()
   return self.MoneyInput:GetAmount()
 end
+
+function AuctionatorConfigMoneyInputMixin:Disable()
+  self.MoneyInput.GoldBox:Disable()
+  self.MoneyInput.SilverBox:Disable()
+  self.MoneyInput:Clear()
+end
+
+function AuctionatorConfigMoneyInputMixin:Enable()
+  self.MoneyInput.GoldBox:Enable()
+  self.MoneyInput.SilverBox:Enable()
+end

@@ -9,6 +9,7 @@
     <Size x="600" y="100" />
 
     <Scripts>
+      <OnLoad method="OnLoad" />
       <OnEvent method="OnEvent" />
       <OnUpdate method="OnUpdate" />
       <OnShow method="OnShow" />
@@ -17,7 +18,7 @@
 
     <Frames>
       <Frame parentKey="TitleArea">
-        <Size y="24" />
+        <Size y="14" />
         <Anchors>
           <Anchor point="TOPLEFT" />
           <Anchor point="RIGHT" />
@@ -27,7 +28,7 @@
           <Layer>
             <FontString parentKey="Text" inherits="GameFontNormalLarge">
               <Anchors>
-                <Anchor point="TOPLEFT" x="9" y="-5" />
+                <Anchor point="TOPLEFT" y="9" />
               </Anchors>
             </FontString>
           </Layer>
@@ -37,16 +38,44 @@
       <Frame parentKey="Icon" inherits="AuctionatorBagItem">
         <Size x="60" y="60" />
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-12" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" x="-50" y="-10" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Price" inherits="AuctionatorConfigurationMoneyInputAlternate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT"  y="8" />
+        </Anchors>
+
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_BUYOUT_PRICE" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame parentKey="BidPrice" inherits="AuctionatorConfigurationMoneyInputAlternate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Price" relativePoint="BOTTOMLEFT" y="-27" />
+        </Anchors>
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_BID_PRICE" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="EnableBid">
+        <KeyValues>
+          <KeyValue key="labelText" value="Enable Bid Pricing" type="string" />
+          <KeyValue key="tooltipTitleText" value="Enable Bid Pricing" type="string"/>
+          <KeyValue key="tooltipText" value="Toggle bid pricing for non-commodity items" type="string"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BidPrice" relativePoint="BOTTOMLEFT" y="-20" x="43" />
         </Anchors>
       </Frame>
 
       <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInputAlternate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" y="-2" />
-          <Anchor point="RIGHT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="200"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPRIGHT" x="230" y="2" />
         </Anchors>
-
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_QUANTITY" type="global"/>
         </KeyValues>
@@ -55,54 +84,34 @@
       <Button parentKey="MaxButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_MAX">
         <Size x="70" y="22"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Quantity" relativePoint="TOPRIGHT" x="0" y="4" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.Quantity" relativePoint="TOPRIGHT" x="-160" y="4"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():SetMax()</OnClick>
         </Scripts>
       </Button>
 
-      <Frame parentKey="Price" inherits="AuctionatorConfigurationMoneyInputAlternate">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Quantity" relativePoint="BOTTOMLEFT" y="10" />
-        </Anchors>
-
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_BUYOUT_PRICE" type="global"/>
-        </KeyValues>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationHorizontalRadioButtonGroup" parentKey="Duration">
         <KeyValues>
           <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DURATION" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.TitleArea" relativePoint="BOTTOM"/>
-          <Anchor point="LEFT" relativeKey="$parent" relativePoint="CENTER" x="50" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.BidPrice" relativePoint="TOPRIGHT" x="-325" y="4"/>
         </Anchors>
         <Frames>
           <Frame inherits="AuctionatorConfigurationRadioButton">
-            <Anchors>
-              <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-180" />
-            </Anchors>
             <KeyValues>
               <KeyValue key="labelText" value="12" type="string"/>
               <KeyValue key="value" value="12" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
-            <Anchors>
-              <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-130" />
-            </Anchors>
             <KeyValues>
               <KeyValue key="labelText" value="24" type="string"/>
               <KeyValue key="value" value="24" type="number"/>
             </KeyValues>
           </Frame>
           <Frame inherits="AuctionatorConfigurationRadioButton">
-            <Anchors>
-              <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-80" />
-            </Anchors>
             <KeyValues>
               <KeyValue key="labelText" value="48" type="string"/>
               <KeyValue key="value" value="48" type="number"/>
@@ -114,7 +123,7 @@
       <Button parentKey="PostButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_POST">
         <Size x="194" y="22"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Duration" relativePoint="BOTTOMLEFT" x="20" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.Duration" relativePoint="BOTTOMLEFT" x="18" y="-5" />
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():PostItem()</OnClick>
@@ -126,7 +135,7 @@
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormal" parentKey="Deposit" Text="AUCTIONATOR_L_DEPOSIT">
           <Anchors>
-            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Duration" x="-10" />
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Quantity"  />
           </Anchors>
         </FontString>
       </Layer>
