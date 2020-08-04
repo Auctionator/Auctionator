@@ -269,6 +269,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["POST_BUTTON_MACRO"] = "Post Button Macro"
   L["DEPOSIT"] = "Deposit:"
   L["TOTAL_PRICE"] = "Total Price:"
+  L["ENABLE_BIDDING"] = "Enable Bidding"
+  L["ENABLE_BIDDING_TOOLTIP_TEXT"] = "Toggle bidding for non-commodity items"
 
   L["DEFAULT_TAB"] = "Default Tab"
   L["DEFAULT_TAB_TEXT"] = "shows as the default tab"

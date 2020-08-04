@@ -25,14 +25,21 @@ AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnLoad()
   self.BidPrice:Disable()
+  self.BidPrice:Hide()
 
   self.EnableBid:OnCheckChanged(function(isChecked)
     if isChecked then
+      self.BidPrice:Show()
       self.BidPrice:Enable()
     else
+      self.BidPrice:Hide()
       self.BidPrice:Disable()
     end
   end)
+end
+
+function AuctionatorSaleItemMixin:GetIsBidding()
+  return self.EnableBid:GetChecked() and self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM
 end
 
 function AuctionatorSaleItemMixin:OnShow()
@@ -144,6 +151,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     end
 
     self:UpdateSalesPrice(buyoutAmount)
+    self.bidPrice:ResetAmount()
 
   elseif event == Auctionator.AH.Events.ItemKeyInfo then
     local itemKey, itemInfo = ...
@@ -426,6 +434,12 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     -- Positive price
     self.Price:GetAmount() > 0 and
 
+    -- Not bidding
+    not self:GetIsBidding() or (
+      self.BidPrice:GetAmount() > 0 and
+      self.BidPrice:GetAmount() < self.Price:GetAmount()
+    ) and
+
     -- Not throttled (to avoid silent post failure)
     Auctionator.AH.IsNotThrottled()
 end
@@ -457,11 +471,21 @@ function AuctionatorSaleItemMixin:PostItem()
   local quantity = self.Quantity:GetNumber()
   local duration = self:GetDuration()
   local buyout = self.Price:GetAmount()
+  local bid = self.BidPrice:GetAmount()
+
+  local isBidding = self:GetIsBidding()
+  if not isBidding then
+    bid = nil
+  end
 
   self.MultisellProgress:SetDetails(self.itemInfo.iconTexture, quantity)
 
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
-    C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, nil, buyout)
+    if isBidding then
+      C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, bid, buyout)
+    else
+      C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, nil, buyout)
+    end
   else
     C_AuctionHouse.PostCommodity(self.itemInfo.location, duration, quantity, buyout)
   end
@@ -472,6 +496,7 @@ function AuctionatorSaleItemMixin:PostItem()
       itemLink = self.itemInfo.itemLink,
       quantity = quantity,
       buyoutAmount = buyout,
+      bidAmount = bid
     }
   )
 
