@@ -260,10 +260,10 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   if itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
      itemInfo.itemKey.battlePetSpeciesID == 0 then
      self.expectedItemKey = C_AuctionHouse.MakeItemKey(itemInfo.itemKey.itemID)
-    Auctionator.AH.SendSellSearchQuery(self.expectedItemKey, sortingOrder, true)
+    Auctionator.AH.SendSellSearchQuery(self.expectedItemKey, {sortingOrder}, true)
   else
     self.expectedItemKey = itemInfo.itemKey
-    Auctionator.AH.SendSearchQuery(itemInfo.itemKey, sortingOrder, true)
+    Auctionator.AH.SendSearchQuery(itemInfo.itemKey, {sortingOrder}, true)
   end
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart)
 end
