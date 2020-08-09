@@ -12,6 +12,19 @@ local function IgnoreItemKey(itemKey)
     :UnregisterSource(IgnoreItemKey)
 end
 
+local function RestoreAllItemKeys()
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORED_KEYS, {})
+
+  Auctionator.EventBus
+    :RegisterSource(RestoreAllItemKeys, "RestoreAllItemKeys")
+    :Fire(RestoreAllItemKeys, Auctionator.Selling.Events.BagRefresh)
+    :UnregisterSource(RestoreAllItemKeys)
+end
+
+local function NoItemKeysHidden()
+  return #Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS) == 0
+end
+
 function AuctionatorIgnoreDropDownMixin:OnLoad()
   UIDropDownMenu_Initialize(self, AuctionatorIgnoreDropDownMixin.Initialize, "MENU")
   Auctionator.EventBus:Register(self, {
@@ -33,15 +46,26 @@ function AuctionatorIgnoreDropDownMixin:Initialize()
 
   local itemKey = self.data.itemKey
 
-  local info = UIDropDownMenu_CreateInfo()
-  info.notCheckable = 1
-  info.text = AUCTIONATOR_L_HIDE
+  local hideInfo = UIDropDownMenu_CreateInfo()
+  hideInfo.notCheckable = 1
+  hideInfo.text = AUCTIONATOR_L_HIDE
 
-  info.disabled = false
-  info.func = function()
+  hideInfo.disabled = false
+  hideInfo.func = function()
     IgnoreItemKey(itemKey)
   end
-  UIDropDownMenu_AddButton(info)
+
+  local restoreAllInfo = UIDropDownMenu_CreateInfo()
+  restoreAllInfo.notCheckable = 1
+  restoreAllInfo.text = AUCTIONATOR_L_RESTORE_ALL
+
+  restoreAllInfo.disabled = NoItemKeysHidden()
+  restoreAllInfo.func = function()
+    RestoreAllItemKeys()
+  end
+
+  UIDropDownMenu_AddButton(hideInfo)
+  UIDropDownMenu_AddButton(restoreAllInfo)
 end
 
 function AuctionatorIgnoreDropDownMixin:Callback(itemKey)

@@ -292,9 +292,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_ICON_SIZE"] = "Bag icon size (reload required)"
   L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_HEADER"] = "Size of Icons"
   L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT"] = "This lets you make the bag item icons in the selling tab larger (up to 50) or smaller (down to 10). Default size is 42."
-  L["CONFIG_SELLING_RESET_HIDDEN"] = "Restore hidden items"
   L["CONFIG_BAG"] = "Bag"
+
   L["HIDE"] = "Hide"
+  L["RESTORE_ALL"] = "Restore All"
 
   L["LEFT_CLICK"] = "Left Click"
   L["RIGHT_CLICK"] = "Right Click"
