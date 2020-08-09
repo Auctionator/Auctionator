@@ -79,7 +79,7 @@ function Auctionator.SlashCmd.Config(name)
 end
 
 function Auctionator.SlashCmd.Version()
-  Auctionator.Utilities.PrintVersion()
+  Auctionator.Utilities.Message(AUCTIONATOR_L_VERSION_HEADER .. " " .. Auctionator.State.CurrentVersion)
 end
 
 function Auctionator.SlashCmd.Help()
