@@ -21,7 +21,7 @@
             <Anchor point="TOPLEFT" x="20" y="-15" />
           </Anchors>
         </FontString>
-        <FontString inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP" parentKey="SubTitle" spaceWrap="true">
+        <FontString inherits="GameFontHighlightSmall" justifyH="LEFT" justifyV="TOP" parentKey="SubTitle">
           <Anchors>
             <Anchor point="TOPLEFT" x="20" y="-40" />
             <Anchor point="TOPRIGHT" x="-20" y="-40" />

@@ -44,8 +44,6 @@ Auctionator.Config.Options = {
   UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo",
 
   SILENCE_AUCTION_ERRORS = "silence_auction_errors",
-
-  DEFAULT_TAB = "default_tab",
 }
 
 Auctionator.Config.SalesTypes = {
