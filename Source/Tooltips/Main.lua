@@ -3,7 +3,6 @@ local zc = addonTable.zc;
 
 local L = Auctionator.Locales.Apply
 
--- TODO DOCUMENTATION
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips

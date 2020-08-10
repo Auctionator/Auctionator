@@ -10,8 +10,7 @@
 --    subClasses = {
 --      classID  = integer (subClassID)
 --      name     = string  (resolved by GetItemSubClassInfo( subClassID ))
---      category   = table   (new QueryAuctionItems categoryData format, { classID, subClassID, inventoryType (nil) } )
---      TODO: Probably want to use the inventoryType to create Armor slot categories as well...
+--      category   = table   (new QueryAuctionItems categoryData format, { classID, subClassID, inventoryType? } )
 --    }
 --  }
 
@@ -48,19 +47,6 @@ Auctionator.Search.Category = {
   category = {},
   subClasses = {}
 }
-
--- TODO: Ununsed in current code (was used in advanced search dialog)
-function Auctionator.Search.Category.Find( key )
-  local category = Auctionator.Search.CategoryLookup[ key ]
-
-  if category == nil then
-    return Auctionator.Search.Category:new(), Auctionator.Search.Category:new()
-  elseif category.parentKey == nil then
-    return category, Auctionator.Search.Category:new()
-  else
-    return Auctionator.Search.CategoryLookup[ category.parentKey ], category
-  end
-end
 
 function Auctionator.Search.Category:new( options )
   options = options or {}

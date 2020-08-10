@@ -16,13 +16,9 @@ function AuctionatorTabMixin:OnLoad()
     self.ahTitle = "Auctionator"
   end
 
-  -- Default to unselected Tabs
-  -- TODO We may want to bring back the config to allow folks to select an Auctionator tab by default...
   PanelTemplates_DeselectTab(self)
 
   -- Create this tab's frame
-  -- TODO If we end up needing multiple frames like in the AH UI, this will need to
-  -- change slightly (including how we set up the frameTemplate key)
   self.frameRef = CreateFrame(
     "FRAME",
     self.displayMode[1],

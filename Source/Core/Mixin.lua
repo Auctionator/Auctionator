@@ -74,7 +74,6 @@ local function InitializeAuctionHouseTabs()
 end
 
 local function InitializeSplashScreen()
-  -- TODO Check for display setting before creating
   if Auctionator.State.SplashScreenRef == nil then
     Auctionator.State.SplashScreenRef = CreateFrame(
       "Frame",
