@@ -23,6 +23,7 @@
   <Script file="ItemInfoFromLocation.lua"/>
   <Script file="IsShortcutActive.lua"/>
   <Script file="GetPetLevelFromLink.lua"/>
+  <Script file="ClassicWoWCheck.lua"/>
 
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>
