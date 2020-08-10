@@ -44,10 +44,11 @@
               <Anchors>
                 <Anchor point="CENTER" />
               </Anchors>
-              <Shadow r="0" g="0" b="0">
+              <Shadow>
                 <Offset>
                   <AbsDimension x="1" y="-1"/>
                 </Offset>
+                <Color r="0" g="0" b="0"/>
               </Shadow>
             </FontString>
             <FontString parentKey="ResultsText" inherits="GameFontNormal" hidden="true" text="AUCTIONATOR_L_FETCHING_ITEM_INFO">
@@ -56,10 +57,11 @@
                 <Anchor point="LEFT" x="45"/>
                 <Anchor point="RIGHT" x="-67"/>
               </Anchors>
-              <Shadow r="0" g="0" b="0">
+              <Shadow>
                 <Offset>
                   <AbsDimension x="1" y="-1"/>
                 </Offset>
+                <Color r="0" g="0" b="0"/>
               </Shadow>
             </FontString>
             <Texture parentKey="LoadingSpinner" atlas="auctionhouse-ui-loadingspinner" hidden="true">
