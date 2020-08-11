@@ -2,13 +2,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Objects.lua" />
   <Script file="Locales\Main.lua" />
+  <Include file="Constants\Manifest.xml" />
 
   <Include file="Components\Manifest.xml" />
 
   <Include file="Search\Manifest.xml" />
   <Include file="Core\Manifest.xml" />
-
-  <Include file="Constants\Manifest.xml" />
 
   <Include file="Utilities\Manifest.xml" />
 

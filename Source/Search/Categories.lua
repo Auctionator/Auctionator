@@ -28,16 +28,7 @@ local ITEM_CLASS_IDS = {
   LE_ITEM_CLASS_QUESTITEM,
   LE_ITEM_CLASS_MISCELLANEOUS
 }
-local INVENTORY_TYPE_IDS = {
-  LE_INVENTORY_TYPE_HEAD_TYPE,
-  LE_INVENTORY_TYPE_SHOULDER_TYPE,
-  LE_INVENTORY_TYPE_CHEST_TYPE,
-  LE_INVENTORY_TYPE_WAIST_TYPE,
-  LE_INVENTORY_TYPE_LEGS_TYPE,
-  LE_INVENTORY_TYPE_FEET_TYPE,
-  LE_INVENTORY_TYPE_WRIST_TYPE,
-  LE_INVENTORY_TYPE_HAND_TYPE,
-}
+local INVENTORY_TYPE_IDS = Auctionator.Constants.INVENTORY_TYPE_IDS
 
 Auctionator.Search.Category = {
   classID = 0,
@@ -70,7 +61,7 @@ local function GenerateArmorInventorySlots(parentKey, parentCategory)
       inventoryType = INVENTORY_TYPE_IDS[index],
     }
     local subSubClass = Auctionator.Search.Category:new({
-      classID = subClassID,
+      classID = INVENTORY_TYPE_IDS[index],
       name = name,
       key = parentKey .. [[/]] .. name,
       parentKey = parentKey,
