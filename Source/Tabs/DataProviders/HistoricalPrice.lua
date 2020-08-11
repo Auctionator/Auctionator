@@ -1,4 +1,4 @@
-HISTORICAL_PRICE_PROVIDER_LAYOUT ={
+local HISTORICAL_PRICE_PROVIDER_LAYOUT ={
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_UNIT_PRICE,
@@ -15,19 +15,19 @@ HISTORICAL_PRICE_PROVIDER_LAYOUT ={
   },
 }
 
-HistoricalPriceProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
+AuctionatorHistoricalPriceProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
-function HistoricalPriceProviderMixin:OnLoad()
+function AuctionatorHistoricalPriceProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
 
   Auctionator.EventBus:Register( self, { Auctionator.Selling.Events.BagItemClicked })
 end
 
-function HistoricalPriceProviderMixin:OnShow()
+function AuctionatorHistoricalPriceProviderMixin:OnShow()
   self:Reset()
 end
 
-function HistoricalPriceProviderMixin:SetItem(itemKey)
+function AuctionatorHistoricalPriceProviderMixin:SetItem(itemKey)
   self:Reset()
 
   -- Reset columns
@@ -38,17 +38,17 @@ function HistoricalPriceProviderMixin:SetItem(itemKey)
   self:AppendEntries(Auctionator.Database.GetPriceHistory(dbKey), true)
 end
 
-function HistoricalPriceProviderMixin:GetTableLayout()
+function AuctionatorHistoricalPriceProviderMixin:GetTableLayout()
   return HISTORICAL_PRICE_PROVIDER_LAYOUT
 end
 
-function HistoricalPriceProviderMixin:ReceiveEvent(event, itemInfo)
+function AuctionatorHistoricalPriceProviderMixin:ReceiveEvent(event, itemInfo)
   if event == Auctionator.Selling.Events.BagItemClicked then
     self:SetItem(itemInfo.itemKey)
   end
 end
 
-function HistoricalPriceProviderMixin:UniqueKey(entry)
+function AuctionatorHistoricalPriceProviderMixin:UniqueKey(entry)
   return tostring(entry.rawDay)
 end
 
@@ -57,7 +57,7 @@ local COMPARATORS = {
   rawDay = Auctionator.Utilities.StringComparator
 }
 
-function HistoricalPriceProviderMixin:Sort(fieldName, sortDirection)
+function AuctionatorHistoricalPriceProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)
@@ -67,6 +67,6 @@ function HistoricalPriceProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function HistoricalPriceProviderMixin:GetRowTemplate()
+function AuctionatorHistoricalPriceProviderMixin:GetRowTemplate()
   return "AuctionatorHistoricalPriceRowTemplate"
 end

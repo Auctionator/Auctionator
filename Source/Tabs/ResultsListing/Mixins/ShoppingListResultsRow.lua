@@ -1,7 +1,7 @@
-ShoppingListResultsRowMixin = CreateFromMixins(AuctionatorResultsRowTemplateMixin)
+AuctionatorShoppingListResultsRowMixin = CreateFromMixins(AuctionatorResultsRowTemplateMixin)
 
-function ShoppingListResultsRowMixin:OnClick(...)
-  Auctionator.Debug.Message("ShoppingListResultsRowMixin:OnClick()")
+function AuctionatorShoppingListResultsRowMixin:OnClick(...)
+  Auctionator.Debug.Message("AuctionatorShoppingListResultsRowMixin:OnClick()")
 
   if IsModifiedClick("DRESSUP") then
     AuctionHouseBrowseResultsFrameMixin.OnBrowseResultSelected({}, self.rowData)

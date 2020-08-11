@@ -23,10 +23,10 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   }
 }
 
-ShoppingListDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemKeyLoadingMixin)
+AuctionatorShoppingListDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
-function ShoppingListDataProviderMixin:OnLoad()
-  Auctionator.Debug.Message("ShoppingListDataProviderMixin:OnLoad()")
+function AuctionatorShoppingListDataProviderMixin:OnLoad()
+  Auctionator.Debug.Message("AuctionatorShoppingListDataProviderMixin:OnLoad()")
 
   self.entriesCount = 0
 
@@ -36,7 +36,7 @@ function ShoppingListDataProviderMixin:OnLoad()
   AuctionatorItemKeyLoadingMixin.OnLoad(self)
 end
 
-function ShoppingListDataProviderMixin:SetUpEvents()
+function AuctionatorShoppingListDataProviderMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Data Provider")
 
   Auctionator.EventBus:Register( self, {
@@ -46,7 +46,7 @@ function ShoppingListDataProviderMixin:SetUpEvents()
   })
 end
 
-function ShoppingListDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
+function AuctionatorShoppingListDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
   AuctionatorItemKeyLoadingMixin.ReceiveEvent(self, eventName, eventData, ...)
 
   if eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
@@ -65,20 +65,20 @@ function ShoppingListDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
   end
 end
 
-function ShoppingListDataProviderMixin:Reset()
+function AuctionatorShoppingListDataProviderMixin:Reset()
   self.entriesCount = 0
 
   AuctionatorDataProviderMixin.Reset(self)
 end
 
-function ShoppingListDataProviderMixin:AppendEntries(entries, isLastSetOfResults)
+function AuctionatorShoppingListDataProviderMixin:AppendEntries(entries, isLastSetOfResults)
   self.entriesCount = self.entriesCount + #entries
 
   AuctionatorDataProviderMixin.AppendEntries(self, entries, isLastSetOfResults)
 end
 
 
-function ShoppingListDataProviderMixin:UniqueKey(entry)
+function AuctionatorShoppingListDataProviderMixin:UniqueKey(entry)
   return Auctionator.Utilities.ItemKeyString(entry.itemKey)
 end
 
@@ -88,7 +88,7 @@ local COMPARATORS = {
   totalQuantity = Auctionator.Utilities.NumberComparator
 }
 
-function ShoppingListDataProviderMixin:Sort(fieldName, sortDirection)
+function AuctionatorShoppingListDataProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)
@@ -98,10 +98,10 @@ function ShoppingListDataProviderMixin:Sort(fieldName, sortDirection)
   self.onUpdate(self.results)
 end
 
-function ShoppingListDataProviderMixin:GetTableLayout()
+function AuctionatorShoppingListDataProviderMixin:GetTableLayout()
   return SHOPPING_LIST_TABLE_LAYOUT
 end
 
-function ShoppingListDataProviderMixin:GetRowTemplate()
-  return "ShoppingListResultsRowTemplate"
+function AuctionatorShoppingListDataProviderMixin:GetRowTemplate()
+  return "AuctionatorShoppingListResultsRowTemplate"
 end

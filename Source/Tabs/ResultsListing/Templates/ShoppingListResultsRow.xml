@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="ShoppingListResultsRowTemplate"
-    mixin="ShoppingListResultsRowMixin"
+    name="AuctionatorShoppingListResultsRowTemplate"
+    mixin="AuctionatorShoppingListResultsRowMixin"
     inherits="AuctionatorResultsRowTemplate"
     virtual="true"
     enableMouse="true"

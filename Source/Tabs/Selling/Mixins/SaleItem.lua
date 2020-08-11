@@ -251,6 +251,8 @@ end
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
 
+  local sortingOrder
+
   if itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
     sortingOrder = {sortOrder = 0, reverseSort = false}
   else

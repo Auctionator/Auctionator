@@ -1,4 +1,4 @@
-BAG_TABLE_LAYOUT = { }
+local BAG_TABLE_LAYOUT = { }
 local BAG_EVENTS = {
   "BAG_UPDATE",
 }

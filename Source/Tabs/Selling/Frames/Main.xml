@@ -68,7 +68,7 @@
         </Scripts>
       </Frame>
 
-      <Frame parentKey="HistoricalPriceProvider" mixin="HistoricalPriceProviderMixin">
+      <Frame parentKey="HistoricalPriceProvider" mixin="AuctionatorHistoricalPriceProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
