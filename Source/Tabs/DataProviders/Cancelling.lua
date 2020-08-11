@@ -144,7 +144,6 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
 
   local results = {}
 
-  local index
   for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 

@@ -1,10 +1,5 @@
 AuctionatorAuctionChatLogFrameMixin = {}
 
-local AUCTION_CHAT_LOG_EVENTS = {
-  "AUCTION_HOUSE_AUCTION_CREATED",
-  "OWNED_AUCTIONS_UPDATED"
-}
-
 local function ComposeAuctionInfoMessage(auctionInfo)
   local result = auctionInfo.itemLink
   -- Stacks display, total and individual price

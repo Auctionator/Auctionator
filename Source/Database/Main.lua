@@ -66,7 +66,7 @@ function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice)
   end
 
   -- save memory by only saving lowestLow when different from highestLow
-  if buyoutPrice < highestLow then
+  if buyoutPrice < highestLow and (lowestLow == nil or buyoutPrice < lowestLow) then
     db[itemKey].l[daysSinceZero] = buyoutPrice
   end
 end
