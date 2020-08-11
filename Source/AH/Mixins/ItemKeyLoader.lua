@@ -60,7 +60,7 @@ function AuctionatorAHItemKeyLoaderFrameMixin:OnEvent(event, itemID)
     self.waitingCount = self.waitingCount -1
     self.waiting[itemID] = nil
 
-    for index, key in ipairs(itemKeys) do
+    for _, key in ipairs(itemKeys) do
       self:Get(key)
     end
   end

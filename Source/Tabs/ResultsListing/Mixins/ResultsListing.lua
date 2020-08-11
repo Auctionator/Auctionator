@@ -93,7 +93,7 @@ function AuctionatorResultsListingMixin:PopulateOverride(offset, count)
           row:Populate(rowData, dataIndex);
         end
 
-        for columnIndex, p in ipairs(columns) do
+        for columnIndex, _ in ipairs(columns) do
           local cell = self.tableBuilder:GetCellByIndex(rowIndex, columnIndex);
           if cell.Populate then
             cell.rowData = rowData;

@@ -76,7 +76,7 @@ function Auctionator.Database.Prune()
 
   local entriesPruned = 0
 
-  for itemKey, priceData in pairs(Auctionator.State.LiveDB) do
+  for _, priceData in pairs(Auctionator.State.LiveDB) do
 
     for day, _ in pairs(priceData.h) do
       if day <= cutoffDay then

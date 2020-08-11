@@ -104,7 +104,7 @@ local function GenerateSubClasses( classID, parentKey )
   return subClasses
 end
 
-for index, classID in ipairs( ITEM_CLASS_IDS ) do
+for _, classID in ipairs( ITEM_CLASS_IDS ) do
   local key = GetItemClassInfo( classID )
   local subClasses = GenerateSubClasses( classID, key )
   local category = {classID = classID}
@@ -120,7 +120,7 @@ for index, classID in ipairs( ITEM_CLASS_IDS ) do
   table.insert( Auctionator.Search.Categories, categoryCategory )
 end
 
-for index, category in ipairs( Auctionator.Search.Categories ) do
+for _, category in ipairs( Auctionator.Search.Categories ) do
   Auctionator.Search.CategoryLookup[ category.key ] = category
 
   for i = 1, #category.subClasses do

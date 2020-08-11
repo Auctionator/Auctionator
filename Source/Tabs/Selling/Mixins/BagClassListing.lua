@@ -42,7 +42,7 @@ end
 function AuctionatorBagClassListingMixin:Reset()
   self.items = {}
 
-  for index, item in ipairs(self.buttons) do
+  for _, item in ipairs(self.buttons) do
     item:Hide()
     self.buttonPool:Return(item)
   end
