@@ -15,10 +15,10 @@ HISTORICAL_PRICE_PROVIDER_LAYOUT ={
   },
 }
 
-HistoricalPriceProviderMixin = CreateFromMixins(DataProviderMixin)
+HistoricalPriceProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
 function HistoricalPriceProviderMixin:OnLoad()
-  DataProviderMixin.OnLoad(self)
+  AuctionatorDataProviderMixin.OnLoad(self)
 
   Auctionator.EventBus:Register( self, { Auctionator.Selling.Events.BagItemClicked })
 end

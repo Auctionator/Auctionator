@@ -1,5 +1,5 @@
-LEFT_BUTTON = "LeftButton"
-RIGHT_BUTTON = "RightButton"
+local LEFT_BUTTON = "LeftButton"
+local RIGHT_BUTTON = "RightButton"
 
 local function isLeftClickShortcutActive(shortcutOption, button)
   return

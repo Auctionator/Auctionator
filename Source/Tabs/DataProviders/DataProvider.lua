@@ -1,8 +1,8 @@
-DataProviderMixin = {}
+AuctionatorDataProviderMixin = {}
 
--- DataProviderMixin registers for the following events for derived mixins:
+-- AuctionatorDataProviderMixin registers for the following events for derived mixins:
 --   1. Auctionator.ShoppingLists.Events.ListResultItemProcessed
-function DataProviderMixin:OnLoad()
+function AuctionatorDataProviderMixin:OnLoad()
   self.results = {}
   self.insertedKeys = {}
   self.entriesToProcess = {}
@@ -18,13 +18,13 @@ function DataProviderMixin:OnLoad()
   self.onPreserveScroll = function() end
 end
 
-function DataProviderMixin:OnUpdate(elapsed)
+function AuctionatorDataProviderMixin:OnUpdate(elapsed)
   if elapsed >= 0 then
     self:CheckForEntriesToProcess()
   end
 end
 
-function DataProviderMixin:Reset()
+function AuctionatorDataProviderMixin:Reset()
   self.results = {}
   self.insertedKeys = {}
   self.entriesToProcess = {}
@@ -33,11 +33,11 @@ function DataProviderMixin:Reset()
 end
 
 -- Derive: This will be used to help with sorting and filtering unique entries
-function DataProviderMixin:UniqueKey(entry)
+function AuctionatorDataProviderMixin:UniqueKey(entry)
 end
 
 -- Derive: This is the template for sorting the dataset contained by this provider
-function DataProviderMixin:Sort(fieldName, sortDirection)
+function AuctionatorDataProviderMixin:Sort(fieldName, sortDirection)
 end
 
 -- Derive: This defines the Results Listing table layout
@@ -57,46 +57,46 @@ end
 --   6. OPTIONAL width - Integer
 --      If supplied, this will be used to define the column's fixed width.
 --      If omitted, the column will use ColumnWidthConstraints.Fill from TableBuilder
-function DataProviderMixin:GetTableLayout()
+function AuctionatorDataProviderMixin:GetTableLayout()
   return {}
 end
 
-function DataProviderMixin:GetRowTemplate()
+function AuctionatorDataProviderMixin:GetRowTemplate()
   return "AuctionatorResultsRowTemplate"
 end
 
-function DataProviderMixin:GetEntryAt(index)
+function AuctionatorDataProviderMixin:GetEntryAt(index)
   -- Auctionator.Debug.Message("INDEX", index)
 
   return self.results[index]
 end
 
-function DataProviderMixin:GetCount()
+function AuctionatorDataProviderMixin:GetCount()
   return #self.results
 end
 
-function DataProviderMixin:SetOnEntryProcessedCallback(onEntryProcessedCallback)
+function AuctionatorDataProviderMixin:SetOnEntryProcessedCallback(onEntryProcessedCallback)
   self.onEntryProcessed = onEntryProcessedCallback
 end
 
-function DataProviderMixin:SetOnUpdateCallback(onUpdateCallback)
+function AuctionatorDataProviderMixin:SetOnUpdateCallback(onUpdateCallback)
   self.onUpdate = onUpdateCallback
 end
 
-function DataProviderMixin:SetOnSearchStartedCallback(onSearchStartedCallback)
+function AuctionatorDataProviderMixin:SetOnSearchStartedCallback(onSearchStartedCallback)
   self.onSearchStarted = onSearchStartedCallback
 end
 
-function DataProviderMixin:SetOnSearchEndedCallback(onSearchEndedCallback)
+function AuctionatorDataProviderMixin:SetOnSearchEndedCallback(onSearchEndedCallback)
   self.onSearchEnded = onSearchEndedCallback
 end
 
-function DataProviderMixin:SetOnPreserveScrollCallback(onPreserveScrollCallback)
+function AuctionatorDataProviderMixin:SetOnPreserveScrollCallback(onPreserveScrollCallback)
   self.onPreserveScroll = onPreserveScrollCallback
 end
 
-function DataProviderMixin:AppendEntries(entries, isLastSetOfResults)
-  Auctionator.Debug.Message("DataProviderMixin:AppendEntries()", #entries)
+function AuctionatorDataProviderMixin:AppendEntries(entries, isLastSetOfResults)
+  Auctionator.Debug.Message("AuctionatorDataProviderMixin:AppendEntries()", #entries)
 
   self.searchCompleted = isLastSetOfResults
   self.announcedCompletion = false
@@ -108,7 +108,7 @@ end
 
 -- We process a limited number of entries every frame to avoid freezing the
 -- client.
-function DataProviderMixin:CheckForEntriesToProcess()
+function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
   if #self.entriesToProcess == 0 then
     if not self.announcedCompletion and self.searchCompleted then
       self.announcedCompletion = true
@@ -117,7 +117,7 @@ function DataProviderMixin:CheckForEntriesToProcess()
     return
   end
 
-  Auctionator.Debug.Message("DataProviderMixin:CheckForEntriesToProcess()")
+  Auctionator.Debug.Message("AuctionatorDataProviderMixin:CheckForEntriesToProcess()")
 
   local processCount = 0
   local entry

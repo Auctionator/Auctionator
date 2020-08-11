@@ -47,7 +47,7 @@ local SEARCH_EVENTS = {
   "AUCTION_CANCELED",
 }
 
-AuctionatorSearchDataProviderMixin = CreateFromMixins(DataProviderMixin)
+AuctionatorSearchDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
 function AuctionatorSearchDataProviderMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, SEARCH_EVENTS)

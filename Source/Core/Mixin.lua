@@ -109,7 +109,7 @@ local function InitializeLateTooltipHooks()
   setTooltipHooks = true
 end
 
-function ShowDefaultTab()
+local function ShowDefaultTab()
   local tabs = {
     AuctionatorTabs_ShoppingLists,
     AuctionatorTabs_Selling,

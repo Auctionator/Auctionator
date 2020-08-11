@@ -50,10 +50,10 @@ local EVENT_BUS_EVENTS = {
   Auctionator.Cancelling.Events.UndercutScanStart,
 }
 
-AuctionatorCancellingDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
+AuctionatorCancellingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
 function AuctionatorCancellingDataProviderMixin:OnLoad()
-  DataProviderMixin.OnLoad(self)
+  AuctionatorDataProviderMixin.OnLoad(self)
   AuctionatorItemKeyLoadingMixin.OnLoad(self)
 
   self.waitingforCancellation = {}

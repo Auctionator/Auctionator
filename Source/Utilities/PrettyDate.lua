@@ -1,5 +1,5 @@
 function Auctionator.Utilities.PrettyDate(when)
-  details = date("*t", when)
+  local details = date("*t", when)
 
   return
     Auctionator.Locales.Apply("DAY_"..tostring(details.wday)) ..

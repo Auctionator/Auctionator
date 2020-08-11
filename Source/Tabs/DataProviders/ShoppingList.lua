@@ -23,7 +23,7 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   }
 }
 
-ShoppingListDataProviderMixin = CreateFromMixins(DataProviderMixin, AuctionatorItemKeyLoadingMixin)
+ShoppingListDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
 function ShoppingListDataProviderMixin:OnLoad()
   Auctionator.Debug.Message("ShoppingListDataProviderMixin:OnLoad()")
@@ -32,7 +32,7 @@ function ShoppingListDataProviderMixin:OnLoad()
 
   self:SetUpEvents()
 
-  DataProviderMixin.OnLoad(self)
+  AuctionatorDataProviderMixin.OnLoad(self)
   AuctionatorItemKeyLoadingMixin.OnLoad(self)
 end
 
@@ -68,13 +68,13 @@ end
 function ShoppingListDataProviderMixin:Reset()
   self.entriesCount = 0
 
-  DataProviderMixin.Reset(self)
+  AuctionatorDataProviderMixin.Reset(self)
 end
 
 function ShoppingListDataProviderMixin:AppendEntries(entries, isLastSetOfResults)
   self.entriesCount = self.entriesCount + #entries
 
-  DataProviderMixin.AppendEntries(self, entries, isLastSetOfResults)
+  AuctionatorDataProviderMixin.AppendEntries(self, entries, isLastSetOfResults)
 end
 
 
