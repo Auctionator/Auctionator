@@ -41,7 +41,7 @@ jobs:
         find: "AUTO_GENERATED_VERSION"
         replace: "${{steps.buildnumber.outputs.build_number}} (alpha)"
     - name: Create zip
-      run: zip -r Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator 
+      run: zip -r Auctionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -49,7 +49,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
         tag_name: ${{ steps.buildnumber.outputs.build_number }}-alpha
-        release_name: Release alpha-0.0.${{ steps.buildnumber.outputs.build_number }}
+        release_name: Alpha ${{ steps.buildnumber.outputs.build_number }}
         draft: false
         prerelease: false
     - name: Upload Release Asset
