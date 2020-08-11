@@ -39,7 +39,7 @@ jobs:
       uses: jacobtomlinson/gha-find-replace@master
       with:
         find: "AUTO_GENERATED_VERSION"
-        replace: "8.3.${{steps.buildnumber.outputs.build_number}} (alpha)"
+        replace: "${{steps.buildnumber.outputs.build_number}} (alpha)"
     - name: Create zip
       run: zip -r Auctionator-alpha-0.0.${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator 
     - name: Create Release
