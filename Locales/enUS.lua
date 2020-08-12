@@ -202,6 +202,14 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_832_CUSTOMISATION_3"] = "The message in your chat telling you what auction you just created can be turned off"
   L["SPLASH_832_CUSTOMISATION_4"] = "Gear/Pets have their own undercutting and duration settings to configure, separate from the settings for most items"
   L["SPLASH_832_CUSTOMISATION_5"] = "The shortcuts to buy auctions, cancel auctions and select an item from your bag can be changed"
+  L["SPLASH_833_DESCRIPTION"] = "This is a small release, with various quality of life improvements and bugfixes"
+  L["SPLASH_833_SELLING_IMPROVEMENTS_HEADER"] = "Selling Tab Improvements"
+  L["SPLASH_833_SELLING_IMPROVEMENTS_1"] = "Specific items can be hidden from the bag view (right-click the item icon and click \"Hide\")"
+  L["SPLASH_833_SELLING_IMPROVEMENTS_2"] = "The bid price (if any) for auctions from other sellers is now shown"
+  L["SPLASH_833_SELLING_IMPROVEMENTS_3"] = "Pets now have their level shown in the \"Item Level\" column"
+  L["SPLASH_833_SELLING_IMPROVEMENTS_4"] = "New option to change the default quantity used when posting items"
+  L["SPLASH_833_CONNECTED_REALMS_HEADER"] = "Connected Realms"
+  L["SPLASH_833_CONNECTED_REALMS_1"] = "Full scan prices are now shared between connected realms"
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
