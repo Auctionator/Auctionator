@@ -154,6 +154,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         quantity = info.quantity,
         price = info.buyoutAmount or info.bidAmount,
         itemKey = info.itemKey,
+        itemLink = info.itemLink, -- Used for tooltips
         timeLeft = math.ceil((info.timeLeftSeconds or 0)/60/60),
         cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
         undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN

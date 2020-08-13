@@ -4,7 +4,7 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(...)
   Auctionator.Debug.Message("AuctionatorCancellingListResultsRowMixin:OnClick", self.rowData and self.rowData.id)
 
   if IsModifiedClick("DRESSUP") then
-    AuctionHouseBrowseResultsFrameMixin.OnBrowseResultSelected({}, self.rowData)
+    DressUpLink(self.rowData.itemLink);
 
   else
     self.rowData.cancelled = true
