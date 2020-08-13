@@ -41,7 +41,7 @@ end
 function AuctionatorBagItemMixin:OnClick(button)
   if self.itemInfo ~= nil then
     if IsModifiedClick("DRESSUP") then
-      AuctionHouseBrowseResultsFrameMixin.OnBrowseResultSelected({}, self.itemInfo)
+      DressUpLink(self.itemInfo.itemLink)
 
     elseif button == "LeftButton" then
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)

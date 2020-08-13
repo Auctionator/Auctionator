@@ -24,7 +24,10 @@ end
 function AuctionatorSellSearchRowMixin:OnClick(button, ...)
   Auctionator.Debug.Message("AuctionatorSellSearchRowMixin:OnClick()")
 
-  if Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT), button) then
+  if IsModifiedClick("DRESSUP") then
+    DressUpLink(self.rowData.itemLink);
+
+  elseif Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT), button) then
     if C_AuctionHouse.CanCancelAuction(self.rowData.auctionID) then
       Auctionator.EventBus
         :RegisterSource(self, "SellSearchRow")
