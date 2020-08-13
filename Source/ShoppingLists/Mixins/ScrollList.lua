@@ -9,7 +9,6 @@ function AuctionatorScrollListMixin:OnLoad()
 
   self:SetLineTemplate("AuctionatorScrollListLineTemplate")
   self.getNumEntries = self.GetNumEntries
-  self.multiSearchComplete = false
 
   self:InitSearch(
     function(results)
@@ -198,4 +197,13 @@ function AuctionatorScrollListMixin:RefreshScrollFrame()
   local displayedHeight = populateCount * buttonHeight
 
   HybridScrollFrame_Update(self.ScrollFrame, totalHeight, displayedHeight)
+end
+
+function AuctionatorScrollListMixin:GetScrollOffset()
+	return HybridScrollFrame_GetOffset(self.ScrollFrame);
+end
+
+function AuctionatorScrollListMixin:SetLineTemplate(lineTemplate, ...)
+  self.lineTemplate = lineTemplate;
+  self.initArgs = { ... };
 end
