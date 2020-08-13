@@ -248,6 +248,10 @@ function AuctionatorSaleItemMixin:SetQuantity()
   end
 end
 
+local function IsEquipment(itemInfo)
+  return itemInfo.classId == LE_ITEM_CLASS_WEAPON or itemInfo.classId == LE_ITEM_CLASS_ARMOR
+end
+
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
 
@@ -259,9 +263,8 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
     sortingOrder = {sortOrder = 4, reverseSort = false}
   end
 
-  if itemInfo.itemType ~= Auctionator.Constants.ITEM_TYPES.COMMODITY and
-     itemInfo.itemKey.battlePetSpeciesID == 0 then
-     self.expectedItemKey = C_AuctionHouse.MakeItemKey(itemInfo.itemKey.itemID)
+  if IsEquipment(itemInfo) then
+    self.expectedItemKey = C_AuctionHouse.MakeItemKey(itemInfo.itemKey.itemID)
     Auctionator.AH.SendSellSearchQuery(self.expectedItemKey, {sortingOrder}, true)
   else
     self.expectedItemKey = itemInfo.itemKey
