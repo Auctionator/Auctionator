@@ -15,6 +15,8 @@ function AuctionatorShoppingListTabMixin:OnLoad()
   self:SetUpEvents()
   self:SetUpAddItemDialog()
   self:SetUpEditItemDialog()
+  self:SetUpExportDialog()
+  self:SetUpImportDialog()
 
   -- Add Item button starts in the default state until a list is selected
   self.AddItem:Disable()
@@ -48,6 +50,24 @@ function AuctionatorShoppingListTabMixin:SetUpEditItemDialog()
 
   self.editItemDialog:SetOnFinishedClicked(function(newItemString)
     self:ReplaceItemInList(newItemString)
+  end)
+end
+
+function AuctionatorShoppingListTabMixin:SetUpExportDialog()
+  self.exportDialog = CreateFrame("Frame", "AuctionatorExportListFrame", self, "AuctionatorExportListTemplate")
+  self.exportDialog:SetPoint("CENTER")
+
+  self.exportDialog:SetOnClose(function()
+    self.Export:Enable()
+  end)
+end
+
+function AuctionatorShoppingListTabMixin:SetUpImportDialog()
+  self.importDialog = CreateFrame("Frame", "AuctionatorImportListFrame", self, "AuctionatorImportListTemplate")
+  self.importDialog:SetPoint("CENTER")
+
+  self.importDialog:SetOnClose(function()
+    self.Import:Enable()
   end)
 end
 
@@ -116,4 +136,14 @@ end
 function AuctionatorShoppingListTabMixin:EditItemClicked()
   self.editItemDialog:Show()
   self.editItemDialog:SetItemString(self.selectedList.items[self.editingItemIndex])
+end
+
+function AuctionatorShoppingListTabMixin:ImportListsClicked()
+  self.Import:Disable()
+  self.importDialog:Show()
+end
+
+function AuctionatorShoppingListTabMixin:ExportListsClicked()
+  self.Export:Disable()
+  self.exportDialog:Show()
 end

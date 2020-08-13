@@ -2,5 +2,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Item.lua"/>
 
+  <Script file="ExportTextFrame.lua"/>
+  <Script file="ExportFrame.lua"/>
+  <Script file="ImportFrame.lua"/>
+
   <Script file="Main.lua"/>
 </Ui>

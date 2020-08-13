@@ -41,5 +41,9 @@ Auctionator.Constants = {
     LE_INVENTORY_TYPE_FEET_TYPE,
     LE_INVENTORY_TYPE_WRIST_TYPE,
     LE_INVENTORY_TYPE_HAND_TYPE,
+  },
+  EXPORT_TYPES = {
+    STRING = 0,
+    WHISPER = 1
   }
 }
