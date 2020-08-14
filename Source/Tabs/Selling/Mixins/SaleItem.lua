@@ -264,7 +264,9 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   end
 
   if IsEquipment(itemInfo) then
-    self.expectedItemKey = C_AuctionHouse.MakeItemKey(itemInfo.itemKey.itemID)
+    -- Bug with PTR C_AuctionHouse.MakeItemKey(...), it always sets the
+    -- itemLevel to a non-zero value, so we have to create the key directly
+    self.expectedItemKey = {itemID = itemInfo.itemKey.itemID}
     Auctionator.AH.SendSellSearchQuery(self.expectedItemKey, {sortingOrder}, true)
   else
     self.expectedItemKey = itemInfo.itemKey
