@@ -41,10 +41,12 @@ function AuctionatorShoppingListResultsRowMixin:OnClick(...)
   else
     AuctionatorResultsRowTemplateMixin.OnClick(self, ...)
 
-    AuctionHouseFrame:SelectBrowseResult(self.rowData)
+    if C_AuctionHouse.GetItemKeyInfo(self.rowData.itemKey) then
+      AuctionHouseFrame:SelectBrowseResult(self.rowData)
 
-    -- Switch state _after_ the button is shown. This is enough to check whether
-    -- the user was on the "Shopping" tab or not.
-    wasOnShoppingTab = true
+      -- Switch state _after_ the button is shown. This is enough to check
+      -- whether the user was on the "Shopping" tab or not.
+      wasOnShoppingTab = true
+    end
   end
 end
