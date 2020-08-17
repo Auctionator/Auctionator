@@ -36,7 +36,7 @@ function AuctionatorUndercutScanMixin:StartScan()
     self:NextStep()
 
   else
-    self:GetParent().DataProvider.QueryAuctions()
+    self:GetParent().DataProvider:QueryAuctions()
   end
 end
 
