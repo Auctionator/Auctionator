@@ -5,6 +5,7 @@
     inherits="AuctionatorTabFrameTemplate"
     parentKey="AuctionatorShoppingListFrame"
     mixin="AuctionatorShoppingListTabMixin"
+    hidden="true"
   >
     <Scripts>
       <OnLoad method="OnLoad" />
