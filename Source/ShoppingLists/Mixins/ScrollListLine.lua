@@ -3,7 +3,7 @@ AuctionatorScrollListLineMixin = CreateFromMixins(
   TableBuilderRowMixin
 )
 
-function AuctionatorScrollListLineMixin:InitLine(scrollFrame)
+function AuctionatorScrollListLineMixin:InitLine()
   Auctionator.Debug.Message("AuctionatorScrollListLineMixin:InitLine()")
 
   Auctionator.EventBus:RegisterSource(self, "Shopping List Line Item")
@@ -13,8 +13,6 @@ function AuctionatorScrollListLineMixin:InitLine(scrollFrame)
     Auctionator.ShoppingLists.Events.ListSearchStarted,
     Auctionator.ShoppingLists.Events.ListSearchEnded
   })
-
-  self.scrollFrameParent = scrollFrame
 end
 
 function AuctionatorScrollListLineMixin:ReceiveEvent(eventName, eventData, ...)

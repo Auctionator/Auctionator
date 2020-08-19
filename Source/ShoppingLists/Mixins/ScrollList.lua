@@ -134,7 +134,7 @@ function AuctionatorScrollListMixin:Init()
     local oddRow = (i % 2) == 1
 
     button:GetNormalTexture():SetAtlas(oddRow and "auctionhouse-rowstripe-1" or "auctionhouse-rowstripe-2");
-    button:InitLine(self)
+    button:InitLine()
     button:SetShown(false)
   end
 
@@ -203,7 +203,6 @@ function AuctionatorScrollListMixin:GetScrollOffset()
 	return HybridScrollFrame_GetOffset(self.ScrollFrame);
 end
 
-function AuctionatorScrollListMixin:SetLineTemplate(lineTemplate, ...)
+function AuctionatorScrollListMixin:SetLineTemplate(lineTemplate)
   self.lineTemplate = lineTemplate;
-  self.initArgs = { ... };
 end
