@@ -1,4 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button name="AuctionatorScrollListLineButtonTemplate" virtual="true" mixin="AuctionatorScrollListLineButtonMixin">
+    <Scripts>
+      <OnShow method="OnShow"/>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
+    </Scripts>
+  </Button>
   <Button name="AuctionatorScrollListLineTemplate" inherits="ScrollListLineTextTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
     <Size x="0" y="20"/>
 
@@ -26,7 +33,7 @@
     <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
 
     <Frames>
-      <Button parentKey="DeleteButton" inherits="UIPanelButtonTemplate">
+      <Button parentKey="DeleteButton" inherits="AuctionatorScrollListLineButtonTemplate">
         <Size>
           <AbsDimension x="15" y="15"/>
         </Size>
@@ -35,7 +42,8 @@
         </Anchors>
         <Layers>
           <Layer level="ARTWORK">
-            <Texture file="Interface\Buttons\UI-GroupLoot-Pass-Up" alpha="0.75" parentKey="texture"/>
+            <Texture file="Interface\AddOns\Auctionator\Images\Trash_Icon" parentKey="texture"/>
+            <Texture file="Interface\AddOns\Auctionator\Images\Trash_Icon_Grey" parentKey="hoverTexture"/>
           </Layer>
         </Layers>
 
