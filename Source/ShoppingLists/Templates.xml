@@ -19,7 +19,7 @@
         <FontString parentKey="Text" inherits="WhiteNormalNumberFont" justifyH="LEFT" maxLines="1">
           <Anchors>
             <Anchor point="LEFT" x="4" y="0"/>
-            <Anchor point="RIGHT" x="-4" y="0"/>
+            <Anchor point="RIGHT" x="-20" y="0"/>
           </Anchors>
         </FontString>
       </Layer>
