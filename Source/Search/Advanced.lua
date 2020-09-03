@@ -86,6 +86,20 @@ local function RangeOptionString(name, min, max)
   end
 end
 
+local function TooltipRangeString(min, max)
+  if min ~= nil and min == max then
+    return tostring(max)
+  elseif min ~= nil and max ~= nil then
+    return tostring(min) .. "-" ..  tostring(max)
+  elseif min ~= nil then
+    return ">= " .. tostring(min)
+  elseif max ~= nil then
+    return "<= " .. tostring(max)
+  else
+    return AUCTIONATOR_L_ANY_LOWER
+  end
+end
+
 local separator = ", "
 
 local function CategoryKey(splitSearch)
@@ -115,8 +129,7 @@ local function LevelRange(splitSearch)
     splitSearch.maxLevel
   ) .. separator
 end
-
-local function PriceRange(splitSearch)
+local function ConvertMoneyStrings(splitSearch)
   -- Convert to money strings
   -- Some padding " " is necessary
   local min = splitSearch.minPrice
@@ -126,8 +139,14 @@ local function PriceRange(splitSearch)
 
   local max = splitSearch.maxPrice
   if max ~= nil then
-    max = " " .. Auctionator.Utilities.CreateMoneyString(splitSearch.maxPrice) .. " "
+    max = Auctionator.Utilities.CreateMoneyString(splitSearch.maxPrice) .. " "
   end
+
+  return min, max
+end
+
+local function PriceRange(splitSearch)
+  local min, max = ConvertMoneyStrings(splitSearch)
 
   return RangeOptionString(
     "price",
@@ -160,4 +179,68 @@ function Auctionator.Search.PrettifySearchString(searchString)
   else
     return searchString
   end
+end
+
+local function TooltipCategory(splitSearch)
+  local key = splitSearch.categoryKey
+
+  if splitSearch.categoryKey == nil or splitSearch.categoryKey == "" then
+    key = AUCTIONATOR_L_ANY_LOWER
+  end
+
+  return {
+    AUCTIONATOR_L_ITEM_CLASS,
+    key
+  }
+end
+
+local function TooltipPriceRange(splitSearch)
+  local minPrice, maxPrice = ConvertMoneyStrings(splitSearch)
+
+  return {
+    AUCTIONATOR_L_PRICE,
+    TooltipRangeString(minPrice, maxPrice)
+  }
+end
+
+local function TooltipLevelRange(splitSearch)
+  return {
+    AUCTIONATOR_L_LEVEL,
+    TooltipRangeString(splitSearch.minLevel, splitSearch.maxLevel)
+  }
+end
+
+local function TooltipItemLevelRange(splitSearch)
+  return {
+    AUCTIONATOR_L_ITEM_LEVEL,
+    TooltipRangeString(splitSearch.minItemLevel, splitSearch.maxItemLevel)
+  }
+end
+
+local function TooltipCraftedLevelRange(splitSearch)
+  return {
+    AUCTIONATOR_L_CRAFTED_LEVEL,
+    TooltipRangeString(splitSearch.minCraftedLevel, splitSearch.maxCraftedLevel)
+  }
+end
+
+function Auctionator.Search.ComposeTooltip(searchString)
+  local splitSearch = Auctionator.Search.SplitAdvancedSearch(searchString)
+
+  local lines = {}
+
+  table.insert(lines, TooltipCategory(splitSearch))
+  table.insert(lines, TooltipPriceRange(splitSearch))
+  table.insert(lines, TooltipLevelRange(splitSearch))
+  table.insert(lines, TooltipItemLevelRange(splitSearch))
+  table.insert(lines, TooltipCraftedLevelRange(splitSearch))
+
+  if splitSearch.queryString == "" then
+    splitSearch.queryString = " "
+  end
+
+  return {
+    title = splitSearch.queryString,
+    lines = lines
+  }
 end
