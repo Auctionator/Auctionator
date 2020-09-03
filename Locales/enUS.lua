@@ -227,6 +227,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CANCEL"] = "Cancel"
   L["RESET_ALL"] = "Reset All"
 
+  L["ANY_LOWER"] = "any"
+
   L["NO_RESULTS"] = "No results found."
 
   L["UNDERCUT_SCAN"] = "Undercut Scan"
