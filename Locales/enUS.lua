@@ -3,7 +3,6 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["CONFIG_BASIC_OPTIONS_CATEGORY"] = "Basic Options"
   L["CONFIG_BASIC_OPTIONS_TEXT"] = "Basic options for enabling features in Auctionator."
-  L["CONFIG_SHOPPING_LIST"] = "Shopping List Settings"
   L["CONFIG_AUTO_LIST_SEARCH"] = "Automatically scan for shopping list items."
   L["CONFIG_AUTO_LIST_SEARCH_TOOLTIP_HEADER"] = "Automatic List Search"
   L["CONFIG_AUTO_LIST_SEARCH_TOOLTIP_TEXT"] = "When a list is selected, automatically scan the auction house for the list entries. When this option is off, you may scan for the entire list when selecting the 'Search' button in the Shopping List sidebar."
@@ -23,6 +22,12 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_DEBUG"] = "Toggle debug output."
   L["CONFIG_DEBUG_TOOLTIP_HEADER"] = "Auctionator Debug"
   L["CONFIG_DEBUG_TOOLTIP_TEXT"] = "This is used by the maintainers to output debug messages to the chat frame."
+
+  L["CONFIG_SHOPPING_CATEGORY"] = "Shopping"
+  L["CONFIG_SHOPPING_TEXT"] = "Options to change the behaviour of the Shopping tab."
+
+  L["CONFIG_CANCELLING_CATEGORY"] = "Cancelling"
+  L["CONFIG_CANCELLING_TEXT"] = "Options to change the behaviour of the Cancelling tab."
 
 
   L["CONFIG_TOOLTIPS_CATEGORY"] = "Tooltips"

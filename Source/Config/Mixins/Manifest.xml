@@ -7,9 +7,11 @@
   <Script file="Tooltips.lua"/>
   <Script file="Advanced.lua"/>
 
+  <Script file="Shopping.lua"/>
   <Script file="Selling.lua"/>
   <Script file="LIFO.lua"/>
   <Script file="NotLIFO.lua"/>
+  <Script file="Cancelling.lua"/>
 
   <Script file="Profile.lua"/>
 </Ui>
