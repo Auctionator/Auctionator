@@ -62,7 +62,7 @@ function Auctionator.SlashCmd.ResetConfig()
   end
 end
 
-function Auctionator.SlashCmd.Config(name)
+function Auctionator.SlashCmd.Config(name, value)
   if name == nil then
     Auctionator.Utilities.Message("Current config:")
     for _, name in pairs(Auctionator.Config.Options) do
@@ -70,6 +70,13 @@ function Auctionator.SlashCmd.Config(name)
     end
   elseif type(Auctionator.Config.Get(name)) == "boolean" then
     Auctionator.Config.Set(name, not Auctionator.Config.Get(name))
+    Auctionator.Utilities.Message("Config set " .. name .. " = " .. tostring(Auctionator.Config.Get(name)))
+  elseif type(Auctionator.Config.Get(name)) == "number" then
+    if tonumber(value) == nil then
+      Auctionator.Utilities.Message("Config " .. name .. " not modified; Numerical value required")
+    else
+      Auctionator.Config.Set(name, tonumber(value))
+    end
     Auctionator.Utilities.Message("Config set " .. name .. " = " .. tostring(Auctionator.Config.Get(name)))
   elseif Auctionator.Config.Get(name) ~= nil then
     Auctionator.Utilities.Message("Unable to modify " .. name .. " at this time")

@@ -41,7 +41,7 @@ function Auctionator.SlashCmd.Handler(input)
       Auctionator.Utilities.Message("Unrecognized command '" .. command[1] .. "'")
       Auctionator.SlashCmd.Help()
     else
-      handler(command[2])
+      handler(command[2], command[3])
     end
   end
 end
