@@ -177,6 +177,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       bidPrice = resultInfo.bidAmount,
       level = tostring(resultInfo.itemKey.itemLevel or 0),
       owners = resultInfo.owners,
+      timeLeft = resultInfo.timeLeft,
       quantity = resultInfo.quantity,
       itemLink = resultInfo.itemLink,
       auctionID = resultInfo.auctionID,

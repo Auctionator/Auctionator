@@ -18,17 +18,11 @@ function AuctionatorItemKeyCellTemplateMixin:Populate(rowData, index)
 end
 
 function AuctionatorItemKeyCellTemplateMixin:OnEnter()
-  if self.rowData.itemKey.itemID ~= Auctionator.Constants.PET_CAGE_ID then
-    self.rowData.addAuctionatorTip = true
-  end
-
   AuctionHouseUtil.LineOnEnterCallback(self, self.rowData)
   AuctionatorCellMixin.OnEnter(self)
 end
 
 function AuctionatorItemKeyCellTemplateMixin:OnLeave()
-  self.rowData.addAuctionatorTip = false
-
   AuctionHouseUtil.LineOnLeaveCallback(self, self.rowData)
   AuctionatorCellMixin.OnLeave(self)
 end
