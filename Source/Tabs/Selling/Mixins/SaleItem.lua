@@ -65,6 +65,13 @@ function AuctionatorSaleItemMixin:OnUpdate()
     return
   end
 
+  if not C_Item.DoesItemExist(self.itemInfo.location) then
+    --Bag item location invalid due to posting (race condition)
+    self.itemInfo = nil
+    self:Reset()
+    return
+  end
+
   self.TotalPrice:SetText(
     Auctionator.Utilities.CreateMoneyString(
       self.Quantity:GetNumber() * self.Price:GetAmount()
@@ -410,6 +417,8 @@ end
 function AuctionatorSaleItemMixin:GetPostButtonState()
   return
     self.itemInfo ~= nil and
+
+    C_Item.DoesItemExist(self.itemInfo.location) and
 
     -- Sufficient money to cover deposit
     GetMoney() > self:GetDeposit() and
