@@ -25,18 +25,29 @@ function AuctionatorScrollListLineMixin:ReceiveEvent(eventName, eventData, ...)
   end
 end
 
-function AuctionatorScrollListLineMixin:DeleteItem()
-  local itemIndex = 0
-
+function AuctionatorScrollListLineMixin:GetListIndex()
   for index, name in ipairs(self.currentList.items) do
     if self.searchTerm == name then
-      itemIndex = index
-      break
+      return index
     end
   end
+end
+
+function AuctionatorScrollListLineMixin:DeleteItem()
+  local itemIndex = self:GetListIndex()
 
   table.remove(self.currentList.items, itemIndex)
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemDeleted)
+end
+
+function AuctionatorScrollListLineMixin:ShiftItem(amount)
+  local index = self:GetListIndex()
+  local otherItem = self.currentList.items[index + amount]
+  if otherItem ~= nil then
+    self.currentList.items[index] = otherItem
+    self.currentList.items[index + amount] = self.searchTerm
+  end
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListOrderChanged)
 end
 
 function AuctionatorScrollListLineMixin:UpdateDisplay()
@@ -67,20 +78,49 @@ local function ComposeTooltip(searchTerm)
   end
 end
 
+function AuctionatorScrollListLineMixin:ShowTooltip()
+  GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+  ComposeTooltip(self.searchTerm)
+  GameTooltip:Show()
+end
+
+function AuctionatorScrollListLineMixin:HideTooltip()
+  GameTooltip:Hide()
+end
+
+function AuctionatorScrollListLineMixin:DetectDragStart()
+  --If the mouse leaves above this point, its been dragged up, and if dragged
+  --down, it has been dragged below this point
+  self.dragStartY = select(2, GetCursorPosition())
+end
+
+function AuctionatorScrollListLineMixin:DetectDragEnd()
+  if IsMouseButtonDown("LeftButton") then
+    local y = select(2, GetCursorPosition())
+    if y > self.dragStartY then
+      self:ShiftItem(-1)
+    elseif y < self.dragStartY then
+      self:ShiftItem(1)
+    end
+  end
+end
+
 function AuctionatorScrollListLineMixin:OnEnter()
   -- Have to override since we arent building rows (see TableBuilder.lua)
 
   -- Our stuff
-  GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-  ComposeTooltip(self.searchTerm)
-  GameTooltip:Show()
+  self:ShowTooltip()
+
+  self:DetectDragStart()
 end
 
 function AuctionatorScrollListLineMixin:OnLeave()
   -- Have to override since we arent building rows (see TableBuilder.lua)
 
   -- Our stuff
-  GameTooltip:Hide()
+  self:HideTooltip()
+
+  self:DetectDragEnd()
 end
 
 function AuctionatorScrollListLineMixin:OnSelected()

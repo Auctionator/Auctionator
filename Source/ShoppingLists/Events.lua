@@ -7,6 +7,7 @@ Auctionator.ShoppingLists.Events = {
   ListItemAdded = "AUCTIONATOR_LIST_ITEM_ADDED",
   ListItemSelected = "AUCTIONATOR_LIST_ITEM_SELECTED",
   ListItemDeleted = "AUCTIONATOR_LIST_ITEM_DELETED",
+  ListOrderChanged = "AUCTIONATOR_LIST_ORDER_CHANGED",
   DeleteFromList = "AUCTIONATOR_DELETE_FROM_CURRENT_LIST",
 
   ListSearchStarted = "AUCTIONATOR_LIST_SEARCH_STARTED",
