@@ -37,5 +37,4 @@ end
 
 function AuctionatorConfigShoppingFrameMixin:Cancel()
   Auctionator.Debug.Message("AuctionatorConfigShoppingFrameMixin:Cancel()")
-  print(self.DefaultShoppingList:GetValue())
 end
