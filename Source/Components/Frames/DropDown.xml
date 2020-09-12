@@ -14,7 +14,6 @@
 
     <Frames>
       <Frame inherits="UIDropDownMenuTemplate" mixin="AuctionatorDropDownInternalMixin" parentKey="DropDown">
-        <Size x="150"/>
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="7"/>
         </Anchors>

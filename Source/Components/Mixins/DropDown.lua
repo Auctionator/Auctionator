@@ -14,12 +14,20 @@ local function localizeArray(array)
 end
 
 function AuctionatorDropDownMixin:OnLoad()
-  self.DropDown:Initialize(
-    localizeArray(splitStrArray(self.textString)),
-    splitStrArray(self.valuesString)
-  )
+  if self.textString ~= nil and self.valuesString ~= nil then
+    self:InitAgain(
+      localizeArray(splitStrArray(self.textString)),
+      splitStrArray(self.valuesString)
+    )
+  end
 
-  self.Label:SetText(self.labelText)
+  if self.labelText ~= nil then
+    self.Label:SetText(self.labelText)
+  end
+end
+
+function AuctionatorDropDownMixin:InitAgain(lables, values)
+  self.DropDown:Initialize(lables, values)
 end
 
 function AuctionatorDropDownMixin:SetValue(...)
@@ -38,7 +46,8 @@ function AuctionatorDropDownInternalMixin:Initialize(text, values)
   self.value = self.values[1]
 
   UIDropDownMenu_Initialize(self, self.BlizzInitialize, "taint prevention")
-  UIDropDownMenu_SetWidth(self, self:GetWidth())
+
+  UIDropDownMenu_SetWidth(self, 150)
 end
 
 function AuctionatorDropDownInternalMixin:BlizzInitialize()

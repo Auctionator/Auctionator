@@ -28,6 +28,25 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DefaultListHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_DEFAULT_LIST_HEADER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AutoListSearch" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorDropDown" parentKey="DefaultShoppingList">
+        <KeyValues>
+          <KeyValue key="labelText" value="" type="string" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultListHeading" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="RIGHT" relativePoint="LEFT" x="50"/>
+        </Anchors>
+      </Frame>
    </Frames>
   </Frame>
 </Ui>

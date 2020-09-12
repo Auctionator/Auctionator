@@ -24,6 +24,10 @@ function AuctionatorFilterKeySelectorMixin:GetValue()
   return self.displayText
 end
 
+function AuctionatorFilterKeySelectorMixin:SetValue(value)
+  self.displayText = value
+end
+
 function AuctionatorFilterKeySelectorMixin:Reset()
   self.displayText = ""
   UIDropDownMenu_SetText(self, "")

@@ -329,5 +329,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["CLASSIC_SUPPORT_ERROR"] = "This version of Auctionator DOES NOT support Classic. Stuff may break and not work."
 
+  L["DEFAULT_LIST_HEADER"] = "Default Shopping List"
+
   return L
 end

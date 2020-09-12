@@ -7,6 +7,14 @@ function AuctionatorShoppingListDropdownMixin:OnLoad()
   self:SetUpEvents()
 end
 
+function AuctionatorShoppingListDropdownMixin:OnShow()
+  local listIndex = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST)
+
+  if Auctionator.ShoppingLists.Lists[listIndex] ~= nil then
+    self:SelectList(Auctionator.ShoppingLists.Lists[listIndex])
+  end
+end
+
 function AuctionatorShoppingListDropdownMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Dropdown")
 
