@@ -1,10 +1,13 @@
 AuctionatorSellingBagFrameMixin = {}
 
+local FAVOURITE = -1
+
 function AuctionatorSellingBagFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:OnLoad()")
 
   self.allShowing = true
   self.frameMap = {
+    [FAVOURITE] = self.ScrollFrame.ItemListingFrame.Favourites,
     [LE_ITEM_CLASS_WEAPON] = self.ScrollFrame.ItemListingFrame.WeaponItems,
     [LE_ITEM_CLASS_ARMOR] = self.ScrollFrame.ItemListingFrame.ArmorItems,
     [LE_ITEM_CLASS_CONTAINER] = self.ScrollFrame.ItemListingFrame.ContainerItems,
@@ -42,6 +45,7 @@ function AuctionatorSellingBagFrameMixin:Refresh()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:Refresh()")
 
   self:AggregateItemsByClass()
+  self:SetupFavourites()
   self:Update()
 end
 
@@ -62,6 +66,20 @@ function AuctionatorSellingBagFrameMixin:AggregateItemsByClass()
       table.insert(self.items[entry.classId], entry)
     else
       Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:AggregateItemsByClass Missing item class table", entry.classId)
+    end
+  end
+end
+
+function AuctionatorSellingBagFrameMixin:SetupFavourites()
+  local bagItemCount = self.dataProvider:GetCount()
+  local entry
+
+  self.items[FAVOURITE] = {}
+
+  for index = 1, bagItemCount do
+    entry = self.dataProvider:GetEntryAt(index)
+    if Auctionator.Selling.IsFavourite(entry) then
+      table.insert(self.items[FAVOURITE], entry)
     end
   end
 end

@@ -91,7 +91,7 @@ function AuctionatorBagDataProviderMixin:OnEvent(...)
 end
 
 function AuctionatorBagDataProviderMixin:UniqueKey(entry)
-  return Auctionator.Utilities.ItemKeyString(entry.itemKey) .. entry.quality
+  return Auctionator.Selling.UniqueBagKey(entry)
 end
 
 function AuctionatorBagDataProviderMixin:GetTableLayout()

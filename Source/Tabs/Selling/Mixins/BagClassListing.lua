@@ -17,9 +17,10 @@ function AuctionatorBagClassListingMixin:OnLoad()
 
     return button
   end)
-  self.isAuctionatorBag = true
 
-  self.title = GetItemClassInfo(self.classId)
+  if self.title == nil and self.classId ~= nil then
+    self.title = GetItemClassInfo(self.classId)
+  end
 
   self:UpdateTitle()
   self:SetHeight(self.SectionTitle:GetHeight())
