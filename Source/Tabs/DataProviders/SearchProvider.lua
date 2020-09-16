@@ -189,6 +189,9 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       entry.level = tostring(Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink))
     end
 
+    local qualityColor = Auctionator.Utilities.GetQualityColorFromLink(entry.itemLink)
+    entry.level = "|c" .. qualityColor .. entry.level .. "|r"
+
     if resultInfo.containsOwnerItem then
       -- Test if the auction has been loaded for cancelling
       if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
