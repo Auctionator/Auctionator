@@ -6,5 +6,5 @@ Auctionator.Selling.Events = {
   SellSearchStart = "sell_search_start",
   PriceSelected = "price_selected",
   RefreshSearch = "selling_refresh_search",
-  IgnoreCallback = "selling_ignore_callback",
+  ItemIconCallback = "selling_item_icon_callback",
 }

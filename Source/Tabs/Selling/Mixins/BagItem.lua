@@ -47,7 +47,7 @@ function AuctionatorBagItemMixin:OnClick(button)
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)
 
     elseif button == "RightButton" then
-      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.IgnoreCallback, self.itemInfo.itemKey)
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.ItemIconCallback, self.itemInfo)
     end
   end
 end

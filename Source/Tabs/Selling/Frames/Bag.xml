@@ -10,7 +10,7 @@
     </Scripts>
 
     <Frames>
-      <Frame parentKey="IgnoreDropDown" inherits="AuctionatorIgnoreDropDownTemplate" hidden="true"/>
+      <Frame parentKey="ItemIconDropDown" inherits="AuctionatorItemIconDropDownTemplate" hidden="true"/>
 
       <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
         <Anchors>
@@ -48,12 +48,21 @@
         <ScrollChild>
           <Frame parentKey="ItemListingFrame">
             <Frames>
+              <Frame parentKey="Favourites" inherits="AuctionatorBagClassListing">
+                <KeyValues>
+                  <KeyValue key="title" value="AUCTIONATOR_L_FAVOURITES" type="global" />
+                </KeyValues>
+                <Anchors>
+                  <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+                  <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+                </Anchors>
+              </Frame>
               <Frame parentKey="WeaponItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
                   <KeyValue key="classId" value="LE_ITEM_CLASS_WEAPON" type="global" />
                 </KeyValues>
                 <Anchors>
-                  <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" />
+                  <Anchor point="TOPLEFT" relativeKey="$parent.Favourites" relativePoint="BOTTOMLEFT" />
                   <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
                 </Anchors>
               </Frame>

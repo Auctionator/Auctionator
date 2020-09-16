@@ -5,4 +5,5 @@
 
   <Script file="LIFOPrice.lua"/>
   <Script file="NotLIFOPrice.lua"/>
+  <Script file="UniqueBagKey.lua"/>
 </Ui>
