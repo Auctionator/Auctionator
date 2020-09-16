@@ -65,7 +65,7 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
       if location:IsValid() and not IsIgnoredItemKey(location) then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
 
-        local tempId = self:UniqueKey({ itemKey = itemInfo.itemKey })
+        local tempId = self:UniqueKey(itemInfo)
 
         if itemMap[tempId] == nil then
           table.insert(orderedKeys, tempId)
@@ -91,7 +91,7 @@ function AuctionatorBagDataProviderMixin:OnEvent(...)
 end
 
 function AuctionatorBagDataProviderMixin:UniqueKey(entry)
-  return Auctionator.Utilities.ItemKeyString(entry.itemKey)
+  return Auctionator.Utilities.ItemKeyString(entry.itemKey) .. entry.quality
 end
 
 function AuctionatorBagDataProviderMixin:GetTableLayout()
