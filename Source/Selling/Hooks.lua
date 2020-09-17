@@ -5,6 +5,10 @@ local function SelectOwnItem(self)
     return
   end
 
+  -- Deselect any items in the "Sell" tab
+  AuctionHouseFrame.ItemSellFrame:SetItem(nil, nil, false)
+  AuctionHouseFrame.CommoditiesSellFrame:SetItem(nil, nil, false)
+
   AuctionatorTabs_Selling:Click()
 
   local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
@@ -23,10 +27,6 @@ end
 hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
   if AHShown() and
       Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
-
-    AuctionHouseFrame.ItemSellFrame:SetItem(nil, nil, false)
-    AuctionHouseFrame.CommoditiesSellFrame:SetItem(nil, nil, false)
-
     SelectOwnItem(self)
   end
 end)
