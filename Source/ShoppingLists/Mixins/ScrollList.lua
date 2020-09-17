@@ -137,7 +137,7 @@ function AuctionatorScrollListMixin:Init()
     local oddRow = (i % 2) == 1
 
     button:GetNormalTexture():SetAtlas(oddRow and "auctionhouse-rowstripe-1" or "auctionhouse-rowstripe-2");
-    button:InitLine()
+    button:InitLine(self.currentList)
     button:SetShown(false)
   end
 
