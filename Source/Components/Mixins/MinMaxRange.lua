@@ -48,6 +48,22 @@ function AuctionatorConfigMinMaxMixin:GetMax(value)
   return self.MaxBox:GetNumber(value)
 end
 
+function AuctionatorConfigMinMaxMixin:SetMin(value)
+  if value == nil then
+    self.MinBox:SetText("")
+  else
+    self.MinBox:SetNumber(value)
+  end
+end
+
+function AuctionatorConfigMinMaxMixin:SetMax(value)
+  if value == nil then
+    self.MaxBox:SetText("")
+  else
+    self.MaxBox:SetNumber(value)
+  end
+end
+
 function AuctionatorConfigMinMaxMixin:Reset()
   self.MinBox:SetText("")
   self.MaxBox:SetText("")

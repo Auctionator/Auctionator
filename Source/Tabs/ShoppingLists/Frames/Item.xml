@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="AuctionatorAddItemTemplate"
-    mixin="AuctionatorAddItemMixin"
+    name="AuctionatorShoppingItemTemplate"
+    mixin="AuctionatorShoppingItemMixin"
     inherits="SimplePanelTemplate"
     frameStrata="Dialog"
     enableMouse="true"
@@ -13,6 +13,7 @@
     <Scripts>
       <OnLoad method="OnLoad" />
       <OnShow method="OnShow" />
+      <OnHide method="OnHide" />
       <OnKeyUp method="OnKeyUp" />
     </Scripts>
 
@@ -40,7 +41,7 @@
             </Anchors>
             <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
             <Scripts>
-              <OnEnterPressed>self:GetParent():GetParent():OnAddItemClicked()</OnEnterPressed>
+              <OnEnterPressed>self:GetParent():GetParent():OnFinishedClicked()</OnEnterPressed>
               <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
               <OnTabPressed>self:GetParent():GetParent().LevelRange:SetFocus()</OnTabPressed>
             </Scripts>
@@ -122,13 +123,13 @@
       </Frame>
 
       <!-- Action Buttons -->
-      <Button parentKey="AddItem" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_ADD_ITEM">
+      <Button parentKey="Finished" inherits="UIPanelDynamicResizeButtonTemplate" text="">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" />
         </Anchors>
 
         <Scripts>
-          <OnClick>self:GetParent():OnAddItemClicked()</OnClick>
+          <OnClick>self:GetParent():OnFinishedClicked()</OnClick>
         </Scripts>
       </Button>
 
@@ -154,7 +155,7 @@
 
     <Layers>
       <Layer>
-        <FontString text="AUCTIONATOR_L_LIST_ADD_ITEM_HEADER" inherits="GameFontHighlight">
+        <FontString text="" inherits="GameFontHighlight" parentKey="DialogTitle">
           <Anchors>
             <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
           </Anchors>

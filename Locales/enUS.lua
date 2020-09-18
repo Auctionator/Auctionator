@@ -147,6 +147,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DELETE"] = "Delete"
   L["CREATE"] = "Create"
   L["ADD_ITEM"] = "Add Item"
+  L["EDIT_ITEM"] = "Edit Item"
   L["SEARCH"] = "Search"
 
   L["SHOPPING_TAB"] = "Shopping"
@@ -219,6 +220,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
   L["LIST_ADD_ITEM_HEADER"] = "Add Shopping List Item"
+  L["LIST_EDIT_ITEM_HEADER"] = "Edit Shopping List Item"
   L["SEARCH_TERM"] = "Search Term"
   L["EXACT_SEARCH"]= "Exact Search"
   L["ITEM_CLASS"] = "Item Class"

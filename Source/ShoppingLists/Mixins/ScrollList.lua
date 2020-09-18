@@ -29,6 +29,7 @@ function AuctionatorScrollListMixin:SetUpEvents()
     Auctionator.ShoppingLists.Events.ListSelected,
     Auctionator.ShoppingLists.Events.ListItemSelected,
     Auctionator.ShoppingLists.Events.ListItemAdded,
+    Auctionator.ShoppingLists.Events.ListItemReplaced,
     Auctionator.ShoppingLists.Events.ListSearchRequested,
     Auctionator.ShoppingLists.Events.ListItemDeleted,
     Auctionator.ShoppingLists.Events.ListOrderChanged,
@@ -64,6 +65,8 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemSelected then
     self:StartSearch({ eventData })
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemAdded then
+    self:RefreshScrollFrame()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListItemReplaced then
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemDeleted then
     self:RefreshScrollFrame()

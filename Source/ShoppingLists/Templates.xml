@@ -19,7 +19,7 @@
         <FontString parentKey="Text" inherits="WhiteNormalNumberFont" justifyH="LEFT" maxLines="1">
           <Anchors>
             <Anchor point="LEFT" x="4" y="0"/>
-            <Anchor point="RIGHT" x="-20" y="0"/>
+            <Anchor point="RIGHT" x="-45" y="0"/>
           </Anchors>
         </FontString>
       </Layer>
@@ -33,6 +33,24 @@
     <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
 
     <Frames>
+      <Button parentKey="EditButton" inherits="AuctionatorScrollListLineButtonTemplate">
+        <Size>
+          <AbsDimension x="15" y="15"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-30" y="0"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\AddOns\Auctionator\Images\Pen_Icon" parentKey="texture"/>
+            <Texture file="Interface\AddOns\Auctionator\Images\Pen_Icon_Grey" parentKey="hoverTexture"/>
+          </Layer>
+        </Layers>
+
+        <Scripts>
+          <OnClick>self:GetParent():EditItem()</OnClick>
+        </Scripts>
+      </Button>
       <Button parentKey="DeleteButton" inherits="AuctionatorScrollListLineButtonTemplate">
         <Size>
           <AbsDimension x="15" y="15"/>

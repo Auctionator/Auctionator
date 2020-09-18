@@ -1,6 +1,6 @@
 <!-- Tabs/ShoppingLists/Frames directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="AddItem.xml"/>
+  <Include file="Item.xml"/>
 
   <Include file="Main.xml"/>
 </Ui>
