@@ -26,6 +26,8 @@ end
 
 function AuctionatorFilterKeySelectorMixin:SetValue(value)
   self.displayText = value
+  self.onEntrySelected(value)
+  UIDropDownMenu_SetText(self, value)
 end
 
 function AuctionatorFilterKeySelectorMixin:Reset()
@@ -38,9 +40,7 @@ function AuctionatorFilterKeySelectorMixin:SetOnEntrySelected(callback)
 end
 
 function AuctionatorFilterKeySelectorMixin:EntrySelected(displayText)
-  self.displayText = displayText
-  self.onEntrySelected(displayText)
-  UIDropDownMenu_SetText(self, displayText)
+  self:SetValue(displayText)
   CloseDropDownMenus()
 end
 

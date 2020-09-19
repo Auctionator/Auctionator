@@ -11,7 +11,9 @@ function AuctionatorScrollListLineMixin:InitLine(currentList)
   Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListSelected,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
-    Auctionator.ShoppingLists.Events.ListSearchEnded
+    Auctionator.ShoppingLists.Events.ListSearchEnded,
+    Auctionator.ShoppingLists.Events.DialogOpened,
+    Auctionator.ShoppingLists.Events.DialogClosed,
   })
 
   self.currentList = currentList
@@ -23,6 +25,10 @@ function AuctionatorScrollListLineMixin:ReceiveEvent(eventName, eventData, ...)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+    self:Enable()
+  elseif eventName == Auctionator.ShoppingLists.Events.DialogOpened then
+    self:Disable()
+  elseif eventName == Auctionator.ShoppingLists.Events.DialogClosed then
     self:Enable()
   end
 end
@@ -36,10 +42,22 @@ function AuctionatorScrollListLineMixin:GetListIndex()
 end
 
 function AuctionatorScrollListLineMixin:DeleteItem()
+  if not self:IsEnabled() then
+    return
+  end
+
   local itemIndex = self:GetListIndex()
 
   table.remove(self.currentList.items, itemIndex)
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemDeleted)
+end
+
+function AuctionatorScrollListLineMixin:EditItem()
+  if not self:IsEnabled() then
+    return
+  end
+
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.EditListItem, self:GetListIndex())
 end
 
 function AuctionatorScrollListLineMixin:ShiftItem(amount)

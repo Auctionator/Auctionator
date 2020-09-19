@@ -1,6 +1,6 @@
 <!-- Tabs/ShoppingLists/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="AddItem.lua"/>
+  <Script file="Item.lua"/>
 
   <Script file="Main.lua"/>
 </Ui>

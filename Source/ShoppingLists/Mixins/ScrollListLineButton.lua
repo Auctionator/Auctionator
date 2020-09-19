@@ -4,7 +4,9 @@ function AuctionatorScrollListLineButtonMixin:OnShow()
   self.hoverTexture:Hide()
 end
 function AuctionatorScrollListLineButtonMixin:OnEnter()
-  self.hoverTexture:Show()
+  if self:GetParent():IsEnabled() then
+    self.hoverTexture:Show()
+  end
 end
 function AuctionatorScrollListLineButtonMixin:OnLeave()
   self.hoverTexture:Hide()
