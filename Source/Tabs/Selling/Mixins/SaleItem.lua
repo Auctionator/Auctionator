@@ -243,14 +243,19 @@ function AuctionatorSaleItemMixin:SetDuration()
 end
 
 function AuctionatorSaleItemMixin:SetQuantity()
-  -- If a default quantity has been selected (ie non-zero amount)
-  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_DEFAULT_QUANTITY) > 0 then
-    self.Quantity:SetNumber(math.min(
-      self.itemInfo.count,
-      Auctionator.Config.Get(Auctionator.Config.Options.SELLING_DEFAULT_QUANTITY)
-    ))
-  -- No default quantity setting, use the maximum possible
+  local defaultQuantity
+
+  if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
+    defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_DEFAULT_QUANTITY)
   else
+    defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY)
+  end
+
+  if defaultQuantity > 0 then
+    -- If a default quantity has been selected (ie non-zero amount)
+    self.Quantity:SetNumber(math.min(self.itemInfo.count, defaultQuantity))
+  else
+    -- No default quantity setting, use the maximum possible
     self.Quantity:SetNumber(self.itemInfo.count)
   end
 end
