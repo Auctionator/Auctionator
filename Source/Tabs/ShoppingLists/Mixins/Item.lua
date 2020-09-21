@@ -65,6 +65,10 @@ function AuctionatorShoppingItemMixin:OnHide()
     :UnregisterSource(self)
 end
 
+function AuctionatorShoppingItemMixin:OnKeyDown(key)
+  self:SetPropagateKeyboardInput(key ~= "ESCAPE")
+end
+
 function AuctionatorShoppingItemMixin:OnKeyUp(key)
   Auctionator.Debug.Message("AuctionatorShoppingItemMixin:OnKeyUp()", key)
 
