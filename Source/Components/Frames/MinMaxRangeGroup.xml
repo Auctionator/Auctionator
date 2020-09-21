@@ -43,7 +43,7 @@
     </Layers>
 
     <Frames>
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="MinBox" letters="6">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="MinBox" letters="6">
         <Size x="50" y="20" />
 
         <Anchors>
@@ -69,10 +69,12 @@
           <OnEnterPressed>self:GetParent():OnEnterPressed()</OnEnterPressed>
           <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
           <OnTabPressed>self:GetParent():MinTabPressed()</OnTabPressed>
+          <OnTextChanged function="Auctionator_EditBox_OnTextChanged" />
+          <OnKeyDown function="Auctionator_EditBox_OnKeyDown" />
         </Scripts>
       </EditBox>
 
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" numeric="true" parentKey="MaxBox" letters="6">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="MaxBox" letters="6">
         <Size x="50" y="20"/>
 
         <Anchors>
@@ -98,6 +100,8 @@
           <OnEnterPressed>self:GetParent():OnEnterPressed()</OnEnterPressed>
           <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
           <OnTabPressed>self:GetParent():MaxTabPressed()</OnTabPressed>
+          <OnTextChanged function="Auctionator_EditBox_OnTextChanged" />
+          <OnKeyDown function="Auctionator_EditBox_OnKeyDown" />
         </Scripts>
       </EditBox>
 
