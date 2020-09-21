@@ -40,6 +40,9 @@
         <Anchors>
           <Anchor point="TOPRIGHT" x="-30" y="0"/>
         </Anchors>
+        <KeyValues>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_EDIT_ITEM" type="global"/>
+        </KeyValues>
         <Layers>
           <Layer level="ARTWORK">
             <Texture file="Interface\AddOns\Auctionator\Images\Pen_Icon" parentKey="texture"/>
@@ -55,6 +58,9 @@
         <Size>
           <AbsDimension x="15" y="15"/>
         </Size>
+        <KeyValues>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_DELETE" type="global"/>
+        </KeyValues>
         <Anchors>
           <Anchor point="TOPRIGHT" x="-10" y="0"/>
         </Anchors>
