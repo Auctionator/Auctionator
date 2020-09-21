@@ -5,7 +5,10 @@
     inherits="InsetFrameTemplate"
     parent="AuctionHouseFrame"
   >
-    <!-- Note that inheriting frames need to set their own parentKey! -->
+  <!-- Note that inheriting frames need to set their own parentKey!
+
+       The Selling tab does not inherit from this, as it needs custom InsetFrames
+   -->
     <KeyValues>
       <KeyValue key="backgroundAtlas" value="auctionhouse-background-buy-commodities" type="string"/>
     </KeyValues>

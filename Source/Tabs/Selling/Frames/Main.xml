@@ -2,7 +2,7 @@
   <Frame
     name="AuctionatorSellingTabFrameTemplate"
     virtual="true"
-    inherits="AuctionatorTabFrameTemplate"
+    parent="AuctionHouseFrame"
     parentKey="AuctionatorSellingFrame"
     mixin="AuctionatorSellingTabMixin"
     hidden="true"
@@ -12,7 +12,9 @@
     </Scripts>
 
     <Anchors>
-      <Anchor point="TOPLEFT" relativeKey="$parent.CategoriesList" relativePoint="TOPLEFT" y="-70"/>
+      <Anchor point="TOP" relativeKey="$parent.CategoriesList" relativePoint="TOP" y="-70"/>
+      <Anchor point="LEFT" x="4"/>
+      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
     </Anchors>
 
     <Frames>
@@ -40,6 +42,13 @@
         </Anchors>
       </Frame>
 
+      <Frame parentKey="BagInset" inherits="InsetFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" relativePoint="TOPLEFT" x="-5" y="5"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" relativePoint="BOTTOMRIGHT" x="28"/>
+        </Anchors>
+      </Frame>
+
       <Frame parentKey="CurrentItemListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent.SaleItemFrame" relativePoint="BOTTOM"/>
@@ -49,12 +58,26 @@
         </Anchors>
       </Frame>
 
+      <Frame parentKey="CurrentItemInset" inherits="InsetFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentItemListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.CurrentItemListing" relativePoint="BOTTOMRIGHT" x="-1"/>
+        </Anchors>
+      </Frame>
+
       <Frame parentKey="HistoricalPriceListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent" relativePoint="CENTER" />
           <Anchor point="LEFT" relativeKey="$parent.CurrentItemListing" relativePoint="LEFT"/>
           <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" />
           <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-20" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="HistoricalPriceInset" inherits="InsetFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.HistoricalPriceListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" relativePoint="BOTTOMRIGHT" x="-1"/>
         </Anchors>
       </Frame>
 
