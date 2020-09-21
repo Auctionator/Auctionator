@@ -1,0 +1,38 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorTranslatorTemplate"
+    mixin="AuctionatorTranslatorMixin"
+    inherits="AuctionatorConfigurationTooltip"
+    virtual="true"
+  >
+  <!--
+    <KeyValues>
+      <KeyValue key="textureLocation" type="string">
+      <KeyValue key="translators" type="string">
+      <KeyValue key="tooltipTitleText" type="string">
+    </KeyValues>
+  -->
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+
+    <Size x="200" y="21"/>
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture file="Interface\AddOns\Auctionator\Images\deDE" parentKey="FlagTexture">
+          <Size x="16" y="16"/>
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+          </Anchors>
+        </Texture>
+        <FontString parentKey="TranslatorsText" inherits="GameFontHighlight" justifyH="LEFT" text="Test Text">
+          <Size x="225"/>
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="25" y="-2" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+
+  </Frame>
+</Ui>
