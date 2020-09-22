@@ -143,6 +143,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ADD_TERM_TO_LIST_DIALOG"] = "Enter the search term to add:"
 
   L["RENAME"] = "Rename"
+  L["SAVE_AS"] = "Save As"
   L["DELETE"] = "Delete"
   L["CREATE"] = "Create"
   L["ADD_ITEM"] = "Add Item"

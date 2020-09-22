@@ -13,6 +13,11 @@ function Auctionator.ShoppingLists.CreateTemporary(listName)
   })
 end
 
+function Auctionator.ShoppingLists.MakePermanent(listName)
+  local list = Auctionator.ShoppingLists.GetListByName(listName)
+  list.isTemporary = false
+end
+
 function Auctionator.ShoppingLists.ListIndex(listName)
   for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
     if list.name == listName then
