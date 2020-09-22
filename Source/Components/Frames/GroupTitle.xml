@@ -1,0 +1,24 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+<!-- Template for a title for a numeric input -->
+  <Frame name="AuctionatorConfigurationGroupTitle" mixin="AuctionatorConfigGroupTitleMixin" virtual="true">
+    <!--
+      <KeyValues>
+        <KeyValue key="subHeadingText" value="" type="string"/>
+      </KeyValues>
+    -->
+    <Scripts>
+      <OnLoad method="InitializeRadioButtonGroup"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+    </Anchors>
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GroupHeading">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>
