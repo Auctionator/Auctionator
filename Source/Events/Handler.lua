@@ -8,5 +8,7 @@ function Auctionator.Events.Handler(self, event, ...)
     Auctionator.Events.VariablesLoaded()
   elseif event == "AUCTION_HOUSE_SHOW" then
     Auctionator.Events.OnAuctionHouseShow()
+  elseif event == "TRADE_SKILL_SHOW" then
+    Auctionator.ReagentSearch.Initialize()
   end
 end

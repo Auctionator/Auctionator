@@ -27,6 +27,7 @@ Auctionator = {
   Cancelling = {},
   Enchant = {},
   Selling = {},
+  ReagentSearch = {},
 
   API = {
     v1 = {}
