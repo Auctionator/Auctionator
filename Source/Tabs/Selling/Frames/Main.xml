@@ -60,7 +60,7 @@
 
       <Frame parentKey="CurrentItemInset" inherits="AuctionatorInsetDarkTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentItemListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentItemListing" relativePoint="TOPLEFT" x="-5" y="-24"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.CurrentItemListing" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
@@ -76,7 +76,7 @@
 
       <Frame parentKey="HistoricalPriceInset" inherits="AuctionatorInsetDarkTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.HistoricalPriceListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.HistoricalPriceListing" relativePoint="TOPLEFT" x="-5" y="-24"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>

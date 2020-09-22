@@ -7,6 +7,7 @@
   <Include file="PriceCell.xml"/>
   <Include file="ItemKeyCell.xml"/>
 
+  <Include file="SellingRow.xml"/>
   <Include file="AuctionatorResultsRow.xml"/>
   <Include file="ShoppingListResultsRow.xml"/>
   <Include file="SellSearchRow.xml"/>

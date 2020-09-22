@@ -1,14 +1,14 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="AuctionatorSellSearchRowTemplate"
-    mixin="AuctionatorSellSearchRowMixin"
-    inherits="AuctionatorSellingRowTemplate"
+    name="AuctionatorSellingRowTemplate"
+    mixin="AuctionatorSellingRowMixin"
+    inherits="AuctionatorResultsRowTemplate"
     virtual="true"
     enableMouse="true"
   >
     <Layers>
       <Layer level="OVERLAY">
-        <Texture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1">
+          <Texture parentKey="HighlightTexture" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" setAllPoints="true" hidden="true">
           <Anchors>
             <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="18"/>
             <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
