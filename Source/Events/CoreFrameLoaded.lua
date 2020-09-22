@@ -38,6 +38,8 @@ local AUCTIONATOR_EVENTS = {
   "VARIABLES_LOADED",
   -- AH Window Initialization Events
   "AUCTION_HOUSE_SHOW",
+  -- Trade Window Initialization Events
+  "TRADE_SKILL_SHOW",
 }
 
 -- Called from AuctionatorCore frame's OnLoad (defined in Auctionator.xml)

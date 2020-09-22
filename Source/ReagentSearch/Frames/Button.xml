@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button name="AuctionatorReagentSearchButtonTemplate" inherits="UIPanelDynamicResizeButtonTemplate" mixin="AuctionatorReagentSearchButtonMixin" text="AUCTIONATOR_L_SEARCH" virtual="true" parent="TradeSkillFrame">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnClick method="OnClick" />
+      <OnEvent method="OnEvent" />
+    </Scripts>
+    <Anchors>
+      <Anchor point="RIGHT" relativePoint="RIGHT" x="-35" y="100"/>
+    </Anchors>
+  </Button>
+</Ui>
