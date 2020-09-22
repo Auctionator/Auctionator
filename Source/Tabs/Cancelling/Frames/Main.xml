@@ -83,17 +83,6 @@
             </Scripts>
           </Button>
         </Frames>
-
-        <Layers>
-          <Layer level="BACKGROUND" textureSubLevel="-6">
-            <Texture name="$parentBg" file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true" parentKey="Bg">
-              <Anchors>
-                <Anchor point="TOPLEFT" y="-21"/>
-                <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
-              </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
       </Frame>
     </Frames>
   </Frame>
