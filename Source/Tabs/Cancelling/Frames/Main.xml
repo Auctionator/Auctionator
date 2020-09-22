@@ -45,7 +45,7 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="HistoricalPriceInset" inherits="InsetFrameTemplate">
+      <Frame parentKey="HistoricalPriceInset" inherits="AuctionatorInsetTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>

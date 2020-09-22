@@ -1,0 +1,40 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorInsetTemplate" inherits="InsetFrameTemplate" virtual="true">
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture atlas="auctionhouse-background-index">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <Frame name="AuctionatorInsetDarkTemplate" inherits="InsetFrameTemplate" virtual="true">
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture atlas="auctionhouse-background-sell-right">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <Frame name="AuctionatorInsetLeaveScrollSpaceTemplate" inherits="InsetFrameTemplate" virtual="true">
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture atlas="auctionhouse-background-index">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-28"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>
