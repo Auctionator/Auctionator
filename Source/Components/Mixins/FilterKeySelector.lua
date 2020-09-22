@@ -25,6 +25,10 @@ function AuctionatorFilterKeySelectorMixin:GetValue()
 end
 
 function AuctionatorFilterKeySelectorMixin:SetValue(value)
+  if value == nil then
+    value = ""
+  end
+
   self.displayText = value
   self.onEntrySelected(value)
   UIDropDownMenu_SetText(self, value)
