@@ -1,0 +1,27 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+<Frame name="AuctionatorPanelTemplate" virtual="true">
+  <KeyValues>
+    <KeyValue key="layoutType" value="SimplePanelTemplate" type="string"/>
+  </KeyValues>
+  <Size x="338" y="424"/>
+  <Layers>
+    <Layer level="BACKGROUND" textureSubLevel="-6">
+      <Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true" parentKey="Bg">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="0" y="-6"/>
+          <Anchor point="BOTTOMRIGHT" x="-2" y="3"/>
+        </Anchors>
+      </Texture>
+    </Layer>
+  </Layers>
+  <Frames>
+    <Frame parentKey="Inset" inherits="AuctionatorInsetDarkTemplate">
+      <Anchors>
+        <Anchor point="TOPLEFT" x="4" y="-26"/>
+        <Anchor point="BOTTOMRIGHT" x="-6" y="26"/>
+      </Anchors>
+    </Frame>
+    <Frame parentKey="NineSlice" inherits="NineSlicePanelTemplate"/>
+  </Frames>
+</Frame>
+</Ui>

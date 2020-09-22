@@ -2,7 +2,7 @@
   <Frame
     name="AuctionatorShoppingItemTemplate"
     mixin="AuctionatorShoppingItemMixin"
-    inherits="SimplePanelTemplate"
+    inherits="AuctionatorPanelTemplate"
     frameStrata="Dialog"
     enableMouse="true"
     virtual="true"

@@ -17,6 +17,7 @@
   <Include file="ResetButton.xml"/>
   <Include file="DropDown.xml"/>
   <Include file="Inset.xml"/>
+  <Include file="Panel.xml"/>
 
   <Include file="Heading.xml"/>
   <Include file="SubHeading.xml"/>
