@@ -336,5 +336,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["DEFAULT_LIST_HEADER"] = "Default Shopping List"
 
+  L["REAGENT_SEARCH"] = "Reagent Search"
+
   return L
 end

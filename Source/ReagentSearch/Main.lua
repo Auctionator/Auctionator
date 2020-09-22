@@ -11,7 +11,7 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
     table.insert(items, reagentName)
   end
 
-  Auctionator.API.v1.MultiSearchExact("Reagent Search", items)
+  Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
 end
 
 -- Add a button to the tradeskill frame to search the AH for the reagents.
