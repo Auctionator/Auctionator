@@ -10,8 +10,10 @@ function AuctionatorFullScanFrameMixin:OnLoad()
 
   -- Updates to self.state should store in the SAVED_VARIABLE
   self.state = Auctionator.SavedState
-  self.prices = {}
-  self.startTime = nil
+end
+
+function AuctionatorFullScanFrameMixin:ResetData()
+  self.scanData = {}
 end
 
 function AuctionatorFullScanFrameMixin:InitiateScan()
@@ -60,18 +62,53 @@ function AuctionatorFullScanFrameMixin:UnregisterForEvents()
   FrameUtil.UnregisterFrameForEvents(self, FULL_SCAN_EVENTS)
 end
 
+function AuctionatorFullScanFrameMixin:CacheScanData()
+  self:ResetData()
+
+  local left = C_AuctionHouse.GetNumReplicateItems()
+
+  for i = 0, C_AuctionHouse.GetNumReplicateItems() - 1 do
+    local info = { C_AuctionHouse.GetReplicateItemInfo(i) }
+    local link = C_AuctionHouse.GetReplicateItemLink(i)
+
+    if not info[18] then
+      local item = Item:CreateFromItemID(info[17])
+
+      item:ContinueOnItemLoad(function()
+        left = left - 1
+
+        table.insert(self.scanData, {
+          auctionInfo = { C_AuctionHouse.GetReplicateItemInfo(i) },
+          itemLink = C_AuctionHouse.GetReplicateItemLink(i)
+        })
+
+        if left == 0 then
+          self:EndProcessing()
+        end
+      end)
+    else
+      left = left - 1
+      table.insert(self.scanData, {auctionInfo = info, itemLink = link})
+    end
+  end
+
+  if left == 0 then
+    self:EndProcessing()
+  end
+end
+
 function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
   if event == "REPLICATE_ITEM_LIST_UPDATE" then
     Auctionator.Debug.Message("REPLICATE_ITEM_LIST_UPDATE")
 
     FrameUtil.UnregisterFrameForEvents(self, { "REPLICATE_ITEM_LIST_UPDATE" })
-    self:BeginProcessing()
+    self:CacheScanData()
   elseif event =="AUCTION_HOUSE_CLOSED" then
     self:UnregisterForEvents()
 
     if self.inProgress then
       self.inProgress = false
-      self.prices = {}
+      self:ResetData()
 
       Auctionator.Utilities.Message(
         Auctionator.Locales.Apply("FULL_SCAN_FAILED") ..
@@ -81,78 +118,43 @@ function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
   end
 end
 
-local function GetReplicateInfo(index)
-  local replicateItemInfo = { C_AuctionHouse.GetReplicateItemInfo(index) }
-
-  local count = replicateItemInfo[3]
-  local buyoutPrice = replicateItemInfo[10]
+local function GetInfo(auctionInfo, itemLink)
+  local count = auctionInfo[3]
+  local buyoutPrice = auctionInfo[10]
   local effectivePrice = buyoutPrice / count
 
-  local itemKey = Auctionator.Utilities.ItemKeyFromReplicateResult(replicateItemInfo)
+  local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
   return itemKey, effectivePrice
 end
 
-function AuctionatorFullScanFrameMixin:BeginProcessing()
-  Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:BeginProcessing()")
-
-  self.processingComplete = false
-
-  self.startTime = debugprofilestop()
-  self:ProcessBatch(
-    0,
-    Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_STEP),
-    C_AuctionHouse.GetNumReplicateItems()
-  )
-end
-
 function AuctionatorFullScanFrameMixin:EndProcessing()
-  Auctionator.Debug.Message("BeginProcessing() completed in " .. tostring(debugprofilestop() - self.startTime))
-
-  local count = Auctionator.Database.ProcessScan(self.prices)
+  local count = Auctionator.Database.ProcessScan(self:MergePrices())
   Auctionator.Utilities.Message(Auctionator.Locales.Apply("FINISHED_PROCESSING", count))
 
-  self.processingComplete = true
   self.inProgress = false
-  self.startTime = nil
-  self.prices = {}
+  self:ResetData()
 
   self:UnregisterForEvents()
 end
 
-function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, totalCount)
-  if not self.inProgress then
-    Auctionator.Utilities.Message(
-      Auctionator.Locales.Apply("STOPPED_PROCESSING", startIndex, totalCount)
-    )
-    self:EndProcessing()
-    return
-  end
+function AuctionatorFullScanFrameMixin:MergePrices()
+  local prices = {}
+  local index = 0
 
-  Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:ProcessBatch()", startIndex, stepSize, totalCount)
-
-  local index = startIndex
-  local itemKey, effectivePrice
-
-  while index < startIndex + stepSize and index < totalCount do
-    itemKey, effectivePrice = GetReplicateInfo(index)
+  for index = 1, #self.scanData do
+    local itemKey, effectivePrice = GetInfo(self.scanData[index].auctionInfo, self.scanData[index].itemLink)
 
     if itemKey~=nil then
-      if self.prices[itemKey] == nil then
-        self.prices[itemKey] = { effectivePrice }
+      if prices[itemKey] == nil then
+        prices[itemKey] = { effectivePrice }
       else
-        table.insert(self.prices[itemKey], effectivePrice)
+        table.insert(prices[itemKey], effectivePrice)
       end
     end
 
     index = index + 1
   end
 
-  if index < totalCount then
-    C_Timer.After(0.01, function()
-      self:ProcessBatch(index, stepSize, totalCount)
-    end)
-  else
-    self:EndProcessing()
-  end
+  return prices
 end
