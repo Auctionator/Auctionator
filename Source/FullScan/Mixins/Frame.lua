@@ -76,10 +76,11 @@ function AuctionatorFullScanFrameMixin:CacheScanData()
 
       item:ContinueOnItemLoad(function()
         left = left - 1
+        link = C_AuctionHouse.GetReplicateItemLink(i)
 
         table.insert(self.scanData, {
           auctionInfo = { C_AuctionHouse.GetReplicateItemInfo(i) },
-          itemLink = C_AuctionHouse.GetReplicateItemLink(i)
+          key = Auctionator.Utilities.ItemKeyFromLink(link)
         })
 
         if left == 0 then
@@ -88,7 +89,9 @@ function AuctionatorFullScanFrameMixin:CacheScanData()
       end)
     else
       left = left - 1
-      table.insert(self.scanData, {auctionInfo = info, itemLink = link})
+      table.insert(self.scanData, {auctionInfo = info,
+        key = Auctionator.Utilities.ItemKeyFromLink(link)
+      })
     end
   end
 
@@ -123,9 +126,7 @@ local function GetInfo(auctionInfo, itemLink)
   local buyoutPrice = auctionInfo[10]
   local effectivePrice = buyoutPrice / count
 
-  local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
-
-  return itemKey, effectivePrice
+  return effectivePrice
 end
 
 function AuctionatorFullScanFrameMixin:EndProcessing()
@@ -143,7 +144,8 @@ function AuctionatorFullScanFrameMixin:MergePrices()
   local index = 0
 
   for index = 1, #self.scanData do
-    local itemKey, effectivePrice = GetInfo(self.scanData[index].auctionInfo, self.scanData[index].itemLink)
+    local itemKey = self.scanData[index].key
+    local effectivePrice = GetInfo(self.scanData[index].auctionInfo)
 
     if itemKey~=nil then
       if prices[itemKey] == nil then
