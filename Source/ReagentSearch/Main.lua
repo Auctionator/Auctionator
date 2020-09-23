@@ -1,6 +1,4 @@
 function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
-  Auctionator.Debug.Message( 'Atr_OnClickTradeSkillBut' )
-
   local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
 
   local items = { C_TradeSkillUI.GetRecipeInfo(recipeIndex).name }
