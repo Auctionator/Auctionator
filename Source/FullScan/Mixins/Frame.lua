@@ -80,6 +80,7 @@ function AuctionatorFullScanFrameMixin:CacheScanData()
 
         table.insert(self.scanData, {
           auctionInfo = { C_AuctionHouse.GetReplicateItemInfo(i) },
+          itemLink = link,
           key = Auctionator.Utilities.ItemKeyFromLink(link)
         })
 
@@ -89,7 +90,9 @@ function AuctionatorFullScanFrameMixin:CacheScanData()
       end)
     else
       left = left - 1
-      table.insert(self.scanData, {auctionInfo = info,
+      table.insert(self.scanData, {
+        auctionInfo = info,
+        itemLink = link,
         key = Auctionator.Utilities.ItemKeyFromLink(link)
       })
     end

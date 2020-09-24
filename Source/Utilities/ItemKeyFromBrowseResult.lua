@@ -1,6 +1,6 @@
 function Auctionator.Utilities.ItemKeyFromBrowseResult(result)
     if(result.itemKey.battlePetSpeciesID ~= 0) then
-      return "p:" .. tostring(result.itemKey.battlePetSpeciesID)
+      return "p:" .. tostring(result.itemKey.battlePetSpeciesID) .. ":1"
     elseif result.itemKey.itemLevel ~= 0 then
       return "gear:" .. result.itemKey.itemID .. ":" .. result.itemKey.itemLevel
     else

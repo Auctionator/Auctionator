@@ -2,11 +2,11 @@ function Auctionator.Utilities.ItemKeyFromLink(itemLink)
   if itemLink ~= nil then
     local _, _, itemString = string.find(itemLink, "^|c%x+|H(.+)|h%[.*%]")
     if itemString ~= nil then
-      local linkType, itemId, _, _, _, _, _, _, _ = strsplit(":", itemString)
+      local linkType, itemId, petLevel = strsplit(":", itemString)
 
       if linkType == "battlepet" then
         -- Check for a battle pet
-        return "p:"..itemId
+        return "p:" .. itemId .. ":" .. petLevel
 
       elseif linkType == "item" then
         -- Check for gear

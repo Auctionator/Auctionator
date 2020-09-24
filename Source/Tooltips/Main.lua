@@ -163,7 +163,7 @@ end
 
 local PET_TOOLTIP_SPACING = " "
 function Auctionator.Tooltip.AddPetTip(
-  speciesID
+  speciesID, level
 )
   Auctionator.Debug.Message("Auctionator.Tooltip.AddPetTip", speciesID)
   if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) or
@@ -171,7 +171,7 @@ function Auctionator.Tooltip.AddPetTip(
     return
   end
 
-  local key = "p:" .. tostring(speciesID)
+  local key = "p:" .. tostring(speciesID) .. ":" .. level
   local price = Auctionator.Database.GetPrice(key)
   BattlePetTooltip:AddLine(" ")
   if price ~= nil then
