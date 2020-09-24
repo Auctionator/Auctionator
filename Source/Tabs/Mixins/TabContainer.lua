@@ -5,17 +5,17 @@ function AuctionatorTabContainerMixin:OnLoad()
 
   -- Set up self references since parented to the AH Frame
   self.Tabs = {
-    ShoppingLists = AuctionatorTabs_ShoppingLists,
-    Selling = AuctionatorTabs_Selling,
-    Cancelling = AuctionatorTabs_Cancelling,
-    Auctionator = AuctionatorTabs_Auctionator,
+    AuctionatorTabs_ShoppingLists,
+    AuctionatorTabs_Selling,
+    AuctionatorTabs_Cancelling,
+    AuctionatorTabs_Auctionator,
   }
 
   self:HookTabs()
 end
 
 function AuctionatorTabContainerMixin:IsAuctionatorFrame(displayMode)
-  for _, frame in pairs(self.Tabs) do
+  for _, frame in ipairs(self.Tabs) do
     if frame.displayMode == displayMode then
       return true, frame
     end
@@ -30,18 +30,11 @@ function AuctionatorTabContainerMixin:HookTabs()
 
     local isAuctionatorFrame, tab = self:IsAuctionatorFrame(frame.displayMode)
 
-    for _, auctionatorTab in pairs(self.Tabs) do
-      if auctionatorTab ~= tab then
-        auctionatorTab:DeselectTab()
-      end
-    end
-
-    -- Bail if our tab was not selected
     if not isAuctionatorFrame then
       return
     end
 
-    tab:Selected()
+    AuctionHouseFrame:SetTitle(tab.ahTitle)
 
     -- Idea derived from similar issue found at
     -- https://www.townlong-yak.com/bugs/Kjq4hm-DisplayModeCommunitiesTaint
