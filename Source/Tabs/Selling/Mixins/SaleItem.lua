@@ -484,10 +484,24 @@ function AuctionatorSaleItemMixin:PostItem()
     }
   )
 
-  self:DoSearch(self.itemInfo)
   -- Save item info for refreshing search results
   self.lastItemInfo = self.itemInfo
   self:Reset()
+
+  if (Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and
+      self.lastItemInfo.nextItem ~= nil and
+      -- Location may be invalid because of items being moved in the bag
+      C_Item.DoesItemExist(self.lastItemInfo.nextItem.location)
+    ) then
+    -- Option to automatically select the next item in the bag view
+    Auctionator.EventBus:Fire(
+      self, Auctionator.Selling.Events.BagItemClicked, self.lastItemInfo.nextItem
+    )
+
+  else
+    -- Search for current auctions of the last item posted
+    self:DoSearch(self.lastItemInfo)
+  end
 end
 
 function AuctionatorSaleItemMixin:RefreshButtonClicked()

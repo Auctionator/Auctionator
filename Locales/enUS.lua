@@ -309,6 +309,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_ICON_SIZE"] = "Bag icon size (reload required)"
   L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_HEADER"] = "Size of Icons"
   L["CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT"] = "This lets you make the bag item icons in the selling tab larger (up to 50) or smaller (down to 10). Default size is 42."
+  L["CONFIG_SELLING_AUTO_SELECT_NEXT"] = "Automatically select the next item in your bag"
+  L["CONFIG_SELLING_AUTO_SELECT_NEXT_TOOLTIP_HEADER"] = "Automatic item selection"
+  L["CONFIG_SELLING_AUTO_SELECT_NEXT_TOOLTIP_TEXT"] = "When posting automatically select the next item in the bag view."
   L["CONFIG_BAG"] = "Bag"
 
   L["HIDE"] = "Hide"
