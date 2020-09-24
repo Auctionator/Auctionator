@@ -15,6 +15,7 @@
           <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.ShoppingLists" type="global"/>
           <KeyValue key="displayModeKey" value="ShoppingLists" type="string"/>
           <KeyValue key="frameTemplate" value="AuctionatorShoppingListTabFrameTemplate" type="string"/>
+          <KeyValue key="ahTabIndex" value="4" type="number"/>
           <KeyValue key="ahTitle" value="AUCTIONATOR_L_SHOPPING_TAB_HEADER" type="global"/>
         </KeyValues>
       </Button>
@@ -29,6 +30,7 @@
           <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Selling" type="global"/>
           <KeyValue key="displayModeKey" value="Selling" type="string"/>
           <KeyValue key="frameTemplate" value="AuctionatorSellingTabFrameTemplate" type="string"/>
+          <KeyValue key="ahTabIndex" value="5" type="number"/>
           <KeyValue key="ahTitle" value="AUCTIONATOR_L_SELLING_TAB_HEADER" type="global"/>
         </KeyValues>
       </Button>
@@ -43,6 +45,7 @@
           <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Cancelling" type="global"/>
           <KeyValue key="displayModeKey" value="Cancelling" type="string"/>
           <KeyValue key="frameTemplate" value="AuctionatorCancellingTabFrameTemplate" type="string"/>
+          <KeyValue key="ahTabIndex" value="6" type="number"/>
           <KeyValue key="ahTitle" value="AUCTIONATOR_L_CANCELLING_TAB_HEADER" type="global"/>
         </KeyValues>
       </Button>
@@ -52,6 +55,7 @@
           <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Auctionator" type="global" />
           <KeyValue key="displayModeKey" value="Auctionator" type="string" />
           <KeyValue key="frameTemplate" value="AuctionatorConfigurationTabFrameTemplate" type="string" />
+          <KeyValue key="ahTabIndex" value="7" type="number" />
           <KeyValue key="ahTitle" value="AUCTIONATOR_L_INFO_TAB_HEADER" type="global" />
         </KeyValues>
       </Button>
