@@ -1,15 +1,38 @@
 AuctionatorTabContainerMixin = {}
 
+local function InitializeFromDetails(details)
+  local frameName = "AuctionatorTabs_" .. details.name
+  local frame = CreateFrame(
+    "BUTTON",
+    frameName,
+    AuctionHouseFrame,
+    "AuctionatorTabButtonTemplate"
+  )
+
+  frame:SetText(details.textLabel)
+
+  frame:Initialize(details.name, details.tabTemplate, details.tabHeader, {details.tabFrameName})
+
+  return frame
+end
+
 function AuctionatorTabContainerMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorTabContainerMixin:OnLoad()")
 
-  -- Set up self references since parented to the AH Frame
-  self.Tabs = {
-    ShoppingLists = AuctionatorTabs_ShoppingLists,
-    Selling = AuctionatorTabs_Selling,
-    Cancelling = AuctionatorTabs_Cancelling,
-    Auctionator = AuctionatorTabs_Auctionator,
-  }
+  -- Tabs are sorted to avoid inconsistent ordering based on the addon loading
+  -- order
+  table.sort(
+    Auctionator.Tabs.State.knownTabs,
+    function(left, right)
+      return left.tabOrder < right.tabOrder
+    end
+  )
+
+  self.Tabs = {}
+
+  for _, details in ipairs(Auctionator.Tabs.State.knownTabs) do
+    table.insert(self.Tabs, InitializeFromDetails(details))
+  end
 
   self:HookTabs()
 end

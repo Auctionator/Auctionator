@@ -4,62 +4,6 @@
     virtual="true"
     mixin="AuctionatorTabContainerMixin"
   >
-    <Frames>
-      <Button
-        name="AuctionatorTabs_ShoppingLists"
-        inherits="AuctionatorTabButtonTemplate"
-        text="AUCTIONATOR_L_SHOPPING_TAB"
-        parentKey="AuctionatorShoppingListTab"
-      >
-        <KeyValues>
-          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.ShoppingLists" type="global"/>
-          <KeyValue key="displayModeKey" value="ShoppingLists" type="string"/>
-          <KeyValue key="frameTemplate" value="AuctionatorShoppingListTabFrameTemplate" type="string"/>
-          <KeyValue key="ahTabIndex" value="4" type="number"/>
-          <KeyValue key="ahTitle" value="AUCTIONATOR_L_SHOPPING_TAB_HEADER" type="global"/>
-        </KeyValues>
-      </Button>
-
-      <Button
-        name="AuctionatorTabs_Selling"
-        inherits="AuctionatorTabButtonTemplate"
-        text="AUCTIONATOR_L_SELLING_TAB"
-        parentKey="AuctionatorSellingTab"
-      >
-        <KeyValues>
-          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Selling" type="global"/>
-          <KeyValue key="displayModeKey" value="Selling" type="string"/>
-          <KeyValue key="frameTemplate" value="AuctionatorSellingTabFrameTemplate" type="string"/>
-          <KeyValue key="ahTabIndex" value="5" type="number"/>
-          <KeyValue key="ahTitle" value="AUCTIONATOR_L_SELLING_TAB_HEADER" type="global"/>
-        </KeyValues>
-      </Button>
-
-      <Button
-        name="AuctionatorTabs_Cancelling"
-        inherits="AuctionatorTabButtonTemplate"
-        text="AUCTIONATOR_L_CANCELLING_TAB"
-        parentKey="AuctionatorCancellingTab"
-      >
-        <KeyValues>
-          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Cancelling" type="global"/>
-          <KeyValue key="displayModeKey" value="Cancelling" type="string"/>
-          <KeyValue key="frameTemplate" value="AuctionatorCancellingTabFrameTemplate" type="string"/>
-          <KeyValue key="ahTabIndex" value="6" type="number"/>
-          <KeyValue key="ahTitle" value="AUCTIONATOR_L_CANCELLING_TAB_HEADER" type="global"/>
-        </KeyValues>
-      </Button>
-
-      <Button name="AuctionatorTabs_Auctionator" inherits="AuctionatorTabButtonTemplate" text="Auctionator">
-        <KeyValues>
-          <KeyValue key="displayMode" value="AuctionatorTabDisplayModes.Auctionator" type="global" />
-          <KeyValue key="displayModeKey" value="Auctionator" type="string" />
-          <KeyValue key="frameTemplate" value="AuctionatorConfigurationTabFrameTemplate" type="string" />
-          <KeyValue key="ahTabIndex" value="7" type="number" />
-          <KeyValue key="ahTitle" value="AUCTIONATOR_L_INFO_TAB_HEADER" type="global" />
-        </KeyValues>
-      </Button>
-    </Frames>
     <Scripts>
       <OnLoad method="OnLoad"/>
     </Scripts>

@@ -10,7 +10,6 @@ Auctionator = {
     Loaded = false,
     CurrentVersion = nil,
     LiveDB = nil,
-    Tabs = {}
   },
 
   SavedState = {},
@@ -28,6 +27,12 @@ Auctionator = {
   Enchant = {},
   Selling = {},
   ReagentSearch = {},
+
+  Tabs = {
+    State = {
+      knownTabs= {}
+    },
+  },
 
   API = {
     v1 = {}
