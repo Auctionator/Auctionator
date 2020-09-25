@@ -19,14 +19,26 @@ function AuctionatorListExportFrameMixin:OnLoad()
   --   end
   -- end)
   -- self.ExportOption:SetSelectedValue(Auctionator.Constants.EXPORT_TYPES.STRING)
-
-  self.onClose = function() end
 end
 
 function AuctionatorListExportFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorListExportFrameMixin:OnShow()")
 
   self:RefreshLists()
+
+  Auctionator.EventBus
+    :RegisterSource(self, "lists export dialog 1")
+    :Fire(self, Auctionator.ShoppingLists.Events.DialogOpened)
+    :UnregisterSource(self)
+end
+
+function AuctionatorListExportFrameMixin:OnHide()
+  self:Hide()
+
+  Auctionator.EventBus
+    :RegisterSource(self, "lists export dialog 1")
+    :Fire(self, Auctionator.ShoppingLists.Events.DialogClosed)
+    :UnregisterSource(self)
 end
 
 function AuctionatorListExportFrameMixin:InitializeCheckBoxes()
@@ -80,10 +92,6 @@ function AuctionatorListExportFrameMixin:ReceiveEvent(eventName)
   end
 end
 
-function AuctionatorListExportFrameMixin:SetOnClose(callback)
-  self.onClose = callback
-end
-
 function AuctionatorListExportFrameMixin:RefreshLists()
   Auctionator.Debug.Message("AuctionatorListExportFrameMixin:RefreshLists()")
 
@@ -106,7 +114,6 @@ end
 
 function AuctionatorListExportFrameMixin:OnCloseDialogClicked()
   self:Hide()
-  self.onClose()
 end
 
 function AuctionatorListExportFrameMixin:OnSelectAllClicked()
@@ -131,6 +138,7 @@ function AuctionatorListExportFrameMixin:OnExportClicked()
   end
 
   -- if self.ExportOption:GetValue() == 0 then
+    self:Hide()
     self.copyTextDialog:SetExportString(exportString)
     self.copyTextDialog:Show()
   -- else
@@ -143,6 +151,4 @@ function AuctionatorListExportFrameMixin:OnExportClicked()
     -- C_ChatInfo.SendAddonMessage( "Auctionator", exportString, "WHISPER", self.Recipient:GetText())
   -- end
 
-  self:Hide()
-  self.onClose()
 end

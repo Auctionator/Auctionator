@@ -56,19 +56,11 @@ end
 function AuctionatorShoppingListTabMixin:SetUpExportDialog()
   self.exportDialog = CreateFrame("Frame", "AuctionatorExportListFrame", self, "AuctionatorExportListTemplate")
   self.exportDialog:SetPoint("CENTER")
-
-  self.exportDialog:SetOnClose(function()
-    self.Export:Enable()
-  end)
 end
 
 function AuctionatorShoppingListTabMixin:SetUpImportDialog()
   self.importDialog = CreateFrame("Frame", "AuctionatorImportListFrame", self, "AuctionatorImportListTemplate")
   self.importDialog:SetPoint("CENTER")
-
-  self.importDialog:SetOnClose(function()
-    self.Import:Enable()
-  end)
 end
 
 function AuctionatorShoppingListTabMixin:OnShow()
@@ -94,8 +86,12 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
 
   elseif eventName == DialogOpened then
     self.AddItem:Disable()
+    self.Export:Disable()
+    self.Import:Disable()
   elseif eventName == DialogClosed then
     self.AddItem:Enable()
+    self.Export:Enable()
+    self.Import:Enable()
 
   elseif eventName == EditListItem then
     self.editingItemIndex = eventData
@@ -139,11 +135,9 @@ function AuctionatorShoppingListTabMixin:EditItemClicked()
 end
 
 function AuctionatorShoppingListTabMixin:ImportListsClicked()
-  self.Import:Disable()
   self.importDialog:Show()
 end
 
 function AuctionatorShoppingListTabMixin:ExportListsClicked()
-  self.Export:Disable()
   self.exportDialog:Show()
 end
