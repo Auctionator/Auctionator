@@ -5,5 +5,9 @@ function Auctionator.Selling.UniqueBagKey(entry)
     result = result .. " " .. tostring(Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink))
   end
 
+  if not entry.auctionable then
+    result = result .. " x"
+  end
+
   return result
 end
