@@ -7,6 +7,10 @@ local UNDERCUT_EVENTS = {
   "AUCTION_HOUSE_CLOSED"
 }
 
+local CANCELLING_EVENTS = {
+  "AUCTION_CANCELED"
+}
+
 function AuctionatorUndercutScanMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorUndercutScanMixin")
   Auctionator.EventBus:Register(self, {Auctionator.Cancelling.Events.RequestCancel})
@@ -15,6 +19,10 @@ function AuctionatorUndercutScanMixin:OnLoad()
   self.seenItemKeys = {}
 
   self:SetCancel()
+end
+
+function AuctionatorUndercutScanMixin:OnHide()
+  FrameUtil.UnregisterFrameForEvents(self, CANCELLING_EVENTS)
 end
 
 function AuctionatorUndercutScanMixin:StartScan()
@@ -106,6 +114,10 @@ function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
   elseif eventName == "AUCTION_HOUSE_CLOSED" then
     self:EndScan()
 
+  elseif eventName == "AUCTION_CANCELED" then
+    FrameUtil.UnregisterFrameForEvents(self, CANCELLING_EVENTS)
+    self:SetCancel()
+
   else
     Auctionator.Debug.Message("search results")
     self:ProcessSearchResults(self.currentAuction, ...)
@@ -121,8 +133,6 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, auctionID)
         break
       end
     end
-
-    self:SetCancel()
   end
 end
 
@@ -178,6 +188,7 @@ end
 
 function AuctionatorUndercutScanMixin:CancelNextAuction()
   Auctionator.Debug.Message("AuctionatorUndercutScanMixin:CancelNextAuction()")
+  FrameUtil.RegisterFrameForEvents(self, CANCELLING_EVENTS)
 
   Auctionator.EventBus:Fire(
     self,
@@ -185,5 +196,5 @@ function AuctionatorUndercutScanMixin:CancelNextAuction()
     self.undercutAuctions[1].auctionID
   )
 
-  self:SetCancel()
+  self.CancelNextButton:Disable()
 end

@@ -55,6 +55,7 @@
       <Frame mixin="AuctionatorUndercutScanMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
+          <OnHide method="OnHide" />
           <OnEvent method="OnEvent"/>
         </Scripts>
         <Size y="45"/>
