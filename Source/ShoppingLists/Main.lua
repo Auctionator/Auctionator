@@ -52,23 +52,46 @@ function Auctionator.ShoppingLists.GetListByName(listName)
   return Auctionator.ShoppingLists.Lists[listIndex]
 end
 
-function Auctionator.ShoppingLists.GetExportString(listName)
+function Auctionator.ShoppingLists.GetBatchExportString(listName)
   local list = Auctionator.ShoppingLists.GetListByName(listName)
 
-  local result = ""
+  local result = listName
   for _, item in ipairs(list.items) do
-    result = result .. item .. "\n"
+    result = result .. "^" .. item
   end
-
-  result = gsub(result, "\n$", "")
 
   return result
 end
 
-function Auctionator.ShoppingLists.ImportFromString(listName, importString)
+function Auctionator.ShoppingLists.BatchImportFromString(importString)
+  -- Remove blank lines
+  importString = gsub(importString, "%s+\n", "\n")
+  importString = gsub(importString, "\n+", "\n")
+
+  local lists = {strsplit("\n", importString)}
+
+  for index, list in ipairs(lists) do
+    local name, items = strsplit("^", list, 2)
+
+    if Auctionator.ShoppingLists.ListIndex(name) == nil and name ~= nil and name:len() > 0 then
+      Auctionator.ShoppingLists.Create(name)
+    end
+
+    Auctionator.ShoppingLists.OneImportFromString(name, items)
+  end
+end
+
+function Auctionator.ShoppingLists.OneImportFromString(listName, importString)
+  Auctionator.Debug.Message("Auctionator.ShoppingLists.OneImportFromString()", listName, importString)
+
+  if importString == nil then
+    -- Otherwise import throws when there are not items in a list
+    return
+  end
+
   local list = Auctionator.ShoppingLists.GetListByName(listName)
 
-  list.items = {strsplit("\n", importString)}
+  list.items = {strsplit("^", importString)}
 end
 
 function Auctionator.ShoppingLists.Prune()

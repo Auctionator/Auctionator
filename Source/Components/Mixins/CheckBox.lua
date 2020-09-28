@@ -6,6 +6,15 @@ function AuctionatorConfigCheckboxMixin:OnLoad()
   end
 end
 
+function AuctionatorConfigCheckboxMixin:SetText(text)
+  self.labelText = text
+  self.CheckBox.Label:SetText(self.labelText)
+end
+
+function AuctionatorConfigCheckboxMixin:GetText()
+  return self.CheckBox.Label:GetText()
+end
+
 function AuctionatorConfigCheckboxMixin:SetChecked(value)
   self.CheckBox:SetChecked(value)
 end

@@ -149,6 +149,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ADD_ITEM"] = "Add Item"
   L["EDIT_ITEM"] = "Edit Item"
   L["SEARCH"] = "Search"
+  L["EXPORT"] = "Export"
+  L["IMPORT"] = "Import"
 
   L["SHOPPING_TAB"] = "Shopping"
   L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"
@@ -233,6 +235,15 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["MAX"] = "Max"
   L["CANCEL"] = "Cancel"
   L["RESET_ALL"] = "Reset All"
+  L["LIST_IMPORT_HEADER"] = "Import Shopping Lists"
+  L["LIST_EXPORT_HEADER"] = "Export Shopping Lists"
+  L["EXPORT_AS"] = "Export as:"
+  L["EXPORT_STRING"] = "Shareable string"
+  L["EXPORT_WHISPER"] = "Whisper to"
+  L["CLOSE"] = "Close"
+  L["COPY_TEXT_HEADER"] = "Copy Text"
+  L["SELECT_ALL"] = "Select All"
+  L["UNSELECT_ALL"] = "Unselect All"
 
   L["ANY_LOWER"] = "any"
 

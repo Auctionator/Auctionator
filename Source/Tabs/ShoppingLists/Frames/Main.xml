@@ -64,6 +64,25 @@
         </Scripts>
       </Button>
 
+      <!-- List export/Import -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT" parentKey="Import">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-8" y="55" />
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ImportListsClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT" parentKey="Export">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Import" relativePoint="TOPLEFT" x="-3"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ExportListsClicked()</OnClick>
+        </Scripts>
+      </Button>
+
       <!-- Shopping List item scroll frame -->
       <Frame parentKey="ScrollList" inherits="ScrollListTemplate" mixin="AuctionatorScrollListMixin">
         <Anchors>

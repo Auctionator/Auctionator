@@ -1,0 +1,64 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorImportListTemplate"
+    mixin="AuctionatorListImportFrameMixin"
+    inherits="SimplePanelTemplate"
+    frameStrata="Dialog"
+    enableMouse="true"
+    virtual="true"
+    hidden="true"
+  >
+    <Size x="350" y="320" />
+
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow" />
+    </Scripts>
+
+    <Frames>
+      <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" y="-4"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-22" y="4" />
+        </Anchors>
+        <ScrollChild>
+          <EditBox autoFocus="false" multiLine="true" parentKey="ImportString">
+            <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
+            <Scripts>
+              <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+            </Scripts>
+          </EditBox>
+        </ScrollChild>
+      </ScrollFrame>
+
+      <!-- Action Buttons -->
+      <Button parentKey="CloseDialog" inherits="UIPanelCloseButtonNoScripts">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():OnCloseDialogClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button parentKey="Import" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():OnImportClicked()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+
+    <Layers>
+      <Layer>
+        <FontString text="AUCTIONATOR_L_LIST_IMPORT_HEADER" inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>
