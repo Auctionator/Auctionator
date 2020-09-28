@@ -30,7 +30,7 @@ Auctionator.Enchant.DE_TABLE = {
       [ENCHANT_REAGENTS.SACRED_SHARD] = 1.41
     },
     [QUALITY.EPIC] = {
-      [ENCHANT_REAGENTS.SACRED_SHARD]    = 0.4,
+      [ENCHANT_REAGENTS.SACRED_SHARD]    = 0.35,
       [ENCHANT_REAGENTS.ETERNAL_CRYSTAL] = 1.06
     }
   },
