@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Events.lua" />
   <Script file="Main.lua" />
+  <Script file="ImportExport.lua" />
   <Include file="Mixins\Manifest.xml" />
 
   <Script file="Dialogs.lua" />

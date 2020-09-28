@@ -35,7 +35,16 @@ end
 function AuctionatorListImportFrameMixin:OnImportClicked()
   local importString = self.ScrollFrame.ImportString:GetText()
 
-  Auctionator.ShoppingLists.BatchImportFromString(importString)
+  if string.match(importString, "[\\^]") then
+    Auctionator.Debug.Message("Import shopping list with 8.3+ format")
+    Auctionator.ShoppingLists.BatchImportFromString(importString)
+  elseif string.match(importString, "[*]") then
+    Auctionator.Debug.Message("Import shopping list from old format")
+    Auctionator.ShoppingLists.OldBatchImportFromString(importString)
+  elseif string.match(importString, "[,]") then
+    Auctionator.Debug.Message("Import shopping list from TSM group")
+    Auctionator.ShoppingLists.TSMImportFromString(importString)
+  end
 
   self:Hide()
 end
