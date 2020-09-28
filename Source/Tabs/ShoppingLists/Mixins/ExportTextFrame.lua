@@ -10,6 +10,18 @@ function AuctionatorExportTextFrameMixin:OnShow()
 
   self.ScrollFrame.ExportString:SetFocus()
   self.ScrollFrame.ExportString:HighlightText()
+
+  Auctionator.EventBus
+    :RegisterSource(self, "lists export text dialog 2")
+    :Fire(self, Auctionator.ShoppingLists.Events.DialogOpened)
+    :UnregisterSource(self)
+end
+
+function AuctionatorExportTextFrameMixin:OnHide()
+  Auctionator.EventBus
+    :RegisterSource(self, "lists export text dialog 2")
+    :Fire(self, Auctionator.ShoppingLists.Events.DialogClosed)
+    :UnregisterSource(self)
 end
 
 function AuctionatorExportTextFrameMixin:SetExportString(exportString)
