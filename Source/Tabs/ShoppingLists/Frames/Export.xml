@@ -2,7 +2,7 @@
   <Frame
     name="AuctionatorExportListTemplate"
     mixin="AuctionatorListExportFrameMixin"
-    inherits="SimplePanelTemplate"
+    inherits="AuctionatorSimplePanelTemplate"
     frameStrata="Dialog"
     enableMouse="true"
     virtual="true"
@@ -16,12 +16,18 @@
     </Scripts>
 
     <Frames>
+      <Frame parentKey="Inset" inherits="AuctionatorInsetDarkTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="4" y="-30"/>
+          <Anchor point="BOTTOMRIGHT" x="-6" y="32"/>
+        </Anchors>
+      </Frame>
       <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="-10" y="-4"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="5" y="-6"/>
           <!-- TODO: Uncomment this to continue working on export via whisper -->
           <!-- <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-22" y="64" /> -->
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-22" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-27" y="4"/>
         </Anchors>
         <ScrollChild>
           <Frame parentKey="ListListingFrame"/>
@@ -35,7 +41,7 @@
           <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_EXPORT_AS" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="BOTTOMLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT" />
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" y="32" x="4" />
           <Anchor point="RIGHT" relativeKey="$parent" relativePoint="CENTER" />
         </Anchors>
         <Frames>
@@ -74,7 +80,7 @@
 
       <Button parentKey="Export" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" y="-3"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():OnExportClicked()</OnClick>
@@ -83,7 +89,7 @@
 
       <Button parentKey="SelectAll" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SELECT_ALL">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT" y="-3"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():OnSelectAllClicked()</OnClick>

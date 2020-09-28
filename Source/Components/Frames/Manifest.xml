@@ -22,4 +22,6 @@
 
   <Include file="Heading.xml"/>
   <Include file="SubHeading.xml"/>
+
+  <Include file="SimplePanelTemplate.xml"/>
 </Ui>
