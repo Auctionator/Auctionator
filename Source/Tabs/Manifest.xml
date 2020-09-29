@@ -11,5 +11,7 @@
   <Include file="Cancelling\Manifest.xml" />
   <Include file="Auctionator\Manifest.xml"/>
 
+  <Include file="Main.lua"/>
+
   <Include file="TabContainer.xml" />
 </Ui>

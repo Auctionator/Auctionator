@@ -22,8 +22,5 @@
     parentArray="Tabs"
     inherits="AuctionHouseFrameDisplayModeTabTemplate"
   >
-    <Scripts>
-      <OnLoad method="OnLoad" />
-    </Scripts>
   </Button>
 </Ui>

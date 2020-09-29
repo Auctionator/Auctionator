@@ -1,33 +1,22 @@
 AuctionatorTabMixin = {}
 
-function AuctionatorTabMixin:OnLoad()
-  Auctionator.Debug.Message("AuctionatorTabMixin:OnLoad()")
+function AuctionatorTabMixin:Initialize(name, tabTemplate, tabHeader, displayMode)
+  Auctionator.Debug.Message("AuctionatorTabMixin:Initialize()")
 
-  if self.frameTemplate == nil then
-    error("A frameTemplate is required for Auctionator to initialize this tab")
-  end
-  if self.displayModeKey == nil then
-    error("A displayModeKey is required for Auctionator to initialize this tab")
-  end
-  if self.ahTabIndex == nil or type(self.ahTabIndex) ~= "number" then
-    error("A numerical ahTabIndex is required for Auctionator to initialize this tab")
-  end
-  if self.ahTitle == nil then
-    self.ahTitle = "Auctionator"
-  end
+  self.ahTitle = tabHeader
+  self.displayMode = displayMode
 
   PanelTemplates_DeselectTab(self)
 
   -- Create this tab's frame
   self.frameRef = CreateFrame(
     "FRAME",
-    self.displayMode[1],
+    displayMode[1],
     AuctionHouseFrame,
-    self.frameTemplate
+    tabTemplate
   )
   self.frameRef:Hide()
-
-  AuctionHouseFrame.tabsForDisplayMode[self.displayModeKey] = self.ahTabIndex
+  AuctionHouseFrame.tabsForDisplayMode[name] = #AuctionHouseFrame.Tabs
 
   self:SetPoint("LEFT", AuctionHouseFrame.Tabs[#AuctionHouseFrame.Tabs - 1], "RIGHT", -15, 0)
 end
