@@ -10,6 +10,8 @@ function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializeDatabase()
   Auctionator.Variables.InitializeShoppingLists()
 
+  Auctionator.Variables.InitializeFullScanCache()
+
   Auctionator.State.Loaded = true
 end
 
@@ -22,7 +24,7 @@ end
 
 -- All "realms" that are connected together use the same AH database, this
 -- determines which database is in use.
-local function GetConnectedRealmRoot()
+function Auctionator.Variables.GetConnectedRealmRoot()
   local currentRealm = GetRealmName()
   local connections = GetAutoCompleteRealms()
 
@@ -81,7 +83,7 @@ function Auctionator.Variables.InitializeDatabase()
     }
   end
 
-  local realm = GetConnectedRealmRoot()
+  local realm = Auctionator.Variables.GetConnectedRealmRoot()
 
   -- Check for current realm and initialize if not present
   if AUCTIONATOR_PRICE_DATABASE[realm] == nil then
@@ -93,6 +95,12 @@ function Auctionator.Variables.InitializeDatabase()
   Auctionator.State.LiveDB = AUCTIONATOR_PRICE_DATABASE[realm]
 
   Auctionator.Database.Prune()
+end
+
+function Auctionator.Variables.InitializeFullScanCache()
+  if AUCTIONATOR_RAW_FULL_SCAN ==  nil then
+    AUCTIONATOR_RAW_FULL_SCAN = {}
+  end
 end
 
 function Auctionator.Variables.InitializeShoppingLists()

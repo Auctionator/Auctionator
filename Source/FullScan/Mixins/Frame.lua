@@ -152,9 +152,10 @@ end
 
 function AuctionatorFullScanFrameMixin:EndProcessing()
   if Auctionator.Config.Get(Auctionator.Config.Options.CACHE_FULL_SCAN) then
-    AUCTIONATOR_RAW_FULL_SCAN = self.scanData
+    AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] = self.scanData
   else
-    AUCTIONATOR_RAW_FULL_SCAN = nil
+    --Remove cache to save storage space
+    AUCTIONATOR_RAW_FULL_SCAN = {}
   end
 
   local count = Auctionator.Database.ProcessScan(self:MergePrices())
