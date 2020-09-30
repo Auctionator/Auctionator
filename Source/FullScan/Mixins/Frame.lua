@@ -165,8 +165,6 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
     AUCTIONATOR_RAW_FULL_SCAN = {}
   end
 
-  Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanComplete)
-
   local count = Auctionator.Database.ProcessScan(self:MergePrices())
   Auctionator.Utilities.Message(Auctionator.Locales.Apply("FINISHED_PROCESSING", count))
 
@@ -174,6 +172,8 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
   self:ResetData()
 
   self:UnregisterForEvents()
+
+  Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanComplete)
 end
 
 function AuctionatorFullScanFrameMixin:MergePrices()
