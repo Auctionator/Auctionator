@@ -242,7 +242,7 @@
           <Anchor point="TOPRIGHT" relativeKey="$parent.ScanButton" relativePoint="TOPLEFT" x="-3" />
         </Anchors>
         <Scripts>
-          <OnClick>InterfaceOptionsFrame_OpenToCategory(AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY)</OnClick>
+          <OnClick>self:GetParent():OpenOptions()</OnClick>
         </Scripts>
       </Button>
     </Frames>
