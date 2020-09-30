@@ -27,7 +27,7 @@ end
 
 local function StartSearch(callerID, cloned)
   -- Show the shopping list tab for results
-  AuctionHouseFrame.AuctionatorShoppingListTab:Click()
+  AuctionatorTabs_ShoppingLists:Click()
 
   local listName = callerID .. " (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
 
