@@ -19,7 +19,10 @@ end
 
 function AuctionatorFullScanFrameMixin:InitiateScan()
   if self:CanInitiate() then
+    Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanStart)
+
     self.state.TimeOfLastScan = time()
+
     self.inProgress = true
 
     self:RegisterForEvents()
@@ -143,6 +146,7 @@ function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
         Auctionator.Locales.Apply("FULL_SCAN_FAILED") ..
         " " .. self:NextScanMessage()
       )
+      Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanFailed)
     end
   end
 end
