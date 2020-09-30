@@ -219,6 +219,18 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_833_CONNECTED_REALMS_HEADER"] = "Connected Realms"
   L["SPLASH_833_CONNECTED_REALMS_1"] = "Full scan prices are now shared between connected realms"
 
+  L["SPLASH_834_DESCRIPTION"] = "The highlights of this release are being able to import/export shopping lists and the return of the reagents search from a crafting window."
+
+  L["SPLASH_834_SHOPPING_HEADER"] = "Shopping Tab"
+  L["SPLASH_834_SHOPPING_1"] = "Added import and export feature to share shopping lists"
+  L["SPLASH_834_SHOPPING_2"] = "You can set a default shopping list to search for when opening the Shopping tab"
+  L["SPLASH_834_SHOPPING_3"] = "Ability to reorder and edit shopping list items"
+  L["SPLASH_834_SELLING_HEADER"] = "Selling Tab"
+  L["SPLASH_834_SELLING_1"] = "New favourites section in the selling tab. Right-click an item and click \"Add Favourite\" to use the feature."
+  L["SPLASH_834_SELLING_2"] = "New default quantities for selling are separated for items vs gear/pets."
+  L["SPLASH_834_MISCELLANEOUS_HEADER"] = "Miscellaneous"
+  L["SPLASH_834_MISCELLANEOUS_1"] = "Search the AH for reagents from the crafting window (a \"Search\" button appears when both the crafting window and the AH are open)"
+
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
   L["LIST_ADD_ITEM_HEADER"] = "Add Shopping List Item"

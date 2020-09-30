@@ -1,6 +1,33 @@
 -- We should probably move this into another file too
 local MESSAGES = {
   {
+    Version = "8.3.4",
+    Description = AUCTIONATOR_L_SPLASH_834_DESCRIPTION,
+    Sections = {
+      {
+        Title = AUCTIONATOR_L_SPLASH_834_SHOPPING_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_834_SHOPPING_1,
+          AUCTIONATOR_L_SPLASH_834_SHOPPING_2,
+          AUCTIONATOR_L_SPLASH_834_SHOPPING_3,
+        }
+      },
+      {
+        Title = AUCTIONATOR_L_SPLASH_834_SELLING_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_834_SELLING_1,
+          AUCTIONATOR_L_SPLASH_834_SELLING_2,
+        }
+      },
+      {
+        Title = AUCTIONATOR_L_SPLASH_834_MISCELLANEOUS_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_834_MISCELLANEOUS_1,
+        }
+      },
+    }
+  },
+  {
     Version = "8.3.3",
     Description = AUCTIONATOR_L_SPLASH_833_DESCRIPTION,
     Sections = {
