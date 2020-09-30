@@ -27,6 +27,7 @@ Auctionator = {
   Enchant = {},
   Selling = {},
   ReagentSearch = {},
+  FullScan = {},
 
   Tabs = {
     State = {

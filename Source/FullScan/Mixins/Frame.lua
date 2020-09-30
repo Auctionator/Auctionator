@@ -7,6 +7,7 @@ local FULL_SCAN_EVENTS = {
 
 function AuctionatorFullScanFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:OnLoad")
+  Auctionator.EventBus:RegisterSource(self, "AuctionatorFullScanFrameMixin")
 
   -- Updates to self.state should store in the SAVED_VARIABLE
   self.state = Auctionator.SavedState
@@ -163,6 +164,8 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
     --Remove cache to save storage space
     AUCTIONATOR_RAW_FULL_SCAN = {}
   end
+
+  Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanComplete)
 
   local count = Auctionator.Database.ProcessScan(self:MergePrices())
   Auctionator.Utilities.Message(Auctionator.Locales.Apply("FINISHED_PROCESSING", count))
