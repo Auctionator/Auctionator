@@ -84,6 +84,7 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
   while i < startIndex+stepSize and i < limit do
     local info = { C_AuctionHouse.GetReplicateItemInfo(i) }
     local link = C_AuctionHouse.GetReplicateItemLink(i)
+    local timeLeft = C_AuctionHouse.GetReplicateItemTimeLeft(i)
 
     if not info[18] then
       local item = Item:CreateFromItemID(info[17])
@@ -93,8 +94,9 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
           self.waitingForData = self.waitingForData - 1
 
           table.insert(self.scanData, {
-            auctionInfo = { C_AuctionHouse.GetReplicateItemInfo(index) },
-            itemLink = C_AuctionHouse.GetReplicateItemLink(index)
+            replicateInfo = { C_AuctionHouse.GetReplicateItemInfo(index) },
+            itemLink      = C_AuctionHouse.GetReplicateItemLink(index),
+            timeLeft      = C_AuctionHouse.GetReplicateItemTimeLeft(index)
           })
 
           if self.waitingForData == 0 then
@@ -104,7 +106,11 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
       end)(i))
     else
       self.waitingForData = self.waitingForData - 1
-      table.insert(self.scanData, {auctionInfo = info, itemLink = link})
+      table.insert(self.scanData, {
+        replicateInfo = info,
+        itemLink      = link,
+        timeLeft      = timeLeft
+      })
     end
 
     i = i + 1
@@ -140,9 +146,9 @@ function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
   end
 end
 
-local function GetInfo(auctionInfo, itemLink)
-  local count = auctionInfo[3]
-  local buyoutPrice = auctionInfo[10]
+local function GetInfo(replicateInfo, itemLink)
+  local count = replicateInfo[3]
+  local buyoutPrice = replicateInfo[10]
   local effectivePrice = buyoutPrice / count
 
   local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
@@ -172,7 +178,7 @@ function AuctionatorFullScanFrameMixin:MergePrices()
   local index = 0
 
   for index = 1, #self.scanData do
-    local itemKey, effectivePrice = GetInfo(self.scanData[index].auctionInfo, self.scanData[index].itemLink)
+    local itemKey, effectivePrice = GetInfo(self.scanData[index].replicateInfo, self.scanData[index].itemLink)
 
     if prices[itemKey] == nil then
       prices[itemKey] = { effectivePrice }
