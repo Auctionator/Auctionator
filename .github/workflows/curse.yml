@@ -18,16 +18,16 @@ jobs:
     - uses: actions/checkout@v2
       with:
         path: 'Auctionator'
-    - run: ./Auctionator/.github/workflows/get-translations.sh frFR
-    - run: ./Auctionator/.github/workflows/get-translations.sh deDE
-    - run: ./Auctionator/.github/workflows/get-translations.sh itIT
-    - run: ./Auctionator/.github/workflows/get-translations.sh koKR
-    - run: ./Auctionator/.github/workflows/get-translations.sh zhCN
-    - run: ./Auctionator/.github/workflows/get-translations.sh zhTW
-    - run: ./Auctionator/.github/workflows/get-translations.sh ruRU
-    - run: ./Auctionator/.github/workflows/get-translations.sh esES
-    - run: ./Auctionator/.github/workflows/get-translations.sh esMX
-    - run: ./Auctionator/.github/workflows/get-translations.sh ptBR
+    - run: ./Auctionator/.github/workflows/get-translations.sh frFR "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh deDE "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh itIT "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh koKR "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh zhCN "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh zhTW "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh ruRU "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh esES "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh esMX "${{secrets.plusmouse_curseforge}}"
+    - run: ./Auctionator/.github/workflows/get-translations.sh ptBR "${{secrets.plusmouse_curseforge}}"
     - name: Delete files for curse
       run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore Auctionator/.git Auctionator/docs Auctionator/test-data
     - name: Generate build number
