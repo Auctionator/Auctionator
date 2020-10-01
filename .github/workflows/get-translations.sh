@@ -1,5 +1,6 @@
 #!/bin/bash
 function get-translations(){
+  echo $2
     curl -H "X-Api-Token: $2" -X GET -H \
     "Content-type: application/json" \
     >temp.lua \
@@ -10,5 +11,5 @@ function get-translations(){
     mv temp.lua Auctionator/Locales/$1.lua
     rm temp2.lua
 }
-get-translations $1
+get-translations $1 $2
 
