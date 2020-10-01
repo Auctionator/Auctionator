@@ -162,12 +162,7 @@ local function GetInfo(replicateInfo, itemLink)
 end
 
 function AuctionatorFullScanFrameMixin:EndProcessing()
-  if Auctionator.Config.Get(Auctionator.Config.Options.CACHE_FULL_SCAN) then
-    AUCTIONATOR_RAW_FULL_SCAN[Auctionator.Variables.GetConnectedRealmRoot()] = self.scanData
-  else
-    --Remove cache to save storage space
-    AUCTIONATOR_RAW_FULL_SCAN = {}
-  end
+  local rawFullScan = self.scanData
 
   local count = Auctionator.Database.ProcessScan(self:MergePrices())
   Auctionator.Utilities.Message(Auctionator.Locales.Apply("FINISHED_PROCESSING", count))
@@ -177,7 +172,7 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
 
   self:UnregisterForEvents()
 
-  Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanComplete)
+  Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanComplete, rawFullScan)
 end
 
 function AuctionatorFullScanFrameMixin:MergePrices()

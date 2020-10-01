@@ -9,7 +9,6 @@ Auctionator.Config.Options = {
   AUTOSCAN = "autoscan",
   ALTERNATE_SCAN_MODE = "alternate_scan_mode",
   FULL_SCAN_STEP = "full_scan_step",
-  CACHE_FULL_SCAN = "cache_full_scan",
   AUTO_LIST_SEARCH = "auto_list_search",
   DEFAULT_LIST = "default_list",
 
@@ -77,7 +76,6 @@ local defaults = {
   [Auctionator.Config.Options.AUTOSCAN] = true,
   [Auctionator.Config.Options.ALTERNATE_SCAN_MODE] = false,
   [Auctionator.Config.Options.FULL_SCAN_STEP] = 250,
-  [Auctionator.Config.Options.CACHE_FULL_SCAN] = false,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.DEFAULT_LIST] = 0,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
@@ -123,6 +121,12 @@ local function isValidOption(name)
     end
   end
   return false
+end
+
+function Auctionator.Config.Create(constant, name, defaultValue)
+  Auctionator.Config.Options[constant] = name
+
+  defaults[Auctionator.Config.Options[constant]] = defaultValue
 end
 
 function Auctionator.Config.Set(name, value)

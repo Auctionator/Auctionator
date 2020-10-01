@@ -10,8 +10,6 @@ function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializeDatabase()
   Auctionator.Variables.InitializeShoppingLists()
 
-  Auctionator.Variables.InitializeFullScanCache()
-
   Auctionator.State.Loaded = true
 end
 
@@ -95,12 +93,6 @@ function Auctionator.Variables.InitializeDatabase()
   Auctionator.State.LiveDB = AUCTIONATOR_PRICE_DATABASE[realm]
 
   Auctionator.Database.Prune()
-end
-
-function Auctionator.Variables.InitializeFullScanCache()
-  if AUCTIONATOR_RAW_FULL_SCAN ==  nil then
-    AUCTIONATOR_RAW_FULL_SCAN = {}
-  end
 end
 
 function Auctionator.Variables.InitializeShoppingLists()
