@@ -110,12 +110,7 @@ local function InitializeLateTooltipHooks()
 end
 
 local function ShowDefaultTab()
-  local tabs = {
-    AuctionatorTabs_ShoppingLists,
-    AuctionatorTabs_Selling,
-    AuctionatorTabs_Cancelling,
-    AuctionatorTabs_Auctionator,
-  }
+  local tabs = AuctionatorAHTabsContainer.Tabs
 
   local chosenTab = tabs[Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_TAB)]
 
