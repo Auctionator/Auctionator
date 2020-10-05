@@ -28,6 +28,8 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
     self:RegisterForEvents()
     Auctionator.Utilities.Message(Auctionator.Locales.Apply("STARTING_FULL_SCAN"))
     Auctionator.AH.ReplicateItems()
+    -- 10% complete after making the replicate request
+    Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanProgress, 0.1)
   else
     Auctionator.Utilities.Message(self:NextScanMessage())
   end
@@ -67,6 +69,9 @@ function AuctionatorFullScanFrameMixin:UnregisterForEvents()
 end
 
 function AuctionatorFullScanFrameMixin:CacheScanData()
+  -- 20% complete after server response
+  Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanProgress, 0.2)
+
   self:ResetData()
   self.waitingForData = C_AuctionHouse.GetNumReplicateItems()
 
@@ -81,6 +86,12 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
   if startIndex >= limit then
     return
   end
+
+  -- 20-100% complete when 0-100% through caching the scan
+  Auctionator.EventBus:Fire(self,
+    Auctionator.FullScan.Events.ScanProgress,
+    0.2 + startIndex/limit*0.8
+  )
 
   Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:ProcessBatch (links)", startIndex, stepSize, limit)
 

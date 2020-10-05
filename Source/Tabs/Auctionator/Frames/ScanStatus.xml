@@ -1,0 +1,19 @@
+<Ui>
+  <Frame name="AuctionatorFullScanStatusTemplate" mixin="AuctionatorFullScanStatusMixin" virtual="true">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+    <Size y="15"/>
+    <Layers>
+      <Layer layer="ARTWORK">
+        <FontString parentKey="Text" inherits="GameFontHighlight" justifyH="LEFT" text="0%">
+          <Size x="60"/>
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="LEFT" x="35"/>
+            <Anchor point="TOP" relativeKey="$parent" relativePoint="TOP"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

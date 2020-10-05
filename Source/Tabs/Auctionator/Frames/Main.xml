@@ -236,6 +236,12 @@
           <OnClick method="OnClick"/>
         </Scripts>
       </Button>
+      <Frame inherits="AuctionatorFullScanStatusTemplate">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ScanButton" relativePoint="TOPLEFT"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ScanButton" relativePoint="TOPRIGHT"/>
+        </Anchors>
+      </Frame>
 
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_OPEN_ADDON_OPTIONS" parentKey="OptionsButton">
         <Anchors>
