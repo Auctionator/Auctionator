@@ -67,7 +67,8 @@
       <!-- List export/Import -->
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT" parentKey="Import">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-8" y="55" />
+          <Anchor point="TOP" relativeKey="$parent.Rename" relativePoint="TOP"/>
+          <Anchor point="RIGHT" relativePoint="RIGHT" x="-8" y="55" />
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():ImportListsClicked()</OnClick>
@@ -76,7 +77,8 @@
 
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT" parentKey="Export">
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.Import" relativePoint="TOPLEFT" x="-3"/>
+          <Anchor point="TOP" relativeKey="$parent.Rename" relativePoint="TOP"/>
+          <Anchor point="RIGHT" relativeKey="$parent.Import" relativePoint="LEFT" x="-3"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():ExportListsClicked()</OnClick>
