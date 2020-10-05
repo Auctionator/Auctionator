@@ -2,6 +2,7 @@
   <Frame name="AuctionatorFullScanStatusTemplate" mixin="AuctionatorFullScanStatusMixin" virtual="true">
     <Scripts>
       <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
     </Scripts>
     <Size y="15"/>
     <Layers>

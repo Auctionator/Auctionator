@@ -1,13 +1,15 @@
 AuctionatorFullScanStatusMixin = {}
 
 function AuctionatorFullScanStatusMixin:OnLoad()
-  print("load")
   Auctionator.EventBus:Register(self, {
     Auctionator.FullScan.Events.ScanStart,
     Auctionator.FullScan.Events.ScanProgress,
     Auctionator.FullScan.Events.ScanComplete,
     Auctionator.FullScan.Events.ScanFailed,
   })
+end
+
+function AuctionatorFullScanStatusMixin:OnShow()
   self.Text:SetText("")
 end
 
