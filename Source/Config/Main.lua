@@ -31,6 +31,7 @@ Auctionator.Config.Options = {
   NOT_LIFO_UNDERCUT_PERCENTAGE = "not_lifo_undercut_percentage",
   NOT_LIFO_UNDERCUT_STATIC_VALUE = "not_lifo_undercut_static_value",
   NOT_LIFO_DEFAULT_QUANTITY = "not_lifo_default_quantity",
+  GEAR_PRICE_MULTIPLIER = "gear_vendor_price_multiplier",
 
   LIFO_AUCTION_DURATION = "lifo_auction_duration",
   LIFO_AUCTION_SALES_PREFERENCE = "lifo_auction_sales_preference",
@@ -95,6 +96,7 @@ local defaults = {
   [Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE] = 0,
   [Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE] = 0,
   [Auctionator.Config.Options.NOT_LIFO_DEFAULT_QUANTITY] = 1,
+  [Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER] = 0,
 
   [Auctionator.Config.Options.LIFO_AUCTION_DURATION] = 24,
   [Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,

@@ -110,6 +110,26 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.QuantityHeading" relativePoint="BOTTOMLEFT" y="-15"/>
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GearPriceMultiplierHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="AUCTIONATOR_L_GEAR_VENDOR_PRICE_MULTIPLIER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultQuantity" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="GearPriceMultiplier">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.GearPriceMultiplierHeading" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

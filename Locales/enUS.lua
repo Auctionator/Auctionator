@@ -353,10 +353,14 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["AUCTIONATOR"] = "Auctionator"
 
   L["DEFAULT_QUANTITY"] = "Default Quantity"
+  L["GEAR_VENDOR_PRICE_MULTIPLIER"] = "Gear vendor price multiplier"
 
   L["CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX"] = "Set to 0 for maximum amount"
   L["CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_HEADER"] = "Default Posting Quantity"
   L["CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_TEXT"] = "This lets you change the default amount used when posting an item. Set this to 0 to use the maximum possible amount."
+  L["CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_SUFFIX"] = "Set to 0 for no price"
+  L["CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_TOOLTIP_HEADER"] = "Gear Vendor Price Default"
+  L["CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_TOOLTIP_TEXT"] = "This lets you set a default price for gear as a multiple of the vendor price. This is used for any gear Auctionator doesn't have a price for. Set this to 0 to not set a price."
 
   L["CLASSIC_SUPPORT_ERROR"] = "This version of Auctionator DOES NOT support Classic. Stuff may break and not work."
 

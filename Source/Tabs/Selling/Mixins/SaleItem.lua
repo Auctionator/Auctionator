@@ -21,6 +21,10 @@ local function NormalizePrice(price)
   return normalizedPrice
 end
 
+local function IsEquipment(itemInfo)
+  return itemInfo.classId == LE_ITEM_CLASS_WEAPON or itemInfo.classId == LE_ITEM_CLASS_ARMOR
+end
+
 AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnShow()
@@ -213,6 +217,8 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   )
   if price ~= nil then
     self:UpdateSalesPrice(price)
+  elseif IsEquipment(self.itemInfo) then
+    self:SetEquipmentMultiplier(self.itemInfo.itemLink)
   else
     self:UpdateSalesPrice(0)
   end
@@ -260,10 +266,6 @@ function AuctionatorSaleItemMixin:SetQuantity()
   end
 end
 
-local function IsEquipment(itemInfo)
-  return itemInfo.classId == LE_ITEM_CLASS_WEAPON or itemInfo.classId == LE_ITEM_CLASS_ARMOR
-end
-
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
 
@@ -299,6 +301,22 @@ function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)
   else
     self.Price:SetAmount(NormalizePrice(salesPrice))
   end
+end
+
+function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
+  self:UpdateSalesPrice(0)
+
+  local item = Item:CreateFromItemLink(itemLink)
+  item:ContinueOnItemLoad(function()
+    local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
+    local vendorPrice = select(11, GetItemInfo(itemLink))
+    if multiplier ~= 0 and vendorPrice ~= 0 then
+      -- Check for a vendor price multiplier being set (and a vendor price)
+      self:UpdateSalesPrice(
+        vendorPrice * multiplier + self:GetDeposit()
+      )
+    end
+  end)
 end
 
 function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
