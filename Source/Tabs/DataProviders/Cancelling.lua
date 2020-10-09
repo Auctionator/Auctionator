@@ -104,7 +104,9 @@ end
 
 function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ...)
   if eventName == "AUCTION_CANCELED" then
-    table.insert(self.beenCancelled, auctionID)
+    if tIndexOf(self.waitingforCancellation, auctionID) ~= nil then
+      table.insert(self.beenCancelled, auctionID)
+    end
     self:QueryAuctions()
 
   elseif eventName == "OWNED_AUCTIONS_UPDATED" then
