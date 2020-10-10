@@ -118,7 +118,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["NEXT_SCAN_MESSAGE"] = "A full scan may be started in %s minutes and %s seconds."
   L["FULL_SCAN_FAILED"] = "Full scan failed to complete."
   L["FINISHED_PROCESSING"] = "Finished processing %s items."
-  L["STOPPED_PROCESSING"] = "Stopped processing at %s out of %s."
   L["STARTING_FULL_SCAN_ALTERNATE"] = "Starting a full scan (alternate mode)."
   L["FULL_SCAN_ALTERNATE_FAILED"] = "Full scan (alternate mode) failed to complete."
 
