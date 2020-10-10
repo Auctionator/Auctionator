@@ -206,7 +206,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="koKR">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\koKR"/>
-          <KeyValue key="translators" type="global" value="AUCTIONATOR_L_TRANSLATORS_HELP"/>
+          <KeyValue key="translators" type="global" value="Vee"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_KOREAN" type="global"/>
         </KeyValues>
 			  <Anchors>
