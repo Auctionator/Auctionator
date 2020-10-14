@@ -141,7 +141,7 @@
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\zhCN"/>
           <KeyValue key="translators" type="string" value="sugymaylis, LvWind"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_TRADITIONAL_CHINESE" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_SIMPLIFIED_CHINESE" type="global"/>
         </KeyValues>
 			  <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ptBR" relativePoint="BOTTOMLEFT"/>
@@ -152,7 +152,7 @@
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\zhTW"/>
           <KeyValue key="translators" type="string" value="RainbowUI"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_SIMPLIFIED_CHINESE" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_TRADITIONAL_CHINESE" type="global"/>
         </KeyValues>
 			  <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.zhCN" relativePoint="BOTTOMLEFT"/>
