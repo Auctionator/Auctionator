@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+    <Frame name="AuctionatorConfirmDropDownTemplate" inherits="UIDropDownMenuTemplate" mixin="AuctionatorConfirmDropDownMixin" virtual="true">
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+</Ui>

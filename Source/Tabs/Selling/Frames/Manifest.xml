@@ -3,6 +3,7 @@
   <Include file="BagItem.xml" />
   <Include file="BagClassListing.xml" />
   <Include file="ItemIconDropDown.xml"/>
+  <Include file="ConfirmDropDown.xml"/>
 
   <Include file="Bag.xml" />
   <Include file="SaleItem.xml"/>

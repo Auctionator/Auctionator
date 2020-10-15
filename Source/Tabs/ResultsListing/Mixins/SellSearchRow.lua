@@ -6,7 +6,10 @@ local function BuyEntry(entry)
 
   else
     C_AuctionHouse.StartCommoditiesPurchase(entry.itemID, entry.quantity)
-    C_AuctionHouse.ConfirmCommoditiesPurchase(entry.itemID, entry.quantity)
+    Auctionator.EventBus
+      :RegisterSource(BuyEntry, "BuyEntry")
+      :Fire(BuyEntry, Auctionator.Selling.Events.ConfirmCallback, entry)
+      :UnregisterSource(BuyEntry)
   end
   PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
 end

@@ -99,6 +99,8 @@
         </Scripts>
       </Frame>
 
+      <Frame parentKey="ConfirmDropDown" inherits="AuctionatorConfirmDropDownTemplate" hidden="true"/>
+
     </Frames>
   </Frame>
 </Ui>
