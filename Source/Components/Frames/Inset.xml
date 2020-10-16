@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorInsetTemplate" virtual="true">
+  <Frame name="AuctionatorInsetTemplate" useParentLevel="true" virtual="true">
 		<KeyValues>
 			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
 		</KeyValues>
@@ -18,7 +18,7 @@
 		</Frames>
   </Frame>
 
-  <Frame name="AuctionatorInsetDarkTemplate" virtual="true">
+  <Frame name="AuctionatorInsetDarkTemplate" useParentLevel="true" virtual="true">
 		<KeyValues>
 			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
 		</KeyValues>
@@ -37,7 +37,7 @@
 		</Frames>
   </Frame>
 
-  <Frame name="AuctionatorInsetLeaveScrollSpaceTemplate" virtual="true">
+  <Frame name="AuctionatorInsetLeaveScrollSpaceTemplate" useParentLevel="true" virtual="true">
 		<KeyValues>
 			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
 		</KeyValues>
