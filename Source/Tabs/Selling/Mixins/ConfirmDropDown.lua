@@ -29,7 +29,12 @@ function AuctionatorConfirmDropDownMixin:Initialize()
 
   confirmInfo.disabled = false
   confirmInfo.func = function()
-    C_AuctionHouse.ConfirmCommoditiesPurchase(self.data.itemID, self.data.quantity)
+    if self.data.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
+      C_AuctionHouse.PlaceBid(self.data.auctionID, self.data.price)
+    else
+      C_AuctionHouse.ConfirmCommoditiesPurchase(self.data.itemID, self.data.quantity)
+    end
+    PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
   end
 
   local cancelInfo = UIDropDownMenu_CreateInfo()

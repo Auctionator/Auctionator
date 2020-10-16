@@ -1,17 +1,13 @@
 AuctionatorSellSearchRowMixin = CreateFromMixins(AuctionatorResultsRowTemplateMixin)
 
 local function BuyEntry(entry)
-  if entry.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
-    C_AuctionHouse.PlaceBid(entry.auctionID, entry.price)
-
-  else
+  if entry.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
     C_AuctionHouse.StartCommoditiesPurchase(entry.itemID, entry.quantity)
-    Auctionator.EventBus
-      :RegisterSource(BuyEntry, "BuyEntry")
-      :Fire(BuyEntry, Auctionator.Selling.Events.ConfirmCallback, entry)
-      :UnregisterSource(BuyEntry)
   end
-  PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
+  Auctionator.EventBus
+    :RegisterSource(BuyEntry, "BuyEntry")
+    :Fire(BuyEntry, Auctionator.Selling.Events.ConfirmCallback, entry)
+    :UnregisterSource(BuyEntry)
 end
 
 function AuctionatorSellSearchRowMixin:OnEnter()
