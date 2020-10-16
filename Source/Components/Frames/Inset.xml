@@ -1,8 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorInsetTemplate" inherits="InsetFrameTemplate" virtual="true">
+  <Frame name="AuctionatorInsetTemplate" virtual="true">
+		<KeyValues>
+			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
+		</KeyValues>
     <Layers>
       <Layer level="BACKGROUND">
-        <Texture atlas="auctionhouse-background-index">
+        <Texture parentKey="Bg" atlas="auctionhouse-background-index">
           <Anchors>
             <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
@@ -10,12 +13,18 @@
         </Texture>
       </Layer>
     </Layers>
+		<Frames>
+			<Frame parentKey="NineSlice" useParentLevel="true" inherits="NineSlicePanelTemplate"/>
+		</Frames>
   </Frame>
 
-  <Frame name="AuctionatorInsetDarkTemplate" inherits="InsetFrameTemplate" virtual="true">
+  <Frame name="AuctionatorInsetDarkTemplate" virtual="true">
+		<KeyValues>
+			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
+		</KeyValues>
     <Layers>
       <Layer level="BACKGROUND">
-        <Texture atlas="auctionhouse-background-sell-right">
+        <Texture parentKey="Bg" atlas="auctionhouse-background-sell-right">
           <Anchors>
             <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
@@ -23,12 +32,18 @@
         </Texture>
       </Layer>
     </Layers>
+		<Frames>
+			<Frame parentKey="NineSlice" useParentLevel="true" inherits="NineSlicePanelTemplate"/>
+		</Frames>
   </Frame>
 
-  <Frame name="AuctionatorInsetLeaveScrollSpaceTemplate" inherits="InsetFrameTemplate" virtual="true">
+  <Frame name="AuctionatorInsetLeaveScrollSpaceTemplate" virtual="true">
+		<KeyValues>
+			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
+		</KeyValues>
     <Layers>
       <Layer level="BACKGROUND">
-        <Texture atlas="auctionhouse-background-index">
+        <Texture parentKey="Bg" atlas="auctionhouse-background-index">
           <Anchors>
             <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-28"/>
@@ -36,5 +51,8 @@
         </Texture>
       </Layer>
     </Layers>
+		<Frames>
+			<Frame parentKey="NineSlice" useParentLevel="true" inherits="NineSlicePanelTemplate"/>
+		</Frames>
   </Frame>
 </Ui>
