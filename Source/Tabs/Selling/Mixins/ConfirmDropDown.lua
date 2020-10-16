@@ -25,7 +25,7 @@ function AuctionatorConfirmDropDownMixin:Initialize()
 
   local confirmInfo = UIDropDownMenu_CreateInfo()
   confirmInfo.notCheckable = 1
-  confirmInfo.text = "Confirm"
+  confirmInfo.text = AUCTIONATOR_L_CONFIRM
 
   confirmInfo.disabled = false
   confirmInfo.func = function()
@@ -34,7 +34,7 @@ function AuctionatorConfirmDropDownMixin:Initialize()
 
   local cancelInfo = UIDropDownMenu_CreateInfo()
   cancelInfo.notCheckable = 1
-  cancelInfo.text = "Cancel"
+  cancelInfo.text = AUCTIONATOR_L_CANCEL
 
   cancelInfo.disabled = false
   cancelInfo.func = function()

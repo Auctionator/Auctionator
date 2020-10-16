@@ -255,6 +255,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["COPY_TEXT_HEADER"] = "Copy Text"
   L["SELECT_ALL"] = "Select All"
   L["UNSELECT_ALL"] = "Unselect All"
+  L["CONFIRM"] = "Confirm"
 
   L["ANY_LOWER"] = "any"
 
