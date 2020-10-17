@@ -15,6 +15,15 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "isTop" },
+    headerText = AUCTIONATOR_L_IS_TOP_COLUMN,
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "isTop" },
+    defaultHide = true,
+    width = 50
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "totalQuantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -74,6 +83,13 @@ end
 function AuctionatorShoppingListDataProviderMixin:AppendEntries(entries, isLastSetOfResults)
   self.entriesCount = self.entriesCount + #entries
 
+  for _, entry in ipairs(entries) do
+    if entry.containsOwnerItem then
+      entry.isTop = AUCTIONATOR_L_UNDERCUT_YES
+    else
+      entry.isTop = ""
+    end
+  end
   AuctionatorDataProviderMixin.AppendEntries(self, entries, isLastSetOfResults)
 end
 
