@@ -31,6 +31,11 @@
               <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPRIGHT" y="-16"/>
               <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="17"/>
             </Anchors>
+            <Layers>
+              <Layer level="BACKGROUND">
+                <Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true" setAllPoints="true"/>
+              </Layer>
+            </Layers>
           </Slider>
         </Frames>
         <Layers>
