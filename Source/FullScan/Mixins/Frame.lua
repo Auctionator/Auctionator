@@ -102,9 +102,7 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
     local timeLeft = C_AuctionHouse.GetReplicateItemTimeLeft(i)
 
     if not info[18] then
-      local item = Item:CreateFromItemID(info[17])
-
-      item:ContinueOnItemLoad((function(index)
+      ItemEventListener:AddCallback(info[17], (function(index)
         return function()
           self.waitingForData = self.waitingForData - 1
 
