@@ -10,9 +10,9 @@ local function ValidateState(callerID, searchTerms)
   end
 
   for _, term in ipairs(cloned) do
-    if string.match(term, "\"") or string.match(term, ";") then
+    if string.match(term, "^%s*\".*\"%s*$") or string.match(term, ";") then
       Auctionator.API.ComposeError(
-        callerID, "Search term contains \" or ;"
+        callerID, "Search term contains ; or is wrapped in \""
       )
     end
   end
