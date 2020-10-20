@@ -13,7 +13,11 @@ local function FixMissingTranslations(incomplete, locale)
   end
 end
 
-if AUCTIONATOR_LOCALES[GetLocale()] ~= nil then
+if AUCTIONATOR_LOCALES_OVERRIDE ~= nil then
+  currentLocale = AUCTIONATOR_LOCALES_OVERRIDE()
+
+  FixMissingTranslations(currentLocale, "OVERRIDE")
+elseif AUCTIONATOR_LOCALES[GetLocale()] ~= nil then
   currentLocale = AUCTIONATOR_LOCALES[GetLocale()]()
 
   FixMissingTranslations(currentLocale, GetLocale())
