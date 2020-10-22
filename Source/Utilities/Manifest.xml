@@ -19,6 +19,7 @@
   <Script file="RemoveTextColor.lua"/>
   <Script file="ItemKeyString.lua"/>
   <Script file="PrettyDate.lua"/>
+  <Script file="DelimitThousands.lua"/>
   <Script file="ItemInfoFromLocation.lua"/>
   <Script file="IsShortcutActive.lua"/>
   <Script file="GetPetLevelFromLink.lua"/>
