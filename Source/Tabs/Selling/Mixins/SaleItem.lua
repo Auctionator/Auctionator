@@ -82,18 +82,21 @@ function AuctionatorSaleItemMixin:OnUpdate()
     )
   )
 
-  if self.Quantity:GetNumber() > self.itemInfo.count then
+  if self.Quantity:GetNumber() > self:GetPostLimit() then
     self:SetMax()
   end
 
-  self.MaxButton:SetEnabled(self.Quantity:GetNumber() ~= self.itemInfo.count)
+  self.MaxButton:SetEnabled(self.Quantity:GetNumber() ~= self:GetPostLimit())
 
   self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(self:GetDeposit()))
   self:UpdatePostButtonState()
 end
 
+function AuctionatorSaleItemMixin:GetPostLimit()
+  return math.min(C_AuctionHouse.GetAvailablePostCount(self.itemInfo.location), self.itemInfo.count)
+end
 function AuctionatorSaleItemMixin:SetMax()
-  self.Quantity:SetNumber(self.itemInfo.count)
+  self.Quantity:SetNumber(self:GetPostLimit())
 end
 
 function AuctionatorSaleItemMixin:GetDeposit()
@@ -259,10 +262,10 @@ function AuctionatorSaleItemMixin:SetQuantity()
 
   if defaultQuantity > 0 then
     -- If a default quantity has been selected (ie non-zero amount)
-    self.Quantity:SetNumber(math.min(self.itemInfo.count, defaultQuantity))
+    self.Quantity:SetNumber(math.min(self.itemInfo.count, defaultQuantity, self:GetPostLimit()))
   else
     -- No default quantity setting, use the maximum possible
-    self.Quantity:SetNumber(self.itemInfo.count)
+    self:SetMax()
   end
 end
 
@@ -448,7 +451,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
 
     -- Valid quantity
     self.Quantity:GetNumber() > 0 and
-    self.Quantity:GetNumber() <= self.itemInfo.count and
+    self.Quantity:GetNumber() <= self:GetPostLimit() and
 
     -- Positive price
     self.Price:GetAmount() > 0 and
