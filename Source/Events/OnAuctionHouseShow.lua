@@ -1,6 +1,10 @@
 function Auctionator.Events.OnAuctionHouseShow()
   Auctionator.Debug.Message("Auctionator.Events.OnAuctionHouseShow()")
 
+  if AuctionHouseFrame == nil then
+    return
+  end
+
   Auctionator.AH.Initialize()
 
   if Auctionator.State.AuctionatorFrame == nil then
