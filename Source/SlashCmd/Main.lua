@@ -11,6 +11,8 @@ end
 local SLASH_COMMANDS = {
   ["p"] = Auctionator.SlashCmd.Post,
   ["post"] = Auctionator.SlashCmd.Post,
+  ["cu"] = Auctionator.SlashCmd.CancelUndercut,
+  ["cancelundercut"] = Auctionator.SlashCmd.CancelUndercut,
   ["ra"] = Auctionator.SlashCmd.CleanReset,
   ["resetall"] = Auctionator.SlashCmd.CleanReset,
   ["rt"] = Auctionator.SlashCmd.ResetTimer,

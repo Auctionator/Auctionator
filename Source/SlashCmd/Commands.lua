@@ -1,5 +1,6 @@
 local SLASH_COMMAND_DESCRIPTIONS = {
   {commands = "p, post", message = "Posts the chosen item from the \"Selling\" tab." },
+  {commands = "cu, cancelundercut", message = "Cancels the next undercut auction in the \"Cancelling\" tab." },
   {commands = "ra, resetall", message = "Reset database and full scan timer." },
   {commands = "rdb, resetdatabase", message = "Reset Auctionator database."},
   {commands = "rt, resettimer", message = "Reset full scan timer."},
@@ -17,6 +18,14 @@ function Auctionator.SlashCmd.Post()
     :RegisterSource(Auctionator.SlashCmd.Post, "Auctionator.SlashCmd.Post")
     :Fire(Auctionator.SlashCmd.Post, Auctionator.Selling.Events.RequestPost)
     :UnregisterSource(Auctionator.SlashCmd.Post)
+end
+
+function Auctionator.SlashCmd.CancelUndercut()
+  Auctionator.Utilities.Message(AUCTIONATOR_L_CANCEL_UNDERCUT_BUTTON_MACRO)
+  Auctionator.EventBus
+    :RegisterSource(Auctionator.SlashCmd.CancelUndercut, "Auctionator.SlashCmd.CancelUndercut")
+    :Fire(Auctionator.SlashCmd.CancelUndercut, Auctionator.Cancelling.Events.RequestCancelUndercut)
+    :UnregisterSource(Auctionator.SlashCmd.CancelUndercut)
 end
 
 function Auctionator.SlashCmd.ToggleDebug()

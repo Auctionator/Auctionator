@@ -13,7 +13,10 @@ local CANCELLING_EVENTS = {
 
 function AuctionatorUndercutScanMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorUndercutScanMixin")
-  Auctionator.EventBus:Register(self, {Auctionator.Cancelling.Events.RequestCancel})
+  Auctionator.EventBus:Register(self, {
+    Auctionator.Cancelling.Events.RequestCancel,
+    Auctionator.Cancelling.Events.RequestCancelUndercut,
+  })
 
   self.undercutAuctions = {}
   self.seenAuctionResults = {}
@@ -132,6 +135,10 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, auctionID)
         table.remove(self.undercutAuctions, index)
         break
       end
+    end
+  elseif eventName == Auctionator.Cancelling.Events.RequestCancelUndercut then
+    if self.CancelNextButton:IsEnabled() then
+      self:CancelNextAuction()
     end
   end
 end
