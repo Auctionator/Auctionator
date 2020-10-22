@@ -30,7 +30,6 @@ local function ComposeAuctionInfoMessage(auctionInfo)
     end
   end
 
-  result = Auctionator.Utilities.DelimitThousands(result)
   return result
 end
 

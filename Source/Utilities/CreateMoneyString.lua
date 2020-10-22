@@ -1,3 +1,3 @@
 function Auctionator.Utilities.CreateMoneyString(count)
-  return GetCoinTextureString(count)
+  return Auctionator.Utilities.DelimitThousands(GetCoinTextureString(count))
 end
