@@ -229,8 +229,13 @@ hooksecurefunc (GameTooltip, "SetTradeTargetItem",
 -- Occurs when mousing over items in the Refer-a-Friend frame, and a few other places
 hooksecurefunc (GameTooltip, "SetItemByID",
   function (tip, itemID)
-    if not itemID then return end 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, select(2, GetItemInfo(itemID)), 1)
+    if not itemID or itemID == 0 then
+      return
+    end
+
+    local itemLink = select(2, GetItemInfo(itemID))
+
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
 
