@@ -12,7 +12,7 @@ end
 local function GetShoppingListNames()
   local names = {AUCTIONATOR_L_NONE}
   local values = {0}
-  for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
+  for index, list in ipairs(Auctionator.ShoppingLists.Lists or {}) do
     table.insert(names, list.name)
     table.insert(values, index)
   end
