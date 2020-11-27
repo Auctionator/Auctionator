@@ -153,7 +153,9 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
         Auctionator.Utilities.ItemKeyString(itemKey) then
       Auctionator.EventBus:Unregister(self, {Auctionator.AH.Events.ItemKeyInfo})
 
-      self.itemInfo.keyName = itemInfo.itemName
+      self.itemInfo.keyName = AuctionHouseUtil.GetItemDisplayTextFromItemKey(
+        itemKey, itemInfo, false
+      )
       self:UpdateVisuals()
     end
 
@@ -181,12 +183,6 @@ function AuctionatorSaleItemMixin:UpdateVisuals()
   if self.itemInfo ~= nil then
 
     self.TitleArea.Text:SetText(self:GetItemName())
-
-    self.TitleArea.Text:SetTextColor(
-      ITEM_QUALITY_COLORS[self.itemInfo.quality].r,
-      ITEM_QUALITY_COLORS[self.itemInfo.quality].g,
-      ITEM_QUALITY_COLORS[self.itemInfo.quality].b
-    )
 
     self.Icon:HideCount()
 
