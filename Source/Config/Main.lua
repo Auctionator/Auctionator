@@ -8,7 +8,7 @@ Auctionator.Config.Options = {
   SHIFT_STACK_TOOLTIPS = "shift_stack_tooltips",
   AUTOSCAN = "autoscan",
   ALTERNATE_SCAN_MODE = "alternate_scan_mode",
-  FULL_SCAN_STEP = "full_scan_step",
+  FULL_SCAN_STEP_V2 = "full_scan_step_v2",
   AUTO_LIST_SEARCH = "auto_list_search",
   DEFAULT_LIST = "default_list",
 
@@ -76,7 +76,7 @@ local defaults = {
   [Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS] = true,
   [Auctionator.Config.Options.AUTOSCAN] = true,
   [Auctionator.Config.Options.ALTERNATE_SCAN_MODE] = false,
-  [Auctionator.Config.Options.FULL_SCAN_STEP] = 250,
+  [Auctionator.Config.Options.FULL_SCAN_STEP_V2] = 75,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.DEFAULT_LIST] = 0,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,

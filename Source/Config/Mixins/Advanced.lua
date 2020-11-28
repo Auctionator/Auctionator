@@ -12,7 +12,7 @@ end
 function AuctionatorConfigAdvancedFrameMixin:OnShow()
   self.Debug:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.DEBUG))
 
-  self.FullScanStep:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_STEP))
+  self.FullScanStep:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_STEP_V2))
 end
 
 function AuctionatorConfigAdvancedFrameMixin:Save()
@@ -21,7 +21,7 @@ function AuctionatorConfigAdvancedFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.DEBUG, self.Debug:GetChecked())
 
   Auctionator.Config.Set(
-    Auctionator.Config.Options.FULL_SCAN_STEP,
+    Auctionator.Config.Options.FULL_SCAN_STEP_V2,
     self.FullScanStep:GetNumber()
   )
 end

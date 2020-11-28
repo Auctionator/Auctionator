@@ -77,7 +77,7 @@ function AuctionatorFullScanFrameMixin:CacheScanData()
 
   self:ProcessBatch(
     0,
-    Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_STEP),
+    Auctionator.Config.Get(Auctionator.Config.Options.FULL_SCAN_STEP_V2),
     self.waitingForData
   )
 end
