@@ -13,6 +13,11 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
     classID = LE_ITEM_CLASS_BATTLEPET
   end
 
+  -- Some crafting reagents (like Enchanted Elethium Bar) have the wrong class
+  if classID == LE_ITEM_CLASS_REAGENT then
+    classID = LE_ITEM_CLASS_TRADEGOODS
+  end
+
   -- The first time the AH is loaded sometimes when a full scan is running the
   -- quality info may not be available. This just gives a sensible fail value.
   if quality == -1 then
