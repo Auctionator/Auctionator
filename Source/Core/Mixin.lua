@@ -1,28 +1,5 @@
 AuctionatorAHFrameMixin = {}
 
-local function InitializeFullScanFrame()
-  local frame
-  if Auctionator.State.FullScanFrameRef == nil then
-    frame = CreateFrame(
-      "FRAME",
-      "AuctionatorFullScanFrame",
-      AuctionHouseFrame,
-      "AuctionatorFullScanFrameTemplate"
-    )
-
-    Auctionator.State.FullScanFrameRef = frame
-  else
-    frame = Auctionator.State.FullScanFrameRef
-  end
-
-  if (
-    Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) and
-    not Auctionator.Config.Get(Auctionator.Config.Options.ALTERNATE_SCAN_MODE)
-  ) then
-    frame:InitiateScan()
-  end
-end
-
 local function InitializeIncrementalScanFrame()
   local frame
   if Auctionator.State.IncrementalScanFrameRef == nil then
@@ -36,13 +13,6 @@ local function InitializeIncrementalScanFrame()
     Auctionator.State.IncrementalScanFrameRef = frame
   else
     frame = Auctionator.State.IncrementalScanFrameRef
-  end
-
-  if (
-    Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) and
-    Auctionator.Config.Get(Auctionator.Config.Options.ALTERNATE_SCAN_MODE)
-  ) then
-    frame:InitiateScan()
   end
 end
 
@@ -124,7 +94,6 @@ function AuctionatorAHFrameMixin:OnShow()
 
   Auctionator.Utilities.ClassicWoWCheck()
 
-  InitializeFullScanFrame()
   InitializeIncrementalScanFrame()
   InitializeAuctionChatLogFrame()
   InitializeLateTooltipHooks()

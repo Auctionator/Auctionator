@@ -2,11 +2,13 @@ AuctionatorFullScanStatusMixin = {}
 
 function AuctionatorFullScanStatusMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
-    Auctionator.FullScan.Events.ScanStart,
-    Auctionator.FullScan.Events.ScanProgress,
-    Auctionator.FullScan.Events.ScanComplete,
-    Auctionator.FullScan.Events.ScanFailed,
+    Auctionator.IncrementalScan.Events.ScanStart,
+    Auctionator.IncrementalScan.Events.ScanProgress,
+    Auctionator.IncrementalScan.Events.ScanComplete,
+    Auctionator.IncrementalScan.Events.ScanFailed,
   })
+
+  self.tick = false
 end
 
 function AuctionatorFullScanStatusMixin:OnShow()
@@ -14,11 +16,16 @@ function AuctionatorFullScanStatusMixin:OnShow()
 end
 
 function AuctionatorFullScanStatusMixin:ReceiveEvent(event, eventData)
-  if event == Auctionator.FullScan.Events.ScanStart then
+  if event == Auctionator.IncrementalScan.Events.ScanStart then
     self.Text:SetText("0%")
-  elseif event == Auctionator.FullScan.Events.ScanProgress then
-    self.Text:SetText(tostring(math.floor(eventData*100)) .. "%")
-  elseif event == Auctionator.FullScan.Events.ScanComplete then
+  elseif event == Auctionator.IncrementalScan.Events.ScanProgress then
+    if self.tick then
+      self.Text:SetText("----")
+    else
+      self.Text:SetText("--")
+    end
+    self.tick = not self.tick
+  elseif event == Auctionator.IncrementalScan.Events.ScanComplete then
     self.Text:SetText("100%")
   else
     self.Text:SetText("")
