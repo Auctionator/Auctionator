@@ -24,6 +24,8 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
     self.state.TimeOfLastScan = time()
 
     self.inProgress = true
+    self.computeDelayInfo = {}
+    self.madeRequest = true
 
     self:RegisterForEvents()
     Auctionator.Utilities.Message(Auctionator.Locales.Apply("STARTING_FULL_SCAN"))
@@ -82,6 +84,29 @@ function AuctionatorFullScanFrameMixin:CacheScanData()
   )
 end
 
+function AuctionatorFullScanFrameMixin:ComputeDelayProcessing()
+  if self.computeDelayInfo.lastStart == nil then
+    self.computeDelayInfo.highestSeen = 0
+    self.computeDelayInfo.delay = 1
+    self.computeDelayInfo.lastStart = debugprofilestop()
+    self.computeDelayInfo.batchesToGo = 10
+  end
+
+  if self.computeDelayInfo.lastFinish ~= nil and not self.computeDelayInfo.complete then
+    local currentDelay = (self.computeDelayInfo.lastFinish - self.computeDelayInfo.lastStart)/1000
+
+    self.computeDelayInfo.highestSeen = math.max(self.computeDelayInfo.highestSeen, currentDelay)
+
+    self.computeDelayInfo.batchesToGo = self.computeDelayInfo.batchesToGo - 1
+    if self.computeDelayInfo.batchesToGo <= 0 then
+      Auctionator.Debug.Message("Replication event delay:", self.computeDelayInfo.highestSeen)
+      self.computeDelayInfo.complete = true
+      self.computeDelayInfo.delay = math.max(self.computeDelayInfo.highestSeen, 0.01)
+    end
+  end
+  self.computeDelayInfo.lastStart = debugprofilestop()
+end
+
 function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
   if startIndex >= limit then
     return
@@ -95,7 +120,9 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
 
   Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:ProcessBatch (links)", startIndex, stepSize, limit)
 
-  local i = startIndex
+  self:ComputeDelayProcessing()
+
+  i = startIndex
   while i < startIndex+stepSize and i < limit do
     local info = { C_AuctionHouse.GetReplicateItemInfo(i) }
     local link = C_AuctionHouse.GetReplicateItemLink(i)
@@ -129,7 +156,7 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
     i = i + 1
   end
 
-  C_Timer.After(0.01, function()
+  C_Timer.After(self.computeDelayInfo.delay, function()
     self:ProcessBatch(startIndex + stepSize, stepSize, limit)
   end)
 
@@ -142,8 +169,16 @@ function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
   if event == "REPLICATE_ITEM_LIST_UPDATE" then
     Auctionator.Debug.Message("REPLICATE_ITEM_LIST_UPDATE")
 
-    FrameUtil.UnregisterFrameForEvents(self, { "REPLICATE_ITEM_LIST_UPDATE" })
-    self:CacheScanData()
+    if self.madeRequest then
+      self.madeRequest = false
+      self:CacheScanData()
+
+    elseif not self.computeDelayInfo.complete then
+      self.computeDelayInfo.lastFinish = debugprofilestop()
+
+    else
+      FrameUtil.UnregisterFrameForEvents(self, { "REPLICATE_ITEM_LIST_UPDATE" })
+    end
   elseif event =="AUCTION_HOUSE_CLOSED" then
     self:UnregisterForEvents()
 
