@@ -16,6 +16,7 @@
   <Include file="Variables\Manifest.xml" />
   <Include file="Database\Manifest.xml"/>
 
+  <Include file="FullScan\Manifest.xml"/>
   <Include file="IncrementalScan\Manifest.xml"/>
   <Include file="AuctionChatLog\Manifest.xml"/>
 

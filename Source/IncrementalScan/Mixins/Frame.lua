@@ -10,7 +10,6 @@ function AuctionatorIncrementalScanFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorIncrementalScanFrameMixin:OnLoad")
 
   self.doingFullScan = false
-  Auctionator.EventBus:RegisterSource(self, "AuctionatorIncrementalScanFrameMixin")
 
   self:RegisterForEvents()
 end
@@ -39,19 +38,14 @@ function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
 
   elseif event == "AUCTION_HOUSE_CLOSED" and self.doingFullScan then
     self.doingFullScan = false
-    Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_FAILED)
-    Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanFailed)
+    Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_ALTERNATE_FAILED)
   end
 end
 
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
-  Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN)
+  Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_ALTERNATE)
   Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
   self.doingFullScan = true
-
-  if self.doingFullScan then
-    Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanStart)
-  end
 end
 
 function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
@@ -65,10 +59,6 @@ function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
       table.insert(self.prices[itemKey], resultInfo.minPrice)
     end
   end
-
-  if self.doingFullScan then
-    Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanProgress)
-  end
 end
 
 function AuctionatorIncrementalScanFrameMixin:NextStep()
@@ -80,8 +70,6 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
     if self.doingFullScan then
       Auctionator.Utilities.Message(AUCTIONATOR_L_FINISHED_PROCESSING:format(count))
       self.doingFullScan = false
-
-      Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete)
     end
 
     self.prices = {} --Already processed, so clear
