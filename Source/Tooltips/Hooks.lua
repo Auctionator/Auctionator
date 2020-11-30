@@ -229,7 +229,20 @@ hooksecurefunc (GameTooltip, "SetTradeTargetItem",
 -- Occurs when mousing over items in the Refer-a-Friend frame, and a few other places
 hooksecurefunc (GameTooltip, "SetItemByID",
   function (tip, itemID)
-    if not itemID or itemID == 0 then
+    if not itemID then
+      return
+    end
+
+    local itemLink = select(2, GetItemInfo(itemID))
+
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
+  end
+);
+
+-- Occurs mainly with addons (Blizzard and otherwise)
+hooksecurefunc (GameTooltip, "SetHyperlink",
+  function (tip, itemID)
+    if not itemID then
       return
     end
 
@@ -245,7 +258,8 @@ function Auctionator.Tooltip.LateHooks()
   hooksecurefunc(AuctionHouseUtil, "SetAuctionHouseTooltip",
     function(owner, rowData)
       if rowData.itemLink then
-        Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, rowData.itemLink, rowData.count ~= nil and rowData.count or 1 )
+        -- Already set with SetHyperlink
+        return
 
       elseif rowData.itemKey then
         if rowData.itemKey.battlePetSpeciesID ~= 0 then
