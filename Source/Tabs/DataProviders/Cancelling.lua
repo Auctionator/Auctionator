@@ -145,16 +145,19 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   self:Reset()
 
   local results = {}
+  local total = 0
 
   for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 
     --Only look at unsold and uncancelled (yet) auctions
     if self:IsValidAuction(info) then
+      local price = info.buyoutAmount or info.bidAmount
+      total = total + price
       table.insert(results, {
         id = info.auctionID,
         quantity = info.quantity,
-        price = info.buyoutAmount or info.bidAmount,
+        price = price,
         itemKey = info.itemKey,
         itemLink = info.itemLink, -- Used for tooltips
         timeLeft = math.ceil((info.timeLeftSeconds or 0)/60/60),
@@ -164,6 +167,10 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
     end
   end
   self:AppendEntries(results, true)
+
+  Auctionator.EventBus:RegisterSource(self, "CancellingDataProvider")
+    :Fire(self, Auctionator.Cancelling.Events.TotalUpdated, total)
+    :UnregisterSource(self)
 end
 
 function AuctionatorCancellingDataProviderMixin:UniqueKey(entry)
