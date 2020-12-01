@@ -8,9 +8,15 @@ function AuctionatorShoppingListDropdownMixin:OnLoad()
 end
 
 function AuctionatorShoppingListDropdownMixin:OnShow()
-  local listIndex = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST)
+  local listName = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST)
 
-  if Auctionator.ShoppingLists.Lists[listIndex] ~= nil then
+  if listName == Auctionator.Constants.NO_LIST then
+    return
+  end
+
+  local listIndex = Auctionator.ShoppingLists.ListIndex(listName)
+
+  if listIndex ~= nil then
     self:SelectList(Auctionator.ShoppingLists.Lists[listIndex])
   end
 end

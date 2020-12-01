@@ -31,6 +31,6 @@ function AuctionatorListCreateButtonMixin:CreateList(listName)
   Auctionator.ShoppingLists.Create(listName)
 
   Auctionator.EventBus:Fire(
-    self, ListCreated, Auctionator.ShoppingLists.Lists[#Auctionator.ShoppingLists.Lists]
+    self, ListCreated, Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
   )
 end

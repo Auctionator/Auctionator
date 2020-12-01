@@ -45,5 +45,6 @@ Auctionator.Constants = {
   EXPORT_TYPES = {
     STRING = 0,
     WHISPER = 1
-  }
+  },
+  NO_LIST = "",
 }

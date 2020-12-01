@@ -102,5 +102,6 @@ function Auctionator.Variables.InitializeShoppingLists()
 
   Auctionator.ShoppingLists.Lists = AUCTIONATOR_SHOPPING_LISTS
   Auctionator.ShoppingLists.Prune()
+  Auctionator.ShoppingLists.Sort()
   AUCTIONATOR_SHOPPING_LISTS = Auctionator.ShoppingLists.Lists
 end

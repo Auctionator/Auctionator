@@ -10,7 +10,7 @@ Auctionator.Config.Options = {
   ALTERNATE_SCAN_MODE = "alternate_scan_mode",
   FULL_SCAN_STEP = "full_scan_step",
   AUTO_LIST_SEARCH = "auto_list_search",
-  DEFAULT_LIST = "default_list",
+  DEFAULT_LIST = "default_list_2",
 
   DEFAULT_TAB = "default_tab",
 
@@ -78,7 +78,7 @@ local defaults = {
   [Auctionator.Config.Options.ALTERNATE_SCAN_MODE] = false,
   [Auctionator.Config.Options.FULL_SCAN_STEP] = 250,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
-  [Auctionator.Config.Options.DEFAULT_LIST] = 0,
+  [Auctionator.Config.Options.DEFAULT_LIST] = Auctionator.Constants.NO_LIST,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
   [Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY] = true,
   [Auctionator.Config.Options.SELLING_BAG_COLLAPSED] = false,

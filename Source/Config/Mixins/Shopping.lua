@@ -11,10 +11,10 @@ end
 
 local function GetShoppingListNames()
   local names = {AUCTIONATOR_L_NONE}
-  local values = {0}
+  local values = {Auctionator.Constants.NO_LIST}
   for index, list in ipairs(Auctionator.ShoppingLists.Lists or {}) do
     table.insert(names, list.name)
-    table.insert(values, index)
+    table.insert(values, list.name)
   end
   return names, values
 end
@@ -24,7 +24,12 @@ function AuctionatorConfigShoppingFrameMixin:OnShow()
 
   self.DefaultShoppingList:InitAgain(GetShoppingListNames())
 
-  self.DefaultShoppingList:SetValue(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST))
+  local currentDefault = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST)
+  if Auctionator.ShoppingLists.ListIndex(currentDefault) == nil then
+    currentDefault = ""
+  end
+
+  self.DefaultShoppingList:SetValue(currentDefault)
 end
 
 function AuctionatorConfigShoppingFrameMixin:Save()
