@@ -33,14 +33,14 @@ Auctionator.Constants = {
     LE_ITEM_CLASS_MISCELLANEOUS
   },
   INVENTORY_TYPE_IDS = {
-    LE_INVENTORY_TYPE_HEAD_TYPE,
-    LE_INVENTORY_TYPE_SHOULDER_TYPE,
-    LE_INVENTORY_TYPE_CHEST_TYPE,
-    LE_INVENTORY_TYPE_WAIST_TYPE,
-    LE_INVENTORY_TYPE_LEGS_TYPE,
-    LE_INVENTORY_TYPE_FEET_TYPE,
-    LE_INVENTORY_TYPE_WRIST_TYPE,
-    LE_INVENTORY_TYPE_HAND_TYPE,
+    Enum.InventoryType.IndexHeadType,
+    Enum.InventoryType.IndexShoulderType,
+    Enum.InventoryType.IndexChestType,
+    Enum.InventoryType.IndexWaistType,
+    Enum.InventoryType.IndexLegsType,
+    Enum.InventoryType.IndexFeetType,
+    Enum.InventoryType.IndexWristType,
+    Enum.InventoryType.IndexHandType,
   },
   EXPORT_TYPES = {
     STRING = 0,
