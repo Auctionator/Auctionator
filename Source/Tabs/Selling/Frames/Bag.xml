@@ -43,6 +43,14 @@
               <TexCoords left="0" right="0.484375" top=".75" bottom="1.0"/>
             </Texture>
           </Layer>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true" setAllPoints="true">
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="TOPRIGHT"/>
+                <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="23"/>
+              </Anchors>
+            </Texture>
+          </Layer>
         </Layers>
 
         <ScrollChild>
