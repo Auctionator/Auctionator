@@ -27,10 +27,14 @@ function AuctionatorListRenameButtonMixin:OnClick()
 end
 
 function AuctionatorListRenameButtonMixin:RenameList(newListName)
-  Auctionator.ShoppingLists.Rename(
-    Auctionator.ShoppingLists.ListIndex(self.currentList.name),
-    newListName
-  )
+  if newListName ~= self.currentList.name then
+    newListName = Auctionator.ShoppingLists.GetUnusedListName(newListName)
+
+    Auctionator.ShoppingLists.Rename(
+      Auctionator.ShoppingLists.ListIndex(self.currentList.name),
+      newListName
+    )
+  end
 
   if self.currentList.isTemporary then
     Auctionator.ShoppingLists.MakePermanent(newListName)

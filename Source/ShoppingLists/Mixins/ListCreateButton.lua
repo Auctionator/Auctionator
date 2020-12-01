@@ -26,6 +26,8 @@ function AuctionatorListCreateButtonMixin:OnClick()
 end
 
 function AuctionatorListCreateButtonMixin:CreateList(listName)
+  listName = Auctionator.ShoppingLists.GetUnusedListName(listName)
+
   Auctionator.ShoppingLists.Create(listName)
 
   Auctionator.EventBus:Fire(

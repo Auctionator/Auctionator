@@ -1,4 +1,10 @@
+local function ErrorIfExists(name)
+  assert(Auctionator.ShoppingLists.ListIndex(name) == nil, "Shopping list already exists")
+end
+
 function Auctionator.ShoppingLists.Create(listName)
+  ErrorIfExists(listName)
+
   table.insert(Auctionator.ShoppingLists.Lists, {
     name = listName,
     items = {},
@@ -6,6 +12,8 @@ function Auctionator.ShoppingLists.Create(listName)
   })
 end
 function Auctionator.ShoppingLists.CreateTemporary(listName)
+  ErrorIfExists(listName)
+
   table.insert(Auctionator.ShoppingLists.Lists, {
     name = listName,
     items = {},
@@ -39,6 +47,8 @@ function Auctionator.ShoppingLists.Delete(listName)
 end
 
 function Auctionator.ShoppingLists.Rename(listIndex, newListName)
+  ErrorIfExists(newListName)
+
   Auctionator.ShoppingLists.Lists[listIndex].name = newListName
 end
 
@@ -62,4 +72,16 @@ function Auctionator.ShoppingLists.Prune()
   end
 
   Auctionator.ShoppingLists.Lists = lists
+end
+
+function Auctionator.ShoppingLists.GetUnusedListName(prefix)
+  local currentIndex = 1
+  local newName = prefix
+
+  while Auctionator.ShoppingLists.ListIndex(newName) ~= nil do
+    currentIndex = currentIndex + 1
+    newName = prefix .. " " .. currentIndex
+  end
+
+  return newName
 end
