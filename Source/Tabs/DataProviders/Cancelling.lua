@@ -153,7 +153,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
     --Only look at unsold and uncancelled (yet) auctions
     if self:IsValidAuction(info) then
       local price = info.buyoutAmount or info.bidAmount
-      total = total + price
+      total = total + price * info.quantity
       table.insert(results, {
         id = info.auctionID,
         quantity = info.quantity,
