@@ -161,3 +161,37 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
 
   self.onUpdate(self.results)
 end
+
+local function WrapCSVParameter(parameter)
+  if type(parameter) == "string" then
+    return "\"" .. parameter .. "\""
+  else
+    return tostring(parameter)
+  end
+end
+
+function AuctionatorDataProviderMixin:GetCSV()
+  if self:GetCount() == 0 then
+    return ""
+  end
+
+  local csvResult = ""
+
+  local layout = self:GetTableLayout()
+
+  for index, column in ipairs(layout) do
+    csvResult = csvResult .. WrapCSVParameter(column.headerText) .. ","
+  end
+  csvResult = csvResult .. "\n"
+
+  for _, row in ipairs(self.results) do
+    for _, column in ipairs(layout) do
+      csvResult = csvResult .. WrapCSVParameter(row[column.headerParameters[1]]) .. ","
+    end
+    csvResult = csvResult .. "\n"
+  end
+
+  csvResult = string.gsub(csvResult ,",\n", "\n") -- Remove trailing ,
+  csvResult = string.gsub(csvResult, "\n$", "") -- Remove newline after all content
+  return csvResult
+end
