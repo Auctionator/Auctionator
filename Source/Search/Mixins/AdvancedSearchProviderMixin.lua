@@ -26,7 +26,17 @@ local function GetItemClassCategories(categoryKey)
   end
 end
 
-local function WrapQueryString(queryString)
+local function ModifyQueryString(queryString)
+  -- Special case where the queryString contains "-". There's a bug in the AH
+  -- that means when wrapping it in "" the search returns no results.
+  -- We remove any "" to avoid that.
+  if string.find(queryString, "-") then
+    return string.gsub(queryString, "\"", "")
+  end
+
+  -- Wrap query in "" to avoid search terms being broken up, so the AH search
+  -- for "of the tides" matches "five of the tides" but not
+  -- "Tidespray Linen Sandals of the Aurora"
   if queryString ~= "" then
     return '"' .. queryString .. '"'
   else
@@ -40,7 +50,7 @@ local function ParseAdvancedSearch(searchString)
 
   return {
     query = {
-      searchString = WrapQueryString(parsed.queryString),
+      searchString = ModifyQueryString(parsed.queryString),
       minLevel = parsed.minLevel,
       maxLevel = parsed.maxLevel,
       filters = {},
@@ -72,7 +82,7 @@ function AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm(term)
   else
     return  {
       query = {
-        searchString = WrapQueryString(term),
+        searchString = ModifyQueryString(term),
         filters = {},
         itemClassFilters = {},
         sorts = {},
