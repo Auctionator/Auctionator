@@ -315,6 +315,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DEFAULT_TAB_TEXT"] = "shows as the default tab"
   L["NONE"] = "None"
 
+  L["CONFIG_SMALL_TABS"] = "Use small tabs for the Auction House (reopen the Auction House for it to take effect)"
+  L["CONFIG_SMALL_TABS_TOOLTIP_HEADER"] = "Small Tabs"
+  L["CONFIG_SMALL_TABS_TOOLTIP_TEXT"] = "When too many addons add tabs to the Auction House they can end up overflowing past the end of the Auction House window. This setting makes the tabs smaller so they fit better."
+
   L["CONFIG_SELLING_CATEGORY"] = "Selling"
   L["CONFIG_SELLING_TEXT"] = "Options to change the behaviour of the Selling tab"
 

@@ -32,3 +32,9 @@ function AuctionatorTabMixin:DeselectTab()
   PanelTemplates_DeselectTab(self)
   self.frameRef:Hide()
 end
+
+function AuctionatorTabMixin:OnShow()
+  if not Auctionator.Config.Get(Auctionator.Config.Options.SMALL_TABS) then
+    AuctionHouseFrameTabMixin.OnShow(self)
+  end
+end

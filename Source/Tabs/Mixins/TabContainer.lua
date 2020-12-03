@@ -37,6 +37,18 @@ function AuctionatorTabContainerMixin:OnLoad()
   self:HookTabs()
 end
 
+function AuctionatorTabContainerMixin:OnShow()
+  local padding = 0
+  local absoluteSize = nil
+  local minTabWidth = 36
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.SMALL_TABS) then
+    for _, tab in ipairs(AuctionHouseFrame.Tabs) do
+      PanelTemplates_TabResize(tab, padding, absoluteSize, minTabWidth)
+    end
+  end
+end
+
 function AuctionatorTabContainerMixin:IsAuctionatorFrame(displayMode)
   for _, frame in pairs(self.Tabs) do
     if frame.displayMode == displayMode then

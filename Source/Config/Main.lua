@@ -13,6 +13,7 @@ Auctionator.Config.Options = {
   DEFAULT_LIST = "default_list_2",
 
   DEFAULT_TAB = "default_tab",
+  SMALL_TABS = "small_tabs",
 
   AUCTION_CHAT_LOG = "auction_chat_log",
   SHOW_SELLING_PRICE_HISTORY = "show_selling_price_history",
@@ -114,6 +115,7 @@ local defaults = {
 
   [Auctionator.Config.Options.SILENCE_AUCTION_ERRORS] = true,
   [Auctionator.Config.Options.DEFAULT_TAB] = 0,
+  [Auctionator.Config.Options.SMALL_TABS] = false,
 }
 
 local function isValidOption(name)
