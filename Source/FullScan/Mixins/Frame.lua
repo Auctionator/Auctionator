@@ -164,16 +164,17 @@ local function GetInfo(replicateInfo, itemLink)
   local count = replicateInfo[3]
   local buyoutPrice = replicateInfo[10]
   local effectivePrice = buyoutPrice / count
+  local available = replicateInfo[3]
 
   local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
 
-  return itemKey, effectivePrice
+  return itemKey, effectivePrice, available
 end
 
 function AuctionatorFullScanFrameMixin:EndProcessing()
   local rawFullScan = self.scanData
 
-  local count = Auctionator.Database.ProcessScan(self:MergePrices())
+  local count = Auctionator.Database.ProcessScan(self:MergeInfo())
   Auctionator.Utilities.Message(Auctionator.Locales.Apply("FINISHED_PROCESSING", count))
 
   self.inProgress = false
@@ -184,21 +185,23 @@ function AuctionatorFullScanFrameMixin:EndProcessing()
   Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanComplete, rawFullScan)
 end
 
-function AuctionatorFullScanFrameMixin:MergePrices()
-  local prices = {}
+function AuctionatorFullScanFrameMixin:MergeInfo()
+  local allInfo = {}
   local index = 0
 
   for index = 1, #self.scanData do
-    local itemKey, effectivePrice = GetInfo(self.scanData[index].replicateInfo, self.scanData[index].itemLink)
+    local itemKey, effectivePrice, available = GetInfo(self.scanData[index].replicateInfo, self.scanData[index].itemLink)
 
-    if prices[itemKey] == nil then
-      prices[itemKey] = { effectivePrice }
-    else
-      table.insert(prices[itemKey], effectivePrice)
+    if allInfo[itemKey] == nil then
+      allInfo[itemKey] = {}
     end
+
+    table.insert(allInfo[itemKey],
+      { price = effectivePrice, available = available }
+    )
 
     index = index + 1
   end
 
-  return prices
+  return allInfo
 end

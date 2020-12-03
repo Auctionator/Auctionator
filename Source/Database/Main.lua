@@ -1,17 +1,18 @@
-function Auctionator.Database.SetPrice(itemKey, newMinPrice)
+function Auctionator.Database.SetPrice(itemKey, newMinPrice, available)
   local db = Auctionator.State.LiveDB
 
   if not db[itemKey] then
     db[itemKey] = {
       l={}, -- Lowest low price on a given day
       h={}, -- Highest low price on a given day
+      a={}, -- Highest quantity seen on a given day
       m=0   -- Last seen minimum price
     }
   end
 
   db[itemKey].m = newMinPrice
 
-  Auctionator.Database.InternalUpdateHistory(itemKey, newMinPrice)
+  Auctionator.Database.InternalUpdateHistory(itemKey, newMinPrice, available)
 end
 
 function Auctionator.Database.GetPrice(itemKey)
@@ -24,24 +25,26 @@ end
 
 --Takes all the items with a list of their prices, and determines the minimum
 --price.
-function Auctionator.Database.ProcessScan(priceIndexes)
+function Auctionator.Database.ProcessScan(itemIndexes)
   Auctionator.Debug.Message("Auctionator.Database.ProcessScan")
   local startTime = debugprofilestop()
 
   local count = 0
 
-  for itemKey, prices in pairs(priceIndexes) do
+  for itemKey, info in pairs(itemIndexes) do
     count = count + 1
 
-    local minPrice = prices[1]
+    local minPrice = info[1].price
+    local available = 0
 
-    for i = 1, #prices do
-      if prices[i] < minPrice then
-        minPrice = prices[i]
+    for i = 1, #info do
+      available = available + info[i].available
+      if info[i].price < minPrice then
+        minPrice = info[i].price
       end
     end
 
-    Auctionator.Database.SetPrice(itemKey, minPrice)
+    Auctionator.Database.SetPrice(itemKey, minPrice, available)
   end
 
   Auctionator.Debug.Message("Processing time: " .. tostring(debugprofilestop() - startTime))
@@ -52,7 +55,7 @@ local function GetScanDay()
   return (math.floor ((time() - Auctionator.Constants.SCAN_DAY_0) / (86400)));
 end
 
-function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice)
+function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice, available)
   local db = Auctionator.State.LiveDB
 
   local daysSinceZero = GetScanDay()
@@ -68,6 +71,23 @@ function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice)
   -- save memory by only saving lowestLow when different from highestLow
   if buyoutPrice < highestLow and (lowestLow == nil or buyoutPrice < lowestLow) then
     db[itemKey].l[daysSinceZero] = buyoutPrice
+  end
+
+  if available == nil then
+    return
+  end
+
+  -- Compatibility for databases without "Available" information in them, all
+  -- databases prior to December 2020 would not have the "a" field in them
+  if db[itemKey].a == nil then
+    db[itemKey].a = {}
+  end
+
+  local prevAvailable = db[itemKey].a[daysSinceZero]
+  if prevAvailable ~= nil then
+    db[itemKey].a[daysSinceZero] = math.max(prevAvailable, available)
+  else
+    db[itemKey].a[daysSinceZero] = available
   end
 end
 
@@ -119,7 +139,9 @@ function Auctionator.Database.GetPriceHistory(itemKey)
      ),
      rawDay = day,
      minSeen = itemData.l[day] or itemData.h[day],
-     maxSeen = itemData.h[day]
+     maxSeen = itemData.h[day],
+     -- Compatibility for when the a[vailable] field is unavailable
+     available = itemData.a and itemData.a[day],
    })
  end
 

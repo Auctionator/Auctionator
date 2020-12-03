@@ -28,7 +28,7 @@ end
 
 function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
   if event == "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED" then
-    self.prices = {} -- New search results so reset prices
+    self.info = {} -- New search results so reset info
 
     self:AddPrices(C_AuctionHouse.GetBrowseResults())
     self:NextStep()
@@ -53,11 +53,13 @@ function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
 
   for _, resultInfo in ipairs(results) do
     local itemKey = Auctionator.Utilities.ItemKeyFromBrowseResult(resultInfo)
-    if self.prices[itemKey] == nil then
-      self.prices[itemKey] = { resultInfo.minPrice }
-    else
-      table.insert(self.prices[itemKey], resultInfo.minPrice)
+    if self.info[itemKey] == nil then
+      self.info[itemKey] = {}
     end
+
+    table.insert(self.info[itemKey],
+      { price = resultInfo.minPrice, available = resultInfo.totalQuantity }
+    )
   end
 end
 
@@ -65,13 +67,13 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
   if not Auctionator.AH.HasFullBrowseResults() then
     Auctionator.AH.RequestMoreBrowseResults()
   else
-    local count = Auctionator.Database.ProcessScan(self.prices)
+    local count = Auctionator.Database.ProcessScan(self.info)
 
     if self.doingFullScan then
       Auctionator.Utilities.Message(AUCTIONATOR_L_FINISHED_PROCESSING:format(count))
       self.doingFullScan = false
     end
 
-    self.prices = {} --Already processed, so clear
+    self.info = {} --Already processed, so clear
   end
 end
