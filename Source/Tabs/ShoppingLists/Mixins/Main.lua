@@ -67,6 +67,7 @@ end
 function AuctionatorShoppingListTabMixin:SetUpExportCSVDialog()
   self.exportCSVDialog = CreateFrame("Frame", "AuctionatorCopyTextFrame", self:GetParent(), "AuctionatorExportTextFrame")
   self.exportCSVDialog:SetPoint("CENTER")
+  self.exportCSVDialog:SetOpeningEvents(DialogOpened, DialogClosed)
 end
 
 
@@ -151,6 +152,8 @@ function AuctionatorShoppingListTabMixin:ExportListsClicked()
 end
 
 function AuctionatorShoppingListTabMixin:ExportCSVClicked()
-  self.exportCSVDialog:SetExportString(self.DataProvider:GetCSV())
-  self.exportCSVDialog:Show()
+  self.DataProvider:GetCSV(function(result)
+    self.exportCSVDialog:SetExportString(result)
+    self.exportCSVDialog:Show()
+  end)
 end

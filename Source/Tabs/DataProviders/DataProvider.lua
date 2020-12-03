@@ -170,9 +170,9 @@ local function WrapCSVParameter(parameter)
   end
 end
 
-function AuctionatorDataProviderMixin:GetCSV()
+function AuctionatorDataProviderMixin:GetCSV(callback)
   if self:GetCount() == 0 then
-    return ""
+    callback("")
   end
 
   local csvResult = ""
@@ -184,14 +184,32 @@ function AuctionatorDataProviderMixin:GetCSV()
   end
   csvResult = csvResult .. "\n"
 
-  for _, row in ipairs(self.results) do
-    for _, column in ipairs(layout) do
-      csvResult = csvResult .. WrapCSVParameter(row[column.headerParameters[1]]) .. ","
+  local function DoRows(start, finish)
+    finish = math.min(finish, self:GetCount())
+
+    local index = start
+    while index <= finish do
+      local row = self.results[index]
+      for column, cell in ipairs(layout) do
+        csvResult = csvResult .. WrapCSVParameter(row[cell.headerParameters[1]])
+
+        if column ~= #layout then
+          csvResult = csvResult .. ","
+        end
+      end
+      csvResult = csvResult .. "\n"
+
+      index = index + 1
     end
-    csvResult = csvResult .. "\n"
+
+    if finish < self:GetCount() then
+      C_Timer.After(0, function()
+        DoRows(finish + 1, (finish - start) + finish + 1)
+      end)
+    else
+      callback(csvResult)
+    end
   end
 
-  csvResult = string.gsub(csvResult ,",\n", "\n") -- Remove trailing ,
-  csvResult = string.gsub(csvResult, "\n$", "") -- Remove newline after all content
-  return csvResult
+  DoRows(1, 50)
 end
