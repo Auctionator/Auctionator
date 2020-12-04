@@ -91,6 +91,17 @@ function Auctionator.Database.InternalUpdateHistory(itemKey, buyoutPrice, availa
   end
 end
 
+function Auctionator.Database.GetItemCount()
+  local db = Auctionator.State.LiveDB
+
+  local count = 0
+  for _, _ in pairs(db) do
+    count = count + 1
+  end
+
+  return count
+end
+
 function Auctionator.Database.Prune()
   local cutoffDay = GetScanDay() - Auctionator.Config.Get(Auctionator.Config.Options.PRICE_HISTORY_DAYS)
 

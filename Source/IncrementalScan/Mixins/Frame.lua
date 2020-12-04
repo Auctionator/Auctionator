@@ -8,6 +8,7 @@ local INCREMENTAL_SCAN_EVENTS = {
 
 function AuctionatorIncrementalScanFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorIncrementalScanFrameMixin:OnLoad")
+  Auctionator.EventBus:RegisterSource(self, "AuctionatorIncrementalScanFrameMixin")
 
   self.doingFullScan = false
 
@@ -39,13 +40,46 @@ function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
   elseif event == "AUCTION_HOUSE_CLOSED" and self.doingFullScan then
     self.doingFullScan = false
     Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_ALTERNATE_FAILED)
+    Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanFailed)
   end
 end
 
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
   Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_ALTERNATE)
   Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
+  self.previousDatabaseCount = Auctionator.Database.GetItemCount()
   self.doingFullScan = true
+
+  Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanStart)
+  self:FireProgressEvent()
+end
+
+function AuctionatorIncrementalScanFrameMixin:FireProgressEvent()
+  local infoCount = 0
+
+  if self.info ~= nil then
+    for _, _  in pairs(self.info) do
+      infoCount = infoCount + 1
+    end
+  end
+
+  local dbCount = Auctionator.Database.GetItemCount()
+
+  -- 10% complete after making the browse request
+  local progress = 0.1
+
+  if dbCount == 0 then
+    -- 50% done if we don't have anything in the database
+    progress = 0.5
+  elseif dbCount > infoCount then
+    -- 10%-90% complete when processing browse results
+    progress = progress + 0.8 * infoCount / dbCount
+  else
+    -- 90% if got more browse results than prices already in the database
+    progress = 0.9
+  end
+
+  Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanProgress, progress)
 end
 
 function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
@@ -61,6 +95,10 @@ function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
       { price = resultInfo.minPrice, available = resultInfo.totalQuantity }
     )
   end
+
+  if self.doingFullScan then
+    self:FireProgressEvent()
+  end
 end
 
 function AuctionatorIncrementalScanFrameMixin:NextStep()
@@ -72,6 +110,8 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
     if self.doingFullScan then
       Auctionator.Utilities.Message(AUCTIONATOR_L_FINISHED_PROCESSING:format(count))
       self.doingFullScan = false
+
+      Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete)
     end
 
     self.info = {} --Already processed, so clear
