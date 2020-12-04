@@ -13,30 +13,12 @@
         </KeyValues>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ScanHeading">
-        <KeyValues>
-          <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_SCAN_SETTINGS" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
-        </Anchors>
-      </Frame>
-
-      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="FullScanStep">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_FULL_SCAN_STEP_SIZE" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ScanHeading" relativePoint="BOTTOMLEFT" y="-15"/>
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DebugHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_DEVELOPER" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.FullScanStep" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 

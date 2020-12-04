@@ -14,9 +14,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_AUTOSCAN"] = "Run autoscan when Auction House is opened."
   L["CONFIG_AUTOSCAN_TOOLTIP_HEADER"] = "Autoscan"
   L["CONFIG_AUTOSCAN_TOOLTIP_TEXT"] = "Run a full scan when the auction house is opened. If not selected, you may run a full scan by clicking the 'Full Scan' button in the auction house."
-  L["CONFIG_ALTERNATE_SCAN"] = "Use alternate slower scan mode by default"
-  L["CONFIG_ALTERNATE_SCAN_HEADER"] = "Alternate Scan Mode"
-  L["CONFIG_ALTERNATE_SCAN_TEXT"] = "The fast scan mode can cause disconnections on busy servers. This setting uses a slower and less likely to disconnect, scan method."
 
   L["CONFIG_DEVELOPER"] = "Developer Settings"
   L["CONFIG_DEBUG"] = "Toggle debug output."
@@ -81,7 +78,6 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["CONFIG_ADVANCED_CATEGORY"] = "Advanced"
   L["CONFIG_ADVANCED_TEXT"] = "Only look here if you know what you're doing"
-  L["CONFIG_FULL_SCAN_STEP_SIZE"] = "Full scan step size"
   L["CONFIG_SCAN_SETTINGS"] = "Scan Settings"
 
   L["AUTHOR_HEADER"] = "Author"
@@ -118,8 +114,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["NEXT_SCAN_MESSAGE"] = "A full scan may be started in %s minutes and %s seconds."
   L["FULL_SCAN_FAILED"] = "Full scan failed to complete."
   L["FINISHED_PROCESSING"] = "Finished processing %s items."
-  L["STARTING_FULL_SCAN_ALTERNATE"] = "Starting a full scan (alternate mode)."
-  L["FULL_SCAN_ALTERNATE_FAILED"] = "Full scan (alternate mode) failed to complete."
 
   L["TOO_MANY_SEARCH_RESULTS"] = "Too many search results. Limiting results displayed."
   L["LIST_DELETE_ERROR"] = "An error occurred attempting to delete a list."
