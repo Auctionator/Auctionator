@@ -11,7 +11,8 @@ local HISTORICAL_PRICE_PROVIDER_LAYOUT ={
     headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "available" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "available" }
+    cellParameters = { "available" },
+    width = 100
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
