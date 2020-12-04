@@ -47,8 +47,12 @@ end
 -- Item 1\n
 -- Item 2\n
 function Auctionator.ShoppingLists.OldBatchImportFromString(importString)
+  -- Remove trailing and leading spaces
+  importString = gsub(importString, "%s+\n", "\n")
+  importString = gsub(importString, "\n%s+", "\n")
   -- Remove blank lines
-  importString = gsub(importString, "%s+\n", "")
+  importString = gsub(importString, "\n\n", "\n")
+  importString = gsub(importString, "^\n", "")
   -- Simplify *** to *
   importString = gsub(importString, "*+%s*", "*")
   -- Remove first *
