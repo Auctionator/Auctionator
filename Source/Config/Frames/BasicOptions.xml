@@ -49,23 +49,12 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="SmallTabs">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SMALL_TABS" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SMALL_TABS_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SMALL_TABS_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AlternateScan" relativePoint="BOTTOMLEFT" />
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DefaultTabHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_DEFAULT_TAB" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.SmallTabs" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AlternateScan" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
@@ -78,6 +67,17 @@
        <Anchors>
          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultTabHeading" relativePoint="BOTTOMLEFT"/>
        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="SmallTabs">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SMALL_TABS" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SMALL_TABS_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SMALL_TABS_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultTab" relativePoint="BOTTOMLEFT" />
+        </Anchors>
       </Frame>
    </Frames>
   </Frame>
