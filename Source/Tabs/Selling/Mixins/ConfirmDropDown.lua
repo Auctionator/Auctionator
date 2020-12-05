@@ -50,12 +50,6 @@ function AuctionatorConfirmDropDownMixin:Initialize()
 end
 
 function AuctionatorConfirmDropDownMixin:Callback(itemInfo)
-  -- If the dropdown is already open close it so that Toggle reopens it at the
-  -- new cursor position
-  if self.data and self.data.itemKey ~= itemInfo.itemKey then
-    HideDropDownMenu(1)
-  end
-
   self.data = itemInfo
   if Auctionator.AH.IsNotThrottled() then
     self:Toggle()
