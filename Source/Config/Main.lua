@@ -51,6 +51,11 @@ Auctionator.Config.Options = {
   UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo",
 
   SILENCE_AUCTION_ERRORS = "silence_auction_errors",
+
+  COLUMNS_SHOPPING = "columns_shopping",
+  COLUMNS_SELLING_SEARCH = "columns_selling_search",
+  COLUMNS_HISTORICAL_PRICES = "historical_prices",
+  COLUMNS_CANCELLING = "columns_cancelling",
 }
 
 Auctionator.Config.SalesTypes = {
@@ -118,6 +123,11 @@ local defaults = {
   [Auctionator.Config.Options.SILENCE_AUCTION_ERRORS] = true,
   [Auctionator.Config.Options.DEFAULT_TAB] = 0,
   [Auctionator.Config.Options.SMALL_TABS] = false,
+
+  [Auctionator.Config.Options.COLUMNS_SHOPPING] = {},
+  [Auctionator.Config.Options.COLUMNS_CANCELLING] = {},
+  [Auctionator.Config.Options.COLUMNS_SELLING_SEARCH] = {},
+  [Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES] = {},
 }
 
 local function isValidOption(name)

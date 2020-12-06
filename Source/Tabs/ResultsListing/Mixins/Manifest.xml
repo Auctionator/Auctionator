@@ -15,5 +15,7 @@
   <Script file="HistoricalPriceRow.lua"/>
   <Script file="BagListResultsRow.lua" />
 
+  <Script file="CustomiseColumnsDropDown.lua"/>
+
   <Script file="ResultsListing.lua"/>
 </Ui>

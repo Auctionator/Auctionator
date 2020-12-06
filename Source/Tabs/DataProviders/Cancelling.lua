@@ -181,6 +181,10 @@ function AuctionatorCancellingDataProviderMixin:GetTableLayout()
   return CANCELLING_TABLE_LAYOUT
 end
 
+function AuctionatorCancellingDataProviderMixin:GetColumnHideStates()
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_CANCELLING)
+end
+
 function AuctionatorCancellingDataProviderMixin:GetRowTemplate()
   return "AuctionatorCancellingListResultsRowTemplate"
 end

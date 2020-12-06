@@ -1,16 +1,16 @@
 AuctionatorStringColumnHeaderTemplateMixin = CreateFromMixins(TableBuilderElementMixin)
 
-function AuctionatorStringColumnHeaderTemplateMixin:Init(name, sortFunction, sortKey, tooltipText)
+function AuctionatorStringColumnHeaderTemplateMixin:Init(name, customiseFunction, sortFunction, sortKey, tooltipText)
   self.tooltipText = tooltipText
   self.sortKey = sortKey
+  self.customiseFunction = customiseFunction
   self.sortFunction = sortFunction
   self.sortDirection = nil
 
   self:SetText(name)
 end
 
--- Implementing mouse events for sorting
-function AuctionatorStringColumnHeaderTemplateMixin:OnClick()
+function AuctionatorStringColumnHeaderTemplateMixin:DoSort()
   if self.sortKey then
     if self.sortDirection == Auctionator.Constants.SORT.DESCENDING or self.sortDirection == nil then
       self.sortDirection = Auctionator.Constants.SORT.ASCENDING
@@ -30,6 +30,21 @@ function AuctionatorStringColumnHeaderTemplateMixin:OnClick()
   end
 
   PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+end
+
+-- Implementing mouse events for sorting
+function AuctionatorStringColumnHeaderTemplateMixin:OnClick(button, ...)
+  if button == "LeftButton" then
+    self:DoSort()
+  end
+end
+
+function AuctionatorStringColumnHeaderTemplateMixin:OnMouseUp(button, ...)
+  -- Registered to the mouse handler so that the dropdown still shows even when
+  -- the headers are disabled
+  if button == "RightButton" then
+    self.customiseFunction()
+  end
 end
 
 -- Implementing mouse events for tooltip

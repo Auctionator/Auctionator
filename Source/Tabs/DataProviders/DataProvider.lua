@@ -61,6 +61,12 @@ function AuctionatorDataProviderMixin:GetTableLayout()
   return {}
 end
 
+-- Derive: This sets table which stores the options for saving the customised
+-- column view.  If this is nil, it won't be possible to customise the columns.
+function AuctionatorDataProviderMixin:GetColumnHideStates()
+  return nil
+end
+
 function AuctionatorDataProviderMixin:GetRowTemplate()
   return "AuctionatorResultsRowTemplate"
 end

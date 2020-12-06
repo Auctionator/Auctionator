@@ -49,6 +49,9 @@ end
 function AuctionatorHistoricalPriceProviderMixin:GetTableLayout()
   return HISTORICAL_PRICE_PROVIDER_LAYOUT
 end
+function AuctionatorHistoricalPriceProviderMixin:GetColumnHideStates()
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES)
+end
 
 function AuctionatorHistoricalPriceProviderMixin:ReceiveEvent(event, itemInfo)
   if event == Auctionator.Selling.Events.BagItemClicked then
