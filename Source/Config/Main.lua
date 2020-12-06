@@ -133,6 +133,13 @@ function Auctionator.Config.Create(constant, name, defaultValue)
   Auctionator.Config.Options[constant] = name
 
   defaults[Auctionator.Config.Options[constant]] = defaultValue
+
+  if AUCTIONATOR_CONFIG ~= nil and AUCTIONATOR_CONFIG[name] == nil then
+    AUCTIONATOR_CONFIG[name] = defaultValue
+  end
+  if AUCTIONATOR_CHARACTER_CONFIG ~= nil and AUCTIONATOR_CHARACTER_CONFIG[name] == nil then
+    AUCTIONATOR_CHARACTER_CONFIG[name] = defaultValue
+  end
 end
 
 function Auctionator.Config.Set(name, value)
