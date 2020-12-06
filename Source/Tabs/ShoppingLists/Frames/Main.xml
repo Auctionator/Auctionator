@@ -29,6 +29,7 @@
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
+          <OnEvent method="OnEvent"/>
         </Scripts>
       </Frame>
 

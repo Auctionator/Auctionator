@@ -4,10 +4,16 @@ function AuctionatorShoppingListDropdownMixin:OnLoad()
   UIDropDownMenu_Initialize(self, self.Initialize, "taint prevention")
   UIDropDownMenu_SetWidth(self, 190)
 
+  self.searchNextTime = true
   self:SetUpEvents()
 end
 
 function AuctionatorShoppingListDropdownMixin:OnShow()
+  if not self.searchNextTime then
+    return
+  end
+  self.searchNextTime = false
+
   local listName = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST)
 
   if listName == Auctionator.Constants.NO_LIST then
@@ -21,6 +27,12 @@ function AuctionatorShoppingListDropdownMixin:OnShow()
   end
 end
 
+function AuctionatorShoppingListDropdownMixin:OnEvent(eventName, ...)
+  if eventName == "AUCTION_HOUSE_CLOSED" then
+    self.searchNextTime = true
+  end
+end
+
 function AuctionatorShoppingListDropdownMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Dropdown")
 
@@ -28,6 +40,9 @@ function AuctionatorShoppingListDropdownMixin:SetUpEvents()
     Auctionator.ShoppingLists.Events.ListCreated,
     Auctionator.ShoppingLists.Events.ListDeleted,
     Auctionator.ShoppingLists.Events.ListRenamed
+  })
+  FrameUtil.RegisterFrameForEvents(self, {
+    "AUCTION_HOUSE_CLOSED"
   })
 end
 
