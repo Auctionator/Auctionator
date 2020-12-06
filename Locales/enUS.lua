@@ -225,6 +225,15 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_834_MISCELLANEOUS_HEADER"] = "Miscellaneous"
   L["SPLASH_834_MISCELLANEOUS_1"] = "Search the AH for reagents from the crafting window (a \"Search\" button appears when both the crafting window and the AH are open)"
 
+  L["SPLASH_901_DESCRIPTION"] = "Biggest changes in this release are customisable columns for item listings and the changes to the full scan. As always there are various bugfixes."
+
+  L["SPLASH_901_FEATURES_HEADER"] = "New Features"
+  L["SPLASH_901_FEATURES_1"] = "Customisable columns on all results views. Do a right click on any column header to see the options."
+  L["SPLASH_901_FEATURES_2"] = "Small tabs option for when too many addons add tabs to the Auction House"
+  L["SPLASH_901_CHANGES_HEADER"] = "Changes"
+  L["SPLASH_901_CHANGES_1"] = "Replaced the full scan with a different method to avoid getting disconnected on busy servers."
+  L["SPLASH_901_CHANGES_2"] = "The autoscan option now defaults to off."
+
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
   L["LIST_ADD_ITEM_HEADER"] = "Add Shopping List Item"
