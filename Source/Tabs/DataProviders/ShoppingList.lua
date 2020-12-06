@@ -102,6 +102,10 @@ function AuctionatorShoppingListDataProviderMixin:GetTableLayout()
   return SHOPPING_LIST_TABLE_LAYOUT
 end
 
+function AuctionatorShoppingListDataProviderMixin:GetColumnHideStates()
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_SHOPPING)
+end
+
 function AuctionatorShoppingListDataProviderMixin:GetRowTemplate()
   return "AuctionatorShoppingListResultsRowTemplate"
 end

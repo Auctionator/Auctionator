@@ -9,6 +9,7 @@
 
     <Scripts>
       <OnClick method="OnClick"/>
+      <OnMouseUp method="OnMouseUp"/>
       <OnEnter method="OnEnter"/>
       <OnLeave method="OnLeave"/>
     </Scripts>

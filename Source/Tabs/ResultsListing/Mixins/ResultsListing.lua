@@ -136,6 +136,9 @@ function AuctionatorResultsListingMixin:InitializeTable()
       "BUTTON",
       columnEntry.headerTemplate,
       columnEntry.headerText,
+      function()
+        self:CustomiseColumns()
+      end,
       function(sortKey, sortDirection)
         self:ClearColumnSorts()
 
@@ -152,9 +155,8 @@ function AuctionatorResultsListingMixin:InitializeTable()
       column:SetFillConstraints(1.0, 0)
     end
   end
-
-  self.tableBuilder:Arrange()
   self.isInitialized = true
+  self:UpdateForHiding()
 end
 
 function AuctionatorResultsListingMixin:UpdateTable()
@@ -186,6 +188,71 @@ function AuctionatorResultsListingMixin:ClearColumnSorts()
   for _, col in ipairs(self.tableBuilder:GetColumns()) do
     col.headerFrame.Arrow:Hide()
   end
+end
+
+function AuctionatorResultsListingMixin:CustomiseColumns()
+  if self.dataProvider:GetColumnHideStates() ~= nil then
+    self.CustomiseDropDown:Callback(
+      self.columnSpecification,
+      self.dataProvider:GetColumnHideStates(),
+      function()
+        self:UpdateForHiding()
+    end)
+  end
+end
+
+local function SetColumnShown(column, isShown)
+  column:GetHeaderFrame():SetShown(isShown)
+  for _, cell in ipairs(column.cells) do
+    cell:SetShown(isShown)
+  end
+end
+
+function AuctionatorResultsListingMixin:UpdateForHiding()
+  if not self.dataProvider:GetColumnHideStates() then
+    self.tableBuilder:Arrange()
+    return
+  end
+
+  local hidingDetails = self.dataProvider:GetColumnHideStates()
+
+  local anyFlexibleWidths = false
+  local visibleColumn
+
+  for index, column in ipairs(self.tableBuilder:GetColumns()) do
+    local columnEntry = self.columnSpecification[index]
+
+    -- Import default value if hidden state not already set.
+    if hidingDetails[columnEntry.headerText] == nil then
+      hidingDetails[columnEntry.headerText] = columnEntry.defaultHide or false
+    end
+
+    if hidingDetails[columnEntry.headerText] then
+      SetColumnShown(column, false)
+      column:SetFixedConstraints(1, 0)
+    else
+      SetColumnShown(column, true)
+
+      if columnEntry.width ~= nil then
+        column:SetFixedConstraints(columnEntry.width, 0)
+      else
+        anyFlexibleWidths = true
+        column:SetFillConstraints(1.0, 0)
+      end
+
+      if visibleColumn == nil then
+        visibleColumn = column
+      end
+    end
+  end
+
+  -- Checking that at least one column will fill up empty space, if there isn't
+  -- one, the first visible column is modified to do so.
+  if not anyFlexibleWidths then
+    visibleColumn:SetFillConstraints(1.0, 0)
+  end
+
+  self.tableBuilder:Arrange()
 end
 
 function AuctionatorResultsListingMixin:EnableSpinner()

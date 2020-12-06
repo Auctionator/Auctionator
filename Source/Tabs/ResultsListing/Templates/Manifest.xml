@@ -15,5 +15,7 @@
   <Include file="BagListResultsRow.xml"/>
   <Include file="HistoricalPriceRow.xml"/>
 
+  <Include file="CustomiseColumnsDropDown.xml"/>
+
   <Include file="ResultsListing.xml"/>
 </Ui>

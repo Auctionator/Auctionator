@@ -76,6 +76,10 @@ function AuctionatorSearchDataProviderMixin:GetTableLayout()
   return SEARCH_PROVIDER_LAYOUT
 end
 
+function AuctionatorSearchDataProviderMixin:GetColumnHideStates()
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_SELLING_SEARCH)
+end
+
 local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
   bidPrice = Auctionator.Utilities.NumberComparator,
