@@ -81,10 +81,6 @@ function AuctionatorShoppingListDropdownMixin:ReceiveEvent(eventName, eventData)
   end
 
   if eventName == Auctionator.ShoppingLists.Events.ListDeleted then
-    if #Auctionator.ShoppingLists.Lists == 0 then
-      UIDropDownMenu_SetText(self, "")
-    else
-      self:SelectList(Auctionator.ShoppingLists.Lists[1])
-    end
+    UIDropDownMenu_SetText(self, "")
   end
 end
