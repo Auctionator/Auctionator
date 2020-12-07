@@ -74,8 +74,8 @@ function Auctionator.Variables.InitializeDatabase()
     }
   end
 
-  -- Changing how we record item info, so need to reset the DB if prior to 8.3
-  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] < VERSION_8_3 then
+  -- If we changed how we record item info we need to reset the DB
+  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] ~= VERSION_8_3 then
     AUCTIONATOR_PRICE_DATABASE = {
       ["__dbversion"] = VERSION_8_3
     }
