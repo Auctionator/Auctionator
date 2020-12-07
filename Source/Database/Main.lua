@@ -124,9 +124,19 @@ function Auctionator.Database.Prune()
         entriesPruned = entriesPruned +1
       end
     end
+
+    if priceData.a ~= nil then
+      for day, _ in pairs(priceData.a) do
+        if day <= cutoffDay then
+          priceData.a[day] = nil
+
+          entriesPruned = entriesPruned +1
+        end
+      end
+    end
   end
 
-  Auctionator.Debug.Message("Auctionator.Database.Prune Pruned " .. tostring(entriesPruned) .. " prices")
+  Auctionator.Debug.Message("Auctionator.Database.Prune Pruned " .. tostring(entriesPruned) .. " entries")
 end
 
 function Auctionator.Database.GetPriceHistory(itemKey)
