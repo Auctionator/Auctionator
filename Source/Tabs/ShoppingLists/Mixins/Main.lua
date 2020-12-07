@@ -78,8 +78,7 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
   if eventName == ListSelected then
     self.selectedList = eventData
     self.AddItem:Enable()
-  elseif eventName == ListDeleted and #Auctionator.ShoppingLists.Lists == 0 then
-    -- If no more lists, need to clean up the UI
+  elseif eventName == ListDeleted then
     self.Rename:Disable()
     self.AddItem:Disable()
     self.ManualSearch:Disable()

@@ -36,5 +36,7 @@ function AuctionatorListSearchButtonMixin:ReceiveEvent(eventName, eventData)
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
     self:Enable()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListDeleted then
+    self:Disable()
   end
 end
