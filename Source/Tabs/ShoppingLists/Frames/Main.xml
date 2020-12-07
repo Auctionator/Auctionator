@@ -2,7 +2,6 @@
   <Frame
     name="AuctionatorShoppingListTabFrameTemplate"
     virtual="true"
-    inherits="AuctionatorTabFrameTemplate"
     parentKey="AuctionatorShoppingListFrame"
     mixin="AuctionatorShoppingListTabMixin"
     hidden="true"
@@ -12,6 +11,12 @@
       <OnShow method="OnShow" />
       <OnEvent method="OnEvent" />
     </Scripts>
+
+    <Anchors>
+      <Anchor point="TOP" relativeKey="$parent.CategoriesList" relativePoint="TOP" y="-30"/>
+      <Anchor point="LEFT" x="4"/>
+      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
+    </Anchors>
 
     <Frames>
       <Frame parentKey="DataProvider" mixin="AuctionatorShoppingListDataProviderMixin">
@@ -130,28 +135,7 @@
             <Texture atlas="auctionhouse-background-sell-right">
               <Anchors>
                 <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
-                <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
-              </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
-      </Frame>
-
-      <!-- List Add Item Button -->
-      <!-- This frame creates a background for us to put buttons on below the ListItem scroll frame -->
-      <Frame>
-        <Size x="296" y="55" />
-
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMLEFT" y="20" x="4" />
-        </Anchors>
-
-        <Layers>
-          <Layer level="BACKGROUND" textureSubLevel="-6">
-            <Texture name="$parentBg" file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true" parentKey="Bg">
-              <Anchors>
-                <Anchor point="TOPLEFT" y="-21"/>
-                <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+                <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="2"/>
               </Anchors>
             </Texture>
           </Layer>
@@ -190,6 +174,14 @@
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
         </Anchors>
       </Frame>
+
+      <Frame parentKey="ShoppingResultsInset" inherits="AuctionatorInsetTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
+
     </Frames>
   </Frame>
 </Ui>
