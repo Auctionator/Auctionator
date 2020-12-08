@@ -20,7 +20,7 @@ local SEARCH_PROVIDER_LAYOUT = {
     headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "quantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "quantity" },
+    cellParameters = { "quantityFormatted" },
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -141,6 +141,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       bidPrice = nil,
       owners = resultInfo.owners,
       quantity = resultInfo.quantity,
+      quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
       level = "0",
       timeLeft = Auctionator.Utilities.RoundTime(resultInfo.timeLeftSeconds or 0),
       timeLeftRaw = resultInfo.timeLeftSeconds or 0,
