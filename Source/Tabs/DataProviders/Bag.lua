@@ -65,13 +65,15 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
       if location:IsValid() and not IsIgnoredItemKey(location) then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
 
-        local tempId = self:UniqueKey(itemInfo)
+        if itemInfo.quality ~= Enum.ItemQuality.Poor then
+          local tempId = self:UniqueKey(itemInfo)
 
-        if itemMap[tempId] == nil then
-          table.insert(orderedKeys, tempId)
-          itemMap[tempId] = itemInfo
-        else
-          itemMap[tempId].count = itemMap[tempId].count + itemInfo.count
+          if itemMap[tempId] == nil then
+            table.insert(orderedKeys, tempId)
+            itemMap[tempId] = itemInfo
+          else
+            itemMap[tempId].count = itemMap[tempId].count + itemInfo.count
+          end
         end
       end
     end
