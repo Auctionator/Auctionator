@@ -41,22 +41,17 @@ function AuctionatorResultsListingMixin:ReceiveEvent(eventName, ...)
 end
 
 function AuctionatorResultsListingMixin:InitializeDataProvider()
-  self:DisableColumns()
-
   self.dataProvider:SetOnUpdateCallback(function()
     self:UpdateTable()
   end)
 
   self.dataProvider:SetOnSearchStartedCallback(function()
     self.ScrollFrame.NoResultsText:Hide()
-    self:ClearColumnSorts()
-    self:DisableColumns()
     self:EnableSpinner()
   end)
 
   self.dataProvider:SetOnSearchEndedCallback(function()
     self:RestoreScrollPosition()
-    self:EnableColumns()
     self:DisableSpinner()
   end)
 
@@ -142,6 +137,7 @@ function AuctionatorResultsListingMixin:InitializeTable()
       function(sortKey, sortDirection)
         self:ClearColumnSorts()
 
+        self.dataProvider:SetPresetSort(sortKey, sortDirection)
         self.dataProvider:Sort(sortKey, sortDirection)
       end,
       unpack((columnEntry.headerParameters or {}))
@@ -265,16 +261,4 @@ function AuctionatorResultsListingMixin:DisableSpinner()
   self.ScrollFrame.ResultsText:Hide()
   self.ScrollFrame.LoadingSpinner:Hide()
   self.ScrollFrame.SpinnerAnim:Stop()
-end
-
-function AuctionatorResultsListingMixin:EnableColumns()
-  for _, col in ipairs(self.tableBuilder:GetColumns()) do
-    col.headerFrame:Enable()
-  end
-end
-
-function AuctionatorResultsListingMixin:DisableColumns()
-  for _, col in ipairs(self.tableBuilder:GetColumns()) do
-    col.headerFrame:Disable()
-  end
 end

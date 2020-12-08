@@ -7,6 +7,7 @@ function AuctionatorDataProviderMixin:OnLoad()
   self.insertedKeys = {}
   self.entriesToProcess = {}
   self.processCountPerUpdate = 10
+  self.presetSort = {key = nil, direction = nil}
 
   self.searchCompleted = false
 
@@ -38,6 +39,13 @@ end
 
 -- Derive: This is the template for sorting the dataset contained by this provider
 function AuctionatorDataProviderMixin:Sort(fieldName, sortDirection)
+end
+
+-- Sets sorting fieldName/sortDirection to use as data is being processed. Set
+-- either to nil to disable any sorting.
+function AuctionatorDataProviderMixin:SetPresetSort(fieldName, sortDirection)
+  self.presetSort.key = fieldName
+  self.presetSort.direction = sortDirection
 end
 
 -- Derive: This defines the Results Listing table layout
@@ -140,6 +148,10 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
 
       self.onEntryProcessed(entry)
     end
+  end
+
+  if self.presetSort.key ~= nil and self.presetSort.direction ~= nil then
+    self:Sort(self.presetSort.key, self.presetSort.direction)
   end
 
   if #self.entriesToProcess == 0 and self.searchCompleted then
