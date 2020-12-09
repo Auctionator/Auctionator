@@ -93,14 +93,16 @@ function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
   Auctionator.Debug.Message("AuctionatorIncrementalScanFrameMixin:AddPrices()", results)
 
   for _, resultInfo in ipairs(results) do
-    local itemKey = Auctionator.Utilities.ItemKeyFromBrowseResult(resultInfo)
-    if self.info[itemKey] == nil then
-      self.info[itemKey] = {}
-    end
+    if resultInfo.totalQuantity ~= 0 then
+      local itemKey = Auctionator.Utilities.ItemKeyFromBrowseResult(resultInfo)
+      if self.info[itemKey] == nil then
+        self.info[itemKey] = {}
+      end
 
-    table.insert(self.info[itemKey],
-      { price = resultInfo.minPrice, available = resultInfo.totalQuantity }
-    )
+      table.insert(self.info[itemKey],
+        { price = resultInfo.minPrice, available = resultInfo.totalQuantity }
+      )
+    end
   end
 
   if self.doingFullScan then
