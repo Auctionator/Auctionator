@@ -225,7 +225,7 @@ function AuctionatorResultsListingMixin:UpdateForHiding()
 
     if hidingDetails[columnEntry.headerText] then
       SetColumnShown(column, false)
-      column:SetFixedConstraints(1, 0)
+      column:SetFixedConstraints(0.001, 0)
     else
       SetColumnShown(column, true)
 
