@@ -86,5 +86,5 @@ function AuctionatorPostingHistoryProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function AuctionatorPostingHistoryProviderMixin:GetRowTemplate()
-  return "AuctionatorHistoricalPriceRowTemplate"
+  return "AuctionatorPostingHistoryRowTemplate"
 end

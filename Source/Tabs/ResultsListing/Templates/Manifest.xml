@@ -14,6 +14,7 @@
   <Include file="CancellingListResultsRow.xml"/>
   <Include file="BagListResultsRow.xml"/>
   <Include file="HistoricalPriceRow.xml"/>
+  <Include file="PostingHistoryRow.xml"/>
 
   <Include file="CustomiseColumnsDropDown.xml"/>
 
