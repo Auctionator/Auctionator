@@ -29,8 +29,8 @@ function Auctionator.PostingHistoryMixin:AddEntry(key, price, quantity)
         time.day == currentTime.day and time.month == currentTime.month and time.year == currentTime.year then
       itemInfo[#itemInfo].quantity = itemInfo[#itemInfo].quantity + itemInfo[index].quantity
       table.remove(itemInfo, index)
-      index = index - 1
     end
+    index = index - 1
   end
 
   if #itemInfo > Auctionator.Config.Get(Auctionator.Config.Options.POSTING_HISTORY_LENGTH) then
