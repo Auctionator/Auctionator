@@ -23,6 +23,23 @@ local CANCELLING_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_BID_PRICE,
+    headerParameters = { "bidPrice" },
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "bidPrice" },
+    width = 150,
+    defaultHide = true,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_BIDDER,
+    headerParameters = { "bidder" },
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "bidder" },
+    defaultHide = true,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_TIME_LEFT_H,
     headerParameters = { "timeLeft" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -86,7 +103,9 @@ end
 
 local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
+  bidPrice = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
+  bidder = Auctionator.Utilities.StringComparator,
   quantity = Auctionator.Utilities.NumberComparator,
   timeLeft = Auctionator.Utilities.NumberComparator,
   undercut = Auctionator.Utilities.StringComparator,
@@ -158,6 +177,8 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         id = info.auctionID,
         quantity = info.quantity,
         price = price,
+        bidPrice = info.bidAmount,
+        bidder = info.bidder,
         itemKey = info.itemKey,
         itemLink = info.itemLink, -- Used for tooltips
         timeLeft = Auctionator.Utilities.RoundTime(info.timeLeftSeconds or 0),
