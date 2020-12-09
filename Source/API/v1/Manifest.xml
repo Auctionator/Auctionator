@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="MultiSearch.lua" />
   <Script file="GetAuctionPrice.lua" />
+  <Script file="RegisterForDBUpdate.lua" />
 </Ui>
