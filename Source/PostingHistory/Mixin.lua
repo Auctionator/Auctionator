@@ -67,9 +67,7 @@ function Auctionator.PostingHistoryMixin:GetPriceHistory(itemKey)
 
   for _, entry in ipairs(self.db[itemKey]) do
     table.insert(results, {
-     date = Auctionator.Utilities.PrettyDate(
-        entry.time
-     ),
+     date = Auctionator.Utilities.PrettyDate(entry.time),
      rawDay = entry.time,
      price = entry.price,
      quantity = entry.quantity

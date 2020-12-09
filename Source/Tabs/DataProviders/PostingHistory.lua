@@ -53,7 +53,7 @@ function AuctionatorPostingHistoryProviderMixin:GetTableLayout()
   return POSTING_HISTORY_PROVIDER_LAYOUT
 end
 function AuctionatorPostingHistoryProviderMixin:GetColumnHideStates()
-  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES)
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_POSTING_HISTORY)
 end
 
 function AuctionatorPostingHistoryProviderMixin:ReceiveEvent(eventName, eventData)

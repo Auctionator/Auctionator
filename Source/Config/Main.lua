@@ -55,6 +55,7 @@ Auctionator.Config.Options = {
   COLUMNS_SHOPPING = "columns_shopping",
   COLUMNS_SELLING_SEARCH = "columns_selling_search",
   COLUMNS_HISTORICAL_PRICES = "historical_prices",
+  COLUMNS_POSTING_HISTORY = "columns_posting_history",
   COLUMNS_CANCELLING = "columns_cancelling",
 }
 
@@ -128,6 +129,7 @@ local defaults = {
   [Auctionator.Config.Options.COLUMNS_CANCELLING] = {},
   [Auctionator.Config.Options.COLUMNS_SELLING_SEARCH] = {},
   [Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES] = {},
+  [Auctionator.Config.Options.COLUMNS_POSTING_HISTORY] = {},
 }
 
 local function isValidOption(name)
