@@ -1,4 +1,4 @@
-local YOUR_HISTORY_PROVIDER_LAYOUT ={
+local POSTING_HISTORY_PROVIDER_LAYOUT ={
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_UNIT_PRICE,
@@ -50,7 +50,7 @@ function AuctionatorPostingHistoryProviderMixin:SetItem(dbKey)
 end
 
 function AuctionatorPostingHistoryProviderMixin:GetTableLayout()
-  return YOUR_HISTORY_PROVIDER_LAYOUT
+  return POSTING_HISTORY_PROVIDER_LAYOUT
 end
 function AuctionatorPostingHistoryProviderMixin:GetColumnHideStates()
   return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES)

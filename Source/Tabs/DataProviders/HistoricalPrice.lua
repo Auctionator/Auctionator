@@ -58,8 +58,6 @@ function AuctionatorHistoricalPriceProviderMixin:SetItem(itemKey)
     else
       entry.availableFormatted = ""
     end
-
-    entry.price = entry.minSeen -- Price to use when clicked on
   end
 
   self:AppendEntries(entries, true)
