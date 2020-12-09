@@ -19,12 +19,14 @@ function Auctionator.PostingHistoryMixin:AddEntry(key, price, quantity)
     price = price, quantity = quantity, time = time()
   })
 
-  local prettyDate = Auctionator.Utilities.PrettyDate(itemInfo[#itemInfo].time)
+  local currentTime = date("*t", itemInfo[#itemInfo].time)
 
   local index = #itemInfo - 1
-  --Combine any items on the same day and same date visually
+  --Combine any items of the same price and same day
   while index > 0 do
-    if itemInfo[index].price == price and Auctionator.Utilities.PrettyDate(itemInfo[index].time) == prettyDate then
+    local time = date("*t", itemInfo[index].time)
+    if itemInfo[index].price == price and
+        time.day == currentTime.day and time.month == currentTime.month and time.year == currentTime.year then
       itemInfo[#itemInfo].quantity = itemInfo[#itemInfo].quantity + itemInfo[index].quantity
       table.remove(itemInfo, index)
       index = index - 1
