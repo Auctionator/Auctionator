@@ -405,7 +405,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
 
   -- Update DB with current lowest price
   if result ~= nil then
-    Auctionator.Database.SetPrice(dbKey, result.buyoutAmount)
+    Auctionator.Database.SetPrice(dbKey, result.buyoutAmount or result.bidAmount)
   end
 
   local postingPrice = nil
