@@ -7,6 +7,7 @@ Auctionator.Config.Options = {
   ENCHANT_TOOLTIPS = "enchant_tooltips",
   SHIFT_STACK_TOOLTIPS = "shift_stack_tooltips",
   AUTOSCAN = "autoscan_2",
+  AUTOSCAN_INTERVAL = "autoscan_interval",
   AUTO_LIST_SEARCH = "auto_list_search",
   DEFAULT_LIST = "default_list_2",
 
@@ -80,6 +81,7 @@ local defaults = {
   [Auctionator.Config.Options.ENCHANT_TOOLTIPS] = true,
   [Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS] = true,
   [Auctionator.Config.Options.AUTOSCAN] = false,
+  [Auctionator.Config.Options.AUTOSCAN_INTERVAL] = 15,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.DEFAULT_LIST] = Auctionator.Constants.NO_LIST,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,

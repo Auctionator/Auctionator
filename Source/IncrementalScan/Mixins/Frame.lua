@@ -11,6 +11,7 @@ function AuctionatorIncrementalScanFrameMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorIncrementalScanFrameMixin")
 
   self.doingFullScan = false
+  self.state = Auctionator.SavedState
 
   self:RegisterForEvents()
 end
@@ -42,6 +43,12 @@ function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
     Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_FAILED)
     Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanFailed)
   end
+end
+
+function AuctionatorIncrementalScanFrameMixin:IsAutoscanReady()
+  local timeSinceLastScan = time() - (self.state.TimeOfLastScan or 0)
+
+  return timeSinceLastScan >= (Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN_INTERVAL) * 60)
 end
 
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
@@ -112,6 +119,7 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
       self.doingFullScan = false
 
       Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete)
+      self.state.TimeOfLastScan = time()
     end
 
     self.info = {} --Already processed, so clear

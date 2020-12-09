@@ -14,6 +14,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_AUTOSCAN"] = "Run autoscan when Auction House is opened."
   L["CONFIG_AUTOSCAN_TOOLTIP_HEADER"] = "Autoscan"
   L["CONFIG_AUTOSCAN_TOOLTIP_TEXT"] = "Run a full scan when the auction house is opened. If not selected, you may run a full scan by clicking the 'Full Scan' button in the auction house."
+  L["CONFIG_AUTOSCAN_INTERVAL_HEADER"] = "Interval between autoscans"
+  L["CONFIG_AUTOSCAN_INTERVAL"] = "Set to the number of minutes to wait between autoscans"
+  L["CONFIG_AUTOSCAN_INTERVAL_TOOLTIP_HEADER"] = "Autoscan Delay Interval"
+  L["CONFIG_AUTOSCAN_INTERVAL_TOOLTIP_TEXT"] = "By default an scan doesn't happen every time you open the Auction House. It waits until a fixed time has elapsed since the last scan."
 
   L["CONFIG_DEVELOPER"] = "Developer Settings"
   L["CONFIG_DEBUG"] = "Toggle debug output."

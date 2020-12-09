@@ -15,7 +15,8 @@ local function InitializeIncrementalScanFrame()
     frame = Auctionator.State.IncrementalScanFrameRef
   end
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) then
+  if Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN) and
+     frame:IsAutoscanReady() then
     frame:InitiateScan()
   end
 end
