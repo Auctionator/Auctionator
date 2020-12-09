@@ -13,27 +13,37 @@ function Auctionator.PostingHistoryMixin:AddEntry(key, price, quantity)
     self.db[key] = {}
   end
 
-  local itemInfo = self.db[key]
-
-  table.insert(itemInfo, {
+  table.insert(self.db[key], {
     price = price, quantity = quantity, time = time()
   })
 
+  self:PruneKey(key)
+end
+
+local function IsSameDay(time1, time2)
+  return time1.day == time2.day and time1.month == time2.month and time1.year == time2.year
+end
+
+function Auctionator.PostingHistoryMixin:PruneKey(key)
+  local itemInfo = self.db[key]
+
   local currentTime = date("*t", itemInfo[#itemInfo].time)
+  local price = itemInfo[#itemInfo].price
 
   local index = #itemInfo - 1
   --Combine any items of the same price and same day
   while index > 0 do
-    local time = date("*t", itemInfo[index].time)
+    local otherTime = date("*t", itemInfo[index].time)
     if itemInfo[index].price == price and
-        time.day == currentTime.day and time.month == currentTime.month and time.year == currentTime.year then
+        IsSameDay(currentTime, otherTime) then
+      -- Combine quantities
       itemInfo[#itemInfo].quantity = itemInfo[#itemInfo].quantity + itemInfo[index].quantity
       table.remove(itemInfo, index)
     end
     index = index - 1
   end
 
-  if #itemInfo > Auctionator.Config.Get(Auctionator.Config.Options.POSTING_HISTORY_LENGTH) then
+  while #itemInfo > Auctionator.Config.Get(Auctionator.Config.Options.POSTING_HISTORY_LENGTH) do
     table.remove(itemInfo, 1)
   end
 end
