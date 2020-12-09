@@ -31,7 +31,7 @@ function Auctionator.PostingHistoryMixin:AddEntry(key, price, quantity)
     end
   end
 
-  if #itemInfo > Auctionator.Config.Get(Auctionator.Config.Options.AUCTIONS_HISTORY_LENGTH) then
+  if #itemInfo > Auctionator.Config.Get(Auctionator.Config.Options.POSTING_HISTORY_LENGTH) then
     table.remove(itemInfo, 1)
   end
 end

@@ -46,7 +46,7 @@ function AuctionatorPostingHistoryProviderMixin:SetItem(dbKey)
 
   self.currentDBKey = dbKey
 
-  self:AppendEntries(Auctionator.PostingHistory.GetPriceHistory(dbKey), true)
+  self:AppendEntries(Auctionator.PostingHistory:GetPriceHistory(dbKey), true)
 end
 
 function AuctionatorPostingHistoryProviderMixin:GetTableLayout()
