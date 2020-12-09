@@ -8,6 +8,14 @@ local HISTORICAL_PRICE_PROVIDER_LAYOUT ={
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_UPPER_UNIT_PRICE,
+    headerParameters = { "maxSeen" },
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "maxSeen" },
+    defaultHide = true
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "available" },
     cellTemplate = "AuctionatorStringCellTemplate",

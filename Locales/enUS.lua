@@ -272,6 +272,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["QUANTITY"] = "Quantity"
   L["MAX"] = "Max"
   L["UNIT_PRICE"] = "Unit Price"
+  L["UPPER_UNIT_PRICE"] = "Upper Unit Price"
   L["TIME_LEFT_H"] = "Time Left (h)"
   L["IS_UNDERCUT"] = "Undercut?"
   L["UNDERCUT_YES"] ="Yes"
