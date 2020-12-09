@@ -211,7 +211,7 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
 
   self:SetQuantity()
 
-  local price = Auctionator.Database.GetPrice(
+  local price = Auctionator.Database:GetPrice(
     Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
   )
   if price ~= nil then
@@ -357,7 +357,7 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
   local result = self:GetCommodityResult(itemID)
   -- Update DB with current lowest price
   if result ~= nil then
-    Auctionator.Database.SetPrice(dbKey, result.unitPrice)
+    Auctionator.Database:SetPrice(dbKey, result.unitPrice)
   end
 
   -- A few cases to process here:
@@ -370,7 +370,7 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
 
   if result == nil then
     -- This commodity was not found in the AH, so use the last lowest price from DB
-    postingPrice = Auctionator.Database.GetPrice(dbKey)
+    postingPrice = Auctionator.Database:GetPrice(dbKey)
   elseif result ~= nil and result.containsOwnerItem and result.owners[1] == "player" then
     -- No need to undercut myself
     postingPrice = result.unitPrice
@@ -405,7 +405,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
 
   -- Update DB with current lowest price
   if result ~= nil then
-    Auctionator.Database.SetPrice(dbKey, result.buyoutAmount or result.bidAmount)
+    Auctionator.Database:SetPrice(dbKey, result.buyoutAmount or result.bidAmount)
   end
 
   local postingPrice = nil
@@ -413,7 +413,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   if result == nil then
     -- This item was not found in the AH, so use the lowest price from the dbKey
     -- TODO: DB price does not account for iLvl
-    postingPrice = Auctionator.Database.GetPrice(dbKey)
+    postingPrice = Auctionator.Database:GetPrice(dbKey)
   elseif result ~= nil and result.containsOwnerItem then
     -- Posting an item I have alread posted, and that is the current lowest price, so just
     -- use this price

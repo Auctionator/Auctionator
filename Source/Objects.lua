@@ -1,6 +1,5 @@
 Auctionator = {
   Debug = {},
-  Database = {},
   Constants = {},
   Utilities = {},
   Events = {},

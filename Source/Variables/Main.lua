@@ -92,7 +92,8 @@ function Auctionator.Variables.InitializeDatabase()
 
   Auctionator.State.LiveDB = AUCTIONATOR_PRICE_DATABASE[realm]
 
-  Auctionator.Database.Prune()
+  Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, Auctionator.State.LiveDB)
+  Auctionator.Database:Prune()
 end
 
 function Auctionator.Variables.InitializeShoppingLists()

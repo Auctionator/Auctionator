@@ -27,7 +27,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
     countString = Auctionator.Utilities.CreateCountString(itemCount)
   end
 
-  local auctionPrice = Auctionator.Database.GetPrice(itemKey)
+  local auctionPrice = Auctionator.Database:GetPrice(itemKey)
   if auctionPrice ~= nil then
     auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
   end
@@ -72,7 +72,7 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
   for _, itemEntry in ipairs(itemKeys) do
     tooltipFrame:AddLine(itemEntry.link)
 
-    auctionPrice = Auctionator.Database.GetPrice(
+    auctionPrice = Auctionator.Database:GetPrice(
       Auctionator.Utilities.ItemKeyFromLink(itemEntry.link)
     )
     if auctionPrice ~= nil then
@@ -172,7 +172,7 @@ function Auctionator.Tooltip.AddPetTip(
   end
 
   local key = "p:" .. tostring(speciesID)
-  local price = Auctionator.Database.GetPrice(key)
+  local price = Auctionator.Database:GetPrice(key)
   BattlePetTooltip:AddLine(" ")
   if price ~= nil then
     BattlePetTooltip:AddLine(
