@@ -82,6 +82,7 @@ function AuctionatorUndercutScanMixin:NextStep()
   local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
 
   if (self.currentAuction.status == 1 or
+      self.currentAuction.bidder ~= nil or
       not ShouldInclude(self.currentAuction.itemKey)) then
     Auctionator.Debug.Message("undercut scan skip")
 
