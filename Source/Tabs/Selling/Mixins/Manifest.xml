@@ -4,6 +4,8 @@
   <Script file="BagClassListing.lua"/>
   <Script file="ItemIconDropDown.lua"/>
   <Script file="ConfirmDropDown.lua"/>
+  <Script file="MiniTabButton.lua"/>
+  <Script file="HistoryContainerMixin.lua"/>
 
   <Script file="Bag.lua"/>
   <Script file="SaleItem.lua"/>

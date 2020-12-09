@@ -4,6 +4,7 @@
   <Include file="BagClassListing.xml" />
   <Include file="ItemIconDropDown.xml"/>
   <Include file="ConfirmDropDown.xml"/>
+  <Include file="MiniTabButton.xml"/>
 
   <Include file="Bag.xml" />
   <Include file="SaleItem.xml"/>

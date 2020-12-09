@@ -41,6 +41,7 @@ Auctionator.Config.Options = {
   LIFO_DEFAULT_QUANTITY = "lifo_default_quantity",
 
   PRICE_HISTORY_DAYS = "price_history_days",
+  AUCTIONS_HISTORY_LENGTH = "auctions_history_length",
 
   FEATURE_SELLING_1 = "feature_selling_1",
 
@@ -111,6 +112,7 @@ local defaults = {
   [Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY] = 0,
 
   [Auctionator.Config.Options.PRICE_HISTORY_DAYS] = 21,
+  [Auctionator.Config.Options.AUCTIONS_HISTORY_LENGTH] = 10,
   [Auctionator.Config.Options.FEATURE_SELLING_1] = true,
 
   [Auctionator.Config.Options.SPLASH_SCREEN_VERSION] = "anything",
