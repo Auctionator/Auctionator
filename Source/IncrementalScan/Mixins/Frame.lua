@@ -54,7 +54,7 @@ end
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
   Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN)
   Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
-  self.previousDatabaseCount = Auctionator.Database.GetItemCount()
+  self.previousDatabaseCount = Auctionator.Database:GetItemCount()
   self.doingFullScan = true
 
   Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanStart)
@@ -70,7 +70,7 @@ function AuctionatorIncrementalScanFrameMixin:FireProgressEvent()
     end
   end
 
-  local dbCount = Auctionator.Database.GetItemCount()
+  local dbCount = Auctionator.Database:GetItemCount()
 
   -- 10% complete after making the browse request
   local progress = 0.1
@@ -114,7 +114,7 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
   if not Auctionator.AH.HasFullBrowseResults() then
     Auctionator.AH.RequestMoreBrowseResults()
   else
-    local count = Auctionator.Database.ProcessScan(self.info)
+    local count = Auctionator.Database:ProcessScan(self.info)
 
     if self.doingFullScan then
       Auctionator.Utilities.Message(AUCTIONATOR_L_FINISHED_PROCESSING:format(count))

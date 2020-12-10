@@ -50,7 +50,7 @@ function AuctionatorHistoricalPriceProviderMixin:SetItem(itemKey)
   self.onSearchStarted()
 
   local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
-  local entries = Auctionator.Database.GetPriceHistory(dbKey)
+  local entries = Auctionator.Database:GetPriceHistory(dbKey)
 
   for _, entry in ipairs(entries) do
     if entry.available then

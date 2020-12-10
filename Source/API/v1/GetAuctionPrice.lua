@@ -8,7 +8,7 @@ function Auctionator.API.v1.GetAuctionPriceByItemID(callerID, itemID)
     )
   end
 
-  return Auctionator.Database.GetPrice(tostring(itemID))
+  return Auctionator.Database:GetPrice(tostring(itemID))
 end
 
 function Auctionator.API.v1.GetAuctionPriceByItemLink(callerID, itemLink)
@@ -21,7 +21,7 @@ function Auctionator.API.v1.GetAuctionPriceByItemLink(callerID, itemLink)
     )
   end
 
-  return Auctionator.Database.GetPrice(
+  return Auctionator.Database:GetPrice(
     Auctionator.Utilities.ItemKeyFromLink(itemLink)
   )
 end
