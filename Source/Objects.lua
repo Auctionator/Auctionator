@@ -26,6 +26,7 @@ Auctionator = {
   Selling = {},
   ReagentSearch = {},
   IncrementalScan = {},
+  PostingHistory = {},
 
   Tabs = {
     State = {

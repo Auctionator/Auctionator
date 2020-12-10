@@ -6,5 +6,6 @@
   <Script file="Cancelling.lua"/>
   <Script file="Bag.lua"/>
   <Script file="HistoricalPrice.lua"/>
+  <Script file="PostingHistory.lua"/>
   <Script file="SearchProvider.lua"/>
 </Ui>

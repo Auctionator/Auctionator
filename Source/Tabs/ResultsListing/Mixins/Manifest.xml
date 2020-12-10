@@ -13,6 +13,7 @@
   <Script file="CancellingListResultsRow.lua" />
   <Script file="SellSearchRow.lua"/>
   <Script file="HistoricalPriceRow.lua"/>
+  <Script file="PostingHistoryRow.lua"/>
   <Script file="BagListResultsRow.lua" />
 
   <Script file="CustomiseColumnsDropDown.lua"/>

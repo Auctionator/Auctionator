@@ -8,6 +8,9 @@ function AuctionatorSellingTabMixin:OnLoad()
   self.HistoricalPriceListing:Init(self.HistoricalPriceProvider)
   self.HistoricalPriceListing:SetWidth(200)
 
+  self.PostingHistoryListing:Init(self.PostingHistoryProvider)
+  self.PostingHistoryListing:SetWidth(200)
+
   self.CurrentItemListing:Init(self.CurrentItemProvider)
   self.CurrentItemListing:SetWidth(200)
 end
@@ -18,6 +21,7 @@ function AuctionatorSellingTabMixin:ApplyHiding()
     self.HistoricalPriceListing:Hide()
     self.HistoricalPriceInset:Hide()
     self.CurrentItemListing:SetPoint("BOTTOM", self, "BOTTOM")
+    self.HistoryTabsContainer:Hide()
   end
 
   if not Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BAG) then

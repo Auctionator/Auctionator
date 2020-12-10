@@ -1,4 +1,5 @@
 local VERSION_8_3 = 6
+local POSTING_HISTORY_DB_VERSION = 1
 
 function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializeSavedState()
@@ -9,6 +10,7 @@ function Auctionator.Variables.Initialize()
 
   Auctionator.Variables.InitializeDatabase()
   Auctionator.Variables.InitializeShoppingLists()
+  Auctionator.Variables.InitializePostingHistory()
 
   Auctionator.State.Loaded = true
 end
@@ -92,6 +94,19 @@ function Auctionator.Variables.InitializeDatabase()
 
   Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
   Auctionator.Database:Prune()
+end
+
+function Auctionator.Variables.InitializePostingHistory()
+  Auctionator.Debug.Message("Auctionator.Variables.InitializePostingHistory()")
+
+  if AUCTIONATOR_POSTING_HISTORY == nil  or
+     AUCTIONATOR_POSTING_HISTORY["__dbversion"] ~= POSTING_HISTORY_DB_VERSION then
+    AUCTIONATOR_POSTING_HISTORY = {
+      ["__dbversion"] = POSTING_HISTORY_DB_VERSION
+    }
+  end
+
+  Auctionator.PostingHistory = CreateAndInitFromMixin(Auctionator.PostingHistoryMixin, AUCTIONATOR_POSTING_HISTORY)
 end
 
 function Auctionator.Variables.InitializeShoppingLists()

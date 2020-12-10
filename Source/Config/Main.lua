@@ -41,6 +41,7 @@ Auctionator.Config.Options = {
   LIFO_DEFAULT_QUANTITY = "lifo_default_quantity",
 
   PRICE_HISTORY_DAYS = "price_history_days",
+  POSTING_HISTORY_LENGTH = "auctions_history_length",
 
   FEATURE_SELLING_1 = "feature_selling_1",
 
@@ -54,6 +55,7 @@ Auctionator.Config.Options = {
   COLUMNS_SHOPPING = "columns_shopping",
   COLUMNS_SELLING_SEARCH = "columns_selling_search",
   COLUMNS_HISTORICAL_PRICES = "historical_prices",
+  COLUMNS_POSTING_HISTORY = "columns_posting_history",
   COLUMNS_CANCELLING = "columns_cancelling",
 }
 
@@ -111,6 +113,7 @@ local defaults = {
   [Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY] = 0,
 
   [Auctionator.Config.Options.PRICE_HISTORY_DAYS] = 21,
+  [Auctionator.Config.Options.POSTING_HISTORY_LENGTH] = 10,
   [Auctionator.Config.Options.FEATURE_SELLING_1] = true,
 
   [Auctionator.Config.Options.SPLASH_SCREEN_VERSION] = "anything",
@@ -126,6 +129,7 @@ local defaults = {
   [Auctionator.Config.Options.COLUMNS_CANCELLING] = {},
   [Auctionator.Config.Options.COLUMNS_SELLING_SEARCH] = {},
   [Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES] = {},
+  [Auctionator.Config.Options.COLUMNS_POSTING_HISTORY] = {},
 }
 
 local function isValidOption(name)

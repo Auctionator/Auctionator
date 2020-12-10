@@ -387,6 +387,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["REAGENT_SEARCH"] = "Reagent Search"
   L["NUMBER_SEPARATOR"] = ","
   L["TOTAL_ON_SALE"] = "Total on sale: %s"
+  L["REALM_HISTORY"] = "Realm History"
+  L["YOUR_HISTORY"] = "Your History"
 
   return L
 end

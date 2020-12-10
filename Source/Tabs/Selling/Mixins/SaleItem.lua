@@ -501,6 +501,8 @@ function AuctionatorSaleItemMixin:PostItem()
     }
   )
 
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistory)
+
   -- Save item info for refreshing search results
   self.lastItemInfo = self.itemInfo
   self:Reset()
