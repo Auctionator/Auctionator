@@ -255,6 +255,8 @@ hooksecurefunc (GameTooltip, "SetHyperlink",
 function Auctionator.Tooltip.LateHooks()
   -- As AuctionHouseUtil doesn't exist until the AH is opened this cannot be
   -- called before the AH opens.
+  -- Only shows disenchant information as the auction price is already displayed
+  -- and an itemKey is too inaccurate to use for a vendor price.
   hooksecurefunc(AuctionHouseUtil, "SetAuctionHouseTooltip",
     function(owner, rowData)
       if rowData.itemLink then
@@ -265,11 +267,16 @@ function Auctionator.Tooltip.LateHooks()
         if rowData.itemKey.battlePetSpeciesID ~= 0 then
           return
         end
+        local itemInfo = { GetItemInfo(rowData.itemKey.itemID) }
 
-        local itemLink = select(2, GetItemInfo(rowData.itemKey.itemID))
+        if #itemInfo ~= 0 then
+          local disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
+          local disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemInfo[2])
 
-        if itemLink ~= nil then
-          Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, itemLink, rowData.count ~= nil and rowData.count or 1)
+          if disenchantStatus ~= nil then
+            Auctionator.Tooltip.AddDisenchantTip(GameTooltip, disenchantPrice, disenchantStatus)
+            GameTooltip:Show()
+          end
         end
       end
     end
