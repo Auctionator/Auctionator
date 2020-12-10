@@ -90,9 +90,7 @@ function Auctionator.Variables.InitializeDatabase()
     end
   end
 
-  Auctionator.State.LiveDB = AUCTIONATOR_PRICE_DATABASE[realm]
-
-  Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, Auctionator.State.LiveDB)
+  Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
   Auctionator.Database:Prune()
 end
 

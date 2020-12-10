@@ -8,7 +8,6 @@ Auctionator = {
   State = {
     Loaded = false,
     CurrentVersion = nil,
-    LiveDB = nil,
   },
 
   SavedState = {},
