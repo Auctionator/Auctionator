@@ -64,14 +64,26 @@ function AuctionatorShoppingListDataProviderMixin:ReceiveEvent(eventName, eventD
       self.onSearchStarted()
     end
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
-    self:AppendEntries(eventData, true)
+    self:AppendEntries(self:AddIsTop(eventData), true)
 
     if self.entriesCount == 0 then
       Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListDataProviderEmpty)
     end
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate then
-    self:AppendEntries(eventData)
+    self:AppendEntries(self:AddIsTop(eventData))
   end
+end
+
+function AuctionatorShoppingListDataProviderMixin:AddIsTop(entries)
+  for _, entry in ipairs(entries) do
+    if entry.containsOwnerItem then
+      entry.isTop = AUCTIONATOR_L_UNDERCUT_YES
+    else
+      entry.isTop = ""
+    end
+  end
+
+  return entries
 end
 
 function AuctionatorShoppingListDataProviderMixin:Reset()
@@ -83,13 +95,6 @@ end
 function AuctionatorShoppingListDataProviderMixin:AppendEntries(entries, isLastSetOfResults)
   self.entriesCount = self.entriesCount + #entries
 
-  for _, entry in ipairs(entries) do
-    if entry.containsOwnerItem then
-      entry.isTop = AUCTIONATOR_L_UNDERCUT_YES
-    else
-      entry.isTop = ""
-    end
-  end
   AuctionatorDataProviderMixin.AppendEntries(self, entries, isLastSetOfResults)
 end
 
