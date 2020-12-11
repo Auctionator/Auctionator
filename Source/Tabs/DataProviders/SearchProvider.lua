@@ -211,6 +211,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       timeLeft = TimeLeftBandToHours(resultInfo.timeLeft),
       timeLeftRaw =  resultInfo.timeLeft,
       quantity = resultInfo.quantity,
+      quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
       itemLink = resultInfo.itemLink,
       auctionID = resultInfo.auctionID,
       itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
