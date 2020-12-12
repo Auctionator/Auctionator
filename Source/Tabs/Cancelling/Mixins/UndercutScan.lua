@@ -29,7 +29,7 @@ function AuctionatorUndercutScanMixin:OnHide()
 end
 
 function AuctionatorUndercutScanMixin:StartScan()
-  print("AuctionatorUndercutScanMixin:OnUndercutScanButtonClick()")
+  Auctionator.Debug.Message("AuctionatorUndercutScanMixin:OnUndercutScanButtonClick()")
 
   self.currentAuction = nil
   self.undercutAuctions = {}
@@ -56,7 +56,7 @@ function AuctionatorUndercutScanMixin:SetCancel()
 end
 
 function AuctionatorUndercutScanMixin:EndScan()
-  print("undercut scan ended")
+  Auctionator.Debug.Message("undercut scan ended")
 
   FrameUtil.UnregisterFrameForEvents(self, UNDERCUT_EVENTS)
 
@@ -76,7 +76,7 @@ local function ShouldInclude(itemKey)
   end
 end
 function AuctionatorUndercutScanMixin:NextStep()
-  print("next step")
+  Auctionator.Debug.Message("next step")
   self.scanIndex = self.scanIndex - 1
 
   if self.scanIndex < 1 then
@@ -87,16 +87,14 @@ function AuctionatorUndercutScanMixin:NextStep()
   self.currentAuction = C_AuctionHouse.GetOwnedAuctionInfo(self.scanIndex)
   local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
 
-  print("itemKey.itemLevel", tostring(self.currentAuction.itemKey.itemLevel))
-  print("itemKey.battlePetSpeciesID", tostring(self.currentAuction.itemKey.battlePetSpeciesID))
   if (self.currentAuction.status == 1 or
       self.currentAuction.bidder ~= nil or
       not ShouldInclude(self.currentAuction.itemKey)) then
-    print("undercut scan skip")
+    Auctionator.Debug.Message("undercut scan skip")
 
     self:NextStep()
   elseif self.seenAuctionResults[itemKeyString] ~= nil then
-    print("undercut scan already seen")
+    Auctionator.Debug.Message("undercut scan already seen")
 
     self:ProcessUndercutResult(
       self.currentAuction,
@@ -105,7 +103,7 @@ function AuctionatorUndercutScanMixin:NextStep()
 
     self:NextStep()
   else
-    print("undercut scan searching for undercuts", self.currentAuction.auctionID)
+    Auctionator.Debug.Message("undercut scan searching for undercuts", self.currentAuction.auctionID)
 
     self:SearchForUndercuts(self.currentAuction)
   end
@@ -114,13 +112,13 @@ end
 function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
   if eventName == "OWNED_AUCTIONS_UPDATED" then
     if not self.currentAuction then
-      print("next step auto")
+      Auctionator.Debug.Message("next step auto")
 
       self.scanIndex = C_AuctionHouse.GetNumOwnedAuctions() + 1
 
       self:NextStep()
     else
-      print("list no step auto")
+      Auctionator.Debug.Message("list no step auto")
     end
 
   elseif eventName == "AUCTION_HOUSE_CLOSED" then
@@ -131,7 +129,7 @@ function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
     self:SetCancel()
 
   else
-    print("search results")
+    Auctionator.Debug.Message("search results")
     self:ProcessSearchResults(self.currentAuction, ...)
   end
 end
@@ -221,7 +219,7 @@ function AuctionatorUndercutScanMixin:ProcessUndercutResult(auctionInfo, notUnde
 end
 
 function AuctionatorUndercutScanMixin:CancelNextAuction()
-  print("AuctionatorUndercutScanMixin:CancelNextAuction()")
+  Auctionator.Debug.Message("AuctionatorUndercutScanMixin:CancelNextAuction()")
   FrameUtil.RegisterFrameForEvents(self, CANCELLING_EVENTS)
 
   Auctionator.EventBus:Fire(
