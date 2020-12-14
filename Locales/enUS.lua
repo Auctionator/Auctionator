@@ -237,6 +237,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_901_CHANGES_HEADER"] = "Changes"
   L["SPLASH_901_CHANGES_1"] = "Replaced the full scan with a different method to avoid getting disconnected on busy servers."
   L["SPLASH_901_CHANGES_2"] = "The autoscan option now defaults to off."
+  L["SPLASH_902_DESCRIPTION"] = "Along with the various bugfixes, there is one new feature."
+
+  L["SPLASH_902_FEATURES_HEADER"] = "New Features"
+  L["SPLASH_902_FEATURES_1"] = "A new \"Your History\" section on the Selling tab to show the prices of past auctions you have created."
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
