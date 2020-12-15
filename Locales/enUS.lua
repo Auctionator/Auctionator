@@ -167,7 +167,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["RESULTS_AVAILABLE_COLUMN"] = "Available"
   L["ITEM_LEVEL_COLUMN"] = "Item Level"
   L["OWNED_COLUMN"] = "Owned?"
-  L["IS_TOP_COLUMN"] = "Top?"
 
   L["FULL_SCAN_BUTTON"] = "Full Scan"
 

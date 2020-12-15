@@ -15,12 +15,12 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerParameters = { "isTop" },
-    headerText = AUCTIONATOR_L_IS_TOP_COLUMN,
+    headerParameters = { "isOwned" },
+    headerText = AUCTIONATOR_L_OWNED_COLUMN,
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "isTop" },
+    cellParameters = { "isOwned" },
     defaultHide = true,
-    width = 50
+    width = 70,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -77,9 +77,9 @@ end
 function AuctionatorShoppingListDataProviderMixin:AddIsTop(entries)
   for _, entry in ipairs(entries) do
     if entry.containsOwnerItem then
-      entry.isTop = AUCTIONATOR_L_UNDERCUT_YES
+      entry.isOwned = AUCTIONATOR_L_UNDERCUT_YES
     else
-      entry.isTop = ""
+      entry.isOwned = ""
     end
   end
 
