@@ -92,3 +92,5 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
 
   return self
 end
+
+Auctionator.EventBus = CreateAndInitFromMixin(AuctionatorEventBusMixin)
