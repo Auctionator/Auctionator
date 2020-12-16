@@ -52,6 +52,9 @@ function AuctionatorSellingBagFrameMixin:Init(dataProvider)
   self.dataProvider:SetOnUpdateCallback(function()
     self:Refresh()
   end)
+  self.dataProvider:SetOnSearchEndedCallback(function()
+    self:Refresh()
+  end)
 
   self:Refresh()
 end
