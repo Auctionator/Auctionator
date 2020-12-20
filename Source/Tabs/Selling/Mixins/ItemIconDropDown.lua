@@ -12,28 +12,34 @@ local function IgnoreItemKey(itemKey)
     :UnregisterSource(IgnoreItemKey)
 end
 
-local function FavouriteIndex(data)
-  return tIndexOf(
-    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS),
-    Auctionator.Selling.UniqueBagKey(data)
-  )
+function Auctionator.Selling.GetAllFavourites()
+  local favourites = {}
+  for _, fav in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
+    table.insert(favourites, fav)
+  end
+
+  return favourites
 end
 
 function Auctionator.Selling.IsFavourite(data)
-  return FavouriteIndex(data) ~= nil
+  return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] ~= nil
 end
 
 local function ToggleFavouriteItem(data)
   if Auctionator.Selling.IsFavourite(data) then
-    table.remove(
-      Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS),
-      FavouriteIndex(data)
-    )
+    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] = nil
   else
-    table.insert(
-      Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS),
-      Auctionator.Selling.UniqueBagKey(data)
-    )
+    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] = {
+      itemKey = data.itemKey,
+      itemLink = data.itemLink,
+      count = 0,
+      iconTexture = data.iconTexture,
+      itemType = data.itemType,
+      location = nil,
+      quality = data.quality,
+      classId = data.classId,
+      auctionable = data.auctionable,
+    }
   end
 
   Auctionator.EventBus

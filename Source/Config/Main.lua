@@ -23,8 +23,9 @@ Auctionator.Config.Options = {
   SHOW_SELLING_BAG = "show_selling_bag",
   SELLING_ICON_SIZE = "selling_icon_size",
   SELLING_IGNORED_KEYS = "selling_ignored_keys",
-  SELLING_FAVOURITE_KEYS = "selling_favourite_keys",
+  SELLING_FAVOURITE_KEYS = "selling_favourite_keys_2",
   SELLING_AUTO_SELECT_NEXT = "selling_auto_select_next",
+  SELLING_MISSING_FAVOURITES = "selling_missing_favourites",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -97,6 +98,7 @@ local defaults = {
   [Auctionator.Config.Options.SELLING_IGNORED_KEYS] = {},
   [Auctionator.Config.Options.SELLING_FAVOURITE_KEYS] = {},
   [Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT] = false,
+  [Auctionator.Config.Options.SELLING_MISSING_FAVOURITES] = true,
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
