@@ -55,7 +55,7 @@ end
 
 function AuctionatorSaleItemMixin:UnlockItem()
   if self.itemInfo ~= nil then
-    if self.itemInfo.location ~= nil then
+    if self.itemInfo.count > 0 then
       C_Item.UnlockItem(self.itemInfo.location)
     end
     self.itemInfo = nil
@@ -63,7 +63,7 @@ function AuctionatorSaleItemMixin:UnlockItem()
 end
 
 function AuctionatorSaleItemMixin:LockItem()
-  if self.itemInfo.location ~= nil then
+  if self.itemInfo.count > 0 then
     C_Item.LockItem(self.itemInfo.location)
   end
 end
@@ -72,7 +72,7 @@ function AuctionatorSaleItemMixin:OnUpdate()
   if self.itemInfo == nil then
     return
 
-  elseif self.itemInfo.location == nil then
+  elseif self.itemInfo.count == 0 then
     return
 
   elseif not C_Item.DoesItemExist(self.itemInfo.location) then
@@ -262,7 +262,7 @@ function AuctionatorSaleItemMixin:SetQuantity()
     defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY)
   end
 
-  if self.itemInfo.location == nil then
+  if self.itemInfo.count == 0 then
     self.Quantity:SetNumber(0)
   elseif defaultQuantity > 0 then
     -- If a default quantity has been selected (ie non-zero amount)
@@ -447,8 +447,8 @@ end
 function AuctionatorSaleItemMixin:GetPostButtonState()
   return
     self.itemInfo ~= nil and
+    self.itemInfo.count > 0 and
 
-    self.itemInfo.location and
     C_Item.DoesItemExist(self.itemInfo.location) and
 
     -- Sufficient money to cover deposit
