@@ -123,6 +123,7 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
       Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete)
       self.state.TimeOfLastScan = time()
     end
+    Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.PricesProcessed)
 
     self.info = {} --Already processed, so clear
   end
