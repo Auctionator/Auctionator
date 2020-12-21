@@ -17,6 +17,7 @@ function AuctionatorShoppingListTabMixin:OnLoad()
   self:SetUpEditItemDialog()
   self:SetUpExportDialog()
   self:SetUpImportDialog()
+  self:SetUpExportCSVDialog()
 
   -- Add Item button starts in the default state until a list is selected
   self.AddItem:Disable()
@@ -63,6 +64,13 @@ function AuctionatorShoppingListTabMixin:SetUpImportDialog()
   self.importDialog:SetPoint("CENTER")
 end
 
+function AuctionatorShoppingListTabMixin:SetUpExportCSVDialog()
+  self.exportCSVDialog = CreateFrame("Frame", "AuctionatorCopyTextFrame", self:GetParent(), "AuctionatorExportTextFrame")
+  self.exportCSVDialog:SetPoint("CENTER")
+  self.exportCSVDialog:SetOpeningEvents(DialogOpened, DialogClosed)
+end
+
+
 function AuctionatorShoppingListTabMixin:OnShow()
   if self.selectedList ~= nil then
     self.AddItem:Enable()
@@ -87,10 +95,12 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
     self.AddItem:Disable()
     self.Export:Disable()
     self.Import:Disable()
+    self.ExportCSV:Disable()
   elseif eventName == DialogClosed then
     self.AddItem:Enable()
     self.Export:Enable()
     self.Import:Enable()
+    self.ExportCSV:Enable()
 
   elseif eventName == EditListItem then
     self.editingItemIndex = eventData
@@ -139,4 +149,11 @@ end
 
 function AuctionatorShoppingListTabMixin:ExportListsClicked()
   self.exportDialog:Show()
+end
+
+function AuctionatorShoppingListTabMixin:ExportCSVClicked()
+  self.DataProvider:GetCSV(function(result)
+    self.exportCSVDialog:SetExportString(result)
+    self.exportCSVDialog:Show()
+  end)
 end

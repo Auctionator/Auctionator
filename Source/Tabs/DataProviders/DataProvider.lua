@@ -161,3 +161,55 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
 
   self.onUpdate(self.results)
 end
+
+local function WrapCSVParameter(parameter)
+  if type(parameter) == "string" then
+    return "\"" .. parameter .. "\""
+  else
+    return tostring(parameter)
+  end
+end
+
+function AuctionatorDataProviderMixin:GetCSV(callback)
+  if self:GetCount() == 0 then
+    callback("")
+  end
+
+  local csvResult = ""
+
+  local layout = self:GetTableLayout()
+
+  for index, column in ipairs(layout) do
+    csvResult = csvResult .. WrapCSVParameter(column.headerText) .. ","
+  end
+  csvResult = csvResult .. "\n"
+
+  local function DoRows(start, finish)
+    finish = math.min(finish, self:GetCount())
+
+    local index = start
+    while index <= finish do
+      local row = self.results[index]
+      for column, cell in ipairs(layout) do
+        csvResult = csvResult .. WrapCSVParameter(row[cell.headerParameters[1]])
+
+        if column ~= #layout then
+          csvResult = csvResult .. ","
+        end
+      end
+      csvResult = csvResult .. "\n"
+
+      index = index + 1
+    end
+
+    if finish < self:GetCount() then
+      C_Timer.After(0, function()
+        DoRows(finish + 1, (finish - start) + finish + 1)
+      end)
+    else
+      callback(csvResult)
+    end
+  end
+
+  DoRows(1, 50)
+end
