@@ -93,11 +93,23 @@ function AuctionatorSellingBagFrameMixin:SetupFavourites()
   local entry
 
   self.items[FAVOURITE] = {}
+  local seenKeys = {}
 
   for index = 1, bagItemCount do
     entry = self.dataProvider:GetEntryAt(index)
     if Auctionator.Selling.IsFavourite(entry) then
+      seenKeys[Auctionator.Selling.UniqueBagKey(entry)] = true
       table.insert(self.items[FAVOURITE], CopyTable(entry))
+    end
+  end
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES) then
+    local moreFavourites = Auctionator.Selling.GetAllFavourites()
+
+    for _, fav in ipairs(moreFavourites) do
+      if seenKeys[Auctionator.Selling.UniqueBagKey(fav)] == nil then
+        table.insert(self.items[FAVOURITE], CopyTable(fav))
+      end
     end
   end
 end

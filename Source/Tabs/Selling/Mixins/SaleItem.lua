@@ -55,21 +55,27 @@ end
 
 function AuctionatorSaleItemMixin:UnlockItem()
   if self.itemInfo ~= nil then
-    C_Item.UnlockItem(self.itemInfo.location)
+    if self.itemInfo.count > 0 then
+      C_Item.UnlockItem(self.itemInfo.location)
+    end
     self.itemInfo = nil
   end
 end
 
 function AuctionatorSaleItemMixin:LockItem()
-  C_Item.LockItem(self.itemInfo.location)
+  if self.itemInfo.count > 0 then
+    C_Item.LockItem(self.itemInfo.location)
+  end
 end
 
 function AuctionatorSaleItemMixin:OnUpdate()
   if self.itemInfo == nil then
     return
-  end
 
-  if not C_Item.DoesItemExist(self.itemInfo.location) then
+  elseif self.itemInfo.count == 0 then
+    return
+
+  elseif not C_Item.DoesItemExist(self.itemInfo.location) then
     --Bag item location invalid due to posting (race condition)
     self.itemInfo = nil
     self:Reset()
@@ -256,7 +262,9 @@ function AuctionatorSaleItemMixin:SetQuantity()
     defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY)
   end
 
-  if defaultQuantity > 0 then
+  if self.itemInfo.count == 0 then
+    self.Quantity:SetNumber(0)
+  elseif defaultQuantity > 0 then
     -- If a default quantity has been selected (ie non-zero amount)
     self.Quantity:SetNumber(math.min(self.itemInfo.count, defaultQuantity, self:GetPostLimit()))
   else
@@ -439,6 +447,7 @@ end
 function AuctionatorSaleItemMixin:GetPostButtonState()
   return
     self.itemInfo ~= nil and
+    self.itemInfo.count > 0 and
 
     C_Item.DoesItemExist(self.itemInfo.location) and
 
