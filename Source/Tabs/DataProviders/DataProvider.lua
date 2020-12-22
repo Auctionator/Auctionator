@@ -164,7 +164,7 @@ end
 
 local function WrapCSVParameter(parameter)
   if type(parameter) == "string" then
-    return "\"" .. parameter .. "\""
+    return "\"" .. string.gsub(parameter, "\"", "") .. "\""
   else
     return tostring(parameter)
   end
