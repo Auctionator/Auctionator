@@ -1,4 +1,4 @@
-AuctionatorShoppingItemMixin = {}
+AuctionatorShoppingItemMixin = CreateFromMixins(AuctionatorEscapeToCloseMixin)
 
 function AuctionatorShoppingItemMixin:OnLoad()
   self.onFinishedClicked = function() end
@@ -63,18 +63,6 @@ function AuctionatorShoppingItemMixin:OnHide()
     :RegisterSource(self, "add item dialog")
     :Fire(self, Auctionator.ShoppingLists.Events.DialogClosed)
     :UnregisterSource(self)
-end
-
-function AuctionatorShoppingItemMixin:OnKeyDown(key)
-  self:SetPropagateKeyboardInput(key ~= "ESCAPE")
-end
-
-function AuctionatorShoppingItemMixin:OnKeyUp(key)
-  Auctionator.Debug.Message("AuctionatorShoppingItemMixin:OnKeyUp()", key)
-
-  if key == "ESCAPE" then
-    self:Hide()
-  end
 end
 
 function AuctionatorShoppingItemMixin:OnCancelClicked()

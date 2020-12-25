@@ -54,6 +54,7 @@ Auctionator.Config.Options = {
   SILENCE_AUCTION_ERRORS = "silence_auction_errors",
 
   COLUMNS_SHOPPING = "columns_shopping",
+  COLUMNS_SHOPPING_HISTORICAL_PRICES = "columns_shopping_historical_prices",
   COLUMNS_SELLING_SEARCH = "columns_selling_search",
   COLUMNS_HISTORICAL_PRICES = "historical_prices",
   COLUMNS_POSTING_HISTORY = "columns_posting_history",
@@ -128,6 +129,7 @@ local defaults = {
   [Auctionator.Config.Options.SMALL_TABS] = false,
 
   [Auctionator.Config.Options.COLUMNS_SHOPPING] = {},
+  [Auctionator.Config.Options.COLUMNS_SHOPPING_HISTORICAL_PRICES] = {},
   [Auctionator.Config.Options.COLUMNS_CANCELLING] = {},
   [Auctionator.Config.Options.COLUMNS_SELLING_SEARCH] = {},
   [Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES] = {},

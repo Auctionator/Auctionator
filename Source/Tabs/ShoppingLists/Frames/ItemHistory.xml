@@ -1,0 +1,63 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorItemHistoryTemplate"
+    mixin="AuctionatorItemHistoryFrameMixin"
+    inherits="AuctionatorSimplePanelTemplate"
+    frameStrata="Dialog"
+    enableMouse="true"
+    virtual="true"
+    hidden="true"
+  >
+    <Size x="550" y="320" />
+
+    <Scripts>
+      <OnShow method="OnShow" />
+      <OnHide method="OnHide" />
+      <OnKeyDown method="OnKeyDown" />
+      <OnKeyUp method="OnKeyUp" />
+    </Scripts>
+
+    <Frames>
+      <Frame parentKey="DataProvider" mixin="AuctionatorItemHistoryProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnUpdate method="OnUpdate" />
+        </Scripts>
+      </Frame>
+
+      <Frame inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="8" y="-30"/>
+          <Anchor point="BOTTOMRIGHT" x="-26" y="32"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Inset" inherits="AuctionatorInsetDarkTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
+
+      <!-- Action Buttons -->
+      <Button parentKey="Close" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CLOSE">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="20" y="-3"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():OnCloseDialogClicked()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+
+    <Layers>
+      <Layer>
+        <FontString text="AUCTIONATOR_L_ITEM_PRICE_HISTORY" inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

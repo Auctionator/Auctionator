@@ -22,7 +22,7 @@
     </Layers>
 
     <Scripts>
-      <OnClick method="OnClick" />
+      <OnMouseUp method="OnClick" />
       <OnEnter method="OnEnter" />
       <OnLeave method="OnLeave" />
     </Scripts>
