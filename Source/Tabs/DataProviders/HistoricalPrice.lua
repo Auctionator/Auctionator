@@ -39,6 +39,11 @@ function AuctionatorHistoricalPriceProviderMixin:OnLoad()
   Auctionator.EventBus:Register( self, { Auctionator.Selling.Events.BagItemClicked })
 end
 
+function AuctionatorHistoricalPriceProviderMixin:Init(updateEvent)
+  self.updateEvent = updateEvent
+  Auctionator.EventBus:Register( self, { self.updateEvent })
+end
+
 function AuctionatorHistoricalPriceProviderMixin:OnShow()
   self:Reset()
 end
@@ -71,7 +76,7 @@ function AuctionatorHistoricalPriceProviderMixin:GetColumnHideStates()
 end
 
 function AuctionatorHistoricalPriceProviderMixin:ReceiveEvent(event, itemInfo)
-  if event == Auctionator.Selling.Events.BagItemClicked then
+  if event == self.updateEvent then
     self:SetItem(itemInfo.itemKey)
   end
 end

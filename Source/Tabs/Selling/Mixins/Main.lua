@@ -5,14 +5,12 @@ function AuctionatorSellingTabMixin:OnLoad()
 
   self.BagListing:Init(self.BagDataProvider)
 
+  self.HistoricalPriceProvider:Init(Auctionator.Selling.Events.BagItemClicked)
   self.HistoricalPriceListing:Init(self.HistoricalPriceProvider)
-  self.HistoricalPriceListing:SetWidth(200)
 
   self.PostingHistoryListing:Init(self.PostingHistoryProvider)
-  self.PostingHistoryListing:SetWidth(200)
 
   self.CurrentItemListing:Init(self.CurrentItemProvider)
-  self.CurrentItemListing:SetWidth(200)
 end
 
 function AuctionatorSellingTabMixin:ApplyHiding()

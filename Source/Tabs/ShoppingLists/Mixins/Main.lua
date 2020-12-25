@@ -6,6 +6,7 @@ local ListItemSelected = Auctionator.ShoppingLists.Events.ListItemSelected
 local EditListItem = Auctionator.ShoppingLists.Events.EditListItem
 local DialogOpened = Auctionator.ShoppingLists.Events.DialogOpened
 local DialogClosed = Auctionator.ShoppingLists.Events.DialogClosed
+local ShowHistoricalPrices = Auctionator.ShoppingLists.Events.ShowHistoricalPrices
 
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
@@ -18,6 +19,7 @@ function AuctionatorShoppingListTabMixin:OnLoad()
   self:SetUpExportDialog()
   self:SetUpImportDialog()
   self:SetUpExportCSVDialog()
+  self:SetUpItemHistoryDialog()
 
   -- Add Item button starts in the default state until a list is selected
   self.AddItem:Disable()
@@ -31,7 +33,7 @@ function AuctionatorShoppingListTabMixin:SetUpEvents()
 
   -- Auctionator Events
   Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Tab")
-  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed })
+  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices })
 end
 
 function AuctionatorShoppingListTabMixin:SetUpAddItemDialog()
@@ -70,6 +72,11 @@ function AuctionatorShoppingListTabMixin:SetUpExportCSVDialog()
   self.exportCSVDialog:SetOpeningEvents(DialogOpened, DialogClosed)
 end
 
+function AuctionatorShoppingListTabMixin:SetUpItemHistoryDialog()
+  self.itemHistoryDialog = CreateFrame("Frame", "AuctionatorItemHistoryFrame", self, "AuctionatorItemHistoryTemplate")
+  self.itemHistoryDialog:SetPoint("CENTER")
+  self.itemHistoryDialog:Init()
+end
 
 function AuctionatorShoppingListTabMixin:OnShow()
   if self.selectedList ~= nil then
@@ -92,15 +99,20 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
     self.ManualSearch:Disable()
 
   elseif eventName == DialogOpened then
+    self.isDialogOpen = true
     self.AddItem:Disable()
     self.Export:Disable()
     self.Import:Disable()
     self.ExportCSV:Disable()
   elseif eventName == DialogClosed then
+    self.isDialogOpen = false
     self.AddItem:Enable()
     self.Export:Enable()
     self.Import:Enable()
     self.ExportCSV:Enable()
+
+  elseif eventName == ShowHistoricalPrices and not self.isDialogOpen then
+    self.itemHistoryDialog:Show()
 
   elseif eventName == EditListItem then
     self.editingItemIndex = eventData

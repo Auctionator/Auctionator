@@ -24,4 +24,6 @@ Auctionator.ShoppingLists.Events = {
 
   DialogOpened = "SHOPPING_DIALOG_OPENED",
   DialogClosed = "SHOPPING_DIALOG_CLOSED",
+
+  ShowHistoricalPrices = "SHOPPING_SHOW_HISTORICAL_PRICES",
 }
