@@ -69,7 +69,7 @@ end
 
 function AuctionatorShoppingListDropdownMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListDeleted or eventName == Auctionator.ShoppingLists.Events.ListCreated then
-    UIDropDownMenu_Initialize(self, self.Initialize)
+    UIDropDownMenu_Initialize(self, self.Initialize, "taint prevention")
   end
 
   if eventName == Auctionator.ShoppingLists.Events.ListCreated then
