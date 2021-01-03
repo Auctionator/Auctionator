@@ -105,6 +105,10 @@ function AuctionatorDataProviderMixin:SetOnSearchEndedCallback(onSearchEndedCall
   self.onSearchEnded = onSearchEndedCallback
 end
 
+function AuctionatorDataProviderMixin:NotifyCacheUsed()
+  self.cacheUsedCount = self.cacheUsedCount + 1
+end
+
 function AuctionatorDataProviderMixin:SetOnPreserveScrollCallback(onPreserveScrollCallback)
   self.onPreserveScroll = onPreserveScrollCallback
 end
@@ -137,7 +141,9 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
   local entry
   local key
 
-  while processCount < self.processCountPerUpdate and #self.entriesToProcess > 0 do
+  self.cacheUsedCount = 0
+
+  while processCount < self.processCountPerUpdate + self.cacheUsedCount and #self.entriesToProcess > 0 do
     processCount = processCount + 1
     entry = table.remove(self.entriesToProcess)
 

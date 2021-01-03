@@ -9,12 +9,15 @@ function AuctionatorItemKeyLoadingMixin:OnLoad()
   end)
 end
 
-function AuctionatorItemKeyLoadingMixin:ReceiveEvent(event, itemKey, itemKeyInfo)
+function AuctionatorItemKeyLoadingMixin:ReceiveEvent(event, itemKey, itemKeyInfo, wasCached)
   if event == Auctionator.AH.Events.ItemKeyInfo then
     for _, entry in ipairs(self.results) do
       if Auctionator.Utilities.ItemKeyString(entry.itemKey) ==
           Auctionator.Utilities.ItemKeyString(itemKey) then
         self:ProcessItemKey(entry, itemKeyInfo)
+        if wasCached then
+          self:NotifyCacheUsed()
+        end
       end
     end
   end
