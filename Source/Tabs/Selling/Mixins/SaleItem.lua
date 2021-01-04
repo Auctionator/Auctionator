@@ -518,6 +518,8 @@ function AuctionatorSaleItemMixin:PostItem()
 
   if (Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and
       self.lastItemInfo.nextItem ~= nil and
+      -- May be a favourite with no items available, ignore it.
+      self.lastItemInfo.nextItem.location ~= nil and
       -- Location may be invalid because of items being moved in the bag
       C_Item.DoesItemExist(self.lastItemInfo.nextItem.location)
     ) then
