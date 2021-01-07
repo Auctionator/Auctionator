@@ -10,5 +10,9 @@
         <FontString parentKey="text" inherits="Game12Font" setAllPoints="true"/>
       </Layer>
     </Layers>
+    <Scripts>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
   </Button>
 </Ui>

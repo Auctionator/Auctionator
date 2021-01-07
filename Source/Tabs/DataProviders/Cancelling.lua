@@ -123,7 +123,7 @@ function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
     return comparator(left, right)
   end)
 
-  self.onUpdate(self.results)
+  self:SetDirty()
 end
 
 function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ...)

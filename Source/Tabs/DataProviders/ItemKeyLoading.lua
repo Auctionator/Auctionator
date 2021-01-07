@@ -40,5 +40,5 @@ function AuctionatorItemKeyLoadingMixin:ProcessItemKey(rowEntry, itemKeyInfo)
   rowEntry.iconTexture = itemKeyInfo.iconFileID
   rowEntry.noneAvailable = rowEntry.totalQuantity == 0
 
-  self.onUpdate(self.results)
+  self:SetDirty()
 end

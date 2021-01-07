@@ -109,6 +109,10 @@ function AuctionatorDataProviderMixin:NotifyCacheUsed()
   self.cacheUsedCount = self.cacheUsedCount + 1
 end
 
+function AuctionatorDataProviderMixin:SetDirty()
+  self.isDirty = true
+end
+
 function AuctionatorDataProviderMixin:SetOnPreserveScrollCallback(onPreserveScrollCallback)
   self.onPreserveScroll = onPreserveScrollCallback
 end
@@ -132,6 +136,12 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
       self.announcedCompletion = true
       self.onSearchEnded()
     end
+
+    if self.isDirty then
+      self.onUpdate(self.results)
+      self.isDirty = false
+    end
+
     return
   end
 
@@ -166,6 +176,7 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
   end
 
   self.onUpdate(self.results)
+  self.isDirty = false
 end
 
 local function WrapCSVParameter(parameter)

@@ -116,7 +116,7 @@ function AuctionatorShoppingListDataProviderMixin:Sort(fieldName, sortDirection)
     return comparator(left, right)
   end)
 
-  self.onUpdate(self.results)
+  self:SetDirty()
 end
 
 function AuctionatorShoppingListDataProviderMixin:GetTableLayout()

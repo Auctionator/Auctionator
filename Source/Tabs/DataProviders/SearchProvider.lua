@@ -108,7 +108,7 @@ function AuctionatorSearchDataProviderMixin:Sort(fieldName, sortDirection)
     return comparator(left, right)
   end)
 
-  self.onUpdate(self.results)
+  self:SetDirty()
 end
 
 function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionID)
