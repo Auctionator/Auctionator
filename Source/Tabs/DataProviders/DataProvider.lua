@@ -162,6 +162,9 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
       self.insertedKeys[key] = entry
       table.insert(self.results, entry)
 
+      --Used to keep items in a consistent order when fields are identical and sorting
+      entry.sortingIndex = #self.results
+
       self.onEntryProcessed(entry)
     end
   end
