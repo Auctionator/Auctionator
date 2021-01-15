@@ -25,22 +25,10 @@ local function GetItemClassCategories(categoryKey)
   end
 end
 
-local function ModifyQueryString(queryString)
-  -- Special case where the queryString contains "-". There's a bug in the AH
-  -- that means when wrapping it in "" the search returns no results.
-  -- We remove any "" to avoid that.
-  if string.find(queryString, "-") then
-    return string.gsub(queryString, "\"", "")
-  end
-
-  -- Wrap query in "" to avoid search terms being broken up, so the AH search
-  -- for "of the tides" matches "five of the tides" but not
-  -- "Tidespray Linen Sandals of the Aurora"
-  if queryString ~= "" then
-    return '"' .. queryString .. '"'
-  else
-    return queryString
-  end
+local function CleanQueryString(queryString)
+  -- Remove "" that are used in exact searches as it causes some searches to
+  -- fail when they would otherwise work, example "Steak a la Mode"
+  return string.gsub(string.gsub(queryString, "^\"", ""), "\"$", "")
 end
 
 local function ParseAdvancedSearch(searchString)
@@ -49,7 +37,7 @@ local function ParseAdvancedSearch(searchString)
 
   return {
     query = {
-      searchString = ModifyQueryString(parsed.queryString),
+      searchString = CleanQueryString(parsed.queryString),
       minLevel = parsed.minLevel,
       maxLevel = parsed.maxLevel,
       filters = {},
