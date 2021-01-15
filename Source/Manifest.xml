@@ -4,6 +4,8 @@
   <Script file="Locales\Main.lua" />
   <Include file="Constants\Manifest.xml" />
 
+  <Include file="AH\Manifest.xml"/>
+
   <Include file="Components\Manifest.xml" />
 
   <Include file="Search\Manifest.xml" />
@@ -35,6 +37,4 @@
   <Include file="API\Manifest.xml" />
 
   <Include file="SplashScreen\Manifest.xml" />
-
-  <Include file="AH\Manifest.xml"/>
 </Ui>
