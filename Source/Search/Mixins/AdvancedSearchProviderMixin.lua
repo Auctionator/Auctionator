@@ -69,7 +69,7 @@ function AuctionatorAdvancedSearchProviderMixin:CreateSearchTerm(term)
   else
     return  {
       query = {
-        searchString = ModifyQueryString(term),
+        searchString = CleanQueryString(term),
         filters = {},
         itemClassFilters = {},
         sorts = {},
