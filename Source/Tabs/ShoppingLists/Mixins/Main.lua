@@ -164,14 +164,8 @@ function AuctionatorShoppingListTabMixin:ExportListsClicked()
 end
 
 function AuctionatorShoppingListTabMixin:ExportCSVClicked()
-  local callback = function(result)
+  self.DataProvider:GetCSV(function(result)
     self.exportCSVDialog:SetExportString(result)
     self.exportCSVDialog:Show()
-  end
-
-  if IsShiftKeyDown() then
-    self.DataProvider:GetExportText(callback, "\n", "\t")
-  else
-    self.DataProvider:GetExportText(callback)
-  end
+  end)
 end
