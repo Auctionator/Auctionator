@@ -200,7 +200,11 @@ function AuctionatorDataProviderMixin:GetCSV(callback)
   local layout = self:GetTableLayout()
 
   for index, column in ipairs(layout) do
-    csvResult = csvResult .. WrapCSVParameter(column.headerText) .. ","
+    csvResult = csvResult .. WrapCSVParameter(column.headerText)
+
+    if index ~= #layout then
+      csvResult = csvResult ..  ","
+    end
   end
   csvResult = csvResult .. "\n"
 
@@ -217,7 +221,10 @@ function AuctionatorDataProviderMixin:GetCSV(callback)
           csvResult = csvResult .. ","
         end
       end
-      csvResult = csvResult .. "\n"
+
+      if index ~= self:GetCount() then
+        csvResult = csvResult .. "\n"
+      end
 
       index = index + 1
     end
