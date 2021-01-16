@@ -231,5 +231,5 @@ function AuctionatorDataProviderMixin:GetCSV(callback)
     end
   end
 
-  DoRows(1, 50)
+  DoRows(1, self:GetCount())
 end
