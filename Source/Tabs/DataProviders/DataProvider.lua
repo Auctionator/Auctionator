@@ -190,10 +190,13 @@ local function WrapCSVParameter(parameter)
   end
 end
 
-function AuctionatorDataProviderMixin:GetCSV(callback)
+function AuctionatorDataProviderMixin:GetExportText(callback, rowSeparator, columnSeparator)
   if self:GetCount() == 0 then
     callback("")
   end
+
+  rowSeparator = rowSeparator or "\n"
+  columnSeparator = columnSeparator or ","
 
   local csvResult = ""
 
@@ -203,10 +206,10 @@ function AuctionatorDataProviderMixin:GetCSV(callback)
     csvResult = csvResult .. WrapCSVParameter(column.headerText)
 
     if index ~= #layout then
-      csvResult = csvResult ..  ","
+      csvResult = csvResult ..  columnSeparator
     end
   end
-  csvResult = csvResult .. "\n"
+  csvResult = csvResult .. rowSeparator
 
   local function DoRows(start, finish)
     finish = math.min(finish, self:GetCount())
@@ -218,12 +221,12 @@ function AuctionatorDataProviderMixin:GetCSV(callback)
         csvResult = csvResult .. WrapCSVParameter(row[cell.headerParameters[1]])
 
         if column ~= #layout then
-          csvResult = csvResult .. ","
+          csvResult = csvResult .. columnSeparator
         end
       end
 
       if index ~= self:GetCount() then
-        csvResult = csvResult .. "\n"
+        csvResult = csvResult .. rowSeparator
       end
 
       index = index + 1
