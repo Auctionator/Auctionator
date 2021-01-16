@@ -80,7 +80,6 @@ function AuctionatorCancellingDataProviderMixin:OnLoad()
 end
 
 function AuctionatorCancellingDataProviderMixin:OnShow()
-
   Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
 
   self:QueryAuctions()
