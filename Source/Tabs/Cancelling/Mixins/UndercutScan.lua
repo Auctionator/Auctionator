@@ -4,8 +4,7 @@ local UNDERCUT_EVENTS = {
   "OWNED_AUCTIONS_UPDATED",
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
-  "AUCTION_HOUSE_CLOSED",
-  "AUCTION_CANCELED",
+  "AUCTION_HOUSE_CLOSED"
 }
 
 local CANCELLING_EVENTS = {
@@ -74,7 +73,7 @@ function AuctionatorUndercutScanMixin:NextStep()
   Auctionator.Debug.Message("next step")
   self.scanIndex = self.scanIndex - 1
 
-  if self.scanIndex < 1 then
+  if self.scanIndex < 1 or self.scanIndex > C_AuctionHouse.GetNumOwnedAuctions() then
     self:EndScan()
     return
   end
@@ -120,7 +119,8 @@ function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
     self:EndScan()
 
   elseif eventName == "AUCTION_CANCELED" then
-    self:EndScan()
+    FrameUtil.UnregisterFrameForEvents(self, CANCELLING_EVENTS)
+    self:SetCancel()
 
   else
     Auctionator.Debug.Message("search results")
@@ -134,7 +134,6 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, auctionID)
     for index, info in ipairs(self.undercutAuctions) do
       if info.auctionID == auctionID then
         table.remove(self.undercutAuctions, index)
-        self:SetCancel()
         break
       end
     end
