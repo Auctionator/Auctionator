@@ -65,6 +65,9 @@ function AuctionatorResultsListingMixin:RestoreScrollPosition()
     return
   end
 
+  -- Ensure all the visuals are positioned (so the scroll restores correctly)
+  self:UpdateTable()
+
   local _, max = self.ScrollFrame.scrollBar:GetMinMaxValues()
   local val = math.min(self.savedScrollPosition or 0, max or 0)
   self.ScrollFrame.scrollBar:SetValue(val)
