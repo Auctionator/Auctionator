@@ -249,6 +249,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_904_DESCRIPTION"] = "Bugfixes and a new history view"
   L["SPLASH_904_FEATURES_HEADER"] = "Features"
   L["SPLASH_904_FEATURES_1"] = "Right-clicking on a result in the Shopping tab will now open a dialog showing its price history."
+  L["SPLASH_905_DESCRIPTION"] = "Bugfixes and minor visual changes"
+  L["SPLASH_905_UPDATES_HEADER"] = "Updates"
+  L["SPLASH_905_UPDATES_1"] = "Smoother interactions in the Cancelling tab."
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
