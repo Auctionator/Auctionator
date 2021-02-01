@@ -31,10 +31,10 @@ local SEARCH_PROVIDER_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerParameters = { "timeLeftRaw" },
+    headerParameters = { "timeLeft" },
     headerText = AUCTIONATOR_L_TIME_LEFT_H,
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "timeLeft" },
+    cellParameters = { "timeLeftPretty" },
     defaultHide = true,
   },
   {
@@ -93,7 +93,7 @@ local COMPARATORS = {
   bidPrice = Auctionator.Utilities.NumberComparator,
   quantity = Auctionator.Utilities.NumberComparator,
   level = Auctionator.Utilities.NumberComparator,
-  timeLeftRaw = Auctionator.Utilities.NumberComparator,
+  timeLeft = Auctionator.Utilities.NumberComparator,
   owned = Auctionator.Utilities.StringComparator,
 }
 
@@ -143,8 +143,8 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       quantity = resultInfo.quantity,
       quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
       level = "0",
-      timeLeft = Auctionator.Utilities.RoundTime(resultInfo.timeLeftSeconds or 0),
-      timeLeftRaw = resultInfo.timeLeftSeconds or 0,
+      timeLeftPretty = Auctionator.Utilities.RoundTime(resultInfo.timeLeftSeconds or 0),
+      timeLeft = resultInfo.timeLeftSeconds or 0, --Used in sorting
       auctionID = resultInfo.auctionID,
       itemID = itemID,
       itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
@@ -184,13 +184,13 @@ end
 
 local function TimeLeftBandToHours(timeLeftBand)
   if timeLeftBand == Enum.AuctionHouseTimeLeftBand.Short then
-    return "0 - 2"
+    return "0 - 0.5"
   elseif timeLeftBand == Enum.AuctionHouseTimeLeftBand.Medium then
-    return "2 - 12"
+    return "0.5 - 2"
   elseif timeLeftBand == Enum.AuctionHouseTimeLeftBand.Long then
-    return "12 - 24"
+    return "2 - 12"
   elseif timeLeftBand == Enum.AuctionHouseTimeLeftBand.VeryLong then
-    return "24 - 48"
+    return "12 - 48"
   else
     Auctionator.Debug.Message("Missing auction time left band")
     return ""
@@ -208,8 +208,8 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       bidPrice = resultInfo.bidAmount,
       level = tostring(resultInfo.itemKey.itemLevel or 0),
       owners = resultInfo.owners,
-      timeLeft = TimeLeftBandToHours(resultInfo.timeLeft),
-      timeLeftRaw =  resultInfo.timeLeft,
+      timeLeftPretty = TimeLeftBandToHours(resultInfo.timeLeft),
+      timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
       quantity = resultInfo.quantity,
       quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
       itemLink = resultInfo.itemLink,
