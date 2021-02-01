@@ -43,6 +43,9 @@ function AuctionatorBagItemMixin:OnClick(button)
     if IsModifiedClick("DRESSUP") then
       DressUpLink(self.itemInfo.itemLink)
 
+    elseif IsModifiedClick("CHATLINK") then
+      ChatEdit_InsertLink(self.itemInfo.itemLink)
+
     elseif button == "LeftButton" then
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)
 
