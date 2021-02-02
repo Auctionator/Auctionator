@@ -130,6 +130,10 @@ function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionI
   end
 end
 
+local function cancelShortcutEnabled()
+  return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE
+end
+
 function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   local entries = {}
   local anyOwnedNotLoaded = false
@@ -171,15 +175,11 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   -- called if an auction exists that hasn't been loaded for cancelling yet.
   -- If a user really really wants to avoid an extra request they can turn the
   -- feature off.
-  if anyOwnedNotLoaded and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE then
+  if anyOwnedNotLoaded and cancelShortcutEnabled() then
     Auctionator.AH.QueryOwnedAuctions({})
   end
 
   return entries
-end
-
-local function cancelShortcutEnabled()
-  return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE
 end
 
 local function TimeLeftBandToHours(timeLeftBand)
