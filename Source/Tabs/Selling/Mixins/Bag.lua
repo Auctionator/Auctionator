@@ -106,6 +106,12 @@ function AuctionatorSellingBagFrameMixin:SetupFavourites()
   if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES) then
     local moreFavourites = Auctionator.Selling.GetAllFavourites()
 
+    --Make favourite order independent of the order that the favourites were
+    --added.
+    table.sort(moreFavourites, function(left, right)
+      return Auctionator.Selling.UniqueBagKey(left) < Auctionator.Selling.UniqueBagKey(right)
+    end)
+
     for _, fav in ipairs(moreFavourites) do
       if seenKeys[Auctionator.Selling.UniqueBagKey(fav)] == nil then
         table.insert(self.items[FAVOURITE], CopyTable(fav))
