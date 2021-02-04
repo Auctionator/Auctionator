@@ -67,7 +67,7 @@ function AuctionatorShoppingListTabMixin:SetUpImportDialog()
 end
 
 function AuctionatorShoppingListTabMixin:SetUpExportCSVDialog()
-  self.exportCSVDialog = CreateFrame("Frame", "AuctionatorCopyTextFrame", self:GetParent(), "AuctionatorExportTextFrame")
+  self.exportCSVDialog = CreateFrame("Frame", "AuctionatorCopyTextFrame", self, "AuctionatorExportTextFrame")
   self.exportCSVDialog:SetPoint("CENTER")
   self.exportCSVDialog:SetOpeningEvents(DialogOpened, DialogClosed)
 end

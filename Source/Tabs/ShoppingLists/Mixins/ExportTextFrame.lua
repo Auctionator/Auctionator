@@ -25,6 +25,8 @@ function AuctionatorExportTextFrameMixin:OnShow()
 end
 
 function AuctionatorExportTextFrameMixin:OnHide()
+  self:Hide()
+
   if self.closeEvent then
     Auctionator.EventBus
       :RegisterSource(self, "lists export text dialog 2")
