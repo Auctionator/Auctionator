@@ -24,3 +24,9 @@ end
 function AuctionatorReagentSearchButtonMixin:OnEvent(...)
   self:ShowWhenAHOpen()
 end
+
+function AuctionatorReagentSearchButtonMixin:OnUpdate(...)
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal()))
+
+  self.Total:SetText(AUCTIONATOR_L_TOTAL_COLON .. " " .. price)
+end
