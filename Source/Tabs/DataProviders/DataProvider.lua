@@ -17,6 +17,7 @@ function AuctionatorDataProviderMixin:OnLoad()
   self.onSearchStarted = function() end
   self.onSearchEnded = function() end
   self.onPreserveScroll = function() end
+  self.onResetScroll = function() end
 end
 
 function AuctionatorDataProviderMixin:OnUpdate(elapsed)
@@ -115,6 +116,10 @@ end
 
 function AuctionatorDataProviderMixin:SetOnPreserveScrollCallback(onPreserveScrollCallback)
   self.onPreserveScroll = onPreserveScrollCallback
+end
+
+function AuctionatorDataProviderMixin:SetOnResetScrollCallback(onResetScrollCallback)
+  self.onResetScroll = onResetScrollCallback
 end
 
 function AuctionatorDataProviderMixin:AppendEntries(entries, isLastSetOfResults)

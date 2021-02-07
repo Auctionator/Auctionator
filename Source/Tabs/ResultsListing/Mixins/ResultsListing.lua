@@ -58,6 +58,10 @@ function AuctionatorResultsListingMixin:InitializeDataProvider()
   self.dataProvider:SetOnPreserveScrollCallback(function()
     self.savedScrollPosition = self.ScrollFrame.scrollBar:GetValue()
   end)
+
+  self.dataProvider:SetOnResetScrollCallback(function()
+    self.savedScrollPosition = self.ScrollFrame.scrollBar:GetValue()
+  end)
 end
 
 function AuctionatorResultsListingMixin:RestoreScrollPosition()

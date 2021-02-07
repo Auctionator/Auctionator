@@ -60,7 +60,8 @@ AuctionatorSearchDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMix
 function AuctionatorSearchDataProviderMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, SEARCH_EVENTS)
   Auctionator.EventBus:Register(self, {
-    Auctionator.Selling.Events.SellSearchStart
+    Auctionator.Selling.Events.SellSearchStart,
+    Auctionator.Selling.Events.BagItemClicked,
   })
 
   self:Reset()
@@ -69,7 +70,8 @@ end
 function AuctionatorSearchDataProviderMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, SEARCH_EVENTS)
   Auctionator.EventBus:Unregister(self, {
-    Auctionator.Selling.Events.SellSearchStart
+    Auctionator.Selling.Events.SellSearchStart,
+    Auctionator.Selling.Events.BagItemClicked,
   })
 end
 
@@ -77,6 +79,8 @@ function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName)
   if eventName == Auctionator.Selling.Events.SellSearchStart then
     self:Reset()
     self.onSearchStarted()
+  elseif eventName == Auctionator.Selling.Events.BagItemClicked then
+    self.onResetScroll()
   end
 end
 
@@ -123,6 +127,7 @@ function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionI
     self:AppendEntries(self:ProcessItemResults(itemRef), true)
 
   elseif eventName == "AUCTION_CANCELED" then
+    self.onPreserveScroll()
     Auctionator.EventBus
       :RegisterSource(self, "AuctionatorSearchDataProviderMixin")
       :Fire(self, Auctionator.Selling.Events.RefreshSearch)
