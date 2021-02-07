@@ -55,7 +55,9 @@ end
 
 function AuctionatorSaleItemMixin:UnlockItem()
   if self.itemInfo ~= nil then
-    if self.itemInfo.count > 0 then
+    --Existence check added because of a bug report from a user where (for an
+    --unknown reason) the item no longer existed.
+    if self.itemInfo.count > 0 and C_Item.DoesItemExist(self.itemInfo.location) then
       C_Item.UnlockItem(self.itemInfo.location)
     end
     self.itemInfo = nil
