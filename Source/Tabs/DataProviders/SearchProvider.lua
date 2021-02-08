@@ -39,6 +39,14 @@ local SEARCH_PROVIDER_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "otherSellers" },
+    headerText = AUCTIONATOR_L_SELLERS_COLUMN,
+    cellTemplate = "AuctionatorTooltipStringCellTemplate",
+    cellParameters = { "otherSellers" },
+    defaultHide = true,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "owned" },
     headerText = AUCTIONATOR_L_OWNED_COLUMN,
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -99,6 +107,7 @@ local COMPARATORS = {
   level = Auctionator.Utilities.NumberComparator,
   timeLeft = Auctionator.Utilities.NumberComparator,
   owned = Auctionator.Utilities.StringComparator,
+  otherSellers = Auctionator.Utilities.StringComparator,
 }
 
 function AuctionatorSearchDataProviderMixin:UniqueKey(entry)
@@ -149,6 +158,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       price = resultInfo.unitPrice,
       bidPrice = nil,
       owners = resultInfo.owners,
+      otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, ", "),
       quantity = resultInfo.quantity,
       quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
       level = "0",
@@ -166,6 +176,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
         anyOwnedNotLoaded = true
       end
 
+      entry.otherSellers = AUCTION_HOUSE_SELLER_YOU
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
 
     else
@@ -213,6 +224,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       bidPrice = resultInfo.bidAmount,
       level = tostring(resultInfo.itemKey.itemLevel or 0),
       owners = resultInfo.owners,
+      otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, ", "),
       timeLeftPretty = TimeLeftBandToHours(resultInfo.timeLeft),
       timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
       quantity = resultInfo.quantity,
@@ -236,6 +248,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
         anyOwnedNotLoaded = true
       end
 
+      entry.otherSellers = AUCTIONATOR_L_YOU
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
 
     else
