@@ -128,8 +128,8 @@ end
 function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ...)
   if eventName == "AUCTION_CANCELED" then
     if (tIndexOf(self.waitingforCancellation, auctionID) ~= nil and
-        self.beenCancelled[auctionID] == nil) then
-      self.beenCancelled[auctionID] = true
+        tIndexOf(self.beenCancelled, auctionID) == nil) then
+      table.insert(self.beenCancelled, auctionID)
       self:NoQueryRefresh()
     else
       self:QueryAuctions()
@@ -166,7 +166,7 @@ end
 function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
   return
     auctionInfo.status == 0 and
-    self.beenCancelled[auctionInfo.auctionID] == nil
+    tIndexOf(self.beenCancelled, auctionInfo.auctionID) == nil
 end
 
 function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
