@@ -5,6 +5,7 @@
   <Script file="AuctionatorStringColumnHeader.lua"/>
 
   <Script file="StringCell.lua"/>
+  <Script file="TooltipStringCell.lua"/>
   <Script file="PriceCell.lua"/>
   <Script file="ItemKeyCell.lua"/>
 

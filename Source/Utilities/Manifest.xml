@@ -25,6 +25,7 @@
   <Script file="GetQualityColorFromLink.lua"/>
   <Script file="ClassicWoWCheck.lua"/>
   <Script file="RoundTime.lua"/>
+  <Script file="StringJoin.lua"/>
 
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>
