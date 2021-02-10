@@ -248,7 +248,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
         anyOwnedNotLoaded = true
       end
 
-      entry.otherSellers = AUCTIONATOR_L_YOU
+      entry.otherSellers = AUCTION_HOUSE_SELLER_YOU
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
 
     else
