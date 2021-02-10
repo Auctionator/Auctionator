@@ -34,11 +34,14 @@
         </Layers>
       </Frame>
 
-      <Button parentKey="Icon" inherits="AuctionatorBagItem">
+      <Button parentKey="Icon" inherits="AuctionatorBagItem" mixin="AuctionatorBagItemSelectedMixin">
         <Size x="60" y="60" />
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-12" />
         </Anchors>
+        <Scripts>
+          <OnReceiveDrag method="OnReceiveDrag" />
+        </Scripts>
       </Button>
 
       <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInputAlternate">

@@ -37,6 +37,10 @@ function AuctionatorEventBusMixin:Unregister(listener, eventNames)
   return self
 end
 
+function AuctionatorEventBusMixin:IsSourceRegistered(source)
+  return self.sources[source] ~= nil
+end
+
 function AuctionatorEventBusMixin:RegisterSource(source, name)
   self.sources[source] = name
 
