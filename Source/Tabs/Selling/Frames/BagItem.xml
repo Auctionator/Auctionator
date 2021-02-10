@@ -16,6 +16,15 @@
             <Anchor point="BOTTOMRIGHT"/>
           </Anchors>
         </Texture>
+        <MaskTexture parentKey="IconMask" file="Interface\Common\common-iconmask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.Icon" />
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Icon" />
+          </Anchors>
+          <MaskedTextures>
+            <MaskedTexture childKey="Icon"/>
+          </MaskedTextures>
+        </MaskTexture>
       </Layer>
       <Layer level="BACKGROUND" textureSubLevel="1">
         <Texture parentKey="EmptySlot" file="Interface\BUTTONS\UI-Slot-Background">
@@ -27,7 +36,7 @@
         </Texture>
       </Layer>
       <Layer level="BACKGROUND" textureSubLevel="3">
-        <Texture parentKey="IconBorder" file="Interface\AddOns\Auctionator\Images\Icon_Border">
+        <Texture parentKey="IconBorder" file="Interface\Common\WhiteIconFrame">
           <Anchors>
             <Anchor point="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT"/>
