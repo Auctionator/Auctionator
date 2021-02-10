@@ -34,12 +34,12 @@
         </Layers>
       </Frame>
 
-      <Frame parentKey="Icon" inherits="AuctionatorBagItem">
+      <Button parentKey="Icon" inherits="AuctionatorBagItem">
         <Size x="60" y="60" />
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-12" />
         </Anchors>
-      </Frame>
+      </Button>
 
       <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInputAlternate">
         <Anchors>

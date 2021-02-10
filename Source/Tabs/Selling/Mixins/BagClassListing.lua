@@ -8,7 +8,7 @@ function AuctionatorBagClassListingMixin:OnLoad()
   self.buttons = {}
   self.buttonPool = CreateAndInitFromMixin(Auctionator.Utilities.PoolMixin)
   self.buttonPool:SetCreator(function()
-    local button = CreateFrame("Frame", self.buttonNamePrefix .. #self.items,
+    local button = CreateFrame("Button", self.buttonNamePrefix .. #self.items,
                 self.ItemContainer, "AuctionatorBagItem")
     button:SetSize(
       self.iconSize,

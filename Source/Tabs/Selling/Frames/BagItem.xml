@@ -1,11 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorBagItem" mixin="AuctionatorBagItemMixin" virtual="true">
+  <Button name="AuctionatorBagItem" registerForClicks="LeftButtonUp, RightButtonUp" mixin="AuctionatorBagItemMixin" virtual="true">
     <Size x="42" y="42"/>
 
     <Scripts>
       <OnEnter method="OnEnter" />
       <OnLeave method="OnLeave" />
-      <OnMouseDown method="OnClick" />
+      <OnClick method="OnClick" />
     </Scripts>
 
     <Layers>
@@ -54,5 +54,17 @@
         </FontString>
       </Layer>
     </Layers>
-  </Frame>
+    <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress">
+      <Anchors>
+        <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPLEFT"/>
+        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Icon" relativePoint="BOTTOMRIGHT"/>
+      </Anchors>
+    </PushedTexture>
+    <HighlightTexture parentKey="Highlight" file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD">
+      <Anchors>
+        <Anchor point="TOPLEFT" relativeKey="$parent.Icon" relativePoint="TOPLEFT"/>
+        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Icon" relativePoint="BOTTOMRIGHT"/>
+      </Anchors>
+    </HighlightTexture>
+  </Button>
 </Ui>
