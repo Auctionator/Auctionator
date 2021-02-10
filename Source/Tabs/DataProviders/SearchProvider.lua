@@ -176,7 +176,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
         anyOwnedNotLoaded = true
       end
 
-      entry.otherSellers = AUCTION_HOUSE_SELLER_YOU
+      entry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
 
     else
@@ -248,7 +248,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
         anyOwnedNotLoaded = true
       end
 
-      entry.otherSellers = AUCTION_HOUSE_SELLER_YOU
+      entry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
       entry.owned = AUCTIONATOR_L_UNDERCUT_YES
 
     else
