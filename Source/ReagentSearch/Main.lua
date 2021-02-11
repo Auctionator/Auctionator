@@ -25,7 +25,10 @@ function Auctionator.ReagentSearch.GetSkillReagentsTotal()
 
     local multiplier = select(3, C_TradeSkillUI.GetRecipeReagentInfo(recipeIndex, reagentIndex))
     local link = select(1, C_TradeSkillUI.GetRecipeReagentItemLink(recipeIndex, reagentIndex))
-    total = total + multiplier * Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
+    local unitPrice = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
+    if unitPrice ~= nil then
+      total = total + multiplier * unitPrice
+    end
   end
 
   return total
