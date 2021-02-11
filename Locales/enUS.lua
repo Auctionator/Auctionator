@@ -411,7 +411,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["REALM_HISTORY"] = "Realm History"
   L["YOUR_HISTORY"] = "Your History"
   L["EXPORT_RESULTS"] = "Export Results"
-  L["TOTAL_COLON"] = "Total:"
+  L["TO_CRAFT_COLON"] = "To Craft:"
 
   return L
 end
