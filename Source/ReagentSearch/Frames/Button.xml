@@ -4,7 +4,6 @@
       <OnLoad method="OnLoad"/>
       <OnClick method="OnClick" />
       <OnEvent method="OnEvent" />
-      <OnUpdate method="OnUpdate" />
     </Scripts>
     <Anchors>
       <Anchor point="RIGHT" relativePoint="RIGHT" x="-35" y="100"/>

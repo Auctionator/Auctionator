@@ -1,11 +1,12 @@
 function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
   local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
+  local recipeLevel = TradeSkillFrame.DetailsFrame:GetSelectedRecipeLevel()
 
   local items = { C_TradeSkillUI.GetRecipeInfo(recipeIndex).name }
 
-  for reagentIndex = 1, C_TradeSkillUI.GetRecipeNumReagents(recipeIndex) do
+  for reagentIndex = 1, C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) do
 
-    local reagentName = C_TradeSkillUI.GetRecipeReagentInfo(recipeIndex, reagentIndex)
+    local reagentName = C_TradeSkillUI.GetRecipeReagentInfo(recipeIndex, reagentIndex, recipeLevel)
     table.insert(items, reagentName)
   end
 
@@ -13,17 +14,14 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
 end
 
 function Auctionator.ReagentSearch.GetSkillReagentsTotal()
+  local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
+  local recipeLevel = TradeSkillFrame.DetailsFrame:GetSelectedRecipeLevel()
+
   local total = 0
 
-  local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
+  for reagentIndex = 1, C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) do
 
-  if recipeIndex == nil then
-    return 0
-  end
-
-  for reagentIndex = 1, C_TradeSkillUI.GetRecipeNumReagents(recipeIndex) do
-
-    local multiplier = select(3, C_TradeSkillUI.GetRecipeReagentInfo(recipeIndex, reagentIndex))
+    local multiplier = select(3, C_TradeSkillUI.GetRecipeReagentInfo(recipeIndex, reagentIndex, recipeLevel))
     local link = select(1, C_TradeSkillUI.GetRecipeReagentItemLink(recipeIndex, reagentIndex))
     local unitPrice = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
     if unitPrice ~= nil then
