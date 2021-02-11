@@ -8,10 +8,11 @@ function AuctionatorReagentSearchButtonMixin:OnLoad()
     "AUCTION_HOUSE_CLOSED",
   })
 
-  hooksecurefunc(TradeSkillFrame, "OnRecipeChanged", function(tsf, recipeID)
-    local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal()))
-
-    self.Total:SetText(AUCTIONATOR_L_TOTAL_COLON .. " " .. price)
+  hooksecurefunc(TradeSkillFrame, "OnRecipeChanged", function(_, recipeID)
+    self:UpdateTotal()
+  end)
+  hooksecurefunc(TradeSkillFrame.DetailsFrame, "SetSelectedRecipeLevel", function(_, newLevel)
+    self:UpdateTotal()
   end)
 
   self:ShowWhenAHOpen()
@@ -19,6 +20,12 @@ end
 
 function AuctionatorReagentSearchButtonMixin:ShowWhenAHOpen()
   self:SetShown(AuctionHouseFrame ~= nil and AuctionHouseFrame:IsShown())
+end
+
+function AuctionatorReagentSearchButtonMixin:UpdateTotal()
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal()))
+
+  self.Total:SetText(AUCTIONATOR_L_TOTAL_COLON .. " " .. price)
 end
 
 function AuctionatorReagentSearchButtonMixin:OnClick()
