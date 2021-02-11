@@ -13,7 +13,6 @@
   <Script file="Slice.lua"/>
   <Script file="CreateCountString.lua"/>
   <Script file="CreateMoneyString.lua"/>
-  <Script file="ApplyThrottlingButton.lua"/>
   <Script file="IsNotLIFOItemKey.lua"/>
   <Script file="RemoveTextColor.lua"/>
   <Script file="ItemKeyString.lua"/>
