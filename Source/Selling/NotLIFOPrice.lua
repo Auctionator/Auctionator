@@ -27,5 +27,10 @@ function Auctionator.Selling.CalculateNotLIFOPriceFromPrice(basePrice)
     Auctionator.Debug.Message("Static value calculation", basePrice, getSetAmount(), value)
   end
 
+  --Ensure the value is at least 1s
+  if value < 100 then
+    value = 100
+  end
+
   return value
 end
