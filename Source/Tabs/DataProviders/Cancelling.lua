@@ -97,7 +97,7 @@ function AuctionatorCancellingDataProviderMixin:QueryAuctions()
   self.onPreserveScroll()
   self.onSearchStarted()
 
-  Auctionator.AH.QueryOwnedAuctions({{sortOrder = 1, reverseSort = true}})
+  Auctionator.AH.QueryOwnedAuctions({{sortOrder = 1, reverseSort = false}})
 end
 
 function AuctionatorCancellingDataProviderMixin:NoQueryRefresh()
@@ -175,7 +175,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   local results = {}
   local total = 0
 
-  for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
+  for index = C_AuctionHouse.GetNumOwnedAuctions(), 1, -1  do
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 
     --Only look at unsold and uncancelled (yet) auctions

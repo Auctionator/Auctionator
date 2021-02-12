@@ -71,9 +71,9 @@ local function ShouldInclude(itemKey)
 end
 function AuctionatorUndercutScanMixin:NextStep()
   Auctionator.Debug.Message("next step")
-  self.scanIndex = self.scanIndex - 1
+  self.scanIndex = self.scanIndex + 1
 
-  if self.scanIndex < 1 or self.scanIndex > C_AuctionHouse.GetNumOwnedAuctions() then
+  if self.scanIndex > C_AuctionHouse.GetNumOwnedAuctions() then
     self:EndScan()
     return
   end
@@ -108,7 +108,7 @@ function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
     if not self.currentAuction then
       Auctionator.Debug.Message("next step auto")
 
-      self.scanIndex = C_AuctionHouse.GetNumOwnedAuctions() + 1
+      self.scanIndex = 0
 
       self:NextStep()
     else
