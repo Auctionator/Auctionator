@@ -57,6 +57,7 @@ local SEARCH_PROVIDER_LAYOUT = {
 
 local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
+  "COMMODITY_PURCHASE_SUCCEEDED",
   "ITEM_SEARCH_RESULTS_UPDATED",
 }
 
@@ -136,14 +137,22 @@ function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionI
     self:Reset()
     self:AppendEntries(self:ProcessItemResults(itemRef), true)
 
+  elseif eventName == "COMMODITY_PURCHASE_SUCCEEDED" then
+    self:RefreshView()
+
   elseif eventName == "AUCTION_CANCELED" then
     self:UnregisterEvent("AUCTION_CANCELED")
-    self.onPreserveScroll()
-    Auctionator.EventBus
-      :RegisterSource(self, "AuctionatorSearchDataProviderMixin")
-      :Fire(self, Auctionator.Selling.Events.RefreshSearch)
-      :UnregisterSource(self)
+
+    self:RefreshView()
   end
+end
+
+function AuctionatorSearchDataProviderMixin:RefreshView()
+  self.onPreserveScroll()
+  Auctionator.EventBus
+    :RegisterSource(self, "AuctionatorSearchDataProviderMixin")
+    :Fire(self, Auctionator.Selling.Events.RefreshSearch)
+    :UnregisterSource(self)
 end
 
 local function cancelShortcutEnabled()
