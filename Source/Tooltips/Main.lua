@@ -37,7 +37,8 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
 
   local itemInfo = { GetItemInfo(itemLink) };
   if (#itemInfo) ~= 0 then
-    cannotAuction = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE];
+    local bindType = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE]
+    cannotAuction = bindType == LE_ITEM_BIND_ON_ACQUIRE or bindType == LE_ITEM_BIND_QUEST;
     local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
     if sellPrice ~= nil then
       vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
@@ -111,7 +112,7 @@ end
 function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countString, cannotAuction)
   if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) then
 
-    if (cannotAuction == 1) then
+    if cannotAuction then
       tooltipFrame:AddDoubleLine(
         L("AUCTION") .. countString,
         WHITE_FONT_COLOR:WrapTextInColorCode(
