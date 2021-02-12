@@ -58,9 +58,6 @@ local SEARCH_PROVIDER_LAYOUT = {
 local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
   "ITEM_SEARCH_RESULTS_UPDATED",
-
-  --Used to update the search when a cancel happens
-  "AUCTION_CANCELED",
 }
 
 AuctionatorSearchDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
@@ -70,6 +67,7 @@ function AuctionatorSearchDataProviderMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.SellSearchStart,
     Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Cancelling.Events.RequestCancel,
   })
 
   self:Reset()
@@ -80,6 +78,7 @@ function AuctionatorSearchDataProviderMixin:OnHide()
   Auctionator.EventBus:Unregister(self, {
     Auctionator.Selling.Events.SellSearchStart,
     Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Cancelling.Events.RequestCancel,
   })
 end
 
@@ -89,6 +88,8 @@ function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName)
     self.onSearchStarted()
   elseif eventName == Auctionator.Selling.Events.BagItemClicked then
     self.onResetScroll()
+  elseif eventName == Auctionator.Cancelling.Events.RequestCancel then
+    self:RegisterEvent("AUCTION_CANCELED")
   end
 end
 
@@ -136,6 +137,7 @@ function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionI
     self:AppendEntries(self:ProcessItemResults(itemRef), true)
 
   elseif eventName == "AUCTION_CANCELED" then
+    self:UnregisterEvent("AUCTION_CANCELED")
     self.onPreserveScroll()
     Auctionator.EventBus
       :RegisterSource(self, "AuctionatorSearchDataProviderMixin")
