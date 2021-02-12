@@ -1,8 +1,4 @@
-local QUALITY = {
-  UNCOMMON = 2,
-  RARE = 3,
-  EPIC = 4,
-}
+local QUALITY = Auctionator.Constants.QUALITY
 
 local ENCHANT_REAGENTS = {
   SOUL_DUST = "172230",

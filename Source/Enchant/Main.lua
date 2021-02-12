@@ -1,8 +1,13 @@
 local function isDisenchantable(itemInfo)
   return
-    #itemInfo == 0 or
-    itemInfo[Auctionator.Constants.ITEM_INFO.CLASS] == LE_ITEM_CLASS_WEAPON or
-    itemInfo[Auctionator.Constants.ITEM_INFO.CLASS] == LE_ITEM_CLASS_ARMOR
+    #itemInfo == 0 or (
+      (
+        itemInfo[Auctionator.Constants.ITEM_INFO.CLASS] == LE_ITEM_CLASS_WEAPON or
+        itemInfo[Auctionator.Constants.ITEM_INFO.CLASS] == LE_ITEM_CLASS_ARMOR
+      ) and
+      itemInfo[Auctionator.Constants.ITEM_INFO.RARITY] >= Auctionator.Constants.QUALITY.UNCOMMON and
+      itemInfo[Auctionator.Constants.ITEM_INFO.RARITY] <= Auctionator.Constants.QUALITY.EPIC
+    )
 end
 
 function Auctionator.Enchant.DisenchantStatus(itemInfo)
