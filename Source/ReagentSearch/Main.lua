@@ -6,7 +6,9 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
     return
   end
 
-  local items = {C_TradeSkillUI.GetRecipeInfo(recipeIndex, recipeLevel).name}
+  local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeIndex, recipeLevel)
+
+  local items = {recipeInfo.name}
 
   for reagentIndex = 1, C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) do
 
@@ -14,7 +16,15 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
     table.insert(items, reagentName)
   end
 
-  Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  if recipeInfo.alternateVerb == ENSCRIBE then
+    -- Enchanting names are pretty unique, and we want to be able to find the
+    -- enchantment (which has a name that isn't exactly recipeInfo.name)
+    -- Hence we do a non-exact search.
+    Auctionator.API.v1.MultiSearch(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  else
+    -- Exact search to avoid spurious results, say with "Shrouded Cloth"
+    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  end
 end
 
 function Auctionator.ReagentSearch.GetSkillReagentsTotal()
