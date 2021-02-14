@@ -6,9 +6,6 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(...)
   if IsModifiedClick("DRESSUP") then
     DressUpLink(self.rowData.itemLink);
 
-  elseif IsModifiedClick("CHATLINK") then
-    ChatEdit_InsertLink(self.rowData.itemLink)
-
   else
     self.rowData.cancelled = true
     self:ApplyFade()
