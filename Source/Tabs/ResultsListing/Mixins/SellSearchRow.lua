@@ -26,6 +26,9 @@ function AuctionatorSellSearchRowMixin:OnClick(button, ...)
   if IsModifiedClick("DRESSUP") then
     DressUpLink(self.rowData.itemLink);
 
+  elseif IsModifiedClick("CHATLINK") then
+    ChatEdit_InsertLink(self.rowData.itemLink)
+
   elseif Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT), button) then
     if C_AuctionHouse.CanCancelAuction(self.rowData.auctionID) then
       Auctionator.EventBus
