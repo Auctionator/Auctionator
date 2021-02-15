@@ -45,9 +45,7 @@ function AuctionatorResultsListingMixin:InitializeDataProvider()
     self:RestoreScrollPosition()
     self:DisableSpinner()
 
-    if self.dataProvider:GetCount() == 0 then
-      self.ScrollFrame.NoResultsText:Show()
-    end
+    self.ScrollFrame.NoResultsText:SetShown(self.dataProvider:GetCount() == 0)
   end)
 
   self.dataProvider:SetOnPreserveScrollCallback(function()
