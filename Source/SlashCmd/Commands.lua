@@ -13,7 +13,6 @@ local SLASH_COMMAND_DESCRIPTIONS = {
 }
 
 function Auctionator.SlashCmd.Post()
-  Auctionator.Utilities.Message(AUCTIONATOR_L_POST_BUTTON_MACRO)
   Auctionator.EventBus
     :RegisterSource(Auctionator.SlashCmd.Post, "Auctionator.SlashCmd.Post")
     :Fire(Auctionator.SlashCmd.Post, Auctionator.Selling.Events.RequestPost)
@@ -21,7 +20,6 @@ function Auctionator.SlashCmd.Post()
 end
 
 function Auctionator.SlashCmd.CancelUndercut()
-  Auctionator.Utilities.Message(AUCTIONATOR_L_CANCEL_UNDERCUT_BUTTON_MACRO)
   Auctionator.EventBus
     :RegisterSource(Auctionator.SlashCmd.CancelUndercut, "Auctionator.SlashCmd.CancelUndercut")
     :Fire(Auctionator.SlashCmd.CancelUndercut, Auctionator.Cancelling.Events.RequestCancelUndercut)
