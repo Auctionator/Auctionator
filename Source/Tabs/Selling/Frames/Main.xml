@@ -115,7 +115,7 @@
         </Scripts>
       </Frame>
 
-      <Frame parentKey="ConfirmDropDown" inherits="AuctionatorConfirmDropDownTemplate" hidden="true"/>
+      <Frame parentKey="ConfirmDropDown" inherits="AuctionatorConfirmDropDownTemplate"/>
 
       <Frame parentKey="HistoryTabsContainer" mixin="AuctionatorSellingTabHistoryContainerMixin">
         <Anchors>

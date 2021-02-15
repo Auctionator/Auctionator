@@ -8,6 +8,13 @@ function AuctionatorConfirmDropDownMixin:OnLoad()
   })
 end
 
+function AuctionatorConfirmDropDownMixin:OnHide()
+  if self.commoditiesPurchaseOngoing then
+    self.commoditiesPurchaseOngoing = false
+    C_AuctionHouse.CancelCommoditiesPurchase()
+  end
+end
+
 function AuctionatorConfirmDropDownMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.ConfirmCallback then
     self:Callback(...)
@@ -23,6 +30,10 @@ function AuctionatorConfirmDropDownMixin:Initialize()
     return
   end
 
+  if self.data.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+    self.commoditiesPurchaseOngoing = true
+  end
+
   local confirmInfo = UIDropDownMenu_CreateInfo()
   confirmInfo.notCheckable = 1
   confirmInfo.text = AUCTIONATOR_L_CONFIRM .. " " .. Auctionator.Utilities.CreateMoneyString(self.data.price * self.data.quantity)
@@ -32,6 +43,7 @@ function AuctionatorConfirmDropDownMixin:Initialize()
     if self.data.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
       C_AuctionHouse.PlaceBid(self.data.auctionID, self.data.price)
     else
+      self.commoditiesPurchaseOngoing = false
       C_AuctionHouse.ConfirmCommoditiesPurchase(self.data.itemID, self.data.quantity)
     end
     PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)

@@ -2,6 +2,7 @@
     <Frame name="AuctionatorConfirmDropDownTemplate" inherits="UIDropDownMenuTemplate" mixin="AuctionatorConfirmDropDownMixin" virtual="true">
         <Scripts>
             <OnLoad method="OnLoad"/>
+            <OnHide method="OnHide"/>
         </Scripts>
     </Frame>
 </Ui>
