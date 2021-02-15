@@ -65,10 +65,6 @@ function AuctionatorShoppingListDataProviderMixin:ReceiveEvent(eventName, eventD
     end
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
     self:AppendEntries(self:AddIsTop(eventData), true)
-
-    if self.entriesCount == 0 then
-      Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListDataProviderEmpty)
-    end
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate then
     self:AppendEntries(self:AddIsTop(eventData))
   end

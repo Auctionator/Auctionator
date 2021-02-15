@@ -7,8 +7,6 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
   self.dataProvider = dataProvider
   self.columnSpecification = self.dataProvider:GetTableLayout()
 
-  Auctionator.EventBus:Register(self, { Auctionator.ShoppingLists.Events.ListDataProviderEmpty })
-
   -- Initialize ScrollFrame (HybridScrollFrame.lua#11)
   HybridScrollFrame_OnLoad(self.ScrollFrame)
   -- Add buttons to the scroll frame using our template (HybridScrollFrame.lua#201)
@@ -33,13 +31,6 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
   self:InitializeDataProvider()
 end
 
-function AuctionatorResultsListingMixin:ReceiveEvent(eventName, ...)
-  if eventName == Auctionator.ShoppingLists.Events.ListDataProviderEmpty then
-    self:DisableSpinner()
-    self.ScrollFrame.NoResultsText:Show()
-  end
-end
-
 function AuctionatorResultsListingMixin:InitializeDataProvider()
   self.dataProvider:SetOnUpdateCallback(function()
     self:UpdateTable()
@@ -53,6 +44,10 @@ function AuctionatorResultsListingMixin:InitializeDataProvider()
   self.dataProvider:SetOnSearchEndedCallback(function()
     self:RestoreScrollPosition()
     self:DisableSpinner()
+
+    if self.dataProvider:GetCount() == 0 then
+      self.ScrollFrame.NoResultsText:Show()
+    end
   end)
 
   self.dataProvider:SetOnPreserveScrollCallback(function()
