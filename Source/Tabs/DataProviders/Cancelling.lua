@@ -40,10 +40,10 @@ local CANCELLING_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = AUCTIONATOR_L_TIME_LEFT_H,
+    headerText = AUCTIONATOR_L_TIME_LEFT,
     headerParameters = { "timeLeft" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "timeLeft" },
+    cellParameters = { "timeLeftPretty" },
     width = 120,
   },
   {
@@ -190,7 +190,8 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         bidder = info.bidder,
         itemKey = info.itemKey,
         itemLink = info.itemLink, -- Used for tooltips
-        timeLeft = Auctionator.Utilities.RoundTime(info.timeLeftSeconds or 0),
+        timeLeft = info.timeLeftSeconds,
+        timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(info.timeLeftSeconds),
         cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
         undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN
       })

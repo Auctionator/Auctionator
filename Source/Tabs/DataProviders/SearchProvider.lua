@@ -32,7 +32,7 @@ local SEARCH_PROVIDER_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "timeLeft" },
-    headerText = AUCTIONATOR_L_TIME_LEFT_H,
+    headerText = AUCTIONATOR_L_TIME_LEFT,
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "timeLeftPretty" },
     defaultHide = true,
@@ -173,7 +173,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       quantity = resultInfo.quantity,
       quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
       level = "0",
-      timeLeftPretty = Auctionator.Utilities.RoundTime(resultInfo.timeLeftSeconds or 0),
+      timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(resultInfo.timeLeftSeconds),
       timeLeft = resultInfo.timeLeftSeconds or 0, --Used in sorting
       auctionID = resultInfo.auctionID,
       itemID = itemID,
@@ -209,21 +209,6 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   return entries
 end
 
-local function TimeLeftBandToHours(timeLeftBand)
-  if timeLeftBand == Enum.AuctionHouseTimeLeftBand.Short then
-    return "0 - 0.5"
-  elseif timeLeftBand == Enum.AuctionHouseTimeLeftBand.Medium then
-    return "0.5 - 2"
-  elseif timeLeftBand == Enum.AuctionHouseTimeLeftBand.Long then
-    return "2 - 12"
-  elseif timeLeftBand == Enum.AuctionHouseTimeLeftBand.VeryLong then
-    return "12 - 48"
-  else
-    Auctionator.Debug.Message("Missing auction time left band")
-    return ""
-  end
-end
-
 function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   local entries = {}
   local anyOwnedNotLoaded = false
@@ -236,7 +221,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       level = tostring(resultInfo.itemKey.itemLevel or 0),
       owners = resultInfo.owners,
       otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, ", "),
-      timeLeftPretty = TimeLeftBandToHours(resultInfo.timeLeft),
+      timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(resultInfo.timeLeft),
       timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
       quantity = resultInfo.quantity,
       quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
