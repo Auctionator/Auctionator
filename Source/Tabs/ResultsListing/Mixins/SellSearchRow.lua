@@ -23,10 +23,7 @@ end
 function AuctionatorSellSearchRowMixin:OnClick(button, ...)
   Auctionator.Debug.Message("AuctionatorSellSearchRowMixin:OnClick()")
 
-  if IsModifiedClick("DRESSUP") then
-    DressUpLink(self.rowData.itemLink);
-
-  elseif Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT), button) then
+  if Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT), button) then
     if C_AuctionHouse.CanCancelAuction(self.rowData.auctionID) then
       Auctionator.EventBus
         :RegisterSource(self, "SellSearchRow")
@@ -38,6 +35,12 @@ function AuctionatorSellSearchRowMixin:OnClick(button, ...)
     if self.rowData.canBuy then
       BuyEntry(self.rowData)
     end
+
+  elseif IsModifiedClick("DRESSUP") then
+    DressUpLink(self.rowData.itemLink);
+
+  elseif IsModifiedClick("CHATLINK") then
+    ChatEdit_InsertLink(self.rowData.itemLink)
 
   else
     Auctionator.EventBus
