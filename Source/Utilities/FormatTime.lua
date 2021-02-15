@@ -26,10 +26,10 @@ function Auctionator.Utilities.FormatTimeLeft(seconds)
 end
 
 local hour = 60 * 60
-local SHORT = "<" .. formatter:Format(hour/2)
-local MEDIUM = formatter:Format(hour/2) .. " - " .. formatter:Format(hour * 2)
-local LONG = formatter:Format(hour * 2) .. " - " .. formatter:Format(hour * 12)
-local VERY_LONG = formatter:Format(hour * 12) .. " - " .. formatter:Format(hour * 48)
+local SHORT     = "<" .. formatter:Format(hour/2) -- <30m
+local MEDIUM    = formatter:Format(hour/2) .. " - " .. formatter:Format(hour * 2)     -- 30m - 2h
+local LONG      = formatter:Format(hour * 2) .. " - " .. formatter:Format(hour * 12)  -- 2h - 12h
+local VERY_LONG = formatter:Format(hour * 12) .. " - " .. formatter:Format(hour * 48) -- 12h - 48h
 
 function Auctionator.Utilities.FormatTimeLeftBand(timeLeftBand)
 	if timeLeftBand == Enum.AuctionHouseTimeLeftBand.Short then
