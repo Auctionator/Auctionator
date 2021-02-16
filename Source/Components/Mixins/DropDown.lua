@@ -45,7 +45,7 @@ function AuctionatorDropDownInternalMixin:Initialize(text, values)
   self.values = values
   self.value = self.values[1]
 
-  UIDropDownMenu_Initialize(self, self.BlizzInitialize, "taint prevention")
+  UIDropDownMenu_Initialize(self, self.BlizzInitialize)
 
   UIDropDownMenu_SetWidth(self, 150)
 end
