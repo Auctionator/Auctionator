@@ -9,22 +9,28 @@ function AuctionatorReagentSearchButtonMixin:OnLoad()
   })
 
   hooksecurefunc(TradeSkillFrame, "OnRecipeChanged", function(_, recipeID)
-    self:UpdateTotal()
-  end)
-  hooksecurefunc(TradeSkillFrame.DetailsFrame, "SetSelectedRecipeLevel", function(_, newLevel)
-    self:UpdateTotal()
-  end)
-  Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
+    self:ShowWhenRecipeAndAHOpen()
     if self:IsVisible() then
       self:UpdateTotal()
     end
   end)
+  hooksecurefunc(TradeSkillFrame.DetailsFrame, "SetSelectedRecipeLevel", function(_, newLevel)
+    self:ShowWhenRecipeAndAHOpen()
+    if self:IsVisible() then
+      self:UpdateTotal()
+    end
+  end)
+  Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
+    self:ShowWhenRecipeAndAHOpen()
 
-  self:ShowWhenAHOpen()
+    if self:IsVisible() then
+      self:UpdateTotal()
+    end
+  end)
 end
 
-function AuctionatorReagentSearchButtonMixin:ShowWhenAHOpen()
-  self:SetShown(AuctionHouseFrame ~= nil and AuctionHouseFrame:IsShown())
+function AuctionatorReagentSearchButtonMixin:ShowWhenRecipeAndAHOpen()
+  self:SetShown(AuctionHouseFrame ~= nil and AuctionHouseFrame:IsShown() and TradeSkillFrame.RecipeList:GetSelectedRecipeID() ~= nil)
 end
 
 function AuctionatorReagentSearchButtonMixin:UpdateTotal()
@@ -40,5 +46,5 @@ function AuctionatorReagentSearchButtonMixin:OnClick()
 end
 
 function AuctionatorReagentSearchButtonMixin:OnEvent(...)
-  self:ShowWhenAHOpen()
+  self:ShowWhenRecipeAndAHOpen()
 end

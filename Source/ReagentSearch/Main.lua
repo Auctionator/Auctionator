@@ -1,10 +1,6 @@
 function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
   local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
   local recipeLevel = TradeSkillFrame.DetailsFrame:GetSelectedRecipeLevel()
-  if recipeIndex == nil then
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, {})
-    return
-  end
 
   local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeIndex, recipeLevel)
 
@@ -30,9 +26,6 @@ end
 function Auctionator.ReagentSearch.GetSkillReagentsTotal()
   local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
   local recipeLevel = TradeSkillFrame.DetailsFrame:GetSelectedRecipeLevel()
-  if recipeIndex == nil then
-    return 0
-  end
 
   local total = 0
 
