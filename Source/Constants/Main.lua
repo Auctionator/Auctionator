@@ -52,4 +52,5 @@ Auctionator.Constants = {
     EPIC = 4,
   },
   NO_LIST = "",
+  ITEM_LEVEL_THRESHOLD = 190,
 }

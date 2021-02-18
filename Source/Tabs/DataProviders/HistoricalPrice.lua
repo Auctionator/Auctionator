@@ -54,7 +54,7 @@ function AuctionatorHistoricalPriceProviderMixin:SetItem(itemKey)
   -- Reset columns
   self.onSearchStarted()
 
-  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
+  local dbKey = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })[1]
   local entries = Auctionator.Database:GetPriceHistory(dbKey)
 
   for _, entry in ipairs(entries) do
