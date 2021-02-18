@@ -3,16 +3,26 @@ local zc = addonTable.zc;
 
 local L = Auctionator.Locales.Apply
 
+local waitingForPricing = false
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCount)
+  if waitingOnLink == itemLink and waitingForTooltip == tooltipFrame then
+    return
+  end
   -- Keep this commented out unless testing please.
   -- Auctionator.Debug.Message("Auctionator.Tooltip.ShowTipWithPricing", itemLink, itemCount)
 
-  local itemKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
+  waitingForPricing = true
+  Auctionator.Utilities.ItemKeyFromLinkCallback(itemLink, function(dbKeys)
+    waitingForPricing = false
+    Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemLink, itemCount)
+  end)
+end
 
-  if itemKey == nil or Auctionator.Utilities.IsPetItemKey(itemKey) then
+function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemLink, itemCount)
+  if #dbKeys == 0 or Auctionator.Utilities.IsPetItemKey(dbKeys[1]) then
     return
   end
 
@@ -27,7 +37,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
     countString = Auctionator.Utilities.CreateCountString(itemCount)
   end
 
-  local auctionPrice = Auctionator.Database:GetPrice(itemKey)
+  local auctionPrice = Auctionator.Database:GetFirstPrice(dbKeys)
   if auctionPrice ~= nil then
     auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
   end
@@ -49,7 +59,7 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
   end
 
   if Auctionator.Debug.IsOn() then
-    tooltipFrame:AddDoubleLine("ItemID", itemKey)
+    tooltipFrame:AddDoubleLine("ItemID", dbKey[1])
   end
 
   if vendorPrice ~= nil then
@@ -65,35 +75,45 @@ end
 -- Each itemKey entry should contain
 -- link
 -- count
-function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemKeys)
-  local auctionPrice
+local isMultiplePricesPending = false
+function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemEntries)
+  if isMultiplePricesPending then
+    return
+  end
+  isMultiplePricesPending = true
+
   local total = 0
   local itemCount = 0
-
-  for _, itemEntry in ipairs(itemKeys) do
-    tooltipFrame:AddLine(itemEntry.link)
-
-    auctionPrice = Auctionator.Database:GetPrice(
-      Auctionator.Utilities.ItemKeyFromLink(itemEntry.link)
-    )
-    if auctionPrice ~= nil then
-      total = total + (auctionPrice * itemEntry.count)
-    end
-    itemCount = itemCount + itemEntry.count
-
-    Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemEntry.link, itemEntry.count)
+  local itemLinks = {}
+  for _, itemEntry in ipairs(itemEntries) do
+    table.insert(itemLinks, itemEntry.link)
   end
 
-  tooltipFrame:AddLine("  ")
+  Auctionator.Utilities.ItemKeysFromMultipleLinksCallback(itemLinks, function(allKeys)
+    isMultiplePricesInProgress = false
+    for index, dbKeys in ipairs(allKeys) do
+      local itemEntry = itemEntries[index]
 
-  tooltipFrame:AddDoubleLine(
-    Auctionator.Locales.Apply("TOTAL_ITEMS_COLORED", itemCount),
-    WHITE_FONT_COLOR:WrapTextInColorCode(
-      zc.priceToMoneyString(total)
+      tooltipFrame:AddLine(itemEntry.link)
+      Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemEntry.link, itemEntry.count)
+      local auctionPrice = Auctionator.Database:GetFirstPrice(dbKeys)
+      if auctionPrice ~= nil then
+        total = total + (auctionPrice * itemEntry.count)
+      end
+      itemCount = itemCount + itemEntry.count
+    end
+
+    tooltipFrame:AddLine("  ")
+
+    tooltipFrame:AddDoubleLine(
+      Auctionator.Locales.Apply("TOTAL_ITEMS_COLORED", itemCount),
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        zc.priceToMoneyString(total)
+      )
     )
-  )
 
-  tooltipFrame:Show()
+    tooltipFrame:Show()
+  end)
 end
 
 function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)

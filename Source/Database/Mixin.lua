@@ -26,6 +26,16 @@ function Auctionator.DatabaseMixin:GetPrice(itemKey)
   end
 end
 
+function Auctionator.DatabaseMixin:GetFirstPrice(itemKeys)
+  for _, dbKey in ipairs(itemKeys) do
+    local price = self:GetPrice(dbKey)
+    if price then
+      return price
+    end
+  end
+  return nil
+end
+
 --Takes all the items with a list of their prices, and determines the minimum
 --price.
 function Auctionator.DatabaseMixin:ProcessScan(itemIndexes)

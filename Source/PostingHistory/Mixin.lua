@@ -50,11 +50,11 @@ end
 
 function Auctionator.PostingHistoryMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.Selling.Events.AuctionCreated then
-    self:AddEntry(
-      Auctionator.Utilities.ItemKeyFromLink(eventData.itemLink),
-      eventData.buyoutAmount,
-      eventData.quantity
-    )
+    Auctionator.Utilities.ItemKeyFromLinkCallback(eventData.itemLink, function(keys)
+      for _, key in ipairs(keys) do
+        self:AddEntry(key, eventData.buyoutAmount, eventData.quantity)
+      end
+    end)
   end
 end
 
