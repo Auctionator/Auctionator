@@ -220,7 +220,7 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   self:SetQuantity()
 
   local price = Auctionator.Database:GetFirstPrice(
-    Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
+    Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
   )
 
   if price ~= nil then
@@ -363,7 +363,7 @@ end
 function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessCommodityResults()")
 
-  local dbKeys = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = C_AuctionHouse.MakeItemKey(itemID) })
+  local dbKeys = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = C_AuctionHouse.MakeItemKey(itemID) })
 
   local result = self:GetCommodityResult(itemID)
   -- Update DB with current lowest price
@@ -412,7 +412,7 @@ end
 function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessItemResults()")
 
-  local dbKeys = Auctionator.Utilities.ItemKeyFromBrowseResult({ itemKey = itemKey })
+  local dbKeys = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = itemKey })
 
   local result = self:GetItemResult(itemKey)
 

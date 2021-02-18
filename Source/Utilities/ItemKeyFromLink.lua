@@ -1,4 +1,4 @@
-function Auctionator.Utilities.BasicItemKeyFromLink(itemLink)
+function Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
   if itemLink ~= nil then
     local _, _, itemString = string.find(itemLink, "^|c%x+|H(.+)|h%[.*%]")
     if itemString ~= nil then
@@ -18,13 +18,13 @@ local function IsGear(itemLink)
   return classType == LE_ITEM_CLASS_WEAPON or classType == LE_ITEM_CLASS_ARMOR
 end
 
-function Auctionator.Utilities.ItemKeyFromLinkCallback(itemLink, callback)
+function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
   if itemLink == nil then
     callback({})
     return
   end
 
-  local basicKey = Auctionator.Utilities.BasicItemKeyFromLink(itemLink)
+  local basicKey = Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
 
   if IsGear(itemLink) then
     local item = Item:CreateFromItemLink(itemLink)
@@ -42,11 +42,11 @@ function Auctionator.Utilities.ItemKeyFromLinkCallback(itemLink, callback)
   end
 end
 
-function Auctionator.Utilities.ItemKeysFromMultipleLinksCallback(itemLinks, callback)
+function Auctionator.Utilities.DBKeysFromMultipleLinks(itemLinks, callback)
   local result = {}
 
   for index, link in ipairs(itemLinks) do
-    Auctionator.Utilities.ItemKeyFromLinkCallback(link, function(dbKeys)
+    Auctionator.Utilities.DBKeyFromLink(link, function(dbKeys)
       result[index] = dbKeys
 
       for i = 1, #itemLinks do

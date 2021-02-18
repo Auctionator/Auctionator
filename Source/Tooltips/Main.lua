@@ -15,14 +15,14 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
   -- Auctionator.Debug.Message("Auctionator.Tooltip.ShowTipWithPricing", itemLink, itemCount)
 
   waitingForPricing = true
-  Auctionator.Utilities.ItemKeyFromLinkCallback(itemLink, function(dbKeys)
+  Auctionator.Utilities.DBKeyFromLink(itemLink, function(dbKeys)
     waitingForPricing = false
     Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemLink, itemCount)
   end)
 end
 
 function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemLink, itemCount)
-  if #dbKeys == 0 or Auctionator.Utilities.IsPetItemKey(dbKeys[1]) then
+  if #dbKeys == 0 or Auctionator.Utilities.IsPetDBKey(dbKeys[1]) then
     return
   end
 
@@ -72,7 +72,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   tooltipFrame:Show()
 end
 
--- Each itemKey entry should contain
+-- Each itemEntry in itemEntries should contain
 -- link
 -- count
 local isMultiplePricesPending = false
@@ -89,8 +89,8 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemEntrie
     table.insert(itemLinks, itemEntry.link)
   end
 
-  Auctionator.Utilities.ItemKeysFromMultipleLinksCallback(itemLinks, function(allKeys)
-    isMultiplePricesInProgress = false
+  Auctionator.Utilities.DBKeysFromMultipleLinks(itemLinks, function(allKeys)
+    isMultiplePricesPending = false
     for index, dbKeys in ipairs(allKeys) do
       local itemEntry = itemEntries[index]
 
