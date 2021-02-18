@@ -1,4 +1,4 @@
-function Auctionator.Utilities.ItemKeyFromLink(itemLink)
+function Auctionator.Utilities.BasicItemKeyFromLink(itemLink)
   if itemLink ~= nil then
     local _, _, itemString = string.find(itemLink, "^|c%x+|H(.+)|h%[.*%]")
     if itemString ~= nil then
@@ -13,16 +13,20 @@ function Auctionator.Utilities.ItemKeyFromLink(itemLink)
   return nil
 end
 
+local function IsGear(itemLink)
+  local classType = select(6, GetItemInfoInstant(itemLink))
+  return classType == LE_ITEM_CLASS_WEAPON or classType == LE_ITEM_CLASS_ARMOR
+end
+
 function Auctionator.Utilities.ItemKeyFromLinkCallback(itemLink, callback)
   if itemLink == nil then
     callback({})
     return
   end
 
-  local basicKey = Auctionator.Utilities.ItemKeyFromLink(itemLink)
+  local basicKey = Auctionator.Utilities.BasicItemKeyFromLink(itemLink)
 
-  local itemInfoInstant = {GetItemInfoInstant(itemLink)}
-  if itemInfoInstant[6] == LE_ITEM_CLASS_WEAPON or itemInfoInstant[6] == LE_ITEM_CLASS_ARMOR then
+  if IsGear(itemLink) then
     local item = Item:CreateFromItemLink(itemLink)
     item:ContinueOnItemLoad(function()
       local itemLevel = GetDetailedItemLevelInfo(itemLink) or 0
@@ -33,7 +37,6 @@ function Auctionator.Utilities.ItemKeyFromLinkCallback(itemLink, callback)
         callback({basicKey})
       end
     end)
-
   else
     callback({basicKey})
   end

@@ -22,6 +22,6 @@ function Auctionator.API.v1.GetAuctionPriceByItemLink(callerID, itemLink)
   end
 
   return Auctionator.Database:GetPrice(
-    Auctionator.Utilities.ItemKeyFromLink(itemLink)
+    Auctionator.Utilities.BasicItemKeyFromLink(itemLink)
   )
 end

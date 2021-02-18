@@ -3,8 +3,7 @@ local zc = addonTable.zc;
 
 local L = Auctionator.Locales.Apply
 
-local waitingOnLink = nil
-local waitingForTooltip = nil
+local waitingForPricing = false
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
@@ -15,11 +14,9 @@ function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCoun
   -- Keep this commented out unless testing please.
   -- Auctionator.Debug.Message("Auctionator.Tooltip.ShowTipWithPricing", itemLink, itemCount)
 
-  waitingOnLink = itemLink
-  waitingForTooltip = tooltipFrame
+  waitingForPricing = true
   Auctionator.Utilities.ItemKeyFromLinkCallback(itemLink, function(dbKeys)
-    waitingOnLink = nil
-    waitingForTooltip = nil
+    waitingForPricing = false
     Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemLink, itemCount)
   end)
 end
@@ -78,12 +75,13 @@ end
 -- Each itemKey entry should contain
 -- link
 -- count
-local isMultiplePricesInProgress = false
+local isMultiplePricesPending = false
 function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemEntries)
-  if isMultiplePricesInProgress then
+  if isMultiplePricesPending then
     return
   end
-  isMultiplePricesInProgress = true
+  isMultiplePricesPending = true
+
   local total = 0
   local itemCount = 0
   local itemLinks = {}
