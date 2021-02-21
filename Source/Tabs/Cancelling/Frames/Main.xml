@@ -34,11 +34,6 @@
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="65" y="57"/>
         </Anchors>
-        <Scripts>
-          <OnEnterPressed>
-            self:GetParent():PressEnterToSearch()
-          </OnEnterPressed>
-        </Scripts>
       </EditBox>
 
       <Frame parentKey="DataProvider" mixin="AuctionatorCancellingDataProviderMixin">
