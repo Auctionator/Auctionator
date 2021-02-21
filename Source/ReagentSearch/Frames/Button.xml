@@ -6,7 +6,7 @@
       <OnEvent method="OnEvent" />
     </Scripts>
     <Anchors>
-      <Anchor point="RIGHT" relativePoint="RIGHT" x="-35" y="100"/>
+      <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-35" y="-137"/>
     </Anchors>
     <Layers>
       <Layer level="OVERLAY">
