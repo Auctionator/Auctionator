@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="EventBusMixin.lua" />
 
-  <Script file="ItemKeyFromLink.lua"/>
-  <Script file="ItemKeyFromBrowseResult.lua"/>
+  <Script file="DBKeyFromLink.lua"/>
+  <Script file="DBKeyFromBrowseResult.lua"/>
   <Script file="IsPetItemKey.lua"/>
   <Script file="Message.lua"/>
   <Script file="StringContains.lua"/>
