@@ -28,6 +28,19 @@
           </OnClick>
         </Scripts>
       </Button>
+
+      <EditBox parentKey="SearchFilter" autoFocus="false" historyLines="1" bytes="64" inherits="SearchBoxTemplate">
+        <Size x="250" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="65" y="57"/>
+        </Anchors>
+        <Scripts>
+          <OnEnterPressed>
+            self:GetParent():PressEnterToSearch()
+          </OnEnterPressed>
+        </Scripts>
+      </EditBox>
+
       <Frame parentKey="DataProvider" mixin="AuctionatorCancellingDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>

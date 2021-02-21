@@ -15,6 +15,10 @@ function AuctionatorCancellingFrameMixin:RefreshButtonClicked()
   self.DataProvider:QueryAuctions()
 end
 
+function AuctionatorCancellingFrameMixin:PressEnterToSearch()
+  self.DataProvider:NoQueryRefresh()
+end
+
 function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
     Auctionator.Debug.Message("Executing cancel request", eventData)
