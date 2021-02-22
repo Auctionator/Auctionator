@@ -71,6 +71,7 @@ function AuctionatorSearchDataProviderMixin:OnShow()
     Auctionator.Cancelling.Events.RequestCancel,
   })
 
+  self.processCountPerUpdate = 200
   self:Reset()
 end
 
@@ -133,7 +134,8 @@ function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionI
 
   -- Get item search results, excluding individual auction updates (which cause
   -- the display to blank)
-  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" and auctionID == nil then
+  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
+    self.onPreserveScroll()
     self:Reset()
     self:AppendEntries(self:ProcessItemResults(itemRef), true)
 
