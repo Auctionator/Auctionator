@@ -83,6 +83,7 @@ function AuctionatorUndercutScanMixin:NextStep()
 
   if (self.currentAuction.status == 1 or
       self.currentAuction.bidder ~= nil or
+      self.currentAuction.itemKey.itemID == Auctionator.Constants.WOW_TOKEN_ID or
       not ShouldInclude(self.currentAuction.itemKey)) then
     Auctionator.Debug.Message("undercut scan skip")
 
