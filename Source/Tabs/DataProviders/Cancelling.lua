@@ -165,6 +165,8 @@ end
 
 function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
   return
+    --We don't handle WoW Tokens (can't cancel and no time left)
+    auctionInfo.itemKey.itemID ~= Auctionator.Constants.WOW_TOKEN_ID and
     auctionInfo.status == 0 and
     tIndexOf(self.beenCancelled, auctionInfo.auctionID) == nil
 end
