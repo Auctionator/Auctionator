@@ -34,6 +34,7 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
     Auctionator.Selling.Events.RefreshSearch,
+    Auctionator.Components.Events.EnterPressed,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
@@ -48,6 +49,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
     Auctionator.Selling.Events.RefreshSearch,
+    Auctionator.Components.Events.EnterPressed,
   })
   Auctionator.EventBus:UnregisterSource(self)
   self:UnlockItem()
@@ -139,6 +141,9 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     self:UpdatePostButtonState()
 
   elseif event == Auctionator.Selling.Events.RequestPost then
+    self:PostItem()
+
+  elseif event == Auctionator.Components.Events.EnterPressed then
     self:PostItem()
 
   elseif event == Auctionator.Selling.Events.PriceSelected and

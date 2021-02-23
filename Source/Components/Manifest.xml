@@ -1,5 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Events.lua"/>
+
   <Script file="EditBoxFloatingPoint.lua" />
+  <Script file="ReportEnterPressed.lua"/>
 
   <Include file="Mixins\Manifest.xml"/>
   <Include file="Frames\Manifest.xml"/>
