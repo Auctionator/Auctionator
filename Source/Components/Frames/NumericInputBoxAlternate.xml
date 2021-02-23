@@ -37,6 +37,7 @@
           <OnEnter>self:GetParent():OnEnter()</OnEnter>
           <OnLeave>self:GetParent():OnLeave()</OnLeave>
           <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+          <OnEnterPressed>Auctionator.Components.ReportEnterPressed()</OnEnterPressed>
         </Scripts>
       </EditBox>
     </Frames>

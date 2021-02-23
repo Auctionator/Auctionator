@@ -9,6 +9,13 @@ function AuctionatorConfigMoneyInputMixin:OnLoad()
   self.MoneyInput.SilverBox:SetScript("OnLeave", function() self:OnLeave() end)
   self.MoneyInput.GoldBox:SetScript("OnEnter", function() self:OnEnter() end)
   self.MoneyInput.GoldBox:SetScript("OnLeave", function() self:OnLeave() end)
+
+  self.MoneyInput.SilverBox:SetScript("OnEnterPressed", function()
+    Auctionator.Components.ReportEnterPressed()
+  end)
+  self.MoneyInput.GoldBox:SetScript("OnEnterPressed", function()
+    Auctionator.Components.ReportEnterPressed()
+  end)
 end
 
 function AuctionatorConfigMoneyInputMixin:SetAmount(value)
