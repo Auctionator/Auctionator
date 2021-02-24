@@ -51,6 +51,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_STACK_TOOLTIP"] = "Show stack price when holding shift."
   L["STACK_TOOLTIP_TOOLTIP_HEADER"] = "Stack Prices"
   L["STACK_TOOLTIP_TOOLTIP_TEXT"] = "When selected, the shift key must be held to see stack prices. When not selected, stack prices show by default."
+  L["CONFIG_HISTORICAL_TOOLTIP"] = "Show all daily historical prices when holding alt."
+  L["HISTORICAL_TOOLTIP_TOOLTIP_HEADER"] = "Daily Prices"
+  L["HISTORICAL_TOOLTIP_TOOLTIP_TEXT"] = "When selected, the alt key being held down causes all recorded daily historical prices for the item to be displayed."
 
   L["CONFIG_LIFO_CATEGORY"] = "Selling: Items"
   L["CONFIG_NOT_LIFO_CATEGORY"] = "Selling: Gear/Pets"

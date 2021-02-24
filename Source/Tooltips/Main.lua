@@ -37,6 +37,8 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     countString = Auctionator.Utilities.CreateCountString(itemCount)
   end
 
+  local showHistoricalPricing = IsAltKeyDown() and Auctionator.Config.Get(Auctionator.Config.Options.ALT_HISTORICAL_TOOLTIPS)
+
   local auctionPrice = Auctionator.Database:GetFirstPrice(dbKeys)
   if auctionPrice ~= nil then
     auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
@@ -65,7 +67,12 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   if vendorPrice ~= nil then
     Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
   end
+
   Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
+  if showHistoricalPricing then
+    Auctionator.Tooltip.AddHistoricalPricing(tooltipFrame, dbKeys[1])
+  end
+
   if disenchantStatus ~= nil then
     Auctionator.Tooltip.AddDisenchantTip(tooltipFrame, disenchantPrice, disenchantStatus)
   end
@@ -114,6 +121,12 @@ function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemEntrie
 
     tooltipFrame:Show()
   end)
+end
+
+function Auctionator.Tooltip.AddHistoricalPricing(tooltipFrame, dbKey)
+  for index, entry in ipairs(Auctionator.Database:GetPriceHistory(dbKey)) do
+    tooltipFrame:AddDoubleLine(entry.date, WHITE_FONT_COLOR:WrapTextInColorCode(zc.priceToMoneyString(entry.minSeen)))
+  end
 end
 
 function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)

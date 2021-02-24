@@ -16,6 +16,7 @@ function AuctionatorConfigTooltipsFrameMixin:OnShow()
   self.AuctionTooltips:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS))
   self.EnchantTooltips:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.ENCHANT_TOOLTIPS))
   self.ShiftStackTooltips:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS))
+  self.AltHistoricalTooltips:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.ALT_HISTORICAL_TOOLTIPS))
 end
 
 function AuctionatorConfigTooltipsFrameMixin:Save()
@@ -27,6 +28,7 @@ function AuctionatorConfigTooltipsFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_TOOLTIPS, self.AuctionTooltips:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.ENCHANT_TOOLTIPS, self.EnchantTooltips:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS, self.ShiftStackTooltips:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.ALT_HISTORICAL_TOOLTIPS, self.AltHistoricalTooltips:GetChecked())
 end
 
 function AuctionatorConfigTooltipsFrameMixin:Cancel()
