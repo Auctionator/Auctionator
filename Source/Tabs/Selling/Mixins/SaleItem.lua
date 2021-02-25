@@ -292,22 +292,16 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
     sortingOrder = {sortOrder = 4, reverseSort = false}
   end
 
-  if IsEquipment(itemInfo) then
+  if IsEquipment(itemInfo) and not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL) then
     -- Bug with PTR C_AuctionHouse.MakeItemKey(...), it always sets the
     -- itemLevel to a non-zero value, so we have to create the key directly
     self.expectedItemKey = {itemID = itemInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
-    if itemInfo.itemKey.itemLevel >= Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
-      self.expectedItemLevel = itemInfo.itemKey.itemLevel
-    else
-      self.expectedItemLevel = nil
-    end
     Auctionator.AH.SendSellSearchQuery(self.expectedItemKey, {sortingOrder}, true)
   else
     self.expectedItemKey = itemInfo.itemKey
-    self.expectedItemLevel = nil
     Auctionator.AH.SendSearchQuery(itemInfo.itemKey, {sortingOrder}, true)
   end
-  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart, self.expectedItemLevel)
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart)
 end
 
 function AuctionatorSaleItemMixin:Reset()
@@ -413,23 +407,8 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
 end
 
 function AuctionatorSaleItemMixin:GetItemResult(itemKey)
-  local resultsQuantity = C_AuctionHouse.GetItemSearchResultsQuantity(itemKey)
-  if resultsQuantity > 0 then
-    -- Get the first item to match the item level requirement
-    if self.expectedItemLevel ~= nil then
-      local index = 1
-      while index <= resultsQuantity do
-        result = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-        if result.itemKey.itemLevel == self.expectedItemLevel then
-          return result
-        end
-        index = index + 1
-      end
-      return nil
-    -- We don't have an item level to compare to, so get the first result
-    else
-      return C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1)
-    end
+  if C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) > 0 then
+    return C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1)
   else
     return nil
   end

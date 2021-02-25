@@ -84,10 +84,9 @@ function AuctionatorSearchDataProviderMixin:OnHide()
   })
 end
 
-function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName, ...)
+function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName)
   if eventName == Auctionator.Selling.Events.SellSearchStart then
     self:Reset()
-    self.expectedItemLevel = ...
     self.onSearchStarted()
   elseif eventName == Auctionator.Selling.Events.BagItemClicked then
     self.onResetScroll()
@@ -162,14 +161,6 @@ local function cancelShortcutEnabled()
   return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT) ~= Auctionator.Config.Shortcuts.NONE
 end
 
-function AuctionatorSearchDataProviderMixin:ExpectedResult(itemKey)
-  if self.expectedItemLevel ~= nil then
-    return itemKey.itemLevel == self.expectedItemLevel
-  else
-    return true
-  end
-end
-
 function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   local entries = {}
   local anyOwnedNotLoaded = false
@@ -226,45 +217,43 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
 
   for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
-    if self:ExpectedResult(resultInfo.itemKey) then
-      local entry = {
-        price = resultInfo.buyoutAmount,
-        bidPrice = resultInfo.bidAmount,
-        level = tostring(resultInfo.itemKey.itemLevel or 0),
-        owners = resultInfo.owners,
-        otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, ", "),
-        timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(resultInfo.timeLeft),
-        timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
-        quantity = resultInfo.quantity,
-        quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
-        itemLink = resultInfo.itemLink,
-        auctionID = resultInfo.auctionID,
-        itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
-        canBuy = resultInfo.buyoutAmount ~= nil and not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
-      }
+    local entry = {
+      price = resultInfo.buyoutAmount,
+      bidPrice = resultInfo.bidAmount,
+      level = tostring(resultInfo.itemKey.itemLevel or 0),
+      owners = resultInfo.owners,
+      otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, ", "),
+      timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(resultInfo.timeLeft),
+      timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
+      quantity = resultInfo.quantity,
+      quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
+      itemLink = resultInfo.itemLink,
+      auctionID = resultInfo.auctionID,
+      itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
+      canBuy = resultInfo.buyoutAmount ~= nil and not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
+    }
 
-      if resultInfo.itemKey.battlePetSpeciesID ~= 0 and entry.itemLink ~= nil then
-        entry.level = tostring(Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink))
-      end
-
-      local qualityColor = Auctionator.Utilities.GetQualityColorFromLink(entry.itemLink)
-      entry.level = "|c" .. qualityColor .. entry.level .. "|r"
-
-      if resultInfo.containsOwnerItem then
-        -- Test if the auction has been loaded for cancelling
-        if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
-          anyOwnedNotLoaded = true
-        end
-
-        entry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
-        entry.owned = AUCTIONATOR_L_UNDERCUT_YES
-
-      else
-        entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
-      end
-
-      table.insert(entries, entry)
+    if resultInfo.itemKey.battlePetSpeciesID ~= 0 and entry.itemLink ~= nil then
+      entry.level = tostring(Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink))
     end
+
+    local qualityColor = Auctionator.Utilities.GetQualityColorFromLink(entry.itemLink)
+    entry.level = "|c" .. qualityColor .. entry.level .. "|r"
+
+    if resultInfo.containsOwnerItem then
+      -- Test if the auction has been loaded for cancelling
+      if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
+        anyOwnedNotLoaded = true
+      end
+
+      entry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
+      entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+
+    else
+      entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
+    end
+
+    table.insert(entries, entry)
   end
 
   -- See comment in ProcessCommodityResults

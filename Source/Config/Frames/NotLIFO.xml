@@ -130,6 +130,17 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.GearPriceMultiplierHeading" relativePoint="BOTTOMLEFT" y="-15"/>
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="GearUseItemLevel">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.GearPriceMultiplier" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>
