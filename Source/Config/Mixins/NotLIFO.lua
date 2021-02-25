@@ -27,6 +27,7 @@ function AuctionatorConfigNotLIFOFrameMixin:OnShow()
 
   self.DefaultQuantity:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_DEFAULT_QUANTITY))
   self.GearPriceMultiplier:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER))
+  self.GearUseItemLevel:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL))
 end
 
 function AuctionatorConfigNotLIFOFrameMixin:OnSalesPreferenceChange(selectedValue)
@@ -56,6 +57,7 @@ function AuctionatorConfigNotLIFOFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.NOT_LIFO_DEFAULT_QUANTITY, self.DefaultQuantity:GetNumber())
 
   Auctionator.Config.Set(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER, self.GearPriceMultiplier:GetNumber())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL, self.GearUseItemLevel:GetChecked())
 end
 
 function AuctionatorConfigNotLIFOFrameMixin:Cancel()
