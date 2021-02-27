@@ -347,6 +347,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_CATEGORY"] = "Selling"
   L["CONFIG_SELLING_TEXT"] = "Options to change the behaviour of the Selling tab"
 
+  L["CONFIG_SELLING_SHORTCUTS_CATEGORY"] = "Selling: Shortcuts"
+  L["CONFIG_SELLING_SHORTCUTS_TEXT"] = "Options for keyboard and mouse shortcuts inside the Selling tab"
+
   L["CONFIG_PRICE_HISTORY"] = "Show historical prices in the selling tab (reload required)"
   L["CONFIG_PRICE_HISTORY_TOOLTIP_HEADER"] = "Price History"
   L["CONFIG_PRICE_HISTORY_TOOLTIP_TEXT"] = "If this option is off the price history pane in the Selling tab will be hidden."
@@ -368,6 +371,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_MISSING_FAVOURITES"] = "Always show favourite items, including when not in your bag."
   L["CONFIG_SELLING_MISSING_FAVOURITES_TOOLTIP_HEADER"] = "Missing favourites visible"
   L["CONFIG_SELLING_MISSING_FAVOURITES_TOOLTIP_TEXT"] = "Show favourite items in the bag view even when they aren't in your bag."
+  L["CONFIG_SELLING_POST_SHORTCUT"] = "A keyboard/mouse shortcut to post the current item is"
+  L["CONFIG_SELLING_POST_SHORTCUT_TOOLTIP_HEADER"] = "Custom keyboard shortcuts"
+  L["CONFIG_SELLING_POST_SHORTCUT_TOOLTIP_TEXT"] = "Click and then press the buttons that you wish to use as the shortcut. This shortcut will only be active in the Selling tab and won't affect any other shortcuts bound to the buttons."
   L["CONFIG_BAG"] = "Bag"
 
   L["HIDE"] = "Hide"

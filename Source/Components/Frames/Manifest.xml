@@ -17,6 +17,7 @@
   <Include file="FilterKeySelector.xml"/>
   <Include file="ResetButton.xml"/>
   <Include file="DropDown.xml"/>
+  <Include file="KeyBinding.xml"/>
   <Include file="Inset.xml"/>
   <Include file="Panel.xml"/>
 
