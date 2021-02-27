@@ -63,6 +63,7 @@
       <Frame mixin="AuctionatorUndercutScanMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow" />
           <OnHide method="OnHide" />
           <OnEvent method="OnEvent"/>
         </Scripts>
@@ -83,7 +84,7 @@
             </Scripts>
           </Button>
 
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL_UNDERCUT" parentKey="CancelNextButton">
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL_UNDERCUT" parentKey="CancelNextButton" name="AuctionatorCancelUndercutButton">
             <Anchors>
               <Anchor point="TOPLEFT" relativeKey="$parent.StartScanButton" relativePoint="TOPRIGHT" x="3" />
             </Anchors>

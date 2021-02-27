@@ -24,7 +24,12 @@ function AuctionatorUndercutScanMixin:OnLoad()
   self:SetCancel()
 end
 
+function AuctionatorUndercutScanMixin:OnShow()
+  SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT), "CLICK AuctionatorCancelUndercutButton:LeftButton")
+end
+
 function AuctionatorUndercutScanMixin:OnHide()
+  ClearOverrideBindings(self)
   FrameUtil.UnregisterFrameForEvents(self, CANCELLING_EVENTS)
 end
 

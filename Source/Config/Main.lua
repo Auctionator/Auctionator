@@ -51,6 +51,7 @@ Auctionator.Config.Options = {
   HIDE_SPLASH_SCREEN = "hide_splash_screen",
 
   UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo",
+  CANCEL_UNDERCUT_SHORTCUT = "cancel_undercut_shortcut",
 
   SILENCE_AUCTION_ERRORS = "silence_auction_errors",
 
@@ -125,6 +126,7 @@ local defaults = {
   [Auctionator.Config.Options.HIDE_SPLASH_SCREEN] = false,
 
   [Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true,
+  [Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT] = "",
 
   [Auctionator.Config.Options.SILENCE_AUCTION_ERRORS] = true,
   [Auctionator.Config.Options.DEFAULT_TAB] = 0,
