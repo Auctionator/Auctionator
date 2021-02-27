@@ -1,0 +1,55 @@
+<Ui>
+  <Button name="AuctionatorKeyBindingButtonTemplate" inherits="UIMenuButtonStretchTemplate" virtual="true">
+    <Size x="180" y="20"/>
+    <Layers>
+      <Layer level="OVERLAY">
+        <Texture parentKey="selectedHighlight" file="Interface\Buttons\UI-Silver-Button-Select" alphaMode="ADD" hidden="true">
+          <Size x="180" y="20"/>
+          <Anchors>
+            <Anchor point="CENTER" x="0" y="-3"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <NormalFont style="GameFontHighlightSmall"/>
+    <DisabledFont style="GameFontDisableSmall"/>
+    <HighlightFont style="GameFontHighlightSmall"/>
+    <Scripts>
+      <OnMouseDown>
+        self:GetParent():OnClick(button)
+      </OnMouseDown>
+      <OnEnter>
+        self:GetParent():OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:GetParent():OnLeave()
+      </OnLeave>
+    </Scripts>
+  </Button>
+  <Frame name="AuctionatorKeyBindingConfigTemplate" mixin="AuctionatorKeyBindingConfigMixin" virtual="true">
+    <Size x="400" y="25"/>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="Description" justifyH="LEFT">
+          <Size x="350" y="20"/>
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" y="-5" x="25"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button inherits="AuctionatorKeyBindingButtonTemplate" parentKey="Button">
+        <Anchors>
+          <Anchor point="LEFT" relativeKey="$parent.Description" relativePoint="RIGHT"/>
+        </Anchors>
+      </Button>
+    </Frames>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnMouseDown method="OnClick"/>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
+    </Scripts>
+  </Frame>
+</Ui>

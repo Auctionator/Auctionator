@@ -14,10 +14,6 @@ function AuctionatorConfigSellingFrameMixin:OnShow()
   self.PriceHistory:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY))
   self.BagCollapsed:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))
 
-  self.BagSelectShortcut:SetValue(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT))
-  self.CancelShortcut:SetValue(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT))
-  self.BuyShortcut:SetValue(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BUY_SHORTCUT))
-
   self.BagShown:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BAG))
   self.IconSize:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
   self.AutoSelectNext:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT))
@@ -32,10 +28,6 @@ function AuctionatorConfigSellingFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_CHAT_LOG, self.AuctionChatLog:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY, self.PriceHistory:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_COLLAPSED, self.BagCollapsed:GetChecked())
-
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT, self.BagSelectShortcut:GetValue())
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT, self.CancelShortcut:GetValue())
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BUY_SHORTCUT, self.BuyShortcut:GetValue())
 
   Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_BAG, self.BagShown:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_ICON_SIZE, math.min(50, math.max(10, self.IconSize:GetNumber())))

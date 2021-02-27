@@ -38,6 +38,8 @@ function AuctionatorSaleItemMixin:OnShow()
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
+  SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_POST_SHORTCUT), "CLICK AuctionatorPostButton:LeftButton")
+
   self.lastItemInfo = nil
   self:Reset()
 end
@@ -53,6 +55,7 @@ function AuctionatorSaleItemMixin:OnHide()
   })
   Auctionator.EventBus:UnregisterSource(self)
   self:UnlockItem()
+  ClearOverrideBindings(self)
 end
 
 function AuctionatorSaleItemMixin:UnlockItem()
