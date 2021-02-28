@@ -6,4 +6,7 @@
 
   <Include file="Mixins\Manifest.xml"/>
   <Include file="Frames\Manifest.xml"/>
+
+  <Include file="DataProviders\Manifest.xml"/>
+  <Include file="ResultsListing\Manifest.xml"/>
 </Ui>

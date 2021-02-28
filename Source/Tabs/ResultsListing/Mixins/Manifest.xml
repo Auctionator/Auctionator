@@ -1,23 +1,9 @@
 <!-- ResultsListing/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="AuctionatorCell.lua" />
-
-  <Script file="AuctionatorStringColumnHeader.lua"/>
-
-  <Script file="StringCell.lua"/>
-  <Script file="TooltipStringCell.lua"/>
-  <Script file="PriceCell.lua"/>
-  <Script file="ItemKeyCell.lua"/>
-
-  <Script file="AuctionatorResultsRow.lua"/>
   <Script file="ShoppingListResultsRow.lua" />
   <Script file="CancellingListResultsRow.lua" />
   <Script file="SellSearchRow.lua"/>
   <Script file="HistoricalPriceRow.lua"/>
   <Script file="PostingHistoryRow.lua"/>
   <Script file="BagListResultsRow.lua" />
-
-  <Script file="CustomiseColumnsDropDown.lua"/>
-
-  <Script file="ResultsListing.lua"/>
 </Ui>

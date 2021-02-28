@@ -1,0 +1,16 @@
+<!-- ResultsListing/Templates directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="AuctionatorCell.xml" />
+
+  <Include file="StringHeader.xml"/>
+  <Include file="StringCell.xml"/>
+  <Include file="TooltipStringCell.xml"/>
+  <Include file="PriceCell.xml"/>
+  <Include file="ItemKeyCell.xml"/>
+
+  <Include file="AuctionatorResultsRow.xml"/>
+
+  <Include file="CustomiseColumnsDropDown.xml"/>
+
+  <Include file="ResultsListing.xml"/>
+</Ui>

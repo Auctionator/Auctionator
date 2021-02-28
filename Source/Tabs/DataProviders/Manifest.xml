@@ -1,6 +1,5 @@
 <!-- DataProviders directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="DataProvider.lua"/>
   <Script file="ItemKeyLoading.lua"/>
   <Script file="ShoppingList.lua"/>
   <Script file="Cancelling.lua"/>
