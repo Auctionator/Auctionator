@@ -335,6 +335,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["BIDDER"] = "Bidder"
   L["DURATION"] = "Duration"
   L["POST"] = "Post"
+  L["SKIP"] = "Skip"
   L["DEPOSIT"] = "Deposit:"
   L["TOTAL_PRICE"] = "Total Price:"
 
@@ -376,6 +377,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_POST_SHORTCUT"] = "A keyboard/mouse shortcut to post the current item is"
   L["CUSTOM_KEYBOARD_SHORTCUTS"] = "Custom keyboard shortcuts"
   L["CONFIG_SELLING_POST_SHORTCUT_TOOLTIP_TEXT"] = "Click and then press the buttons that you wish to use as the shortcut. This shortcut will only be active in the Selling tab and won't affect any other shortcuts bound to the buttons."
+  L["CONFIG_SELLING_SKIP_SHORTCUT"] = "A shortcut to skip posting the currently selected item is"
   L["CONFIG_BAG"] = "Bag"
 
   L["HIDE"] = "Hide"

@@ -27,7 +27,7 @@
     </Scripts>
   </Button>
   <Frame name="AuctionatorKeyBindingConfigTemplate" mixin="AuctionatorKeyBindingConfigMixin" virtual="true">
-    <Size x="400" y="25"/>
+    <Size x="400" y="35"/>
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontHighlight" parentKey="Description" justifyH="LEFT">

@@ -25,6 +25,15 @@ local function IsEquipment(itemInfo)
   return itemInfo.classId == LE_ITEM_CLASS_WEAPON or itemInfo.classId == LE_ITEM_CLASS_ARMOR
 end
 
+local function IsValidItem(item)
+  return item ~= nil and
+    -- May be a favourite with no items available, ignore it.
+    item.location ~= nil and
+    -- Location may be invalid because of items being moved in the bag
+    C_Item.DoesItemExist(item.location)
+end
+
+
 AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnShow()
@@ -39,8 +48,10 @@ function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
   SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_POST_SHORTCUT), "CLICK AuctionatorPostButton:LeftButton")
+  SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SKIP_SHORTCUT), "CLICK AuctionatorSkipPostingButton:LeftButton")
 
   self.lastItemInfo = nil
+  self:UpdateSkipButton()
   self:Reset()
 end
 
@@ -56,6 +67,16 @@ function AuctionatorSaleItemMixin:OnHide()
   Auctionator.EventBus:UnregisterSource(self)
   self:UnlockItem()
   ClearOverrideBindings(self)
+end
+
+function AuctionatorSaleItemMixin:UpdateSkipButton()
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) then
+    self.PostButton:SetSize(114, 22)
+    self.SkipButton:Show()
+  else
+    self.PostButton:SetSize(194, 22)
+    self.SkipButton:Hide()
+  end
 end
 
 function AuctionatorSaleItemMixin:UnlockItem()
@@ -103,6 +124,7 @@ function AuctionatorSaleItemMixin:OnUpdate()
 
   self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(self:GetDeposit()))
   self:UpdatePostButtonState()
+  self:UpdateSkipButtonState()
 end
 
 function AuctionatorSaleItemMixin:GetPostLimit()
@@ -190,6 +212,7 @@ function AuctionatorSaleItemMixin:Update()
   end
 
   self:UpdatePostButtonState()
+  self:UpdateSkipButtonState()
 
 end
 
@@ -488,6 +511,10 @@ function AuctionatorSaleItemMixin:UpdatePostButtonState()
   end
 end
 
+function AuctionatorSaleItemMixin:UpdateSkipButtonState()
+  self.SkipButton:SetEnabled(self.SkipButton:IsShown() and IsValidItem(self.itemInfo and self.itemInfo.nextItem))
+end
+
 local AUCTION_DURATIONS = {
   [12] = 1,
   [24] = 2,
@@ -532,12 +559,8 @@ function AuctionatorSaleItemMixin:PostItem()
   self:Reset()
 
   if (Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and
-      self.lastItemInfo.nextItem ~= nil and
-      -- May be a favourite with no items available, ignore it.
-      self.lastItemInfo.nextItem.location ~= nil and
-      -- Location may be invalid because of items being moved in the bag
-      C_Item.DoesItemExist(self.lastItemInfo.nextItem.location)
-    ) then
+      IsValidItem(self.lastItemInfo.nextItem)
+     ) then
     -- Option to automatically select the next item in the bag view
     Auctionator.EventBus:Fire(
       self, Auctionator.Selling.Events.BagItemClicked, self.lastItemInfo.nextItem
@@ -546,6 +569,14 @@ function AuctionatorSaleItemMixin:PostItem()
   else
     -- Search for current auctions of the last item posted
     self:DoSearch(self.lastItemInfo)
+  end
+end
+
+function AuctionatorSaleItemMixin:SkipItem()
+  if self.SkipButton:IsEnabled() then
+    Auctionator.EventBus:Fire(
+      self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo.nextItem
+    )
   end
 end
 
