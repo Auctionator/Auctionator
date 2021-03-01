@@ -256,6 +256,15 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_905_UPDATES_HEADER"] = "Updates"
   L["SPLASH_905_UPDATES_1"] = "Smoother interactions in the Cancelling tab."
 
+  L["SPLASH_907_DESCRIPTION"] = "A few new features and the usual bugfixes."
+  L["SPLASH_907_FEATURES_HEADER"] = "Features"
+  L["SPLASH_907_FEATURES_1"] = "Gear with item levels of at least 168 are now differentiated in tooltip auction prices."
+  L["SPLASH_907_FEATURES_2"] = "A new \"Skip\" button will show to skip posting the current item when the option \"Automatically select the next item in your bag\" is on."
+  L["SPLASH_907_FEATURES_3"] = "New keybinding options added for posting, skipping and cancelling. For example you can now set the space key to post or cancel, without impacting any other bindings. Find them in the \"Selling: Shortcuts\" and \"Cancelling\" options."
+  L["SPLASH_907_FEATURES_4"] = "The Cancelling tab has a new search box."
+  L["SPLASH_907_UNANNOUNCED_HEADER"] = "Unannounced features from 9.0.6"
+  L["SPLASH_907_UNANNOUNCED_1"] = "An optional \"Seller(s)\" column (to see who is selling the auctions) has been added to the Selling tab. To activate it right-click a column header (e.g. \"Owned?\") in the current auctions listings."
+
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
   L["LIST_ADD_ITEM_HEADER"] = "Add Shopping List Item"
