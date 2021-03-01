@@ -3,19 +3,20 @@
 [![Auctionator Discord](https://img.shields.io/badge/discord-auctionator-blue.svg)](https://discord.gg/xgz75Pp)
 [![Donate to Auctionator](https://img.shields.io/badge/paypal-donate-yellow.svg)](http://paypal.me/auctionator)
 
-Auctionator is a World of Warcraft addon designed for casual auction house users with the goal of improving usability.
-This addon organizes auction listings logically by prices and stack size for easy purchasing.
-Auctionator also eliminates the tedious process of item posting and auction management by semi-automatizing these operations.
+Auctionator is designed for casual everyday auction house users. This addon
+makes the auction house easier to use, by presenting auction house listings
+clearly and succinctly, and by eliminating the tedium involved in posting and
+managing auctions.
 
 ## Features
 
-* Creation of shopping lists that allow you to search for all entries in your list simultaneously.
-* Displays auction house price on item tooltip
-* ~~When buying, displays sorted auction listings along with details such as individual item price and stack size.~~
-* When selling, displays existing listings on the auction house for price comparison
-* Easy auction management with automatic price checks
-* Allows full scan of auction house and record historic item prices
-* Allows parameters customization such as undercutting values for different sales types
+
+* Auction prices in your item tooltips so you can quickly see how valuable the
+  item is that you just picked up
+* Adds the Shopping tab to search and filter for multiple items at once
+* Adds the Selling tab which lets you buy, sell and cancel all in one place
+* And adds the Cancelling tab that lets you cancel auctions in one click and
+scan for undercuts.
 
 ## Contribute
 
