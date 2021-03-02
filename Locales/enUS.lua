@@ -117,6 +117,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["BUYOUT_AUCTION_INFO"] = "%s buyout at %s"
 
   L["STARTING_FULL_SCAN"] = "Starting a full scan."
+  L["FULL_SCAN_IN_PROGRESS"] = "Full scan in progress."
   L["NEXT_SCAN_MESSAGE"] = "A full scan may be started in %s minutes and %s seconds."
   L["FULL_SCAN_FAILED"] = "Full scan failed to complete."
   L["FINISHED_PROCESSING"] = "Finished processing %s items."

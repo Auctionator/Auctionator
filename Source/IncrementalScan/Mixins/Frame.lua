@@ -52,13 +52,17 @@ function AuctionatorIncrementalScanFrameMixin:IsAutoscanReady()
 end
 
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
-  Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN)
-  Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
-  self.previousDatabaseCount = Auctionator.Database:GetItemCount()
-  self.doingFullScan = true
+  if not self.doingFullScan then
+    Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN)
+    Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
+    self.previousDatabaseCount = Auctionator.Database:GetItemCount()
+    self.doingFullScan = true
 
-  Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanStart)
-  self:FireProgressEvent()
+    Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanStart)
+    self:FireProgressEvent()
+  else
+    Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_IN_PROGRESS)
+  end
 end
 
 function AuctionatorIncrementalScanFrameMixin:FireProgressEvent()
