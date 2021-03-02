@@ -1,15 +1,40 @@
 AuctionatorItemIconDropDownMixin = {}
 
-local function IgnoreItemKey(itemKey)
+local function HideItemKey(itemKey)
   table.insert(
     Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS),
     Auctionator.Utilities.ItemKeyString(itemKey)
   )
 
   Auctionator.EventBus
-    :RegisterSource(IgnoreItemKey, "IgnoreItemKey")
-    :Fire(IgnoreItemKey, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(IgnoreItemKey)
+    :RegisterSource(HideItemKey, "HideItemKey")
+    :Fire(HideItemKey, Auctionator.Selling.Events.BagRefresh)
+    :UnregisterSource(HideItemKey)
+end
+
+local function UnhideItemKey(itemKey)
+  local ignored = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS)
+  local index = tIndexOf(ignored, Auctionator.Utilities.ItemKeyString(itemKey))
+
+  if index ~= nil then
+    table.remove(ignored, index)
+  end
+
+  Auctionator.EventBus
+    :RegisterSource(UnhideItemKey, "UnhideItemKey")
+    :Fire(UnhideItemKey, Auctionator.Selling.Events.BagRefresh)
+    :UnregisterSource(UnhideItemKey)
+end
+
+local function IsHidden(itemKey)
+  return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), Auctionator.Utilities.ItemKeyString(itemKey)) ~= nil
+end
+local function ToggleHidden(itemKey)
+  if IsHidden(itemKey) then
+    UnhideItemKey(itemKey)
+  else
+    HideItemKey(itemKey)
+  end
 end
 
 function Auctionator.Selling.GetAllFavourites()
@@ -48,13 +73,13 @@ local function ToggleFavouriteItem(data)
     :UnregisterSource(ToggleFavouriteItem)
 end
 
-local function RestoreAllItemKeys()
+local function UnhideAllItemKeys()
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORED_KEYS, {})
 
   Auctionator.EventBus
-    :RegisterSource(RestoreAllItemKeys, "RestoreAllItemKeys")
-    :Fire(RestoreAllItemKeys, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(RestoreAllItemKeys)
+    :RegisterSource(UnhideAllItemKeys, "UnhideAllItemKeys")
+    :Fire(UnhideAllItemKeys, Auctionator.Selling.Events.BagRefresh)
+    :UnregisterSource(UnhideAllItemKeys)
 end
 
 local function NoItemKeysHidden()
@@ -84,20 +109,24 @@ function AuctionatorItemIconDropDownMixin:Initialize()
 
   local hideInfo = UIDropDownMenu_CreateInfo()
   hideInfo.notCheckable = 1
-  hideInfo.text = AUCTIONATOR_L_HIDE
+  if IsHidden(itemKey) then
+    hideInfo.text = AUCTIONATOR_L_UNHIDE
+  else
+    hideInfo.text = AUCTIONATOR_L_HIDE
+  end
 
   hideInfo.disabled = false
   hideInfo.func = function()
-    IgnoreItemKey(itemKey)
+    ToggleHidden(itemKey)
   end
 
-  local restoreAllInfo = UIDropDownMenu_CreateInfo()
-  restoreAllInfo.notCheckable = 1
-  restoreAllInfo.text = AUCTIONATOR_L_RESTORE_ALL
+  local unhideAllAllInfo = UIDropDownMenu_CreateInfo()
+  unhideAllAllInfo.notCheckable = 1
+  unhideAllAllInfo.text = AUCTIONATOR_L_UNHIDE_ALL
 
-  restoreAllInfo.disabled = NoItemKeysHidden()
-  restoreAllInfo.func = function()
-    RestoreAllItemKeys()
+  unhideAllAllInfo.disabled = NoItemKeysHidden()
+  unhideAllAllInfo.func = function()
+    UnhideAllItemKeys()
   end
 
   local favouriteItemInfo = UIDropDownMenu_CreateInfo()
@@ -114,7 +143,7 @@ function AuctionatorItemIconDropDownMixin:Initialize()
   end
 
   UIDropDownMenu_AddButton(hideInfo)
-  UIDropDownMenu_AddButton(restoreAllInfo)
+  UIDropDownMenu_AddButton(unhideAllAllInfo)
   UIDropDownMenu_AddButton(favouriteItemInfo)
 end
 
