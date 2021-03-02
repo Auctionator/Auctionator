@@ -9,6 +9,7 @@
     <Size x="600" y="100" />
 
     <Scripts>
+      <OnLoad method="OnLoad" />
       <OnEvent method="OnEvent" />
       <OnUpdate method="OnUpdate" />
       <OnShow method="OnShow" />
@@ -72,6 +73,16 @@
 
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_BUYOUT_PRICE" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame parentKey="BidPrice" inherits="AuctionatorConfigurationMoneyInputAlternate" hidden="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Price" relativePoint="BOTTOMLEFT" y="-30"/>
+        </Anchors>
+
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_BID_PRICE" type="global"/>
         </KeyValues>
       </Frame>
 
