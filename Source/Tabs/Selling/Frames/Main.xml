@@ -51,7 +51,7 @@
 
       <Frame parentKey="CurrentItemListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.SaleItemFrame" relativePoint="BOTTOM"/>
+          <Anchor point="TOP" relativeKey="$parent.BagListing" relativePoint="TOP" y="10"/>
           <Anchor point="LEFT" relativeKey="$parent.BagListing" relativePoint="RIGHT" x="35" />
           <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="CENTER"/>
           <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-20" />

@@ -28,6 +28,7 @@ Auctionator.Config.Options = {
   SELLING_MISSING_FAVOURITES = "selling_missing_favourites",
   SELLING_POST_SHORTCUT = "selling_post_shortcut",
   SELLING_SKIP_SHORTCUT = "selling_skip_shortcut",
+  SHOW_SELLING_BID_PRICE = "show_selling_bid_price",
 
   NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration",
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
@@ -105,6 +106,7 @@ local defaults = {
   [Auctionator.Config.Options.SELLING_MISSING_FAVOURITES] = true,
   [Auctionator.Config.Options.SELLING_POST_SHORTCUT] = "",
   [Auctionator.Config.Options.SELLING_SKIP_SHORTCUT] = "",
+  [Auctionator.Config.Options.SHOW_SELLING_BID_PRICE] = false,
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
