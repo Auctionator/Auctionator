@@ -355,9 +355,7 @@ function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)
   else
     self.Price:SetAmount(NormalizePrice(salesPrice))
   end
-  -- Bid price silently tracks the buyout price so that we don't need to check
-  -- for bidding being turned on whenever we check the prices
-  self.BidPrice:SetAmount(self.Price:GetAmount())
+  self.BidPrice:Clear()
 end
 
 function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
@@ -514,7 +512,6 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
 
     -- Positive price
     self.Price:GetAmount() > 0 and
-    self.BidPrice:GetAmount() > 0 and
 
     -- Bid price is not bigger than buyout
     self.BidPrice:GetAmount() <= self.Price:GetAmount() and
@@ -559,7 +556,7 @@ function AuctionatorSaleItemMixin:PostItem()
   self.MultisellProgress:SetDetails(self.itemInfo.iconTexture, quantity)
 
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
-    if startingBid ~= buyout then
+    if startingBid ~= 0 then
       C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, startingBid, buyout)
     else
       C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, nil, buyout)

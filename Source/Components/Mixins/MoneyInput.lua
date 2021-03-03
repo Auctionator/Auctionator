@@ -24,6 +24,10 @@ function AuctionatorConfigMoneyInputMixin:SetAmount(value)
   self.MoneyInput.SilverBox:SetCursorPosition(0)
 end
 
+function AuctionatorConfigMoneyInputMixin:Clear()
+  self.MoneyInput:Clear()
+end
+
 function AuctionatorConfigMoneyInputMixin:GetAmount()
   return self.MoneyInput:GetAmount()
 end

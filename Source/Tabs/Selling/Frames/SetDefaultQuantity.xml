@@ -1,0 +1,43 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorShoppingItemTemplate"
+    mixin="AuctionatorShoppingItemMixin"
+    inherits="AuctionatorPanelTemplate"
+    frameStrata="Dialog"
+    enableMouse="true"
+    virtual="true"
+  >
+    <Size x="350" y="150" />
+
+    <Frames>
+      <Button parentKey="Finished" inherits="UIPanelDynamicResizeButtonTemplate" text="Set Default">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" />
+        </Anchors>
+
+        <Scripts>
+          <OnClick>print("finished clicked")</OnClick>
+        </Scripts>
+      </Button>
+      <Button parentKey="Cancel" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+
+        <Scripts>
+          <OnClick>self:GetParent():OnCancelClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+    </Frames>
+    <Layers>
+      <Layer>
+        <FontString text="Set Default Quantity" inherits="GameFontHighlight" parentKey="DialogTitle">
+          <Anchors>
+            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>
