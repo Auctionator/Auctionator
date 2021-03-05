@@ -5,13 +5,5 @@
     inherits="AuctionatorResultsRowTemplate"
     virtual="true"
     enableMouse="true"
-  >
-
-    <Layers>
-      <Layer level="OVERLAY">
-        <Texture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1"/>
-      </Layer>
-    </Layers>
-
-  </Frame>
+  />
 </Ui>

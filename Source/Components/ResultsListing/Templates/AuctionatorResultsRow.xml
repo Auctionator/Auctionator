@@ -14,10 +14,20 @@
 
     <Layers>
       <Layer level="OVERLAY">
-        <Texture parentKey="SelectedHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true"/>
+        <Texture parentKey="SelectedHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="18"/>
+            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
 
         <!-- Using a normal texture for highlight to control the behavior. -->
-        <Texture parentKey="HighlightTexture" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" setAllPoints="true" hidden="true"/>
+        <Texture parentKey="HighlightTexture" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" setAllPoints="true" hidden="true">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="18"/>
+            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
       </Layer>
     </Layers>
 
@@ -27,6 +37,11 @@
       <OnLeave method="OnLeave" />
     </Scripts>
 
-    <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
+    <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true">
+      <Anchors>
+        <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="18"/>
+        <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+      </Anchors>
+    </NormalTexture>
   </Frame>
 </Ui>

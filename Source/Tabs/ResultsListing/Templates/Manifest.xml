@@ -1,6 +1,5 @@
 <!-- ResultsListing/Templates directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="SellingRow.xml"/>
   <Include file="ShoppingListResultsRow.xml"/>
   <Include file="SellSearchRow.xml"/>
   <Include file="CancellingListResultsRow.xml"/>
