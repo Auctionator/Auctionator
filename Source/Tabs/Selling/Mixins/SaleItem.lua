@@ -552,11 +552,14 @@ function AuctionatorSaleItemMixin:PostItem()
   local duration = self:GetDuration()
   local startingBid = self.BidPrice:GetAmount()
   local buyout = self.Price:GetAmount()
+  local deposit = self:GetDeposit()
+  local bidAmountReported = nil -- Only includes bid price when non-zero and for an item
 
   self.MultisellProgress:SetDetails(self.itemInfo.iconTexture, quantity)
 
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
     if startingBid ~= 0 then
+      bidAmountReported = startingBid
       C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, startingBid, buyout)
     else
       C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, nil, buyout)
@@ -571,6 +574,8 @@ function AuctionatorSaleItemMixin:PostItem()
       itemLink = self.itemInfo.itemLink,
       quantity = quantity,
       buyoutAmount = buyout,
+      bidAmount = bidAmountReported,
+      deposit = deposit,
     }
   )
 
