@@ -552,7 +552,6 @@ function AuctionatorSaleItemMixin:PostItem()
   local duration = self:GetDuration()
   local startingBid = self.BidPrice:GetAmount()
   local buyout = self.Price:GetAmount()
-  local deposit = self:GetDeposit()
   local bidAmountReported = nil -- Only includes bid price when non-zero and for an item
 
   self.MultisellProgress:SetDetails(self.itemInfo.iconTexture, quantity)
@@ -575,7 +574,6 @@ function AuctionatorSaleItemMixin:PostItem()
       quantity = quantity,
       buyoutAmount = buyout,
       bidAmount = bidAmountReported,
-      deposit = deposit,
     }
   )
 
