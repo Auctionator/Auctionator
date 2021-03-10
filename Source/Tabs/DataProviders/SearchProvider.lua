@@ -171,6 +171,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       price = resultInfo.unitPrice,
       bidPrice = nil,
       owners = resultInfo.owners,
+      totalNumberOfOwners = resultInfo.totalNumberOfOwners,
       otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, ", "),
       quantity = resultInfo.quantity,
       quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
@@ -222,6 +223,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       bidPrice = resultInfo.bidAmount,
       level = tostring(resultInfo.itemKey.itemLevel or 0),
       owners = resultInfo.owners,
+      totalNumberOfOwners = resultInfo.totalNumberOfOwners,
       otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, ", "),
       timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(resultInfo.timeLeft),
       timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
