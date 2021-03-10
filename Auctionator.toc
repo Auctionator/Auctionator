@@ -1,4 +1,4 @@
-## Interface: 90002
+## Interface: 90005
 ## Title: Auctionator
 ## Version: AUTO_GENERATED_VERSION
 ## Author: Borjamacare, plusmouse
