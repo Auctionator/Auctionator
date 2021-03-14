@@ -27,7 +27,7 @@ local SEARCH_PROVIDER_LAYOUT = {
     headerText = AUCTIONATOR_L_ITEM_LEVEL_COLUMN,
     headerParameters = { "level" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "level" },
+    cellParameters = { "levelPretty" },
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -175,7 +175,8 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, PLAYER_LIST_DELIMITER),
       quantity = resultInfo.quantity,
       quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
-      level = "0",
+      level = 0,
+      levelPretty = "0",
       timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(resultInfo.timeLeftSeconds),
       timeLeft = resultInfo.timeLeftSeconds or 0, --Used in sorting
       auctionID = resultInfo.auctionID,
@@ -225,7 +226,8 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
     local entry = {
       price = resultInfo.buyoutAmount,
       bidPrice = resultInfo.bidAmount,
-      level = tostring(resultInfo.itemKey.itemLevel or 0),
+      level = resultInfo.itemKey.itemLevel or 0,
+      levelPretty = "",
       owners = resultInfo.owners,
       totalNumberOfOwners = resultInfo.totalNumberOfOwners,
       otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, PLAYER_LIST_DELIMITER),
@@ -244,11 +246,12 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
     end
 
     if resultInfo.itemKey.battlePetSpeciesID ~= 0 and entry.itemLink ~= nil then
-      entry.level = tostring(Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink))
+      entry.level = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
+      entry.levelPretty = tostring(entry.level)
     end
 
     local qualityColor = Auctionator.Utilities.GetQualityColorFromLink(entry.itemLink)
-    entry.level = "|c" .. qualityColor .. entry.level .. "|r"
+    entry.levelPretty = "|c" .. qualityColor .. entry.level .. "|r"
 
     if resultInfo.containsOwnerItem then
       -- Test if the auction has been loaded for cancelling
