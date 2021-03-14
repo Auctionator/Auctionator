@@ -84,10 +84,12 @@ function AuctionatorSearchDataProviderMixin:OnHide()
   })
 end
 
-function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName)
+function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName, itemKey)
   if eventName == Auctionator.Selling.Events.SellSearchStart then
     self:Reset()
     self.onSearchStarted()
+    -- Used to prevent a sale causing the view to sometimes change to another item
+    self.expectedItemKey = itemKey
   elseif eventName == Auctionator.Selling.Events.BagItemClicked then
     self.onResetScroll()
   elseif eventName == Auctionator.Cancelling.Events.RequestCancel then
@@ -128,23 +130,22 @@ function AuctionatorSearchDataProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionID)
-  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
+  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" and self.expectedItemKey.itemID == itemRef then
     self:Reset()
     self:AppendEntries(self:ProcessCommodityResults(itemRef), true)
 
-  -- Get item search results, excluding individual auction updates (which cause
-  -- the display to blank)
-  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
+  elseif (eventName == "ITEM_SEARCH_RESULTS_UPDATED" and
+          Auctionator.Utilities.ItemKeyString(self.expectedItemKey) == Auctionator.Utilities.ItemKeyString(itemRef)
+        ) then
     self.onPreserveScroll()
     self:Reset()
     self:AppendEntries(self:ProcessItemResults(itemRef), true)
 
-  elseif eventName == "COMMODITY_PURCHASE_SUCCEEDED" then
-    self:RefreshView()
-
   elseif eventName == "AUCTION_CANCELED" then
     self:UnregisterEvent("AUCTION_CANCELED")
 
+  else
+    self.onPreserveScroll()
     self:RefreshView()
   end
 end
