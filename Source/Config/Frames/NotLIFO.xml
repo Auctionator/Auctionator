@@ -91,32 +91,12 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="QuantityHeading">
-        <KeyValues>
-          <KeyValue key="subHeadingText" value="AUCTIONATOR_L_DEFAULT_QUANTITY" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ItemUndercutValue" relativePoint="BOTTOMLEFT" y="-35"/>
-        </Anchors>
-      </Frame>
-
-      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="DefaultQuantity">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.QuantityHeading" relativePoint="BOTTOMLEFT" y="-15"/>
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GearPriceMultiplierHeading">
         <KeyValues>
           <KeyValue key="subHeadingText" value="AUCTIONATOR_L_GEAR_VENDOR_PRICE_MULTIPLIER" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultQuantity" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemUndercutValue" relativePoint="BOTTOMLEFT" y="-35"/>
         </Anchors>
       </Frame>
 

@@ -34,7 +34,6 @@ Auctionator.Config.Options = {
   NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference",
   NOT_LIFO_UNDERCUT_PERCENTAGE = "not_lifo_undercut_percentage",
   NOT_LIFO_UNDERCUT_STATIC_VALUE = "not_lifo_undercut_static_value",
-  NOT_LIFO_DEFAULT_QUANTITY = "not_lifo_default_quantity",
   GEAR_PRICE_MULTIPLIER = "gear_vendor_price_multiplier",
   SELLING_GEAR_USE_ILVL = "gear_use_ilvl",
 
@@ -42,7 +41,8 @@ Auctionator.Config.Options = {
   LIFO_AUCTION_SALES_PREFERENCE = "lifo_auction_sales_preference",
   LIFO_UNDERCUT_PERCENTAGE = "lifo_undercut_percentage",
   LIFO_UNDERCUT_STATIC_VALUE = "lifo_undercut_static_value",
-  LIFO_DEFAULT_QUANTITY = "lifo_default_quantity",
+
+  DEFAULT_QUANTITIES = "default_quantities",
 
   PRICE_HISTORY_DAYS = "price_history_days",
   POSTING_HISTORY_LENGTH = "auctions_history_length",
@@ -112,7 +112,6 @@ local defaults = {
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
   [Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE] = 0,
   [Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE] = 0,
-  [Auctionator.Config.Options.NOT_LIFO_DEFAULT_QUANTITY] = 1,
   [Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER] = 0,
   [Auctionator.Config.Options.SELLING_GEAR_USE_ILVL] = false,
 
@@ -120,7 +119,21 @@ local defaults = {
   [Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE,
   [Auctionator.Config.Options.LIFO_UNDERCUT_PERCENTAGE] = 0,
   [Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE] = 0,
-  [Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY] = 0,
+
+  [Auctionator.Config.Options.DEFAULT_QUANTITIES] = {
+    [LE_ITEM_CLASS_WEAPON]           = 1,
+    [LE_ITEM_CLASS_ARMOR]            = 1,
+    [LE_ITEM_CLASS_CONTAINER]        = 0,
+    [LE_ITEM_CLASS_GEM]              = 0,
+    [LE_ITEM_CLASS_ITEM_ENHANCEMENT] = 0,
+    [LE_ITEM_CLASS_CONSUMABLE]       = 0,
+    [LE_ITEM_CLASS_GLYPH]            = 0,
+    [LE_ITEM_CLASS_TRADEGOODS]       = 0,
+    [LE_ITEM_CLASS_RECIPE]           = 0,
+    [LE_ITEM_CLASS_BATTLEPET]        = 1,
+    [LE_ITEM_CLASS_QUESTITEM]        = 0,
+    [LE_ITEM_CLASS_MISCELLANEOUS]    = 0,
+  },
 
   [Auctionator.Config.Options.PRICE_HISTORY_DAYS] = 21,
   [Auctionator.Config.Options.POSTING_HISTORY_LENGTH] = 10,

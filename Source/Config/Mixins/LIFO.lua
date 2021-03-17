@@ -24,8 +24,6 @@ function AuctionatorConfigLIFOFrameMixin:OnShow()
 
   self.CommodityUndercutPercentage:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.LIFO_UNDERCUT_PERCENTAGE))
   self.CommodityUndercutValue:SetAmount(Auctionator.Config.Get(Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE))
-
-  self.DefaultQuantity:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY))
 end
 
 function AuctionatorConfigLIFOFrameMixin:OnSalesPreferenceChange(selectedValue)
@@ -51,8 +49,6 @@ function AuctionatorConfigLIFOFrameMixin:Save()
     Auctionator.Utilities.ValidatePercentage(self.CommodityUndercutPercentage:GetNumber())
   )
   Auctionator.Config.Set(Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE, self.CommodityUndercutValue:GetAmount())
-
-  Auctionator.Config.Set(Auctionator.Config.Options.LIFO_DEFAULT_QUANTITY, self.DefaultQuantity:GetNumber())
 end
 
 function AuctionatorConfigLIFOFrameMixin:Cancel()

@@ -5,6 +5,7 @@
   <Include file="Shopping.xml"/>
   <Include file="Selling.xml"/>
   <Include file="SellingShortcuts.xml"/>
+  <Include file="Quantities.xml"/>
   <Include file="LIFO.xml"/>
   <Include file="NotLIFO.xml"/>
   <Include file="Cancelling.xml"/>

@@ -25,7 +25,6 @@ function AuctionatorConfigNotLIFOFrameMixin:OnShow()
   self.ItemUndercutPercentage:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE))
   self.ItemUndercutValue:SetAmount(Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE))
 
-  self.DefaultQuantity:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_DEFAULT_QUANTITY))
   self.GearPriceMultiplier:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER))
   self.GearUseItemLevel:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL))
 end
@@ -53,8 +52,6 @@ function AuctionatorConfigNotLIFOFrameMixin:Save()
     Auctionator.Utilities.ValidatePercentage(self.ItemUndercutPercentage:GetNumber())
   )
   Auctionator.Config.Set(Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE, tonumber(self.ItemUndercutValue:GetAmount()))
-
-  Auctionator.Config.Set(Auctionator.Config.Options.NOT_LIFO_DEFAULT_QUANTITY, self.DefaultQuantity:GetNumber())
 
   Auctionator.Config.Set(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER, self.GearPriceMultiplier:GetNumber())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL, self.GearUseItemLevel:GetChecked())

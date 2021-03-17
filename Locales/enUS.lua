@@ -86,6 +86,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_ADVANCED_TEXT"] = "Only look here if you know what you're doing"
   L["CONFIG_SCAN_SETTINGS"] = "Scan Settings"
 
+  L["CONFIG_QUANTITIES_CATEGORY"] = "Selling: Quantities"
+  L["CONFIG_QUANTITIES_TEXT"] = "Choose the default quantity used for the different item categories."
+
   L["AUTHOR_HEADER"] = "Author"
   L["CONTRIBUTORS_HEADER"] = "Contributors"
   L["TRANSLATORS_HEADER"] = "Translators"
@@ -411,10 +414,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DISABLED"] = "Disabled"
   L["AUCTIONATOR"] = "Auctionator"
 
-  L["DEFAULT_QUANTITY"] = "Default Quantity"
   L["GEAR_VENDOR_PRICE_MULTIPLIER"] = "Gear vendor price multiplier"
 
-  L["CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX"] = "Set to 0 for maximum amount"
+  L["CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX"] = "Set to 0 for max. amount"
   L["CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_HEADER"] = "Default Posting Quantity"
   L["CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_TEXT"] = "This lets you change the default amount used when posting an item. Set this to 0 to use the maximum possible amount."
   L["CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_SUFFIX"] = "Set to 0 for no price"
