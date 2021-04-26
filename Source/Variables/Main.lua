@@ -1,5 +1,6 @@
 local VERSION_8_3 = 6
 local POSTING_HISTORY_DB_VERSION = 1
+local VENDOR_PRICE_CACHE_DB_VERSION = 1
 
 function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializeSavedState()
@@ -11,6 +12,7 @@ function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializeDatabase()
   Auctionator.Variables.InitializeShoppingLists()
   Auctionator.Variables.InitializePostingHistory()
+  Auctionator.Variables.InitializeVendorPriceCache()
 
   Auctionator.State.Loaded = true
 end
@@ -118,4 +120,15 @@ function Auctionator.Variables.InitializeShoppingLists()
   Auctionator.ShoppingLists.Prune()
   Auctionator.ShoppingLists.Sort()
   AUCTIONATOR_SHOPPING_LISTS = Auctionator.ShoppingLists.Lists
+end
+
+function Auctionator.Variables.InitializeVendorPriceCache()
+  Auctionator.Debug.Message("Auctionator.Variables.InitializeVendorPriceCache()")
+
+  if AUCTIONATOR_VENDOR_PRICE_CACHE == nil  or
+     AUCTIONATOR_VENDOR_PRICE_CACHE["__dbversion"] ~= VENDOR_PRICE_CACHE_DB_VERSION then
+    AUCTIONATOR_VENDOR_PRICE_CACHE = {
+      ["__dbversion"] = VENDOR_PRICE_CACHE_DB_VERSION
+    }
+  end
 end
