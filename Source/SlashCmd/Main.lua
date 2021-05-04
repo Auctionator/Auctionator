@@ -1,6 +1,3 @@
-local _, addonTable = ...;
-local zc = addonTable.zc;
-
 function Auctionator.SlashCmd.Initialize()
   SlashCmdList["Auctionator"] = Auctionator.SlashCmd.Handler
   SLASH_Auctionator1 = "/auctionator"
@@ -37,7 +34,7 @@ function Auctionator.SlashCmd.Handler(input)
   if #input == 0 then
     Auctionator.SlashCmd.Help()
   else
-    local command = {zc.words(input:lower())};
+    local command = Auctionator.Utilities.SplitCommand(input);
     local handler = SLASH_COMMANDS[command[1]]
     if handler == nil then
       Auctionator.Utilities.Message("Unrecognized command '" .. command[1] .. "'")

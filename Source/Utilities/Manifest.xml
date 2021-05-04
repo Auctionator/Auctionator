@@ -24,6 +24,7 @@
   <Script file="ClassicWoWCheck.lua"/>
   <Script file="FormatTime.lua"/>
   <Script file="StringJoin.lua"/>
+  <Script file="SplitCommand.lua"/>
 
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>

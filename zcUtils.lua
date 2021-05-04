@@ -9,21 +9,6 @@ addonTable.zc = zc;
 
 -----------------------------------------
 
-function zc.words(str)
-  local t = {}
-  local function helper(word) table.insert(t, word) return "" end
-  if (not str:gsub("[^%s]+", helper):find"%S") then
-    if (#t == 1) then return t[1]; end;
-    if (#t == 2) then return t[1],t[2]; end;
-    if (#t == 3) then return t[1],t[2],t[3]; end;
-    if (#t == 4) then return t[1],t[2],t[3],t[4]; end;
-    if (#t == 5) then return t[1],t[2],t[3],t[4],t[5]; end;
-    return t;
-  end
-end
-
------------------------------------------
-
 function zc.round (v)
   return math.floor (v + 0.5);
 end
