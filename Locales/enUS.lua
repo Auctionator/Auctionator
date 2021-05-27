@@ -270,11 +270,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_907_UNANNOUNCED_HEADER"] = "Unannounced features from 9.0.6"
   L["SPLASH_907_UNANNOUNCED_1"] = "An optional \"Seller(s)\" column (to see who is selling the auctions) has been added to the Selling tab. To activate it right-click a column header (e.g. \"Owned?\") in the current auctions listings."
 
-  L["SPLASH_909_DESCRIPTION"] = "Revamped selling quantity settings, if you have custom quantities set you'll likely need to set them again for this update."
-  L["SPLASH_909_FEATURES_HEADER"] = "Features"
-  L["SPLASH_909_FEATURES_1"] = "The default quantities for use in the Selling tab are now set based on the item's type. Find them in the \"Selling: Quantities\" options"
-  L["SPLASH_909_UNANNOUNCED_HEADER"] = "Unannounced features from 9.0.8"
-  L["SPLASH_909_UNANNOUNCED_1"] = "A new \"Show bid price option when listing an item\" option, found in \"Selling\" options, to allow bid prices to be set from the Selling tab"
+  L["SPLASH_9010_DESCRIPTION"] = "Revamped selling quantity settings, if you have custom quantities set you'll likely need to set them again for this update."
+  L["SPLASH_9010_FEATURES_HEADER"] = "Features"
+  L["SPLASH_9010_FEATURES_1"] = "The default quantities for use in the Selling tab are now set based on the item's type. Find them in the \"Selling: Quantities\" options"
+  L["SPLASH_9010_UNANNOUNCED_HEADER"] = "Unannounced features from 9.0.9"
+  L["SPLASH_9010_UNANNOUNCED_1"] = "A new \"Show bid price option when listing an item\" option, found in \"Selling\" options, to allow bid prices to be set from the Selling tab"
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
