@@ -302,7 +302,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SELECT_ALL"] = "Select All"
   L["UNSELECT_ALL"] = "Unselect All"
   L["CONFIRM"] = "Confirm"
-  L["ITEM_PRICE_HISTORY"] = "Item Price History"
+  L["X_PRICE_HISTORY"] = "%s Price History"
 
   L["ANY_LOWER"] = "any"
 
