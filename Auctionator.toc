@@ -12,8 +12,6 @@
 
 Patches\TaintLess.xml
 
-zcUtils.lua
-
 Locales\Manifest.xml
 
 Source\Manifest.xml
