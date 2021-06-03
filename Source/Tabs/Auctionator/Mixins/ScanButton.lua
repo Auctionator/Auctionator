@@ -1,5 +1,9 @@
 AuctionatorScanButtonMixin = {}
 
 function AuctionatorScanButtonMixin:OnClick()
-  Auctionator.State.IncrementalScanFrameRef:InitiateScan()
+  if Auctionator.Config.Get(Auctionator.Config.Options.REPLICATE_SCAN) then
+    Auctionator.State.FullScanFrameRef:InitiateScan()
+  else
+    Auctionator.State.IncrementalScanFrameRef:InitiateScan()
+  end
 end

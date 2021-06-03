@@ -27,6 +27,7 @@ Auctionator = {
   Components = {},
   ReagentSearch = {},
   IncrementalScan = {},
+  FullScan = {},
   PostingHistory = {},
 
   Tabs = {
