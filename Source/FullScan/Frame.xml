@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorFullScanFrameTemplate" hidden="true" mixin="AuctionatorFullScanFrameMixin" virtual="true">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnEvent method="OnEvent" />
+    </Scripts>
+  </Frame>
+</Ui>
