@@ -8,7 +8,7 @@ Auctionator.Config.Options = {
   SHIFT_STACK_TOOLTIPS = "shift_stack_tooltips",
   AUTOSCAN = "autoscan_2",
   AUTOSCAN_INTERVAL = "autoscan_interval",
-  REPLICATE_SCAN = "replicate_scan",
+  REPLICATE_SCAN = "replicate_scan_2",
   AUTO_LIST_SEARCH = "auto_list_search",
   DEFAULT_LIST = "default_list_2",
 
