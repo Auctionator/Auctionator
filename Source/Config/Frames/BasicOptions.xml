@@ -18,12 +18,43 @@
         </KeyValues>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="Autoscan">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="AutoscanIntervalHeader">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_INTERVAL_HEADER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Autoscan" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="AutoscanInterval">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_INTERVAL" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_INTERVAL_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_AUTOSCAN_INTERVAL_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AutoscanIntervalHeader" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DefaultTabHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_DEFAULT_TAB" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AutoscanInterval" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
