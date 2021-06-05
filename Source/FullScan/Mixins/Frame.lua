@@ -20,7 +20,7 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
   if self:CanInitiate() then
     Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanStart)
 
-    self.state.TimeOfLastScan = time()
+    self.state.TimeOfLastReplicateScan = time()
 
     self.inProgress = true
 
@@ -34,16 +34,22 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
   end
 end
 
+function AuctionatorFullScanFrameMixin:IsAutoscanReady()
+  local timeSinceLastScan = time() - (self.state.TimeOfLastReplicateScan or 0)
+
+  return timeSinceLastScan >= (Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN_INTERVAL) * 60) and self:CanInitiate()
+end
+
 function AuctionatorFullScanFrameMixin:CanInitiate()
   return
-   ( self.state.TimeOfLastScan ~= nil and
-     time() - self.state.TimeOfLastScan > 60 * 15 and
+   ( self.state.TimeOfLastReplicateScan ~= nil and
+     time() - self.state.TimeOfLastReplicateScan > 60 * 15 and
      not self.inProgress
-   ) or self.state.TimeOfLastScan == nil
+   ) or self.state.TimeOfLastReplicateScan == nil
 end
 
 function AuctionatorFullScanFrameMixin:NextScanMessage()
-  local timeSinceLastScan = time() - self.state.TimeOfLastScan
+  local timeSinceLastScan = time() - self.state.TimeOfLastReplicateScan
   local minutesUntilNextScan = 15 - math.ceil(timeSinceLastScan / 60)
   local secondsUntilNextScan = (15 * 60 - timeSinceLastScan) % 60
 
