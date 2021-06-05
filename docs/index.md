@@ -13,9 +13,6 @@ All your old shopping lists still work, they're shown as a sidebar on the right 
 
 ![Shopping List Example]({{ site.url }}/images/shopping-list-example.png)
 
-#### Autoscan
-Unlike in the 8.2 Auction House it is now possible to scan for auction prices in the background when the AH is opened. You should see messages in your chat window indicating this is happening.
-
 #### Tooltip prices
 Auction and vendor prices are shown in item tooltips. Disenchant information isn't available [yet](https://github.com/Auctionator/Auctionator/issues/477).
 

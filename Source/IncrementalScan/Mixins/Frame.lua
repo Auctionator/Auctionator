@@ -45,12 +45,6 @@ function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
   end
 end
 
-function AuctionatorIncrementalScanFrameMixin:IsAutoscanReady()
-  local timeSinceLastScan = time() - (self.state.TimeOfLastScan or 0)
-
-  return timeSinceLastScan >= (Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN_INTERVAL) * 60)
-end
-
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
   if not self.doingFullScan then
     Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN)
@@ -128,7 +122,6 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
       self.doingFullScan = false
 
       Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete)
-      self.state.TimeOfLastScan = time()
     end
     Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.PricesProcessed)
 
