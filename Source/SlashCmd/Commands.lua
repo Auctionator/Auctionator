@@ -73,8 +73,12 @@ function Auctionator.SlashCmd.Config(name, value)
   if name == nil then
     Auctionator.Utilities.Message("Current config:")
     for _, name in pairs(Auctionator.Config.Options) do
-      Auctionator.Utilities.Message(name .. "=" .. tostring(Auctionator.Config.Get(name)) .. " (" .. type(Auctionator.Config.Get(name)) .. ")")
+      if Auctionator.Config.IsValidOption(name) then
+        Auctionator.Utilities.Message(name .. "=" .. tostring(Auctionator.Config.Get(name)) .. " (" .. type(Auctionator.Config.Get(name)) .. ")")
+      end
     end
+  elseif not Auctionator.Config.IsValidOption(name) then
+    Auctionator.Utilities.Message("Unknown config " .. name)
   elseif type(Auctionator.Config.Get(name)) == "boolean" then
     Auctionator.Config.Set(name, not Auctionator.Config.Get(name))
     Auctionator.Utilities.Message("Config set " .. name .. " = " .. tostring(Auctionator.Config.Get(name)))
@@ -85,10 +89,8 @@ function Auctionator.SlashCmd.Config(name, value)
       Auctionator.Config.Set(name, tonumber(value))
     end
     Auctionator.Utilities.Message("Config set " .. name .. " = " .. tostring(Auctionator.Config.Get(name)))
-  elseif Auctionator.Config.Get(name) ~= nil then
-    Auctionator.Utilities.Message("Unable to modify " .. name .. " at this time")
   else
-    Auctionator.Utilities.Message("Unknown config " .. name)
+    Auctionator.Utilities.Message("Unable to modify " .. name .. " at this time")
   end
 end
 

@@ -159,7 +159,7 @@ local defaults = {
   [Auctionator.Config.Options.COLUMNS_POSTING_HISTORY] = {},
 }
 
-local function isValidOption(name)
+function Auctionator.Config.IsValidOption(name)
   for _, option in pairs(Auctionator.Config.Options) do
     if option == name then
       return true
@@ -184,7 +184,7 @@ end
 function Auctionator.Config.Set(name, value)
   if AUCTIONATOR_CONFIG == nil then
     error("AUCTIONATOR_CONFIG not initialized")
-  elseif not isValidOption(name) then
+  elseif not Auctionator.Config.IsValidOption(name) then
     error("Invalid option '" .. name .. "'")
   elseif AUCTIONATOR_CHARACTER_CONFIG ~= nil then
     AUCTIONATOR_CHARACTER_CONFIG[name] = value
