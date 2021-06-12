@@ -40,6 +40,8 @@ local AUCTIONATOR_EVENTS = {
   "AUCTION_HOUSE_SHOW",
   -- Trade Window Initialization Events
   "TRADE_SKILL_SHOW",
+  -- Cache vendor prices event
+  "MERCHANT_SHOW",
   -- Import list events
   -- "CHAT_MSG_ADDON"
 }
