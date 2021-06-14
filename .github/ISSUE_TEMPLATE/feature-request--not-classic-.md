@@ -1,5 +1,5 @@
 ---
-name: Feature request (not classic)
+name: Feature request for the latest release (not classic)
 about: Auctionator can always be better
 title: ''
 labels: enhancement
