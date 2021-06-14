@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-We are not currently adding features to the classic version of Auctionator, but you can ask and _maybe_ it will be made.
+We are not adding features to the classic version of Auctionator.
 
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is.
