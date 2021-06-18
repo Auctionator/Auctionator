@@ -2,7 +2,7 @@
 name: Bug report for an alpha
 about: You're using the latest alpha build
 title: ''
-labels: ''
+labels: alpha
 assignees: ''
 
 ---
