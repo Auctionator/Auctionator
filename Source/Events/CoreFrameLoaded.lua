@@ -52,7 +52,5 @@ function Auctionator.Events.CoreFrameLoaded(coreFrame)
   Auctionator.Debug.Message("Auctionator.Events.CoreFrameLoaded")
   C_ChatInfo.RegisterAddonMessagePrefix("Auctionator")
 
-  for _, eventName in ipairs(AUCTIONATOR_EVENTS) do
-    coreFrame:RegisterEvent(eventName)
-  end
+  FrameUtil.RegisterFrameForEvents(coreFrame, AUCTIONATOR_EVENTS)
 end
