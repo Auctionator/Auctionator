@@ -1,5 +1,3 @@
-local QUALITY = Auctionator.Constants.QUALITY
-
 local ENCHANT_REAGENTS = {
   SOUL_DUST = "172230",
   SACRED_SHARD = "172231",
@@ -20,38 +18,38 @@ local ENCHANT_REAGENTS = {
 
 Auctionator.Enchant.DE_TABLE = {
   [LE_EXPANSION_SHADOWLANDS or LE_EXPANSION_9_0] = {
-    [QUALITY.UNCOMMON] = {[ENCHANT_REAGENTS.SOUL_DUST] = 2.26},
-    [QUALITY.RARE]  = {
+    [Enum.ItemQuality.Uncommon] = {[ENCHANT_REAGENTS.SOUL_DUST] = 2.26},
+    [Enum.ItemQuality.Rare]  = {
       [ENCHANT_REAGENTS.SOUL_DUST]    = 1.5,
       [ENCHANT_REAGENTS.SACRED_SHARD] = 1.41
     },
-    [QUALITY.EPIC] = {
+    [Enum.ItemQuality.Epic] = {
       [ENCHANT_REAGENTS.SACRED_SHARD]    = 0.35,
       [ENCHANT_REAGENTS.ETERNAL_CRYSTAL] = 1.06
     }
   },
   [LE_EXPANSION_BATTLE_FOR_AZEROTH] = {
-    [QUALITY.UNCOMMON] = {[ENCHANT_REAGENTS.GLOOM_DUST] = 5},
-    [QUALITY.RARE]  = {
+    [Enum.ItemQuality.Uncommon] = {[ENCHANT_REAGENTS.GLOOM_DUST] = 5},
+    [Enum.ItemQuality.Rare]  = {
       [ENCHANT_REAGENTS.GLOOM_DUST]  = 0.55,
       [ENCHANT_REAGENTS.UMBRA_SHARD] = 0.73
     },
-    [QUALITY.EPIC] = {
+    [Enum.ItemQuality.Epic] = {
       [ENCHANT_REAGENTS.UMBRA_SHARD]    = 0.4,
       [ENCHANT_REAGENTS.VEILED_CRYSTAL] = 1
     }
   },
   [LE_EXPANSION_LEGION] = {
-    [QUALITY.UNCOMMON] = {[ENCHANT_REAGENTS.ARKANA] = 5},
-    [QUALITY.RARE]  = {[ENCHANT_REAGENTS.LEYLIGHT_SHARD] = 1},
-    [QUALITY.EPIC] = {[ENCHANT_REAGENTS.CHAOS_CRYSTAL] = 1},
+    [Enum.ItemQuality.Uncommon] = {[ENCHANT_REAGENTS.ARKANA] = 5},
+    [Enum.ItemQuality.Rare]  = {[ENCHANT_REAGENTS.LEYLIGHT_SHARD] = 1},
+    [Enum.ItemQuality.Epic] = {[ENCHANT_REAGENTS.CHAOS_CRYSTAL] = 1},
   },
   [LE_EXPANSION_WARLORDS_OF_DRAENOR] = {
-    [QUALITY.UNCOMMON] = {[ENCHANT_REAGENTS.DRAENIC_DUST] = 2.5},
-    [QUALITY.RARE]  = {
+    [Enum.ItemQuality.Uncommon] = {[ENCHANT_REAGENTS.DRAENIC_DUST] = 2.5},
+    [Enum.ItemQuality.Rare]  = {
       [ENCHANT_REAGENTS.DRAENIC_DUST] = 8.1,
       [ENCHANT_REAGENTS.LUMINOUS_SHARD] = 0.1
     },
-    [QUALITY.EPIC] = {[ENCHANT_REAGENTS.TEMPORAL_CRYSTAL] = 1},
+    [Enum.ItemQuality.Epic] = {[ENCHANT_REAGENTS.TEMPORAL_CRYSTAL] = 1},
   }
 }

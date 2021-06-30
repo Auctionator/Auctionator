@@ -47,11 +47,6 @@ Auctionator.Constants = {
     STRING = 0,
     WHISPER = 1
   },
-  QUALITY = {
-    UNCOMMON = 2,
-    RARE = 3,
-    EPIC = 4,
-  },
   NO_LIST = "",
   ITEM_LEVEL_THRESHOLD = 168,
 }
