@@ -67,7 +67,7 @@
               </Frame>
               <Frame parentKey="WeaponItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_WEAPON" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Weapon" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.Favourites" relativePoint="BOTTOMLEFT" />
@@ -77,7 +77,7 @@
 
               <Frame parentKey="ArmorItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_ARMOR" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Armor" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.WeaponItems" relativePoint="BOTTOMLEFT"/>
@@ -87,7 +87,7 @@
 
               <Frame parentKey="ContainerItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_CONTAINER" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Container" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.ArmorItems" relativePoint="BOTTOMLEFT"/>
@@ -97,7 +97,7 @@
 
               <Frame parentKey="GemItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_GEM" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Gem" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.ContainerItems" relativePoint="BOTTOMLEFT"/>
@@ -107,7 +107,7 @@
 
               <Frame parentKey="EnhancementItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_ITEM_ENHANCEMENT" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.ItemEnhancement" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.GemItems" relativePoint="BOTTOMLEFT"/>
@@ -117,7 +117,7 @@
 
               <Frame parentKey="ConsumableItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_CONSUMABLE" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Consumable" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.EnhancementItems" relativePoint="BOTTOMLEFT"/>
@@ -127,7 +127,7 @@
 
               <Frame parentKey="GlyphItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_GLYPH" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Glyph" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.ConsumableItems" relativePoint="BOTTOMLEFT"/>
@@ -137,7 +137,7 @@
 
               <Frame parentKey="TradeGoodItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_TRADEGOODS" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Tradegoods" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.GlyphItems" relativePoint="BOTTOMLEFT"/>
@@ -147,7 +147,7 @@
 
               <Frame parentKey="RecipeItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_RECIPE" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Recipe" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.TradeGoodItems" relativePoint="BOTTOMLEFT"/>
@@ -157,7 +157,7 @@
 
               <Frame parentKey="BattlePetItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_BATTLEPET" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Battlepet" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.RecipeItems" relativePoint="BOTTOMLEFT"/>
@@ -167,7 +167,7 @@
 
               <Frame parentKey="QuestItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_QUESTITEM" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Questitem" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.BattlePetItems" relativePoint="BOTTOMLEFT"/>
@@ -177,7 +177,7 @@
 
               <Frame parentKey="MiscItems" inherits="AuctionatorBagClassListing">
                 <KeyValues>
-                  <KeyValue key="classId" value="LE_ITEM_CLASS_MISCELLANEOUS" type="global" />
+                  <KeyValue key="classId" value="Enum.ItemClass.Miscellaneous" type="global" />
                 </KeyValues>
                 <Anchors>
                   <Anchor point="TOPLEFT" relativeKey="$parent.QuestItems" relativePoint="BOTTOMLEFT"/>

@@ -70,7 +70,7 @@ local function ShouldInclude(itemKey)
   else
     local classID = select(6, GetItemInfoInstant(itemKey.itemID))
 
-    return classID ~= LE_ITEM_CLASS_WEAPON and classID ~= LE_ITEM_CLASS_ARMOR and
+    return classID ~= Enum.ItemClass.Weapon and classID ~= Enum.ItemClass.Armor and
           itemKey.battlePetSpeciesID == 0
   end
 end

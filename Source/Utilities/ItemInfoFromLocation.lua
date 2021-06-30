@@ -10,12 +10,12 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
 
   -- For some reason no class ID is returned on battle pets in cages
   if itemKey.battlePetSpeciesID ~= 0 then
-    classID = LE_ITEM_CLASS_BATTLEPET
+    classID = Enum.ItemClass.Battlepet
   end
 
   -- Some crafting reagents (like Enchanted Elethium Bar) have the wrong class
-  if classID == LE_ITEM_CLASS_REAGENT then
-    classID = LE_ITEM_CLASS_TRADEGOODS
+  if classID == Enum.ItemClass.Reagent then
+    classID = Enum.ItemClass.Tradegoods
   end
 
   -- The first time the AH is loaded sometimes when a full scan is running the

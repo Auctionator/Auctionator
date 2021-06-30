@@ -86,7 +86,7 @@ function AuctionatorFilterKeySelectorMixin:InitializeSecondaryClasses(menuList)
     info.text = name
     info.arg1 = menuList.name .. "/" .. name
 
-    if menuList.classId == LE_ITEM_CLASS_ARMOR then
+    if menuList.classId == Enum.ItemClass.Armor then
       info.hasArrow = true
       info.menuList = {
         name = menuList.name .. "/" .. name,

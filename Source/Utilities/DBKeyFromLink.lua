@@ -15,7 +15,7 @@ end
 
 local function IsGear(itemLink)
   local classType = select(6, GetItemInfoInstant(itemLink))
-  return classType == LE_ITEM_CLASS_WEAPON or classType == LE_ITEM_CLASS_ARMOR
+  return classType == Enum.ItemClass.Weapon or classType == Enum.ItemClass.Armor
 end
 
 function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)

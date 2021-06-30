@@ -22,7 +22,7 @@ local function NormalizePrice(price)
 end
 
 local function IsEquipment(itemInfo)
-  return itemInfo.classId == LE_ITEM_CLASS_WEAPON or itemInfo.classId == LE_ITEM_CLASS_ARMOR
+  return itemInfo.classId == Enum.ItemClass.Weapon or itemInfo.classId == Enum.ItemClass.Armor
 end
 
 local function IsValidItem(item)

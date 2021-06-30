@@ -14,20 +14,7 @@
 --    }
 --  }
 
-local ITEM_CLASS_IDS = {
-  LE_ITEM_CLASS_WEAPON,
-  LE_ITEM_CLASS_ARMOR,
-  LE_ITEM_CLASS_CONTAINER,
-  LE_ITEM_CLASS_GEM,
-  LE_ITEM_CLASS_ITEM_ENHANCEMENT,
-  LE_ITEM_CLASS_CONSUMABLE,
-  LE_ITEM_CLASS_GLYPH,
-  LE_ITEM_CLASS_TRADEGOODS,
-  LE_ITEM_CLASS_RECIPE,
-  LE_ITEM_CLASS_BATTLEPET,
-  LE_ITEM_CLASS_QUESTITEM,
-  LE_ITEM_CLASS_MISCELLANEOUS
-}
+local ITEM_CLASS_IDS = Auctionator.Constants.ITEM_CLASS_IDS
 local INVENTORY_TYPE_IDS = Auctionator.Constants.INVENTORY_TYPE_IDS
 
 Auctionator.Search.Category = {
@@ -93,7 +80,7 @@ local function GenerateSubClasses( classID, parentKey )
     table.insert( subClasses, subClass )
 
     --Armor special case, adds inventory slot categories
-    if classID == LE_ITEM_CLASS_ARMOR then
+    if classID == Enum.ItemClass.Armor then
       local inventorySlots = GenerateArmorInventorySlots(subClass.key, category)
       for _, slot in ipairs(inventorySlots) do
         table.insert(subClasses, slot)
