@@ -1,6 +1,6 @@
 ## Interface: 90100
 ## Title: Auctionator
-## Version: AUTO_GENERATED_VERSION
+## Version: @project-version@
 ## Author: Borjamacare, plusmouse
 ## X-Website: http://mods.curse.com/addons/wow/auctionator
 ## X-Localizations: enUS, itIT, deDE, ruRU, koKR, frFR, esES, esMX, zhTW, ptBR, zhCN

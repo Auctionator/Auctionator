@@ -1,0 +1,5 @@
+ignore:
+  - README.md
+  - spec
+  - test-data
+  - scripts

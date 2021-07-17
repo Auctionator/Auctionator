@@ -4,6 +4,8 @@ on:
   push:
     branches:
     - master
+    tags:
+    - '*'
 
     paths-ignore:
     - "docs/**"
@@ -15,50 +17,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
       with:
         path: 'Auctionator'
-    - run: ./Auctionator/.github/workflows/get-translations.sh frFR "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh deDE "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh itIT "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh koKR "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh zhCN "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh zhTW "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh ruRU "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh esES "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh esMX "${{secrets.plusmouse_curseforge}}"
-    - run: ./Auctionator/.github/workflows/get-translations.sh ptBR "${{secrets.plusmouse_curseforge}}"
-    - name: Delete files for curse
-      run: rm -rf Auctionator/README.md Auctionator/.github/ Auctionator/.gitignore Auctionator/.git Auctionator/docs Auctionator/test-data
-    - name: Generate build number
-      id: buildnumber
-      uses: einaregilsson/build-number@v3
+    - uses: BigWigsMods/packager@master
       with:
-        token: ${{secrets.github_token}}  
-    - name: Update version
-      uses: jacobtomlinson/gha-find-replace@master
-      with:
-        find: "AUTO_GENERATED_VERSION"
-        replace: "${{steps.buildnumber.outputs.build_number}} (alpha)"
-    - name: Create zip
-      run: zip -r Auctionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip ./Auctionator 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+        args: -p 6124 -a kRNL70Go
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ steps.buildnumber.outputs.build_number }}-alpha
-        release_name: Alpha ${{ steps.buildnumber.outputs.build_number }}
-        draft: false
-        prerelease: false
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./Auctionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip
-        asset_name: Auctionator-alpha-${{steps.buildnumber.outputs.build_number}}.zip
-        asset_content_type: application/zip
+        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+        CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
+        WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}

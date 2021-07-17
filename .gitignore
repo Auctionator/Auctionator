@@ -3,3 +3,4 @@ Changelog*
 .vscode/*
 *.swp
 tmp
+.release

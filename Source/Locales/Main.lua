@@ -13,6 +13,12 @@ local function FixMissingTranslations(incomplete, locale)
   end
 end
 
+local function AddNewLines(full)
+  for key, val in pairs(full) do
+    full[key] = string.gsub(full[key], "\\n", "\n")
+  end
+end
+
 if AUCTIONATOR_LOCALES_OVERRIDE ~= nil then
   currentLocale = AUCTIONATOR_LOCALES_OVERRIDE()
 
@@ -24,6 +30,8 @@ elseif AUCTIONATOR_LOCALES[GetLocale()] ~= nil then
 else
   currentLocale = AUCTIONATOR_LOCALES["enUS"]()
 end
+
+AddNewLines(currentLocale)
 
 -- Export constants into the global scope (for XML frames to use)
 for key, value in pairs(currentLocale) do
