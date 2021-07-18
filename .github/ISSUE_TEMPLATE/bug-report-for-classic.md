@@ -1,26 +1,11 @@
 ---
 name: Bug report for classic
-about: You're using WoW classic and an version of Auctionator
+about: You're using WoW classic and a version of Auctionator
 title: ''
 labels: classic
 assignees: ''
 
 ---
 
-Please include as much of the following information as possible to help me fix the bug:
-
-## Brief Description of Bug
-
-_Please include a brief description of the bug, including what you were doing, and when it occurred._
-
-## Steps to Reproduce
-
-_Include the steps I would need to follow to reproduce the bug._
-
-## Loaded Addons
-
-_Include a list of addons you were running at the time this bug occurred._
-
-## Back Trace (LUA Error Output)
-
-_You can get this through the use of !BugGrabber and BugSack addons._
+We don't support Auctionator on any version of WoW Classic. You can report a
+bug, but its unlikely any action will be taken to resolve it.
