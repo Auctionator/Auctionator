@@ -52,6 +52,19 @@ function Auctionator.ReagentSearch.GetSkillReagentsTotal()
   return total
 end
 
+function Auctionator.ReagentSearch.GetAHProfit()
+  local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
+  local recipeLink = C_TradeSkillUI.GetRecipeItemLink(recipeIndex)
+
+  local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
+  if currentAH == nil then
+    currentAH = 0
+  end
+  local toCraft = Auctionator.ReagentSearch.GetSkillReagentsTotal()
+
+  return math.max(0, math.floor(currentAH * 0.95 - toCraft))
+end
+
 -- Add a button to the tradeskill frame to search the AH for the reagents.
 -- The button (see Mixins/Button.lua) will be hidden when the AH is closed.
 -- The total price is shown in a FontString next to the button

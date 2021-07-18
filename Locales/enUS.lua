@@ -372,6 +372,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SMALL_TABS_TOOLTIP_HEADER"] = "Small Tabs"
   L["CONFIG_SMALL_TABS_TOOLTIP_TEXT"] = "When too many addons add tabs to the Auction House they can end up overflowing past the end of the Auction House window. This setting makes the tabs smaller so they fit better."
 
+  L["REAGENT_SEARCH"] = "Reagent Search"
+  L["CONFIG_CRAFTING_COST_SHOW_PROFIT"] = "Show profit instead of crafting cost"
+  L["CONFIG_CRAFTING_COST_SHOW_PROFIT_TOOLTIP_HEADER"] = "Crafting Cost Show Profit"
+  L["CONFIG_CRAFTING_COST_SHOW_PROFIT_TOOLTIP_TEXT"] = "When the Auction House is open the crafting screen will show the cost of crafting an item. Enable this option to show the profit instead."
+
   L["CONFIG_SELLING_CATEGORY"] = "Selling"
   L["CONFIG_SELLING_TEXT"] = "Options to change the behaviour of the Selling tab"
 
@@ -448,6 +453,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["YOUR_HISTORY"] = "Your History"
   L["EXPORT_RESULTS"] = "Export Results"
   L["TO_CRAFT_COLON"] = "To Craft:"
+  L["PROFIT_COLON"] = "Profit:"
 
   return L
 end

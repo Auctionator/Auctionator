@@ -64,6 +64,8 @@ Auctionator.Config.Options = {
   COLUMNS_HISTORICAL_PRICES = "historical_prices",
   COLUMNS_POSTING_HISTORY = "columns_posting_history",
   COLUMNS_CANCELLING = "columns_cancelling",
+
+  CRAFTING_COST_SHOW_PROFIT = "crafting_cost_show_profit",
 }
 
 Auctionator.Config.SalesTypes = {
@@ -157,6 +159,8 @@ local defaults = {
   [Auctionator.Config.Options.COLUMNS_SELLING_SEARCH] = {},
   [Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES] = {},
   [Auctionator.Config.Options.COLUMNS_POSTING_HISTORY] = {},
+
+  [Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT] = false,
 }
 
 function Auctionator.Config.IsValidOption(name)

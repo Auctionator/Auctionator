@@ -34,9 +34,18 @@ function AuctionatorReagentSearchButtonMixin:ShowWhenRecipeAndAHOpen()
 end
 
 function AuctionatorReagentSearchButtonMixin:UpdateTotal()
-  local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal()))
+  local price
 
-  self.Total:SetText(AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price)
+  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT) then
+    local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetAHProfit()))
+
+    self.Total:SetText(AUCTIONATOR_L_PROFIT_COLON .. " " .. price)
+
+  else
+    local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal()))
+
+    self.Total:SetText(AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price)
+  end
 end
 
 function AuctionatorReagentSearchButtonMixin:OnClick()
