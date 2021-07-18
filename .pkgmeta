@@ -3,3 +3,4 @@ ignore:
   - spec
   - test-data
   - scripts
+  - docs
