@@ -40,9 +40,31 @@
       </Frame>
 
       <!-- Action Buttons -->
-      <Button parentKey="Close" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CLOSE">
+      <Button parentKey="Dock" inherits="UIPanelButtonTemplate" text="|T:26:26:-2:-2|t">
+        <Size x="32" y="22"/>
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="20" y="-3"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture parentKey="Arrow" file="Interface\RAIDFRAME\UI-RAIDFRAME-ARROW">
+              <Size>
+                <AbsDimension x="26" y="26"/>
+              </Size>
+              <Anchors>
+                <Anchor point="CENTER" x="-1" y="-1"/>
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnClick>self:GetParent():OnDockDialogClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button parentKey="Close" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CLOSE">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Dock" relativePoint="TOPLEFT"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():OnCloseDialogClicked()</OnClick>
