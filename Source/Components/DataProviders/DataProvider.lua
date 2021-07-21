@@ -12,7 +12,9 @@ function AuctionatorDataProviderMixin:OnLoad()
   self.searchCompleted = false
 
   -- Just so I don't have to test for update functions later
-  self.onEntryProcessed = function(_) end
+  self.onEntryProcessed = function(_)
+    self:NotifyCacheUsed()
+  end
   self.onUpdate = function() end
   self.onSearchStarted = function() end
   self.onSearchEnded = function() end

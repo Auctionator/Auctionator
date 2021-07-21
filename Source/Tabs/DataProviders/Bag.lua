@@ -8,11 +8,6 @@ local BAG_AUCTIONATOR_EVENTS = {
 
 AuctionatorBagDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
-function AuctionatorBagDataProviderMixin:OnLoad()
-  AuctionatorDataProviderMixin.OnLoad(self)
-  self.processCountPerUpdate = 200
-end
-
 function AuctionatorBagDataProviderMixin:Reload()
   self:Reset()
   self:LoadBagData()

@@ -71,7 +71,6 @@ function AuctionatorSearchDataProviderMixin:OnShow()
     Auctionator.Cancelling.Events.RequestCancel,
   })
 
-  self.processCountPerUpdate = 200
   self:Reset()
 end
 
