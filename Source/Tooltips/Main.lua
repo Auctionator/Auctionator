@@ -5,7 +5,7 @@ local waitingForPricing = false
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCount)
-  if waitingOnLink == itemLink and waitingForTooltip == tooltipFrame then
+  if waitingForPricing then
     return
   end
   -- Keep this commented out unless testing please.
