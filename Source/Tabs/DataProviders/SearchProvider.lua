@@ -129,11 +129,12 @@ function AuctionatorSearchDataProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionID)
-  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" and self.expectedItemKey.itemID == itemRef then
+  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" and self.expectedItemKey ~= nil and
+          self.expectedItemKey.itemID == itemRef then
     self:Reset()
     self:AppendEntries(self:ProcessCommodityResults(itemRef), true)
 
-  elseif (eventName == "ITEM_SEARCH_RESULTS_UPDATED" and
+  elseif (eventName == "ITEM_SEARCH_RESULTS_UPDATED" and self.expectedItemKey ~= nil and
           Auctionator.Utilities.ItemKeyString(self.expectedItemKey) == Auctionator.Utilities.ItemKeyString(itemRef)
         ) then
     self.onPreserveScroll()
