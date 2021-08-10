@@ -13,6 +13,7 @@ function Auctionator.API.v1.RegisterForDBUpdate(callerID, callback)
       callback()
     end
   }, {
-    Auctionator.IncrementalScan.Events.PricesProcessed
+    Auctionator.IncrementalScan.Events.PricesProcessed,
+    Auctionator.FullScan.Events.ScanComplete,
   })
 end
