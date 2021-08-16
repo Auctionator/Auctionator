@@ -11,15 +11,7 @@ function Auctionator.Search.Filters.ExactMixin:Init(browseResult, match)
   self.browseResult = browseResult
   self.match = match
   
-  if self.match ~= nil then
-    Auctionator.AH.GetItemKeyInfo(self.browseResult.itemKey)
-  else
-    Auctionator.EventBus
-      :RegisterSource(self, "exact mixin")
-      :Fire(self, Auctionator.Search.Events.FilterComplete, self.browseResult, true)
-      :UnregisterSource(self)
-      :Unregister(self, EXACT_EVENTS)
-  end
+  Auctionator.AH.GetItemKeyInfo(self.browseResult.itemKey)
 end
 
 function Auctionator.Search.Filters.ExactMixin:ReceiveEvent(eventName, itemKey, itemKeyInfo)
