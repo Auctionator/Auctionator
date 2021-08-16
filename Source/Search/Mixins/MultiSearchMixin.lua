@@ -14,7 +14,7 @@ function AuctionatorMultiSearchMixin:InitSearch(completionCallback, incrementCal
   end
 end
 
-function AuctionatorMultiSearchMixin:OnSearchEvent(event, ...)
+function AuctionatorMultiSearchMixin:OnEvent(event, ...)
   if not self.complete then
     self:OnSearchEventReceived(event, ...)
   end

@@ -7,4 +7,6 @@
   <Script file="Mixins\KeywordSearchProviderMixin.lua"/>
   <Script file="Mixins\AdvancedSearchProviderMixin.lua"/>
   <Include file="Filters\Manifest.xml" />
+
+  <Include file="Templates.xml"/>
 </Ui>

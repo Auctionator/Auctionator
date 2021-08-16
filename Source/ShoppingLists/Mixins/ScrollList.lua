@@ -1,6 +1,6 @@
 AuctionatorShoppingListTableBuilderMixin = CreateFromMixins(TableBuilderMixin)
 
-AuctionatorScrollListMixin = CreateFromMixins(AuctionatorAdvancedSearchProviderMixin)
+AuctionatorScrollListMixin = {}
 
 function AuctionatorScrollListMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorScrollListMixin:OnLoad()")
@@ -10,7 +10,8 @@ function AuctionatorScrollListMixin:OnLoad()
   self:SetLineTemplate("AuctionatorScrollListLineTemplate")
   self.getNumEntries = self.GetNumEntries
 
-  self:InitSearch(
+  self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorAdvancedSearchProviderTemplate")
+  self.searchProvider:InitSearch(
     function(results)
       self:EndSearch(results)
     end,
@@ -41,10 +42,6 @@ function AuctionatorScrollListMixin:SetUpEvents()
   })
 end
 
-function AuctionatorScrollListMixin:OnEvent(eventName, ...)
-  self:OnSearchEvent(eventName, ...)
-end
-
 function AuctionatorScrollListMixin:GetAllSearchTerms()
   local searchTerms = {}
 
@@ -57,7 +54,6 @@ end
 
 function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
   Auctionator.Debug.Message("AuctionatorScrollListMixin:ReceiveEvent()", eventName, eventData)
-  AuctionatorAdvancedSearchProviderMixin.ReceiveEvent(self, eventName, eventData, ...)
 
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
@@ -98,7 +94,7 @@ function AuctionatorScrollListMixin:StartSearch(searchTerms)
     Auctionator.ShoppingLists.Events.ListSearchStarted,
     #self.currentList.items
   )
-  self:Search(searchTerms)
+  self.searchProvider:Search(searchTerms)
 end
 
 function AuctionatorScrollListMixin:EndSearch(results)

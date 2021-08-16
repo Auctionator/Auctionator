@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorAdvancedSearchProviderTemplate"
+    virtual="true"
+    mixin="AuctionatorAdvancedSearchProviderMixin"
+  >
+    <Scripts>
+      <OnEvent method="OnEvent" />
+    </Scripts>
+  </Frame>
+</Ui>
