@@ -1,9 +1,5 @@
 Auctionator.Search.Filters.FilterTrackerMixin = {}
 
-local TRACKER_EVENTS = {
-   Auctionator.Search.Events.FilterComplete
-}
-
 function Auctionator.Search.Filters.FilterTrackerMixin:Init(browseResult)
   self.result = true
   self.browseResult = browseResult
