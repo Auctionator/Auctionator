@@ -131,7 +131,7 @@ function AuctionatorAdvancedSearchProviderMixin:ProcessSearchResults(addedResult
       Auctionator.Search.Filters.FilterTrackerMixin,
       addedResults[index]
     )
-    local filters = Auctionator.Search.Filters.Create(addedResults[index], self.currentFilter)
+    local filters = Auctionator.Search.Filters.Create(addedResults[index], self.currentFilter, filterTracker)
 
     filterTracker:SetWaiting(#filters)
   end

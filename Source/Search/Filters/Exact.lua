@@ -1,14 +1,11 @@
 -- Exact search terms
 Auctionator.Search.Filters.ExactMixin = {}
 
-function Auctionator.Search.Filters.ExactMixin:Init(browseResult, match)
+function Auctionator.Search.Filters.ExactMixin:Init(filterTracker, browseResult, match)
   self.match = match
   
   Auctionator.AH.GetItemKeyInfo(browseResult.itemKey, function(itemKeyInfo)
-    Auctionator.EventBus
-      :RegisterSource(self, "exact mixin")
-      :Fire(self, Auctionator.Search.Events.FilterComplete, browseResult, self:ExactMatchCheck(itemKeyInfo))
-      :UnregisterSource(self)
+    filterTracker:ReportFilterComplete(self:ExactMatchCheck(itemKeyInfo))
   end)
 end
 

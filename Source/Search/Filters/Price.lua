@@ -1,14 +1,8 @@
 Auctionator.Search.Filters.PriceMixin = {}
 
-function Auctionator.Search.Filters.PriceMixin:Init(browseResult, limits)
+function Auctionator.Search.Filters.PriceMixin:Init(filterTracker, browseResult, limits)
   self.limits = limits
-  Auctionator.EventBus:RegisterSource(self, "price filter mixin")
-    :Fire(self,
-      Auctionator.Search.Events.FilterComplete,
-      browseResult,
-      self:PriceCheck(browseResult.minPrice)
-    )
-    :UnregisterSource(self)
+  filterTracker:ReportFilterComplete(self:PriceCheck(browseResult.minPrice))
 end
 
 function Auctionator.Search.Filters.PriceMixin:PriceCheck(price)

@@ -5,16 +5,10 @@ end
 
 Auctionator.Search.Filters.ItemLevelMixin = {}
 
-function Auctionator.Search.Filters.ItemLevelMixin:Init(browseResult, limits)
+function Auctionator.Search.Filters.ItemLevelMixin:Init(filterTracker, browseResult, limits)
   self.limits = limits
 
-  Auctionator.EventBus:RegisterSource(self, "item level filter mixin")
-    :Fire(self,
-      Auctionator.Search.Events.FilterComplete,
-      browseResult,
-      self:FilterCheck(browseResult.itemKey)
-    )
-    :UnregisterSource(self)
+  filterTracker:ReportFilterComplete(self:FilterCheck(browseResult.itemKey))
 end
 
 function Auctionator.Search.Filters.ItemLevelMixin:FilterCheck(itemKey)
