@@ -54,6 +54,6 @@ function Auctionator.AH.ReplicateItems()
   C_AuctionHouse.ReplicateItems()
 end
 
-function Auctionator.AH.GetItemKeyInfo(itemKey)
-  Auctionator.AH.Internals.itemKeyLoader:Get(itemKey)
+function Auctionator.AH.GetItemKeyInfo(itemKey, callback)
+  Auctionator.AH.Internals.itemKeyLoader:Get(itemKey, callback)
 end

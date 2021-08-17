@@ -56,8 +56,6 @@ function AuctionatorShoppingListDataProviderMixin:SetUpEvents()
 end
 
 function AuctionatorShoppingListDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
-  AuctionatorItemKeyLoadingMixin.ReceiveEvent(self, eventName, eventData, ...)
-
   if eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Reset()
     if eventData ~= 0 then

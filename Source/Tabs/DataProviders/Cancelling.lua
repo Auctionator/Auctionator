@@ -141,8 +141,6 @@ function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ..
 end
 
 function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
-  AuctionatorItemKeyLoadingMixin.ReceiveEvent(self, eventName, eventData, ...)
-
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
     table.insert(self.waitingforCancellation, eventData)
 

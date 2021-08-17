@@ -6,7 +6,7 @@ function AuctionatorDataProviderMixin:OnLoad()
   self.results = {}
   self.insertedKeys = {}
   self.entriesToProcess = {}
-  self.processCountPerUpdate = 10
+  self.processCountPerUpdate = 200
   self.presetSort = {key = nil, direction = nil}
 
   self.searchCompleted = false

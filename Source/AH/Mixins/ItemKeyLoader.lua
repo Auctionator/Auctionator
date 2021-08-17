@@ -8,34 +8,34 @@ function AuctionatorAHItemKeyLoaderFrameMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorItemKeyLoadingMixin")
   self.waiting = {}
   self.cache = {}
+  self.callbackMap = {}
   self.waitingCount = 0
   self.registered = false
 end
 
-function AuctionatorAHItemKeyLoaderFrameMixin:Get(itemKey)
+function AuctionatorAHItemKeyLoaderFrameMixin:Get(itemKey, callback)
   local itemKeyString = Auctionator.Utilities.ItemKeyString(itemKey)
+
   local info = self.cache[itemKeyString]
   if info then
-    Auctionator.EventBus:Fire(
-      self,
-      Auctionator.AH.Events.ItemKeyInfo,
-      itemKey,
-      info,
-      true
-    )
+    callback(info, true)
     return
+  end
+
+  if self.callbackMap[itemKeyString] == nil then
+    self.callbackMap[itemKeyString] = {}
+  end
+  if callback ~= nil then
+    table.insert(self.callbackMap[itemKeyString], callback)
   end
 
   info = C_AuctionHouse.GetItemKeyInfo(itemKey)
   if info then
     self.cache[itemKeyString] = info
-    Auctionator.EventBus:Fire(
-      self,
-      Auctionator.AH.Events.ItemKeyInfo,
-      itemKey,
-      info,
-      false
-    )
+    for _, callback in ipairs(self.callbackMap[itemKeyString]) do
+      callback(info, false)
+    end
+    self.callbackMap[itemKeyString] = nil
   else
     if self.waiting[itemKey.itemID] == nil then
       self.waiting[itemKey.itemID] = {}
