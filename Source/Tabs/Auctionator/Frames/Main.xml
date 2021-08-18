@@ -27,7 +27,7 @@
 
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ContributorsHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="AUCTIONATOR_L_CONTRIBUTORS_HEADER" type="global"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_AUTHOR_HEADER" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.AuthorHeading" relativePoint="TOPRIGHT" />

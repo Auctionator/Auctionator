@@ -93,7 +93,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_QUANTITIES_TEXT"] = "Choose the default quantity used for the different item categories."
 
   L["AUTHOR_HEADER"] = "Author"
-  L["CONTRIBUTORS_HEADER"] = "Contributors"
   L["TRANSLATORS_HEADER"] = "Translators"
   L["VERSION_HEADER"] = "Version"
   L["OPEN_ADDON_OPTIONS"] = "Open Addon Options"
