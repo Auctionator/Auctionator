@@ -115,6 +115,11 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
           self:SearchGroupReady()
         end
       end)
+    else
+      self.namesWaiting = self.namesWaiting - 1
+      if self.namesWaiting <= 0 and self.gotAllResults then
+        self:SearchGroupReady()
+      end
     end
   end
 end
