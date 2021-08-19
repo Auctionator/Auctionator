@@ -94,21 +94,28 @@ end
 
 function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:CacheSearchResults()")
+
+  if not self.doingCaching then
+    return
+  end
   
   self.gotAllResults = Auctionator.AH.HasFullBrowseResults()
   self.namesWaiting = self.namesWaiting + #addedResults
 
   for _, result in ipairs(addedResults) do
-    table.insert(self.fullSearchCache, result)
-    local index = #self.fullSearchCache
-    table.insert(self.fullSearchNameCache, "")
-    Auctionator.AH.GetItemKeyInfo(result.itemKey, function(itemKeyInfo)
-      self.namesWaiting = self.namesWaiting - 1
-      self.fullSearchNameCache[index] = string.lower(itemKeyInfo.itemName)
-      if self.namesWaiting <= 0 and self.gotAllResults then
-        self:SearchGroupReady()
-      end
-    end)
+    if result.totalQuantity ~= 0 then
+      table.insert(self.fullSearchCache, result)
+      local index = #self.fullSearchCache
+      table.insert(self.fullSearchNameCache, "")
+      Auctionator.AH.GetItemKeyInfo(result.itemKey, function(itemKeyInfo)
+        self.namesWaiting = self.namesWaiting - 1
+        self.fullSearchNameCache[index] = string.lower(itemKeyInfo.itemName)
+        if self.namesWaiting <= 0 and self.gotAllResults then
+          self.doingCaching = false
+          self:SearchGroupReady()
+        end
+      end)
+    end
   end
 end
 
