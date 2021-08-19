@@ -98,7 +98,7 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   if not self.doingCaching then
     return
   end
-  
+
   self.gotAllResults = Auctionator.AH.HasFullBrowseResults()
   self.namesWaiting = self.namesWaiting + #addedResults
 
@@ -151,7 +151,7 @@ end
 
 function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:ProcessSearchResults()")
-  
+
   if not self.registeredForEvents then
     self.registeredForEvents = true
     Auctionator.EventBus:Register(self, INTERNAL_SEARCH_EVENTS)
