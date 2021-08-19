@@ -8,4 +8,13 @@
       <OnEvent method="OnEvent" />
     </Scripts>
   </Frame>
+  <Frame
+    name="AuctionatorCachingSearchProviderTemplate"
+    virtual="true"
+    mixin="AuctionatorCachingSearchProviderMixin"
+  >
+    <Scripts>
+      <OnEvent method="OnEvent" />
+    </Scripts>
+  </Frame>
 </Ui>

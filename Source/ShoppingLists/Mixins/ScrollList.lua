@@ -10,20 +10,25 @@ function AuctionatorScrollListMixin:OnLoad()
   self:SetLineTemplate("AuctionatorScrollListLineTemplate")
   self.getNumEntries = self.GetNumEntries
 
-  self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate")
-  self.searchProvider:InitSearch(
-    function(results)
-      self:EndSearch(results)
-    end,
-    function(current, total, results)
-      if self.currentList == nil then
-        return
-      end
+  self.searchProviders = {
+    CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate"),
+    CreateFrame("FRAME", nil, nil, "AuctionatorCachingSearchProviderTemplate"),
+  }
+  for _, searchProvider in ipairs(self.searchProviders) do
+    searchProvider:InitSearch(
+      function(results)
+        self:EndSearch(results)
+      end,
+      function(current, total, results)
+        if self.currentList == nil then
+          return
+        end
 
-      Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
-      self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
-    end
-  )
+        Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
+        self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
+      end
+    )
+  end
 end
 
 function AuctionatorScrollListMixin:SetUpEvents()
@@ -94,7 +99,11 @@ function AuctionatorScrollListMixin:StartSearch(searchTerms)
     Auctionator.ShoppingLists.Events.ListSearchStarted,
     #self.currentList.items
   )
-  self.searchProvider:Search(searchTerms)
+  if #searchTerms < 50 then
+    self.searchProviders[1]:Search(searchTerms)
+  else
+    self.searchProviders[2]:Search(searchTerms)
+  end
 end
 
 function AuctionatorScrollListMixin:EndSearch(results)

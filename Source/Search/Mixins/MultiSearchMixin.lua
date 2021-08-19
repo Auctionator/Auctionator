@@ -27,6 +27,10 @@ function AuctionatorMultiSearchMixin:Search(terms)
   self.results = {}
 
   self:SetTerms(terms)
+  self:InitializeNewSearchGroup()
+end
+
+function AuctionatorMultiSearchMixin:SearchGroupReady()
   self:NextSearch()
 end
 
