@@ -20,6 +20,10 @@ function Auctionator.Search.Filters.ItemClassFiltersMixin:FilterCheck(itemKey, i
   local _, _, _, inventorySlotStr, _, itemClass, itemSubClass = GetItemInfoInstant(itemKey.itemID)
   local inventoryType = NAME_TO_INVENTORY_SLOT[_G[inventorySlotStr]]
 
+  if itemClass == Enum.ItemClass.Battlepet then
+    itemSubClass = (select(3, C_PetJournal.GetPetInfoBySpeciesID(itemKey.battlePetSpeciesID))) - 1
+  end
+
   local anyMet = false
 
   for _, category in ipairs(itemClassFilters) do
