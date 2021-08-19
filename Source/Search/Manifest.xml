@@ -5,7 +5,7 @@
   <Script file="Mixins\SearchProviderMixin.lua"/>
   <Script file="Mixins\MultiSearchMixin.lua"/>
   <Script file="Mixins\KeywordSearchProviderMixin.lua"/>
-  <Script file="Mixins\AdvancedSearchProviderMixin.lua"/>
+  <Script file="Mixins\DirectSearchProvider.lua"/>
   <Include file="Filters\Manifest.xml" />
 
   <Include file="Templates.xml"/>

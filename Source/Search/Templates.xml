@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="AuctionatorAdvancedSearchProviderTemplate"
+    name="AuctionatorDirectSearchProviderTemplate"
     virtual="true"
-    mixin="AuctionatorAdvancedSearchProviderMixin"
+    mixin="AuctionatorDirectSearchProviderMixin"
   >
     <Scripts>
       <OnEvent method="OnEvent" />

@@ -10,7 +10,7 @@ function AuctionatorScrollListMixin:OnLoad()
   self:SetLineTemplate("AuctionatorScrollListLineTemplate")
   self.getNumEntries = self.GetNumEntries
 
-  self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorAdvancedSearchProviderTemplate")
+  self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate")
   self.searchProvider:InitSearch(
     function(results)
       self:EndSearch(results)
