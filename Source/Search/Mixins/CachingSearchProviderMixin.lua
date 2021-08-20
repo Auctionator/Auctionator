@@ -16,52 +16,6 @@ local INTERNAL_SEARCH_EVENTS = {
   Auctionator.Search.Events.SearchResultsReady
 }
 
-local function ExtractExactSearch(queryString)
-  return string.match(queryString, "^\"(.*)\"$")
-end
-
-local function GetItemClassCategories(categoryKey)
-  local lookup = Auctionator.Search.CategoryLookup[categoryKey]
-  if lookup ~= nil then
-    return lookup.category
-  else
-    return {}
-  end
-end
-
-local function CleanQueryString(queryString)
-  -- Remove "" that are used in exact searches as it causes some searches to
-  -- fail when they would otherwise work, example "Steak a la Mode"
-  return string.gsub(string.gsub(queryString, "^\"", ""), "\"$", "")
-end
-
-local function ParseAdvancedSearch(searchString)
-
-  local parsed = Auctionator.Search.SplitAdvancedSearch(searchString)
-
-  return {
-    searchString = CleanQueryString(parsed.queryString),
-    itemLevel = {
-      min = parsed.minItemLevel,
-      max = parsed.maxItemLevel,
-    },
-    usableLevel = {
-      min = parsed.minLevel,
-      max = parsed.maxLevel,
-    },
-    itemClassFilters = GetItemClassCategories(parsed.categoryKey),
-    craftedLevel = {
-      min = parsed.minCraftedLevel,
-      max = parsed.maxCraftedLevel,
-    },
-    price = {
-      min = parsed.minPrice,
-      max = parsed.maxPrice,
-    },
-    exactSearch = ExtractExactSearch(parsed.queryString),
-  }
-end
-
 function AuctionatorCachingSearchProviderMixin:InitializeNewSearchGroup()
   Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
   self.fullSearchCache = {}
@@ -88,7 +42,7 @@ function AuctionatorCachingSearchProviderMixin:OnSearchEventReceived(eventName, 
       Auctionator.EventBus
       :RegisterSource(self, "Advanced Search Provider")
       :Fire(self, Auctionator.Search.Events.BlizzardInfo, eventName, ...)
-      --:UnregisterSource(self) Unregistering here breaks shopping list events
+      :UnregisterSource(self)
   end
 end
 
@@ -117,23 +71,39 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
       end)
     else
       self.namesWaiting = self.namesWaiting - 1
-      if self.namesWaiting <= 0 and self.gotAllResults then
-        self:SearchGroupReady()
-      end
     end
+  end
+
+  if self.namesWaiting <= 0 and self.gotAllResults then
+    self:SearchGroupReady()
   end
 end
 
 function AuctionatorCachingSearchProviderMixin:CreateSearchTerm(term)
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:CreateSearchTerm()", term)
-  if Auctionator.Search.IsAdvancedSearch(term) then
-    return ParseAdvancedSearch(term)
-  else
-    return  {
-      searchString = CleanQueryString(term),
-      exactSearch = ExtractExactSearch(term)
-    }
-  end
+  local parsed = Auctionator.Search.SplitAdvancedSearch(term)
+
+  return {
+    searchString = parsed.searchString,
+    itemLevel = {
+      min = parsed.minItemLevel,
+      max = parsed.maxItemLevel,
+    },
+    usableLevel = {
+      min = parsed.minLevel,
+      max = parsed.maxLevel,
+    },
+    itemClassFilters = Auctionator.Search.GetItemClassCategories(parsed.categoryKey),
+    craftedLevel = {
+      min = parsed.minCraftedLevel,
+      max = parsed.maxCraftedLevel,
+    },
+    price = {
+      min = parsed.minPrice,
+      max = parsed.maxPrice,
+    },
+    exactSearch = (parsed.isExact and parsed.searchString) or nil,
+  }
 end
 
 function AuctionatorCachingSearchProviderMixin:GetSearchProvider()

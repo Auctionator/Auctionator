@@ -12,36 +12,18 @@ local INTERNAL_SEARCH_EVENTS = {
   Auctionator.Search.Events.SearchResultsReady
 }
 
-local function ExtractExactSearch(queryString)
-  return string.match(queryString, "^\"(.*)\"$")
-end
+function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
+  Auctionator.Debug.Message("AuctionatorDirectSearchProviderMixin:CreateSearchTerm()", term)
 
-local function GetItemClassCategories(categoryKey)
-  local lookup = Auctionator.Search.CategoryLookup[categoryKey]
-  if lookup ~= nil then
-    return lookup.category
-  else
-    return {}
-  end
-end
-
-local function CleanQueryString(queryString)
-  -- Remove "" that are used in exact searches as it causes some searches to
-  -- fail when they would otherwise work, example "Steak a la Mode"
-  return string.gsub(string.gsub(queryString, "^\"", ""), "\"$", "")
-end
-
-local function ParseAdvancedSearch(searchString)
-
-  local parsed = Auctionator.Search.SplitAdvancedSearch(searchString)
+  local parsed = Auctionator.Search.SplitAdvancedSearch(term)
 
   return {
     query = {
-      searchString = CleanQueryString(parsed.queryString),
+      searchString = parsed.searchString,
       minLevel = parsed.minLevel,
       maxLevel = parsed.maxLevel,
       filters = {},
-      itemClassFilters = GetItemClassCategories(parsed.categoryKey),
+      itemClassFilters = Auctionator.Search.GetItemClassCategories(parsed.categoryKey),
       sorts = {},
     },
     extraFilters = {
@@ -57,28 +39,9 @@ local function ParseAdvancedSearch(searchString)
         min = parsed.minPrice,
         max = parsed.maxPrice,
       },
-      exactSearch = ExtractExactSearch(parsed.queryString),
+      exactSearch = (parsed.isExact and parsed.searchString) or nil,
     }
   }
-end
-
-function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
-  Auctionator.Debug.Message("AuctionatorDirectSearchProviderMixin:CreateSearchTerm()", term)
-  if Auctionator.Search.IsAdvancedSearch(term) then
-    return ParseAdvancedSearch(term)
-  else
-    return  {
-      query = {
-        searchString = CleanQueryString(term),
-        filters = {},
-        itemClassFilters = {},
-        sorts = {},
-      },
-      extraFilters = {
-        exactSearch = ExtractExactSearch(term)
-      }
-    }
-  end
 end
 
 function AuctionatorDirectSearchProviderMixin:GetSearchProvider()
@@ -114,7 +77,7 @@ function AuctionatorDirectSearchProviderMixin:OnSearchEventReceived(eventName, .
     Auctionator.EventBus
       :RegisterSource(self, "Advanced Search Provider")
       :Fire(self, Auctionator.Search.Events.BlizzardInfo, eventName, ...)
-      --:UnregisterSource(self) Unregistering here breaks shopping list events
+      :UnregisterSource(self)
   end
 end
 

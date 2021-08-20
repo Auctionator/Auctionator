@@ -10,10 +10,16 @@ function Auctionator.Search.SplitAdvancedSearch(searchString)
     strsplit( Auctionator.Constants.AdvancedSearchDivider, searchString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
-  -- doesn't
+  -- doesn't, this ensures searchString ~= nil.
   if queryString == nil then
     queryString = ""
   end
+
+  -- Remove "" that are used in exact searches as it causes some searches to
+  -- fail when they would otherwise work, example "Steak a la Mode"
+  local searchString = string.gsub(string.gsub(queryString, "^\"", ""), "\"$", "")
+
+  isExact = string.match(queryString, "^\"(.*)\"$") ~= nil
 
   minLevel = tonumber( minLevel )
   maxLevel = tonumber( maxLevel )
@@ -59,7 +65,8 @@ function Auctionator.Search.SplitAdvancedSearch(searchString)
   end
 
   return {
-    queryString = queryString,
+    searchString = searchString,
+    isExact = isExact,
     categoryKey = categoryKey,
     minLevel = minLevel,
     maxLevel = maxLevel,
@@ -155,11 +162,19 @@ local function PriceRange(splitSearch)
   ) .. separator
 end
 
+local function WrapExactSearch(splitSearch)
+  if splitSearch.isExact then
+    return "\"" .. splitSearch.searchString .. "\""
+  else
+    return splitSearch.searchString
+  end
+end
+
 function Auctionator.Search.PrettifySearchString(searchString)
   if Auctionator.Search.IsAdvancedSearch(searchString) then
     local splitSearch = Auctionator.Search.SplitAdvancedSearch(searchString)
 
-    local result = splitSearch.queryString
+    result = WrapExactSearch(splitSearch)
       .. " ["
       .. CategoryKey(splitSearch)
       .. PriceRange(splitSearch)
@@ -235,12 +250,12 @@ function Auctionator.Search.ComposeTooltip(searchString)
   table.insert(lines, TooltipItemLevelRange(splitSearch))
   table.insert(lines, TooltipCraftedLevelRange(splitSearch))
 
-  if splitSearch.queryString == "" then
-    splitSearch.queryString = " "
+  if splitSearch.searchString == "" then
+    splitSearch.searchString = " "
   end
 
   return {
-    title = splitSearch.queryString,
+    title = splitSearch.searchString,
     lines = lines
   }
 end
