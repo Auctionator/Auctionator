@@ -19,12 +19,13 @@ local INTERNAL_SEARCH_EVENTS = {
 function AuctionatorCachingSearchProviderMixin:InitializeNewSearchGroup()
   self:RegisterEvents(CACHING_SEARCH_EVENTS)
 
-  self.fullSearchCache = {}
-  self.fullSearchNameCache = {}
-  self.namesWaiting = 0
-  self.gotAllResults = false
+  self.fullSearchResults = {
+    cache = {},
+    names = {},
+    namesWaiting = 0,
+    gotCompleteCache = false,
+  }
   self.processed = 0
-  self.doingCaching = true
 
   Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
 end
@@ -51,33 +52,30 @@ end
 function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:CacheSearchResults()")
 
-  if not self.doingCaching then
-    return
-  end
-
-  self.gotAllResults = Auctionator.AH.HasFullBrowseResults()
-  self.namesWaiting = self.namesWaiting + #addedResults
+  local resultsInfo = self.fullSearchResults
+  resultsInfo.gotCompleteCache = Auctionator.AH.HasFullBrowseResults()
+  resultsInfo.namesWaiting = resultsInfo.namesWaiting + #addedResults
 
   for _, result in ipairs(addedResults) do
     if result.totalQuantity ~= 0 then
-      table.insert(self.fullSearchCache, result)
-      local index = #self.fullSearchCache
-      table.insert(self.fullSearchNameCache, "")
+      table.insert(resultsInfo.cache, result)
+      local index = #resultsInfo.cache
+      table.insert(resultsInfo.names, "")
       Auctionator.AH.GetItemKeyInfo(result.itemKey, function(itemKeyInfo)
-        self.namesWaiting = self.namesWaiting - 1
-        self.fullSearchNameCache[index] = string.lower(itemKeyInfo.itemName)
-        if self.namesWaiting <= 0 and self.gotAllResults then
-          self.doingCaching = false
+        resultsInfo.namesWaiting = resultsInfo.namesWaiting - 1
+        resultsInfo.names[index] = string.lower(itemKeyInfo.itemName)
+        if resultsInfo.namesWaiting <= 0 and resultsInfo.gotCompleteCache then
+          self:UnregisterEvents(CACHING_SEARCH_EVENTS)
           self:SearchGroupReady()
         end
       end)
     else
-      self.namesWaiting = self.namesWaiting - 1
+      resultsInfo.namesWaiting = resultsInfo.namesWaiting - 1
     end
   end
 
-  if self.namesWaiting <= 0 and self.gotAllResults then
-    self.doingCaching = false
+  if resultsInfo.namesWaiting <= 0 and resultsInfo.gotCompleteCache then
+    self:UnregisterEvents(CACHING_SEARCH_EVENTS)
     self:SearchGroupReady()
   end
 end
@@ -117,14 +115,14 @@ function AuctionatorCachingSearchProviderMixin:GetSearchProvider()
     self.currentQuery = searchTerm
     self.currentIndex = 0
     self.waiting = 0
-    self.resultsWaiting = {}
+    self.queuedResults = {}
     self:SetScript("OnUpdate", self.OnUpdate)
     self:ProcessCurrentSearch()
   end
 end
 
 function AuctionatorCachingSearchProviderMixin:HasCompleteTermResults()
-  return self.waiting <= 0 and self.currentIndex >= #self.fullSearchCache
+  return self.waiting <= 0 and self.currentIndex >= #self.fullSearchResults.cache
 end
 
 function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
@@ -136,8 +134,11 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
   end
   local lowerName = string.lower(self.currentQuery.searchString)
   local index = self.currentIndex
-  local indexLimit = math.min(#self.fullSearchCache, self.currentIndex + (PROCESSING_PER_FRAME_LIMIT - self.processed))
-  local nameCache = self.fullSearchNameCache
+  local indexLimit = math.min(
+    #self.fullSearchResults.cache,
+    self.currentIndex + (PROCESSING_PER_FRAME_LIMIT - self.processed)
+  )
+  local nameCache = self.fullSearchResults.names
   local strFind = string.find
   while index < indexLimit do
     index = index + 1
@@ -145,9 +146,9 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
       self.waiting = self.waiting + 1
       local filterTracker = CreateAndInitFromMixin(
         Auctionator.Search.Filters.FilterTrackerMixin,
-        self.fullSearchCache[index]
+        self.fullSearchResults.cache[index]
       )
-      local filters = Auctionator.Search.Filters.Create(self.fullSearchCache[index], self.currentQuery, filterTracker)
+      local filters = Auctionator.Search.Filters.Create(self.fullSearchResults.cache[index], self.currentQuery, filterTracker)
 
       filterTracker:SetWaiting(#filters)
     end
@@ -171,7 +172,7 @@ end
 function AuctionatorCachingSearchProviderMixin:ReceiveEvent(eventName, results)
   if eventName == Auctionator.Search.Events.SearchResultsReady then
     self.waiting = self.waiting - 1
-    table.insert(self.resultsWaiting, results[1])
+    table.insert(self.queuedResults, results[1])
     if self:HasCompleteTermResults() then
       self:PostCompleteResults()
     end
@@ -181,7 +182,7 @@ end
 function AuctionatorCachingSearchProviderMixin:PostCompleteResults()
   Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
   self.registeredForEvents = false
-  self:AddResults(self.resultsWaiting)
+  self:AddResults(self.queuedResults)
 end
 
 
