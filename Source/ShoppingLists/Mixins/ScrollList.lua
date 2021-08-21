@@ -99,7 +99,7 @@ function AuctionatorScrollListMixin:StartSearch(searchTerms)
     Auctionator.ShoppingLists.Events.ListSearchStarted,
     #self.currentList.items
   )
-  if #searchTerms < 50 and not IsShiftKeyDown() and not IsControlKeyDown() then
+  if #searchTerms < 50 and not (IsShiftKeyDown() and IsControlKeyDown()) then
     self.searchProviders[1]:Search(searchTerms)
   else
     self.searchProviders[2]:Search(searchTerms)
