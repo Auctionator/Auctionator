@@ -10,7 +10,7 @@ local FILTER_SEARCH_EVENTS = {
   "EXTRA_BROWSE_INFO_RECEIVED",
 }
 
-local PROCESSING_PER_FRAME_LIMIT = 20000
+local PROCESSING_PER_FRAME_LIMIT = 80000
 
 local INTERNAL_SEARCH_EVENTS = {
   Auctionator.Search.Events.SearchResultsReady
@@ -113,7 +113,7 @@ function AuctionatorCachingSearchProviderMixin:GetSearchProvider()
   return function(searchTerm)
     self.currentQuery = searchTerm
     self.currentIndex = 0
-    self.waiting = #self.fullSearchCache
+    self.waiting = 0
     self.resultsWaiting = {}
     self:SetScript("OnUpdate", self.OnUpdate)
     self:ProcessCurrentSearch()
@@ -132,21 +132,25 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
     Auctionator.EventBus:Register(self, INTERNAL_SEARCH_EVENTS)
   end
   local lowerName = string.lower(self.currentQuery.searchString)
-  while self.currentIndex < #self.fullSearchCache and self.processed < PROCESSING_PER_FRAME_LIMIT do
-    self.currentIndex = self.currentIndex + 1
-    self.processed = self.processed + 1
-    self.waiting = self.waiting - 1
-    if string.find(self.fullSearchNameCache[self.currentIndex], lowerName, 1, true) then
+  local index = self.currentIndex
+  local indexLimit = math.min(#self.fullSearchCache, self.currentIndex + (PROCESSING_PER_FRAME_LIMIT - self.processed))
+  local nameCache = self.fullSearchNameCache
+  local strFind = string.find
+  while index < indexLimit do
+    index = index + 1
+    if strFind(nameCache[index], lowerName, 1, true) then
       self.waiting = self.waiting + 1
       local filterTracker = CreateAndInitFromMixin(
         Auctionator.Search.Filters.FilterTrackerMixin,
-        self.fullSearchCache[self.currentIndex]
+        self.fullSearchCache[index]
       )
-      local filters = Auctionator.Search.Filters.Create(self.fullSearchCache[self.currentIndex], self.currentQuery, filterTracker)
+      local filters = Auctionator.Search.Filters.Create(self.fullSearchCache[index], self.currentQuery, filterTracker)
 
       filterTracker:SetWaiting(#filters)
     end
   end
+  self.processed = self.processed + index - self.currentIndex
+  self.currentIndex = index
   if self:HasCompleteTermResults() then
     self:AddResults(self.resultsWaiting)
   end
