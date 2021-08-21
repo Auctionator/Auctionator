@@ -17,14 +17,16 @@ local INTERNAL_SEARCH_EVENTS = {
 }
 
 function AuctionatorCachingSearchProviderMixin:InitializeNewSearchGroup()
-  Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
+  self:RegisterEvents(CACHING_SEARCH_EVENTS)
+
   self.fullSearchCache = {}
   self.fullSearchNameCache = {}
   self.namesWaiting = 0
-  self.doingCaching = true
   self.gotAllResults = false
   self.processed = 0
-  self:RegisterEvents(CACHING_SEARCH_EVENTS)
+  self.doingCaching = true
+
+  Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
 end
 
 function AuctionatorCachingSearchProviderMixin:OnSearchEventReceived(eventName, ...)
@@ -75,6 +77,7 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   end
 
   if self.namesWaiting <= 0 and self.gotAllResults then
+    self.doingCaching = false
     self:SearchGroupReady()
   end
 end
@@ -152,7 +155,7 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
   self.processed = self.processed + index - self.currentIndex
   self.currentIndex = index
   if self:HasCompleteTermResults() then
-    self:AddResults(self.resultsWaiting)
+    self:PostCompleteResults()
   end
 end
 
@@ -170,11 +173,15 @@ function AuctionatorCachingSearchProviderMixin:ReceiveEvent(eventName, results)
     self.waiting = self.waiting - 1
     table.insert(self.resultsWaiting, results[1])
     if self:HasCompleteTermResults() then
-      self.registeredForEvents = false
-      Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
-      self:AddResults(self.resultsWaiting)
+      self:PostCompleteResults()
     end
   end
+end
+
+function AuctionatorCachingSearchProviderMixin:PostCompleteResults()
+  Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
+  self.registeredForEvents = false
+  self:AddResults(self.resultsWaiting)
 end
 
 
