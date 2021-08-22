@@ -11,6 +11,7 @@ local FILTER_SEARCH_EVENTS = {
 }
 
 local PROCESSING_PER_FRAME_LIMIT = 80000
+local FILTERS_PER_FRAME_LIMIT = 1000
 
 local INTERNAL_SEARCH_EVENTS = {
   Auctionator.Search.Events.SearchResultsReady
@@ -26,6 +27,7 @@ function AuctionatorCachingSearchProviderMixin:InitializeNewSearchGroup()
     gotCompleteCache = false,
   }
   self.processed = 0
+  self.filtersThisFrame = 0
 
   Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
 end
@@ -132,6 +134,11 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
     self.registeredForEvents = true
     Auctionator.EventBus:Register(self, INTERNAL_SEARCH_EVENTS)
   end
+
+  if self.filtersThisFrame >= FILTERS_PER_FRAME_LIMIT then
+    return
+  end
+
   local lowerName = string.lower(self.currentQuery.searchString)
   local index = self.currentIndex
   local indexLimit = math.min(
@@ -149,12 +156,18 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
         self.fullSearchResults.cache[index]
       )
       local filters = Auctionator.Search.Filters.Create(self.fullSearchResults.cache[index], self.currentQuery, filterTracker)
+      self.filtersThisFrame = self.filtersThisFrame + #filters
 
       filterTracker:SetWaiting(#filters)
+
+      if self.filtersThisFrame >= FILTERS_PER_FRAME_LIMIT then
+        break
+      end
     end
   end
   self.processed = self.processed + index - self.currentIndex
   self.currentIndex = index
+
   if self:HasCompleteTermResults() then
     self:PostCompleteResults()
   end
@@ -162,6 +175,7 @@ end
 
 function AuctionatorCachingSearchProviderMixin:OnUpdate(elapsed)
   self.processed = 0
+  self.filtersThisFrame = 0
   if not self:HasCompleteTermResults() then
     self:ProcessCurrentSearch()
   else
