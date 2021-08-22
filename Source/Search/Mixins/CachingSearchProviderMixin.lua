@@ -45,7 +45,7 @@ function AuctionatorCachingSearchProviderMixin:OnSearchEventReceived(eventName, 
     )
   else
       Auctionator.EventBus
-      :RegisterSource(self, "Advanced Search Provider")
+      :RegisterSource(self, "AuctionatorCachingSearchProviderMixin")
       :Fire(self, Auctionator.Search.Events.BlizzardInfo, eventName, ...)
       :UnregisterSource(self)
   end
