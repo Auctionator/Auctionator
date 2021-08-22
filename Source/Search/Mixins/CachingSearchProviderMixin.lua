@@ -14,7 +14,7 @@ local FILTER_SEARCH_EVENTS = {
 }
 
 -- Limits per-frame processing to avoid freezing the game
--- Moving this values up usually speeds up the search, but drops the frame rate.
+-- Increasing these values usually speeds up the search, but drops the frame rate.
 local PROCESSING_PER_FRAME_LIMIT = 80000
 local FILTERS_PER_FRAME_LIMIT = 1000
 
@@ -59,8 +59,8 @@ function AuctionatorCachingSearchProviderMixin:OnSearchEventReceived(eventName, 
   end
 end
 
--- Cache the results of the blank search and the associated item names.
--- Called multiple times to process each group of results.
+-- Cache the results of the blank search with the associated item names for the
+-- results. Called multiple times to process each batch of results.
 function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:CacheSearchResults()")
 
