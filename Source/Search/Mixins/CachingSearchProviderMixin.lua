@@ -1,3 +1,6 @@
+-- Used to search for 100s of items simultaneously.
+-- This provider does a blank search of the AH, then caches the results, and
+-- searches the cache for the items being searched for.
 AuctionatorCachingSearchProviderMixin = CreateFromMixins(AuctionatorMultiSearchMixin, AuctionatorSearchProviderMixin)
 
 local CACHING_SEARCH_EVENTS = {
@@ -10,6 +13,8 @@ local FILTER_SEARCH_EVENTS = {
   "EXTRA_BROWSE_INFO_RECEIVED",
 }
 
+-- Limits per-frame processing to avoid freezing the game
+-- Moving this values up usually speeds up the search, but drops the frame rate.
 local PROCESSING_PER_FRAME_LIMIT = 80000
 local FILTERS_PER_FRAME_LIMIT = 1000
 
@@ -20,12 +25,15 @@ local INTERNAL_SEARCH_EVENTS = {
 function AuctionatorCachingSearchProviderMixin:InitializeNewSearchGroup()
   self:RegisterEvents(CACHING_SEARCH_EVENTS)
 
-  self.fullSearchResults = {
+  -- Information about caching the blank search.
+  self.blankSeachResults = {
     cache = {},
     names = {},
     namesWaiting = 0,
     gotCompleteCache = false,
   }
+  -- Used to keep track of how many items in the cache have been processed this
+  -- frame, and prevent it exceeding the *_PER_FRAME_LIMIT constants.
   self.processed = 0
   self.filtersThisFrame = 0
 
@@ -51,10 +59,12 @@ function AuctionatorCachingSearchProviderMixin:OnSearchEventReceived(eventName, 
   end
 end
 
+-- Cache the results of the blank search and the associated item names.
+-- Called multiple times to process each group of results.
 function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:CacheSearchResults()")
 
-  local resultsInfo = self.fullSearchResults
+  local resultsInfo = self.blankSeachResults
   resultsInfo.gotCompleteCache = Auctionator.AH.HasFullBrowseResults()
   resultsInfo.namesWaiting = resultsInfo.namesWaiting + #addedResults
 
@@ -112,7 +122,7 @@ end
 function AuctionatorCachingSearchProviderMixin:GetSearchProvider()
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:GetSearchProvider()")
 
-  --Run the query, and save extra filter data for processing
+  --Start a search of the cache for searchTerm
   return function(searchTerm)
     self.currentQuery = searchTerm
     self.currentIndex = 0
@@ -124,7 +134,7 @@ function AuctionatorCachingSearchProviderMixin:GetSearchProvider()
 end
 
 function AuctionatorCachingSearchProviderMixin:HasCompleteTermResults()
-  return self.waiting <= 0 and self.currentIndex >= #self.fullSearchResults.cache
+  return self.waiting <= 0 and self.currentIndex >= #self.blankSeachResults.cache
 end
 
 function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
@@ -139,23 +149,29 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
     return
   end
 
+  -- These parameters are cached in locals for performance. Testing indicates
+  -- time savings of at least 50% just from this.
   local lowerName = string.lower(self.currentQuery.searchString)
   local index = self.currentIndex
   local indexLimit = math.min(
-    #self.fullSearchResults.cache,
+    #self.blankSeachResults.cache,
     self.currentIndex + (PROCESSING_PER_FRAME_LIMIT - self.processed)
   )
-  local nameCache = self.fullSearchResults.names
+  local nameCache = self.blankSeachResults.names
   local strFind = string.find
   while index < indexLimit do
     index = index + 1
+    -- Search by name first before activating the filters (significant
+    -- performance boost from this)
     if strFind(nameCache[index], lowerName, 1, true) then
       self.waiting = self.waiting + 1
+      -- Create and run the filters normally (like
+      -- AuctionatorDirectSearchProvider)
       local filterTracker = CreateAndInitFromMixin(
         Auctionator.Search.Filters.FilterTrackerMixin,
-        self.fullSearchResults.cache[index]
+        self.blankSeachResults.cache[index]
       )
-      local filters = Auctionator.Search.Filters.Create(self.fullSearchResults.cache[index], self.currentQuery, filterTracker)
+      local filters = Auctionator.Search.Filters.Create(self.blankSeachResults.cache[index], self.currentQuery, filterTracker)
       self.filtersThisFrame = self.filtersThisFrame + #filters
 
       filterTracker:SetWaiting(#filters)
