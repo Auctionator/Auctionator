@@ -158,7 +158,7 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
   local results = {}
 
   local sortedDays = Auctionator.Utilities.TableKeys(itemData.h)
-  table.sort(sortedDays)
+  table.sort(sortedDays, function(a, b) return b < a end)
 
   for _, day in ipairs(sortedDays) do
     table.insert(results, {

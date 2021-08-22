@@ -167,7 +167,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
   local entries = {}
   local anyOwnedNotLoaded = false
 
-  for index = C_AuctionHouse.GetNumCommoditySearchResults(itemID), 1, -1 do
+  for index = 1, C_AuctionHouse.GetNumCommoditySearchResults(itemID) do
     local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
     local entry = {
       price = resultInfo.unitPrice,

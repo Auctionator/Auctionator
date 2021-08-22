@@ -46,7 +46,10 @@ function AuctionatorPostingHistoryProviderMixin:SetItem(dbKey)
 
   self.currentDBKey = dbKey
 
-  self:AppendEntries(Auctionator.PostingHistory:GetPriceHistory(dbKey), true)
+  local entries = Auctionator.PostingHistory:GetPriceHistory(dbKey)
+  table.sort(entries, function(a, b) return b.rawDay < a.rawDay end)
+
+  self:AppendEntries(entries, true)
 end
 
 function AuctionatorPostingHistoryProviderMixin:GetTableLayout()

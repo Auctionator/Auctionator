@@ -33,7 +33,7 @@ end
 function AuctionatorMultiSearchMixin:AddResults(results)
   Auctionator.Debug.Message("AuctionatorSearchProviderMixin:AddResults()")
 
-  for index = 0, #results do
+  for index = 1, #results do
     table.insert(self.results, results[index])
   end
 

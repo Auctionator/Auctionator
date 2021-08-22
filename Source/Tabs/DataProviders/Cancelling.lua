@@ -185,7 +185,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   local results = {}
   local total = 0
 
-  for index = C_AuctionHouse.GetNumOwnedAuctions(), 1, -1  do
+  for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 
     --Only look at unsold and uncancelled (yet) auctions
