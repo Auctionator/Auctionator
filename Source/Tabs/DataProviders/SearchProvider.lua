@@ -223,7 +223,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   local entries = {}
   local anyOwnedNotLoaded = false
 
-  for index = C_AuctionHouse.GetNumItemSearchResults(itemKey), 1, -1 do
+  for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
     local entry = {
       price = resultInfo.buyoutAmount,
