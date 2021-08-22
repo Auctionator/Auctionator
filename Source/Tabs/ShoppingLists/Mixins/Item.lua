@@ -109,17 +109,8 @@ end
 function AuctionatorShoppingItemMixin:SetItemString(itemString)
   local search = Auctionator.Search.SplitAdvancedSearch(itemString)
 
-  local searchTerm = ""
-  if string.match(search.queryString, "^\".*\"$") then
-    --Check for exact searches, if so, extract the search term from the
-    --queryString
-    searchTerm = select(1, string.match(search.queryString, "^\"(.*)\"$"))
-    self.SearchContainer.IsExact:SetChecked(true)
-  else
-    searchTerm = search.queryString
-    self.SearchContainer.IsExact:SetChecked(false)
-  end
-  self.SearchContainer.SearchString:SetText(searchTerm)
+  self.SearchContainer.IsExact:SetChecked(search.isExact)
+  self.SearchContainer.SearchString:SetText(search.searchString)
 
   self.FilterKeySelector:SetValue(search.categoryKey)
 

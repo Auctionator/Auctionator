@@ -116,3 +116,12 @@ for _, category in ipairs( Auctionator.Search.Categories ) do
     Auctionator.Search.CategoryLookup[ subCategory.key ] = subCategory
   end
 end
+
+function Auctionator.Search.GetItemClassCategories(categoryKey)
+  local lookup = Auctionator.Search.CategoryLookup[categoryKey]
+  if lookup ~= nil then
+    return lookup.category
+  else
+    return {}
+  end
+end
