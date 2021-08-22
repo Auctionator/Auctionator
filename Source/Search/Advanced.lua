@@ -2,12 +2,12 @@ function Auctionator.Search.IsAdvancedSearch(searchString)
   return Auctionator.Utilities.StringContains(searchString, Auctionator.Constants.AdvancedSearchDivider);
 end
 
--- Extract components of an advanced search string. Assumes searchString is an
--- advanced search.
-function Auctionator.Search.SplitAdvancedSearch(searchString)
+-- Extract components of an advanced search string.
+-- Assumes searchParametersString is an advanced search.
+function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   local queryString, categoryKey, minItemLevel, maxItemLevel, minLevel, maxLevel,
     minCraftedLevel, maxCraftedLevel, minPrice, maxPrice =
-    strsplit( Auctionator.Constants.AdvancedSearchDivider, searchString )
+    strsplit( Auctionator.Constants.AdvancedSearchDivider, searchParametersString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
   -- doesn't, this ensures searchString ~= nil.
@@ -19,7 +19,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchString)
   -- fail when they would otherwise work, example "Steak a la Mode"
   local searchString = string.gsub(string.gsub(queryString, "^\"", ""), "\"$", "")
 
-  isExact = string.match(queryString, "^\"(.*)\"$") ~= nil
+  local isExact = string.match(queryString, "^\"(.*)\"$") ~= nil
 
   minLevel = tonumber( minLevel )
   maxLevel = tonumber( maxLevel )
