@@ -103,40 +103,35 @@ function Auctionator.ShoppingLists.TSMImportFromString(importString)
 
     local item = Item:CreateFromItemID(id)
 
-    if itemType == "p" then
+    if itemType == "p" or item:IsItemEmpty() then
       item = Item:CreateFromItemID(Auctionator.Constants.PET_CAGE_ID)
     end
+    item:ContinueOnItemLoad(function()
+      items[index] = GetItemInfo(id)
+      if itemType == "p" or items[index] == nil then
+        items[index] = C_PetJournal.GetPetInfoBySpeciesID(id)
+      end
 
-    if item:IsItemEmpty() then
-      items[index] = "IMPORT ERROR"
-    else
-      item:ContinueOnItemLoad(function()
-        items[index] = GetItemInfo(id)
-        if itemType == "p" then
-          items[index] = C_PetJournal.GetPetInfoBySpeciesID(id)
+      if items[index] == nil then
+        items[index] = "IMPORT ERROR"
+      end
+
+      left = left - 1
+      if left == 0 then
+        if Auctionator.ShoppingLists.ListIndex(TSMImportName) ~= nil then
+          Auctionator.ShoppingLists.Delete(TSMImportName)
         end
 
-        if items[index] == nil then
-          items[index] = "IMPORT ERROR"
+        Auctionator.ShoppingLists.CreateTemporary(TSMImportName)
+
+        local list = Auctionator.ShoppingLists.GetListByName(TSMImportName)
+        list.items = items
+
+        Auctionator.EventBus
+          :RegisterSource(Auctionator.ShoppingLists.TSMImportFromString, "TSMImportFromString")
+          :Fire(Auctionator.ShoppingLists.TSMImportFromString, Auctionator.ShoppingLists.Events.ListCreated, list)
+          :UnregisterSource(Auctionator.ShoppingLists.TSMImportFromString)
         end
-
-        left = left - 1
-        if left == 0 then
-          if Auctionator.ShoppingLists.ListIndex(TSMImportName) ~= nil then
-            Auctionator.ShoppingLists.Delete(TSMImportName)
-          end
-
-          Auctionator.ShoppingLists.CreateTemporary(TSMImportName)
-
-          local list = Auctionator.ShoppingLists.GetListByName(TSMImportName)
-          list.items = items
-
-          Auctionator.EventBus
-            :RegisterSource(Auctionator.ShoppingLists.TSMImportFromString, "TSMImportFromString")
-            :Fire(Auctionator.ShoppingLists.TSMImportFromString, Auctionator.ShoppingLists.Events.ListCreated, list)
-            :UnregisterSource(Auctionator.ShoppingLists.TSMImportFromString)
-          end
-      end)
-    end
+    end)
   end
 end
