@@ -49,4 +49,6 @@ Auctionator.Constants = {
   },
   NO_LIST = "",
   ITEM_LEVEL_THRESHOLD = 168,
+
+  SHOPPING_LIST_SORTS = {{sortOrder = Enum.AuctionHouseSortOrder.Name, reverseSort = false}, {sortOrder = Enum.AuctionHouseSortOrder.Price, reverseSort = true}},
 }

@@ -37,7 +37,12 @@ function AuctionatorCachingSearchProviderMixin:InitializeNewSearchGroup()
   self.processed = 0
   self.filtersThisFrame = 0
 
-  Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
+  Auctionator.AH.SendBrowseQuery({
+    searchString = "",
+    filters = {},
+    itemClassFilters = {},
+    sorts = Auctionator.Constants.SHOPPING_LIST_SORTS,
+  })
 end
 
 function AuctionatorCachingSearchProviderMixin:OnSearchEventReceived(eventName, ...)
