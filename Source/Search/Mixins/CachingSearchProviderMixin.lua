@@ -26,11 +26,12 @@ function AuctionatorCachingSearchProviderMixin:InitializeNewSearchGroup()
   self:RegisterEvents(CACHING_SEARCH_EVENTS)
 
   -- Information about caching the blank search.
-  self.blankSeachResults = {
+  self.blankSearchResults = {
     cache = {},
     names = {},
     namesWaiting = 0,
     gotCompleteCache = false,
+    announcedReady = false,
   }
   -- Used to keep track of how many items in the cache have been processed this
   -- frame, and prevent it exceeding the *_PER_FRAME_LIMIT constants.
@@ -69,7 +70,7 @@ end
 function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:CacheSearchResults()")
 
-  local resultsInfo = self.blankSeachResults
+  local resultsInfo = self.blankSearchResults
   resultsInfo.gotCompleteCache = Auctionator.AH.HasFullBrowseResults()
   resultsInfo.namesWaiting = resultsInfo.namesWaiting + #addedResults
 
@@ -82,6 +83,7 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
         resultsInfo.namesWaiting = resultsInfo.namesWaiting - 1
         resultsInfo.names[index] = string.lower(itemKeyInfo.itemName)
         if resultsInfo.namesWaiting <= 0 and resultsInfo.gotCompleteCache then
+          resultsInfo.announcedReady = true
           self:UnregisterEvents(CACHING_SEARCH_EVENTS)
           self:SearchGroupReady()
         end
@@ -91,7 +93,7 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
     end
   end
 
-  if resultsInfo.namesWaiting <= 0 and resultsInfo.gotCompleteCache then
+  if resultsInfo.namesWaiting <= 0 and resultsInfo.gotCompleteCache and not resultsInfo.announcedReady then
     self:UnregisterEvents(CACHING_SEARCH_EVENTS)
     self:SearchGroupReady()
   end
@@ -139,7 +141,7 @@ function AuctionatorCachingSearchProviderMixin:GetSearchProvider()
 end
 
 function AuctionatorCachingSearchProviderMixin:HasCompleteTermResults()
-  return self.waiting <= 0 and self.currentIndex >= #self.blankSeachResults.cache
+  return self.waiting <= 0 and self.currentIndex >= #self.blankSearchResults.cache
 end
 
 function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
@@ -159,10 +161,10 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
   local lowerName = string.lower(self.currentQuery.searchString)
   local index = self.currentIndex
   local indexLimit = math.min(
-    #self.blankSeachResults.cache,
+    #self.blankSearchResults.cache,
     self.currentIndex + (PROCESSING_PER_FRAME_LIMIT - self.processed)
   )
-  local nameCache = self.blankSeachResults.names
+  local nameCache = self.blankSearchResults.names
   local strFind = string.find
   while index < indexLimit do
     index = index + 1
@@ -174,9 +176,9 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
       -- AuctionatorDirectSearchProvider)
       local filterTracker = CreateAndInitFromMixin(
         Auctionator.Search.Filters.FilterTrackerMixin,
-        self.blankSeachResults.cache[index]
+        self.blankSearchResults.cache[index]
       )
-      local filters = Auctionator.Search.Filters.Create(self.blankSeachResults.cache[index], self.currentQuery, filterTracker)
+      local filters = Auctionator.Search.Filters.Create(self.blankSearchResults.cache[index], self.currentQuery, filterTracker)
       self.filtersThisFrame = self.filtersThisFrame + #filters
 
       filterTracker:SetWaiting(#filters)
