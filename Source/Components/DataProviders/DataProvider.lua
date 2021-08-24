@@ -163,11 +163,11 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
 
   while processCount < self.processCountPerUpdate + self.cacheUsedCount and self.processingIndex < #self.entriesToProcess do
     self.processingIndex = self.processingIndex + 1
-    processCount = processCount + 1
     entry = self.entriesToProcess[self.processingIndex]
 
     key = self:UniqueKey(entry)
     if self.insertedKeys[key] == nil then
+      processCount = processCount + 1
       self.insertedKeys[key] = entry
       table.insert(self.results, entry)
 
