@@ -26,6 +26,13 @@ function Auctionator.ShoppingLists.BatchImportFromString(importString)
     end
 
     Auctionator.ShoppingLists.OneImportFromString(name, items)
+
+    if name ~= nil and name:len() > 0 then
+      Auctionator.EventBus
+        :RegisterSource(Auctionator.ShoppingLists.BatchImportFromString, "BatchImportFromString")
+        :Fire(Auctionator.ShoppingLists.BatchImportFromString, Auctionator.ShoppingLists.Events.ListCreated, Auctionator.ShoppingLists.GetListByName(name))
+        :UnregisterSource(Auctionator.ShoppingLists.BatchImportFromString)
+    end
   end
 end
 
@@ -68,6 +75,11 @@ function Auctionator.ShoppingLists.OldBatchImportFromString(importString)
     end
 
     Auctionator.ShoppingLists.OldOneImportFromString(name, items)
+
+    Auctionator.EventBus
+      :RegisterSource(Auctionator.ShoppingLists.OldBatchImportFromString, "OldBatchImportFromString")
+      :Fire(Auctionator.ShoppingLists.OldBatchImportFromString, Auctionator.ShoppingLists.Events.ListCreated, Auctionator.ShoppingLists.GetListByName(name))
+      :UnregisterSource(Auctionator.ShoppingLists.OldBatchImportFromString)
   end
 end
 
