@@ -29,6 +29,26 @@ end
 function AuctionatorSearchProviderMixin:HasCompleteTermResults()
 end
 
+-- Derive
+function AuctionatorSearchProviderMixin:GetCurrentEmptyResult()
+  -- Remove "" from exact searches so it sorts properly
+  local cleanSearchParameter = self:GetCurrentSearchParameter():gsub("\"", "")
+  return {
+    itemKey = {
+      itemID = 1217, -- Valid item ID, "Unknown Reward", but unobtainable
+      itemLevel = self.index, -- Differentiate between different empty results
+      itemSuffix = 0,
+      battlePetSpeciesID = 0
+    },
+    itemName = Auctionator.Search.PrettifySearchString(self:GetCurrentSearchParameter()),
+    iconTexture = 0,
+    name = cleanSearchParameter,
+    totalQuantity = 0,
+    minPrice = 0,
+    containsOwnerItem = false,
+  }
+end
+
 function AuctionatorSearchProviderMixin:RegisterEvents(events)
   Auctionator.Debug.Message("AuctionatorSearchProviderMixin:RegisterEvents()", events)
 
@@ -76,4 +96,8 @@ function AuctionatorSearchProviderMixin:GetNextSearchParameter()
   else
     error("You requested a term that does not exist: " .. (self.index == nil and "nil" or self.index))
   end
+end
+
+function AuctionatorSearchProviderMixin:GetCurrentSearchParameter()
+  return self.terms[self.index - 1]
 end

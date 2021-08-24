@@ -64,6 +64,8 @@ Auctionator.Config.Options = {
   COLUMNS_CANCELLING = "columns_cancelling",
 
   CRAFTING_COST_SHOW_PROFIT = "crafting_cost_show_profit",
+
+  SHOPPING_LIST_MISSING_TERMS = "shopping_list_missing_terms",
 }
 
 Auctionator.Config.SalesTypes = {
@@ -158,6 +160,8 @@ local defaults = {
   [Auctionator.Config.Options.COLUMNS_POSTING_HISTORY] = {},
 
   [Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT] = false,
+
+  [Auctionator.Config.Options.SHOPPING_LIST_MISSING_TERMS] = false,
 }
 
 function Auctionator.Config.IsValidOption(name)
