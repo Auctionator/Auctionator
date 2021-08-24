@@ -12,15 +12,6 @@ function Auctionator.ShoppingLists.Create(listName)
   })
 
   Auctionator.ShoppingLists.Sort()
-
-  Auctionator.EventBus
-    :RegisterSource(Auctionator.ShoppingLists.Create, "Auctionator.ShoppingLists.Create")
-    :Fire(
-      Auctionator.ShoppingLists.Create,
-      Auctionator.ShoppingLists.Events.ListCreated,
-      Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
-    )
-    :UnregisterSource(Auctionator.ShoppingLists.Create)
 end
 function Auctionator.ShoppingLists.CreateTemporary(listName)
   ErrorIfExists(listName)
@@ -32,15 +23,6 @@ function Auctionator.ShoppingLists.CreateTemporary(listName)
   })
 
   Auctionator.ShoppingLists.Sort()
-
-  Auctionator.EventBus
-    :RegisterSource(Auctionator.ShoppingLists.CreateTemporary, "Auctionator.ShoppingLists.CreateTemporary")
-    :Fire(
-      Auctionator.ShoppingLists.CreateTemporary,
-      Auctionator.ShoppingLists.Events.ListCreated,
-      Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
-    )
-    :UnregisterSource(Auctionator.ShoppingLists.CreateTemporary)
 end
 
 function Auctionator.ShoppingLists.MakePermanent(listName)
