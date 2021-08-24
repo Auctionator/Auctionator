@@ -47,6 +47,17 @@
           <Anchor point="RIGHT" relativePoint="LEFT" x="50"/>
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ListMissingTerms">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHOPPING_LIST_MISSING_TERMS" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SHOPPING_LIST_MISSING_TERMS_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHOPPING_LIST_MISSING_TERMS_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultShoppingList" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
    </Frames>
   </Frame>
 </Ui>

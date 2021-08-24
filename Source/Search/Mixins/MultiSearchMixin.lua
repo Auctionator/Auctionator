@@ -22,6 +22,7 @@ function AuctionatorMultiSearchMixin:Search(terms)
   self.complete = false
   self.partialResults = {}
   self.fullResults = {}
+  self.anyResultsForThisTerm = false
 
   self:RegisterProviderEvents()
 
@@ -45,6 +46,10 @@ end
 function AuctionatorMultiSearchMixin:AddResults(results)
   Auctionator.Debug.Message("AuctionatorSearchProviderMixin:AddResults()")
 
+  if #results > 0 then
+    self.anyResultsForThisTerm = true
+  end
+
   for index = 1, #results do
     table.insert(self.partialResults, results[index])
     table.insert(self.fullResults, results[index])
@@ -55,8 +60,23 @@ function AuctionatorMultiSearchMixin:AddResults(results)
   end
 end
 
+function AuctionatorMultiSearchMixin:NoResultsForTermCheck()
+  if not Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_LIST_MISSING_TERMS) then
+    return
+  end
+
+  if self:GetCurrentSearchParameter() and not self.anyResultsForThisTerm then
+    local emptyResult = self:GetCurrentEmptyResult()
+    table.insert(self.partialResults, emptyResult)
+    table.insert(self.fullResults, emptyResult)
+  end
+end
+
 function AuctionatorMultiSearchMixin:NextSearch()
   if self:HasMoreTerms() then
+    self:NoResultsForTermCheck()
+    self.anyResultsForThisTerm = false
+
     self.onNextSearch(
       self:GetCurrentSearchIndex(),
       self:GetSearchTermCount(),
@@ -67,8 +87,11 @@ function AuctionatorMultiSearchMixin:NextSearch()
   else
     Auctionator.Debug.Message("AuctionatorMultiSearchMixin:NextSearch Complete")
 
-    self.complete = true
+    self:NoResultsForTermCheck()
+
     self:UnregisterProviderEvents()
+
+    self.complete = true
     self.onSearchComplete(self.fullResults)
   end
 end

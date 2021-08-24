@@ -62,6 +62,10 @@ function AuctionatorDirectSearchProviderMixin:HasCompleteTermResults()
   return Auctionator.AH.HasFullBrowseResults() and self.waiting == 0
 end
 
+function AuctionatorDirectSearchProviderMixin:GetCurrentEmptyResult()
+  return Auctionator.Search.GetEmptyResult(self:GetCurrentSearchParameter(), self:GetCurrentSearchIndex())
+end
+
 function AuctionatorDirectSearchProviderMixin:OnSearchEventReceived(eventName, ...)
   Auctionator.Debug.Message("AuctionatorDirectSearchProviderMixin:OnSearchEventReceived()", eventName, ...)
 

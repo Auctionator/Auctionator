@@ -30,6 +30,8 @@ function AuctionatorConfigShoppingFrameMixin:OnShow()
   end
 
   self.DefaultShoppingList:SetValue(currentDefault)
+
+  self.ListMissingTerms:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_LIST_MISSING_TERMS))
 end
 
 function AuctionatorConfigShoppingFrameMixin:Save()
@@ -38,6 +40,8 @@ function AuctionatorConfigShoppingFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.AUTO_LIST_SEARCH, self.AutoListSearch:GetChecked())
 
   Auctionator.Config.Set(Auctionator.Config.Options.DEFAULT_LIST, self.DefaultShoppingList:GetValue())
+
+  Auctionator.Config.Set(Auctionator.Config.Options.SHOPPING_LIST_MISSING_TERMS, self.ListMissingTerms:GetChecked())
 end
 
 function AuctionatorConfigShoppingFrameMixin:Cancel()

@@ -152,6 +152,10 @@ function AuctionatorCachingSearchProviderMixin:HasCompleteTermResults()
   return self.waiting <= 0 and self.currentIndex >= #self.blankSearchResults.cache
 end
 
+function AuctionatorCachingSearchProviderMixin:GetCurrentEmptyResult()
+  return Auctionator.Search.GetEmptyResult(self:GetCurrentSearchParameter(), self:GetCurrentSearchIndex())
+end
+
 function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:ProcessSearchResults()")
 

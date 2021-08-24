@@ -2,6 +2,7 @@
   <Script file="Events.lua"/>
   <Script file="Categories.lua"/>
   <Script file="Advanced.lua"/>
+  <Script file="EmptyResult.lua"/>
   <Script file="Mixins\SearchProviderMixin.lua"/>
   <Script file="Mixins\MultiSearchMixin.lua"/>
   <Script file="Mixins\KeywordSearchProviderMixin.lua"/>
