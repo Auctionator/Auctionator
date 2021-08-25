@@ -3,8 +3,6 @@ AuctionatorMultiSearchMixin = {}
 function AuctionatorMultiSearchMixin:InitSearch(completionCallback, incrementCallback)
   Auctionator.Debug.Message("AuctionatorMultiSearchMixin:InitSearch()")
 
-  self:RegisterProviderEvents()
-
   self.complete = true
   self.onSearchComplete = completionCallback or function()
     Auctionator.Debug.Message("Search completed.")
@@ -15,9 +13,7 @@ function AuctionatorMultiSearchMixin:InitSearch(completionCallback, incrementCal
 end
 
 function AuctionatorMultiSearchMixin:OnEvent(event, ...)
-  if not self.complete then
-    self:OnSearchEventReceived(event, ...)
-  end
+  self:OnSearchEventReceived(event, ...)
 end
 
 function AuctionatorMultiSearchMixin:Search(terms)
@@ -26,8 +22,19 @@ function AuctionatorMultiSearchMixin:Search(terms)
   self.complete = false
   self.results = {}
 
+  self:RegisterProviderEvents()
+
   self:SetTerms(terms)
   self:InitializeNewSearchGroup()
+end
+
+function AuctionatorMultiSearchMixin:AbortSearch()
+  self:UnregisterProviderEvents()
+  local isComplete = self.complete
+  self.complete = true
+  if not isComplete then
+    self.onSearchComplete(self.results)
+  end
 end
 
 function AuctionatorMultiSearchMixin:SearchGroupReady()
@@ -56,7 +63,8 @@ function AuctionatorMultiSearchMixin:NextSearch()
     self:GetSearchProvider()(self:GetNextSearchParameter())
   else
     Auctionator.Debug.Message("AuctionatorMultiSearchMixin:NextSearch Complete")
-    self.complete = true
+
+    self:UnregisterProviderEvents()
     self.onSearchComplete(self.results)
   end
 end

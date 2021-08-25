@@ -128,6 +128,7 @@
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
         </Scripts>
         <Layers>
           <Layer level="BACKGROUND">

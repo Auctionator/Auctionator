@@ -49,6 +49,12 @@ function AuctionatorTabContainerMixin:OnShow()
   end
 end
 
+function AuctionatorTabContainerMixin:OnHide()
+  for _, auctionatorTab in pairs(self.Tabs) do
+    auctionatorTab:DeselectTab()
+  end
+end
+
 function AuctionatorTabContainerMixin:IsAuctionatorFrame(displayMode)
   for _, frame in pairs(self.Tabs) do
     if frame.displayMode == displayMode then

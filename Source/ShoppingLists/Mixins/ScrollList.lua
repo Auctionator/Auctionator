@@ -88,6 +88,8 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
 end
 
 function AuctionatorScrollListMixin:StartSearch(searchTerms)
+  self:AbortRunningSearches()
+
   self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self.currentList.name))
   self.ResultsText:Show()
 
@@ -109,6 +111,12 @@ end
 function AuctionatorScrollListMixin:EndSearch(results)
   self:HideSpinner()
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchEnded, results)
+end
+
+function AuctionatorScrollListMixin:AbortRunningSearches()
+  for _, searchProvider in ipairs(self.searchProviders) do
+    searchProvider:AbortSearch()
+  end
 end
 
 function AuctionatorScrollListMixin:HideSpinner()
@@ -137,6 +145,10 @@ end
 function AuctionatorScrollListMixin:OnShow()
   self:Init()
   self:RefreshScrollFrame()
+end
+
+function AuctionatorScrollListMixin:OnHide()
+  self:AbortRunningSearches()
 end
 
 function AuctionatorScrollListMixin:Init()

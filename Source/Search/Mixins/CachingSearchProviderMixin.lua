@@ -229,4 +229,6 @@ end
 
 function AuctionatorCachingSearchProviderMixin:UnregisterProviderEvents()
   self:UnregisterEvents(FILTER_SEARCH_EVENTS)
+  self:UnregisterEvents(CACHING_SEARCH_EVENTS)
+  self:SetScript("OnUpdate", nil)
 end
