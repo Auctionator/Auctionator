@@ -17,7 +17,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
 
   -- Remove "" that are used in exact searches as it causes some searches to
   -- fail when they would otherwise work, example "Steak a la Mode"
-  local searchString = string.gsub(string.gsub(queryString, "^\"", ""), "\"$", "")
+  local searchString = string.gsub(queryString, "^\"(.*)\"$", "%1")
 
   local isExact = string.match(queryString, "^\"(.*)\"$") ~= nil
 
