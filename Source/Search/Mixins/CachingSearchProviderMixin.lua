@@ -217,8 +217,8 @@ function AuctionatorCachingSearchProviderMixin:ReceiveEvent(eventName, results)
 end
 
 function AuctionatorCachingSearchProviderMixin:PostCompleteResults()
-  Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
   self.registeredForEvents = false
+  Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
   self:AddResults(self.queuedResults)
 end
 
@@ -228,6 +228,10 @@ function AuctionatorCachingSearchProviderMixin:RegisterProviderEvents()
 end
 
 function AuctionatorCachingSearchProviderMixin:UnregisterProviderEvents()
+  if self.registeredForEvents then
+    self.registeredForEvents = false
+    Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
+  end
   self:UnregisterEvents(FILTER_SEARCH_EVENTS)
   self:UnregisterEvents(CACHING_SEARCH_EVENTS)
   self:SetScript("OnUpdate", nil)

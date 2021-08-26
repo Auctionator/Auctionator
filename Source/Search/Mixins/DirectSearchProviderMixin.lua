@@ -119,4 +119,8 @@ end
 
 function AuctionatorDirectSearchProviderMixin:UnregisterProviderEvents()
   self:UnregisterEvents(ADVANCED_SEARCH_EVENTS)
+  if self.registeredForEvents then
+    self.registeredForEvents = false
+    Auctionator.EventBus:Unregister(self, INTERNAL_SEARCH_EVENTS)
+  end
 end
