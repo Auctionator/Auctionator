@@ -65,6 +65,10 @@ function AuctionatorCachingSearchProviderMixin:OnSearchEventReceived(eventName, 
   end
 end
 
+local function CleanSearchString(searchString)
+  return string.gsub(string.lower(searchString), "\"", "")
+end
+
 -- Cache the results of the blank search with the associated item names for the
 -- results. Called multiple times to process each batch of results.
 function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
@@ -81,7 +85,7 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
       table.insert(resultsInfo.names, "")
       Auctionator.AH.GetItemKeyInfo(result.itemKey, function(itemKeyInfo)
         resultsInfo.namesWaiting = resultsInfo.namesWaiting - 1
-        resultsInfo.names[index] = string.lower(itemKeyInfo.itemName)
+        resultsInfo.names[index] = CleanSearchString(itemKeyInfo.itemName)
         if resultsInfo.namesWaiting <= 0 and resultsInfo.gotCompleteCache then
           resultsInfo.announcedReady = true
           self:UnregisterEvents(CACHING_SEARCH_EVENTS)
@@ -158,7 +162,7 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
 
   -- These parameters are cached in locals for performance. Testing indicates
   -- time savings of at least 50% just from this.
-  local lowerName = string.lower(self.currentQuery.searchString)
+  local searchString = CleanSearchString(self.currentQuery.searchString)
   local index = self.currentIndex
   local indexLimit = math.min(
     #self.blankSearchResults.cache,
@@ -170,7 +174,7 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
     index = index + 1
     -- Search by name first before activating the filters (significant
     -- performance boost from this)
-    if strFind(nameCache[index], lowerName, 1, true) then
+    if strFind(nameCache[index], searchString, 1, true) then
       self.waiting = self.waiting + 1
       -- Create and run the filters normally (like
       -- AuctionatorDirectSearchProvider)
