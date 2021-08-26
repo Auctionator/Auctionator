@@ -64,6 +64,7 @@ function AuctionatorMultiSearchMixin:NextSearch()
   else
     Auctionator.Debug.Message("AuctionatorMultiSearchMixin:NextSearch Complete")
 
+    self.complete = true
     self:UnregisterProviderEvents()
     self.onSearchComplete(self.results)
   end
