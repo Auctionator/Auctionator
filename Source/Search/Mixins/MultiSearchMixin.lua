@@ -20,7 +20,8 @@ function AuctionatorMultiSearchMixin:Search(terms)
   Auctionator.Debug.Message("AuctionatorMultiSearchMixin:Search()", terms)
 
   self.complete = false
-  self.results = {}
+  self.partialResults = {}
+  self.fullResults = {}
 
   self:RegisterProviderEvents()
 
@@ -33,7 +34,7 @@ function AuctionatorMultiSearchMixin:AbortSearch()
   local isComplete = self.complete
   self.complete = true
   if not isComplete then
-    self.onSearchComplete(self.results)
+    self.onSearchComplete(self.partialResults)
   end
 end
 
@@ -45,7 +46,8 @@ function AuctionatorMultiSearchMixin:AddResults(results)
   Auctionator.Debug.Message("AuctionatorSearchProviderMixin:AddResults()")
 
   for index = 1, #results do
-    table.insert(self.results, results[index])
+    table.insert(self.partialResults, results[index])
+    table.insert(self.fullResults, results[index])
   end
 
   if self:HasCompleteTermResults() then
@@ -58,14 +60,15 @@ function AuctionatorMultiSearchMixin:NextSearch()
     self.onNextSearch(
       self:GetCurrentSearchIndex(),
       self:GetSearchTermCount(),
-      self.results
+      self.partialResults
     )
+    self.partialResults = {}
     self:GetSearchProvider()(self:GetNextSearchParameter())
   else
     Auctionator.Debug.Message("AuctionatorMultiSearchMixin:NextSearch Complete")
 
     self.complete = true
     self:UnregisterProviderEvents()
-    self.onSearchComplete(self.results)
+    self.onSearchComplete(self.fullResults)
   end
 end

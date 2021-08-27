@@ -19,12 +19,12 @@ function AuctionatorScrollListMixin:OnLoad()
       function(results)
         self:EndSearch(results)
       end,
-      function(current, total, results)
+      function(current, total, partialResults)
         if self.currentList == nil then
           return
         end
 
-        Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, results)
+        Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, partialResults)
         self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
       end
     )
