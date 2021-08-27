@@ -213,7 +213,16 @@ end
 function AuctionatorCachingSearchProviderMixin:ReceiveEvent(eventName, results)
   if eventName == Auctionator.Search.Events.SearchResultsReady then
     self.waiting = self.waiting - 1
-    table.insert(self.queuedResults, results[1])
+
+    if results[1] then
+      -- Make result safe for modification (which happens in ItemKeyLoadingMixin)
+      local cleanResult = {}
+      for k, v in pairs(results[1]) do
+        cleanResult[k] = v
+      end
+      table.insert(self.queuedResults, cleanResult)
+    end
+
     if self:HasCompleteTermResults() then
       self:PostCompleteResults()
     end
