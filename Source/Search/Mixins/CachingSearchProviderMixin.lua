@@ -108,7 +108,7 @@ function AuctionatorCachingSearchProviderMixin:CreateSearchTerm(term)
   local parsed = Auctionator.Search.SplitAdvancedSearch(term)
 
   return {
-    searchString = parsed.searchString,
+    searchString = CleanSearchString(parsed.searchString),
     itemLevel = {
       min = parsed.minItemLevel,
       max = parsed.maxItemLevel,
@@ -162,7 +162,7 @@ function AuctionatorCachingSearchProviderMixin:ProcessCurrentSearch()
 
   -- These parameters are cached in locals for performance. Testing indicates
   -- time savings of at least 50% just from this.
-  local searchString = CleanSearchString(self.currentQuery.searchString)
+  local searchString = self.currentQuery.searchString
   local index = self.currentIndex
   local indexLimit = math.min(
     #self.blankSearchResults.cache,
