@@ -84,16 +84,18 @@ end
 function Auctionator.ReagentSearch.CacheVendorPrices()
   for i = 1, GetMerchantNumItems() do
     local itemID = GetMerchantItemID(i)
-    local item = Item:CreateFromItemID(itemID)
-    item:ContinueOnItemLoad(function()
-      local price, stack, numAvailable = select(3, GetMerchantItemInfo(i))
-      local itemLink = GetMerchantItemLink(i)
-      local dbKey = Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
-      if dbKey ~= nil and price ~= 0 and numAvailable == -1 then
-        AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = price / stack
-      elseif dbKey ~= nil then
-        AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = nil
-      end
-    end)
+    if itemID ~= nil then
+      local item = Item:CreateFromItemID(itemID)
+      item:ContinueOnItemLoad(function()
+        local price, stack, numAvailable = select(3, GetMerchantItemInfo(i))
+        local itemLink = GetMerchantItemLink(i)
+        local dbKey = Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
+        if dbKey ~= nil and price ~= 0 and numAvailable == -1 then
+          AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = price / stack
+        elseif dbKey ~= nil then
+          AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = nil
+        end
+      end)
+    end
   end
 end
