@@ -31,11 +31,13 @@ function AuctionatorFilterKeySelectorMixin:SetValue(value)
 
   self.displayText = value
   self.onEntrySelected(value)
+  self.selectedCategory = Auctionator.Search.GetItemClassCategories(value)[1] or {}
   UIDropDownMenu_SetText(self, value)
 end
 
 function AuctionatorFilterKeySelectorMixin:Reset()
   self.displayText = ""
+  self.selectedCategory = {}
   UIDropDownMenu_SetText(self, "")
 end
 
@@ -67,6 +69,7 @@ function AuctionatorFilterKeySelectorMixin:InitializePrimaryClasses()
       classId = classId,
       subClasses = C_AuctionHouse.GetAuctionItemSubClasses(classId)
     }
+    info.checked = classId == self.selectedCategory.classID
 
     UIDropDownMenu_AddButton(info)
   end
@@ -96,6 +99,8 @@ function AuctionatorFilterKeySelectorMixin:InitializeSecondaryClasses(menuList)
       }
     end
 
+    info.checked = menuList.classId == self.selectedCategory.classID and subClassId == self.selectedCategory.subClassID
+
     UIDropDownMenu_AddButton(info, 2)
   end
 end
@@ -119,6 +124,8 @@ function AuctionatorFilterKeySelectorMixin:InitializeArmorSlots(menuList)
       subClassId = menuList.subClassId,
       armorSlotId = armorSlotId
     }
+
+    info.checked = menuList.classId == self.selectedCategory.classID and menuList.subClassId == self.selectedCategory.subClassID and armorSlotId == self.selectedCategory.inventoryType
 
     UIDropDownMenu_AddButton(info, 3)
   end
