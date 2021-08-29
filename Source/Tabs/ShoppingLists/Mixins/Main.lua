@@ -169,3 +169,10 @@ function AuctionatorShoppingListTabMixin:ExportCSVClicked()
     self.exportCSVDialog:Show()
   end)
 end
+
+function AuctionatorShoppingListTabMixin:SortItemsClicked()
+  table.sort(self.selectedList.items, function(a, b)
+    return a:lower():gsub("\"", "") < b:lower():gsub("\"", "")
+  end)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemReplaced, self.selectedList)
+end

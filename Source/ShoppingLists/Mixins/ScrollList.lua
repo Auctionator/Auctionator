@@ -76,12 +76,16 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemSelected then
     self:StartSearch({ eventData })
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemAdded then
+    self:AbortRunningSearches()
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemReplaced then
+    self:AbortRunningSearches()
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemDeleted then
+    self:AbortRunningSearches()
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListOrderChanged then
+    self:AbortRunningSearches()
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchRequested then
     self:StartSearch(self:GetAllSearchTerms())

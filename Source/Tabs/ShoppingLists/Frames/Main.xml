@@ -142,9 +142,21 @@
         </Layers>
       </Frame>
 
+      <Button
+        inherits="UIPanelDynamicResizeButtonTemplate"
+        text="AUCTIONATOR_L_SORT"
+        parentKey="SortItems"
+      >
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPLEFT" x="5" y="4" />
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():SortItemsClicked()</OnClick>
+        </Scripts>
+      </Button>
+
       <!-- List Add Item Button -->
       <Button
-        name="AuctionatorShoppingLists_AddItem"
         inherits="UIPanelDynamicResizeButtonTemplate"
         text="AUCTIONATOR_L_ADD_ITEM"
         parentKey="AddItem"

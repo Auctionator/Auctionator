@@ -158,6 +158,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SEARCH"] = "Search"
   L["EXPORT"] = "Export"
   L["IMPORT"] = "Import"
+  L["SORT"] = "Sort"
 
   L["SHOPPING_TAB"] = "Shopping"
   L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"
