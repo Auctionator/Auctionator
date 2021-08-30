@@ -31,7 +31,7 @@ function AuctionatorFilterKeySelectorMixin:SetValue(value)
 
   self.displayText = value
   self.onEntrySelected(value)
-  self.selectedCategory = Auctionator.Search.GetItemClassCategories(value)[1] or {}
+  self.selectedCategory = {strsplit("/", value)}
   UIDropDownMenu_SetText(self, value)
 end
 
@@ -69,7 +69,11 @@ function AuctionatorFilterKeySelectorMixin:InitializePrimaryClasses()
       classId = classId,
       subClasses = C_AuctionHouse.GetAuctionItemSubClasses(classId)
     }
-    info.checked = classId == self.selectedCategory.classID
+    if self.selectedCategory[1] ~= nil then
+      info.checked = info.arg1 == self.selectedCategory[1]
+    else
+      info.checked = false
+    end
 
     UIDropDownMenu_AddButton(info)
   end
@@ -99,7 +103,11 @@ function AuctionatorFilterKeySelectorMixin:InitializeSecondaryClasses(menuList)
       }
     end
 
-    info.checked = menuList.classId == self.selectedCategory.classID and subClassId == self.selectedCategory.subClassID
+    if self.selectedCategory[2] ~= nil then
+      info.checked = info.arg1 == (self.selectedCategory[1] .. "/" .. self.selectedCategory[2])
+    else
+      info.checked = false
+    end
 
     UIDropDownMenu_AddButton(info, 2)
   end
@@ -125,7 +133,11 @@ function AuctionatorFilterKeySelectorMixin:InitializeArmorSlots(menuList)
       armorSlotId = armorSlotId
     }
 
-    info.checked = menuList.classId == self.selectedCategory.classID and menuList.subClassId == self.selectedCategory.subClassID and armorSlotId == self.selectedCategory.inventoryType
+    if self.selectedCategory[3] ~= nil then
+      info.checked = info.arg1 == (self.selectedCategory[1] .. "/" .. self.selectedCategory[2] .. "/" .. self.selectedCategory[3])
+    else
+      info.checked = false
+    end
 
     UIDropDownMenu_AddButton(info, 3)
   end
