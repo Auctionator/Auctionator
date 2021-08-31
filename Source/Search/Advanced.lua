@@ -1,7 +1,3 @@
-function Auctionator.Search.IsAdvancedSearch(searchString)
-  return Auctionator.Utilities.StringContains(searchString, Auctionator.Constants.AdvancedSearchDivider);
-end
-
 -- Extract components of an advanced search string.
 -- Assumes searchParametersString is an advanced search.
 function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
@@ -20,6 +16,10 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   local searchString = string.gsub(queryString, "^\"(.*)\"$", "%1")
 
   local isExact = string.match(queryString, "^\"(.*)\"$") ~= nil
+
+  if categoryKey == nil then
+    categoryKey = ""
+  end
 
   minLevel = tonumber( minLevel )
   maxLevel = tonumber( maxLevel )
@@ -171,29 +171,25 @@ local function WrapExactSearch(splitSearch)
 end
 
 function Auctionator.Search.PrettifySearchString(searchString)
-  if Auctionator.Search.IsAdvancedSearch(searchString) then
-    local splitSearch = Auctionator.Search.SplitAdvancedSearch(searchString)
+  local splitSearch = Auctionator.Search.SplitAdvancedSearch(searchString)
 
-    result = WrapExactSearch(splitSearch)
-      .. " ["
-      .. CategoryKey(splitSearch)
-      .. PriceRange(splitSearch)
-      .. LevelRange(splitSearch)
-      .. ItemLevelRange(splitSearch)
-      .. CraftedLevelRange(splitSearch)
-      .. "]"
+  result = WrapExactSearch(splitSearch)
+    .. " ["
+    .. CategoryKey(splitSearch)
+    .. PriceRange(splitSearch)
+    .. LevelRange(splitSearch)
+    .. ItemLevelRange(splitSearch)
+    .. CraftedLevelRange(splitSearch)
+    .. "]"
 
-    -- Clean up string removing empty stuff
-    result = string.gsub(result ," ,", "")
-    result = string.gsub(result ,"%[, ", "[")
-    result = string.gsub(result ,"^ %[", "[")
-    result = string.gsub(result ,", %]", "]")
-    result = string.gsub(result ," %[%]$", "")
+  -- Clean up string removing empty stuff
+  result = string.gsub(result ," ,", "")
+  result = string.gsub(result ,"%[, ", "[")
+  result = string.gsub(result ,"^ %[", "[")
+  result = string.gsub(result ,", %]", "]")
+  result = string.gsub(result ," %[%]$", "")
 
-    return result
-  else
-    return searchString
-  end
+  return result
 end
 
 local function TooltipCategory(splitSearch)

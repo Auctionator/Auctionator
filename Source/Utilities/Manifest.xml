@@ -5,7 +5,6 @@
   <Script file="DBKeyFromBrowseResult.lua"/>
   <Script file="IsPetItemKey.lua"/>
   <Script file="Message.lua"/>
-  <Script file="StringContains.lua"/>
   <Script file="ReverseArray.lua"/>
   <Script file="Table.lua" />
   <Script file="Debug.lua"/>
