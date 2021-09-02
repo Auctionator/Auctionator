@@ -97,10 +97,6 @@ function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
     end
   end
 
-  if not resultsInfo.gotCompleteCache then
-    Auctionator.AH.RequestMoreBrowseResults()
-  end
-
   if resultsInfo.namesWaiting <= 0 and resultsInfo.gotCompleteCache and not resultsInfo.announcedReady then
     self:UnregisterEvents(CACHING_SEARCH_EVENTS)
     self:SearchGroupReady()
