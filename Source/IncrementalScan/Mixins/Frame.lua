@@ -118,7 +118,7 @@ function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
 end
 
 function AuctionatorIncrementalScanFrameMixin:NextStep()
-  if not Auctionator.AH.HasFullBrowseResults() then
+  if self.doingFullScan and not Auctionator.AH.HasFullBrowseResults() then
     Auctionator.AH.RequestMoreBrowseResults()
   else
     local count = Auctionator.Database:ProcessScan(self.info)

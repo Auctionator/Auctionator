@@ -98,6 +98,11 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(addedResults)
 
     filterTracker:SetWaiting(#filters)
   end
+
+  if not Auctionator.AH.HasFullBrowseResults() then
+    Auctionator.AH.RequestMoreBrowseResults()
+  end
+
   self:AddResults({})
 end
 
