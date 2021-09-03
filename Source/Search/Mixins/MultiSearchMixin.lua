@@ -34,7 +34,7 @@ function AuctionatorMultiSearchMixin:AbortSearch()
   local isComplete = self.complete
   self.complete = true
   if not isComplete then
-    self.onSearchComplete(self.partialResults)
+    self.onSearchComplete(self.fullResults)
   end
 end
 
