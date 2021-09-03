@@ -74,6 +74,10 @@ end
 function AuctionatorCachingSearchProviderMixin:CacheSearchResults(addedResults)
   Auctionator.Debug.Message("AuctionatorCachingSearchProviderMixin:CacheSearchResults()")
 
+  if not Auctionator.AH.HasFullBrowseResults() then
+    Auctionator.AH.RequestMoreBrowseResults()
+  end
+
   local resultsInfo = self.blankSearchResults
   resultsInfo.gotCompleteCache = Auctionator.AH.HasFullBrowseResults()
   resultsInfo.namesWaiting = resultsInfo.namesWaiting + #addedResults

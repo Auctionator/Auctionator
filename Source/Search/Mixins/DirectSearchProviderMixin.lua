@@ -88,6 +88,11 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(addedResults)
     self.registeredForEvents = true
     Auctionator.EventBus:Register(self, INTERNAL_SEARCH_EVENTS)
   end
+
+  if not Auctionator.AH.HasFullBrowseResults() then
+    Auctionator.AH.RequestMoreBrowseResults()
+  end
+
   self.waiting = self.waiting + #addedResults
   for index = 1, #addedResults do
     local filterTracker = CreateAndInitFromMixin(
@@ -98,7 +103,10 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(addedResults)
 
     filterTracker:SetWaiting(#filters)
   end
-  self:AddResults({})
+
+  if #addedResults == 0 then
+    self:AddResults({})
+  end
 end
 
 function AuctionatorDirectSearchProviderMixin:ReceiveEvent(eventName, results)
