@@ -6,7 +6,6 @@
   <Script file="Mixins\MultiSearchMixin.lua"/>
   <Script file="Mixins\KeywordSearchProviderMixin.lua"/>
   <Script file="Mixins\DirectSearchProviderMixin.lua"/>
-  <Script file="Mixins\CachingSearchProviderMixin.lua"/>
   <Include file="Filters\Manifest.xml" />
 
   <Include file="Templates.xml"/>

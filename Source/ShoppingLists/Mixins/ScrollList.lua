@@ -12,7 +12,6 @@ function AuctionatorScrollListMixin:OnLoad()
 
   self.searchProviders = {
     CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate"),
-    CreateFrame("FRAME", nil, nil, "AuctionatorCachingSearchProviderTemplate"),
   }
   for _, searchProvider in ipairs(self.searchProviders) do
     searchProvider:InitSearch(
@@ -106,11 +105,7 @@ function AuctionatorScrollListMixin:StartSearch(searchTerms)
     Auctionator.ShoppingLists.Events.ListSearchStarted,
     #self.currentList.items
   )
-  if #searchTerms < 50 and not (IsShiftKeyDown() and IsControlKeyDown()) then
-    self.searchProviders[1]:Search(searchTerms)
-  else
-    self.searchProviders[2]:Search(searchTerms)
-  end
+  self.searchProviders[1]:Search(searchTerms)
 end
 
 function AuctionatorScrollListMixin:EndSearch(results)
