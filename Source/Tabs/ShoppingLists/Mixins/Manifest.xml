@@ -1,5 +1,16 @@
 <!-- Tabs/ShoppingLists/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Dropdown.lua" />
+
+  <Script file="ListCreateButton.lua"/>
+  <Script file="ListDeleteButton.lua"/>
+  <Script file="ListSearchButton.lua"/>
+  <Script file="ListRenameButton.lua"/>
+
+  <Script file="ScrollListLine.lua" />
+  <Script file="ScrollListLineButton.lua" />
+  <Script file="ScrollList.lua" />
+
   <Script file="EscapeToClose.lua"/>
 
   <Script file="Item.lua"/>
