@@ -14,10 +14,10 @@
     </KeyValues>
 
     <Anchors>
-      <Anchor point="LEFT" x="4" y="0"/>
-      <Anchor point="RIGHT" x="-4" y="0" />
+      <Anchor point="LEFT" x="4"/>
+      <Anchor point="RIGHT" x="-4"/>
       <Anchor point="BOTTOM" y="27" />
-      <Anchor point="TOPLEFT" relativeKey="$parent.CategoriesList" relativePoint="TOPLEFT" y="-30" />
+      <Anchor point="TOP" y="-103"/>
     </Anchors>
   </Frame>
 </Ui>

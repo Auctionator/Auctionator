@@ -12,7 +12,7 @@
     </Scripts>
 
     <Anchors>
-      <Anchor point="TOP" relativeKey="$parent.CategoriesList" relativePoint="TOP" y="-30"/>
+      <Anchor point="TOP"/>
       <Anchor point="LEFT" x="4"/>
       <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
     </Anchors>
@@ -20,7 +20,7 @@
     <Frames>
       <Button inherits="RefreshButtonTemplate">
         <Anchors>
-            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="65"/>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="-38"/>
         </Anchors>
         <Scripts>
           <OnClick>
@@ -32,7 +32,7 @@
       <EditBox parentKey="SearchFilter" autoFocus="false" historyLines="1" bytes="64" inherits="SearchBoxTemplate">
         <Size x="250" y="22"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="65" y="57"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="65" y="-46"/>
         </Anchors>
       </EditBox>
 
@@ -48,7 +48,7 @@
 
       <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="24"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="-79"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20" y="45" />
         </Anchors>
       </Frame>

@@ -12,7 +12,7 @@
     </Scripts>
 
     <Anchors>
-      <Anchor point="TOP" relativeKey="$parent.CategoriesList" relativePoint="TOP" y="-70"/>
+      <Anchor point="TOP"/>
       <Anchor point="LEFT" x="4"/>
       <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
     </Anchors>
@@ -30,47 +30,47 @@
 
       <Frame parentKey="SaleItemFrame" inherits="AuctionatorSaleItemFrameTemplate">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent" relativePoint="TOP" y="105" />
-          <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" x="70" />
+          <Anchor point="TOP" relativePoint="TOP" y="-38" />
+          <Anchor point="LEFT" relativePoint="LEFT" x="70" />
         </Anchors>
       </Frame>
 
       <Frame parentKey="BagListing" inherits="AuctionatorSellingBagFrame">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="-5" />
-          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" y="3" />
+          <Anchor point="TOPLEFT" x="4" y="-148" />
+          <Anchor point="BOTTOM" y="3" />
         </Anchors>
       </Frame>
 
       <Frame parentKey="BagInset" inherits="AuctionatorInsetLeaveScrollSpaceTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" relativePoint="TOPLEFT" x="-5" y="5"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" relativePoint="BOTTOMRIGHT" x="28"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" x="-5" y="5"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" x="28"/>
         </Anchors>
       </Frame>
 
       <Frame parentKey="CurrentItemListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.BagListing" relativePoint="TOP" y="10"/>
+          <Anchor point="TOP" relativeKey="$parent.BagListing" y="10"/>
           <Anchor point="LEFT" relativeKey="$parent.BagListing" relativePoint="RIGHT" x="35" />
-          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="CENTER"/>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-20" />
+          <Anchor point="BOTTOM" relativeKey="$parent.BagListing" relativePoint="CENTER"/>
+          <Anchor point="RIGHT" relativeKey="$parent" x="-20" />
         </Anchors>
       </Frame>
 
       <Frame parentKey="CurrentItemInset" inherits="AuctionatorInsetDarkTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentItemListing" relativePoint="TOPLEFT" x="-5" y="-24"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.CurrentItemListing" relativePoint="BOTTOMRIGHT" y="-2"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentItemListing" x="-5" y="-24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.CurrentItemListing" y="-2"/>
         </Anchors>
       </Frame>
 
       <Frame parentKey="HistoricalPriceListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent" relativePoint="CENTER" />
-          <Anchor point="LEFT" relativeKey="$parent.CurrentItemListing" relativePoint="LEFT"/>
-          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOM" y="10"/>
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" x="-20" />
+          <Anchor point="TOP" relativeKey="$parent.BagListing" relativePoint="CENTER" />
+          <Anchor point="LEFT" relativeKey="$parent.CurrentItemListing"/>
+          <Anchor point="BOTTOM" y="10"/>
+          <Anchor point="RIGHT" x="-20" />
         </Anchors>
       </Frame>
 
@@ -84,8 +84,8 @@
 
       <Frame parentKey="HistoricalPriceInset" inherits="AuctionatorInsetDarkTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.HistoricalPriceListing" relativePoint="TOPLEFT" x="-5" y="-24"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" relativePoint="BOTTOMRIGHT" y="-2"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.HistoricalPriceListing" x="-5" y="-24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing" y="-2"/>
         </Anchors>
       </Frame>
 
@@ -128,7 +128,7 @@
         <Frames>
           <Button parentKey="RealmHistoryTab" id="1" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_REALM_HISTORY">
             <Anchors>
-              <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent"/>
+              <Anchor point="TOPLEFT" />
             </Anchors>
           </Button>
           <Button parentKey="YourHistoryTab" id="2" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_YOUR_HISTORY">

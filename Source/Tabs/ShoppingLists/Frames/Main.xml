@@ -13,9 +13,9 @@
     </Scripts>
 
     <Anchors>
-      <Anchor point="TOP" relativeKey="$parent.CategoriesList" relativePoint="TOP" y="-30"/>
+      <Anchor point="TOP"/>
       <Anchor point="LEFT" x="4"/>
-      <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-4" y="27" />
+      <Anchor point="BOTTOMRIGHT" x="-4" y="27" />
     </Anchors>
 
     <Frames>
@@ -29,7 +29,7 @@
       <!-- Shopping List Dropdown -->
       <Frame inherits="UIDropDownMenuTemplate" parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="50" y="55" />
+          <Anchor point="TOPLEFT" x="50" y="-48"/>
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
@@ -73,8 +73,8 @@
       <!-- List export/Import -->
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT" parentKey="Import">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.Rename" relativePoint="TOP"/>
-          <Anchor point="RIGHT" relativePoint="RIGHT" x="-8" y="55" />
+          <Anchor point="TOP" relativeKey="$parent.Rename"/>
+          <Anchor point="RIGHT" x="-8" y="55" />
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():ImportListsClicked()</OnClick>
@@ -83,7 +83,7 @@
 
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT" parentKey="Export">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.Rename" relativePoint="TOP"/>
+          <Anchor point="TOP" relativeKey="$parent.Rename"/>
           <Anchor point="RIGHT" relativeKey="$parent.Import" relativePoint="LEFT" x="-3"/>
         </Anchors>
         <Scripts>
@@ -94,8 +94,8 @@
       <!-- Shopping List item scroll frame -->
       <Frame parentKey="ScrollList" inherits="ScrollListTemplate" mixin="AuctionatorScrollListMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="-3" />
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="300" y="35" />
+          <Anchor point="TOPLEFT" y="-106" />
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" y="35" />
         </Anchors>
         <Layers>
           <Layer level="OVERLAY">
