@@ -33,7 +33,6 @@ function AuctionatorSellingTabMixin:ApplyHiding()
   end
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE) then
-    self:SetPoint("TOP", self:GetParent().CategoriesList, "TOP", 0, -110)
-    self.SaleItemFrame:SetPoint("TOP", self, "TOP", 0, 145)
+    self.BagListing:SetPoint("TOPLEFT", 4, -187)
   end
 end
