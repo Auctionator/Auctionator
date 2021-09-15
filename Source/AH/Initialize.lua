@@ -4,11 +4,6 @@ function Auctionator.AH.Initialize()
   end
   Auctionator.AH.Internals = {}
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.SILENCE_AUCTION_ERRORS) then
-    -- Silence excessive errors
-    ERR_AUCTION_DATABASE_ERROR = ""
-  end
-
   Auctionator.AH.Internals.throttling = CreateFrame(
     "FRAME",
     "AuctionatorAHThrottlingFrame",

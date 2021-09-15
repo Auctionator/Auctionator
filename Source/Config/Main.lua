@@ -56,8 +56,6 @@ Auctionator.Config.Options = {
   UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo",
   CANCEL_UNDERCUT_SHORTCUT = "cancel_undercut_shortcut",
 
-  SILENCE_AUCTION_ERRORS = "silence_auction_errors",
-
   COLUMNS_SHOPPING = "columns_shopping",
   COLUMNS_SHOPPING_HISTORICAL_PRICES = "columns_shopping_historical_prices",
   COLUMNS_SELLING_SEARCH = "columns_selling_search",
@@ -149,7 +147,6 @@ local defaults = {
   [Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true,
   [Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT] = "",
 
-  [Auctionator.Config.Options.SILENCE_AUCTION_ERRORS] = true,
   [Auctionator.Config.Options.DEFAULT_TAB] = 0,
   [Auctionator.Config.Options.SMALL_TABS] = false,
 
