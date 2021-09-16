@@ -8,7 +8,7 @@ function AuctionatorSellingTabHistoryContainerMixin:OnLoad()
   self.Tabs = {self.RealmHistoryTab, self.YourHistoryTab}
   self.numTabs = #self.Tabs
 
-  PanelTemplates_SetTab(self, 2)
+  PanelTemplates_SetTab(self, 1)
   --self:SetView(1)
 end
 

@@ -26,68 +26,25 @@
         </Scripts>
       </Frame>
 
-      <!-- Shopping List Dropdown -->
-      <Frame inherits="UIDropDownMenuTemplate" parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
+        <Size x="200" y="20"/>
         <Anchors>
           <Anchor point="TOPLEFT" x="50" y="-48"/>
         </Anchors>
+        <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
         <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnShow method="OnShow"/>
-          <OnEvent method="OnEvent"/>
+          <OnEnterPressed>self:GetParent():GetParent():OnFinishedClicked()</OnEnterPressed>
+          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+          <OnTabPressed>self:GetParent():GetParent().LevelRange:SetFocus()</OnTabPressed>
         </Scripts>
-      </Frame>
+      </EditBox>
 
-      <!-- List Create/Delete Buttons -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" parentKey="S2">
         <Anchors>
-          <Anchor point="LEFT" relativeKey="$parent.ListDropdown" relativePoint="RIGHT" x="-12" y="2" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT"/>
         </Anchors>
         <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CreateList" relativePoint="TOPRIGHT" x="3"/>
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
-      <!-- List Rename Button -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RENAME" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.DeleteList" relativePoint="TOPRIGHT" x="3" />
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
-      <!-- List export/Import -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT" parentKey="Import">
-        <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.Rename"/>
-          <Anchor point="RIGHT" x="-8" y="55" />
-        </Anchors>
-        <Scripts>
-          <OnClick>self:GetParent():ImportListsClicked()</OnClick>
-        </Scripts>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT" parentKey="Export">
-        <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.Rename"/>
-          <Anchor point="RIGHT" relativeKey="$parent.Import" relativePoint="LEFT" x="-3"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>self:GetParent():ExportListsClicked()</OnClick>
+          <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
         </Scripts>
       </Button>
 
@@ -172,7 +129,6 @@
         inherits="UIPanelDynamicResizeButtonTemplate"
         text="AUCTIONATOR_L_ADD_ITEM"
         parentKey="AddItem"
-        hidden="true"
       >
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMLEFT" x="4" y="-4" />
@@ -182,11 +138,19 @@
         </Scripts>
       </Button>
 
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH_LIST" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" y="-4"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
       <Button
         inherits="UIPanelDynamicResizeButtonTemplate"
         text="AUCTIONATOR_L_SORT"
         parentKey="SortItems"
-        hidden="true"
       >
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ManualSearch" relativePoint="TOPLEFT" y="-28" />
@@ -203,37 +167,6 @@
         </Anchors>
       </Frame>
 
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
-        <Size x="200" y="20"/>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="20" x="50"/>
-        </Anchors>
-        <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
-        <Scripts>
-          <OnEnterPressed>self:GetParent():GetParent():OnFinishedClicked()</OnEnterPressed>
-          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
-          <OnTabPressed>self:GetParent():GetParent().LevelRange:SetFocus()</OnTabPressed>
-        </Scripts>
-      </EditBox>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" parentKey="S2">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
-        </Scripts>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Advanced">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.S2" relativePoint="TOPRIGHT" x="5"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
-        </Scripts>
-      </Button>
-
       <Frame parentKey="ShoppingResultsInset" inherits="AuctionatorInsetTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-10" y="-25"/>
@@ -248,6 +181,71 @@
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <!-- Shopping List Dropdown -->
+      <Frame inherits="UIDropDownMenuTemplate" parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="60" x="60"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnEvent method="OnEvent"/>
+        </Scripts>
+      </Frame>
+
+      <!-- List Create/Delete Buttons -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMLEFT" x="-12" y="2" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CreateList" relativePoint="TOPRIGHT" x="3"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <!-- List Rename Button -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RENAME" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DeleteList" relativePoint="TOPRIGHT" x="3" />
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+
+      <!-- List export/Import -->
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT" parentKey="Import">
+        <Anchors>
+          <Anchor point="TOP" relativeKey="$parent.Rename"/>
+          <Anchor point="RIGHT" x="-8" y="55" />
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ImportListsClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT" parentKey="Export">
+        <Anchors>
+          <Anchor point="TOP" relativeKey="$parent.ListDropdown" y="-2"/>
+          <Anchor point="RIGHT" x="-8" y="55" />
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ExportListsClicked()</OnClick>
         </Scripts>
       </Button>
     </Frames>
