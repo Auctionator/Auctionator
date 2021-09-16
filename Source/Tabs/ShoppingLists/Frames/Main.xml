@@ -142,24 +142,37 @@
         </Layers>
       </Frame>
 
-      <Button
-        inherits="UIPanelDynamicResizeButtonTemplate"
-        text="AUCTIONATOR_L_SORT"
-        parentKey="SortItems"
-      >
+      <Frame parentKey="HistoryTabsContainer" mixin="AuctionatorSellingTabHistoryContainerMixin">
         <Anchors>
-          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPLEFT" x="5" y="4" />
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollList" x="70"/>
+          <Anchor point="RIGHT" relativePoint="TOPRIGHT" y="15" relativeKey="$parent.ScrollList"/>
+        </Anchors>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPLEFT" x="25"/>
         </Anchors>
         <Scripts>
-          <OnClick>self:GetParent():SortItemsClicked()</OnClick>
+          <OnLoad method="OnLoad"/>
         </Scripts>
-      </Button>
+        <Frames>
+          <Button parentKey="RealmHistoryTab" id="1" inherits="TabButtonTemplate" text="My List">
+            <Anchors>
+              <Anchor point="TOPLEFT" />
+            </Anchors>
+          </Button>
+          <Button parentKey="YourHistoryTab" id="2" inherits="TabButtonTemplate" text="Recent Searches">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.RealmHistoryTab"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
 
       <!-- List Add Item Button -->
       <Button
         inherits="UIPanelDynamicResizeButtonTemplate"
         text="AUCTIONATOR_L_ADD_ITEM"
         parentKey="AddItem"
+        hidden="true"
       >
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMLEFT" x="4" y="-4" />
@@ -169,27 +182,61 @@
         </Scripts>
       </Button>
 
-      <!-- List Manual Search Button -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
+      <Button
+        inherits="UIPanelDynamicResizeButtonTemplate"
+        text="AUCTIONATOR_L_SORT"
+        parentKey="SortItems"
+        hidden="true"
+      >
         <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" y="-4"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ManualSearch" relativePoint="TOPLEFT" y="-28" />
         </Anchors>
         <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
+          <OnClick>self:GetParent():SortItemsClicked()</OnClick>
         </Scripts>
       </Button>
 
       <Frame inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPRIGHT" y="27" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPRIGHT" x="5"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
         </Anchors>
       </Frame>
 
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
+        <Size x="200" y="20"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="20" x="50"/>
+        </Anchors>
+        <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
+        <Scripts>
+          <OnEnterPressed>self:GetParent():GetParent():OnFinishedClicked()</OnEnterPressed>
+          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+          <OnTabPressed>self:GetParent():GetParent().LevelRange:SetFocus()</OnTabPressed>
+        </Scripts>
+      </EditBox>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" parentKey="S2">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Advanced">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.S2" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
+        </Scripts>
+      </Button>
+
       <Frame parentKey="ShoppingResultsInset" inherits="AuctionatorInsetTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-5" y="-25"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="TOPLEFT" x="-10" y="-25"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>

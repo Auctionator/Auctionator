@@ -22,7 +22,8 @@ function AuctionatorListSearchButtonMixin:SetUpEvents()
 end
 
 function AuctionatorListSearchButtonMixin:OnClick()
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchRequested)
+  --Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchRequested)
+  self:GetParent():AddItemClicked()
 end
 
 function AuctionatorListSearchButtonMixin:ReceiveEvent(eventName, eventData)
