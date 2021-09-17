@@ -60,6 +60,8 @@ function AuctionatorShoppingListDropdownMixin:Initialize()
 
     UIDropDownMenu_AddButton(listEntry)
   end
+
+  UIDropDownMenu_SetText(self, AUCTIONATOR_L_SELECT_SHOPPING_LIST)
 end
 
 function AuctionatorShoppingListDropdownMixin:SelectList(selectedList)
