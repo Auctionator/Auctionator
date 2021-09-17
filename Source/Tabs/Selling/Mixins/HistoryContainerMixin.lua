@@ -9,12 +9,12 @@ function AuctionatorSellingTabHistoryContainerMixin:OnLoad()
   self.numTabs = #self.Tabs
 
   PanelTemplates_SetTab(self, 1)
-  --self:SetView(1)
+  self:SetView(1)
 end
 
 function AuctionatorSellingTabHistoryContainerMixin:SetView(viewIndex)
-  --self:GetParent().PostingHistoryListing:Hide()
-  --self:GetParent().HistoricalPriceListing:Hide()
+  self:GetParent().PostingHistoryListing:Hide()
+  self:GetParent().HistoricalPriceListing:Hide()
 
   if viewIndex == REALM_VIEW then
     self:GetParent().HistoricalPriceListing:Show()

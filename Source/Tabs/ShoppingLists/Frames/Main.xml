@@ -99,7 +99,7 @@
         </Layers>
       </Frame>
 
-      <Frame parentKey="HistoryTabsContainer" mixin="AuctionatorSellingTabHistoryContainerMixin">
+      <Frame parentKey="RecentsTabsContainer" mixin="AuctionatorShoppingTabRecentsContainerMixin">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollList" x="70"/>
           <Anchor point="RIGHT" relativePoint="TOPRIGHT" y="15" relativeKey="$parent.ScrollList"/>
@@ -111,12 +111,12 @@
           <OnLoad method="OnLoad"/>
         </Scripts>
         <Frames>
-          <Button parentKey="RealmHistoryTab" id="1" inherits="TabButtonTemplate" text="My List">
+          <Button parentKey="ListTab" id="1" inherits="TabButtonTemplate" text="AUCTIONATOR_L_MY_LISTS">
             <Anchors>
               <Anchor point="TOPLEFT" />
             </Anchors>
           </Button>
-          <Button parentKey="YourHistoryTab" id="2" inherits="TabButtonTemplate" text="Recent Searches">
+          <Button parentKey="RecentsTab" id="2" inherits="TabButtonTemplate" text="AUCTIONATOR_L_RECENT_SEARCHES">
             <Anchors>
               <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.RealmHistoryTab"/>
             </Anchors>
