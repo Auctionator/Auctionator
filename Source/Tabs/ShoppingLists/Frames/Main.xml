@@ -27,7 +27,7 @@
       </Frame>
 
       <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="OneItemSearchBox" letters="100">
-        <Size x="200" y="20"/>
+        <Size x="180" y="20"/>
         <Anchors>
           <Anchor point="TOPLEFT" x="50" y="-48"/>
         </Anchors>
@@ -162,7 +162,7 @@
 
       <Frame inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPRIGHT" x="5"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollList" relativePoint="TOPRIGHT" x="5" y="27"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
         </Anchors>
       </Frame>
@@ -187,7 +187,7 @@
       <!-- Shopping List Dropdown -->
       <Frame inherits="UIDropDownMenuTemplate" parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="60" x="60"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="35" x="50"/>
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
@@ -197,7 +197,7 @@
       </Frame>
 
       <!-- List Create/Delete Buttons -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMLEFT" x="-12" y="2" />
         </Anchors>
@@ -207,7 +207,7 @@
         </Scripts>
       </Button>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.CreateList" relativePoint="TOPRIGHT" x="3"/>
         </Anchors>
@@ -218,7 +218,7 @@
       </Button>
 
       <!-- List Rename Button -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RENAME" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RENAME" mixin="AuctionatorListRenameButtonMixin" parentKey="Rename" hidden="true">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.DeleteList" relativePoint="TOPRIGHT" x="3" />
         </Anchors>
@@ -231,8 +231,7 @@
       <!-- List export/Import -->
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT" parentKey="Import">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.Rename"/>
-          <Anchor point="RIGHT" x="-8" y="55" />
+          <Anchor point="TOPRIGHT" x="-5" y="-48"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():ImportListsClicked()</OnClick>
@@ -241,8 +240,7 @@
 
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT" parentKey="Export">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.ListDropdown" y="-2"/>
-          <Anchor point="RIGHT" x="-8" y="55" />
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Import" relativePoint="TOPLEFT"/>
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():ExportListsClicked()</OnClick>
