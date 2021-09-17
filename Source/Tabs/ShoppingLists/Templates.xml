@@ -1,12 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Button name="AuctionatorScrollListLineButtonTemplate" virtual="true" mixin="AuctionatorScrollListLineButtonMixin">
-    <Scripts>
-      <OnShow method="OnShow"/>
-      <OnEnter method="OnEnter"/>
-      <OnLeave method="OnLeave"/>
-    </Scripts>
-  </Button>
-  <Button name="AuctionatorScrollListLineTemplate" inherits="ScrollListLineTextTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
+  <Button name="AuctionatorScrollListLineNoButtonsTemplate" inherits="ScrollListLineTextTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
     <Size x="0" y="20"/>
 
     <Anchors>
@@ -31,7 +24,17 @@
     </Layers>
 
     <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
+  </Button>
 
+  <Button name="AuctionatorScrollListLineButtonTemplate" virtual="true" mixin="AuctionatorScrollListLineButtonMixin">
+    <Scripts>
+      <OnShow method="OnShow"/>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
+    </Scripts>
+  </Button>
+
+  <Button name="AuctionatorScrollListLineTemplate" inherits="AuctionatorScrollListLineNoButtonsTemplate" virtual="true">
     <Frames>
       <Button parentKey="EditButton" inherits="AuctionatorScrollListLineButtonTemplate">
         <Size>

@@ -162,6 +162,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SORT"] = "Sort"
   L["MY_LISTS"] = "My Lists"
   L["RECENT_SEARCHES"] = "Recent Searches"
+  L["NO_LIST"] = "no list"
 
   L["SHOPPING_TAB"] = "Shopping"
   L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"

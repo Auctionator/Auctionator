@@ -41,7 +41,7 @@ end
 
 function AuctionatorShoppingListTabMixin:SetUpAddItemDialog()
   self.addItemDialog = CreateFrame("Frame", "AuctionatorAddItemFrame", self, "AuctionatorShoppingItemTemplate")
-  self.addItemDialog:Init("New Search", "Search")
+  self.addItemDialog:Init(AUCTIONATOR_L_LIST_ADD_ITEM_HEADER, AUCTIONATOR_L_ADD_ITEM)
   self.addItemDialog:SetPoint("CENTER")
 
   self.addItemDialog:SetOnFinishedClicked(function(newItemString)

@@ -11,6 +11,7 @@ Auctionator.ShoppingLists.Events = {
   ListOrderChanged = "AUCTIONATOR_LIST_ORDER_CHANGED",
   DeleteFromList = "AUCTIONATOR_DELETE_FROM_CURRENT_LIST",
   EditListItem = "AUCTIONATOR_EDIT_LIST_ITEM",
+  OneItemSearch = "AUCTIONATOR_ONE_ITEM_SEARCH",
 
   ListSearchStarted = "AUCTIONATOR_LIST_SEARCH_STARTED",
   ListSearchIncrementalUpdate = "AUCTIONATOR_LIST_SEARCH_INCREMENTAL_UPDATE",

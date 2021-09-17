@@ -22,5 +22,5 @@ function AuctionatorShoppingOneItemSearchButtonMixin:ReceiveEvent(eventName, ...
 end
 
 function AuctionatorShoppingOneItemSearchButtonMixin:OnClick()
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemSelected, self:GetParent().OneItemSearchBox:GetText())
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.OneItemSearch, self:GetParent().OneItemSearchBox:GetText())
 end

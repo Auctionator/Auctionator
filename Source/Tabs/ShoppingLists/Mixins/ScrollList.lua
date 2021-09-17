@@ -20,12 +20,12 @@ function AuctionatorScrollListMixin:OnLoad()
         self:EndSearch(results)
       end,
       function(current, total, partialResults)
-        if self.currentList == nil then
+        if self.currentList == nil and not self.isSearchingForOneItem then
           return
         end
 
         Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, partialResults)
-        self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self.currentList.name))
+        self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self:GetAppropriateName()))
       end
     )
   end
@@ -44,6 +44,7 @@ function AuctionatorScrollListMixin:SetUpEvents()
     Auctionator.ShoppingLists.Events.ListSearchRequested,
     Auctionator.ShoppingLists.Events.ListItemDeleted,
     Auctionator.ShoppingLists.Events.ListOrderChanged,
+    Auctionator.ShoppingLists.Events.OneItemSearch,
   })
 end
 
@@ -57,6 +58,15 @@ function AuctionatorScrollListMixin:GetAllSearchTerms()
   return searchTerms
 end
 
+function AuctionatorScrollListMixin:GetAppropriateName()
+  if self.isSearchingForOneItem then
+    return AUCTIONATOR_L_NO_LIST
+  else
+    return self.currentList.name
+  end
+end
+
+
 function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
   Auctionator.Debug.Message("AuctionatorScrollListMixin:ReceiveEvent()", eventName, eventData)
 
@@ -64,7 +74,7 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
     self.currentList = eventData
 
     if Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
-      self:StartSearch(self:GetAllSearchTerms())
+      self:StartSearch(self:GetAllSearchTerms(), self.currentList.name)
     end
 
     self:RefreshScrollFrame()
@@ -75,6 +85,8 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemSelected then
     self:StartSearch({ eventData })
+  elseif eventName == Auctionator.ShoppingLists.Events.OneItemSearch then
+    self:StartSearch({ eventData }, true)
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemAdded then
     self:AbortRunningSearches()
     self:RefreshScrollFrame()
@@ -92,10 +104,12 @@ function AuctionatorScrollListMixin:ReceiveEvent(eventName, eventData, ...)
   end
 end
 
-function AuctionatorScrollListMixin:StartSearch(searchTerms)
+function AuctionatorScrollListMixin:StartSearch(searchTerms, isSearchingForOneItem)
   self:AbortRunningSearches()
 
-  self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self.currentList.name))
+  self.isSearchingForOneItem = isSearchingForOneItem
+
+  self.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self:GetAppropriateName()))
   self.ResultsText:Show()
 
   self.SpinnerAnim:Play()
@@ -103,8 +117,7 @@ function AuctionatorScrollListMixin:StartSearch(searchTerms)
 
   Auctionator.EventBus:Fire(
     self,
-    Auctionator.ShoppingLists.Events.ListSearchStarted,
-    #self.currentList.items
+    Auctionator.ShoppingLists.Events.ListSearchStarted
   )
   if #searchTerms < 50 and not (IsShiftKeyDown() and IsControlKeyDown()) then
     self.searchProviders[1]:Search(searchTerms)
