@@ -26,6 +26,8 @@ function AuctionatorShoppingListTabMixin:OnLoad()
   self.SortItems:Disable()
 
   self.ResultsListing:Init(self.DataProvider)
+
+  self.RecentsTabsContainer:SetView(2)
 end
 
 function AuctionatorShoppingListTabMixin:SetUpEvents()

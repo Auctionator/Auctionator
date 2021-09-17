@@ -26,25 +26,25 @@
         </Scripts>
       </Frame>
 
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="OneItemSearchBox" letters="100">
         <Size x="200" y="20"/>
         <Anchors>
           <Anchor point="TOPLEFT" x="50" y="-48"/>
         </Anchors>
         <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
         <Scripts>
-          <OnEnterPressed>self:GetParent():GetParent():OnFinishedClicked()</OnEnterPressed>
+          <OnEnterPressed>self:GetParent().OneItemSearchButton:Click()</OnEnterPressed>
           <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
-          <OnTabPressed>self:GetParent():GetParent().LevelRange:SetFocus()</OnTabPressed>
         </Scripts>
       </EditBox>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" parentKey="S2">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" mixin="AuctionatorShoppingOneItemSearchButtonMixin" parentKey="OneItemSearchButton">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.OneItemSearchBox" relativePoint="TOPRIGHT"/>
         </Anchors>
         <Scripts>
-          <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
         </Scripts>
       </Button>
 
@@ -101,7 +101,7 @@
 
       <Frame parentKey="RecentsTabsContainer" mixin="AuctionatorShoppingTabRecentsContainerMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollList" x="70"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollList" x="20"/>
           <Anchor point="RIGHT" relativePoint="TOPRIGHT" y="15" relativeKey="$parent.ScrollList"/>
         </Anchors>
         <Anchors>
@@ -111,14 +111,14 @@
           <OnLoad method="OnLoad"/>
         </Scripts>
         <Frames>
-          <Button parentKey="ListTab" id="1" inherits="TabButtonTemplate" text="AUCTIONATOR_L_MY_LISTS">
+          <Button parentKey="ListTab" id="1" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_MY_LISTS">
             <Anchors>
               <Anchor point="TOPLEFT" />
             </Anchors>
           </Button>
-          <Button parentKey="RecentsTab" id="2" inherits="TabButtonTemplate" text="AUCTIONATOR_L_RECENT_SEARCHES">
+          <Button parentKey="RecentsTab" id="2" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_RECENT_SEARCHES">
             <Anchors>
-              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.RealmHistoryTab"/>
+              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.ListTab"/>
             </Anchors>
           </Button>
         </Frames>
@@ -138,7 +138,7 @@
         </Scripts>
       </Button>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH_LIST" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH_ALL" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollList" relativePoint="BOTTOMRIGHT" x="-25" y="-4"/>
         </Anchors>
