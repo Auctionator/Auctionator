@@ -1,11 +1,9 @@
-AuctionatorListCreateButtonMixin = {}
+AuctionatorListModifyListenerMixin = {}
 
 local CreateDialogOnAccept = Auctionator.ShoppingLists.Events.CreateDialogOnAccept
 local ListCreated = Auctionator.ShoppingLists.Events.ListCreated
 
 function AuctionatorListCreateButtonMixin:OnLoad()
-  DynamicResizeButton_Resize(self)
-
   self:SetUpEvents()
 end
 

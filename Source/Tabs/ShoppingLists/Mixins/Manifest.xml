@@ -2,7 +2,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Dropdown.lua" />
 
-  <Script file="ListCreateButton.lua"/>
   <Script file="ListDeleteButton.lua"/>
   <Script file="ListSearchButton.lua"/>
   <Script file="ListRenameButton.lua"/>

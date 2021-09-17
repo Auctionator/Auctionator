@@ -197,19 +197,9 @@
       </Frame>
 
       <!-- List Create/Delete Buttons -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CREATE" parentKey="CreateList" mixin="AuctionatorListCreateButtonMixin" hidden="true">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMLEFT" x="-12" y="2" />
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
-        </Scripts>
-      </Button>
-
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_DELETE" mixin="AuctionatorListDeleteButtonMixin" parentKey="DeleteList" hidden="true">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CreateList" relativePoint="TOPRIGHT" x="3"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ListDropdown" relativePoint="BOTTOMLEFT" x="-12" y="2" />
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>

@@ -1,4 +1,16 @@
 local function InitializeCreateDialog()
+  local function CreateList(self, listName)
+    listName = Auctionator.ShoppingLists.GetUnusedListName(listName)
+
+    Auctionator.ShoppingLists.Create(listName)
+
+    Auctionator.EventBus
+      :RegisterSource(self, "ShoppingLists.CreateDialog")
+      :Fire(
+      self, ListCreated, Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
+    )
+      :UnregisterSource(self)
+  end
   StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList] = {
     text = AUCTIONATOR_L_CREATE_LIST_DIALOG,
     button1 = ACCEPT,
@@ -15,18 +27,10 @@ local function InitializeCreateDialog()
       Auctionator.EventBus:UnregisterSource(self)
     end,
     OnAccept = function(self)
-      Auctionator.EventBus:Fire(
-        self,
-        Auctionator.ShoppingLists.Events.CreateDialogOnAccept,
-        self.editBox:GetText()
-      )
+      CreateList(self, self.editBox:GetText())
     end,
     EditBoxOnEnterPressed = function(self)
-      Auctionator.EventBus:Fire(
-        self:GetParent(),
-        Auctionator.ShoppingLists.Events.CreateDialogOnAccept,
-        self:GetText()
-      )
+      CreateList(self:GetParent(), self:GetText())
       self:GetParent():Hide()
     end,
     timeout = 0,
