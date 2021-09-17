@@ -19,10 +19,6 @@ Auctionator.ShoppingLists.Events = {
   ListSearchRequested = "AUCTIONATOR_LIST_SEARCH_REQUESTED",
   ListAbortSearch = "AUCTIONATOR_LIST_ABORT_SEARCH",
 
-  CreateDialogOnAccept = "AUCTIONATOR_CREATE_DIALOG_ON_ACCEPT",
-  DeleteDialogOnAccept = "AUCTIONATOR_DELETE_DIALOG_ON_ACCEPT",
-  RenameDialogOnAccept = "AUCTIONATOR_RENAME_DIALOG_ON_ACCEPT",
-
   DialogOpened = "SHOPPING_DIALOG_OPENED",
   DialogClosed = "SHOPPING_DIALOG_CLOSED",
 

@@ -7,10 +7,13 @@ local function InitializeCreateDialog()
     Auctionator.EventBus
       :RegisterSource(self, "ShoppingLists.CreateDialog")
       :Fire(
-      self, ListCreated, Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
-    )
+        self,
+        Auctionator.ShoppingLists.Events.ListCreated,
+        Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
+      )
       :UnregisterSource(self)
   end
+
   StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList] = {
     text = AUCTIONATOR_L_CREATE_LIST_DIALOG,
     button1 = ACCEPT,
@@ -41,6 +44,17 @@ local function InitializeCreateDialog()
 end
 
 local function InitializeDeleteDialog()
+  local function DeleteList(self, listName)
+    Auctionator.ShoppingLists.Delete(listName)
+
+    Auctionator.EventBus
+      :RegisterSource(self, "ShoppingLists.CreateDialog")
+      :Fire(
+        self, Auctionator.ShoppingLists.Events.ListDeleted
+      )
+      :UnregisterSource(self)
+  end
+
   StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList] = {
     text = "",
     button1 = ACCEPT,
@@ -56,15 +70,35 @@ local function InitializeDeleteDialog()
       Auctionator.EventBus:UnregisterSource(self)
     end,
     OnAccept = function(self)
-      Auctionator.EventBus:Fire(
-        self,
-        Auctionator.ShoppingLists.Events.DeleteDialogOnAccept
-      )
+      DeleteList(self, self.data)
     end
   };
 end
 
 local function InitializeRenameDialog()
+  local function RenameList(self, newListName)
+    local currentList = Auctionator.ShoppingLists.GetListByName(self.data)
+    if newListName ~= currentList.name then
+      newListName = Auctionator.ShoppingLists.GetUnusedListName(newListName)
+
+      Auctionator.ShoppingLists.Rename(
+        Auctionator.ShoppingLists.ListIndex(currentList.name),
+        newListName
+      )
+    end
+
+    if currentList.isTemporary then
+      Auctionator.ShoppingLists.MakePermanent(newListName)
+    end
+
+    Auctionator.EventBus
+      :RegisterSource(self, "ShoppingLists.RenameDialog")
+      :Fire(
+        self, Auctionator.ShoppingLists.Events.ListRenamed, currentList
+      )
+      :UnregisterSource(self)
+  end
+
   StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
     text = AUCTIONATOR_L_RENAME_LIST_DIALOG,
     button1 = ACCEPT,
@@ -81,18 +115,10 @@ local function InitializeRenameDialog()
       Auctionator.EventBus:UnregisterSource(self)
     end,
     OnAccept = function(self)
-      Auctionator.EventBus:Fire(
-        self,
-        Auctionator.ShoppingLists.Events.RenameDialogOnAccept,
-        self.editBox:GetText()
-      )
+      RenameList(self, self.editBox:GetText())
     end,
     EditBoxOnEnterPressed = function(self)
-      Auctionator.EventBus:Fire(
-        self:GetParent(),
-        Auctionator.ShoppingLists.Events.RenameDialogOnAccept,
-        self:GetText()
-      )
+      RenameList(self:GetParent(), self:GetText())
       self:GetParent():Hide()
     end,
     timeout = 0,
