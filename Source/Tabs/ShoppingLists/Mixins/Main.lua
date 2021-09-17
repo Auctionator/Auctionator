@@ -23,6 +23,7 @@ function AuctionatorShoppingListTabMixin:OnLoad()
 
   -- Add Item button starts in the default state until a list is selected
   self.AddItem:Disable()
+  self.SortItems:Disable()
 
   self.ResultsListing:Init(self.DataProvider)
 end
@@ -93,10 +94,12 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
   if eventName == ListSelected then
     self.selectedList = eventData
     self.AddItem:Enable()
+    self.SortItems:Enable()
   elseif eventName == ListDeleted then
     self.Rename:Disable()
     self.AddItem:Disable()
     self.ManualSearch:Disable()
+    self.SortItems:Disable()
 
   elseif eventName == DialogOpened then
     self.isDialogOpen = true
