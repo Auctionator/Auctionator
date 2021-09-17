@@ -111,7 +111,7 @@
           <OnLoad method="OnLoad"/>
         </Scripts>
         <Frames>
-          <Button parentKey="ListTab" id="1" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_MY_LISTS">
+          <Button parentKey="ListTab" id="1" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_ACTIVE_LIST">
             <Anchors>
               <Anchor point="TOPLEFT" />
             </Anchors>

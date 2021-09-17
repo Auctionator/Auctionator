@@ -160,7 +160,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["EXPORT"] = "Export"
   L["IMPORT"] = "Import"
   L["SORT"] = "Sort"
-  L["MY_LISTS"] = "My Lists"
+  L["ACTIVE_LIST"] = "Active List"
   L["RECENT_SEARCHES"] = "Recent Searches"
   L["NO_LIST"] = "no list"
 
