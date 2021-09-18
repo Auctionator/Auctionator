@@ -1,8 +1,3 @@
-local LISTS_VIEW = 1
-local RECENTS_VIEW = 2
-
-local DEFAULT_VIEW = RECENTS_VIEW
-
 AuctionatorShoppingTabRecentsContainerMixin = {}
 function AuctionatorShoppingTabRecentsContainerMixin:OnLoad()
   self.Tabs = {self.ListTab, self.RecentsTab}
@@ -17,7 +12,7 @@ end
 
 function AuctionatorShoppingTabRecentsContainerMixin:ReceiveEvent(eventName)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
-    self:SetView(LISTS_VIEW)
+    self:SetView(Auctionator.Constants.ShoppingListViews.Lists)
   end
 end
 
@@ -30,10 +25,10 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetView(viewIndex)
   self:GetParent().ScrollListRecents:Hide()
   self:GetParent().ScrollListShoppingList:Hide()
 
-  if viewIndex == RECENTS_VIEW then
+  if viewIndex == Auctionator.Constants.ShoppingListViews.Recents then
     self:GetParent().ScrollListRecents:Show()
 
-  elseif viewIndex == LISTS_VIEW then
+  elseif viewIndex == Auctionator.Constants.ShoppingListViews.Lists then
     self:GetParent().ScrollListShoppingList:Show()
     self:GetParent().ManualSearch:Show()
     self:GetParent().AddItem:Show()

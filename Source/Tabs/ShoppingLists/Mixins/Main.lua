@@ -27,7 +27,7 @@ function AuctionatorShoppingListTabMixin:OnLoad()
 
   self.ResultsListing:Init(self.DataProvider)
 
-  self.RecentsTabsContainer:SetView(2)
+  self.RecentsTabsContainer:SetView(Auctionator.Constants.ShoppingListViews.Recents)
 end
 
 function AuctionatorShoppingListTabMixin:SetUpEvents()
