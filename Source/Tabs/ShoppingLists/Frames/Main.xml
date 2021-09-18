@@ -102,7 +102,7 @@
       <Frame parentKey="ScrollListRecents" inherits="ScrollListTemplate" mixin="AuctionatorScrollListRecentsMixin">
         <Anchors>
           <Anchor point="TOPLEFT" y="-106" />
-          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" y="35" />
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" />
         </Anchors>
         <Layers>
           <Layer level="OVERLAY">
@@ -138,7 +138,7 @@
 
       <Frame parentKey="RecentsTabsContainer" mixin="AuctionatorShoppingTabRecentsContainerMixin">
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" x="20"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" x="10"/>
           <Anchor point="RIGHT" relativePoint="TOPRIGHT" y="15" relativeKey="$parent.ScrollListShoppingList"/>
         </Anchors>
         <Anchors>
@@ -148,7 +148,7 @@
           <OnLoad method="OnLoad"/>
         </Scripts>
         <Frames>
-          <Button parentKey="ListTab" id="1" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_ACTIVE_LIST">
+          <Button parentKey="ListTab" id="1" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_SHOPPING_LIST">
             <Anchors>
               <Anchor point="TOPLEFT" />
             </Anchors>
