@@ -1,5 +1,5 @@
 <Ui>
-  <Button name="AuctionatorSellingMiniTabButtonTemplate" mixin="AuctionatorSellingMiniTabButtonMixin" virtual="true">
+  <Button name="AuctionatorSellingMiniTabButtonTemplate" mixin="AuctionatorMiniTabButtonMixin" virtual="true">
 		<Size>
         <AbsDimension x="115" y="32"/>
     </Size>

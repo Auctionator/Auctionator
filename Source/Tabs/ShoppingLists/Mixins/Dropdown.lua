@@ -6,6 +6,12 @@ function AuctionatorShoppingListDropdownMixin:OnLoad()
 
   self.searchNextTime = true
   self:SetUpEvents()
+  self:SetNoList()
+end
+
+function AuctionatorShoppingListDropdownMixin:SetNoList()
+  UIDropDownMenu_SetText(self, AUCTIONATOR_L_SELECT_SHOPPING_LIST)
+  self.currentList = nil
 end
 
 function AuctionatorShoppingListDropdownMixin:OnShow()
@@ -39,26 +45,85 @@ function AuctionatorShoppingListDropdownMixin:SetUpEvents()
   Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListCreated,
     Auctionator.ShoppingLists.Events.ListDeleted,
-    Auctionator.ShoppingLists.Events.ListRenamed
+    Auctionator.ShoppingLists.Events.ListRenamed,
+    Auctionator.ShoppingLists.Events.ListSelected,
   })
   FrameUtil.RegisterFrameForEvents(self, {
     "AUCTION_HOUSE_CLOSED"
   })
 end
 
-function AuctionatorShoppingListDropdownMixin:Initialize()
-  local listEntry
+function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
+  if level == 1 then
+    local listEntry
 
-  for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
+    -- Add entry to create a new shopping list
     listEntry = UIDropDownMenu_CreateInfo()
     listEntry.notCheckable = true
-    listEntry.text = list.name
-    listEntry.value = index
+    listEntry.text = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_NEW_SHOPPING_LIST)
     listEntry.func = function(entry)
-      self:SelectList(Auctionator.ShoppingLists.Lists[tonumber(entry.value)])
+      StaticPopup_Show(Auctionator.Constants.DialogNames.CreateShoppingList)
+    end
+    UIDropDownMenu_AddButton(listEntry)
+
+    -- Add promiment "Save As" entry for temporary shopping lists
+    if self.currentList ~= nil then
+      local isTemp = self.currentList.isTemporary
+      if isTemp then
+        listEntry = UIDropDownMenu_CreateInfo()
+        listEntry.notCheckable = true
+        listEntry.text = BLUE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_SAVE_THIS_LIST_AS)
+        listEntry.func = function(entry)
+          local message = AUCTIONATOR_L_RENAME_LIST_CONFIRM:format(self.currentList.name)
+          StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].text = message
+          StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, self.currentList.name)
+        end
+        UIDropDownMenu_AddButton(listEntry)
+      end
     end
 
-    UIDropDownMenu_AddButton(listEntry)
+    -- Add an entry for each shopping list
+    for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
+      listEntry = UIDropDownMenu_CreateInfo()
+      listEntry.text = list.name
+      listEntry.value = index
+      listEntry.menuList = {index = index}
+      listEntry.func = function(entry)
+        self:SelectList(list)
+      end
+      listEntry.checked = self.currentList == list
+      listEntry.hasArrow = true
+
+      UIDropDownMenu_AddButton(listEntry)
+    end
+  --Add Rename and Delete submenu entries for the given shopping list
+  elseif level == 2 then
+    listEntry = UIDropDownMenu_CreateInfo()
+    listEntry.notCheckable = true
+    listEntry.value = index
+
+    local list = Auctionator.ShoppingLists.Lists[tonumber(rootEntry.index)]
+    listEntry.text = AUCTIONATOR_L_DELETE
+    listEntry.func = function(entry)
+      local message = AUCTIONATOR_L_DELETE_LIST_CONFIRM:format(list.name)
+      StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = message
+      StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList, nil, nil, list.name)
+      HideDropDownMenu(1)
+    end
+    UIDropDownMenu_AddButton(listEntry, 2)
+
+    if list.isTemporary then
+      listEntry.text = AUCTIONATOR_L_SAVE_AS
+    else
+      listEntry.text = AUCTIONATOR_L_RENAME
+    end
+    listEntry.func = function(entry)
+      local message = AUCTIONATOR_L_RENAME_LIST_CONFIRM:format(list.name)
+      StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].text = message
+      StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, list.name)
+      HideDropDownMenu(1)
+    end
+    UIDropDownMenu_AddButton(listEntry, 2)
   end
 end
 
@@ -69,18 +134,20 @@ end
 
 function AuctionatorShoppingListDropdownMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListDeleted or eventName == Auctionator.ShoppingLists.Events.ListCreated then
-    UIDropDownMenu_Initialize(self, self.Initialize)
+    self:SetNoList()
   end
 
   if eventName == Auctionator.ShoppingLists.Events.ListCreated then
     self:SelectList(eventData)
   end
 
-  if eventName == Auctionator.ShoppingLists.Events.ListRenamed then
-    self:SelectList(eventData)
+  if eventName == Auctionator.ShoppingLists.Events.ListSelected then
+    self.currentList = eventData
   end
 
-  if eventName == Auctionator.ShoppingLists.Events.ListDeleted then
-    UIDropDownMenu_SetText(self, "")
+  if eventName == Auctionator.ShoppingLists.Events.ListRenamed then
+    if self.currentList == eventData then
+      self:SelectList(eventData)
+    end
   end
 end

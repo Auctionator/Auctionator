@@ -120,6 +120,8 @@ function Auctionator.Variables.InitializeShoppingLists()
   Auctionator.ShoppingLists.Prune()
   Auctionator.ShoppingLists.Sort()
   AUCTIONATOR_SHOPPING_LISTS = Auctionator.ShoppingLists.Lists
+
+  AUCTIONATOR_RECENT_SEARCHES = AUCTIONATOR_RECENT_SEARCHES or {}
 end
 
 function Auctionator.Variables.InitializeVendorPriceCache()
