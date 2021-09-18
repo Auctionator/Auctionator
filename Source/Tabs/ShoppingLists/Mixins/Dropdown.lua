@@ -82,13 +82,13 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
 
     for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
       listEntry = UIDropDownMenu_CreateInfo()
-      listEntry.notCheckable = true
       listEntry.text = list.name
       listEntry.value = index
       listEntry.menuList = {index = index}
       listEntry.func = function(entry)
-        self:SelectList(Auctionator.ShoppingLists.Lists[tonumber(entry.value)])
+        self:SelectList(list)
       end
+      listEntry.checked = self.currentList == list
       listEntry.hasArrow = true
 
       UIDropDownMenu_AddButton(listEntry)
