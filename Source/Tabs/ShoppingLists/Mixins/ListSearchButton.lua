@@ -4,6 +4,7 @@ function AuctionatorListSearchButtonMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorListSearchButtonMixin:OnLoad()")
 
   DynamicResizeButton_Resize(self)
+  self.listSelected = false
   self:Disable()
 
   self:SetUpEvents()
@@ -29,12 +30,13 @@ function AuctionatorListSearchButtonMixin:ReceiveEvent(eventName, eventData)
   Auctionator.Debug.Message("AuctionatorListSearchButtonMixin:ReceiveEvent " .. eventName, eventData)
 
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
+    self.listSelected = true
     self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListCreated then
     self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Disable()
-  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded and self.listSelected then
     self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListDeleted then
     self:Disable()

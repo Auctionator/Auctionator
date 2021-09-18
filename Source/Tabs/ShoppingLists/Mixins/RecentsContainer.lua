@@ -27,10 +27,14 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetView(viewIndex)
   self:GetParent().ManualSearch:Hide()
   self:GetParent().AddItem:Hide()
   self:GetParent().SortItems:Hide()
+  self:GetParent().ScrollListRecents:Hide()
+  self:GetParent().ScrollListShoppingList:Hide()
 
   if viewIndex == RECENTS_VIEW then
+    self:GetParent().ScrollListRecents:Show()
 
   elseif viewIndex == LISTS_VIEW then
+    self:GetParent().ScrollListShoppingList:Show()
     self:GetParent().ManualSearch:Show()
     self:GetParent().AddItem:Show()
     self:GetParent().SortItems:Show()

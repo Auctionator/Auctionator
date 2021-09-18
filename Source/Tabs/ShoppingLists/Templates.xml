@@ -34,7 +34,7 @@
     </Scripts>
   </Button>
 
-  <Button name="AuctionatorScrollListLineTemplate" inherits="AuctionatorScrollListLineNoButtonsTemplate" virtual="true">
+  <Button name="AuctionatorScrollListLineShoppingListTemplate" inherits="AuctionatorScrollListLineNoButtonsTemplate" mixin="AuctionatorScrollListLineShoppingListMixin" virtual="true">
     <Frames>
       <Button parentKey="EditButton" inherits="AuctionatorScrollListLineButtonTemplate">
         <Size>
@@ -79,5 +79,7 @@
         </Scripts>
       </Button>
     </Frames>
+  </Button>
+  <Button name="AuctionatorScrollListLineRecentsTemplate" inherits="AuctionatorScrollListLineNoButtonsTemplate" mixin="AuctionatorScrollListLineRecentsMixin" virtual="true">
   </Button>
 </Ui>

@@ -21,6 +21,20 @@ function AuctionatorShoppingOneItemSearchButtonMixin:ReceiveEvent(eventName, ...
   end
 end
 
+local function SaveRecentSearch(searchText)
+  local prevIndex = tIndexOf(AUCTIONATOR_RECENT_SEARCHES, searchText)
+  if prevIndex ~= nil then
+    table.remove(AUCTIONATOR_RECENT_SEARCHES, prevIndex)
+  end
+
+  table.insert(AUCTIONATOR_RECENT_SEARCHES, 1, searchText)
+end
+
 function AuctionatorShoppingOneItemSearchButtonMixin:OnClick()
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.OneItemSearch, self:GetParent().OneItemSearchBox:GetText())
+  local searchText = self:GetParent().OneItemSearchBox:GetText()
+
+  SaveRecentSearch(searchText)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.NewRecentSearch)
+
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.OneItemSearch, searchText)
 end

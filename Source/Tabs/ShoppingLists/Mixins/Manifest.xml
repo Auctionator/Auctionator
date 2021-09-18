@@ -5,8 +5,12 @@
   <Script file="ListSearchButton.lua"/>
 
   <Script file="ScrollListLine.lua" />
+  <Script file="ScrollListLineShoppingList.lua" />
+  <Script file="ScrollListLineRecents.lua" />
   <Script file="ScrollListLineButton.lua" />
   <Script file="ScrollList.lua" />
+  <Script file="ScrollListShoppingList.lua" />
+  <Script file="ScrollListRecents.lua" />
 
   <Script file="EscapeToClose.lua"/>
 
