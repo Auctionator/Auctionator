@@ -40,7 +40,7 @@
       </Frame>
 
       <!-- Action Buttons -->
-      <Button parentKey="Dock" inherits="UIPanelButtonTemplate" text="|T:26:26:-2:-2|t">
+      <Button parentKey="Dock" inherits="UIPanelButtonTemplate">
         <Size x="32" y="22"/>
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="20" y="-3"/>
@@ -48,9 +48,7 @@
         <Layers>
           <Layer level="ARTWORK">
             <Texture parentKey="Arrow" file="Interface\RAIDFRAME\UI-RAIDFRAME-ARROW">
-              <Size>
-                <AbsDimension x="26" y="26"/>
-              </Size>
+              <Size x="26" y="26"/>
               <Anchors>
                 <Anchor point="CENTER" x="-1" y="-1"/>
               </Anchors>
