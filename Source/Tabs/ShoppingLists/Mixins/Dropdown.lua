@@ -98,19 +98,25 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
     listEntry.notCheckable = true
     listEntry.value = index
 
-    local listName = Auctionator.ShoppingLists.Lists[tonumber(rootEntry.index)].name
+    local list = Auctionator.ShoppingLists.Lists[tonumber(rootEntry.index)]
     listEntry.text = AUCTIONATOR_L_DELETE
     listEntry.func = function(entry)
-      local message = AUCTIONATOR_L_DELETE_LIST_CONFIRM:format(listName)
+      local message = AUCTIONATOR_L_DELETE_LIST_CONFIRM:format(list.name)
       StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = message
-      StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList, nil, nil, listName)
+      StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList, nil, nil, list.name)
       HideDropDownMenu(1)
     end
     UIDropDownMenu_AddButton(listEntry, 2)
 
-    listEntry.text = AUCTIONATOR_L_RENAME
+    if list.isTemporary then
+      listEntry.text = AUCTIONATOR_L_SAVE_AS
+    else
+      listEntry.text = AUCTIONATOR_L_RENAME
+    end
     listEntry.func = function(entry)
-      StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, listName)
+      local message = AUCTIONATOR_L_RENAME_LIST_CONFIRM:format(list.name)
+      StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].text = message
+      StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, list.name)
       HideDropDownMenu(1)
     end
     UIDropDownMenu_AddButton(listEntry, 2)

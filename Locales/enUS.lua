@@ -146,7 +146,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DELETE_LIST_NONE_SELECTED"] = "You must select a list to delete."
   L["DELETE_LIST_CONFIRM"] = "Are you SURE you want to delete '%s'?"
   L["CREATE_LIST_DIALOG"] = "Enter the name of the new shopping list:"
-  L["RENAME_LIST_DIALOG"] = "Enter the new name for the shopping list:"
+  L["RENAME_LIST_CONFIRM"] = "Enter the new name for '%s':"
   L["ADD_TERM_TO_LIST_DIALOG"] = "Enter the search term to add:"
 
   L["RENAME"] = "Rename"

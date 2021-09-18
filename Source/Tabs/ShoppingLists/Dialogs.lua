@@ -100,7 +100,6 @@ local function InitializeRenameDialog()
   end
 
   StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
-    text = AUCTIONATOR_L_RENAME_LIST_DIALOG,
     button1 = ACCEPT,
     button2 = CANCEL,
     hasEditBox = 1,
