@@ -57,15 +57,16 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
   if level == 1 then
     local listEntry
 
+    -- Add entry to create a new shopping list
     listEntry = UIDropDownMenu_CreateInfo()
     listEntry.notCheckable = true
     listEntry.text = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_NEW_SHOPPING_LIST)
     listEntry.func = function(entry)
       StaticPopup_Show(Auctionator.Constants.DialogNames.CreateShoppingList)
     end
-    listEntry.noPopup = true
     UIDropDownMenu_AddButton(listEntry)
 
+    -- Add promiment "Save As" entry for temporary shopping lists
     if self.currentList ~= nil then
       local isTemp = self.currentList.isTemporary
       if isTemp then
@@ -73,13 +74,15 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
         listEntry.notCheckable = true
         listEntry.text = BLUE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_SAVE_THIS_LIST_AS)
         listEntry.func = function(entry)
+          local message = AUCTIONATOR_L_RENAME_LIST_CONFIRM:format(self.currentList.name)
+          StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].text = message
           StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, self.currentList.name)
         end
-        listEntry.noPopup = true
         UIDropDownMenu_AddButton(listEntry)
       end
     end
 
+    -- Add an entry for each shopping list
     for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
       listEntry = UIDropDownMenu_CreateInfo()
       listEntry.text = list.name
@@ -93,7 +96,8 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
 
       UIDropDownMenu_AddButton(listEntry)
     end
-  elseif level == 2 and not rootEntry.noPopup then
+  --Add Rename and Delete submenu entries for the given shopping list
+  elseif level == 2 then
     listEntry = UIDropDownMenu_CreateInfo()
     listEntry.notCheckable = true
     listEntry.value = index
