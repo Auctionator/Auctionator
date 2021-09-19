@@ -10,7 +10,6 @@ managing auctions.
 
 ## Features
 
-
 * Auction prices in your item tooltips so you can quickly see how valuable the
   item is that you just picked up
 * Adds the Shopping tab to search and filter for multiple items at once
