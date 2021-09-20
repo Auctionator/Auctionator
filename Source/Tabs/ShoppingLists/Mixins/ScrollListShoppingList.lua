@@ -70,7 +70,7 @@ function AuctionatorScrollListShoppingListMixin:ReceiveEvent(eventName, eventDat
     self.currentList = eventData
 
     if Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
-      self:StartSearch(self:GetAllSearchTerms(), self.currentList.name)
+      self:StartSearch(self:GetAllSearchTerms())
     end
 
     self:RefreshScrollFrame()
