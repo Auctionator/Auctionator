@@ -3,7 +3,7 @@ function Auctionator.Search.GetEmptyResult(searchTerm, index)
   local cleanSearchParameter = searchTerm:gsub("\"", "")
   return {
     itemKey = {
-      itemID = Auctionator.Constants.EmptyResultItemID,
+      itemID = 1217, -- Valid item ID, "Unknown Reward", but unobtainable
       itemLevel = index, -- Differentiate between different empty results
       itemSuffix = 0,
       battlePetSpeciesID = 0

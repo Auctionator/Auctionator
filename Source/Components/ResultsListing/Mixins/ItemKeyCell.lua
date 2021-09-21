@@ -18,15 +18,11 @@ function AuctionatorItemKeyCellTemplateMixin:Populate(rowData, index)
 end
 
 function AuctionatorItemKeyCellTemplateMixin:OnEnter()
-  if self.rowData.itemKey.itemID ~= Auctionator.Constants.EmptyResultItemID then
-    AuctionHouseUtil.LineOnEnterCallback(self, self.rowData)
-  end
+  AuctionHouseUtil.LineOnEnterCallback(self, self.rowData)
   AuctionatorCellMixin.OnEnter(self)
 end
 
 function AuctionatorItemKeyCellTemplateMixin:OnLeave()
-  if self.rowData.itemKey.itemID ~= Auctionator.Constants.EmptyResultItemID then
-    AuctionHouseUtil.LineOnLeaveCallback(self, self.rowData)
-  end
+  AuctionHouseUtil.LineOnLeaveCallback(self, self.rowData)
   AuctionatorCellMixin.OnLeave(self)
 end
