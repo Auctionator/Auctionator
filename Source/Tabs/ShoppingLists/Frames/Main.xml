@@ -38,7 +38,7 @@
         </Scripts>
       </EditBox>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="Search" mixin="AuctionatorShoppingOneItemSearchButtonMixin" parentKey="OneItemSearchButton">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" mixin="AuctionatorShoppingOneItemSearchButtonMixin" parentKey="OneItemSearchButton">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.OneItemSearchBox" relativePoint="TOPRIGHT"/>
         </Anchors>
