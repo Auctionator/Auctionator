@@ -54,5 +54,6 @@ Auctionator.Constants = {
   ShoppingListViews = {
     Lists = 1,
     Recents = 2,
-  }
+  },
+  EmptyResultItemID = 1217, -- Valid item ID, "Unknown Reward", but unobtainable
 }
