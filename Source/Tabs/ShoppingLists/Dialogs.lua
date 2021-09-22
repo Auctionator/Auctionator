@@ -48,9 +48,9 @@ local function InitializeDeleteDialog()
     Auctionator.ShoppingLists.Delete(listName)
 
     Auctionator.EventBus
-      :RegisterSource(self, "ShoppingLists.CreateDialog")
+      :RegisterSource(self, "ShoppingLists.DeleteDialog")
       :Fire(
-        self, Auctionator.ShoppingLists.Events.ListDeleted
+        self, Auctionator.ShoppingLists.Events.ListDeleted, listName
       )
       :UnregisterSource(self)
   end

@@ -74,7 +74,7 @@ function AuctionatorScrollListShoppingListMixin:ReceiveEvent(eventName, eventDat
     end
 
     self:RefreshScrollFrame()
-  elseif eventName == Auctionator.ShoppingLists.Events.ListDeleted then
+  elseif eventName == Auctionator.ShoppingLists.Events.ListDeleted and eventData == self.currentList.name then
     self.currentList = nil
     self:AbortRunningSearches()
 

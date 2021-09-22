@@ -97,7 +97,8 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
     self.selectedList = eventData
     self.AddItem:Enable()
     self.SortItems:Enable()
-  elseif eventName == ListDeleted then
+  elseif eventName == ListDeleted and self.selectedList ~= nil and eventData == self.selectedList.name then
+    self.selectedList = nil
     self.AddItem:Disable()
     self.ManualSearch:Disable()
     self.SortItems:Disable()
@@ -110,7 +111,9 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
     self.ExportCSV:Disable()
   elseif eventName == DialogClosed then
     self.isDialogOpen = false
-    self.AddItem:Enable()
+    if self.selectedList ~= nil then
+      self.AddItem:Enable()
+    end
     self.Export:Enable()
     self.Import:Enable()
     self.ExportCSV:Enable()
