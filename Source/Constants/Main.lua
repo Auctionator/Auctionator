@@ -54,5 +54,7 @@ Auctionator.Constants = {
   ShoppingListViews = {
     Lists = 1,
     Recents = 2,
-  }
+  },
+
+  RecentsListLimit = 30,
 }

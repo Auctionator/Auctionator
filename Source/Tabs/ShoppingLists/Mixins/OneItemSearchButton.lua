@@ -28,6 +28,10 @@ local function SaveRecentSearch(searchText)
   end
 
   table.insert(AUCTIONATOR_RECENT_SEARCHES, 1, searchText)
+
+  while #AUCTIONATOR_RECENT_SEARCHES > Auctionator.Constants.RecentsListLimit do
+    table.remove(AUCTIONATOR_RECENT_SEARCHES)
+  end
 end
 
 function AuctionatorShoppingOneItemSearchButtonMixin:OnClick()
