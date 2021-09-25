@@ -72,8 +72,8 @@ function AuctionatorShoppingListTabMixin:OnShow()
 end
 
 function AuctionatorShoppingListTabMixin:OnEvent(event, ...)
-  self.addItemDialog:ResetAll()
-  self.addItemDialog:Hide()
+  self.itemDialog:ResetAll()
+  self.itemDialog:Hide()
 end
 
 function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
