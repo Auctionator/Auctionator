@@ -38,6 +38,11 @@ function AuctionatorShoppingItemMixin:OnLoad()
       self.SearchContainer.SearchString:SetFocus()
     end
   })
+
+  Auctionator.EventBus:Register(self, {
+    Auctionator.ShoppingLists.Events.ListSearchStarted,
+    Auctionator.ShoppingLists.Events.ListSearchEnded
+  })
 end
 
 function AuctionatorShoppingItemMixin:Init(title, finishedButtonText)
@@ -150,4 +155,10 @@ function AuctionatorShoppingItemMixin:ResetAll()
   self.CraftedLevelRange:Reset()
 end
 
-
+function AuctionatorShoppingItemMixin:ReceiveEvent(eventName)
+  if eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
+    self.Finished:Disable()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+    self.Finished:Enable()
+  end
+end

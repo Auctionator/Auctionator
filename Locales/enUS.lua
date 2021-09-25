@@ -300,6 +300,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["LIST_ADD_ITEM_HEADER"] = "Add Shopping List Item"
   L["LIST_EDIT_ITEM_HEADER"] = "Edit Shopping List Item"
+  L["LIST_EXTENDED_SEARCH_HEADER"] = "Extended Search Options"
   L["SEARCH_TERM"] = "Search Term"
   L["EXACT_SEARCH"]= "Exact Search"
   L["ITEM_CLASS"] = "Item Class"

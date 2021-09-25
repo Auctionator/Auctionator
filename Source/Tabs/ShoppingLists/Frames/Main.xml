@@ -48,6 +48,27 @@
         </Scripts>
       </Button>
 
+      <Button parentKey="OneItemSearchExtendedButton" inherits="UIPanelButtonTemplate">
+        <Size x="32" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.OneItemSearchButton" relativePoint="TOPRIGHT"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\WorldMap\Gear_64">
+              <TexCoords left="0.5" top="0" right="0" bottom="0.5"/>
+              <Size x="19" y="19"/>
+              <Anchors>
+                <Anchor point="CENTER"/>
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnClick>self:GetParent():ExtendedSearchClicked()</OnClick>
+        </Scripts>
+      </Button>
+
       <!-- Shopping List item scroll frame -->
       <Frame parentKey="ScrollListShoppingList" inherits="ScrollListTemplate" mixin="AuctionatorScrollListShoppingListMixin">
         <Anchors>

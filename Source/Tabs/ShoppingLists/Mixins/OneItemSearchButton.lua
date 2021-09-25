@@ -34,11 +34,13 @@ local function SaveRecentSearch(searchText)
   end
 end
 
-function AuctionatorShoppingOneItemSearchButtonMixin:OnClick()
-  local searchText = self:GetParent().OneItemSearchBox:GetText()
-
+function AuctionatorShoppingOneItemSearchButtonMixin:DoSearch(searchText)
   SaveRecentSearch(searchText)
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.NewRecentSearch)
 
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.OneItemSearch, searchText)
+end
+
+function AuctionatorShoppingOneItemSearchButtonMixin:OnClick()
+  self:DoSearch(self:GetParent().OneItemSearchBox:GetText())
 end

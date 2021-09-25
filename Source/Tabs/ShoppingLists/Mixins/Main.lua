@@ -16,6 +16,7 @@ function AuctionatorShoppingListTabMixin:OnLoad()
   self:SetUpEvents()
   self:SetUpAddItemDialog()
   self:SetUpEditItemDialog()
+  self:SetUpExtendedSearchDialog()
   self:SetUpExportDialog()
   self:SetUpImportDialog()
   self:SetUpExportCSVDialog()
@@ -56,6 +57,16 @@ function AuctionatorShoppingListTabMixin:SetUpEditItemDialog()
 
   self.editItemDialog:SetOnFinishedClicked(function(newItemString)
     self:ReplaceItemInList(newItemString)
+  end)
+end
+
+function AuctionatorShoppingListTabMixin:SetUpExtendedSearchDialog()
+  self.extendedSearchDialog = CreateFrame("Frame", "AuctionatorExtendedSearchFrame", self, "AuctionatorShoppingItemTemplate")
+  self.extendedSearchDialog:Init(AUCTIONATOR_L_LIST_EXTENDED_SEARCH_HEADER, AUCTIONATOR_L_SEARCH)
+  self.extendedSearchDialog:SetPoint("CENTER")
+
+  self.extendedSearchDialog:SetOnFinishedClicked(function(newItemString)
+    self.OneItemSearchButton:DoSearch(newItemString)
   end)
 end
 
@@ -109,6 +120,7 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
     self.Export:Disable()
     self.Import:Disable()
     self.ExportCSV:Disable()
+    self.OneItemSearchExtendedButton:Disable()
   elseif eventName == DialogClosed then
     self.isDialogOpen = false
     if self.selectedList ~= nil then
@@ -117,6 +129,7 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
     self.Export:Enable()
     self.Import:Enable()
     self.ExportCSV:Enable()
+    self.OneItemSearchExtendedButton:Enable()
 
   elseif eventName == ShowHistoricalPrices and not self.isDialogOpen then
     self.itemHistoryDialog:Show()
@@ -160,6 +173,11 @@ end
 function AuctionatorShoppingListTabMixin:EditItemClicked()
   self.editItemDialog:Show()
   self.editItemDialog:SetItemString(self.selectedList.items[self.editingItemIndex])
+end
+
+function AuctionatorShoppingListTabMixin:ExtendedSearchClicked()
+  self.extendedSearchDialog:Show()
+  self.extendedSearchDialog:SetItemString(self.OneItemSearchBox:GetText())
 end
 
 function AuctionatorShoppingListTabMixin:ImportListsClicked()
