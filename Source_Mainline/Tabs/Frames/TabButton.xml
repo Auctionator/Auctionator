@@ -1,0 +1,25 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <!--
+  <KeyValues></KeyValues>
+    displayModeKey: Used to set up AH to determine which frames to show/hide on tab change
+    ahTabIndex: Used to set up AH to switch tabs
+    frameTemplate: Used to instantiate the frame associated with this tab
+    ahTitle: Used to set the AH Frame title when switching to this tab
+
+    <KeyValue key="displayModeKey" value="" type="string" />
+    <KeyValue key="frameTemplate" value="" type="string" />
+    <KeyValue key="ahTabIndex" value="" type="number" />
+    <KeyValue key="ahTitle" value="" type="string" />
+  </KeyValues>
+  -->
+  <Button
+    name="AuctionatorTabButtonTemplate"
+    virtual="true"
+    mixin="AuctionatorTabMixin"
+
+    parentKey="AuctionatorTab"
+    parentArray="Tabs"
+    inherits="AuctionHouseFrameDisplayModeTabTemplate"
+  >
+  </Button>
+</Ui>

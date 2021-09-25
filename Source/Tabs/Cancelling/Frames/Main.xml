@@ -2,7 +2,6 @@
   <Frame
     name="AuctionatorCancellingTabFrameTemplate"
     virtual="true"
-    parent="AuctionHouseFrame"
     parentKey="AuctionatorCancellingFrame"
     mixin="AuctionatorCancellingFrameMixin"
     hidden="true"

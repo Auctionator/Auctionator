@@ -1,15 +1,17 @@
-hooksecurefunc (_G, "BattlePetToolTip_Show",
-  function(speciesID, ...)
-    Auctionator.Tooltip.AddPetTip(speciesID)
-  end
-)
+if BattlePetToolTip_Show ~= nil then
+  hooksecurefunc (_G, "BattlePetToolTip_Show",
+    function(speciesID, ...)
+      Auctionator.Tooltip.AddPetTip(speciesID)
+    end
+  )
+end
 
 -- This is called when mousing over an item in your bags
 hooksecurefunc (GameTooltip, "SetBagItem",
   function(tip, bag, slot)
     local itemLocation = ItemLocation:CreateFromBagAndSlot(bag, slot)
 
-    if itemLocation:IsValid() then
+    if C_Item.DoesItemExist(itemLocation) then
       local itemLink = C_Item.GetItemLink(itemLocation);
       local itemCount = C_Item.GetStackCount(itemLocation)
 
@@ -60,27 +62,43 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
   end
 );
 
--- This is called when mousing over the result item on a recipe page in the tradeskill window
-hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
-  function(tip, recipeResultItemId)
-    local itemLink = C_TradeSkillUI.GetRecipeItemLink(recipeResultItemId)
+if GameTooltip.SetRecipeResultItem and GameTooltip.SetRecipeReagentItem then
+  -- This is called when mousing over the result item on a recipe page in the tradeskill window
+  hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
+    function(tip, recipeResultItemId)
+      local itemLink = C_TradeSkillUI.GetRecipeItemLink(recipeResultItemId)
 
-    local itemCount  = C_TradeSkillUI.GetRecipeNumItemsProduced(recipeResultItemId)
+      local itemCount  = C_TradeSkillUI.GetRecipeNumItemsProduced(recipeResultItemId)
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
-  end
-);
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
+    end
+  );
 
--- This is called when mousing over a reagant item on a recipe page in the tradeskill window
-hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
-  function( tip, reagentId, index )
-    local itemLink = C_TradeSkillUI.GetRecipeReagentItemLink(reagentId, index)
+  -- This is called when mousing over a reagant item on a recipe page in the tradeskill window
+  hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
+    function( tip, reagentId, index )
+      local itemLink = C_TradeSkillUI.GetRecipeReagentItemLink(reagentId, index)
 
-    local itemCount = select(3, C_TradeSkillUI.GetRecipeReagentInfo(reagentId, index))
+      local itemCount = select(3, C_TradeSkillUI.GetRecipeReagentInfo(reagentId, index))
 
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
-  end
-);
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
+    end
+  );
+else
+  hooksecurefunc( GameTooltip, 'SetTradeSkillItem',
+    function(tip, recipeIndex, reagentIndex)
+      local itemLink, itemCount
+      if reagentIndex ~= nil then
+        itemLink = GetTradeSkillReagentItemLink(recipeIndex, reagentIndex)
+        itemCount = select(3, GetTradeSkillReagentInfo(recipeIndex, reagentIndex))
+      else
+        itemLink = GetTradeSkillItemLink(recipeIndex);
+        itemCount  = GetTradeSkillNumMade(recipeIndex);
+      end
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
+    end
+  );
+end
 
 -- This is called when mousing over an item in the loot window
 hooksecurefunc (GameTooltip, "SetLootItem",

@@ -1,4 +1,4 @@
-AuctionatorPriceCellTemplateMixin = CreateFromMixins(AuctionatorCellMixin, TableBuilderCellMixin)
+AuctionatorPriceCellTemplateMixin = CreateFromMixins(AuctionatorCellMixin, AuctionatorRetailImportTableBuilderCellMixin)
 
 function AuctionatorPriceCellTemplateMixin:Init(columnName)
   self.columnName = columnName

@@ -1,8 +1,5 @@
 <Ui>
   <Frame name="AuctionatorSimplePanelTemplate" virtual="true">
-    <KeyValues>
-      <KeyValue key="layoutType" value="SimplePanelTemplate" type="string"/>
-    </KeyValues>
     <Size x="338" y="424"/>
     <Layers>
       <Layer level="BACKGROUND" textureSubLevel="-6">
@@ -15,7 +12,7 @@
       </Layer>
     </Layers>
     <Frames>
-      <Frame parentKey="NineSlice" inherits="NineSlicePanelTemplate"/>
+    <Frame parentKey="Border" inherits="AuctionatorPanelBorderTemplate"/>
     </Frames>
   </Frame>
 </Ui>

@@ -55,7 +55,7 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
       index = index + 1
 
       local location = ItemLocation:CreateFromBagAndSlot(bagId, slot)
-      if location:IsValid() then
+      if C_Item.DoesItemExist(location) then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
         local tempId = self:UniqueKey(itemInfo)
 

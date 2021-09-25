@@ -76,7 +76,7 @@
       </Button>
 
       <!-- Shopping List item scroll frame -->
-      <Frame parentKey="ScrollListShoppingList" inherits="ScrollListTemplate" mixin="AuctionatorScrollListShoppingListMixin">
+      <Frame parentKey="ScrollListShoppingList" inherits="AuctionatorRetailImportScrollListTemplate" mixin="AuctionatorScrollListShoppingListMixin">
         <Anchors>
           <Anchor point="TOPLEFT" y="-106" />
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" y="35" />
@@ -115,7 +115,7 @@
         </Scripts>
         <Layers>
           <Layer level="BACKGROUND">
-            <Texture atlas="auctionhouse-background-sell-right">
+            <Texture inherits="Auctionator_AuctionHouseBackgroundSellRight">
               <Anchors>
                 <Anchor point="TOPLEFT"/>
                 <Anchor point="BOTTOMRIGHT" y="2"/>
@@ -125,7 +125,7 @@
         </Layers>
       </Frame>
 
-      <Frame parentKey="ScrollListRecents" inherits="ScrollListTemplate" mixin="AuctionatorScrollListRecentsMixin">
+      <Frame parentKey="ScrollListRecents" inherits="AuctionatorRetailImportScrollListTemplate" mixin="AuctionatorScrollListRecentsMixin">
         <Anchors>
           <Anchor point="TOPLEFT" y="-106" />
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" />
@@ -151,7 +151,7 @@
         </Scripts>
         <Layers>
           <Layer level="BACKGROUND">
-            <Texture atlas="auctionhouse-background-sell-right">
+            <Texture parentKey="Bg" inherits="Auctionator_AuctionHouseBackgroundSellRight">
               <Anchors>
                 <Anchor point="TOPLEFT"/>
                 <Anchor point="BOTTOMRIGHT" y="2"/>

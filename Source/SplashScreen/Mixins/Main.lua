@@ -287,6 +287,8 @@ function AuctionatorSplashScreenMixin:OnLoad()
 
   self:ReformatCheckbox()
   self:CreateMessagesText()
+
+  self:ShowIfNeeded()
 end
 
 function AuctionatorSplashScreenMixin:OnShow()
@@ -303,6 +305,22 @@ function AuctionatorSplashScreenMixin:ReformatCheckbox()
   end)
 
   self.HideCheckbox.CheckBox.Label:SetPoint("TOPLEFT", self.HideCheckbox.CheckBox, "TOPRIGHT", 3, -7 )
+end
+
+function AuctionatorSplashScreenMixin:ShowIfNeeded()
+  local lastViewedSplashScreenVersion = Auctionator.Config.Get(Auctionator.Config.Options.SPLASH_SCREEN_VERSION)
+  local mostRecentSplashScreenVersion = self:GetMostRecentVersion()
+
+  if lastViewedSplashScreenVersion ~= mostRecentSplashScreenVersion then
+    Auctionator.Config.Set(
+      Auctionator.Config.Options.HIDE_SPLASH_SCREEN,
+      false
+    )
+  end
+
+  if not Auctionator.Config.Get(Auctionator.Config.Options.HIDE_SPLASH_SCREEN) then
+    self:Show()
+  end
 end
 
 function AuctionatorSplashScreenMixin:GetMostRecentVersion()

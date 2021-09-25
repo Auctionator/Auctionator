@@ -1,0 +1,17 @@
+<!-- Source directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="TableBuilder.lua" />
+  <Script file="TemplatedList.lua" />
+  <Script file="ScrollList.lua" />
+  <Script file="MoneyFrame.lua" />
+  <Script file="MoneyInputFrame.lua" />
+  <Script file="SecureUIPanelTemplates.lua" />
+
+  <Include file="TemplatedList.xml" />
+  <Include file="SecureUIPanelTemplates.xml" />
+  <Include file="Fonts.xml" />
+  <Include file="ScrollList.xml" />
+  <Include file="MoneyFrame.xml" />
+  <Include file="MoneyInputFrame.xml" />
+  <Include file="SharedUIPanelTemplates.xml" />
+</Ui>

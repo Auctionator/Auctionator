@@ -18,7 +18,8 @@ local function ValidateState(callerID, searchTerms)
   end
 
   -- Validate state
-  if not AuctionHouseFrame or not AuctionHouseFrame:IsShown() then
+  if (not AuctionHouseFrame or not AuctionHouseFrame:IsShown()) and
+     (not AuctionFrame      or not AuctionFrame:IsShown()) then
     Auctionator.API.ComposeError(callerID, "Auction house is not open")
   end
 

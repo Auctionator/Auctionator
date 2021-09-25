@@ -1,0 +1,126 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorConfigNotLIFOFrameTemplate" mixin="AuctionatorConfigNotLIFOFrameMixin" parent="InterfaceOptionsFrame" virtual="true">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
+    </Scripts>
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+        <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_SELLING_NOT_LIFO_HEADER" type="global"/>
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_NOT_LIFO_TEXT" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="ItemDurationGroup">
+        <KeyValues>
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DEFAULT_AUCTION_DURATION" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-10"/>
+        </Anchors>
+        <Frames>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_12" type="global"/>
+              <KeyValue key="value" value="12" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_24" type="global"/>
+              <KeyValue key="value" value="24" type="number"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_AUCTION_DURATION_48" type="global"/>
+              <KeyValue key="value" value="48" type="number"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="ItemSalesPreference">
+        <KeyValues>
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_SALES_PREFERENCE" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemDurationGroup" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+        <Frames>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <!--
+              The values here should be populated by Auctionator.Config.SalesTypes but I don't know
+              how to do that programmatically?
+            -->
+            <KeyValues>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_PERCENTAGE" type="global"/>
+              <KeyValue key="value" value="percentage" type="string"/>
+            </KeyValues>
+          </Frame>
+          <Frame inherits="AuctionatorConfigurationRadioButton">
+            <KeyValues>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_SET_VALUE" type="global"/>
+              <KeyValue key="value" value="static" type="string"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="ItemUndercutPercentage" hidden="true">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_PERCENTAGE_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_PERCENTAGE_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_PERCENTAGE_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemSalesPreference" relativePoint="BOTTOMLEFT" y="-7" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationMoneyInput" parentKey="ItemUndercutValue" hidden="true">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_SET_VALUE_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_UNDERCUT_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_UNDERCUT_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemSalesPreference" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GearPriceMultiplierHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="AUCTIONATOR_L_GEAR_VENDOR_PRICE_MULTIPLIER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ItemUndercutValue" relativePoint="BOTTOMLEFT" y="-35"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="GearPriceMultiplier">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_SUFFIX" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_VENDOR_PRICE_MULTIPLIER_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.GearPriceMultiplierHeading" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="GearUseItemLevel">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.GearPriceMultiplier" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

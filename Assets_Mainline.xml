@@ -1,0 +1,4 @@
+<Ui>
+  <Texture name="Auctionator_AuctionHouseBackgroundIndex" atlas="auctionhouse-background-index" virtual="true" />
+  <Texture name="Auctionator_AuctionHouseBackgroundSellRight" atlas="auctionhouse-background-sell-right" virtual="true" />
+</Ui>

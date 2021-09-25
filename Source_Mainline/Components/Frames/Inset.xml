@@ -1,0 +1,58 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorInsetTemplate" useParentLevel="true" virtual="true">
+		<KeyValues>
+			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
+		</KeyValues>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="Bg" inherits="Auctionator_AuctionHouseBackgroundIndex">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+		<Frames>
+			<Frame parentKey="NineSlice" useParentLevel="true" inherits="NineSlicePanelTemplate"/>
+		</Frames>
+  </Frame>
+
+  <Frame name="AuctionatorInsetDarkTemplate" useParentLevel="true" virtual="true">
+		<KeyValues>
+			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
+		</KeyValues>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="Bg" inherits="Auctionator_AuctionHouseBackgroundSellRight">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+		<Frames>
+			<Frame parentKey="NineSlice" useParentLevel="true" inherits="NineSlicePanelTemplate"/>
+		</Frames>
+  </Frame>
+
+  <Frame name="AuctionatorInsetLeaveScrollSpaceTemplate" useParentLevel="true" virtual="true">
+		<KeyValues>
+			<KeyValue key="layoutType" value="InsetFrameTemplate" type="string"/>
+		</KeyValues>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="Bg" inherits="Auctionator_AuctionHouseBackgroundIndex">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-28"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+		<Frames>
+			<Frame parentKey="NineSlice" useParentLevel="true" inherits="NineSlicePanelTemplate"/>
+		</Frames>
+  </Frame>
+</Ui>

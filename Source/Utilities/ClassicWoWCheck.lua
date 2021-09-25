@@ -1,4 +1,3 @@
-
 local function IsClassicWow()
   local gameVersion = GetBuildInfo()
 

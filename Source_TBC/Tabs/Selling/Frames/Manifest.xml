@@ -1,0 +1,8 @@
+<!-- Tabs/Sell/Frames directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="BagClassListing.xml" />
+
+  <Include file="SaleItem.xml"/>
+
+  <Include file="Main.xml"/>
+</Ui>

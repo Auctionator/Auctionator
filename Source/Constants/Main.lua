@@ -31,7 +31,9 @@ Auctionator.Constants = {
     Enum.ItemClass.Recipe,
     Enum.ItemClass.Battlepet,
     Enum.ItemClass.Questitem,
-    Enum.ItemClass.Miscellaneous
+    Enum.ItemClass.Miscellaneous,
+    Enum.ItemClass.Projectile,
+    Enum.ItemClass.Quiver,
   },
   INVENTORY_TYPE_IDS = {
     Enum.InventoryType.IndexHeadType,
@@ -50,7 +52,6 @@ Auctionator.Constants = {
   NO_LIST = "",
   ITEM_LEVEL_THRESHOLD = 168,
 
-  SHOPPING_LIST_SORTS = {{sortOrder = Enum.AuctionHouseSortOrder.Name, reverseSort = false}, {sortOrder = Enum.AuctionHouseSortOrder.Price, reverseSort = true}},
   ShoppingListViews = {
     Lists = 1,
     Recents = 2,

@@ -22,6 +22,13 @@ function Auctionator.AH.Queue:Enqueue(func)
   end
 end
 
+function Auctionator.AH.Queue:Remove(func)
+  local index = tIndexOf(self.queue, func)
+  if index ~= nil then
+    table.remove(self.queue, index)
+  end
+end
+
 function Auctionator.AH.Queue:ReceiveEvent(event)
   Dequeue(self)
 end

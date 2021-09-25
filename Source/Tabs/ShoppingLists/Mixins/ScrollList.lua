@@ -1,4 +1,4 @@
-AuctionatorShoppingListTableBuilderMixin = CreateFromMixins(TableBuilderMixin)
+AuctionatorShoppingListTableBuilderMixin = CreateFromMixins(AuctionatorRetailImportTableBuilderMixin)
 
 AuctionatorScrollListMixin = {}
 
@@ -40,7 +40,7 @@ function AuctionatorScrollListMixin:Init()
 
   HybridScrollFrame_SetDoNotHideScrollBar(self.ScrollFrame, true);
 
-  self.tableBuilder = CreateTableBuilder(
+  self.tableBuilder = AuctionatorRetailImportCreateTableBuilder(
     HybridScrollFrame_GetButtons(self.ScrollFrame),
     AuctionatorShoppingListTableBuilderMixin
   )

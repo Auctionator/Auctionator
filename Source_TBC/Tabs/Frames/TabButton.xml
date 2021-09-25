@@ -1,0 +1,10 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button
+    name="AuctionatorTabButtonTemplate"
+    virtual="true"
+    mixin="AuctionatorTabMixin"
+
+    inherits="AuctionTabTemplate"
+  >
+  </Button>
+</Ui>

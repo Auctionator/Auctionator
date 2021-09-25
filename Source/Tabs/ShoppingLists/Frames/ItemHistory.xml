@@ -18,7 +18,7 @@
     </Scripts>
 
     <Frames>
-      <Frame parentKey="DataProvider" mixin="AuctionatorItemHistoryProviderMixin">
+      <Frame parentKey="DataProvider" mixin="AuctionatorShoppingHistoricalPriceProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnUpdate method="OnUpdate" />

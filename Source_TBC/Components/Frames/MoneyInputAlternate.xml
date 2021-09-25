@@ -1,0 +1,43 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <!-- Template for money input with label -->
+  <Frame name="AuctionatorConfigurationMoneyInputAlternate" mixin="AuctionatorConfigMoneyInputMixin" inherits="AuctionatorConfigurationTooltip" virtual="true">
+    <!--
+      <KeyValues>
+        <KeyValue key="value" value="0" type="number"/>
+        <KeyValue key="labelText" value="" type="string"/>
+        <KeyValue key="tooltipTitleText" value="" type="string"/>
+        <KeyValue key="tooltipText" value="" type="string"/>
+      </KeyValues>
+    -->
+    <Size y="7"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnFocusGained method="OnFocusGained"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+    </Anchors>
+    <Frames>
+      <Frame inherits="AuctionatorRetailImportLargeMoneyInputFrameTemplate" parentKey="MoneyInput">
+        <Size x="200" y="20"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="120"/>
+        </Anchors>
+        <Scripts>
+          <OnEnter>self:GetParent():OnEnter()</OnEnter>
+          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+        </Scripts>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="Label">
+          <Anchors>
+            <Anchor point="RIGHT" relativePoint="LEFT" relativeKey="$parent.MoneyInput" x="-10" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

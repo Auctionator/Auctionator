@@ -2,7 +2,7 @@
   <Frame
     name="AuctionatorStringColumnHeaderTemplate"
     mixin="AuctionatorStringColumnHeaderTemplateMixin"
-    inherits="ColumnDisplayButtonShortTemplate"
+    inherits="AuctionatorRetailImportColumnDisplayButtonShortTemplate"
     parentKey="header" enableMouse="true" virtual="true"
   >
     <Size y="19"/>

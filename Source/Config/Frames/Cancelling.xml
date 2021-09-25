@@ -1,8 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="AuctionatorConfigCancellingFrame"
+    name="AuctionatorConfigCancellingFrameTemplate"
     mixin="AuctionatorConfigCancellingFrameMixin"
-    parent="InterfaceOptionsFrame">
+    parent="InterfaceOptionsFrame"
+    virtual="true">
 
     <Scripts>
       <OnLoad method="OnLoad"/>

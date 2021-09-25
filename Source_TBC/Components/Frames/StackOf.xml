@@ -1,0 +1,93 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button name="AuctionatorStackOfInputNumStacksTemplate" virtual="true">
+    <Size x="50" y="15"/>
+    <NormalFont style="GameFontNormalSmall"/>
+    <HighlightFont style="GameFontHighlightSmall"/>
+    <HighlightTexture inherits="UIPanelButtonHighlightTexture">
+      <Anchors>
+        <Anchor point="TOPLEFT" relativeKey="$parent" x="-10" y="5"/>
+        <Anchor point="BOTTOMRIGHT" relativeKey="$parent" x="10" y="-5"/>
+      </Anchors>
+    </HighlightTexture>
+  </Button>
+  <!-- Template for a input for stacks and stack sizes  -->
+  <Frame name="AuctionatorStackOfInputTemplate" mixin="AuctionatorStackOfInputMixin" virtual="true">
+    <!--
+      <KeyValues>
+        <KeyValue key="tooltipTitleText" value="" type="string"/>
+        <KeyValue key="tooltipText" value="" type="string"/>
+      </KeyValues>
+    -->
+    <Scripts>
+      <OnLoad method="OnLoad" />
+      <OnEnter method="OnEnter" />
+      <OnLeave method="OnLeave" />
+    </Scripts>
+    <Size y="40" />
+    <Anchors>
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT" />
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+    </Anchors>
+    <Frames>
+      <EditBox autoFocus="false" inherits="AuctionatorRetailImportLargeInputBoxTemplate" numeric="true" parentKey="NumStacks" letters="10">
+        <Size x="70" y="20" />
+        <Anchors>
+          <Anchor point="TOPLEFT" />
+        </Anchors>
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
+        <Scripts>
+          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+          <OnEnterPressed>Auctionator.Components.ReportEnterPressed()</OnEnterPressed>
+          <OnEnter>self:GetParent():OnEnter()</OnEnter>
+          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+          <OnMouseWheel>self:SetNumber(math.max(0, self:GetNumber() + delta))</OnMouseWheel>
+        </Scripts>
+      </EditBox>
+      <Button parentKey="MaxNumStacks" inherits="AuctionatorStackOfInputNumStacksTemplate" text="AUCTIONATOR_L_MAX_COLON_X">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.NumStacks" x="10" y="-4"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():MaxNumStacksClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="Label" text="AUCTIONATOR_L_STACK_OF">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.NumStacks" x="10" y="-3"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <EditBox autoFocus="false" inherits="AuctionatorRetailImportLargeInputBoxTemplate" numeric="true" parentKey="StackSize" letters="10">
+        <Size x="70" y="20" />
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.Label" x="10" y="3" />
+        </Anchors>
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
+        <Scripts>
+          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+          <OnEnterPressed>Auctionator.Components.ReportEnterPressed()</OnEnterPressed>
+          <OnEnter>self:GetParent():OnEnter()</OnEnter>
+          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+          <OnMouseWheel>self:SetNumber(math.max(0, self:GetNumber() + delta))</OnMouseWheel>
+        </Scripts>
+      </EditBox>
+      <Button parentKey="MaxStackSize" inherits="AuctionatorStackOfInputNumStacksTemplate" text="AUCTIONATOR_L_MAX_COLON_X">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.StackSize" x="10" y="-4"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():MaxStackSizeClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

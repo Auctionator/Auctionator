@@ -1,0 +1,5 @@
+<Ui>
+  <Button name="AuctionatorRetailImportTemplatedListElementTemplate" inherits="TemplatedListElementTemplate" virtual="true" />
+
+  <Frame name="AuctionatorRetailImportTemplatedListTemplate" inherits="TemplatedListTemplate" virtual="true" />
+</Ui>

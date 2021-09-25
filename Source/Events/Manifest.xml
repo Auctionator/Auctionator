@@ -3,6 +3,4 @@
   <Script file="Handler.lua"/>
 
   <Script file="VariablesLoaded.lua"/>
-
-  <Script file="OnAuctionHouseShow.lua" />
 </Ui>
