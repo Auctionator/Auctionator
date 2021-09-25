@@ -14,9 +14,7 @@ function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.ShoppingLists.InitializeDialogs()
 
   self:SetUpEvents()
-  self:SetUpAddItemDialog()
-  self:SetUpEditItemDialog()
-  self:SetUpExtendedSearchDialog()
+  self:SetUpItemDialog()
   self:SetUpExportDialog()
   self:SetUpImportDialog()
   self:SetUpExportCSVDialog()
@@ -40,34 +38,9 @@ function AuctionatorShoppingListTabMixin:SetUpEvents()
   Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices })
 end
 
-function AuctionatorShoppingListTabMixin:SetUpAddItemDialog()
-  self.addItemDialog = CreateFrame("Frame", "AuctionatorAddItemFrame", self, "AuctionatorShoppingItemTemplate")
-  self.addItemDialog:Init(AUCTIONATOR_L_LIST_ADD_ITEM_HEADER, AUCTIONATOR_L_ADD_ITEM)
-  self.addItemDialog:SetPoint("CENTER")
-
-  self.addItemDialog:SetOnFinishedClicked(function(newItemString)
-    self:AddItemToList(newItemString)
-  end)
-end
-
-function AuctionatorShoppingListTabMixin:SetUpEditItemDialog()
-  self.editItemDialog = CreateFrame("Frame", "AuctionatorEditItemFrame", self, "AuctionatorShoppingItemTemplate")
-  self.editItemDialog:Init(AUCTIONATOR_L_LIST_EDIT_ITEM_HEADER, AUCTIONATOR_L_EDIT_ITEM)
-  self.editItemDialog:SetPoint("CENTER")
-
-  self.editItemDialog:SetOnFinishedClicked(function(newItemString)
-    self:ReplaceItemInList(newItemString)
-  end)
-end
-
-function AuctionatorShoppingListTabMixin:SetUpExtendedSearchDialog()
-  self.extendedSearchDialog = CreateFrame("Frame", "AuctionatorExtendedSearchFrame", self, "AuctionatorShoppingItemTemplate")
-  self.extendedSearchDialog:Init(AUCTIONATOR_L_LIST_EXTENDED_SEARCH_HEADER, AUCTIONATOR_L_SEARCH)
-  self.extendedSearchDialog:SetPoint("CENTER")
-
-  self.extendedSearchDialog:SetOnFinishedClicked(function(newItemString)
-    self.OneItemSearchButton:DoSearch(newItemString)
-  end)
+function AuctionatorShoppingListTabMixin:SetUpItemDialog()
+  self.itemDialog = CreateFrame("Frame", "AuctionatorShoppingItemFrame", self, "AuctionatorShoppingItemTemplate")
+  self.itemDialog:SetPoint("CENTER")
 end
 
 function AuctionatorShoppingListTabMixin:SetUpExportDialog()
@@ -167,17 +140,32 @@ function AuctionatorShoppingListTabMixin:ReplaceItemInList(newItemString)
 end
 
 function AuctionatorShoppingListTabMixin:AddItemClicked()
-  self.addItemDialog:Show()
+  self.itemDialog:Init(AUCTIONATOR_L_LIST_ADD_ITEM_HEADER, AUCTIONATOR_L_ADD_ITEM)
+  self.itemDialog:SetOnFinishedClicked(function(newItemString)
+    self:AddItemToList(newItemString)
+  end)
+
+  self.itemDialog:Show()
 end
 
 function AuctionatorShoppingListTabMixin:EditItemClicked()
-  self.editItemDialog:Show()
-  self.editItemDialog:SetItemString(self.selectedList.items[self.editingItemIndex])
+  self.itemDialog:Init(AUCTIONATOR_L_LIST_EDIT_ITEM_HEADER, AUCTIONATOR_L_EDIT_ITEM)
+  self.itemDialog:SetOnFinishedClicked(function(newItemString)
+    self:ReplaceItemInList(newItemString)
+  end)
+
+  self.itemDialog:Show()
+  self.itemDialog:SetItemString(self.selectedList.items[self.editingItemIndex])
 end
 
 function AuctionatorShoppingListTabMixin:ExtendedSearchClicked()
-  self.extendedSearchDialog:Show()
-  self.extendedSearchDialog:SetItemString(self.OneItemSearchBox:GetText())
+  self.itemDialog:Init(AUCTIONATOR_L_LIST_EXTENDED_SEARCH_HEADER, AUCTIONATOR_L_SEARCH)
+  self.itemDialog:SetOnFinishedClicked(function(newItemString)
+    self.OneItemSearchButton:DoSearch(newItemString)
+  end)
+
+  self.itemDialog:Show()
+  self.itemDialog:SetItemString(self.OneItemSearchBox:GetText())
 end
 
 function AuctionatorShoppingListTabMixin:ImportListsClicked()
