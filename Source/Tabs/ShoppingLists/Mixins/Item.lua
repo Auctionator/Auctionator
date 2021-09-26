@@ -84,7 +84,7 @@ function AuctionatorShoppingItemMixin:OnFinishedClicked()
   if self:HasItemInfo() then
     self.onFinishedClicked(self:GetItemString())
   else
-    Auctionator.Utilities.Message("No item info was specified.")
+    Auctionator.Utilities.Message(AUCTIONATOR_L_NO_ITEM_INFO_SPECIFIED)
   end
 end
 
