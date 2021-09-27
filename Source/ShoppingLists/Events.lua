@@ -15,6 +15,8 @@ Auctionator.ShoppingLists.Events = {
   OneItemSearch = "AUCTIONATOR_ONE_ITEM_SEARCH",
   NewRecentSearch = "AUCTIONATOR_NEW_RECENT_SEARCH",
 
+  SearchForTerms = "AUCTIONATOR_SEARCH_FOR_TERMS",
+
   ListSearchStarted = "AUCTIONATOR_LIST_SEARCH_STARTED",
   ListSearchIncrementalUpdate = "AUCTIONATOR_LIST_SEARCH_INCREMENTAL_UPDATE",
   ListSearchEnded = "AUCTIONATOR_LIST_SEARCH_ENDED",

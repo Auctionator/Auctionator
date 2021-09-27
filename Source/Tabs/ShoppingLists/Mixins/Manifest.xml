@@ -24,5 +24,7 @@
   <Script file="OneItemSearchButton.lua"/>
   <Script file="RecentsContainer.lua"/>
 
+  <Script file="SearchManager.lua"/>
+
   <Script file="Main.lua"/>
 </Ui>

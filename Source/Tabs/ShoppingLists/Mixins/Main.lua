@@ -7,6 +7,9 @@ local EditListItem = Auctionator.ShoppingLists.Events.EditListItem
 local DialogOpened = Auctionator.ShoppingLists.Events.DialogOpened
 local DialogClosed = Auctionator.ShoppingLists.Events.DialogClosed
 local ShowHistoricalPrices = Auctionator.ShoppingLists.Events.ShowHistoricalPrices
+local ListItemAdded = Auctionator.ShoppingLists.Events.ListItemAdded
+local ListItemReplaced = Auctionator.ShoppingLists.Events.ListItemReplaced
+local ListOrderChanged = Auctionator.ShoppingLists.Events.ListOrderChanged
 
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
@@ -187,5 +190,5 @@ function AuctionatorShoppingListTabMixin:SortItemsClicked()
   table.sort(self.selectedList.items, function(a, b)
     return a:lower():gsub("\"", "") < b:lower():gsub("\"", "")
   end)
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemReplaced, self.selectedList)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListOrderChanged, self.selectedList)
 end

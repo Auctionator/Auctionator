@@ -2,16 +2,6 @@ AuctionatorScrollListRecentsMixin = CreateFromMixins(AuctionatorScrollListMixin)
 
 function AuctionatorScrollListRecentsMixin:OnLoad()
   self:SetLineTemplate("AuctionatorScrollListLineRecentsTemplate")
-  self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate")
-  self.searchProvider:InitSearch(
-    function(results)
-      self.LoadingSpinner:Hide()
-      Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchEnded, results)
-    end,
-    function(current, total, partialResults)
-      Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, partialResults)
-    end
-  )
 
   self:SetUpEvents()
 end
@@ -21,13 +11,11 @@ function AuctionatorScrollListRecentsMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Recents Scroll Frame")
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.ShoppingLists.Events.OneItemSearch,
+    Auctionator.ShoppingLists.Events.ListSearchStarted,
+    Auctionator.ShoppingLists.Events.ListSearchEnded,
     Auctionator.ShoppingLists.Events.NewRecentSearch,
+    Auctionator.ShoppingLists.Events.OneItemSearch,
   })
-end
-
-function AuctionatorScrollListRecentsMixin:OnHide()
-  self.searchProvider:AbortSearch()
 end
 
 function AuctionatorScrollListRecentsMixin:ReceiveEvent(eventName, eventData)
@@ -35,20 +23,20 @@ function AuctionatorScrollListRecentsMixin:ReceiveEvent(eventName, eventData)
     self:StartSearch({ eventData }, true)
   elseif eventName == Auctionator.ShoppingLists.Events.NewRecentSearch then
     self:RefreshScrollFrame()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
+    self.SpinnerAnim:Play()
+    self.LoadingSpinner:Show()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+    self.LoadingSpinner:Hide()
   end
 end
 
 function AuctionatorScrollListRecentsMixin:StartSearch(searchTerms)
-  self.searchProvider:AbortSearch()
-
-  self.SpinnerAnim:Play()
-  self.LoadingSpinner:Show()
-
   Auctionator.EventBus:Fire(
     self,
-    Auctionator.ShoppingLists.Events.ListSearchStarted
+    Auctionator.ShoppingLists.Events.SearchForTerms,
+    searchTerms
   )
-  self.searchProvider:Search(searchTerms)
 end
 
 function AuctionatorScrollListRecentsMixin:GetNumEntries()

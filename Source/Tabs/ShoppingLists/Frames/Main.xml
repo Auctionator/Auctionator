@@ -19,6 +19,12 @@
     </Anchors>
 
     <Frames>
+      <Frame parentKey="SearchManager" mixin="AuctionatorShoppingListSearchManagerMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnHide method="OnHide" />
+        </Scripts>
+      </Frame>
       <Frame parentKey="DataProvider" mixin="AuctionatorShoppingListDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
@@ -106,7 +112,6 @@
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
-          <OnHide method="OnHide"/>
         </Scripts>
         <Layers>
           <Layer level="BACKGROUND">
@@ -143,7 +148,6 @@
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
-          <OnHide method="OnHide"/>
         </Scripts>
         <Layers>
           <Layer level="BACKGROUND">
