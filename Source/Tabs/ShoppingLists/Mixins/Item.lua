@@ -79,6 +79,10 @@ function AuctionatorShoppingItemMixin:SetOnFinishedClicked(callback)
 end
 
 function AuctionatorShoppingItemMixin:OnFinishedClicked()
+  if not self.Finished:IsEnabled() then
+    return
+  end
+
   self:Hide()
 
   if self:HasItemInfo() then
