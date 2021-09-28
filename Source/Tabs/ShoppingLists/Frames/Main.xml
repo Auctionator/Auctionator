@@ -46,7 +46,7 @@
 
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" mixin="AuctionatorShoppingOneItemSearchButtonMixin" parentKey="OneItemSearchButton">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.OneItemSearchBox" relativePoint="TOPRIGHT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.OneItemSearchBox" relativePoint="TOPRIGHT" y="1"/>
         </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
