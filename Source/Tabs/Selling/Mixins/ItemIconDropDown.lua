@@ -120,6 +120,8 @@ function AuctionatorItemIconDropDownMixin:Initialize()
     ToggleHidden(itemKey)
   end
 
+  UIDropDownMenu_AddButton(hideInfo)
+
   local unhideAllAllInfo = UIDropDownMenu_CreateInfo()
   unhideAllAllInfo.notCheckable = 1
   unhideAllAllInfo.text = AUCTIONATOR_L_UNHIDE_ALL
@@ -128,6 +130,8 @@ function AuctionatorItemIconDropDownMixin:Initialize()
   unhideAllAllInfo.func = function()
     UnhideAllItemKeys()
   end
+
+  UIDropDownMenu_AddButton(unhideAllAllInfo)
 
   local favouriteItemInfo = UIDropDownMenu_CreateInfo()
   favouriteItemInfo.notCheckable = 1
@@ -142,8 +146,6 @@ function AuctionatorItemIconDropDownMixin:Initialize()
     ToggleFavouriteItem(self.data)
   end
 
-  UIDropDownMenu_AddButton(hideInfo)
-  UIDropDownMenu_AddButton(unhideAllAllInfo)
   UIDropDownMenu_AddButton(favouriteItemInfo)
 end
 
