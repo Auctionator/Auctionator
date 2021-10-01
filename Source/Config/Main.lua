@@ -108,8 +108,8 @@ local defaults = {
   [Auctionator.Config.Options.SELLING_FAVOURITE_KEYS] = {},
   [Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT] = false,
   [Auctionator.Config.Options.SELLING_MISSING_FAVOURITES] = true,
-  [Auctionator.Config.Options.SELLING_POST_SHORTCUT] = "",
-  [Auctionator.Config.Options.SELLING_SKIP_SHORTCUT] = "",
+  [Auctionator.Config.Options.SELLING_POST_SHORTCUT] = "SPACE",
+  [Auctionator.Config.Options.SELLING_SKIP_SHORTCUT] = "SHIFT-SPACE",
   [Auctionator.Config.Options.SHOW_SELLING_BID_PRICE] = false,
 
   [Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48,
@@ -147,7 +147,7 @@ local defaults = {
   [Auctionator.Config.Options.HIDE_SPLASH_SCREEN] = false,
 
   [Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true,
-  [Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT] = "",
+  [Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT] = "SPACE",
 
   [Auctionator.Config.Options.DEFAULT_TAB] = 0,
   [Auctionator.Config.Options.SMALL_TABS] = false,
