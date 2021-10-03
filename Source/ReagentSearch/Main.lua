@@ -62,7 +62,7 @@ function Auctionator.ReagentSearch.GetAHProfit()
   end
   local toCraft = Auctionator.ReagentSearch.GetSkillReagentsTotal()
 
-  return math.max(0, math.floor(currentAH * 0.95 - toCraft))
+  return math.max(0, math.floor(math.floor(currentAH * 0.95 - toCraft) / 100) * 100)
 end
 
 -- Add a button to the tradeskill frame to search the AH for the reagents.
