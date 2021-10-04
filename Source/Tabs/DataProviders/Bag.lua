@@ -38,9 +38,7 @@ function AuctionatorBagDataProviderMixin:OnHide()
   Auctionator.EventBus:Unregister(self, BAG_AUCTIONATOR_EVENTS)
 end
 
-local function IsIgnoredItemKey(location)
-  local keyString = Auctionator.Utilities.ItemKeyString(C_AuctionHouse.GetItemKeyFromItem(location))
-
+local function IsIgnoredItemKey(keyString)
   return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), keyString) ~= nil
 end
 
@@ -57,11 +55,11 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
       index = index + 1
 
       local location = ItemLocation:CreateFromBagAndSlot(bagId, slot)
-      if location:IsValid() and not IsIgnoredItemKey(location) then
+      if location:IsValid() then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+        local tempId = self:UniqueKey(itemInfo)
 
-        if itemInfo.quality ~= Enum.ItemQuality.Poor then
-          local tempId = self:UniqueKey(itemInfo)
+        if not IsIgnoredItemKey(tempId) and itemInfo.quality ~= Enum.ItemQuality.Poor then
 
           if itemMap[tempId] == nil then
             table.insert(orderedKeys, tempId)

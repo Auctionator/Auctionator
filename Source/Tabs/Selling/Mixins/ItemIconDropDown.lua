@@ -1,39 +1,39 @@
 AuctionatorItemIconDropDownMixin = {}
 
-local function HideItemKey(itemKey)
+local function HideItem(info)
   table.insert(
     Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS),
-    Auctionator.Utilities.ItemKeyString(itemKey)
+    Auctionator.Selling.UniqueBagKey(info)
   )
 
   Auctionator.EventBus
-    :RegisterSource(HideItemKey, "HideItemKey")
-    :Fire(HideItemKey, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(HideItemKey)
+    :RegisterSource(HideItem, "HideItem")
+    :Fire(HideItem, Auctionator.Selling.Events.BagRefresh)
+    :UnregisterSource(HideItem)
 end
 
-local function UnhideItemKey(itemKey)
+local function UnhideItem(info)
   local ignored = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS)
-  local index = tIndexOf(ignored, Auctionator.Utilities.ItemKeyString(itemKey))
+  local index = tIndexOf(ignored, Auctionator.Selling.UniqueBagKey(info))
 
   if index ~= nil then
     table.remove(ignored, index)
   end
 
   Auctionator.EventBus
-    :RegisterSource(UnhideItemKey, "UnhideItemKey")
-    :Fire(UnhideItemKey, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(UnhideItemKey)
+    :RegisterSource(UnhideItem, "UnhideItem")
+    :Fire(UnhideItem, Auctionator.Selling.Events.BagRefresh)
+    :UnregisterSource(UnhideItem)
 end
 
-local function IsHidden(itemKey)
-  return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), Auctionator.Utilities.ItemKeyString(itemKey)) ~= nil
+local function IsHidden(info)
+  return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), Auctionator.Selling.UniqueBagKey(info)) ~= nil
 end
-local function ToggleHidden(itemKey)
-  if IsHidden(itemKey) then
-    UnhideItemKey(itemKey)
+local function ToggleHidden(info)
+  if IsHidden(info) then
+    UnhideItem(info)
   else
-    HideItemKey(itemKey)
+    HideItem(info)
   end
 end
 
@@ -105,11 +105,9 @@ function AuctionatorItemIconDropDownMixin:Initialize()
     return
   end
 
-  local itemKey = self.data.itemKey
-
   local hideInfo = UIDropDownMenu_CreateInfo()
   hideInfo.notCheckable = 1
-  if IsHidden(itemKey) then
+  if IsHidden(self.data) then
     hideInfo.text = AUCTIONATOR_L_UNHIDE
   else
     hideInfo.text = AUCTIONATOR_L_HIDE
@@ -117,7 +115,7 @@ function AuctionatorItemIconDropDownMixin:Initialize()
 
   hideInfo.disabled = false
   hideInfo.func = function()
-    ToggleHidden(itemKey)
+    ToggleHidden(self.data)
   end
 
   UIDropDownMenu_AddButton(hideInfo)
