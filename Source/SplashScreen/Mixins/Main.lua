@@ -9,6 +9,7 @@ local MESSAGES = {
         Entries = {
           AUCTIONATOR_L_SPLASH_9106_FEATURES_1,
           AUCTIONATOR_L_SPLASH_9106_FEATURES_2,
+          AUCTIONATOR_L_SPLASH_9106_FEATURES_3,
         }
       },
     }

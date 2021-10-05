@@ -299,6 +299,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_9106_FEATURES_HEADER"] = "New Features"
   L["SPLASH_9106_FEATURES_1"] = "Search box and recent searches panel in the Shopping tab."
   L["SPLASH_9106_FEATURES_2"] = "Button to sort a shopping list's terms alphabetically."
+  L["SPLASH_9106_FEATURES_3"] = "Option to show not found search terms in a shopping list's results."
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
