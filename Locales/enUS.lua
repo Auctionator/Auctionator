@@ -295,6 +295,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_9105_FEATURES_1"] = "Very fast shopping list search when searching for more than 50 items."
   L["SPLASH_9105_FEATURES_2"] = "Added a button to move the price history dialog in the \"Shopping\" tab to the right of the results listing (right click any result to see a price history)."
   L["SPLASH_9105_FEATURES_3"] = "Option to show profit instead of crafting cost in the crafting window when the Auction House is open."
+  L["SPLASH_9106_DESCRIPTION"] = "A new quick search box and search history in the reworked Shopping tab."
+  L["SPLASH_9106_FEATURES_HEADER"] = "New Features"
+  L["SPLASH_9106_FEATURES_1"] = "Search box and recent searches panel in the Shopping tab."
+  L["SPLASH_9106_FEATURES_2"] = "Button to sort a shopping list's terms alphabetically."
 
   L["SPLASH_HIDE_MESSAGE"] = "Do not show until next update"
 
