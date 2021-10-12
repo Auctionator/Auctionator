@@ -63,9 +63,11 @@ function AuctionatorScrollListShoppingListMixin:ReceiveEvent(eventName, eventDat
     end
 
     self:RefreshScrollFrame()
-  elseif eventName == Auctionator.ShoppingLists.Events.ListDeleted and eventData == self.currentList.name then
-    self.currentList = nil
-    self:RefreshScrollFrame()
+  elseif eventName == Auctionator.ShoppingLists.Events.ListDeleted then
+    if self.currentList ~= nil and eventData == self.currentList.name then
+      self.currentList = nil
+      self:RefreshScrollFrame()
+    end
   elseif eventName == Auctionator.ShoppingLists.Events.ListItemSelected then
     self:StartSearch({ eventData })
   elseif eventName == Auctionator.ShoppingLists.Events.OneItemSearch and self:IsShown() then
