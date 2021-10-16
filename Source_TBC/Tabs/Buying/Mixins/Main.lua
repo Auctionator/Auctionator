@@ -185,7 +185,6 @@ function AuctionatorBuyFrameMixinForShopping:OnLoad()
 end
 
 function AuctionatorBuyFrameMixinForShopping:OnShow()
-  SetAuctionsTabShowing(true)
   self:GetParent().ResultsListing:Hide()
   self:GetParent().ExportCSV:Hide()
   self:GetParent().ShoppingResultsInset:Hide()

@@ -11,12 +11,18 @@ local NEW_AUCTION_EVENTS = {
   "AUCTION_MULTISELL_UPDATE",
   "AUCTION_MULTISELL_FAILURE",
 }
+-- If we don't wait for the owned list to update before doing the next query it
+-- sometimes never updates and requires that the AH is reopened to update again.
+local OWNER_LIST_EVENTS = {
+  "AUCTION_OWNED_LIST_UPDATE",
+}
 local BID_PLACED_EVENTS = {
   "AUCTION_ITEM_LIST_UPDATE",
 }
 function AuctionatorAHThrottlingFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorAHThrottlingFrameMixin:OnLoad")
   self.oldReady = false
+  self.timeSinceLastQuery = 0
 
   FrameUtil.RegisterFrameForEvents(self, THROTTLING_EVENTS)
 
@@ -41,21 +47,26 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
   elseif eventName == "NEW_AUCTION_UPDATE" then
     if not self.multisellInProgress then
       FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
+      FrameUtil.RegisterFrameForEvents(self, OWNER_LIST_EVENTS)
       self.waitingForNewAuction = false
+      self.timeSinceLastQuery = 0
+      self.waitingForOwnerAuctionsUpdate = true
     end
 
   elseif eventName == "AUCTION_MULTISELL_UPDATE" then
     local progress, total = ...
     if progress == total then
-      FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
       self.multisellInProgress = false
-      self.waitingForNewAuction = false
     end
 
   elseif eventName == "AUCTION_MULTISELL_FAILURE" then
     FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
     self.multisellInProgress = false
     self.waitingForNewAuction = false
+
+  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" then
+    FrameUtil.UnregisterFrameForEvents(self, OWNER_LIST_EVENTS)
+    self.waitingForOwnerAuctionsUpdate = false
 
   elseif eventName == "AUCTION_ITEM_LIST_UPDATE" then
     self:ComparePages()
@@ -65,7 +76,16 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
   end
 end
 
-function AuctionatorAHThrottlingFrameMixin:OnUpdate()
+function AuctionatorAHThrottlingFrameMixin:OnUpdate(elapsed)
+  -- Normally this query only sometimes needs to happen when posting multiple
+  -- stacks in a multisell. An elapsed time counter is used to ensure we don't
+  -- overload the server with requests
+  self.timeSinceLastQuery = self.timeSinceLastQuery + elapsed
+  if self.waitingForOwnerAuctionsUpdate and self.timeSinceLastQuery > 1 then
+    self.timeSinceLastQuery = 0
+    GetOwnerAuctionItems()
+  end
+
   local ready = self:IsReady()
 
   if ready and not self.oldReady then
@@ -87,13 +107,17 @@ function AuctionatorAHThrottlingFrameMixin:Call(func)
 end
 
 function AuctionatorAHThrottlingFrameMixin:IsReady()
-  return (CanSendAuctionQuery()) and not self.waitingForNewAuction and not self.waitingOnBid
+  return (CanSendAuctionQuery()) and not self.waitingForNewAuction and not self.waitingOnBid and not self.waitingForOwnerAuctionsUpdate
 end
 
 function AuctionatorAHThrottlingFrameMixin:ResetWaiting()
   self.waitingForNewAuction = false
   self.multisellInProgress = false
   self.waitingOnBid = false
+  self.waitingForOwnerAuctionsUpdate = false
+  FrameUtil.UnregisterFrameForEvents(self, BID_PLACED_EVENTS)
+  FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
+  FrameUtil.UnregisterFrameForEvents(self, OWNER_LIST_EVENTS)
 end
 
 function AuctionatorAHThrottlingFrameMixin:AuctionsPosted()
