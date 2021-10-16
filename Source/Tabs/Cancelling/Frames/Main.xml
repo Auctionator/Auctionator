@@ -49,7 +49,7 @@
       <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="4" y="-79"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20" y="45" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20" />
         </Anchors>
       </Frame>
 
@@ -67,29 +67,28 @@
           <OnHide method="OnHide" />
           <OnEvent method="OnEvent"/>
         </Scripts>
-        <Size y="45"/>
 
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" relativePoint="BOTTOMLEFT" y="20" x="-1"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" />
+          <Anchor point="TOP" relativeKey="$parent.ResultsListing" relativePoint="BOTTOM"/>
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-8" />
         </Anchors>
 
         <Frames>
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNDERCUT_SCAN" parentKey="StartScanButton">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="3" y="-30" />
-            </Anchors>
-            <Scripts>
-              <OnClick>self:GetParent():StartScan()</OnClick>
-            </Scripts>
-          </Button>
-
           <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CANCEL_UNDERCUT" parentKey="CancelNextButton" name="AuctionatorCancelUndercutButton">
             <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.StartScanButton" relativePoint="TOPRIGHT" x="3" />
+              <Anchor point="TOPRIGHT" x="3" />
             </Anchors>
             <Scripts>
               <OnClick>self:GetParent():CancelNextAuction()</OnClick>
+            </Scripts>
+          </Button>
+
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNDERCUT_SCAN" parentKey="StartScanButton">
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeKey="$parent.CancelNextButton" relativePoint="TOPLEFT" x="-3"/>
+            </Anchors>
+            <Scripts>
+              <OnClick>self:GetParent():StartScan()</OnClick>
             </Scripts>
           </Button>
         </Frames>
@@ -99,7 +98,7 @@
       <Layer>
         <FontString parentKey="Total" inherits="GameFontHighlight" text="">
           <Anchors>
-            <Anchor point="TOPRIGHT" relativePoint="BOTTOMRIGHT" x="-10" y="27"/>
+            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" x="180" y="-19"/>
           </Anchors>
         </FontString>
       </Layer>
