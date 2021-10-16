@@ -85,7 +85,7 @@
 
           <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNDERCUT_SCAN" parentKey="StartScanButton">
             <Anchors>
-              <Anchor point="TOPRIGHT" relativeKey="$parent.CancelNextButton" relativePoint="TOPLEFT" x="-3"/>
+              <Anchor point="TOPRIGHT" relativeKey="$parent.CancelNextButton" relativePoint="TOPLEFT" x="3"/>
             </Anchors>
             <Scripts>
               <OnClick>self:GetParent():StartScan()</OnClick>
