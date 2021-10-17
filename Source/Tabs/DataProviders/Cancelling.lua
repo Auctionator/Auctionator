@@ -44,7 +44,7 @@ local CANCELLING_TABLE_LAYOUT = {
     headerParameters = { "timeLeft" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "timeLeftPretty" },
-    width = 120,
+    width = 90,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -52,7 +52,7 @@ local CANCELLING_TABLE_LAYOUT = {
     headerParameters = { "undercut" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "undercut" },
-    width = 120,
+    width = 90,
   },
 }
 
