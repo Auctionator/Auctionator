@@ -27,8 +27,6 @@ function AuctionatorTabMixin:Initialize(name, tabTemplate, tabHeader, displayMod
 end
 
 function AuctionatorTabMixin:Selected()
-  SetAuctionsTabShowing(false)
-
   PanelTemplates_SetTab(AuctionFrame, self)
   PanelTemplates_SelectTab(self)
   self.frameRef:Show()
