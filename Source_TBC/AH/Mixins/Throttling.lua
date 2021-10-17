@@ -77,7 +77,7 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
 end
 
 function AuctionatorAHThrottlingFrameMixin:OnUpdate(elapsed)
-  -- Normally this query only sometimes needs to happen when posting multiple
+  -- Normally this query only needs to happen after having posting multiple
   -- stacks in a multisell. An elapsed time counter is used to ensure we don't
   -- overload the server with requests
   self.timeSinceLastQuery = self.timeSinceLastQuery + elapsed
