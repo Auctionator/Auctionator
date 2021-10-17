@@ -334,7 +334,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIRM"] = "Confirm"
   L["X_PRICE_HISTORY"] = "%s Price History"
   L["NO_ITEM_INFO_SPECIFIED"] = "No item info was specified."
-  L["BUY_ONE"] = "Buy One"
+  L["BUY_STACK"] = "Buy Stack"
   L["BUYING"] = "Buying"
   L["REFRESH"] = "Refresh"
 

@@ -64,7 +64,7 @@
         </Scripts>
       </Button>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_BUY_ONE" parentKey="BuyButton">
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_BUY_STACK" parentKey="BuyButton">
         <Anchors>
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeKey="$parent.CancelButton"/>
         </Anchors>
