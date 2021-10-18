@@ -33,6 +33,17 @@ local function InitializePageStatusDialog()
   end
 end
 
+local function InitializeThrottlingTimeoutDialog()
+  if Auctionator.State.ThrottlingTimeoutFrameRef == nil then
+    Auctionator.State.ThrottlingTimeoutFrameRef = CreateFrame(
+      "Frame",
+      "AuctionatorThrottlingTimeoutDialogFrame",
+      AuctionFrame,
+      "AuctionatorThrottlingTimeoutDialogTemplate"
+    )
+  end
+end
+
 local function ShowDefaultTab()
   local tabs = AuctionatorAHTabsContainer.Tabs
 
@@ -71,6 +82,7 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeAuctionHouseTabs()
   InitializeBuyFrame()
   InitializePageStatusDialog()
+  InitializeThrottlingTimeoutDialog()
   InitializeFullScanFrame()
   InitializeSplashScreen()
 

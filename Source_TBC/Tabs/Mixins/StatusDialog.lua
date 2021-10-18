@@ -29,3 +29,31 @@ function AuctionatorPageStatusDialogMixin:ReceiveEvent(eventName, ...)
     self:Hide()
   end
 end
+
+AuctionatorThrottlingTimeoutDialogMixin = {}
+
+function AuctionatorThrottlingTimeoutDialogMixin:OnLoad()
+  Auctionator.EventBus:Register(self, {
+    Auctionator.AH.Events.CurrentThrottleTimeout,
+  })
+  self:Hide()
+end
+
+function AuctionatorThrottlingTimeoutDialogMixin:OnHide()
+  self:Hide()
+end
+
+function AuctionatorThrottlingTimeoutDialogMixin:ReceiveEvent(eventName, ...)
+  if eventName == Auctionator.AH.Events.CurrentThrottleTimeout then
+    local timeout = ...
+    if timeout < 8 then
+      self:Show()
+      self.StatusText:SetText(AUCTIONATOR_L_WAITING_AT_MOST_X_LONGER:format(math.ceil(timeout)))
+    else
+      if self:IsShown() then
+        Auctionator.Utilities.Message(AUCTIONATOR_L_SERVER_TOOK_TOO_LONG)
+      end
+      self:Hide()
+    end
+  end
+end

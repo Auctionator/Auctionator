@@ -485,12 +485,14 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["PROFIT_COLON"] = "Profit:"
 
   L["SCANNING_PAGE_X"] = "Scanning page %s..."
+  L["WAITING_AT_MOST_X_LONGER"] = "Waiting at most %ss longer..."
   L["STACK_OF"] = "stack of"
   L["STACK_PRICE"] = "Stack Price"
   L["MAX_COLON_X"] = "Max: %s"
   L["HISTORY"] = "History"
   L["CURRENT"] = "Current"
   L["WORK_IN_PROGRESS"] = "Work in progress. Not functional yet."
+  L["SERVER_TOOK_TOO_LONG"] = "The server took too long to respond. Please try again."
 
   L["STARTING_PRICE_PERCENTAGE_SUFFIX"] = "% of the stack price"
   L["STARTING_PRICE_PERCENTAGE"] = "Starting Price"

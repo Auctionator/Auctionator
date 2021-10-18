@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
- <Frame name="AuctionatorPageStatusDialogTemplate" mixin="AuctionatorPageStatusDialogMixin" virtual="true" frameStrata="Dialog">
+ <Frame name="AuctionatorStatusDialogTemplate" virtual="true" frameStrata="Dialog">
   <KeyValues>
     <KeyValue key="layoutType" value="Dialog" type="string"/>
   </KeyValues>
@@ -34,4 +34,7 @@
     <Frame parentKey="NineSlice" inherits="NineSlicePanelTemplate" />
   </Frames>
 </Frame>
+
+<Frame name="AuctionatorPageStatusDialogTemplate" mixin="AuctionatorPageStatusDialogMixin" inherits="AuctionatorStatusDialogTemplate" virtual="true"/>
+<Frame name="AuctionatorThrottlingTimeoutDialogTemplate" mixin="AuctionatorThrottlingTimeoutDialogMixin" inherits="AuctionatorStatusDialogTemplate" virtual="true" frameLevel="500" />
 </Ui>

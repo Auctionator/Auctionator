@@ -19,10 +19,13 @@ local OWNER_LIST_EVENTS = {
 local BID_PLACED_EVENTS = {
   "AUCTION_ITEM_LIST_UPDATE",
 }
+local TIMEOUT = 10
+
 function AuctionatorAHThrottlingFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorAHThrottlingFrameMixin:OnLoad")
   self.oldReady = false
   self.timeSinceLastQuery = 0
+  self:ResetTimeout()
 
   FrameUtil.RegisterFrameForEvents(self, THROTTLING_EVENTS)
 
@@ -42,9 +45,11 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     self:SetScript("OnUpdate", nil)
 
   elseif eventName == "AUCTION_MULTISELL_START" then
+    self:ResetTimeout()
     self.multisellInProgress = true
 
   elseif eventName == "NEW_AUCTION_UPDATE" then
+    self:ResetTimeout()
     if not self.multisellInProgress then
       FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
       FrameUtil.RegisterFrameForEvents(self, OWNER_LIST_EVENTS)
@@ -54,17 +59,20 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     end
 
   elseif eventName == "AUCTION_MULTISELL_UPDATE" then
+    self:ResetTimeout()
     local progress, total = ...
     if progress == total then
       self.multisellInProgress = false
     end
 
   elseif eventName == "AUCTION_MULTISELL_FAILURE" then
+    self:ResetTimeout()
     FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
     self.multisellInProgress = false
     self.waitingForNewAuction = false
 
   elseif eventName == "AUCTION_OWNED_LIST_UPDATE" then
+    self:ResetTimeout()
     FrameUtil.UnregisterFrameForEvents(self, OWNER_LIST_EVENTS)
     self.waitingForOwnerAuctionsUpdate = false
 
@@ -85,6 +93,14 @@ function AuctionatorAHThrottlingFrameMixin:OnUpdate(elapsed)
     self.timeSinceLastQuery = 0
     GetOwnerAuctionItems()
   end
+  if self:AnyWaiting() then
+    self.timeout = self.timeout - elapsed
+    if self.timeout <= 0 then
+      self:ResetWaiting()
+      self:ResetTimeout()
+    end
+  end
+  Auctionator.EventBus:Fire(self, Auctionator.AH.Events.CurrentThrottleTimeout, self.timeout)
 
   local ready = self:IsReady()
 
@@ -107,7 +123,15 @@ function AuctionatorAHThrottlingFrameMixin:Call(func)
 end
 
 function AuctionatorAHThrottlingFrameMixin:IsReady()
-  return (CanSendAuctionQuery()) and not self.waitingForNewAuction and not self.waitingOnBid and not self.waitingForOwnerAuctionsUpdate
+  return (CanSendAuctionQuery()) and not self:AnyWaiting()
+end
+
+function AuctionatorAHThrottlingFrameMixin:AnyWaiting()
+  return self.waitingForNewAuction or self.multisellInProgress or self.waitingOnBid or self.waitingForOwnerAuctionsUpdate
+end
+
+function AuctionatorAHThrottlingFrameMixin:ResetTimeout()
+  self.timeout = TIMEOUT
 end
 
 function AuctionatorAHThrottlingFrameMixin:ResetWaiting()
@@ -121,12 +145,14 @@ function AuctionatorAHThrottlingFrameMixin:ResetWaiting()
 end
 
 function AuctionatorAHThrottlingFrameMixin:AuctionsPosted()
+  self:ResetTimeout()
   FrameUtil.RegisterFrameForEvents(self, NEW_AUCTION_EVENTS)
   self.waitingForNewAuction = true
   self.oldReady = false
 end
 
 function AuctionatorAHThrottlingFrameMixin:AuctionCancelled()
+  self:ResetTimeout()
   self.timeSinceLastQuery = 0
   self.waitingForOwnerAuctionsUpdate = true
   self.oldReady = false
@@ -134,6 +160,7 @@ function AuctionatorAHThrottlingFrameMixin:AuctionCancelled()
 end
 
 function AuctionatorAHThrottlingFrameMixin:BidPlaced()
+  self:ResetTimeout()
   FrameUtil.RegisterFrameForEvents(self, BID_PLACED_EVENTS)
   self.currentPage = Auctionator.AH.GetCurrentPage()
   self.waitingOnBid = true
