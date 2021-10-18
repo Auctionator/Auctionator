@@ -1,6 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="AuctionatorCancellingTabFrameTemplate"
+    name="AuctionatorCancellingTabFrameNoRefreshTemplate"
     virtual="true"
     parentKey="AuctionatorCancellingFrame"
     mixin="AuctionatorCancellingFrameMixin"
@@ -17,17 +17,6 @@
     </Anchors>
 
     <Frames>
-      <Button inherits="RefreshButtonTemplate">
-        <Anchors>
-            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent" x="-44" y="-38"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>
-            self:GetParent():RefreshButtonClicked()
-          </OnClick>
-        </Scripts>
-      </Button>
-
       <EditBox parentKey="SearchFilter" autoFocus="false" historyLines="1" bytes="64" inherits="SearchBoxTemplate">
         <Size x="250" y="22"/>
         <Anchors>

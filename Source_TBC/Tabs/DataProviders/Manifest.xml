@@ -5,4 +5,5 @@
   <Script file="ShoppingList.lua"/>
   <Script file="ShoppingHistoricalPrice.lua"/>
   <Script file="BuyingHistoricalPrice.lua"/>
+  <Script file="Cancelling.lua"/>
 </Ui>

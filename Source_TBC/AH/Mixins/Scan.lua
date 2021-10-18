@@ -84,18 +84,10 @@ function AuctionatorAHScanFrameMixin:ProcessSearchResults()
 end
 
 function AuctionatorAHScanFrameMixin:GetCurrentPage()
-  local results = {}
-  for index = 1, GetNumAuctionItems("list") do
-    local auctionInfo = { GetAuctionItemInfo("list", index) }
-    local itemID = auctionInfo[Auctionator.Constants.AuctionItemInfo.ItemID]
-    local itemLink = GetAuctionItemLink("list", index)
-    local entry = {
-      info = auctionInfo,
-      itemLink = itemLink,
-      query = self.query,
-      page = self.nextPage - 1,
-    }
-    table.insert(results, entry)
+  local results = Auctionator.AH.DumpAuctions("list")
+  for _, entry in ipairs(results) do
+    entry.query = self.query
+    entry.page = self.nextPage - 1
   end
 
   return results

@@ -126,6 +126,13 @@ function AuctionatorAHThrottlingFrameMixin:AuctionsPosted()
   self.oldReady = false
 end
 
+function AuctionatorAHThrottlingFrameMixin:AuctionCancelled()
+  self.timeSinceLastQuery = 0
+  self.waitingForOwnerAuctionsUpdate = true
+  self.oldReady = false
+  FrameUtil.RegisterFrameForEvents(self, OWNER_LIST_EVENTS)
+end
+
 function AuctionatorAHThrottlingFrameMixin:BidPlaced()
   FrameUtil.RegisterFrameForEvents(self, BID_PLACED_EVENTS)
   self.currentPage = Auctionator.AH.GetCurrentPage()

@@ -10,6 +10,7 @@ Auctionator.Constants.AuctionItemInfo = {
   Level = 6,
   MinBid = 8,
   BidAmount = 11,
+  Bidder = 12,
   SaleStatus = 16,
 }
 Auctionator.Constants.ValidItemClassIDs = {

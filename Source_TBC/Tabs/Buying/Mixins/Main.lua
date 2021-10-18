@@ -64,7 +64,7 @@ function AuctionatorBuyFrameMixin:ReceiveEvent(eventName, eventData, ...)
 end
 
 function AuctionatorBuyFrameMixin:UpdateButtons()
-  self.CancelButton:SetEnabled(self.selectedAuctionData ~= nil and self.selectedAuctionData.isOwned and self.selectedAuctionData.noOfStacks > 0)
+  self.CancelButton:SetEnabled(self.selectedAuctionData ~= nil and self.selectedAuctionData.isOwned and self.selectedAuctionData.noOfStacks > 0 and Auctionator.AH.IsNotThrottled())
   self.BuyButton:Disable()
 
   self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and self.buyInfo ~= nil and Auctionator.AH.IsNotThrottled())
@@ -158,7 +158,7 @@ function AuctionatorBuyFrameMixin:CancelFocussed()
     self:Reset()
     self.SearchDataProvider:RefreshQuery()
   else
-    CancelAuction(indexes[1])
+    Auctionator.AH.CancelAuction(self.selectedAuctionData)
     self.selectedAuctionData.noOfStacks = self.selectedAuctionData.noOfStacks - 1
   end
   self:LoadForCancelling()

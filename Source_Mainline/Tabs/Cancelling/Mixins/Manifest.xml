@@ -1,4 +1,4 @@
 <!-- Tabs/Cancelling/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="Main.lua"/>
+  <Script file="UndercutScan.lua"/>
 </Ui>

@@ -39,3 +39,39 @@ function Auctionator.AH.PostAuction(...)
   Auctionator.AH.Internals.throttling:AuctionsPosted()
   PostAuction(...)
 end
+
+-- view is a string and must be "list", "owner" or "bidder"
+function Auctionator.AH.DumpAuctions(view)
+  local auctions = {}
+  for index = 1, GetNumAuctionItems(view) do
+    local auctionInfo = { GetAuctionItemInfo(view, index) }
+    local itemLink = GetAuctionItemLink(view, index)
+    local timeLeft = GetAuctionItemTimeLeft(view, index)
+    local entry = {
+      info = auctionInfo,
+      itemLink = itemLink,
+      timeLeft = timeLeft,
+      index = index,
+    }
+    table.insert(auctions, entry)
+  end
+  return auctions
+end
+
+function Auctionator.AH.CancelAuction(auction)
+  for index = 1, GetNumAuctionItems("owner") do
+    local info = { GetAuctionItemInfo("owner", index) }
+
+    local stackPrice = info[Auctionator.Constants.AuctionItemInfo.Buyout]
+    local stackSize = info[Auctionator.Constants.AuctionItemInfo.Quantity]
+    local isOwned = info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player"))
+    local saleStatus = info[Auctionator.Constants.AuctionItemInfo.SaleStatus]
+    local itemLink = GetAuctionItemLink("owner", index)
+
+    if saleStatus ~= 1 and auction.stackPrice == stackPrice and auction.stackSize == stackSize and isOwned and Auctionator.Search.GetCleanItemLink(itemLink) == Auctionator.Search.GetCleanItemLink(auction.itemLink) then
+      Auctionator.AH.Internals.throttling:AuctionCancelled()
+      CancelAuction(index)
+      break
+    end
+  end
+end
