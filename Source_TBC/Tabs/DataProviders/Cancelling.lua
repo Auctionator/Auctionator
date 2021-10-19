@@ -168,7 +168,7 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
 end
 
 function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
-  return not auctionInfo.isSold
+  return not auctionInfo.isSold and auctionInfo.itemLink ~= nil
 end
 
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
@@ -265,7 +265,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         bidAmount = auction.bidAmount,
         itemLink = auction.itemLink, -- Used for tooltips
         timeLeft = auction.timeLeft,
-        timeLeftPretty = AuctionFrame_GetTimeLeftText(auction.timeLeft),
+        timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
         undercut = --[[self.undercutInfo[auction.auctionID] or]] AUCTIONATOR_L_UNDERCUT_UNKNOWN
       })
     end

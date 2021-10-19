@@ -50,7 +50,7 @@ function Auctionator.AH.DumpAuctions(view)
     local entry = {
       info = auctionInfo,
       itemLink = itemLink,
-      timeLeft = timeLeft,
+      timeLeft = timeLeft - 1, --Offset to match Retail time parameters
       index = index,
     }
     table.insert(auctions, entry)
@@ -69,7 +69,7 @@ function Auctionator.AH.CancelAuction(auction)
     local saleStatus = info[Auctionator.Constants.AuctionItemInfo.SaleStatus]
     local itemLink = GetAuctionItemLink("owner", index)
 
-    if saleStatus ~= 1 and (bidAmount == 0 or auction.hasBid) and auction.stackPrice == stackPrice and auction.stackSize == stackSize and isOwned and Auctionator.Search.GetCleanItemLink(itemLink) == Auctionator.Search.GetCleanItemLink(auction.itemLink) then
+    if saleStatus ~= 1 and auction.bidAmount == bidAmount and auction.stackPrice == stackPrice and auction.stackSize == stackSize and isOwned and Auctionator.Search.GetCleanItemLink(itemLink) == Auctionator.Search.GetCleanItemLink(auction.itemLink) then
       Auctionator.AH.Internals.throttling:AuctionCancelled()
       CancelAuction(index)
       break
