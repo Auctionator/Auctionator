@@ -1,3 +1,9 @@
+-- Call the appropriate method before doing the action to ensure the throttle
+-- state is set correctly
+-- :SearchQueried()
+-- :AuctionsPosted()
+-- :AuctionCancelled()
+-- :BidPlaced()
 AuctionatorAHThrottlingFrameMixin = {}
 
 local THROTTLING_EVENTS = {
@@ -114,12 +120,7 @@ function AuctionatorAHThrottlingFrameMixin:OnUpdate(elapsed)
   self.oldReady = ready
 end
 
-function AuctionatorAHThrottlingFrameMixin:Call(func)
-  self.oldReady = false
-
-  func()
-
-  Auctionator.EventBus:Fire(self, Auctionator.AH.Events.ThrottleUpdate, false)
+function AuctionatorAHThrottlingFrameMixin:SearchQueried()
 end
 
 function AuctionatorAHThrottlingFrameMixin:IsReady()

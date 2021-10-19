@@ -9,7 +9,8 @@ end
 
 local function Dequeue(self)
   if #self.queue > 0 then
-    Auctionator.AH.Internals.throttling:Call(self.queue[1])
+    Auctionator.AH.Internals.throttling:SearchQueried()
+    self.queue[1]()
     table.remove(self.queue, 1)
   end
 end
