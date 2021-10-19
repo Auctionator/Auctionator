@@ -168,6 +168,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
       noOfStacks = 1,
       isOwned = auction.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")),
+      bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
       isSelected = false, --Used by rows to determine highlight
       query = auction.query,
       page = auction.page,
@@ -186,7 +187,8 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
     if prevResult.unitPrice == newEntry.unitPrice and
        prevResult.stackSize == newEntry.stackSize and
        prevResult.itemLink == newEntry.itemLink and 
-       prevResult.isOwned == newEntry.isOwned then
+       prevResult.isOwned == newEntry.isOwned and
+       prevResult.bidAmount == newEntry.bidAmount then
       prevResult.noOfStacks = prevResult.noOfStacks + 1
     else
       table.insert(results, newEntry)

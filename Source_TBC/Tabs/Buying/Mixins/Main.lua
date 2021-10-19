@@ -10,6 +10,7 @@ function AuctionatorBuyFrameMixin:OnLoad()
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.AH.Events.ThrottleUpdate,
   })
+  Auctionator.EventBus:RegisterSource(self, "AuctionatorBuyFrameMixin")
   self.SearchResultsListing:Init(self.SearchDataProvider)
   self.HistoryResultsListing:Init(self.HistoryDataProvider)
   self.selectedAuctionData = nil
@@ -158,7 +159,7 @@ function AuctionatorBuyFrameMixin:CancelFocussed()
     self:Reset()
     self.SearchDataProvider:RefreshQuery()
   else
-    Auctionator.AH.CancelAuction(self.selectedAuctionData)
+    Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.selectedAuctionData)
     self.selectedAuctionData.noOfStacks = self.selectedAuctionData.noOfStacks - 1
   end
   self:LoadForCancelling()

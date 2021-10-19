@@ -168,13 +168,7 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
 end
 
 function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
-  return true --[[
-  return
-    --We don't handle WoW Tokens (can't cancel and no time left)
-    auctionInfo.itemKey.itemID ~= Auctionator.Constants.WOW_TOKEN_ID and
-    auctionInfo.status == 0 and
-    tIndexOf(self.beenCancelled, auctionInfo.auctionID) == nil
-    ]]
+  return not auctionInfo.isSold
 end
 
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
@@ -223,7 +217,13 @@ local function GroupAuctions(allAuctions)
       unitPrice = ToUnitPrice(auction),
       stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout],
       stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
+      stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
+      isSold = auction.info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1,
+      timeLeft = auction.timeLeft,
       noOfStacks = 1,
+      isOwned = true,
+      bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
+      timeLeft = auction.timeLeft,
       isSelected = false, --Used by rows to determine highlight
     }
     if newEntry.unitPrice == 0 then
@@ -262,12 +262,10 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         stackPrice = auction.stackPrice,
         itemString = Auctionator.Search.GetCleanItemLink(auction.itemLink),
         price = auction.unitPrice or 0,
-        --bidPrice = bidPrice,
-        --bidder = bidder,
+        bidAmount = auction.bidAmount,
         itemLink = auction.itemLink, -- Used for tooltips
-        timeLeft = 0,--info.timeLeft,
-        timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(2),--Auctionator.Utilities.FormatTimeLeft(info.timeLeftSeconds),
-        --cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
+        timeLeft = auction.timeLeft,
+        timeLeftPretty = AuctionFrame_GetTimeLeftText(auction.timeLeft),
         undercut = --[[self.undercutInfo[auction.auctionID] or]] AUCTIONATOR_L_UNDERCUT_UNKNOWN
       })
     end
