@@ -152,7 +152,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
         local ownerB = ToOwner(b)
         return ownerA < ownerB
       else
-        return stackA < stackB
+        return stackA > stackB
       end
     else
       return unitA < unitB
