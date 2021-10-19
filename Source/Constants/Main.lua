@@ -58,4 +58,10 @@ Auctionator.Constants = {
   },
 
   RecentsListLimit = 30,
+
+  Durations = {
+    Short = 12,
+    Medium = 24,
+    Long = 48,
+  },
 }
