@@ -87,7 +87,9 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     self:ComparePages()
 
   elseif eventName == "UI_ERROR_MESSAGE" then
-    self:ResetWaiting()
+    if AuctionFrame:IsShown() and self:AnyWaiting() then
+      self:ResetWaiting()
+    end
   end
 end
 
