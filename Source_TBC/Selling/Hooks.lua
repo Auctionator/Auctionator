@@ -20,7 +20,10 @@ end
 local function SelectOwnItem(self)
   local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
 
-  if not C_Item.DoesItemExist(itemLocation) or C_Item.IsBound(itemLocation) then
+  if not C_Item.DoesItemExist(itemLocation) then
+    return
+  elseif C_Item.IsBound(itemLocation) then
+    UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
     return
   end
 

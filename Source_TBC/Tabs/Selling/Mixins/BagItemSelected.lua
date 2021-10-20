@@ -25,6 +25,7 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
       return true
     end
+    UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
   end
   return false
 end
