@@ -237,7 +237,6 @@ function AuctionatorBuyFrameMixinForSelling:OnShow()
 end
 
 function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, ...)
-  print(eventName, eventData, ...)
   if eventName == Auctionator.Selling.Events.BagItemClicked or
      eventName == Auctionator.Selling.Events.RefreshBuying then
     self:Reset()

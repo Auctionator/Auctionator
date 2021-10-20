@@ -73,7 +73,7 @@ function AuctionatorUndercutScanMixin:EndScan()
 end
 
 function AuctionatorUndercutScanMixin:NextStep()
-  Auctionator.Debug.Message("next step")
+  Auctionator.Debug.Message("undercut scan: next step")
   self.scanIndex = self.scanIndex + 1
 
   if self.scanIndex > #self.allOwnedAuctions then
@@ -87,12 +87,11 @@ function AuctionatorUndercutScanMixin:NextStep()
 
   if (info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1 or
       info[Auctionator.Constants.AuctionItemInfo.BidAmount] ~= 0) then
-    Auctionator.Debug.Message("undercut scan skip")
+    Auctionator.Debug.Message("undercut scan skip", self.currentAuction.itemLink)
 
     self:NextStep()
   elseif self.seenPrices[cleanLink] ~= nil then
-    Auctionator.Debug.Message("undercut scan already seen and announced")
-
+    --The price has already been seen and reported by an event, so move on.
     self:NextStep()
   else
     Auctionator.Debug.Message("undercut scan searching for undercuts", self.currentAuction.itemLink, cleanLink)
@@ -126,7 +125,7 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
     for _, r in ipairs(results) do
       local resultCleanLink = Auctionator.Search.GetCleanItemLink(r.itemLink)
       local unitPrice = ToUnitPrice(r)
-      if cleanLink == resultCleanLink and buyout ~= 0 then
+      if cleanLink == resultCleanLink and unitPrice ~= 0 then
         if self.seenPrices[cleanLink] == nil then
           self.seenPrices[cleanLink] = unitPrice
         else
@@ -135,17 +134,21 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
       end
     end
     if gotAllResults then
+      Auctionator.Debug.Message("undercut scan: next step", self.currentAuction and self.currentAuction.itemLink)
       self:ProcessUndercutResult(cleanLink, self.seenPrices[cleanLink])
       self:NextStep()
+      Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
     end
 
   elseif eventName == Auctionator.AH.Events.ScanAborted then
+    Auctionator.Debug.Message("undercut scan: aborting", self.currentAuction and self.currentAuction.itemLink)
     Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
   end
 end
 
 function AuctionatorUndercutScanMixin:SearchForUndercuts(auction)
   local name = Auctionator.Utilities.GetNameFromLink(auction.itemLink)
+  Auctionator.Debug.Message("undercut scan: searching", name)
 
   Auctionator.AH.AbortQuery()
 

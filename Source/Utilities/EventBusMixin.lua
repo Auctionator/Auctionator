@@ -27,10 +27,10 @@ end
 -- Assumes events have been registered exactly once
 function AuctionatorEventBusMixin:Unregister(listener, eventNames)
   for _, eventName in ipairs(eventNames) do
-    table.remove(
-      self.registeredListeners[eventName],
-      tIndexOf(self.registeredListeners[eventName], listener)
-    )
+    local index = tIndexOf(self.registeredListeners[eventName], listener)
+    if index ~= nil then
+      table.remove(self.registeredListeners[eventName], index, listener)
+    end
     Auctionator.Debug.Message("AuctionatorEventBusMixin:Unregister", eventName)
   end
 
@@ -73,7 +73,7 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
       1,
       #self.registeredListeners[eventName]
     )
-    for _, listener in ipairs(allListeners) do
+    for index, listener in ipairs(allListeners) do
       listener:ReceiveEvent(eventName, ...)
     end
   end
