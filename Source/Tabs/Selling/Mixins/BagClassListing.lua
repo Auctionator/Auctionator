@@ -1,19 +1,24 @@
 AuctionatorBagClassListingMixin = {}
 
-
 function AuctionatorBagClassListingMixin:Init(classID)
   if self.title == nil and classID ~= nil then
     self.title = GetItemClassInfo(classID)
   end
 
-  self.SectionTitle = self.FilterButtons[1]
   self:UpdateTitle()
   self:SetHeight(self.SectionTitle:GetHeight())
 
   self.SectionTitle:SetWidth(self:GetRowWidth())
-  self.SectionTitle:GetNormalTexture():SetWidth(self:GetRowWidth() + 8)
-  self.SectionTitle:GetFontString():SetPoint("LEFT", 12, 0)
-  self.SectionTitle:GetHighlightTexture():SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
+
+  if Auctionator.Constants.IsTBC then
+    self.SectionTitle:GetNormalTexture():SetWidth(self:GetRowWidth() + 8)
+    self.SectionTitle:GetFontString():SetPoint("LEFT", 12, 0)
+    self.SectionTitle:GetHighlightTexture():SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
+  else
+    self.SectionTitle.NormalTexture:SetWidth(self:GetRowWidth() + 8)
+    self.SectionTitle.Text:SetPoint("LEFT", 12, 0)
+    self.SectionTitle.HighlightTexture:SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
+  end
 
   self.collapsed = false
 
