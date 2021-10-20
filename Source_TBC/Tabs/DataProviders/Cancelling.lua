@@ -69,9 +69,8 @@ local DATA_EVENTS = {
 }
 
 local EVENT_BUS_EVENTS = {
-  --[[Auctionator.Cancelling.Events.RequestCancel,
   Auctionator.Cancelling.Events.UndercutStatus,
-  Auctionator.Cancelling.Events.UndercutScanStart,]]
+  Auctionator.Cancelling.Events.UndercutScanStart,
 }
 
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemStringLoadingMixin)
@@ -83,11 +82,11 @@ function AuctionatorCancellingDataProviderMixin:OnLoad()
   self.waitingforCancellation = {}
   self.beenCancelled = {}
 
-  self.undercutInfo = {}
+  self.undercutCutoff = {}
 end
 
 function AuctionatorCancellingDataProviderMixin:OnShow()
-  --Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
+  Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
 
   self:QueryAuctions()
 
@@ -95,7 +94,7 @@ function AuctionatorCancellingDataProviderMixin:OnShow()
 end
 
 function AuctionatorCancellingDataProviderMixin:OnHide()
-  --Auctionator.EventBus:Unregister(self, EVENT_BUS_EVENTS)
+  Auctionator.EventBus:Unregister(self, EVENT_BUS_EVENTS)
 
   FrameUtil.UnregisterFrameForEvents(self, DATA_EVENTS)
 end
@@ -150,17 +149,12 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
     table.insert(self.waitingforCancellation, eventData)
 
   elseif eventName == Auctionator.Cancelling.Events.UndercutScanStart then
-    self.undercutInfo = {}
+    self.undercutCutoff = {}
 
     self:NoQueryRefresh()
 
   elseif eventName == Auctionator.Cancelling.Events.UndercutStatus then
-    local isUndercut = ...
-    if isUndercut then
-      self.undercutInfo[eventData] = AUCTIONATOR_L_UNDERCUT_YES
-    else
-      self.undercutInfo[eventData] = AUCTIONATOR_L_UNDERCUT_NO
-    end
+    self.undercutCutoff[eventData] = ...
 
     self:NoQueryRefresh()
   end
@@ -229,10 +223,6 @@ local function GroupAuctions(allAuctions)
     if newEntry.stackSize == 0 then
       newEntry.unitPrice = 0
     end
-    if newEntry.unitPrice == 0 then
-      newEntry.unitPrice = nil
-      newEntry.stackPrice = nil
-    end
     if newEntry.bidAmount == 0 then
       newEntry.bidPrice = nil
     end
@@ -254,18 +244,27 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
     if self:IsValidAuction(auction) and self:FilterAuction(auction) and auction.stackPrice ~= nil then
       total = total + auction.stackPrice * auction.noOfStacks
 
+      local cleanLink = Auctionator.Search.GetCleanItemLink(auction.itemLink)
+      local undercutStatus
+      if self.undercutCutoff[cleanLink] == nil then
+        undercutStatus = AUCTIONATOR_L_UNDERCUT_UNKNOWN
+      elseif self.undercutCutoff[cleanLink] < auction.unitPrice then
+        undercutStatus = AUCTIONATOR_L_UNDERCUT_YES
+      else
+        undercutStatus = AUCTIONATOR_L_UNDERCUT_NO
+      end
       table.insert(results, {
         quantity = auction.noOfStacks,
         stackSize = auction.stackSize,
         stackPrice = auction.stackPrice,
-        itemString = Auctionator.Search.GetCleanItemLink(auction.itemLink),
+        itemString = cleanLink,
         price = auction.unitPrice or 0,
         bidAmount = auction.bidAmount,
         bidder = auction.bidder or "",
         itemLink = auction.itemLink, -- Used for tooltips
         timeLeft = auction.timeLeft,
         timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
-        undercut = --[[self.undercutInfo[auction.auctionID] or]] AUCTIONATOR_L_UNDERCUT_UNKNOWN
+        undercut = undercutStatus,
       })
     end
   end
