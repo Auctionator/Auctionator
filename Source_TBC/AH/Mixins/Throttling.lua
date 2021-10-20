@@ -135,6 +135,7 @@ end
 
 function AuctionatorAHThrottlingFrameMixin:ResetTimeout()
   self.timeout = TIMEOUT
+  Auctionator.EventBus:Fire(self, Auctionator.AH.Events.CurrentThrottleTimeout, self.timeout)
 end
 
 function AuctionatorAHThrottlingFrameMixin:ResetWaiting()

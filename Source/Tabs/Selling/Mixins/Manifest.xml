@@ -1,4 +1,4 @@
-<!-- Tabs directory manifest -->
+<!-- Tabs/Selling/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Bag.lua" />
   <Script file="BagItem.lua" />
