@@ -1,10 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="Tooltips.xml"/>
-
   <Include file="Shopping.xml"/>
-  <Include file="Cancelling.xml"/>
-
   <Include file="Profile.xml"/>
-
   <Include file="Advanced.xml"/>
 </Ui>

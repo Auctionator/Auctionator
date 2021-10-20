@@ -471,8 +471,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_HEADER"] = "Use Item Level and Title"
   L["CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_TEXT"] = "Normally gear is compared with any other gear that is similar, but without taking item level and the \"of the\" titles into account. This will make them be taken into account."
 
-  L["CLASSIC_SUPPORT_ERROR"] = "This version of Auctionator DOES NOT support Classic. Stuff may break and not work."
-
   L["DEFAULT_LIST_HEADER"] = "Default Shopping List"
 
   L["REAGENT_SEARCH"] = "Reagent Search"

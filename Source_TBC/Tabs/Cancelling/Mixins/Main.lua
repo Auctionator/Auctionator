@@ -15,10 +15,6 @@ function AuctionatorCancellingFrameMixin:OnLoad()
   end)
 end
 
-function AuctionatorCancellingFrameMixin:RefreshButtonClicked()
-  self.DataProvider:QueryAuctions()
-end
-
 local ConfirmBidPricePopup = "AuctionatorConfirmBidPricePopupDialog"
 
 StaticPopupDialogs[ConfirmBidPricePopup] = {

@@ -44,7 +44,6 @@ local CANCELLING_TABLE_LAYOUT = {
     headerParameters = { "bidder" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "bidder" },
-    width = 150,
     defaultHide = true,
   },
   {
@@ -113,7 +112,7 @@ end
 
 local COMPARATORS = {
   price = Auctionator.Utilities.NumberComparator,
-  bidPrice = Auctionator.Utilities.NumberComparator,
+  bidAmount = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   bidder = Auctionator.Utilities.StringComparator,
   quantity = Auctionator.Utilities.NumberComparator,
@@ -217,18 +216,25 @@ local function GroupAuctions(allAuctions)
       unitPrice = ToUnitPrice(auction),
       stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout],
       stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
-      stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
       isSold = auction.info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1,
       timeLeft = auction.timeLeft,
       noOfStacks = 1,
       isOwned = true,
       bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
+      bidPrice = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
+      bidder = auction.info[Auctionator.Constants.AuctionItemInfo.Bidder],
       timeLeft = auction.timeLeft,
-      isSelected = false, --Used by rows to determine highlight
     }
+    -- Avoid inf numerical results for sold auctions
+    if newEntry.stackSize == 0 then
+      newEntry.unitPrice = 0
+    end
     if newEntry.unitPrice == 0 then
       newEntry.unitPrice = nil
       newEntry.stackPrice = nil
+    end
+    if newEntry.bidAmount == 0 then
+      newEntry.bidPrice = nil
     end
     table.insert(results, newEntry)
   end
@@ -246,14 +252,6 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
 
     --Only look at unsold and uncancelled (yet) auctions
     if self:IsValidAuction(auction) and self:FilterAuction(auction) and auction.stackPrice ~= nil then
-      --local bidPrice = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount]
-      --local bidder = auction.info[Auctionator.Constants.AuctionItemInfo.Bidder] or ""
-      --if bidPrice == 0 then
-      --  bidPrice = auction.info[Auctionator.Constants.AuctionItemInfo.MinBid]
-      --end
-      --if auction.stackPrice == 0 then
-      --  stackPrice = bidPrice
-      --end
       total = total + auction.stackPrice * auction.noOfStacks
 
       table.insert(results, {
@@ -263,6 +261,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         itemString = Auctionator.Search.GetCleanItemLink(auction.itemLink),
         price = auction.unitPrice or 0,
         bidAmount = auction.bidAmount,
+        bidder = auction.bidder or "",
         itemLink = auction.itemLink, -- Used for tooltips
         timeLeft = auction.timeLeft,
         timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),

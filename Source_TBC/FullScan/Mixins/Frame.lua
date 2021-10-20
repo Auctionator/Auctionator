@@ -40,12 +40,6 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
   end
 end
 
-function AuctionatorFullScanFrameMixin:IsAutoscanReady()
-  local timeSinceLastScan = time() - (self.state.TimeOfLastGetAllScan or 0)
-
-  return timeSinceLastScan >= (Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN_INTERVAL) * 60) and self:CanInitiate()
-end
-
 function AuctionatorFullScanFrameMixin:CanInitiate()
   local _, canDoGetAll = CanSendAuctionQuery()
   return canDoGetAll

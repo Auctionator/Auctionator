@@ -6,8 +6,8 @@ Auctionator.Config.InitializeFrames({
   "Selling",
   "SellingAllItems",
   "SellingShortcuts",
-  "Quantities",
-  --"Cancelling",
+  --"Quantities",
+  "Cancelling",
 
   "Profile",
 

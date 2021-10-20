@@ -3,11 +3,7 @@
 
   <Script file="Configuration.lua"/>
 
-  <Script file="Tooltips.lua"/>
-  <Script file="Advanced.lua"/>
-
   <Script file="Shopping.lua"/>
-  <Script file="Cancelling.lua"/>
-
   <Script file="Profile.lua"/>
+  <Script file="Advanced.lua"/>
 </Ui>
