@@ -19,22 +19,6 @@ Auctionator.Constants = {
     ITEM = 1,
     COMMODITY = 2
   },
-  ITEM_CLASS_IDS = {
-    Enum.ItemClass.Weapon,
-    Enum.ItemClass.Armor,
-    Enum.ItemClass.Container,
-    Enum.ItemClass.Gem,
-    Enum.ItemClass.ItemEnhancement,
-    Enum.ItemClass.Consumable,
-    Enum.ItemClass.Glyph,
-    Enum.ItemClass.Tradegoods,
-    Enum.ItemClass.Recipe,
-    Enum.ItemClass.Battlepet,
-    Enum.ItemClass.Questitem,
-    Enum.ItemClass.Miscellaneous,
-    Enum.ItemClass.Projectile,
-    Enum.ItemClass.Quiver,
-  },
   INVENTORY_TYPE_IDS = {
     Enum.InventoryType.IndexHeadType,
     Enum.InventoryType.IndexShoulderType,
