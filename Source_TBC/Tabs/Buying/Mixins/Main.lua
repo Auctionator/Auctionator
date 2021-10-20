@@ -161,6 +161,7 @@ function AuctionatorBuyFrameMixin:CancelFocussed()
   else
     Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.selectedAuctionData)
     self.selectedAuctionData.noOfStacks = self.selectedAuctionData.noOfStacks - 1
+    Auctionator.Utilities.SetStacksText(self.selectedAuctionData)
   end
   self:LoadForCancelling()
 end
@@ -170,6 +171,7 @@ function AuctionatorBuyFrameMixin:BuyFocussed()
   if self.buyInfo ~= nil then
     Auctionator.AH.PlaceAuctionBid(self.buyInfo.index, self.selectedAuctionData.stackPrice)
     self.selectedAuctionData.noOfStacks = self.selectedAuctionData.noOfStacks - 1
+    Auctionator.Utilities.SetStacksText(self.selectedAuctionData)
   end
   self:LoadForPurchasing()
 end

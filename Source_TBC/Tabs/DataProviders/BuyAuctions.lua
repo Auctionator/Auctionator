@@ -9,17 +9,10 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = AUCTIONATOR_L_RESULTS_STACK_SIZE_COLUMN,
+    headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "stackSize" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "stackSize" },
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
-    headerParameters = { "noOfStacks" },
-    cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "noOfStacks" },
+    cellParameters = { "availablePretty" },
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -182,6 +175,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
     else
       newEntry.isOwnedText = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
+    Auctionator.Utilities.SetStacksText(newEntry)
 
     local prevResult = results[#results] or {}
     if prevResult.unitPrice == newEntry.unitPrice and
@@ -190,6 +184,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
        prevResult.isOwned == newEntry.isOwned and
        prevResult.bidAmount == newEntry.bidAmount then
       prevResult.noOfStacks = prevResult.noOfStacks + 1
+      Auctionator.Utilities.SetStacksText(prevResult)
     else
       table.insert(results, newEntry)
     end

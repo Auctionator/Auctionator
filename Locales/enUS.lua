@@ -498,6 +498,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["STARTING_PRICE_PERCENTAGE_TOOLTIP_TEXT"] = "The starting price percentage will be used to set the default bid amount used for any auctions posted. For example setting this to 95 will, for a 10s stack price, set the bid price to 9s50c."
   L["STACK_BID_PRICE"] = "Stack Bid Price"
   L["ERROR_REOPEN_AUCTION_HOUSE"] = "Unable to complete action, please close and reopen the Auction House."
+  L["X_STACK_OF_X"] = "%s stack of %s"
+  L["X_STACKS_OF_X"] = "%s stacks of %s"
 
   return L
 end

@@ -7,19 +7,11 @@ local CANCELLING_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = AUCTIONATOR_L_RESULTS_STACK_SIZE_COLUMN,
+    headerText = AUCTIONATOR_L_QUANTITY,
     headerParameters = { "stackSize" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "stackSize" },
-    width = 70
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = AUCTIONATOR_L_QUANTITY,
-    headerParameters = { "quantity" },
-    cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "quantity" },
-    width = 70
+    cellParameters = { "availablePretty" },
+    width = 110,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -235,7 +227,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         undercutStatus = AUCTIONATOR_L_UNDERCUT_NO
       end
       table.insert(results, {
-        quantity = auction.noOfStacks,
+        noOfStacks = 1,
         stackSize = auction.stackSize,
         stackPrice = auction.stackPrice,
         itemString = cleanLink,
@@ -247,6 +239,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
         undercut = undercutStatus,
       })
+      Auctionator.Utilities.SetStacksText(results[#results])
     end
   end
   self:AppendEntries(results, true)
