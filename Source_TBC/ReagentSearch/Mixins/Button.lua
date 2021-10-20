@@ -14,12 +14,6 @@ function AuctionatorReagentSearchButtonMixin:OnLoad()
       self:UpdateTotal()
     end
   end)
-  --[[hooksecurefunc(TradeSkillFrame.DetailsFrame, "SetSelectedRecipeLevel", function(_, newLevel)
-    self:ShowWhenRecipeAndAHOpen()
-    if self:IsVisible() then
-      self:UpdateTotal()
-    end
-  end)]]
   Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
     self:ShowWhenRecipeAndAHOpen()
 

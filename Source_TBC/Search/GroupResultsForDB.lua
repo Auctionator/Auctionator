@@ -30,6 +30,7 @@ function Auctionator.Search.GroupResultsForDB(results)
           })
         end
         if waiting == 0 then
+          OnComplete()
         end
       end)
     else

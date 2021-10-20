@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="UniqueKey.lua" />
+  <Script file="GetCleanItemLink.lua" />
   <Script file="EmptyResult.lua" />
   <Script file="GroupResultsForDB.lua" />
   <Script file="Filters.lua" />

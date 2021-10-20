@@ -29,13 +29,14 @@ local TIMEOUT = 10
 
 function AuctionatorAHThrottlingFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorAHThrottlingFrameMixin:OnLoad")
-  self.oldReady = false
-  self.timeSinceLastQuery = 0
-  self:ResetTimeout()
 
   FrameUtil.RegisterFrameForEvents(self, THROTTLING_EVENTS)
 
   Auctionator.EventBus:RegisterSource(self, "AuctionatorAHThrottlingFrameMixin")
+
+  self.oldReady = false
+  self.timeSinceLastQuery = 0
+  self:ResetTimeout()
 
   if AuctionFrame:IsShown() then
     self:SetScript("OnUpdate", self.OnUpdate)
