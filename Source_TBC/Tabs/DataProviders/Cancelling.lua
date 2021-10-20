@@ -79,16 +79,13 @@ function AuctionatorCancellingDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
   AuctionatorItemStringLoadingMixin.OnLoad(self)
 
-  self.waitingforCancellation = {}
-  self.beenCancelled = {}
-
   self.undercutCutoff = {}
 end
 
 function AuctionatorCancellingDataProviderMixin:OnShow()
   Auctionator.EventBus:Register(self, EVENT_BUS_EVENTS)
 
-  self:QueryAuctions()
+  self:NoQueryRefresh()
 
   FrameUtil.RegisterFrameForEvents(self, DATA_EVENTS)
 end
@@ -97,11 +94,6 @@ function AuctionatorCancellingDataProviderMixin:OnHide()
   Auctionator.EventBus:Unregister(self, EVENT_BUS_EVENTS)
 
   FrameUtil.UnregisterFrameForEvents(self, DATA_EVENTS)
-end
-
-function AuctionatorCancellingDataProviderMixin:QueryAuctions()
-  self.onPreserveScroll()
-  self:PopulateAuctions()
 end
 
 function AuctionatorCancellingDataProviderMixin:NoQueryRefresh()
@@ -130,25 +122,13 @@ function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
 end
 
 function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ...)
-  if eventName == "AUCTION_CANCELED" then
-    if (tIndexOf(self.waitingforCancellation, auctionID) ~= nil and
-        tIndexOf(self.beenCancelled, auctionID) == nil) then
-      table.insert(self.beenCancelled, auctionID)
-      self:NoQueryRefresh()
-    else
-      self:QueryAuctions()
-    end
-
-  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" then
+  if eventName == "AUCTION_OWNED_LIST_UPDATE" then
     self:NoQueryRefresh()
   end
 end
 
 function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
-  if eventName == Auctionator.Cancelling.Events.RequestCancel then
-    table.insert(self.waitingforCancellation, eventData)
-
-  elseif eventName == Auctionator.Cancelling.Events.UndercutScanStart then
+  if eventName == Auctionator.Cancelling.Events.UndercutScanStart then
     self.undercutCutoff = {}
 
     self:NoQueryRefresh()
@@ -175,7 +155,12 @@ function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
 end
 
 local function ToUnitPrice(entry)
-  return math.ceil(entry.info[Auctionator.Constants.AuctionItemInfo.Buyout] / entry.info[Auctionator.Constants.AuctionItemInfo.Quantity])
+  local quantity = entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
+  if quantity ~= 0 then
+    return math.ceil(entry.info[Auctionator.Constants.AuctionItemInfo.Buyout] / quantity)
+  else
+    return 0
+  end
 end
 local function ToStackSize(entry)
   return entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
@@ -219,10 +204,6 @@ local function GroupAuctions(allAuctions)
       bidder = auction.info[Auctionator.Constants.AuctionItemInfo.Bidder],
       timeLeft = auction.timeLeft,
     }
-    -- Avoid inf numerical results for sold auctions
-    if newEntry.stackSize == 0 then
-      newEntry.unitPrice = 0
-    end
     if newEntry.bidAmount == 0 then
       newEntry.bidPrice = nil
     end

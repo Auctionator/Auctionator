@@ -29,7 +29,6 @@ Auctionator = {
   IncrementalScan = {},
   FullScan = {},
   PostingHistory = {},
-  Buying = {},
 
   Tabs = {
     State = {
