@@ -5,7 +5,7 @@ local QUERY_EVENTS = {
   Auctionator.AH.Events.ScanAborted,
 }
 
-function AuctionatorBuyFrameMixin:OnLoad()
+function AuctionatorBuyFrameMixin:Init()
   Auctionator.EventBus:Register(self, {
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.AH.Events.ThrottleUpdate,
@@ -177,8 +177,8 @@ end
 
 AuctionatorBuyFrameMixinForShopping = CreateFromMixins(AuctionatorBuyFrameMixin)
 
-function AuctionatorBuyFrameMixinForShopping:OnLoad()
-  AuctionatorBuyFrameMixin.OnLoad(self)
+function AuctionatorBuyFrameMixinForShopping:Init()
+  AuctionatorBuyFrameMixin.Init(self)
   Auctionator.EventBus:Register(self, {
     Auctionator.Buying.Events.Show,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
@@ -222,8 +222,8 @@ end
 
 AuctionatorBuyFrameMixinForSelling = CreateFromMixins(AuctionatorBuyFrameMixin)
 
-function AuctionatorBuyFrameMixinForSelling:OnLoad()
-  AuctionatorBuyFrameMixin.OnLoad(self)
+function AuctionatorBuyFrameMixinForSelling:Init()
+  AuctionatorBuyFrameMixin.Init(self)
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RefreshBuying,

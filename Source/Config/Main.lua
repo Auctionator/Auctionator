@@ -12,6 +12,7 @@ Auctionator.Config.Options = {
 
   AUCTION_CHAT_LOG = "auction_chat_log",
   SELLING_BAG_COLLAPSED = "selling_bag_collapsed",
+  SHOW_SELLING_BAG = "show_selling_bag",
   SELLING_BAG_SELECT_SHORTCUT = "selling_bag_select_shortcut",
   SELLING_ICON_SIZE = "selling_icon_size",
   SELLING_IGNORED_KEYS = "selling_ignored_keys",
@@ -70,6 +71,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.DEFAULT_LIST] = Auctionator.Constants.NO_LIST,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
   [Auctionator.Config.Options.SELLING_BAG_COLLAPSED] = false,
+  [Auctionator.Config.Options.SHOW_SELLING_BAG] = true,
   [Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_LEFT_CLICK,
   [Auctionator.Config.Options.SELLING_ICON_SIZE] = 42,
   [Auctionator.Config.Options.SELLING_IGNORED_KEYS] = {},

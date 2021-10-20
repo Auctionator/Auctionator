@@ -7,7 +7,6 @@ Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY = "show_selling_price_hist
 Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT = "selling_cancel_shortcut"
 Auctionator.Config.Options.SELLING_BUY_SHORTCUT = "selling_buy_shortcut"
 
-Auctionator.Config.Options.SHOW_SELLING_BAG = "show_selling_bag"
 Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration"
 Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference"
 Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE = "not_lifo_undercut_percentage"
@@ -27,7 +26,6 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.PET_TOOLTIPS] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.ENCHANT_TOOLTIPS] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN_INTERVAL] = 15
-Auctionator.Config.Defaults[Auctionator.Config.Options.SHOW_SELLING_BAG] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT] = Auctionator.Config.Shortcuts.RIGHT_CLICK

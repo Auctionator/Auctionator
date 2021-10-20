@@ -1,9 +1,6 @@
 <Ui>
   <Frame name="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixin" virtual="true">
     <Size x="450" y="350" />
-    <Scripts>
-      <OnLoad method="OnLoad"/>
-    </Scripts>
     <Frames>
       <Frame parentKey="SearchDataProvider" mixin="AuctionatorBuyAuctionsDataProviderMixin">
         <Scripts>
@@ -90,6 +87,7 @@
 
   <Frame name="AuctionatorBuyFrameTemplateForShopping" hidden="true" inherits="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixinForShopping" virtual="true">
     <Scripts>
+      <OnLoad method="Init"/>
       <OnShow method="OnShow"/>
       <OnHide method="OnHide"/>
     </Scripts>

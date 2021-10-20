@@ -50,7 +50,7 @@
 
       <Frame parentKey="BuyFrame" inherits="AuctionatorBuyFrameTemplateForSelling">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" y="10" x="285"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" relativePoint="TOPRIGHT" y="10" x="40"/>
           <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>

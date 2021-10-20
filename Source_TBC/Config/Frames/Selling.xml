@@ -47,6 +47,16 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagShown">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagCollapsed">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED" type="global" />
@@ -54,7 +64,17 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagHeading" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagShown" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="IconSize">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" y="-15"/>
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AutoSelectNext">
@@ -64,7 +84,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_AUTO_SELECT_NEXT_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconSize" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="MissingFavourites">
