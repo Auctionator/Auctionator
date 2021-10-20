@@ -270,7 +270,7 @@ hooksecurefunc (GameTooltip, "SetHyperlink",
   end
 );
 
-function Auctionator.Tooltip.LateHooks()
+function Auctionator.Tooltip.MainlineLateHooks()
   -- As AuctionHouseUtil doesn't exist until the AH is opened this cannot be
   -- called before the AH opens.
   -- Only shows disenchant information as the auction price is already displayed
