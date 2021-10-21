@@ -7,10 +7,22 @@ function AuctionatorBuyAuctionsResultsRowMixin:Populate(...)
   self:SetAlpha(self.rowData.noOfStacks == 0 and 0.5 or 1.0)
 end
 
+function AuctionatorBuyAuctionsResultsRowMixin:OnEnter()
+  if not self.rowData.notReady then
+    AuctionatorResultsRowTemplateMixin.OnEnter(self)
+  end
+end
+
+function AuctionatorBuyAuctionsResultsRowMixin:OnLeave()
+  if not self.rowData.notReady then
+    AuctionatorResultsRowTemplateMixin.OnLeave(self)
+  end
+end
+
 function AuctionatorBuyAuctionsResultsRowMixin:OnClick(button, ...)
   Auctionator.Debug.Message("AuctionatorBuyAuctionsResultsRowMixin:OnClick()")
 
-  if self.rowData.noOfStacks < 1 or self.rowData.stackPrice == nil then
+  if self.rowData.noOfStacks < 1 or self.rowData.stackPrice == nil or self.rowData.notReady then
     return
   end
   self.rowData.isSelected = not self.rowData.isSelected

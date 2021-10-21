@@ -28,6 +28,7 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     headerText = AUCTIONATOR_L_OWNED_COLUMN,
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "isOwnedText" },
+    width = 70,
   },
 }
 
@@ -163,6 +164,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       isOwned = auction.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")),
       bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
       isSelected = false, --Used by rows to determine highlight
+      notReady = true,
       query = auction.query,
       page = auction.page,
     }
@@ -195,6 +197,12 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
 
   if self.gotAllResults then
     self:ReportNewMinPrice()
+
+    -- Enable selection
+    for _, result in ipairs(results) do
+      result.notReady = false
+    end
+
     for _, result in ipairs(results) do
       if result.unitPrice ~= nil then
         result.isSelected = true

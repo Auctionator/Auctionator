@@ -335,6 +335,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["X_PRICE_HISTORY"] = "%s Price History"
   L["NO_ITEM_INFO_SPECIFIED"] = "No item info was specified."
   L["BUY_STACK"] = "Buy Stack"
+  L["NONE_LEFT"] = "None Left"
+  L["BUY"] = "Buy"
   L["BUYING"] = "Buying"
   L["REFRESH"] = "Refresh"
 
@@ -500,6 +502,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ERROR_REOPEN_AUCTION_HOUSE"] = "Unable to complete action, please close and reopen the Auction House."
   L["X_STACK_OF_X"] = "%s stack of %s"
   L["X_STACKS_OF_X"] = "%s stacks of %s"
+  L["BUYING_X_FOR_X"] = "Buying %s for %s"
+  L["ALREADY_PURCHASED_X"] = "Already purchased %s"
+  L["PURCHASED_X_XX"] = "Purchased %s x%s"
 
   return L
 end

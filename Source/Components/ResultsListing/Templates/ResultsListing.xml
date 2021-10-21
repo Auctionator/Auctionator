@@ -25,7 +25,7 @@
 
       <ScrollFrame parentKey="ScrollFrame" inherits="HybridScrollFrameTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.HeaderContainer" relativePoint="BOTTOMLEFT" y="-3"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.HeaderContainer" relativePoint="BOTTOMLEFT" y="-3" x="15"/>
           <Anchor point="RIGHT" relativeKey="$parent.HeaderContainer" relativePoint="RIGHT" x="-2"/>
           <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
         </Anchors>

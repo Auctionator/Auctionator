@@ -1,33 +1,27 @@
 AuctionatorBuyFrameMixin = {}
 
-local QUERY_EVENTS = {
-  Auctionator.AH.Events.ScanResultsUpdate,
-  Auctionator.AH.Events.ScanAborted,
-}
-
 function AuctionatorBuyFrameMixin:Init()
   Auctionator.EventBus:Register(self, {
     Auctionator.Buying.Events.AuctionFocussed,
+    Auctionator.Buying.Events.StacksUpdated,
     Auctionator.AH.Events.ThrottleUpdate,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorBuyFrameMixin")
   self.SearchResultsListing:Init(self.SearchDataProvider)
   self.HistoryResultsListing:Init(self.HistoryDataProvider)
   self.selectedAuctionData = nil
-  self.buyInfo = nil
-  self.gotAllResults = true
   self:UpdateButtons()
 end
 
 function AuctionatorBuyFrameMixin:Reset()
   self.selectedAuctionData = nil
-  self.buyInfo = nil
   self.SearchDataProvider:Reset()
   self.HistoryDataProvider:Reset()
 
   if self.HistoryResultsListing:IsShown() then
     self:ToggleHistory()
   end
+  self.BuyDialog:Hide()
 
   self:UpdateButtons()
 end
@@ -35,32 +29,17 @@ end
 function AuctionatorBuyFrameMixin:ReceiveEvent(eventName, eventData, ...)
   if self:IsVisible() and eventName == Auctionator.Buying.Events.AuctionFocussed then
     self.selectedAuctionData = eventData
-    self.buyInfo = nil
-    if self.selectedAuctionData then
-      if eventData.isOwned then
-        self:LoadForCancelling()
-      else
-        self:LoadForPurchasing()
-      end
+    if self.selectedAuctionData and self.selectedAuctionData.isOwned then
+      self:LoadForCancelling()
     end
     self:UpdateButtons()
+  elseif self:IsVisible() and eventName == Auctionator.Buying.Events.StacksUpdated then
+    if self.selectedAuctionData and self.selectedAuctionData.noOfStacks == 0 then
+      self.selectedAuctionData.isSelected = false
+      self.selectedAuctionData = nil
+    end
   elseif self:IsVisible() and eventName == Auctionator.AH.Events.ThrottleUpdate then
     self:UpdateButtons()
-  elseif eventName == Auctionator.AH.Events.ScanResultsUpdate then
-    self.gotAllResults = ...
-    if self.gotAllResults then
-      Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
-    end
-    if self.selectedAuctionData and not self.selectedAuctionData.isOwned then
-      self:FindAuctionOnCurrentPage()
-      if self.buyInfo == nil then
-        self:Reset()
-        self.SearchDataProvider:RefreshQuery()
-      end
-      self:UpdateButtons()
-    end
-  elseif eventName == Auctionator.AH.Events.ScanAborted then
-    Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
   end
 end
 
@@ -68,25 +47,7 @@ function AuctionatorBuyFrameMixin:UpdateButtons()
   self.CancelButton:SetEnabled(self.selectedAuctionData ~= nil and self.selectedAuctionData.isOwned and self.selectedAuctionData.noOfStacks > 0 and Auctionator.AH.IsNotThrottled())
   self.BuyButton:Disable()
 
-  self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and self.buyInfo ~= nil and Auctionator.AH.IsNotThrottled())
-end
-
-function AuctionatorBuyFrameMixin:FindAuctionOnCurrentPage()
-  self.buyInfo = nil
-
-  local page = Auctionator.AH.GetCurrentPage()
-  for index, auction in ipairs(page) do
-    local stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout]
-    local stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity]
-    local bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount]
-    if auction.itemLink == self.selectedAuctionData.itemLink and
-       stackPrice == self.selectedAuctionData.stackPrice and
-       stackSize == self.selectedAuctionData.stackSize and
-       bidAmount ~= stackPrice then
-      self.buyInfo = {index = index}
-      break
-    end
-  end
+  self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and not self.selectedAuctionData.isOwned)
 end
 
 function AuctionatorBuyFrameMixin:GetOwnerAuctionIndex()
@@ -121,25 +82,6 @@ function AuctionatorBuyFrameMixin:LoadForCancelling()
   self:UpdateButtons()
 end
 
-function AuctionatorBuyFrameMixin:LoadForPurchasing()
-  if self.selectedAuctionData.noOfStacks < 1 then
-    self.selectedAuctionData.isSelected = false
-    self.selectedAuctionData = nil
-    self:UpdateButtons()
-    return
-  end
-
-  Auctionator.AH.AbortQuery()
-  self:FindAuctionOnCurrentPage()
-  if self.buyInfo == nil then
-    Auctionator.EventBus:Register(self, QUERY_EVENTS)
-    self.gotAllResults = false
-    Auctionator.AH.QueryAndFocusPage(self.selectedAuctionData.query, self.selectedAuctionData.page)
-  end
-
-  self:UpdateButtons()
-end
-
 function AuctionatorBuyFrameMixin:ToggleHistory()
   self.HistoryResultsListing:SetShown(not self.HistoryResultsListing:IsShown())
   self.SearchResultsListing:SetShown(not self.SearchResultsListing:IsShown())
@@ -166,14 +108,8 @@ function AuctionatorBuyFrameMixin:CancelFocussed()
   self:LoadForCancelling()
 end
 
-function AuctionatorBuyFrameMixin:BuyFocussed()
-  self:FindAuctionOnCurrentPage()
-  if self.buyInfo ~= nil then
-    Auctionator.AH.PlaceAuctionBid(self.buyInfo.index, self.selectedAuctionData.stackPrice)
-    self.selectedAuctionData.noOfStacks = self.selectedAuctionData.noOfStacks - 1
-    Auctionator.Utilities.SetStacksText(self.selectedAuctionData)
-  end
-  self:LoadForPurchasing()
+function AuctionatorBuyFrameMixin:BuyClicked()
+  self.BuyDialog:SetDetails(self.selectedAuctionData)
 end
 
 

@@ -10,7 +10,7 @@
       <Layer level="OVERLAY">
         <Texture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1">
           <Anchors>
-            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="18"/>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
           </Anchors>
         </Texture>
