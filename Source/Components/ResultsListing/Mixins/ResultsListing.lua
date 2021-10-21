@@ -142,7 +142,7 @@ function AuctionatorResultsListingMixin:InitializeTable()
       end,
       unpack((columnEntry.headerParameters or {}))
     )
-    column:SetCellPadding(-5, 0)
+    column:SetCellPadding(-5, 5)
     column:ConstructCells("FRAME", columnEntry.cellTemplate, unpack((columnEntry.cellParameters or {})))
 
     if columnEntry.width ~= nil then

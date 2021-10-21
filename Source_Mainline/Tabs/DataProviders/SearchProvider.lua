@@ -5,7 +5,7 @@ local SEARCH_PROVIDER_LAYOUT = {
     headerText = AUCTIONATOR_L_BUYOUT_PRICE,
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "price" },
-    width = 140
+    width = 145
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -13,7 +13,7 @@ local SEARCH_PROVIDER_LAYOUT = {
     headerText = AUCTIONATOR_L_BID_PRICE,
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "bidPrice" },
-    width = 140
+    width = 145
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
