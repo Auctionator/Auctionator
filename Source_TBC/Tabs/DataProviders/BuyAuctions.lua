@@ -5,7 +5,7 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     headerText = AUCTIONATOR_L_UNIT_PRICE,
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "unitPrice" },
-    width = 140,
+    width = 160,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -20,7 +20,7 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     headerText = AUCTIONATOR_L_RESULTS_STACK_PRICE_COLUMN,
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "stackPrice" },
-    width = 140,
+    width = 160,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
