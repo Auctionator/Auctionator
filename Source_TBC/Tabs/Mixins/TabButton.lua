@@ -6,12 +6,13 @@ function AuctionatorTabMixin:Initialize(name, tabTemplate, tabHeader, displayMod
   self.ahTitle = tabHeader
   self.displayMode = displayMode
 
-  local wrapperFrame = CreateFrame("FRAME", nil, AuctionFrame, "AuctionatorTabWrapperTemplate")
+  self.wrapperFrame = CreateFrame("FRAME", nil, AuctionFrame, "AuctionatorTabWrapperTemplate")
+  self.wrapperFrame.Title:SetText(self.ahTitle)
   -- Create this tab's frame
   self.frameRef = CreateFrame(
     "FRAME",
     displayMode[1],
-    wrapperFrame,
+    self.wrapperFrame,
     tabTemplate
   )
   self.frameRef:Hide()
@@ -29,6 +30,7 @@ end
 function AuctionatorTabMixin:Selected()
   PanelTemplates_SetTab(AuctionFrame, self)
   PanelTemplates_SelectTab(self)
+  self.wrapperFrame:Show()
   self.frameRef:Show()
 
   --AuctionHouseFrame:SetTitle(self.ahTitle)
@@ -42,5 +44,5 @@ end
 
 function AuctionatorTabMixin:DeselectTab()
   PanelTemplates_DeselectTab(self)
-  self.frameRef:Hide()
+  self.wrapperFrame:Hide()
 end
