@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Title: Auctionator
 ## Version: @project-version@
 ## Author: Borjamacare, plusmouse
