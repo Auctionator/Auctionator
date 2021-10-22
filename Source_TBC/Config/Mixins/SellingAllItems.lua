@@ -5,6 +5,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnLoad()
 
   self.name = AUCTIONATOR_L_CONFIG_SELLING_ALL_ITEMS_CATEGORY
   self.parent = "Auctionator"
+  self.beenShown = false
 
   self:SetupPanel()
 
@@ -14,10 +15,10 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnLoad()
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
-  self.currentDuration = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
-  self.currentCommiditySalesPreference = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE)
+  self.beenShown = true
+  self.currentUndercutPreference = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE)
 
-  self.DurationGroup:SetSelectedValue(self.currentDuration)
+  self.DurationGroup:SetSelectedValue(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION))
   self.SalesPreference:SetSelectedValue(self.currentCommiditySalesPreference)
 
   self:OnSalesPreferenceChange(self.currentCommiditySalesPreference)
@@ -32,15 +33,16 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
   local defaultStacks = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS)
   self.DefaultStacks.StackSize:SetNumber(defaultStacks.stackSize)
   self.DefaultStacks.NumStacks:SetNumber(defaultStacks.numStacks)
+  self.DefaultStacks.StackSize:Show()
+  self.DefaultStacks.NumStacks:Show()
   self.DefaultStacks:SetMaxStackSize(0)
   self.DefaultStacks:SetMaxNumStacks(0)
-  self.DefaultStacks:Show()
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:OnSalesPreferenceChange(selectedValue)
-  self.currentCommiditySalesPreference = selectedValue
+  self.currentUndercutPreference = selectedValue
 
-  if self.currentCommiditySalesPreference == Auctionator.Config.SalesTypes.PERCENTAGE then
+  if self.currentUndercutPreference == Auctionator.Config.SalesTypes.PERCENTAGE then
     self.UndercutPercentage:Show()
     self.UndercutValue:Hide()
   else
@@ -50,6 +52,10 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnSalesPreferenceChange(sele
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:Save()
+  if not self.beenShown then
+    return
+  end
+
   Auctionator.Debug.Message("AuctionatorConfigSellingAllItemsFrameMixin:Save()")
 
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.DurationGroup:GetValue())
