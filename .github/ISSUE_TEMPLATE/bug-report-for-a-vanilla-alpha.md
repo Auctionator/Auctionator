@@ -1,5 +1,5 @@
 ---
-name: Bug report for a TBC alpha
+name: Bug report for a Vanilla alpha
 about: You're using WoW Vanilla and an alpha version of Auctionator
 title: ''
 labels: vanilla
