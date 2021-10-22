@@ -16,19 +16,10 @@ local CANCELLING_TABLE_LAYOUT = {
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_UNIT_PRICE,
-    headerParameters = { "price" },
+    headerParameters = { "unitPrice" },
     cellTemplate = "AuctionatorPriceCellTemplate",
-    cellParameters = { "price" },
+    cellParameters = { "unitPrice" },
     width = 150,
-  },
-  {
-    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerText = AUCTIONATOR_L_BID_PRICE,
-    headerParameters = { "bidPrice" },
-    cellTemplate = "AuctionatorPriceCellTemplate",
-    cellParameters = { "bidPrice" },
-    width = 150,
-    defaultHide = true,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -94,7 +85,7 @@ function AuctionatorCancellingDataProviderMixin:NoQueryRefresh()
 end
 
 local COMPARATORS = {
-  price = Auctionator.Utilities.NumberComparator,
+  unitPrice = Auctionator.Utilities.NumberComparator,
   bidAmount = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   bidder = Auctionator.Utilities.StringComparator,
@@ -146,31 +137,12 @@ function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
   end
 end
 
-local function ToStackSize(entry)
-  return entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
-end
-local function ToOwner(entry)
-  return tostring(entry.info[Auctionator.Constants.AuctionItemInfo.Owner])
+local function ToUniqueKey(entry)
+  return Auctionator.Search.GetCleanItemLink(entry.itemLink) .. " " .. entry.stackPrice .. " " .. entry.stackSize .. " " .. tostring(entry.isSold) .. " " .. tostring(entry.bidAmount) .. " " .. tostring(entry.minBid) .. " " .. tostring(entry.bidder) .. " " .. entry.timeLeft
 end
 
 local function GroupAuctions(allAuctions)
-  --[[table.sort(allAuctions, function(a, b)
-    local unitA = ToUnitPrice(a)
-    local unitB = ToUnitPrice(b)
-    if unitA == unitB then
-      local stackA = ToStackSize(a)
-      local stackB = ToStackSize(b)
-      if stackA == stackB then
-        local ownerA = ToOwner(a)
-        local ownerB = ToOwner(b)
-        return ownerA < ownerB
-      else
-        return stackA < stackB
-      end
-    else
-      return unitA < unitB
-    end
-  end)]]
+  local seenDetails = {}
 
   local results = {}
   for _, auction in ipairs(allAuctions) do
@@ -184,14 +156,17 @@ local function GroupAuctions(allAuctions)
       numStacks = 1,
       isOwned = true,
       bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
-      bidPrice = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
+      minBid = auction.info[Auctionator.Constants.AuctionItemInfo.MinBid],
       bidder = auction.info[Auctionator.Constants.AuctionItemInfo.Bidder],
       timeLeft = auction.timeLeft,
     }
-    if newEntry.bidAmount == 0 then
-      newEntry.bidPrice = nil
+    local key = ToUniqueKey(newEntry)
+    if seenDetails[key] then
+      seenDetails[key].numStacks = seenDetails[key].numStacks + 1
+    else
+      seenDetails[key] = newEntry
+      table.insert(results, newEntry)
     end
-    table.insert(results, newEntry)
   end
 
   return results
@@ -219,13 +194,13 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         undercutStatus = AUCTIONATOR_L_UNDERCUT_NO
       end
       table.insert(results, {
-        numStacks = 1,
+        numStacks = auction.numStacks,
         stackSize = auction.stackSize,
         stackPrice = auction.stackPrice,
         itemString = cleanLink,
-        price = auction.unitPrice or 0,
-        bidAmount = auction.bidAmount,
+        unitPrice = auction.unitPrice,
         bidder = auction.bidder or "",
+        bidAmount = auction.bidAmount,
         itemLink = auction.itemLink, -- Used for tooltips
         timeLeft = auction.timeLeft,
         timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
