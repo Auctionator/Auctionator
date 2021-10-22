@@ -506,6 +506,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ALREADY_PURCHASED_X"] = "Already purchased %s"
   L["PURCHASED_X_XX"] = "Purchased %s x%s"
   L["DEFAULT_STACK_SIZES"] = "Default Stack Sizes"
+  L["CONFIG_SELLING_TBC_ALL_ITEMS"] = "Options to set the default posting settings for all items."
 
   return L
 end

@@ -9,7 +9,7 @@
       <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
           <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_SELLING_ALL_ITEMS_CATEGORY" type="global"/>
-          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_LIFO_TEXT" type="global"/>
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_TBC_ALL_ITEMS" type="global"/>
         </KeyValues>
       </Frame>
 
@@ -18,7 +18,7 @@
           <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DEFAULT_AUCTION_DURATION" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-10"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
         </Anchors>
         <Frames>
           <Frame inherits="AuctionatorConfigurationRadioButton">
