@@ -4,7 +4,7 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
   self.itemInfo = info
 
   if info ~= nil then
-    Auctionator.EventBus:RegisterSource(self, "BagItemMixin" .. Auctionator.Utilities.ItemKeyString(info.itemKey))
+    Auctionator.EventBus:RegisterSource(self, "BagItemMixin")
 
     self.Icon:SetTexture(info.iconTexture)
     self.Icon:Show()
@@ -28,13 +28,23 @@ end
 
 function AuctionatorBagItemMixin:OnEnter()
   if self.itemInfo ~= nil then
-    AuctionHouseUtil.LineOnEnterCallback(self, self.itemInfo)
+    if AuctionHouseUtil ~= nil then
+      AuctionHouseUtil.LineOnEnterCallback(self, self.itemInfo)
+    else
+      GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+      GameTooltip:SetHyperlink(self.itemInfo.itemLink)
+      GameTooltip:Show()
+    end
   end
 end
 
 function AuctionatorBagItemMixin:OnLeave()
   if self.itemInfo ~= nil then
-    AuctionHouseUtil.LineOnLeaveCallback(self, self.itemInfo)
+    if AuctionHouseUtil ~= nil then
+      AuctionHouseUtil.LineOnLeaveCallback(self, self.itemInfo)
+    else
+      GameTooltip:Hide()
+    end
   end
 end
 

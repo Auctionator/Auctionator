@@ -1,4 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="Throttling.xml" />
-  <Include file="ItemKeyLoader.xml" />
-</Ui>

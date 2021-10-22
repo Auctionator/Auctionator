@@ -54,8 +54,11 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
       vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
     end
 
-    disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
-    disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink)
+    -- Check we have disenchant information (ie not classic)
+    if Auctionator.Enchant.DE_TABLE then
+      disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
+      disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink)
+    end
   end
 
   if Auctionator.Debug.IsOn() then

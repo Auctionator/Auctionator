@@ -4,7 +4,7 @@
 --
 --  Here's what one entry looks like:
 --  {
---    classID    = integer (corresponding to ITEM_CLASS_IDS )
+--    classID    = integer (corresponding to Auctionator.Constants.ValidItemClassIDs )
 --    name       = string  (resolved by GetItemClassInfo( classID ))
 --    category     = table   (new QueryAuctionItems categoryData format, { classID, subClassID (nil), inventoryType (nil) } )
 --    subClasses = {
@@ -14,7 +14,6 @@
 --    }
 --  }
 
-local ITEM_CLASS_IDS = Auctionator.Constants.ITEM_CLASS_IDS
 local INVENTORY_TYPE_IDS = Auctionator.Constants.INVENTORY_TYPE_IDS
 
 Auctionator.Search.Category = {
@@ -61,7 +60,7 @@ local function GenerateArmorInventorySlots(parentKey, parentCategory)
 end
 
 local function GenerateSubClasses( classID, parentKey )
-  local subClassesTable = C_AuctionHouse.GetAuctionItemSubClasses( classID )
+  local subClassesTable = Auctionator.AH.GetAuctionItemSubClasses( classID )
   local subClasses = {}
 
   for index = 1, #subClassesTable do
@@ -91,29 +90,31 @@ local function GenerateSubClasses( classID, parentKey )
   return subClasses
 end
 
-for _, classID in ipairs( ITEM_CLASS_IDS ) do
-  local key = GetItemClassInfo( classID )
-  local subClasses = GenerateSubClasses( classID, key )
-  local category = {classID = classID}
+function Auctionator.Search.Categories.Initialize()
+  for _, classID in ipairs( Auctionator.Constants.ValidItemClassIDs ) do
+    local key = GetItemClassInfo( classID )
+    local subClasses = GenerateSubClasses( classID, key )
+    local category = {classID = classID}
 
-  local categoryCategory = Auctionator.Search.Category:new({
-    classID = classID,
-    name = name,
-    key = key,
-    category = {category},
-    subClasses = subClasses
-  })
+    local categoryCategory = Auctionator.Search.Category:new({
+      classID = classID,
+      name = name,
+      key = key,
+      category = {category},
+      subClasses = subClasses
+    })
 
-  table.insert( Auctionator.Search.Categories, categoryCategory )
-end
+    table.insert( Auctionator.Search.Categories, categoryCategory )
+  end
 
-for _, category in ipairs( Auctionator.Search.Categories ) do
-  Auctionator.Search.CategoryLookup[ category.key ] = category
+  for _, category in ipairs( Auctionator.Search.Categories ) do
+    Auctionator.Search.CategoryLookup[ category.key ] = category
 
-  for i = 1, #category.subClasses do
-    local subCategory = category.subClasses[ i ]
+    for i = 1, #category.subClasses do
+      local subCategory = category.subClasses[ i ]
 
-    Auctionator.Search.CategoryLookup[ subCategory.key ] = subCategory
+      Auctionator.Search.CategoryLookup[ subCategory.key ] = subCategory
+    end
   end
 end
 

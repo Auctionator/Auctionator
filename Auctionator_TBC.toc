@@ -1,0 +1,24 @@
+## Interface: 20501
+## Title: Auctionator
+## Version: @project-version@
+## Author: Borjamacare, plusmouse
+## X-Website: http://mods.curse.com/addons/wow/auctionator
+## X-Localizations: enUS, itIT, deDE, ruRU, koKR, frFR, esES, esMX, zhTW, ptBR, zhCN
+## Notes: A lightweight addon that makes it easy and fast to buy, sell and manage auctions
+## Notes-esES: Un addon liviano que hace que comprar, vender y administrar subastas sea fácil y rápido
+## Notes-esMX: Un addon liviano que hace que comprar, vender y administrar subastas sea fácil y rápido
+## SavedVariables: AUCTIONATOR_CONFIG, AUCTIONATOR_SAVEDVARS, AUCTIONATOR_SHOPPING_LISTS, AUCTIONATOR_PRICE_DATABASE, AUCTIONATOR_POSTING_HISTORY, AUCTIONATOR_VENDOR_PRICE_CACHE, AUCTIONATOR_RECENT_SEARCHES
+## SavedVariablesPerCharacter: AUCTIONATOR_CHARACTER_CONFIG
+
+Patches\TaintLess.xml
+
+Assets_TBC.xml
+
+Imports_TBC\Manifest.xml
+
+Locales\Manifest.xml
+
+Source\Manifest.xml
+Source_TBC\Manifest.xml
+
+Auctionator.xml

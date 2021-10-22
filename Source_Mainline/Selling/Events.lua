@@ -1,0 +1,5 @@
+Auctionator.Selling.Events.RefreshHistory = "selling_refresh_history"
+Auctionator.Selling.Events.SellSearchStart = "sell_search_start"
+Auctionator.Selling.Events.PriceSelected = "price_selected"
+Auctionator.Selling.Events.RefreshSearch = "selling_refresh_search"
+Auctionator.Selling.Events.ConfirmCallback = "selling_confirm_commodity_callback"

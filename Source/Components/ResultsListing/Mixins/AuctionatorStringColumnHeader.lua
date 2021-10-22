@@ -1,4 +1,4 @@
-AuctionatorStringColumnHeaderTemplateMixin = CreateFromMixins(TableBuilderElementMixin)
+AuctionatorStringColumnHeaderTemplateMixin = CreateFromMixins(AuctionatorRetailImportTableBuilderElementMixin)
 
 function AuctionatorStringColumnHeaderTemplateMixin:Init(name, customiseFunction, sortFunction, sortKey, tooltipText)
   self.tooltipText = tooltipText

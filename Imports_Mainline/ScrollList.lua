@@ -1,0 +1,1 @@
+AuctionatorRetailImportScrollListLineMixin = ScrollListLineMixin

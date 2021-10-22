@@ -19,20 +19,6 @@ Auctionator.Constants = {
     ITEM = 1,
     COMMODITY = 2
   },
-  ITEM_CLASS_IDS = {
-    Enum.ItemClass.Weapon,
-    Enum.ItemClass.Armor,
-    Enum.ItemClass.Container,
-    Enum.ItemClass.Gem,
-    Enum.ItemClass.ItemEnhancement,
-    Enum.ItemClass.Consumable,
-    Enum.ItemClass.Glyph,
-    Enum.ItemClass.Tradegoods,
-    Enum.ItemClass.Recipe,
-    Enum.ItemClass.Battlepet,
-    Enum.ItemClass.Questitem,
-    Enum.ItemClass.Miscellaneous
-  },
   INVENTORY_TYPE_IDS = {
     Enum.InventoryType.IndexHeadType,
     Enum.InventoryType.IndexShoulderType,
@@ -50,11 +36,16 @@ Auctionator.Constants = {
   NO_LIST = "",
   ITEM_LEVEL_THRESHOLD = 168,
 
-  SHOPPING_LIST_SORTS = {{sortOrder = Enum.AuctionHouseSortOrder.Name, reverseSort = false}, {sortOrder = Enum.AuctionHouseSortOrder.Price, reverseSort = true}},
   ShoppingListViews = {
     Lists = 1,
     Recents = 2,
   },
 
   RecentsListLimit = 30,
+
+  Durations = {
+    Short = 12,
+    Medium = 24,
+    Long = 48,
+  },
 }

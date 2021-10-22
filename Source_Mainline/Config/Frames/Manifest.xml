@@ -1,0 +1,10 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="BasicOptions.xml"/>
+  <Include file="Tooltips.xml"/>
+  <Include file="LIFO.xml"/>
+  <Include file="NotLIFO.xml"/>
+  <Include file="Selling.xml"/>
+  <Include file="SellingShortcuts.xml"/>
+  <Include file="Quantities.xml"/>
+  <Include file="Cancelling.xml"/>
+</Ui>

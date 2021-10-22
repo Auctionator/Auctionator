@@ -3,16 +3,11 @@
     name="AuctionatorTabFrameTemplate"
     virtual="true"
     inherits="AuctionatorInsetTemplate"
-    parent="AuctionHouseFrame"
   >
   <!-- Note that inheriting frames need to set their own parentKey!
 
        The Selling and Cancelling tabs do not inherit from this, as they need custom InsetFrames
    -->
-    <KeyValues>
-      <KeyValue key="backgroundAtlas" value="auctionhouse-background-buy-commodities" type="string"/>
-    </KeyValues>
-
     <Anchors>
       <Anchor point="LEFT" x="4"/>
       <Anchor point="RIGHT" x="-4"/>

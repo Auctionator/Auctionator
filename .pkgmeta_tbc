@@ -1,0 +1,8 @@
+ignore:
+  - README.md
+  - spec
+  - test-data
+  - scripts
+  - docs
+  - *Mainline*
+  - *Vanilla*

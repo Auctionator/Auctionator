@@ -1,0 +1,40 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+ <Frame name="AuctionatorStatusDialogTemplate" virtual="true" frameStrata="Dialog">
+  <KeyValues>
+    <KeyValue key="layoutType" value="Dialog" type="string"/>
+  </KeyValues>
+  <Anchors>
+    <Anchor point="CENTER"/>
+    <Anchor point="TOP" y="-20"/>
+  </Anchors>
+  <Scripts>
+    <OnLoad method="OnLoad" />
+    <OnHide method="OnHide" />
+  </Scripts>
+  <Size x="338" y="50"/>
+  <Layers>
+    <Layer>
+      <FontString parentKey="StatusText" inherits="GameFontHighlight" text="Testing 1 2 3.">
+        <Anchors>
+          <Anchor point="CENTER"/>
+        </Anchors>
+      </FontString>
+    </Layer>
+    <Layer level="BACKGROUND" textureSubLevel="-6">
+      <Texture parentKey="Background">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="6" y="-8"/>
+          <Anchor point="BOTTOMRIGHT" x="-6" y="8"/>
+        </Anchors>
+        <Color r="0" g="0" b="0" a="0.8"/>
+      </Texture>
+    </Layer>
+  </Layers>
+  <Frames>
+    <Frame parentKey="NineSlice" inherits="NineSlicePanelTemplate" />
+  </Frames>
+</Frame>
+
+<Frame name="AuctionatorPageStatusDialogTemplate" mixin="AuctionatorPageStatusDialogMixin" inherits="AuctionatorStatusDialogTemplate" virtual="true"/>
+<Frame name="AuctionatorThrottlingTimeoutDialogTemplate" mixin="AuctionatorThrottlingTimeoutDialogMixin" inherits="AuctionatorStatusDialogTemplate" virtual="true" frameLevel="500" />
+</Ui>

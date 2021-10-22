@@ -1,9 +1,4 @@
 <!-- Selling directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Include file="Events.lua" />
-  <Include file="Hooks.lua" />
-
-  <Script file="LIFOPrice.lua"/>
-  <Script file="NotLIFOPrice.lua"/>
-  <Script file="UniqueBagKey.lua"/>
 </Ui>

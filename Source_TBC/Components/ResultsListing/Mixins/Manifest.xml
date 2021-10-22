@@ -1,0 +1,4 @@
+<!-- ResultsListing/Mixins directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="ItemKeyCell.lua"/>
+</Ui>

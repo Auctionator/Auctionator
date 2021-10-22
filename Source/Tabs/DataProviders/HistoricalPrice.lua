@@ -33,28 +33,16 @@ local HISTORICAL_PRICE_PROVIDER_LAYOUT ={
 
 AuctionatorHistoricalPriceProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
-function AuctionatorHistoricalPriceProviderMixin:OnLoad()
-  AuctionatorDataProviderMixin.OnLoad(self)
-
-  Auctionator.EventBus:Register( self, { Auctionator.Selling.Events.BagItemClicked })
-end
-
-function AuctionatorHistoricalPriceProviderMixin:Init(updateEvent)
-  self.updateEvent = updateEvent
-  Auctionator.EventBus:Register( self, { self.updateEvent })
-end
-
 function AuctionatorHistoricalPriceProviderMixin:OnShow()
   self:Reset()
 end
 
-function AuctionatorHistoricalPriceProviderMixin:SetItem(itemKey)
+function AuctionatorHistoricalPriceProviderMixin:SetItem(dbKey)
   self:Reset()
 
   -- Reset columns
   self.onSearchStarted()
 
-  local dbKey = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = itemKey })[1]
   local entries = Auctionator.Database:GetPriceHistory(dbKey)
 
   for _, entry in ipairs(entries) do
@@ -71,15 +59,6 @@ end
 function AuctionatorHistoricalPriceProviderMixin:GetTableLayout()
   return HISTORICAL_PRICE_PROVIDER_LAYOUT
 end
-function AuctionatorHistoricalPriceProviderMixin:GetColumnHideStates()
-  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_HISTORICAL_PRICES)
-end
-
-function AuctionatorHistoricalPriceProviderMixin:ReceiveEvent(event, itemInfo)
-  if event == self.updateEvent then
-    self:SetItem(itemInfo.itemKey)
-  end
-end
 
 function AuctionatorHistoricalPriceProviderMixin:UniqueKey(entry)
   return tostring(entry.rawDay)
@@ -87,6 +66,7 @@ end
 
 local COMPARATORS = {
   minSeen = Auctionator.Utilities.NumberComparator,
+  maxSeen = Auctionator.Utilities.NumberComparator,
   available = Auctionator.Utilities.NumberComparator,
   rawDay = Auctionator.Utilities.StringComparator
 }
@@ -99,8 +79,4 @@ function AuctionatorHistoricalPriceProviderMixin:Sort(fieldName, sortDirection)
   end)
 
   self:SetDirty()
-end
-
-function AuctionatorHistoricalPriceProviderMixin:GetRowTemplate()
-  return "AuctionatorHistoricalPriceRowTemplate"
 end

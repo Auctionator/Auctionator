@@ -1,4 +1,4 @@
-AuctionatorStringCellTemplateMixin = CreateFromMixins(AuctionatorCellMixin, TableBuilderCellMixin)
+AuctionatorStringCellTemplateMixin = CreateFromMixins(AuctionatorCellMixin, AuctionatorRetailImportTableBuilderCellMixin)
 
 function AuctionatorStringCellTemplateMixin:Init(columnName)
   self.columnName = columnName

@@ -2,8 +2,7 @@
   <Script file="EventBusMixin.lua" />
 
   <Script file="DBKeyFromLink.lua"/>
-  <Script file="DBKeyFromBrowseResult.lua"/>
-  <Script file="IsPetItemKey.lua"/>
+  <Script file="IsPetDBKey.lua"/>
   <Script file="Message.lua"/>
   <Script file="ReverseArray.lua"/>
   <Script file="Table.lua" />
@@ -12,17 +11,12 @@
   <Script file="CreateCountString.lua"/>
   <Script file="CreateMoneyString.lua"/>
   <Script file="CreatePaddedMoneyString.lua"/>
-  <Script file="IsNotLIFOItemKey.lua"/>
   <Script file="RemoveTextColor.lua"/>
-  <Script file="ItemKeyString.lua"/>
   <Script file="PrettyDate.lua"/>
   <Script file="DelimitThousands.lua"/>
-  <Script file="ItemInfoFromLocation.lua"/>
   <Script file="IsShortcutActive.lua"/>
-  <Script file="GetPetLevelFromLink.lua"/>
   <Script file="GetQualityColorFromLink.lua"/>
   <Script file="GetNameFromLink.lua"/>
-  <Script file="ClassicWoWCheck.lua"/>
   <Script file="FormatTime.lua"/>
   <Script file="StringJoin.lua"/>
   <Script file="SplitCommand.lua"/>

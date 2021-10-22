@@ -1,0 +1,5 @@
+<Ui>
+  <Button name="AuctionatorRetailImportColumnDisplayButtonShortTemplate" inherits="ColumnDisplayButtonShortTemplate" virtual="true" />
+
+  <Button name="AuctionatorRetailImportUIStaticPopupSpecialCloseButton" inherits="UIStaticPopupSpecialCloseButton" virtual="true" />
+</Ui>

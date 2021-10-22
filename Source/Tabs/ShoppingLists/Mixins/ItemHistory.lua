@@ -1,7 +1,6 @@
 AuctionatorItemHistoryFrameMixin = CreateFromMixins(AuctionatorEscapeToCloseMixin)
 
 function AuctionatorItemHistoryFrameMixin:Init()
-  self.DataProvider:Init(Auctionator.ShoppingLists.Events.ShowHistoricalPrices)
   self.ResultsListing:Init(self.DataProvider)
 
   Auctionator.EventBus:Register(self, { Auctionator.ShoppingLists.Events.ShowHistoricalPrices })
@@ -39,7 +38,7 @@ function AuctionatorItemHistoryFrameMixin:OnDockDialogClicked()
     --Reset flipping
     self.Dock.Arrow:SetTexCoord(0, 1, 0, 1)
   else
-    self:SetPoint("LEFT", AuctionHouseFrame, "RIGHT")
+    self:SetPoint("LEFT", AuctionHouseFrame or AuctionFrame, "RIGHT")
     --Flip the texture to point back in
     self.Dock.Arrow:SetTexCoord(1, 0, 0, 1)
   end

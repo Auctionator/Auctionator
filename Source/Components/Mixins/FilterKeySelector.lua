@@ -59,23 +59,24 @@ function AuctionatorFilterKeySelectorMixin:InitializePrimaryClasses()
     self:EntrySelected(displayText)
   end
 
-  for _, classId in ipairs(Auctionator.Constants.ITEM_CLASS_IDS) do
+  for _, classId in ipairs(Auctionator.Constants.ValidItemClassIDs) do
     name = GetItemClassInfo(classId)
+    if name ~= nil then
+      info.text = name
+      info.arg1 = name
+      info.menuList = {
+        name = name,
+        classId = classId,
+        subClasses = Auctionator.AH.GetAuctionItemSubClasses(classId)
+      }
+      if self.selectedCategory[1] ~= nil then
+        info.checked = info.arg1 == self.selectedCategory[1]
+      else
+        info.checked = false
+      end
 
-    info.text = name
-    info.arg1 = name
-    info.menuList = {
-      name = name,
-      classId = classId,
-      subClasses = C_AuctionHouse.GetAuctionItemSubClasses(classId)
-    }
-    if self.selectedCategory[1] ~= nil then
-      info.checked = info.arg1 == self.selectedCategory[1]
-    else
-      info.checked = false
+      UIDropDownMenu_AddButton(info)
     end
-
-    UIDropDownMenu_AddButton(info)
   end
 end
 

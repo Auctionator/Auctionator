@@ -6,6 +6,9 @@
     parentKey="AuctionatorConfigFrame"
     mixin="AuctionatorConfigTabMixin"
   >
+    <Scripts>
+      <OnLoad method="OnLoad" />
+    </Scripts>
     <Frames>
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="AuthorHeading">
         <KeyValues>

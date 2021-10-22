@@ -1,0 +1,21 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorTabWrapperTemplate"
+    hidden="true"
+    virtual="true"
+  >
+    <Anchors>
+      <Anchor point="TOPLEFT" x="12"/>
+      <Anchor point="BOTTOMRIGHT" y="10"/>
+    </Anchors>
+    <Layers>
+      <Layer>
+        <FontString parentKey="Title" inherits="GameFontNormal">
+          <Anchors>
+            <Anchor point="TOP" y="-18"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

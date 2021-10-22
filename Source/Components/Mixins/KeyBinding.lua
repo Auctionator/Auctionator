@@ -82,7 +82,11 @@ function AuctionatorKeyBindingConfigMixin:OnKeyDown(keyOrButton)
   local keyPressed = GetConvertedKeyOrButton(keyOrButton)
   self:SetPropagateKeyboardInput(false)
   if not IsKeyPressIgnoredForBinding(keyPressed) then
-    keyPressed = CreateKeyChordStringUsingMetaKeyState(keyPressed)
+    if CreateKeyChordStringUsingMetaKeyState then
+      keyPressed = CreateKeyChordStringUsingMetaKeyState(keyPressed)
+    else --if Auctionator.Constants.IsTBC
+      keyPressed = CreateKeyChordString(keyPressed)
+    end
     self:SetShortcut(keyPressed)
     self:StopListening()
   end

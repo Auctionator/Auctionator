@@ -18,7 +18,7 @@
       <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
     </Anchors>
     <Frames>
-      <EditBox autoFocus="false" inherits="LargeInputBoxTemplate" numeric="true" parentKey="InputBox" letters="10">
+      <EditBox autoFocus="false" inherits="AuctionatorRetailImportLargeInputBoxTemplate" numeric="true" parentKey="InputBox" letters="10">
         <Size x="70" y="20" />
         <Anchors>
           <Anchor point="TOPLEFT" x="120" />

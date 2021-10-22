@@ -1,0 +1,11 @@
+<!-- Tabs/Sell/Mixins directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="BagItemSelected.lua"/>
+  <Script file="ConfirmDropDown.lua"/>
+  <Script file="HistoryContainerMixin.lua"/>
+
+  <Script file="SaleItem.lua"/>
+  <Script file="MultisellProgress.lua"/>
+
+  <Script file="Main.lua"/>
+</Ui>

@@ -27,10 +27,10 @@ end
 -- Assumes events have been registered exactly once
 function AuctionatorEventBusMixin:Unregister(listener, eventNames)
   for _, eventName in ipairs(eventNames) do
-    table.remove(
-      self.registeredListeners[eventName],
-      tIndexOf(self.registeredListeners[eventName], listener)
-    )
+    local index = tIndexOf(self.registeredListeners[eventName], listener)
+    if index ~= nil then
+      table.remove(self.registeredListeners[eventName], index, listener)
+    end
     Auctionator.Debug.Message("AuctionatorEventBusMixin:Unregister", eventName)
   end
 
@@ -58,8 +58,6 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
     error("All sources must be registered (" .. eventName .. ")")
   end
 
-  table.insert(self.queue, {sourceName = self.sources[source], eventName = eventName, params = {...}})
-
   Auctionator.Debug.Message(
     "AuctionatorEventBus:Fire()",
     self.sources[source],
@@ -67,31 +65,17 @@ function AuctionatorEventBusMixin:Fire(source, eventName, ...)
     ...
   )
 
-  --Already processing an event
-  if #self.queue > 1 then
-    return self
-  end
+  if self.registeredListeners[eventName] ~= nil then
+    Auctionator.Debug.Message("ReceiveEvent", #self.registeredListeners[eventName], eventName)
 
-  local current
-  while #self.queue > 0 do
-    Auctionator.Debug.Message("queued events", #self.queue)
-
-    current = self.queue[1]
-
-    if self.registeredListeners[current.eventName] ~= nil then
-      Auctionator.Debug.Message("ReceiveEvent", #self.registeredListeners[current.eventName], current.eventName)
-
-      local allListeners = Auctionator.Utilities.Slice(
-        self.registeredListeners[current.eventName],
-        1,
-        #self.registeredListeners[current.eventName]
-      )
-      for _, listener in ipairs(allListeners) do
-        listener:ReceiveEvent(current.eventName, unpack(current.params))
-      end
+    local allListeners = Auctionator.Utilities.Slice(
+      self.registeredListeners[eventName],
+      1,
+      #self.registeredListeners[eventName]
+    )
+    for index, listener in ipairs(allListeners) do
+      listener:ReceiveEvent(eventName, ...)
     end
-
-    table.remove(self.queue, 1)
   end
 
   return self

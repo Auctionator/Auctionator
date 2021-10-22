@@ -1,0 +1,123 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigSellingFrameTemplate"
+    mixin="AuctionatorConfigSellingFrameMixin"
+    parent="InterfaceOptionsFrame"
+    virtual="true">
+
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
+    </Scripts>
+
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_SELLING_CATEGORY" type="global" />
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_TEXT" type="global"/>
+        </KeyValues>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionChatLog">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CHAT_LOG" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_CHAT_LOG_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CHAT_LOG_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="PriceHistory">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_PRICE_HISTORY" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_PRICE_HISTORY_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_PRICE_HISTORY_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowBidPrice">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_SHOW_BID_PRICE" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_SHOW_BID_PRICE_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_SHOW_BID_PRICE_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="BagHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_BAG" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShowBidPrice" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagShown">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_SHOW_SELLING_BAG_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="BagCollapsed">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_BAG_COLLAPSED_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagShown" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="IconSize">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AutoSelectNext">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_AUTO_SELECT_NEXT" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_AUTO_SELECT_NEXT_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_AUTO_SELECT_NEXT_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconSize" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="MissingFavourites">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_MISSING_FAVOURITES" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_MISSING_FAVOURITES_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_MISSING_FAVOURITES_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AutoSelectNext" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNHIDE_ALL_HIDDEN_ITEMS" parentKey="UnhideAll">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.MissingFavourites" relativePoint="BOTTOMLEFT" x="23"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():UnhideAllClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

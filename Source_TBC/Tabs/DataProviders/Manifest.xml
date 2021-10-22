@@ -1,0 +1,9 @@
+<!-- DataProviders directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="ItemStringLoading.lua"/>
+  <Script file="BuyAuctions.lua"/>
+  <Script file="ShoppingList.lua"/>
+  <Script file="ShoppingHistoricalPrice.lua"/>
+  <Script file="BuyingHistoricalPrice.lua"/>
+  <Script file="Cancelling.lua"/>
+</Ui>

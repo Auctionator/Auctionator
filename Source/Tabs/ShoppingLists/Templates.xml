@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Button name="AuctionatorScrollListLineNoButtonsTemplate" inherits="ScrollListLineTextTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
+  <Button name="AuctionatorScrollListLineNoButtonsTemplate" inherits="AuctionatorRetailImportScrollListLineTextTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
     <Size x="0" y="20"/>
 
     <Anchors>

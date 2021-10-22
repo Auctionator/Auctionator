@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Mixins\Manifest.xml" />
+  <Include file="Frames\Manifest.xml" />
+
+  <Script file="Main.lua" />
+  <Script file="InitializeFrames.lua" />
+</Ui>

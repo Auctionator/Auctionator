@@ -16,7 +16,7 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
 
   -- Create an instance of table builder - note that the ScrollFrame we reference
   -- mixes a TableBuilder implementation in
-  self.tableBuilder = CreateTableBuilder(HybridScrollFrame_GetButtons(self.ScrollFrame))
+  self.tableBuilder = AuctionatorRetailImportCreateTableBuilder(HybridScrollFrame_GetButtons(self.ScrollFrame))
   -- Set the frame that will be used for header columns for this tableBuilder
   self.tableBuilder:SetHeaderContainer(self.HeaderContainer)
 
@@ -142,7 +142,7 @@ function AuctionatorResultsListingMixin:InitializeTable()
       end,
       unpack((columnEntry.headerParameters or {}))
     )
-    column:SetCellPadding(5, 5)
+    column:SetCellPadding(-5, 5)
     column:ConstructCells("FRAME", columnEntry.cellTemplate, unpack((columnEntry.cellParameters or {})))
 
     if columnEntry.width ~= nil then

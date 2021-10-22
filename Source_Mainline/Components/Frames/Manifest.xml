@@ -1,0 +1,6 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="MoneyInput.xml" />
+  <Include file="MoneyInputAlternate.xml" />
+  <Include file="PanelBorder.xml" />
+  <Include file="Inset.xml" />
+</Ui>

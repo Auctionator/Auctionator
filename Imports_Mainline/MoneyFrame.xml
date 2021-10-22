@@ -1,0 +1,4 @@
+<Ui>
+  <Frame name="AuctionatorRetailImportMoneyDenominationDisplayTemplate" inherits="MoneyDenominationDisplayTemplate" virtual="true" />
+  <Frame name="AuctionatorRetailImportMoneyDisplayFrameTemplate" inherits="MoneyDisplayFrameTemplate" virtual="true" />
+</Ui>

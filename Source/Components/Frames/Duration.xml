@@ -1,0 +1,36 @@
+<Ui>
+  <Frame name="AuctionatorDurationHorizontalRadioControls" inherits="AuctionatorConfigurationHorizontalRadioButtonGroup" virtual="true">
+    <KeyValues>
+      <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_DURATION" type="global"/>
+    </KeyValues>
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationRadioButton">
+        <Anchors>
+          <Anchor point="RIGHT" x="-180" />
+        </Anchors>
+        <KeyValues>
+          <KeyValue key="labelText" value="Auctionator.Constants.Durations.Short" type="global"/>
+          <KeyValue key="value" value="12" type="number"/>
+        </KeyValues>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationRadioButton">
+        <Anchors>
+          <Anchor point="RIGHT" x="-130" />
+        </Anchors>
+        <KeyValues>
+          <KeyValue key="labelText" value="Auctionator.Constants.Durations.Medium" type="global"/>
+          <KeyValue key="value" value="24" type="number"/>
+        </KeyValues>
+      </Frame>
+      <Frame inherits="AuctionatorConfigurationRadioButton">
+        <Anchors>
+          <Anchor point="RIGHT" x="-80" />
+        </Anchors>
+        <KeyValues>
+          <KeyValue key="labelText" value="Auctionator.Constants.Durations.Long" type="global"/>
+          <KeyValue key="value" value="48" type="number"/>
+        </KeyValues>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

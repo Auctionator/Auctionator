@@ -1,0 +1,56 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="AuctionatorPanelBorderTemplate" virtual="true">
+    <Anchors>
+      <Anchor point="TOPLEFT"/>
+      <Anchor point="BOTTOMRIGHT"/>
+    </Anchors>
+    <Layers>
+      <Layer level="BORDER">
+        <Texture inherits="Auctionator_UIFrameSimpleMetalCornerTopLeft">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="-5" y="0"/>
+          </Anchors>
+        </Texture>
+        <Texture inherits="Auctionator_UIFrameSimpleMetalCornerTopRight">
+          <Anchors>
+            <Anchor point="TOPRIGHT" x="2" y="0"/>
+          </Anchors>
+        </Texture>
+        <Texture inherits="Auctionator_UIFrameSimpleMetalCornerBottomLeft">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT" x="-5" y="-3"/>
+          </Anchors>
+        </Texture>
+        <Texture inherits="Auctionator_UIFrameSimpleMetalCornerBottomRight">
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT" x="2" y="-3"/>
+          </Anchors>
+        </Texture>
+        <Texture inherits="Auctionator_UIFrameSimpleMetalEdgeTop">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="59" y="0"/>
+            <Anchor point="TOPRIGHT" x="-62" y="0"/>
+          </Anchors>
+        </Texture>
+        <Texture inherits="Auctionator_UIFrameSimpleMetalEdgeBottom">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT" x="59" y="-3"/>
+            <Anchor point="BOTTOMRIGHT" x="-62" y="-3"/>
+          </Anchors>
+        </Texture>
+        <Texture inherits="Auctionator_UIFrameSimpleMetalEdgeLeft">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="-58" y="-64"/>
+            <Anchor point="BOTTOM" y="59"/>
+          </Anchors>
+        </Texture>
+        <Texture inherits="Auctionator_UIFrameSimpleMetalEdgeRight">
+          <Anchors>
+            <Anchor point="TOPRIGHT" x="55" y="-64"/>
+            <Anchor point="BOTTOM" y="59"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

@@ -1,0 +1,11 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="GetCleanItemLink.lua" />
+  <Script file="EmptyResult.lua" />
+  <Script file="GroupResultsForDB.lua" />
+  <Script file="Filters.lua" />
+  <Script file="Events.lua" />
+
+  <Script file="Mixins\DirectSearchProviderMixin.lua"/>
+
+  <Include file="Templates.xml"/>
+</Ui>

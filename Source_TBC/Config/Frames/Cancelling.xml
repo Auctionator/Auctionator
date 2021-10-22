@@ -1,0 +1,34 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigCancellingFrameTemplate"
+    mixin="AuctionatorConfigCancellingFrameMixin"
+    parent="InterfaceOptionsFrame"
+    virtual="true">
+
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
+    </Scripts>
+
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_CANCELLING_CATEGORY" type="global" />
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_CANCELLING_TEXT" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame parentKey="CancelUndercutShortcut" inherits="AuctionatorKeyBindingConfigTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CANCEL_UNDERCUT_SHORTCUT" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CANCEL_UNDERCUT_SHORTCUT_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CUSTOM_KEYBOARD_SHORTCUTS" type="global"/>
+        </KeyValues>
+      </Frame>
+   </Frames>
+  </Frame>
+</Ui>

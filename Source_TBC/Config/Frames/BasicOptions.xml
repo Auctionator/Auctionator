@@ -1,0 +1,63 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigBasicOptionsFrameTemplate"
+    mixin="AuctionatorConfigBasicOptionsFrameMixin"
+    parent="InterfaceOptionsFrame"
+    virtual="true">
+
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="Save"/>
+    </Scripts>
+
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
+        <KeyValues>
+          <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY" type="global" />
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_TEXT" type="global"/>
+        </KeyValues>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="DefaultTabHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_DEFAULT_TAB" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorDropDown" parentKey="DefaultTab">
+       <KeyValues>
+         <KeyValue key="labelText" value="AUCTIONATOR_L_DEFAULT_TAB_TEXT" type="global"/>
+         <KeyValue key="textString" value="NONE;SHOPPING_TAB;SELLING_TAB;CANCELLING_TAB;AUCTIONATOR"/>
+         <KeyValue key="valuesString" value="0;1;2;3;4"/>
+       </KeyValues>
+       <Anchors>
+         <Anchor point="TOPLEFT" relativeKey="$parent.DefaultTabHeading" relativePoint="BOTTOMLEFT"/>
+       </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ReagentSearchHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_REAGENT_SEARCH" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultTab" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="CraftingCostShowProfit">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CRAFTING_COST_SHOW_PROFIT" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_CRAFTING_COST_SHOW_PROFIT_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CRAFTING_COST_SHOW_PROFIT_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ReagentSearchHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+   </Frames>
+  </Frame>
+</Ui>

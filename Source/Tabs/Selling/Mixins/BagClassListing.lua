@@ -1,36 +1,24 @@
 AuctionatorBagClassListingMixin = {}
 
-
-function AuctionatorBagClassListingMixin:OnLoad()
-  self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
-
-  self.items = {}
-  self.buttons = {}
-  self.buttonPool = CreateAndInitFromMixin(Auctionator.Utilities.PoolMixin)
-  self.buttonPool:SetCreator(function()
-    local button = CreateFrame("Button", self.buttonNamePrefix .. #self.items,
-                self.ItemContainer, "AuctionatorBagItem")
-    button:SetSize(
-      self.iconSize,
-      self.iconSize
-    )
-
-    return button
-  end)
-
-  if self.title == nil and self.classId ~= nil then
-    self.title = GetItemClassInfo(self.classId)
+function AuctionatorBagClassListingMixin:Init(classID)
+  if self.title == nil and classID ~= nil then
+    self.title = GetItemClassInfo(classID)
   end
 
   self:UpdateTitle()
   self:SetHeight(self.SectionTitle:GetHeight())
 
   self.SectionTitle:SetWidth(self:GetRowWidth())
-  self.SectionTitle.NormalTexture:SetWidth(self:GetRowWidth() + 8)
-  self.SectionTitle.Text:SetPoint("LEFT", 12, 0)
-  self.SectionTitle.HighlightTexture:SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
 
-  self.buttonNamePrefix = self.title .. "Item"
+  if Auctionator.Constants.IsTBC then
+    self.SectionTitle:GetNormalTexture():SetWidth(self:GetRowWidth() + 8)
+    self.SectionTitle:GetFontString():SetPoint("LEFT", 12, 0)
+    self.SectionTitle:GetHighlightTexture():SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
+  else
+    self.SectionTitle.NormalTexture:SetWidth(self:GetRowWidth() + 8)
+    self.SectionTitle.Text:SetPoint("LEFT", 12, 0)
+    self.SectionTitle.HighlightTexture:SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())
+  end
 
   self.collapsed = false
 
@@ -40,75 +28,28 @@ function AuctionatorBagClassListingMixin:OnLoad()
   end
 end
 
-function AuctionatorBagClassListingMixin:Reset()
-  self.items = {}
-
-  for _, item in ipairs(self.buttons) do
-    item:Hide()
-    self.buttonPool:Return(item)
-  end
-
-  self.buttons = {}
-end
-
-function AuctionatorBagClassListingMixin:GetRowLength()
-  return math.floor(250/self.iconSize)
-end
-
 function AuctionatorBagClassListingMixin:GetRowWidth()
-  return self:GetRowLength() * self.iconSize
+  return self.ItemContainer:GetRowWidth()
+end
+
+function AuctionatorBagClassListingMixin:GetTitleHeight()
+  return self.SectionTitle:GetHeight()
+end
+
+function AuctionatorBagClassListingMixin:Reset()
+  self.ItemContainer:Reset()
 end
 
 function AuctionatorBagClassListingMixin:UpdateTitle()
-  self.SectionTitle:SetText(self.title .. " (" .. #self.items .. ")")
+  self.SectionTitle:SetText(self.title .. " (" .. self.ItemContainer:GetNumItems() .. ")")
 end
 
 function AuctionatorBagClassListingMixin:AddItems(itemList)
-  for _, item in ipairs(itemList) do
-    self:AddItem(item)
-  end
+  self.ItemContainer:AddItems(itemList)
 
   self:UpdateTitle()
-
-  self:DrawButtons()
-
   self:UpdateForCollapsing()
-
   self:UpdateForEmpty()
-end
-
-function AuctionatorBagClassListingMixin:AddItem(item)
-  local button = self.buttonPool:Get()
-
-  button:Show()
-
-  button:SetItemInfo(item)
-
-  table.insert(self.buttons, button)
-  table.insert(self.items, item)
-end
-
-function AuctionatorBagClassListingMixin:DrawButtons()
-  local rows = 1
-
-  for index, button in ipairs(self.buttons) do
-    if index == 1 then
-      button:SetPoint("TOPLEFT", self.ItemContainer, "TOPLEFT", 0, -2)
-    elseif ((index - 1) % self:GetRowLength()) == 0 then
-      rows = rows + 1
-      button:SetPoint("TOPLEFT", self.buttons[index - self:GetRowLength()], "BOTTOMLEFT")
-    else
-      button:SetPoint("TOPLEFT", self.buttons[index - 1], "TOPRIGHT")
-    end
-  end
-
-  if #self.buttons > 0 then
-    self.ItemContainer:SetSize(self.buttons[1]:GetWidth() * 3, rows * self.iconSize + 2)
-  else
-    self.ItemContainer:SetSize(0, 0)
-  end
-
-  self:SetSize(self.iconSize * self:GetRowLength(), self.ItemContainer:GetHeight() + self.SectionTitle:GetHeight())
 end
 
 function AuctionatorBagClassListingMixin:UpdateForCollapsing()
@@ -136,8 +77,8 @@ function AuctionatorBagClassListingMixin:UpdateForEmpty()
   end
 
   -- Shift the title up slightly
-  if #self.buttons == 0 then
-    self:SetPoint("TOPLEFT", relativeTo, relativePoint, 0, self.SectionTitle:GetHeight())
+  if self.ItemContainer:GetNumItems() == 0 then
+    self:SetPoint("TOPLEFT", relativeTo, relativePoint, 0, self:GetTitleHeight())
     self:SetPoint("RIGHT", self:GetParent(), "RIGHT")
     self:Hide()
   else

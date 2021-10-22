@@ -1,0 +1,7 @@
+<!-- Tabs/Mixins directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="TabButton.lua" />
+  <Script file="StatusDialog.lua" />
+
+  <Script file="TabContainer.lua"/>
+</Ui>

@@ -18,11 +18,32 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      with:
-        path: 'Auctionator'
+
+    - name: Setup Retail build
+      run: mv Auctionator_Mainline.toc Auctionator.toc
     - uses: BigWigsMods/packager@master
       with:
         args: -p 6124 -a kRNL70Go
+      env:
+        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+        CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
+        WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
+
+    - name: Setup TBC build
+      run: mv Auctionator_TBC.toc Auctionator.toc
+    - uses: BigWigsMods/packager@master
+      with:
+        args: -p 6124 -a kRNL70Go -m .pkgmeta_tbc
+      env:
+        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+        CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
+        WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
+
+    - name: Setup Vanilla build
+      run: mv Auctionator_TBC.toc Auctionator.toc
+    - uses: BigWigsMods/packager@master
+      with:
+        args: -p 6124 -a kRNL70Go -m .pkgmeta_vanilla
       env:
         GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}

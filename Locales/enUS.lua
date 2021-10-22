@@ -76,6 +76,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_CANCEL_UNDERCUT_SHORTCUT_TOOLTIP_TEXT"] = "Click and then press the buttons that you wish to use as the shortcut. This shortcut will only be active in the Cancelling tab and won't affect any other shortcuts bound to the buttons."
 
   L["SALES_PREFERENCE"] = "Sales Preference"
+  L["UNDERCUT_PREFERENCE"] = "Undercut Preference"
   L["PERCENTAGE"] = "Percentage"
   L["SET_VALUE"] = "Set Value"
 
@@ -94,6 +95,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["CONFIG_QUANTITIES_CATEGORY"] = "Selling: Quantities"
   L["CONFIG_QUANTITIES_TEXT"] = "Choose the default quantity used for the different item categories."
+  L["CONFIG_SELLING_ALL_ITEMS_CATEGORY"] = "Selling: All Items"
 
   L["AUTHOR_HEADER"] = "Author"
   L["TRANSLATORS_HEADER"] = "Translators"
@@ -186,6 +188,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["RESULTS_PRICE_COLUMN"] = "Price"
   L["RESULTS_NAME_COLUMN"] = "Name"
   L["RESULTS_AVAILABLE_COLUMN"] = "Available"
+  L["RESULTS_STACK_SIZE_COLUMN"] = "Stack Size"
+  L["RESULTS_STACK_PRICE_COLUMN"] = "Stack Price"
   L["ITEM_LEVEL_COLUMN"] = "Item Level"
   L["SELLERS_COLUMN"] = "Seller(s)"
   L["SELLERS_OVERFLOW_TEXT"] = "%s, and %s more"
@@ -330,6 +334,11 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIRM"] = "Confirm"
   L["X_PRICE_HISTORY"] = "%s Price History"
   L["NO_ITEM_INFO_SPECIFIED"] = "No item info was specified."
+  L["BUY_STACK"] = "Buy Stack"
+  L["NONE_LEFT"] = "None Left"
+  L["BUY"] = "Buy"
+  L["BUYING"] = "Buying"
+  L["REFRESH"] = "Refresh"
 
   L["ANY_LOWER"] = "any"
 
@@ -464,8 +473,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_HEADER"] = "Use Item Level and Title"
   L["CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_TEXT"] = "Normally gear is compared with any other gear that is similar, but without taking item level and the \"of the\" titles into account. This will make them be taken into account."
 
-  L["CLASSIC_SUPPORT_ERROR"] = "This version of Auctionator DOES NOT support Classic. Stuff may break and not work."
-
   L["DEFAULT_LIST_HEADER"] = "Default Shopping List"
 
   L["REAGENT_SEARCH"] = "Reagent Search"
@@ -476,6 +483,30 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["EXPORT_RESULTS"] = "Export Results"
   L["TO_CRAFT_COLON"] = "To Craft:"
   L["PROFIT_COLON"] = "Profit:"
+
+  L["SCANNING_PAGE_X"] = "Scanning page %s..."
+  L["WAITING_AT_MOST_X_LONGER"] = "Waiting at most %ss longer..."
+  L["STACK_OF"] = "stack of"
+  L["STACK_PRICE"] = "Stack Price"
+  L["MAX_COLON_X"] = "Max: %s"
+  L["HISTORY"] = "History"
+  L["CURRENT"] = "Current"
+  L["WORK_IN_PROGRESS"] = "Work in progress. Not functional yet."
+  L["SERVER_TOOK_TOO_LONG"] = "The server took too long to respond. Your action may not have had an effect."
+
+  L["STARTING_PRICE_PERCENTAGE_SUFFIX"] = "% of the stack price"
+  L["STARTING_PRICE_PERCENTAGE"] = "Starting Price"
+  L["STARTING_PRICE_PERCENTAGE_TOOLTIP_HEADER"] = "Starting bidding price"
+  L["STARTING_PRICE_PERCENTAGE_TOOLTIP_TEXT"] = "The starting price percentage will be used to set the default bid amount used for any auctions posted. For example setting this to 95 will, for a 10s stack price, set the bid price to 9s50c."
+  L["STACK_BID_PRICE"] = "Stack Bid Price"
+  L["ERROR_REOPEN_AUCTION_HOUSE"] = "Unable to complete action, please close and reopen the Auction House."
+  L["X_STACK_OF_X"] = "%s stack of %s"
+  L["X_STACKS_OF_X"] = "%s stacks of %s"
+  L["BUYING_X_FOR_X"] = "Buying %s for %s"
+  L["ALREADY_PURCHASED_X"] = "Already purchased %s"
+  L["PURCHASED_X_XX"] = "Purchased %s x%s"
+  L["DEFAULT_STACK_SIZES"] = "Default Stack Sizes"
+  L["CONFIG_SELLING_TBC_ALL_ITEMS"] = "Options to set the default posting settings for all items."
 
   return L
 end

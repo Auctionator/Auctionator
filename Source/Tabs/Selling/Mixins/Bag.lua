@@ -4,46 +4,34 @@ local FAVOURITE = -1
 
 function AuctionatorSellingBagFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:OnLoad()")
-
   self.allShowing = true
-  self.frameMap = {
-    [FAVOURITE] = self.ScrollFrame.ItemListingFrame.Favourites,
-    [Enum.ItemClass.Weapon] = self.ScrollFrame.ItemListingFrame.WeaponItems,
-    [Enum.ItemClass.Armor] = self.ScrollFrame.ItemListingFrame.ArmorItems,
-    [Enum.ItemClass.Container] = self.ScrollFrame.ItemListingFrame.ContainerItems,
-    [Enum.ItemClass.Gem] = self.ScrollFrame.ItemListingFrame.GemItems,
-    [Enum.ItemClass.ItemEnhancement] = self.ScrollFrame.ItemListingFrame.EnhancementItems,
-    [Enum.ItemClass.Consumable] = self.ScrollFrame.ItemListingFrame.ConsumableItems,
-    [Enum.ItemClass.Glyph] = self.ScrollFrame.ItemListingFrame.GlyphItems,
-    [Enum.ItemClass.Tradegoods] = self.ScrollFrame.ItemListingFrame.TradeGoodItems,
-    [Enum.ItemClass.Recipe] = self.ScrollFrame.ItemListingFrame.RecipeItems,
-    [Enum.ItemClass.Battlepet] = self.ScrollFrame.ItemListingFrame.BattlePetItems,
-    [Enum.ItemClass.Questitem] = self.ScrollFrame.ItemListingFrame.QuestItems,
-    [Enum.ItemClass.Miscellaneous] = self.ScrollFrame.ItemListingFrame.MiscItems
-  }
+
   self.orderedClassIds = {
     FAVOURITE,
-    Enum.ItemClass.Weapon,
-    Enum.ItemClass.Armor,
-    Enum.ItemClass.Container,
-    Enum.ItemClass.Gem,
-    Enum.ItemClass.ItemEnhancement,
-    Enum.ItemClass.Consumable,
-    Enum.ItemClass.Glyph,
-    Enum.ItemClass.Tradegoods,
-    Enum.ItemClass.Recipe,
-    Enum.ItemClass.Battlepet,
-    Enum.ItemClass.Questitem,
-    Enum.ItemClass.Miscellaneous,
+  }
+  self.frameMap = {
+    [FAVOURITE] = self.ScrollFrame.ItemListingFrame.Favourites
   }
 
-  self.itemCategories = {}
+  self.frameMap[FAVOURITE]:Init()
 
-  for index = 1, #Auctionator.Constants.ITEM_CLASS_IDS do
-    table.insert(self.itemCategories, Auctionator.Constants.ITEM_CLASS_IDS[index])
+  local prevFrame = self.frameMap[FAVOURITE]
+
+  for _, classID in ipairs(Auctionator.Constants.ValidItemClassIDs) do
+    table.insert(self.orderedClassIds, classID)
+
+    local frame = CreateFrame(
+      "FRAME", nil, self.ScrollFrame.ItemListingFrame, "AuctionatorBagClassListing"
+    )
+    frame:Init(classID)
+    frame:SetPoint("TOPLEFT", prevFrame, "BOTTOMLEFT")
+    frame:SetPoint("RIGHT", self.ScrollFrame.ItemListingFrame)
+
+    self.frameMap[classID] = frame
+    prevFrame = frame
   end
 
-  self.ScrollFrame.ItemListingFrame:SetWidth(self.frameMap[1]:GetRowWidth())
+  self.ScrollFrame.ItemListingFrame:SetWidth(self.frameMap[FAVOURITE]:GetRowWidth())
 end
 
 function AuctionatorSellingBagFrameMixin:Init(dataProvider)
@@ -70,8 +58,8 @@ end
 function AuctionatorSellingBagFrameMixin:AggregateItemsByClass()
   self.items = {}
 
-  for index = 1, #self.itemCategories do
-    self.items[self.itemCategories[index]] = {}
+  for _, classID in ipairs(Auctionator.Constants.ValidItemClassIDs) do
+    self.items[classID] = {}
   end
 
   local bagItemCount = self.dataProvider:GetCount()

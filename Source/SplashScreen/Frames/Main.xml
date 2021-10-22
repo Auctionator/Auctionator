@@ -2,7 +2,7 @@
   <Frame
     name="AuctionatorSplashScreenTemplate"
     virtual="true"
-    inherits="SimplePanelTemplate"
+    inherits="AuctionatorSimplePanelTemplate"
     mixin="AuctionatorSplashScreenMixin"
     frameStrata="DIALOG"
     hidden="true"
@@ -19,8 +19,14 @@
     </Anchors>
 
     <Frames>
+      <Frame parentKey="Inset" inherits="AuctionatorInsetTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="4" y="-26"/>
+          <Anchor point="BOTTOMRIGHT" x="-6" y="26"/>
+        </Anchors>
+      </Frame>
       <!-- Frame Close Button -->
-      <Button parentKey="Close" inherits="UIStaticPopupSpecialCloseButton">
+      <Button parentKey="Close" inherits="AuctionatorRetailImportUIStaticPopupSpecialCloseButton">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="2" y="1"/>
         </Anchors>

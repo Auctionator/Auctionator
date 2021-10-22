@@ -1,0 +1,12 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="EmptyResult.lua" />
+  <Script file="Events.lua" />
+
+  <Script file="Mixins\KeywordSearchProviderMixin.lua" />
+  <Script file="Mixins\DirectSearchProviderMixin.lua" />
+  <Script file="Mixins\CachingSearchProviderMixin.lua" />
+
+  <Include file="Filters\Manifest.xml" />
+
+  <Include file="Templates.xml" />
+</Ui>

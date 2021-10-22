@@ -3,17 +3,7 @@
 
   <Script file="Configuration.lua"/>
 
-  <Script file="BasicOptions.lua"/>
-  <Script file="Tooltips.lua"/>
-  <Script file="Advanced.lua"/>
-
   <Script file="Shopping.lua"/>
-  <Script file="Selling.lua"/>
-  <Script file="SellingShortcuts.lua"/>
-  <Script file="LIFO.lua"/>
-  <Script file="NotLIFO.lua"/>
-  <Script file="Cancelling.lua"/>
-  <Script file="Quantities.lua"/>
-
   <Script file="Profile.lua"/>
+  <Script file="Advanced.lua"/>
 </Ui>

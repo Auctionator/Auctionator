@@ -1,0 +1,6 @@
+<!-- Tabs/Frames directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="StatusDialog.xml"/>
+  <Include file="TabWrapper.xml"/>
+  <Include file="TabButton.xml"/>
+</Ui>
