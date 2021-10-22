@@ -16,6 +16,10 @@ function AuctionatorUndercutScanMixin:OnLoad()
     Auctionator.Cancelling.Events.RequestCancelUndercut,
   })
 
+  --XXX: Hidden until the button can be made to work
+  self.CancelNextButton:Hide()
+  self.StartScanButton:SetPoint("TOPRIGHT", 3, 0)
+
   self.seenPrices = {}
 
   self:SetCancel()
@@ -106,10 +110,6 @@ function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
   end
 end
 
-local function ToUnitPrice(entry)
-  return math.ceil(entry.info[Auctionator.Constants.AuctionItemInfo.Buyout] / entry.info[Auctionator.Constants.AuctionItemInfo.Quantity])
-end
-
 function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
     self:SetCancel()
@@ -124,7 +124,7 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
     local results, gotAllResults = ...
     for _, r in ipairs(results) do
       local resultCleanLink = Auctionator.Search.GetCleanItemLink(r.itemLink)
-      local unitPrice = ToUnitPrice(r)
+      local unitPrice = Auctionator.Utilities.ToUnitPrice(r)
       if cleanLink == resultCleanLink and unitPrice ~= 0 then
         if self.seenPrices[cleanLink] == nil then
           self.seenPrices[cleanLink] = unitPrice
