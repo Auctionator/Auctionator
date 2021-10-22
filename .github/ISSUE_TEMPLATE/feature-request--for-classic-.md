@@ -1,6 +1,6 @@
 ---
 name: Feature request (for classic)
-about: Suggest an idea for a future classic version of Auctionator
+about: " Auctionator can always be better"
 title: ''
 labels: classic, enhancement
 assignees: ''
