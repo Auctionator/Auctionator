@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorConfigSellingAllItemsFrameTemplate" mixin="AuctionatorConfigSellingAllItemsFrameMixin" parent="InterfaceOptionsFrame" virtual="true">
+  <Frame name="AuctionatorConfigSellingAllItemsFrameTemplate" mixin="AuctionatorConfigSellingAllItemsFrameMixin" parent="InterfaceOptionsFrame" hidden="true" virtual="true">
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
@@ -91,12 +91,33 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="StackSizesHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="AUCTIONATOR_L_DEFAULT_STACK_SIZES" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.UndercutValue" relativePoint="BOTTOMLEFT" y="-35"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorStackOfInputTemplate" parentKey="DefaultStacks">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="classID" value="Enum.ItemClass.Armor" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.StackSizesHeading" relativePoint="BOTTOMLEFT" x="25" y="-10"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GearPriceMultiplierHeading">
         <KeyValues>
           <KeyValue key="subHeadingText" value="AUCTIONATOR_L_GEAR_VENDOR_PRICE_MULTIPLIER" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.UndercutValue" relativePoint="BOTTOMLEFT" y="-35"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultStacks" relativePoint="BOTTOMLEFT" x="-25"/>
         </Anchors>
       </Frame>
 

@@ -346,26 +346,24 @@ function AuctionatorSaleItemMixin:SetDuration()
 end
 
 function AuctionatorSaleItemMixin:SetQuantity()
-  --[[local defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_QUANTITIES)[self.itemInfo.classId]
-
-  if self.itemInfo.count == 0 then
-    self.Quantity:SetNumber(0)
-  elseif defaultQuantity ~= nil and defaultQuantity > 0 then
-    -- If a default quantity has been selected (ie non-zero amount)
-    self.Quantity:SetNumber(math.min(self.itemInfo.count, defaultQuantity, self:GetPostLimit()))
+  local defaultStacks = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS)
+  if defaultStacks.stackSize == 0 then
+    self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, self.itemInfo.stackSize))
   else
-  ]]
-  -- No default quantity setting, use the maximum possible
-  self:SetMax()
-end
+    self.Stacks.StackSize:SetNumber(math.min(defaultStacks.stackSize, self.itemInfo.stackSize))
+  end
 
-function AuctionatorSaleItemMixin:SetMax()
-  self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, self.itemInfo.stackSize))
   local numStacks = math.floor(self.itemInfo.count/self.itemInfo.stackSize)
   if numStacks == 0 then
     numStacks = 1
   end
-  self.Stacks.NumStacks:SetNumber(numStacks)
+
+  if defaultStacks.numStacks == 0 then
+    self.Stacks.NumStacks:SetNumber(numStacks)
+  else
+    self.Stacks.NumStacks:SetNumber(math.min(numStacks, defaultStacks.numStacks))
+  end
+
   self:DisplayMaxNumStacks()
 end
 

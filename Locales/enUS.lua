@@ -505,6 +505,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["BUYING_X_FOR_X"] = "Buying %s for %s"
   L["ALREADY_PURCHASED_X"] = "Already purchased %s"
   L["PURCHASED_X_XX"] = "Purchased %s x%s"
+  L["DEFAULT_STACK_SIZES"] = "Default Stack Sizes"
 
   return L
 end

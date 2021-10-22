@@ -28,6 +28,13 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
   self.GearPriceMultiplier:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER))
 
   self.StartingPricePercentage:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE))
+
+  local defaultStacks = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS)
+  self.DefaultStacks.StackSize:SetNumber(defaultStacks.stackSize)
+  self.DefaultStacks.NumStacks:SetNumber(defaultStacks.numStacks)
+  self.DefaultStacks:SetMaxStackSize(0)
+  self.DefaultStacks:SetMaxNumStacks(0)
+  self.DefaultStacks:Show()
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:OnSalesPreferenceChange(selectedValue)
@@ -60,6 +67,12 @@ function AuctionatorConfigSellingAllItemsFrameMixin:Save()
     Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE,
     Auctionator.Utilities.ValidatePercentage(self.StartingPricePercentage:GetNumber())
   )
+
+  local defaultStacks = {
+    stackSize = self.DefaultStacks.StackSize:GetNumber(),
+    numStacks = self.DefaultStacks.NumStacks:GetNumber()
+  }
+  Auctionator.Config.Set(Auctionator.Config.Options.DEFAULT_SELLING_STACKS, defaultStacks)
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:Cancel()
