@@ -122,9 +122,6 @@ function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results
   self:PopulateAuctions()
 end
 
-local function ToUnitPrice(entry)
-  return math.ceil(entry.info[Auctionator.Constants.AuctionItemInfo.Buyout] / entry.info[Auctionator.Constants.AuctionItemInfo.Quantity])
-end
 local function ToStackSize(entry)
   return entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
 end
@@ -136,8 +133,8 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
   self:Reset()
 
   table.sort(self.allAuctions, function(a, b)
-    local unitA = ToUnitPrice(a)
-    local unitB = ToUnitPrice(b)
+    local unitA = Auctionator.Utilities.ToUnitPrice(a)
+    local unitB = Auctionator.Utilities.ToUnitPrice(b)
     if unitA == unitB then
       local stackA = ToStackSize(a)
       local stackB = ToStackSize(b)
@@ -157,10 +154,10 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
   for _, auction in ipairs(self.allAuctions) do
     local newEntry = {
       itemLink = auction.itemLink,
-      unitPrice = ToUnitPrice(auction),
+      unitPrice = Auctionator.Utilities.ToUnitPrice(auction),
       stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout],
       stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
-      noOfStacks = 1,
+      numStacks = 1,
       isOwned = auction.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")),
       bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
       isSelected = false, --Used by rows to determine highlight
@@ -185,7 +182,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
        prevResult.itemLink == newEntry.itemLink and 
        prevResult.isOwned == newEntry.isOwned and
        prevResult.bidAmount == newEntry.bidAmount then
-      prevResult.noOfStacks = prevResult.noOfStacks + 1
+      prevResult.numStacks = prevResult.numStacks + 1
       Auctionator.Utilities.SetStacksText(prevResult)
     else
       table.insert(results, newEntry)
@@ -221,7 +218,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReportNewMinPrice()
     local minPrice = 0
     local index = 1
     while minPrice == 0 and index <= #self.allAuctions do
-      minPrice = ToUnitPrice(self.allAuctions[index])
+      minPrice = Auctionator.Utilities.ToUnitPrice(self.allAuctions[index])
       index = index + 1
     end
 
@@ -249,7 +246,7 @@ local COMPARATORS = {
   stackPrice = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   stackSize = Auctionator.Utilities.StringComparator,
-  noOfStacks = Auctionator.Utilities.NumberComparator,
+  numStacks = Auctionator.Utilities.NumberComparator,
   isOwnedText = Auctionator.Utilities.StringComparator,
 }
 

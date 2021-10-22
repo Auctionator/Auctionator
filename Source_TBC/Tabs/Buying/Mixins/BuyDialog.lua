@@ -69,7 +69,7 @@ function AuctionatorBuyDialogMixin:SetDetails(auctionData)
 end
 
 function AuctionatorBuyDialogMixin:LoadForPurchasing()
-  if self.auctionData.noOfStacks < 1 then
+  if self.auctionData.numStacks < 1 then
     self:UpdateButtons()
     return
   end
@@ -93,7 +93,7 @@ function AuctionatorBuyDialogMixin:ReceiveEvent(eventName, ...)
     if self.gotAllResults then
       Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
     end
-    if self.auctionData and self.auctionData.noOfStacks > 0 then
+    if self.auctionData and self.auctionData.numStacks > 0 then
       self:FindAuctionOnCurrentPage()
       if self.buyInfo == nil then
         self:Hide()
@@ -125,8 +125,8 @@ function AuctionatorBuyDialogMixin:FindAuctionOnCurrentPage()
 end
 
 function AuctionatorBuyDialogMixin:UpdateButtons()
-  self.BuyStack:SetEnabled(self.auctionData ~= nil and Auctionator.AH.IsNotThrottled() and self.buyInfo ~= nil and self.auctionData.noOfStacks > 0)
-  if self.auctionData and self.auctionData.noOfStacks > 0 then
+  self.BuyStack:SetEnabled(self.auctionData ~= nil and Auctionator.AH.IsNotThrottled() and self.buyInfo ~= nil and self.auctionData.numStacks > 0)
+  if self.auctionData and self.auctionData.numStacks > 0 then
     self.BuyStack:SetText(AUCTIONATOR_L_BUY_STACK)
   else
     self.BuyStack:SetText(AUCTIONATOR_L_NONE_LEFT)
@@ -137,7 +137,7 @@ function AuctionatorBuyDialogMixin:BuyStackClicked()
   self:FindAuctionOnCurrentPage()
   if self.buyInfo ~= nil then
     Auctionator.AH.PlaceAuctionBid(self.buyInfo.index, self.auctionData.stackPrice)
-    self.auctionData.noOfStacks = self.auctionData.noOfStacks - 1
+    self.auctionData.numStacks = self.auctionData.numStacks - 1
     Auctionator.Utilities.SetStacksText(self.auctionData)
     self.quantityPurchased = self.quantityPurchased + self.auctionData.stackSize
     self:UpdatePurchasedCount(self.quantityPurchased)

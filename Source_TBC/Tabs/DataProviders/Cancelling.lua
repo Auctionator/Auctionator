@@ -146,14 +146,6 @@ function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
   end
 end
 
-local function ToUnitPrice(entry)
-  local quantity = entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
-  if quantity ~= 0 then
-    return math.ceil(entry.info[Auctionator.Constants.AuctionItemInfo.Buyout] / quantity)
-  else
-    return 0
-  end
-end
 local function ToStackSize(entry)
   return entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
 end
@@ -184,12 +176,12 @@ local function GroupAuctions(allAuctions)
   for _, auction in ipairs(allAuctions) do
     local newEntry = {
       itemLink = auction.itemLink,
-      unitPrice = ToUnitPrice(auction),
+      unitPrice = Auctionator.Utilities.ToUnitPrice(auction),
       stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout],
       stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
       isSold = auction.info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1,
       timeLeft = auction.timeLeft,
-      noOfStacks = 1,
+      numStacks = 1,
       isOwned = true,
       bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
       bidPrice = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
@@ -215,7 +207,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
 
     --Only look at unsold and uncancelled (yet) auctions
     if self:IsValidAuction(auction) and self:FilterAuction(auction) and auction.stackPrice ~= nil then
-      total = total + auction.stackPrice * auction.noOfStacks
+      total = total + auction.stackPrice * auction.numStacks
 
       local cleanLink = Auctionator.Search.GetCleanItemLink(auction.itemLink)
       local undercutStatus
@@ -227,7 +219,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         undercutStatus = AUCTIONATOR_L_UNDERCUT_NO
       end
       table.insert(results, {
-        noOfStacks = 1,
+        numStacks = 1,
         stackSize = auction.stackSize,
         stackPrice = auction.stackPrice,
         itemString = cleanLink,

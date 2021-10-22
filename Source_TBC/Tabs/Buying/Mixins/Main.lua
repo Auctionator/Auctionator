@@ -34,7 +34,7 @@ function AuctionatorBuyFrameMixin:ReceiveEvent(eventName, eventData, ...)
     end
     self:UpdateButtons()
   elseif self:IsVisible() and eventName == Auctionator.Buying.Events.StacksUpdated then
-    if self.selectedAuctionData and self.selectedAuctionData.noOfStacks == 0 then
+    if self.selectedAuctionData and self.selectedAuctionData.numStacks == 0 then
       self.selectedAuctionData.isSelected = false
       self.selectedAuctionData = nil
     end
@@ -44,7 +44,7 @@ function AuctionatorBuyFrameMixin:ReceiveEvent(eventName, eventData, ...)
 end
 
 function AuctionatorBuyFrameMixin:UpdateButtons()
-  self.CancelButton:SetEnabled(self.selectedAuctionData ~= nil and self.selectedAuctionData.isOwned and self.selectedAuctionData.noOfStacks > 0 and Auctionator.AH.IsNotThrottled())
+  self.CancelButton:SetEnabled(self.selectedAuctionData ~= nil and self.selectedAuctionData.isOwned and self.selectedAuctionData.numStacks > 0 and Auctionator.AH.IsNotThrottled())
   self.BuyButton:Disable()
 
   self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and not self.selectedAuctionData.isOwned)
@@ -72,7 +72,7 @@ function AuctionatorBuyFrameMixin:GetOwnerAuctionIndex()
 end
 
 function AuctionatorBuyFrameMixin:LoadForCancelling()
-  if self.selectedAuctionData.noOfStacks < 1 then
+  if self.selectedAuctionData.numStacks < 1 then
     self.selectedAuctionData.isSelected = false
     self.selectedAuctionData = nil
     self:UpdateButtons()
@@ -95,14 +95,14 @@ end
 function AuctionatorBuyFrameMixin:CancelFocussed()
   local indexes = self:GetOwnerAuctionIndex()
   if #indexes == 0 then
-    if #indexes < self.selectedAuctionData.noOfStacks then
+    if #indexes < self.selectedAuctionData.numStacks then
       Auctionator.Utilities.Message(AUCTIONATOR_L_ERROR_REOPEN_AUCTION_HOUSE)
     end
     self:Reset()
     self.SearchDataProvider:RefreshQuery()
   else
     Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.selectedAuctionData)
-    self.selectedAuctionData.noOfStacks = self.selectedAuctionData.noOfStacks - 1
+    self.selectedAuctionData.numStacks = self.selectedAuctionData.numStacks - 1
     Auctionator.Utilities.SetStacksText(self.selectedAuctionData)
   end
   self:LoadForCancelling()

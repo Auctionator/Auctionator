@@ -5,6 +5,7 @@ Auctionator.Config.Options.AUCTION_SALES_PREFERENCE = "lifo_auction_sales_prefer
 Auctionator.Config.Options.UNDERCUT_PERCENTAGE = "lifo_undercut_percentage"
 Auctionator.Config.Options.UNDERCUT_STATIC_VALUE = "lifo_undercut_static_value"
 Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE = "starting_price_percentage"
+Auctionator.Config.Options.DEFAULT_SELLING_STACKS = "default_selling_stacks"
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTO_LIST_SEARCH] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.COLUMNS_BUYING_HISTORICAL_PRICES] = {}
@@ -15,3 +16,4 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_SALES_PREFERENCE]
 Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_PERCENTAGE] = 0
 Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_STATIC_VALUE] = 1
 Auctionator.Config.Defaults[Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE] = 95
+Auctionator.Config.Defaults[Auctionator.Config.Options.DEFAULT_SELLING_STACKS] = {numStacks = 0, stackSize = 0}
