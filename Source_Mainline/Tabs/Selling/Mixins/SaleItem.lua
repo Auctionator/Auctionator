@@ -550,14 +550,21 @@ function AuctionatorSaleItemMixin:PostItem()
     C_AuctionHouse.PostCommodity(self.itemInfo.location, duration, quantity, buyout)
   end
 
+  local postedInfo = {
+    itemLink = self.itemInfo.itemLink,
+    quantity = quantity,
+    buyoutAmount = buyout,
+    bidAmount = bidAmountReported,
+  }
+
+  --Print auction to chat
+  if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG) then
+    Auctionator.Utilities.Message(Auctionator.Selling.ComposeAuctionPostedMessage(postedInfo))
+  end
+
   Auctionator.EventBus:Fire(self,
     Auctionator.Selling.Events.AuctionCreated,
-    {
-      itemLink = self.itemInfo.itemLink,
-      quantity = quantity,
-      buyoutAmount = buyout,
-      bidAmount = bidAmountReported,
-    }
+    postedInfo
   )
 
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistory)

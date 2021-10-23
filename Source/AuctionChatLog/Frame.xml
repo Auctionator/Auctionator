@@ -1,7 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorAuctionChatLogFrameTemplate" parent="UIParent" hidden="true" mixin="AuctionatorAuctionChatLogFrameMixin" virtual="true">
-    <Scripts>
-      <OnLoad method="OnLoad"/>
-    </Scripts>
-  </Frame>
-</Ui>

@@ -17,8 +17,6 @@
   <Include file="Variables\Manifest.xml" />
   <Include file="Database\Manifest.xml"/>
 
-  <Include file="AuctionChatLog\Manifest.xml"/>
-
   <Include file="Events\Manifest.xml" />
   <Include file="SlashCmd\Manifest.xml" />
 

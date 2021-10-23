@@ -44,22 +44,6 @@ local function InitializeFullScanFrame()
   end
 end
 
-local function InitializeAuctionChatLogFrame()
-  local frame
-  if Auctionator.State.AuctionChatLogFrameRef == nil then
-    frame = CreateFrame(
-      "FRAME",
-      "AuctionatorAuctionChatLogFrame",
-      AuctionHouseFrame,
-      "AuctionatorAuctionChatLogFrameTemplate"
-    )
-
-    Auctionator.State.AuctionChatLogFrameRef = frame
-  else
-    frame = Auctionator.State.AuctionChatLogFrameRef
-  end
-end
-
 local function InitializeAuctionHouseTabs()
   if Auctionator.State.TabFrameRef == nil then
     Auctionator.State.TabFrameRef = CreateFrame(
@@ -108,7 +92,6 @@ function AuctionatorAHFrameMixin:OnShow()
 
   InitializeIncrementalScanFrame()
   InitializeFullScanFrame()
-  InitializeAuctionChatLogFrame()
   InitializeLateTooltipHooks()
 
   InitializeAuctionHouseTabs()
