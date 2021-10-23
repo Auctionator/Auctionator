@@ -4,4 +4,5 @@
   <Include file="Hooks.lua" />
 
   <Script file="UniqueBagKey.lua"/>
+  <Script file="GetItemCount.lua"/>
 </Ui>
