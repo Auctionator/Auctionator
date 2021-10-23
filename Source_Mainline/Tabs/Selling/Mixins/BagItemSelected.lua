@@ -16,6 +16,7 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
 
   if location and C_AuctionHouse.IsSellItemValid(location, true) then
     local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+    itemInfo.count = C_AuctionHouse.GetAvailablePostCount(location)
 
     if not Auctionator.EventBus:IsSourceRegistered(self) then
       Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
