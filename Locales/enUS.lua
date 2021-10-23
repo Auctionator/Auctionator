@@ -491,7 +491,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["MAX_COLON_X"] = "Max: %s"
   L["HISTORY"] = "History"
   L["CURRENT"] = "Current"
-  L["WORK_IN_PROGRESS"] = "Work in progress. Not functional yet."
   L["SERVER_TOOK_TOO_LONG"] = "The server took too long to respond. Your action may not have had an effect."
 
   L["STARTING_PRICE_PERCENTAGE_SUFFIX"] = "% of the stack price"
