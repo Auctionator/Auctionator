@@ -124,7 +124,7 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
 end
 
 function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
-  return not auctionInfo.isSold and auctionInfo.itemLink ~= nil
+  return not auctionInfo.isSold and auctionInfo.stackPrice ~= 0
 end
 
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
@@ -160,12 +160,14 @@ local function GroupAuctions(allAuctions)
       bidder = auction.info[Auctionator.Constants.AuctionItemInfo.Bidder],
       timeLeft = auction.timeLeft,
     }
-    local key = ToUniqueKey(newEntry)
-    if seenDetails[key] then
-      seenDetails[key].numStacks = seenDetails[key].numStacks + 1
-    else
-      seenDetails[key] = newEntry
-      table.insert(results, newEntry)
+    if newEntry.itemLink ~= nil then
+      local key = ToUniqueKey(newEntry)
+      if seenDetails[key] then
+        seenDetails[key].numStacks = seenDetails[key].numStacks + 1
+      else
+        seenDetails[key] = newEntry
+        table.insert(results, newEntry)
+      end
     end
   end
 
@@ -181,7 +183,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   for _, auction in ipairs(allAuctions) do
 
     --Only look at unsold and uncancelled (yet) auctions
-    if self:IsValidAuction(auction) and self:FilterAuction(auction) and auction.stackPrice ~= nil then
+    if self:IsValidAuction(auction) and self:FilterAuction(auction) then
       total = total + auction.stackPrice * auction.numStacks
 
       local cleanLink = Auctionator.Search.GetCleanItemLink(auction.itemLink)
