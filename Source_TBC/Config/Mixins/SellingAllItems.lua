@@ -69,10 +69,13 @@ function AuctionatorConfigSellingAllItemsFrameMixin:Save()
 
   Auctionator.Config.Set(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER, self.GearPriceMultiplier:GetNumber())
 
-  Auctionator.Config.Set(
-    Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE,
-    Auctionator.Utilities.ValidatePercentage(self.StartingPricePercentage:GetNumber())
-  )
+  local newPercentage = Auctionator.Utilities.ValidatePercentage(self.StartingPricePercentage:GetNumber())
+  if newPercentage > 0 then
+    Auctionator.Config.Set(
+      Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE,
+      newPercentage
+    )
+  end
 
   local defaultStacks = {
     stackSize = self.DefaultStacks.StackSize:GetNumber(),
