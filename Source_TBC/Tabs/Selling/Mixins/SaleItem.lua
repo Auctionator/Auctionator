@@ -482,6 +482,16 @@ function AuctionatorSaleItemMixin:PostItem()
 
   Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
 
+  --Print auction to chat
+  if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG) then
+    Auctionator.Utilities.Message(Auctionator.Selling.ComposeAuctionPostedMessage({
+      itemLink = self.itemInfo.itemLink,
+      numStacks = numStacks,
+      stackSize = stackSize,
+      stackBuyout = buyoutPrice,
+    }))
+  end
+
   Auctionator.EventBus:Fire(self,
     Auctionator.Selling.Events.AuctionCreated,
     {

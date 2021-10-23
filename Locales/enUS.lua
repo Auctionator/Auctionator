@@ -125,6 +125,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["STACK_AUCTION_INFO"] = "%s for %s (at %s each)"
   L["BIDDING_AUCTION_INFO"] = "%s bidding at %s"
   L["BUYOUT_AUCTION_INFO"] = "%s buyout at %s"
+  L["MULTIPLE_STACKS_AUCTION_INFO"] = "%s %s, totalling %s"
 
   L["STARTING_FULL_SCAN"] = "Starting a full scan."
   L["FULL_SCAN_IN_PROGRESS"] = "Full scan in progress."
