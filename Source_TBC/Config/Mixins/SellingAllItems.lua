@@ -19,9 +19,9 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
   self.currentUndercutPreference = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE)
 
   self.DurationGroup:SetSelectedValue(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION))
-  self.SalesPreference:SetSelectedValue(self.currentCommiditySalesPreference)
+  self.SalesPreference:SetSelectedValue(self.currentUndercutPreference)
 
-  self:OnSalesPreferenceChange(self.currentCommiditySalesPreference)
+  self:OnSalesPreferenceChange(self.currentUndercutPreference)
 
   self.UndercutPercentage:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_PERCENTAGE))
   self.UndercutValue:SetAmount(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_STATIC_VALUE))
