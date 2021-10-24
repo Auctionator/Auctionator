@@ -52,6 +52,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["AUCTION_TOOLTIP_TOOLTIP_HEADER"] = "Auction Tooltip Information"
   L["AUCTION_TOOLTIP_TOOLTIP_TEXT"] = "Show auction information in tooltip on mouseover."
   L["CONFIG_ENCHANT_TOOLTIP"] = "Show enchant tooltips (WoD, Legion, BfA & Shadowlands only.)"
+  L["CONFIG_ENCHANT_GENERIC_TOOLTIP"] = "Show enchant tooltips"
   L["ENCHANT_TOOLTIP_TOOLTIP_HEADER"] = "Enchant Tooltip Information"
   L["ENCHANT_TOOLTIP_TOOLTIP_TEXT"] = "Show enchant information in tooltip on mouseover."
   L["CONFIG_STACK_TOOLTIP"] = "Show stack price when holding shift."

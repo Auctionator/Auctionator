@@ -1,6 +1,5 @@
 Auctionator.Config.Options.SMALL_TABS = "small_tabs"
 Auctionator.Config.Options.PET_TOOLTIPS = "pet_tooltips"
-Auctionator.Config.Options.ENCHANT_TOOLTIPS = "enchant_tooltips"
 Auctionator.Config.Options.AUTOSCAN = "autoscan_2"
 Auctionator.Config.Options.AUTOSCAN_INTERVAL = "autoscan_interval"
 Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY = "show_selling_price_history"
@@ -23,7 +22,6 @@ Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo"
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.SMALL_TABS] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.PET_TOOLTIPS] = true
-Auctionator.Config.Defaults[Auctionator.Config.Options.ENCHANT_TOOLTIPS] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN_INTERVAL] = 15
 Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true

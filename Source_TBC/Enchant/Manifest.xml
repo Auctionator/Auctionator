@@ -1,0 +1,8 @@
+<!-- FullScan directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Main.lua"/>
+  <Script file="DisenchantingMaterials.lua" />
+  <Script file="DisenchantingMaterialMapping.lua" />
+  <Script file="DisenchantingItemNames.lua" />
+  <Script file="DisenchantingProbabilities.lua" />
+</Ui>
