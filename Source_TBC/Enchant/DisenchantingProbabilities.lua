@@ -8,7 +8,7 @@ Auctionator.Constants.DisenchantingProbabilityKeys = {
 }
 
 Auctionator.Constants.DisenchantingProbability = {
-  [ LE_ITEM_CLASS_ARMOR ] = {
+  [ Enum.ItemClass.Armor ] = {
     [ Enum.ItemQuality.Good ] = {
       -- { 5, 15, 80, { 1, 2 }, MATS.STRANGE_DUST, 20, { 1, 2 }, MATS.LESSER_MAGIC },
       -- { 16, 20, 75, { 2, 3 }, MATS.STRANGE_DUST, 20, { 1, 2 }, MATS.GREATER_MAGIC, 5, 1, MATS.SMALL_GLIMMERING },
@@ -170,7 +170,7 @@ Auctionator.Constants.DisenchantingProbability = {
       {835,950,100,1,124442}
     }
   },
-  [ LE_ITEM_CLASS_WEAPON ] = {
+  [ Enum.ItemClass.Weapon ] = {
     [ Enum.ItemQuality.Good ] = {
       -- { 6, 15, 20, { 1, 2 }, MATS.STRANGE_DUST, 80, { 1, 2 }, MATS.LESSER_MAGIC },
       -- { 16, 20, 20, { 2, 3 }, MATS.STRANGE_DUST, 75, { 1, 2 }, MATS.GREATER_MAGIC, 5, 1, MATS.SMALL_GLIMMERING },
@@ -340,6 +340,6 @@ Auctionator.Constants.DisenchantingProbability = {
 --    return entry
 -- end
 
--- for i, element in pairs( Auctionator.Constants.DisenchantingProbability[ LE_ITEM_CLASS_ARMOR ][ Auctionator.Constants.Rarity.UNCOMMON ] ) do
+-- for i, element in pairs( Auctionator.Constants.DisenchantingProbability[ Enum.ItemClass.Amor ][ Enum.ItemQuality.Good ] ) do
 --    Auctionator.Util.FlatPrint( DEMap( element ) )
 -- end
