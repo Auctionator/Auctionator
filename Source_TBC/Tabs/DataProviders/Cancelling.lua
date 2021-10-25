@@ -152,7 +152,6 @@ local function GroupAuctions(allAuctions)
       stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout],
       stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
       isSold = auction.info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1,
-      timeLeft = auction.timeLeft,
       numStacks = 1,
       isOwned = true,
       bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],

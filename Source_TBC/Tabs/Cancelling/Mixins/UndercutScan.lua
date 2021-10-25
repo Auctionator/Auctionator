@@ -9,16 +9,16 @@ local QUERY_EVENTS = {
   Auctionator.AH.Events.ScanAborted,
 }
 
+local THROTTLE_EVENTS = {
+  Auctionator.AH.Events.Ready,
+}
+
 function AuctionatorUndercutScanMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorUndercutScanMixin")
   Auctionator.EventBus:Register(self, {
     Auctionator.Cancelling.Events.RequestCancel,
     Auctionator.Cancelling.Events.RequestCancelUndercut,
   })
-
-  --XXX: Hidden until the button can be made to work
-  self.CancelNextButton:Hide()
-  self.StartScanButton:SetPoint("TOPRIGHT", 3, 0)
 
   self.seenPrices = {}
 
@@ -30,7 +30,7 @@ function AuctionatorUndercutScanMixin:AnyUndercutItems()
   for _, auction in ipairs(allAuctions) do
     local cutoffPrice = self.seenPrices[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
     if cutoffPrice ~= nil and
-       auction.info[Auctionator.Constants.AuctionItemInfo.Buyout] > cutoffPrice then
+       Auctionator.Utilities.ToUnitPrice(auction) > cutoffPrice then
       return true
     end
   end
@@ -38,10 +38,12 @@ end
 
 function AuctionatorUndercutScanMixin:OnShow()
   SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT), "CLICK AuctionatorCancelUndercutButton:LeftButton")
+  Auctionator.EventBus:Register(self, THROTTLE_EVENTS)
 end
 
 function AuctionatorUndercutScanMixin:OnHide()
   ClearOverrideBindings(self)
+  Auctionator.EventBus:Unregister(self, THROTTLE_EVENTS)
 end
 
 function AuctionatorUndercutScanMixin:StartScan()
@@ -62,7 +64,7 @@ function AuctionatorUndercutScanMixin:StartScan()
 end
 
 function AuctionatorUndercutScanMixin:SetCancel()
-  self.CancelNextButton:SetEnabled(self:AnyUndercutItems())
+  self.CancelNextButton:SetEnabled(self:AnyUndercutItems() and Auctionator.AH.IsNotThrottled())
 end
 
 function AuctionatorUndercutScanMixin:EndScan()
@@ -112,6 +114,9 @@ end
 
 function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
+    self.CancelNextButton:Disable()
+
+  elseif eventName == Auctionator.AH.Events.Ready then
     self:SetCancel()
 
   elseif eventName == Auctionator.Cancelling.Events.RequestCancelUndercut then
@@ -165,15 +170,26 @@ end
 
 function AuctionatorUndercutScanMixin:CancelNextAuction()
   Auctionator.Debug.Message("AuctionatorUndercutScanMixin:CancelNextAuction()")
-  if true then
-    return
+
+  local allAuctions = Auctionator.AH.DumpAuctions("owner")
+  for _, auction in ipairs(allAuctions) do
+    local cutoffPrice = self.seenPrices[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
+    if cutoffPrice ~= nil and
+       Auctionator.Utilities.ToUnitPrice(auction) > cutoffPrice then
+      Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, {
+        itemLink = auction.itemLink,
+        unitPrice = Auctionator.Utilities.ToUnitPrice(auction),
+        stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout],
+        stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
+        isSold = auction.info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1,
+        numStacks = 1,
+        isOwned = true,
+        bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
+        minBid = auction.info[Auctionator.Constants.AuctionItemInfo.MinBid],
+        bidder = auction.info[Auctionator.Constants.AuctionItemInfo.Bidder],
+        timeLeft = auction.timeLeft,
+      })
+      return
+    end
   end
-
-  Auctionator.EventBus:Fire(
-    self,
-    Auctionator.Cancelling.Events.RequestCancel,
-    self.undercutAuctions[1]
-  )
-
-  self.CancelNextButton:Disable()
 end
