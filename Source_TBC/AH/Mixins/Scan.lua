@@ -59,6 +59,7 @@ function AuctionatorAHScanFrameMixin:DoNextSearchQuery()
 
   self.lastQueuedItem = function()
     self.sentQuery = true
+    SortAuctionSetSort("list", "unitprice")
     QueryAuctionItems(ParamsForBlizzardAPI(self.query, page))
   end
   Auctionator.AH.Queue:Enqueue(self.lastQueuedItem)

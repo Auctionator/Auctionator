@@ -46,6 +46,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
   self:SetUpEvents()
   self.gotAllResults = true
+  self.requestAllResults = true
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetUpEvents()
@@ -77,6 +78,10 @@ function AuctionatorBuyAuctionsDataProviderMixin:SetQuery(itemLink)
       isExact = true,
     }
   end
+end
+
+function AuctionatorBuyAuctionsDataProviderMixin:SetRequestAllResults(newValue)
+  self.requestAllResults = newValue
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
@@ -133,6 +138,8 @@ end
 function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
   self:Reset()
 
+  local gotResult = false
+
   table.sort(self.allAuctions, function(a, b)
     local unitA = Auctionator.Utilities.ToUnitPrice(a)
     local unitB = Auctionator.Utilities.ToUnitPrice(b)
@@ -170,6 +177,11 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       newEntry.unitPrice = nil
       newEntry.stackPrice = nil
     end
+
+    if newEntry.unitPrice ~= nil then
+      gotResult = true
+    end
+
     if newEntry.isOwned then
       newEntry.isOwnedText = AUCTIONATOR_L_UNDERCUT_YES
     else
@@ -189,6 +201,11 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       table.insert(results, newEntry)
     end
     results[#results].page = math.min(results[#results].page, auction.page)
+  end
+
+  if not self.requestAllResults and gotResult and not self.gotAllResults then
+    Auctionator.AH.AbortQuery()
+    self.gotAllResults = true
   end
 
   self:AppendEntries(results, self.gotAllResults)

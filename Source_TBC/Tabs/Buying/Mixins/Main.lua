@@ -203,6 +203,7 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
 
     self.HistoryDataProvider:SetItemLink(eventData.itemLink)
     self.SearchDataProvider:SetQuery(eventData.itemLink)
+    self.SearchDataProvider:SetRequestAllResults(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHOW_ALL_RESULTS))
     self.SearchDataProvider:RefreshQuery()
 
     self.RefreshButton:Enable()

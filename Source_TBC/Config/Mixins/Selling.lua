@@ -12,6 +12,7 @@ end
 function AuctionatorConfigSellingFrameMixin:OnShow()
   self.AuctionChatLog:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG))
   self.ShowBidPrice:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE))
+  self.ShowAllResults:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHOW_ALL_RESULTS))
   self.BagCollapsed:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))
 
   self.BagShown:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BAG))
@@ -27,6 +28,7 @@ function AuctionatorConfigSellingFrameMixin:Save()
 
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_CHAT_LOG, self.AuctionChatLog:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE, self.ShowBidPrice:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_SHOW_ALL_RESULTS, self.ShowAllResults:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_COLLAPSED, self.BagCollapsed:GetChecked())
 
   Auctionator.Config.Set(Auctionator.Config.Options.SHOW_SELLING_BAG, self.BagShown:GetChecked())
