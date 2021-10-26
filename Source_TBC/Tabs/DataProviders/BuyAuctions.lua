@@ -88,6 +88,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventDa
     self:ImportAdditionalResults(eventData)
   elseif eventName == Auctionator.AH.Events.ScanAborted then
     Auctionator.EventBus:Unregister(self, BUY_EVENTS)
+    self.onSearchEnded()
   elseif eventName == Auctionator.Buying.Events.AuctionFocussed and self:IsShown() then
     for _, entry in ipairs(self.results) do
       entry.isSelected = entry == eventData
@@ -105,7 +106,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:RefreshQuery()
 
     self.allAuctions = {}
     self.gotAllResults = false
-    Auctionator.EventBus:Register(self, { Auctionator.AH.Events.ScanResultsUpdate })
+    Auctionator.EventBus:Register(self, BUY_EVENTS)
     Auctionator.AH.QueryAuctionItems(self.query)
   end
 end
