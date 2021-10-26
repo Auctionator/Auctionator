@@ -55,7 +55,10 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     end
 
     disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
-    disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
+    local disenchantPriceForOne = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
+    if disenchantPriceForOne ~= nil then
+      disenchantPrice = disenchantPriceForOne * (showStackPrices and itemCount or 1)
+    end
   end
 
   if Auctionator.Debug.IsOn() then
@@ -67,7 +70,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   end
   Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
   if disenchantStatus ~= nil then
-    Auctionator.Tooltip.AddDisenchantTip(tooltipFrame, disenchantPrice, disenchantStatus)
+    Auctionator.Tooltip.AddDisenchantTip(tooltipFrame, disenchantPrice, countString, disenchantStatus)
 
     if Auctionator.Constants.IsTBC and IsShiftKeyDown() and Auctionator.Config.Get(Auctionator.Config.Options.ENCHANT_TOOLTIPS) then
       for _, line in ipairs(Auctionator.Enchant.GetDisenchantBreakdown(itemLink, itemInfo)) do
@@ -164,7 +167,7 @@ function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countStr
 end
 
 function Auctionator.Tooltip.AddDisenchantTip (
-  tooltipFrame, disenchantPrice, disenchantStatus
+  tooltipFrame, disenchantPrice, countString, disenchantStatus
 )
   if not Auctionator.Config.Get(Auctionator.Config.Options.ENCHANT_TOOLTIPS) then
     return
@@ -172,7 +175,7 @@ function Auctionator.Tooltip.AddDisenchantTip (
 
   if disenchantPrice ~= nil then
     tooltipFrame:AddDoubleLine(
-      L("DISENCHANT"),
+      L("DISENCHANT") .. countString,
       WHITE_FONT_COLOR:WrapTextInColorCode(
         Auctionator.Utilities.CreatePaddedMoneyString(disenchantPrice)
       )
@@ -180,7 +183,7 @@ function Auctionator.Tooltip.AddDisenchantTip (
   elseif disenchantStatus.isDisenchantable and
          disenchantStatus.supportedXpac then
     tooltipFrame:AddDoubleLine(
-      L("DISENCHANT"),
+      L("DISENCHANT") .. countString,
       WHITE_FONT_COLOR:WrapTextInColorCode(
         L("UNKNOWN") .. "  "
       )
