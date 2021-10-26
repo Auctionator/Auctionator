@@ -220,7 +220,13 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     if self.itemInfo ~= nil and self.itemInfo.stackSize == nil then
       self.itemInfo = nil
 
-      local item = Item:CreateFromItemLocation(itemInfo.location)
+      local item
+      if itemInfo.location ~= nil then
+        item = Item:CreateFromItemLocation(itemInfo.location)
+      else
+        item = Item:CreateFromItemLink(itemInfo.itemLink)
+      end
+
       item:ContinueOnItemLoad(function()
         itemInfo.stackSize = select(8, GetItemInfo(itemInfo.itemLink))
         self.itemInfo = itemInfo
