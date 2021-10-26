@@ -9,6 +9,10 @@ local EVENTS = {
   Auctionator.AH.Events.ThrottleUpdate,
 }
 
+local MONEY_EVENTS = {
+  "PLAYER_MONEY"
+}
+
 function AuctionatorBuyDialogMixin:OnLoad()
   self.NumberPurchased:SetText(AUCTIONATOR_L_ALREADY_PURCHASED_X:format(15))
   self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(BLUE_FONT_COLOR:WrapTextInColorCode("x20"), Auctionator.Utilities.CreateMoneyString(10998)))
@@ -24,11 +28,19 @@ function AuctionatorBuyDialogMixin:Reset()
   self.quantityPurchased = 0
 end
 
+function AuctionatorBuyDialogMixin:OnEvent(eventName)
+  if eventName == "PLAYER_MONEY" then
+    self:UpdateButtons()
+  end
+end
+
 function AuctionatorBuyDialogMixin:OnShow()
   Auctionator.EventBus:Register(self, EVENTS)
+  FrameUtil.RegisterFrameForEvents(self, MONEY_EVENTS)
 end
 
 function AuctionatorBuyDialogMixin:OnHide()
+  FrameUtil.UnregisterFrameForEvents(self, MONEY_EVENTS)
   if self.quantityPurchased > 0 and self.auctionData ~= nil then
     Auctionator.Utilities.Message(AUCTIONATOR_L_PURCHASED_X_XX:format(self.auctionData.itemLink, self.quantityPurchased))
   end
@@ -125,7 +137,7 @@ function AuctionatorBuyDialogMixin:FindAuctionOnCurrentPage()
 end
 
 function AuctionatorBuyDialogMixin:UpdateButtons()
-  self.BuyStack:SetEnabled(self.auctionData ~= nil and Auctionator.AH.IsNotThrottled() and self.buyInfo ~= nil and self.auctionData.numStacks > 0)
+  self.BuyStack:SetEnabled(self.auctionData ~= nil and Auctionator.AH.IsNotThrottled() and self.buyInfo ~= nil and self.auctionData.numStacks > 0 and GetMoney() >= self.auctionData.stackPrice)
   if self.auctionData and self.auctionData.numStacks > 0 then
     self.BuyStack:SetText(AUCTIONATOR_L_BUY_STACK)
   else
@@ -134,6 +146,11 @@ function AuctionatorBuyDialogMixin:UpdateButtons()
 end
 
 function AuctionatorBuyDialogMixin:BuyStackClicked()
+  if self.auctionData.stackPrice > GetMoney() then
+    self:UpdateButtons()
+    return
+  end
+
   self:FindAuctionOnCurrentPage()
   if self.buyInfo ~= nil then
     Auctionator.AH.PlaceAuctionBid(self.buyInfo.index, self.auctionData.stackPrice)

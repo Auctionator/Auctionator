@@ -1,3 +1,7 @@
+local MONEY_EVENTS = {
+  "PLAYER_MONEY"
+}
+
 AuctionatorBuyFrameMixin = {}
 
 function AuctionatorBuyFrameMixin:Init()
@@ -26,6 +30,20 @@ function AuctionatorBuyFrameMixin:Reset()
   self:UpdateButtons()
 end
 
+function AuctionatorBuyFrameMixin:OnShow()
+  FrameUtil.RegisterFrameForEvents(self, MONEY_EVENTS)
+end
+
+function AuctionatorBuyFrameMixin:OnHide()
+  FrameUtil.UnregisterFrameForEvents(self, MONEY_EVENTS)
+end
+
+function AuctionatorBuyFrameMixin:OnEvent(eventName, ...)
+  if eventName == "PLAYER_MONEY" then
+    self:UpdateButtons()
+  end
+end
+
 function AuctionatorBuyFrameMixin:ReceiveEvent(eventName, eventData, ...)
   if self:IsVisible() and eventName == Auctionator.Buying.Events.AuctionFocussed then
     self.selectedAuctionData = eventData
@@ -47,7 +65,7 @@ function AuctionatorBuyFrameMixin:UpdateButtons()
   self.CancelButton:SetEnabled(self.selectedAuctionData ~= nil and self.selectedAuctionData.isOwned and self.selectedAuctionData.numStacks > 0 and Auctionator.AH.IsNotThrottled())
   self.BuyButton:Disable()
 
-  self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and not self.selectedAuctionData.isOwned)
+  self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and not self.selectedAuctionData.isOwned and GetMoney() >= self.selectedAuctionData.stackPrice)
 end
 
 function AuctionatorBuyFrameMixin:GetOwnerAuctionIndex()
@@ -124,12 +142,16 @@ function AuctionatorBuyFrameMixinForShopping:Init()
 end
 
 function AuctionatorBuyFrameMixinForShopping:OnShow()
+  AuctionatorBuyFrameMixin.OnShow(self)
+
   self:GetParent().ResultsListing:Hide()
   self:GetParent().ExportCSV:Hide()
   self:GetParent().ShoppingResultsInset:Hide()
 end
 
 function AuctionatorBuyFrameMixinForShopping:OnHide()
+  AuctionatorBuyFrameMixin.OnHide(self)
+
   self:Hide()
 
   self:GetParent().ResultsListing:Show()

@@ -1,5 +1,10 @@
 <Ui>
   <Frame name="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixin" virtual="true">
+    <Scripts>
+      <OnShow method="OnEvent"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
     <Size x="450" y="350" />
     <Frames>
       <Frame parentKey="SearchDataProvider" mixin="AuctionatorBuyAuctionsDataProviderMixin">
@@ -89,8 +94,6 @@
   <Frame name="AuctionatorBuyFrameTemplateForShopping" hidden="true" inherits="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixinForShopping" virtual="true">
     <Scripts>
       <OnLoad method="Init"/>
-      <OnShow method="OnShow"/>
-      <OnHide method="OnHide"/>
     </Scripts>
     <Anchors>
       <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="-50"/>
@@ -149,9 +152,5 @@
     </Frames>
   </Frame>
 
-  <Frame name="AuctionatorBuyFrameTemplateForSelling" inherits="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixinForSelling" virtual="true">
-    <Scripts>
-      <OnShow method="OnShow"/>
-    </Scripts>
-  </Frame>
+  <Frame name="AuctionatorBuyFrameTemplateForSelling" inherits="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixinForSelling" virtual="true" />
 </Ui>

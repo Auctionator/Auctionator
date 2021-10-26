@@ -2,6 +2,7 @@
   <Frame name="AuctionatorBuyDialogTemplate" frameStrata="Dialog" mixin="AuctionatorBuyDialogMixin" virtual="true" enableMouse="true">
     <Scripts>
       <OnLoad method="OnLoad"/>
+      <OnEvent method="OnEvent"/>
       <OnShow method="OnShow"/>
       <OnHide method="OnHide"/>
     </Scripts>
