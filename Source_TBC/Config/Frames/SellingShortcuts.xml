@@ -21,8 +21,8 @@
       <Frame inherits="AuctionatorDropDown" parentKey="BagSelectShortcut">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_BAG_SELECT_SHORTCUT" type="global" />
-          <KeyValue key="textString" value="ALT_LEFT_CLICK;ALT_RIGHT_CLICK;SHIFT_LEFT_CLICK;SHIFT_RIGHT_CLICK;DISABLED" type="string"/>
-          <KeyValue key="valuesString" value="alt left click;alt right click;shift left click;shift right click;none" type="string"/>
+          <KeyValue key="textString" value="RIGHT_CLICK;ALT_LEFT_CLICK;ALT_RIGHT_CLICK;SHIFT_LEFT_CLICK;SHIFT_RIGHT_CLICK;DISABLED" type="string"/>
+          <KeyValue key="valuesString" value="right click;alt left click;alt right click;shift left click;shift right click;none" type="string"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>

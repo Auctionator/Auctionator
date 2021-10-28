@@ -195,14 +195,19 @@ end
 
 -- We need to wait for whatever item is being posted to finish posting
 -- before accepting the new item, hence the throttle check and this extra
--- function
+-- function.
+-- Also, when using right-click as a shortcut to select the item or reselecting
+-- the same item this fails on the first couple of attempts.
 function AuctionatorSaleItemMixin:SellItemClick()
   if IsValidItem(self.itemInfo) then
     PickupContainerItem(self.itemInfo.location:GetBagAndSlot())
-    self.clickedSellItem = true
     ClickAuctionSellItemButton()
-    ClearCursor()
-    self:LockItem()
+    self.clickedSellItem = (GetAuctionSellItemInfo()) ~= nil
+    -- Check we didn't fail
+    if self.clickedSellItem then
+      ClearCursor()
+      self:LockItem()
+    end
   else
     self.itemInfo = nil
   end

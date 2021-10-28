@@ -23,6 +23,13 @@ local function AHShown()
   return AuctionFrame and AuctionFrame:IsShown()
 end
 
+hooksecurefunc(_G, "ContainerFrameItemButton_OnEnter", function(self)
+  if AHShown() and
+      Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT) == Auctionator.Config.Shortcuts.RIGHT_CLICK then
+    SetAuctionsTabShowing(true)
+  end
+end)
+
 hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
   if AHShown() and
       Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
