@@ -1,25 +1,22 @@
-local function SearchOwnItem(self)
-  local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
-
-  if not C_Item.DoesItemExist(itemLocation) then
-    return
+local function SearchItem(text)
+  if text == nil or AuctionatorShoppingListFrame == nil or not AuctionatorShoppingListFrame:IsVisible() then
+    return false
   end
 
-  if StackSplitFrame ~= nil and StackSplitFrame:IsVisible() then
-    StackSplitFrame:Hide()
-  end
+  local name = Auctionator.Utilities.GetNameFromLink(text)
 
-  local itemLink = select(7, GetContainerItemInfo(itemLocation:GetBagAndSlot()))
-  local name = Auctionator.Utilities.GetNameFromLink(itemLink)
+  if name == nil then
+    name = text
+  end
 
   AuctionatorShoppingListFrame.OneItemSearchBox:SetText(name)
   AuctionatorShoppingListFrame.OneItemSearchButton:Click()
+
+  return true
 end
 
--- The bag item button is hooked so that we can hide the stack split frame when
--- it appears, otherwise hooking ChatEdit_InsertLink would be enough.
-hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", function(self, button)
-  if AuctionatorShoppingListFrame ~= nil and AuctionatorShoppingListFrame:IsVisible() and Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Shortcuts.SHIFT_LEFT_CLICK, button) then
-    SearchOwnItem(self)
-  end
-end)
+local prevChatEdit_InsertLink = ChatEdit_InsertLink
+
+ChatEdit_InsertLink = function(text)
+  return prevChatEdit_InsertLink(text) or SearchItem(text)
+end
