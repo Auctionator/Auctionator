@@ -46,7 +46,7 @@ function AuctionatorFullScanFrameMixin:CanInitiate()
 end
 
 function AuctionatorFullScanFrameMixin:NextScanMessage()
-  local timeSinceLastScan = time() - self.state.TimeOfLastGetAllScan
+  local timeSinceLastScan = time() - (self.state.TimeOfLastGetAllScan or 0)
   local minutesUntilNextScan = 15 - math.ceil(timeSinceLastScan / 60)
   local secondsUntilNextScan = (15 * 60 - timeSinceLastScan) % 60
 
