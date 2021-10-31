@@ -16,3 +16,4 @@ Auctionator.Constants.ValidItemClassIDs = {
   Enum.ItemClass.Questitem,
   Enum.ItemClass.Miscellaneous,
 }
+Auctionator.Constants.BagIDs = {0, 1, 2, 3, 4}

@@ -50,7 +50,7 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
   local results = {}
   local index = 0
 
-  for bagId = 0, 4 do
+  for _, bagId in ipairs(Auctionator.Constants.BagIDs) do
     for slot = 1, GetContainerNumSlots(bagId) do
       index = index + 1
 

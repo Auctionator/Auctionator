@@ -2,7 +2,7 @@ function Auctionator.Selling.GetItemCount(itemLocation)
   local locationKey = Auctionator.Selling.UniqueBagKey(Auctionator.Utilities.ItemInfoFromLocation(itemLocation))
 
   local count = 0
-  for bagId = 0, 4 do
+  for _, bagId in ipairs(Auctionator.Constants.BagIDs) do
     for slot = 1, GetContainerNumSlots(bagId) do
       local location = ItemLocation:CreateFromBagAndSlot(bagId, slot)
       if C_Item.DoesItemExist(location) then
