@@ -36,7 +36,7 @@ end
 
 function AuctionatorShoppingOneItemSearchButtonMixin:DoSearch(searchText)
   SaveRecentSearch(searchText)
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.NewRecentSearch)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.RecentSearchesUpdate)
 
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.OneItemSearch, searchText)
 end

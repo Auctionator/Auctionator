@@ -13,7 +13,7 @@ Auctionator.ShoppingLists.Events = {
   EditListItem = "AUCTIONATOR_EDIT_LIST_ITEM",
 
   OneItemSearch = "AUCTIONATOR_ONE_ITEM_SEARCH",
-  NewRecentSearch = "AUCTIONATOR_NEW_RECENT_SEARCH",
+  RecentSearchesUpdate = "AUCTIONATOR_RECENT_SEARCHES_UPDATE",
 
   SearchForTerms = "AUCTIONATOR_SEARCH_FOR_TERMS",
 

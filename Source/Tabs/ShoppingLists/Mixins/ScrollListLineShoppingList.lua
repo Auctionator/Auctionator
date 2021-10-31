@@ -31,11 +31,7 @@ function AuctionatorScrollListLineShoppingListMixin:ReceiveEvent(eventName, even
 end
 
 function AuctionatorScrollListLineShoppingListMixin:GetListIndex()
-  for index, name in ipairs(self.currentList.items) do
-    if self.searchTerm == name then
-      return index
-    end
-  end
+  return tIndexOf(self.currentList.items, self.searchTerm)
 end
 
 function AuctionatorScrollListLineShoppingListMixin:DeleteItem()

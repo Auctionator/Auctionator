@@ -13,7 +13,7 @@ function AuctionatorScrollListRecentsMixin:SetUpEvents()
   Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListSearchStarted,
     Auctionator.ShoppingLists.Events.ListSearchEnded,
-    Auctionator.ShoppingLists.Events.NewRecentSearch,
+    Auctionator.ShoppingLists.Events.RecentSearchesUpdate,
     Auctionator.ShoppingLists.Events.OneItemSearch,
   })
 end
@@ -21,7 +21,7 @@ end
 function AuctionatorScrollListRecentsMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.OneItemSearch and self:IsShown() then
     self:StartSearch({ eventData }, true)
-  elseif eventName == Auctionator.ShoppingLists.Events.NewRecentSearch then
+  elseif eventName == Auctionator.ShoppingLists.Events.RecentSearchesUpdate then
     self:RefreshScrollFrame()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self.SpinnerAnim:Play()

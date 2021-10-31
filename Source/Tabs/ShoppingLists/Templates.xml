@@ -81,5 +81,28 @@
     </Frames>
   </Button>
   <Button name="AuctionatorScrollListLineRecentsTemplate" inherits="AuctionatorScrollListLineNoButtonsTemplate" mixin="AuctionatorScrollListLineRecentsMixin" virtual="true">
+    <Frames>
+      <Button parentKey="DeleteButton" inherits="AuctionatorScrollListLineButtonTemplate">
+        <Size>
+          <AbsDimension x="15" y="15"/>
+        </Size>
+        <KeyValues>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_DELETE" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-10" y="0"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\AddOns\Auctionator\Images\Trash_Icon" parentKey="texture"/>
+            <Texture file="Interface\AddOns\Auctionator\Images\Trash_Icon_Grey" parentKey="hoverTexture"/>
+          </Layer>
+        </Layers>
+
+        <Scripts>
+          <OnClick>self:GetParent():DeleteItem()</OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
   </Button>
 </Ui>
