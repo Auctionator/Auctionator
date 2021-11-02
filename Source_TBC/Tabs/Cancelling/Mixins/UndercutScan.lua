@@ -131,18 +131,19 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
       local resultCleanLink = Auctionator.Search.GetCleanItemLink(r.itemLink)
       local unitPrice = Auctionator.Utilities.ToUnitPrice(r)
       if cleanLink == resultCleanLink and unitPrice ~= 0 then
-        if self.seenPrices[cleanLink] == nil then
-          self.seenPrices[cleanLink] = unitPrice
-        else
-          self.seenPrices[cleanLink] = math.min(self.seenPrices[cleanLink], unitPrice)
-        end
+        -- Assumes that scan results are sorted by Blizzard column unitprice
+        self.seenPrices[cleanLink] = unitPrice
+        break
       end
     end
-    if gotAllResults then
+    if self.seenPrices[cleanLink] ~= nil or gotAllResults then
       Auctionator.Debug.Message("undercut scan: next step", self.currentAuction and self.currentAuction.itemLink)
+      if not gotAllResults then
+        Auctionator.AH.AbortQuery()
+      end
+
       self:ProcessUndercutResult(cleanLink, self.seenPrices[cleanLink])
       self:NextStep()
-      Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
     end
 
   elseif eventName == Auctionator.AH.Events.ScanAborted then
