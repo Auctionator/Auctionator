@@ -24,11 +24,11 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
-    headerParameters = { "isOwnedText" },
-    headerText = AUCTIONATOR_L_OWNED_COLUMN,
+    headerParameters = { "isYoursText" },
+    headerText = AUCTIONATOR_L_YOU_COLUMN,
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "isOwnedText" },
-    width = 70,
+    cellParameters = { "isYoursText" },
+    width = 50,
   },
 }
 
@@ -166,7 +166,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout],
       stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity],
       numStacks = 1,
-      isOwned = auction.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")),
+      isYours = auction.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")),
       bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
       isSelected = false, --Used by rows to determine highlight
       notReady = true,
@@ -182,10 +182,10 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       gotResult = true
     end
 
-    if newEntry.isOwned then
-      newEntry.isOwnedText = AUCTIONATOR_L_UNDERCUT_YES
+    if newEntry.isYours then
+      newEntry.isYoursText = AUCTIONATOR_L_UNDERCUT_YES
     else
-      newEntry.isOwnedText = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
+      newEntry.isYoursText = ""
     end
     Auctionator.Utilities.SetStacksText(newEntry)
 
@@ -193,7 +193,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
     if prevResult.unitPrice == newEntry.unitPrice and
        prevResult.stackSize == newEntry.stackSize and
        prevResult.itemLink == newEntry.itemLink and 
-       prevResult.isOwned == newEntry.isOwned and
+       prevResult.isYours == newEntry.isYours and
        prevResult.bidAmount == newEntry.bidAmount then
       prevResult.numStacks = prevResult.numStacks + 1
       Auctionator.Utilities.SetStacksText(prevResult)
@@ -265,7 +265,7 @@ local COMPARATORS = {
   name = Auctionator.Utilities.StringComparator,
   stackSize = Auctionator.Utilities.StringComparator,
   numStacks = Auctionator.Utilities.NumberComparator,
-  isOwnedText = Auctionator.Utilities.StringComparator,
+  isYoursText = Auctionator.Utilities.StringComparator,
 }
 
 function AuctionatorBuyAuctionsDataProviderMixin:Sort(fieldName, sortDirection)
