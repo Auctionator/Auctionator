@@ -26,7 +26,13 @@ function Auctionator.ReagentSearch.CacheVendorPrices()
           local itemLink = GetMerchantItemLink(i)
           local dbKey = Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
           if dbKey ~= nil and price ~= 0 and numAvailable == -1 then
-            AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = price / stack
+            local oldPrice = AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey]
+            local newPrice = price / stack
+            if oldPrice ~= nil then
+              AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = math.min(oldPrice, newPrice)
+            else
+              AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = newPrice
+            end
           elseif dbKey ~= nil then
             AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] = nil
           end
