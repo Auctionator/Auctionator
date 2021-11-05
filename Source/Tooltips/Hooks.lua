@@ -242,6 +242,15 @@ hooksecurefunc (GameTooltip, "SetTradeTargetItem",
   end
 );
 
+if GameTooltip.SetAuctionItem then
+  hooksecurefunc (GameTooltip, "SetAuctionItem", function(tip, viewType, index)
+    local itemCount = select(3, GetAuctionItemInfo(viewType, index))
+    local itemLink = GetAuctionItemLink(viewType, index)
+
+    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
+  end)
+end
+
 -- Occurs when mousing over items in the Refer-a-Friend frame, and a few other places
 hooksecurefunc (GameTooltip, "SetItemByID",
   function (tip, itemID)
@@ -261,7 +270,6 @@ hooksecurefunc (GameTooltip, "SetHyperlink",
     Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
-
 function Auctionator.Tooltip.MainlineLateHooks()
   -- As AuctionHouseUtil doesn't exist until the AH is opened this cannot be
   -- called before the AH opens.
