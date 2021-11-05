@@ -213,9 +213,7 @@ hooksecurefunc("InboxFrameItem_OnEnter",
 
 -- This occurs when clicking on an item link (i.e. in chat)
 hooksecurefunc(ItemRefTooltip, "SetHyperlink",
-  function(tip, itemstring)
-    local _, itemLink = GetItemInfo(itemstring);
-
+  function(tip, itemLink)
     Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
@@ -259,13 +257,7 @@ hooksecurefunc (GameTooltip, "SetItemByID",
 
 -- Occurs mainly with addons (Blizzard and otherwise)
 hooksecurefunc (GameTooltip, "SetHyperlink",
-  function (tip, itemID)
-    if not itemID then
-      return
-    end
-
-    local itemLink = select(2, GetItemInfo(itemID))
-
+  function (tip, itemLink)
     Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
