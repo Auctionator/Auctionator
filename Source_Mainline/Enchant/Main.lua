@@ -30,9 +30,7 @@ local function GetDisenchantReagents(itemInfo)
   end
 end
 
-function Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink)
-  local itemInfo = { GetItemInfo(itemLink) }
-
+function Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
   if not isDisenchantable(itemInfo) then
     return nil
   end

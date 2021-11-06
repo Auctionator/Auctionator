@@ -289,7 +289,7 @@ function Auctionator.Tooltip.MainlineLateHooks()
 
         if #itemInfo ~= 0 then
           local disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
-          local disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemInfo[2])
+          local disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemInfo[2], itemInfo)
 
           if disenchantStatus ~= nil then
             Auctionator.Tooltip.AddDisenchantTip(GameTooltip, disenchantPrice, "", disenchantStatus)
