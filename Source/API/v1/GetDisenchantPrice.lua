@@ -9,10 +9,10 @@ function Auctionator.API.v1.GetDisenchantPriceByItemID(callerID, itemID)
   end
 
   local itemInfo = { GetItemInfo(itemID) }
-  local link = itemInfo[2]
+  local itemLink = itemInfo[2]
 
-  if link ~= nil then
-    return Auctionator.Enchant.GetDisenchantAuctionPrice(link, itemInfo)
+  if itemLink ~= nil then
+    return Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
   else
     return nil
   end
@@ -28,10 +28,10 @@ function Auctionator.API.v1.GetDisenchantPriceByItemLink(callerID, itemLink)
     )
   end
 
-  local itemInfo = { GetItemInfo(itemID) }
+  local itemInfo = { GetItemInfo(itemLink) }
 
   if #itemInfo > 0 then
-    return Auctionator.Enchant.GetDisenchantAuctionPrice(link, itemInfo)
+    return Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
   else
     return nil
   end
