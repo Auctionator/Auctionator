@@ -1,6 +1,4 @@
 <!-- ResultsListing/Templates directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Include file="BagListResultsRow.xml"/>
-  <Include file="HistoricalPriceRow.xml"/>
-  <Include file="PostingHistoryRow.xml"/>
 </Ui>
