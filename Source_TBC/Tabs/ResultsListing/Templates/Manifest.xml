@@ -2,4 +2,5 @@
   <Include file="ShoppingListResultsRow.xml" />
   <Include file="CancellingListResultsRow.xml" />
   <Include file="BuyAuctionsResultsRow.xml" />
+  <Include file="BuyingHistoricalPriceRow.xml" />
 </Ui>

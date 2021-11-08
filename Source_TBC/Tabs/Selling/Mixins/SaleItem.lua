@@ -58,6 +58,7 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
+    Auctionator.Buying.Events.HistoricalPrice,
     Auctionator.Components.Events.EnterPressed,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
@@ -75,6 +76,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.RequestPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
+    Auctionator.Buying.Events.HistoricalPrice,
     Auctionator.Components.Events.EnterPressed,
   })
   Auctionator.EventBus:UnregisterSource(self)
@@ -261,6 +263,10 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
         self:SetUnitPrice(info.unitPrice)
       end
     end
+  elseif event == Auctionator.Buying.Events.HistoricalPrice and
+         self.itemInfo ~= nil then
+    local price = ...
+    self:SetUnitPrice(price)
   end
 end
 

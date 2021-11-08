@@ -2,4 +2,5 @@
   <Script file="ShoppingListResultsRow.lua" />
   <Script file="CancellingListResultsRow.lua" />
   <Script file="BuyAuctionsResultsRow.lua" />
+  <Script file="BuyingHistoricalPriceRow.lua" />
 </Ui>

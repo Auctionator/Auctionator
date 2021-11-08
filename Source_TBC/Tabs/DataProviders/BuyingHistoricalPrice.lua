@@ -9,3 +9,7 @@ end
 function AuctionatorBuyingHistoricalPriceProviderMixin:GetColumnHideStates()
   return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_BUYING_HISTORICAL_PRICES)
 end
+
+function AuctionatorBuyingHistoricalPriceProviderMixin:GetRowTemplate()
+  return "AuctionatorBuyingHistoricalPriceRowTemplate"
+end
