@@ -197,8 +197,7 @@ function AuctionatorBuyFrameMixinForSelling:OnShow()
 end
 
 function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, ...)
-  if eventName == Auctionator.Selling.Events.BagItemClicked or
-     eventName == Auctionator.Selling.Events.RefreshBuying then
+  if eventName == Auctionator.Selling.Events.RefreshBuying then
     self:Reset()
 
     self.HistoryDataProvider:SetItemLink(eventData.itemLink)

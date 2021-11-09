@@ -222,6 +222,7 @@ function AuctionatorSaleItemMixin:SellItemClick()
     if (GetAuctionSellItemInfo()) ~= nil then
       Auctionator.Debug.Message("Valid sell item", GetAuctionSellItemInfo())
       self:LockItem()
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshBuying, self.itemInfo)
     -- Failed; this item can't be auctioned
     else
       Auctionator.Debug.Message("Invalid sell item")
@@ -229,6 +230,9 @@ function AuctionatorSaleItemMixin:SellItemClick()
       self:Update()
     end
   else
+    if self.itemInfo ~= nil then
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshBuying, self.itemInfo)
+    end
     self.itemInfo = nil
   end
 end
