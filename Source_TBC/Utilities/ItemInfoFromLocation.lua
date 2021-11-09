@@ -1,8 +1,20 @@
 -- Returns just enough information that the BagItem mixin can display the item
 -- and the SaleItemMixin can post it.
 function Auctionator.Utilities.ItemInfoFromLocation(location)
-  local icon, itemCount, _, quality, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
-  local currentDurability, maxDurability = GetContainerItemDurability(location:GetBagAndSlot())
+  local icon, itemCount, _, quality, _, _, itemLink
+  local currentDurability, maxDurability
+
+  if location:IsBagAndSlot() then
+    icon, itemCount, _, quality, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
+    currentDurability, maxDurability = GetContainerItemDurability(location:GetBagAndSlot())
+  else
+    local slot = location:GetEquipmentSlot()
+    icon = GetInventoryItemTexture("player", slot)
+    itemCount = GetInventoryItemCount("player", slot)
+    quality = GetInventoryItemQuality("player", slot)
+    itemLink = GetInventoryItemLink("player", slot)
+    currentDurability, maxDurability = GetInventoryItemDurability(slot)
+  end
 
   local _, _, _, _, _, classID, _ = GetItemInfoInstant(itemLink)
 
