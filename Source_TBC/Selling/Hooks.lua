@@ -1,4 +1,6 @@
 local function SelectOwnItem(self)
+  ClearCursor()
+
   local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
 
   if not C_Item.DoesItemExist(itemLocation) then

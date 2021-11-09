@@ -201,14 +201,32 @@ end
 -- Also, when using right-click as a shortcut to select the item or reselecting
 -- the same item this fails on the first couple of attempts.
 function AuctionatorSaleItemMixin:SellItemClick()
+  self.clickedSellItem = true
+
+  ClearCursor()
+
+  -- Remove any item already selected in the Auctions frame, as if it is the
+  -- same as the item we're trying to add it will cause the add to fail.
+  ClickAuctionSellItemButton()
+  if C_Cursor.GetCursorItem() then
+    Auctionator.Debug.Message("some sell item already selected")
+    ClearCursor()
+  end
+
   if IsValidItem(self.itemInfo) then
     PickupContainerItem(self.itemInfo.location:GetBagAndSlot())
     ClickAuctionSellItemButton()
-    self.clickedSellItem = (GetAuctionSellItemInfo()) ~= nil
+    ClearCursor()
+
     -- Check we didn't fail
-    if self.clickedSellItem then
-      ClearCursor()
+    if (GetAuctionSellItemInfo()) ~= nil then
+      Auctionator.Debug.Message("Valid sell item", GetAuctionSellItemInfo())
       self:LockItem()
+    -- Failed; this item can't be auctioned
+    else
+      Auctionator.Debug.Message("Invalid sell item")
+      self.itemInfo = nil
+      self:Update()
     end
   else
     self.itemInfo = nil
