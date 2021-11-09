@@ -27,13 +27,13 @@
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.HeaderContainer" relativePoint="BOTTOMLEFT" y="-3" x="15"/>
           <Anchor point="RIGHT" relativeKey="$parent.HeaderContainer" relativePoint="RIGHT" x="-2"/>
-          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOMRIGHT"/>
+          <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="4"/>
         </Anchors>
         <Frames>
           <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
             <Anchors>
               <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPRIGHT" y="-12"/>
-              <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="17"/>
+              <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="13"/>
             </Anchors>
             <Layers>
               <Layer level="BACKGROUND">

@@ -30,7 +30,7 @@
 		<Frames>
 			<ScrollFrame parentKey="ScrollFrame" inherits="HybridScrollFrameTemplate">
 				<Anchors>
-					<Anchor point="TOPLEFT" x="4" y="-7"/>
+					<Anchor point="TOPLEFT" x="4" y="-4"/>
 					<Anchor point="BOTTOMRIGHT" x="-28" y="3"/>
 				</Anchors>
 				<Frames>
@@ -51,7 +51,7 @@
 			<Frame parentKey="InsetFrame" inherits="InsetFrameTemplate4">
 				<Anchors>
 					<Anchor point="TOPLEFT"/>
-					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.ScrollFrame" relativePoint="BOTTOMRIGHT" y="-2"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.ScrollFrame" relativePoint="BOTTOMRIGHT" y="-4"/>
 				</Anchors>
 			</Frame>
 		</Frames>

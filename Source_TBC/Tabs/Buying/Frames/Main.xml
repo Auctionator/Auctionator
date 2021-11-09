@@ -38,7 +38,7 @@
       <Frame parentKey="Inset" inherits="AuctionatorInsetTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.SearchResultsListing" relativePoint="TOPLEFT" x="-10" y="-25"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.SearchResultsListing" relativePoint="BOTTOMRIGHT" />
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.SearchResultsListing" relativePoint="BOTTOMRIGHT" y="2"/>
         </Anchors>
       </Frame>
 

@@ -14,7 +14,7 @@
       <Frame inherits="InsetFrameTemplate4">
         <Anchors>
           <Anchor point="TOPLEFT" />
-          <Anchor point="BOTTOMRIGHT" />
+          <Anchor point="BOTTOMRIGHT" y="-2"/>
         </Anchors>
       </Frame>
 		</Frames>
@@ -35,7 +35,7 @@
       <Frame inherits="InsetFrameTemplate4">
         <Anchors>
           <Anchor point="TOPLEFT" />
-          <Anchor point="BOTTOMRIGHT" />
+          <Anchor point="BOTTOMRIGHT" y="-2"/>
         </Anchors>
       </Frame>
 		</Frames>
@@ -56,7 +56,7 @@
       <Frame inherits="InsetFrameTemplate4">
         <Anchors>
           <Anchor point="TOPLEFT" x="5" />
-          <Anchor point="BOTTOMRIGHT" x="5" />
+          <Anchor point="BOTTOMRIGHT" x="5" y="-2"/>
         </Anchors>
       </Frame>
 		</Frames>
