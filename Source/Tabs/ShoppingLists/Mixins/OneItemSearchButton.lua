@@ -42,5 +42,6 @@ function AuctionatorShoppingOneItemSearchButtonMixin:DoSearch(searchText)
 end
 
 function AuctionatorShoppingOneItemSearchButtonMixin:OnClick()
+  self:GetParent().OneItemSearchBox:ClearFocus()
   self:DoSearch(self:GetParent().OneItemSearchBox:GetText())
 end
