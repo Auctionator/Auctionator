@@ -126,9 +126,9 @@ function AuctionatorSaleItemMixin:UpdatePrices()
       self.BidPrice:SetAmount(self:GetAutoBidAmount())
     end
 
-  elseif self.Stacks.StackSize:GetNumber() ~= self.prevStackSize then
-    self.prevStackSize = self.Stacks.StackSize:GetNumber()
-    self.prevStackPrice = self.Stacks.StackSize:GetNumber() * self.UnitPrice:GetAmount()
+  elseif self:GetStackSize() ~= self.prevStackSize then
+    self.prevStackSize = self:GetStackSize()
+    self.prevStackPrice = self:GetStackSize() * self.UnitPrice:GetAmount()
     self.StackPrice:SetAmount(self.prevStackPrice)
     self.BidPrice:SetAmount(self:GetAutoBidAmount())
     self:DisplayMaxNumStacks()
@@ -159,7 +159,7 @@ function AuctionatorSaleItemMixin:OnUpdate()
 
   self.TotalPrice:SetText(
     Auctionator.Utilities.CreateMoneyString(
-      self.Stacks.NumStacks:GetNumber() * self.Stacks.StackSize:GetNumber() * self.UnitPrice:GetAmount()
+      self:GetNumStacks() * self:GetStackSize() * self.UnitPrice:GetAmount()
     )
   )
 
@@ -181,8 +181,12 @@ function AuctionatorSaleItemMixin:GetBidAmount()
   end
 end
 
-function AuctionatorSaleItemMixin:GetPostLimit()
-  return math.min(C_AuctionHouse.GetAvailablePostCount(self.itemInfo.location), self.itemInfo.count)
+function AuctionatorSaleItemMixin:GetStackSize()
+  return math.min(self.Stacks.StackSize:GetNumber(), math.min(self.itemInfo.count, self.itemInfo.stackSize))
+end
+
+function AuctionatorSaleItemMixin:GetNumStacks()
+  return math.min(self.Stacks.NumStacks:GetNumber(), self.itemInfo.count)
 end
 
 function AuctionatorSaleItemMixin:GetDeposit()
@@ -190,8 +194,8 @@ function AuctionatorSaleItemMixin:GetDeposit()
     self:GetDuration(),
     math.min(self:GetBidAmount(), MAXIMUM_BID_PRICE),
     math.min(self.StackPrice:GetAmount(), MAXIMUM_BID_PRICE),
-    self.Stacks.StackSize:GetNumber(),
-    self.Stacks.NumStacks:GetNumber()
+    self:GetStackSize(),
+    self:GetNumStacks()
   )
 end
 
@@ -412,8 +416,8 @@ function AuctionatorSaleItemMixin:SetQuantity()
 end
 
 function AuctionatorSaleItemMixin:DisplayMaxNumStacks()
-  local numStacks = math.floor(self.itemInfo.count / self.Stacks.StackSize:GetNumber())
-  if numStacks == 0 then
+  local numStacks = math.floor(self.itemInfo.count / self:GetStackSize())
+  if numStacks == 0 or self:GetStackSize() == 0 then
     numStacks = 1
   end
 
@@ -481,6 +485,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     -- Valid quantity
     self.Stacks.NumStacks:GetNumber() > 0 and
     self.Stacks.StackSize:GetNumber() > 0 and
+    self.Stacks.StackSize:GetNumber() <= self.itemInfo.stackSize and
     self.Stacks.NumStacks:GetNumber() * self.Stacks.StackSize:GetNumber() <= self.itemInfo.count and
 
     -- Positive price
