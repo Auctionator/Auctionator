@@ -140,6 +140,8 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
       Auctionator.Debug.Message("undercut scan: next step", self.currentAuction and self.currentAuction.itemLink)
       if not gotAllResults then
         Auctionator.AH.AbortQuery()
+      else
+        Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
       end
 
       self:ProcessUndercutResult(cleanLink, self.seenPrices[cleanLink])
