@@ -9,12 +9,18 @@ function AuctionatorScrollListLineRecentsMixin:InitLine()
     Auctionator.ShoppingLists.Events.DialogOpened,
     Auctionator.ShoppingLists.Events.DialogClosed,
   })
+
+  self.shouldRemoveHighlight = true
 end
 
 function AuctionatorScrollListLineRecentsMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
+    if self.shouldRemoveHighlight then
+      self.LastSearchedHighlight:Hide()
+    end
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+    self.shouldRemoveHighlight = true
     self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.DialogOpened then
     self:Disable()
@@ -37,5 +43,7 @@ function AuctionatorScrollListLineRecentsMixin:DeleteItem()
 end
 
 function AuctionatorScrollListLineRecentsMixin:OnSelected()
+  self.LastSearchedHighlight:Show()
+  self.shouldRemoveHighlight = false
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.OneItemSearch, self.searchTerm)
 end

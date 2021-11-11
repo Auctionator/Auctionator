@@ -19,9 +19,14 @@ end
 function AuctionatorScrollListLineShoppingListMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.currentList = eventData
+    self.LastSearchedHighlight:Hide()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
+    if self.shouldRemoveHighlight then
+      self.LastSearchedHighlight:Hide()
+    end
     self:Disable()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+    self.shouldRemoveHighlight = true
     self:Enable()
   elseif eventName == Auctionator.ShoppingLists.Events.DialogOpened then
     self:Disable()
@@ -92,5 +97,7 @@ function AuctionatorScrollListLineShoppingListMixin:OnLeave()
 end
 
 function AuctionatorScrollListLineShoppingListMixin:OnSelected()
+  self.LastSearchedHighlight:Show()
+  self.shouldRemoveHighlight = false
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemSelected, self.searchTerm)
 end

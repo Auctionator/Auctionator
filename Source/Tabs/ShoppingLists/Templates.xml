@@ -19,7 +19,7 @@
 
       <Layer level="OVERLAY"><!-- Using a normal texture for highlight to control the behavior. -->
         <Texture parentKey="SelectedHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true"/>
-        <Texture parentKey="HighlightTexture" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" setAllPoints="true" hidden="true"/>
+        <Texture parentKey="LastSearchedHighlight" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" hidden="true"/>
       </Layer>
     </Layers>
 
@@ -65,7 +65,7 @@
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_DELETE" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPRIGHT" x="-10" y="0"/>
+          <Anchor point="TOPRIGHT" x="-10" y="-2"/>
         </Anchors>
         <Layers>
           <Layer level="ARTWORK">
@@ -90,7 +90,7 @@
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_DELETE" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPRIGHT" x="-10" y="0"/>
+          <Anchor point="TOPRIGHT" x="-10" y="-2"/>
         </Anchors>
         <Layers>
           <Layer level="ARTWORK">
