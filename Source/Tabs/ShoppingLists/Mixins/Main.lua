@@ -117,7 +117,7 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
 
   elseif eventName == RequestListInsert then
     local newItem = eventData
-    self:AddItemToList(newItem)
+    self:RequestListInsert(newItem)
   end
 end
 
@@ -132,6 +132,18 @@ function AuctionatorShoppingListTabMixin:AddItemToList(newItemString)
   table.insert(self.selectedList.items, newItemString)
 
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemAdded, self.selectedList)
+end
+
+function AuctionatorShoppingListTabMixin:RequestListInsert(searchTerm)
+  if self.selectedList == nil then
+    Auctionator.Utilities.Message(AUCTIONATOR_L_COPY_NO_LIST_SELECTED)
+  else
+    self:AddItemToList(searchTerm)
+    Auctionator.Utilities.Message(AUCTIONATOR_L_COPY_ITEM_ADDED:format(
+      GREEN_FONT_COLOR:WrapTextInColorCode(Auctionator.Search.PrettifySearchString(searchTerm)),
+      GREEN_FONT_COLOR:WrapTextInColorCode(self.selectedList.name)
+    ))
+  end
 end
 
 function AuctionatorShoppingListTabMixin:ReplaceItemInList(newItemString)

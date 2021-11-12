@@ -173,6 +173,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SELECT_SHOPPING_LIST"] = "Select Shopping List..."
   L["NEW_SHOPPING_LIST"] = "+ New shopping list"
   L["SAVE_THIS_LIST_AS"] = "Save this list as..."
+  L["COPY_NO_LIST_SELECTED"] = "Can't copy item. No shopping list selected"
+  L["COPY_ITEM_ADDED"] = "Copied %s to %s"
+  L["COPY_TO_LIST"] = "Copy item to active shopping list"
 
   L["SHOPPING_TAB"] = "Shopping"
   L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"
@@ -525,7 +528,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_TBC_SHOW_ALL_RESULTS"] = "Include auctions not needed to get the minimum price in results"
   L["CONFIG_SELLING_TBC_SHOW_ALL_RESULTS_TOOLTIP_HEADER"] = "Show All Results"
   L["CONFIG_SELLING_TBC_SHOW_ALL_RESULTS_TOOLTIP_TEXT"] = "Enabling this setting causes all pages of results to be searched and all the auctions found to be listed, even though only the first page is needed to determine the minimum price."
-  L["COPY_TO_LIST"] = "Add item to active shopping list"
 
   return L
 end
