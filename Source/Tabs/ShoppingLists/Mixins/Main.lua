@@ -10,7 +10,7 @@ local ShowHistoricalPrices = Auctionator.ShoppingLists.Events.ShowHistoricalPric
 local ListItemAdded = Auctionator.ShoppingLists.Events.ListItemAdded
 local ListItemReplaced = Auctionator.ShoppingLists.Events.ListItemReplaced
 local ListOrderChanged = Auctionator.ShoppingLists.Events.ListOrderChanged
-local RequestListInsert = Auctionator.ShoppingLists.Events.RequestListInsert
+local CopyIntoList = Auctionator.ShoppingLists.Events.CopyIntoList
 
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
@@ -39,7 +39,7 @@ function AuctionatorShoppingListTabMixin:SetUpEvents()
 
   -- Auctionator Events
   Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Tab")
-  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices, RequestListInsert })
+  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices, CopyIntoList })
 end
 
 function AuctionatorShoppingListTabMixin:SetUpItemDialog()
@@ -115,9 +115,9 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
     self.editingItemIndex = eventData
     self:EditItemClicked()
 
-  elseif eventName == RequestListInsert then
+  elseif eventName == CopyIntoList then
     local newItem = eventData
-    self:RequestListInsert(newItem)
+    self:CopyIntoList(newItem)
   end
 end
 
@@ -134,7 +134,7 @@ function AuctionatorShoppingListTabMixin:AddItemToList(newItemString)
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemAdded, self.selectedList)
 end
 
-function AuctionatorShoppingListTabMixin:RequestListInsert(searchTerm)
+function AuctionatorShoppingListTabMixin:CopyIntoList(searchTerm)
   if self.selectedList == nil then
     Auctionator.Utilities.Message(AUCTIONATOR_L_COPY_NO_LIST_SELECTED)
   else

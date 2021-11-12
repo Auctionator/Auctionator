@@ -47,7 +47,7 @@ function AuctionatorScrollListLineRecentsMixin:CopyItem()
     return
   end
 
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.RequestListInsert, self.searchTerm)
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.CopyIntoList, self.searchTerm)
 end
 
 function AuctionatorScrollListLineRecentsMixin:OnSelected()
