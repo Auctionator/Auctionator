@@ -1,46 +1,47 @@
 AuctionatorScrollListLineMixin = CreateFromMixins(
   AuctionatorRetailImportScrollListLineMixin,
-    AuctionatorRetailImportTableBuilderRowMixin
-  )
+  AuctionatorRetailImportTableBuilderRowMixin
+)
 
-  function AuctionatorScrollListLineMixin:DeleteItem()
-  end
+function AuctionatorScrollListLineMixin:DeleteItem()
+end
 
-  function AuctionatorScrollListLineMixin:UpdateDisplay()
-    self.Text:SetText(Auctionator.Search.PrettifySearchString(self.searchTerm))
-  end
+function AuctionatorScrollListLineMixin:UpdateDisplay()
+  self.Text:SetText(Auctionator.Search.PrettifySearchString(self.searchTerm))
+end
 
-  function AuctionatorScrollListLineMixin:Populate(searchTerm, dataIndex)
-    self.searchTerm = searchTerm
-    self.dataIndex = dataIndex
-  end
+function AuctionatorScrollListLineMixin:Populate(searchTerm, dataIndex)
+  self.LastSearchedHighlight:Hide()
+  self.searchTerm = searchTerm
+  self.dataIndex = dataIndex
+end
 
-  local function ComposeTooltip(searchTerm)
-    local tooltipDetails = Auctionator.Search.ComposeTooltip(searchTerm)
+local function ComposeTooltip(searchTerm)
+  local tooltipDetails = Auctionator.Search.ComposeTooltip(searchTerm)
 
-    GameTooltip:SetText(tooltipDetails.title, 1, 1, 1, 1)
+  GameTooltip:SetText(tooltipDetails.title, 1, 1, 1, 1)
 
-    for _, line in ipairs(tooltipDetails.lines) do
-      if line[2] == AUCTIONATOR_L_ANY_LOWER then
-        -- Faded line when no filter set
-        GameTooltip:AddDoubleLine(line[1], line[2], 0.4, 0.4, 0.4, 0.4, 0.4, 0.4)
+  for _, line in ipairs(tooltipDetails.lines) do
+    if line[2] == AUCTIONATOR_L_ANY_LOWER then
+      -- Faded line when no filter set
+      GameTooltip:AddDoubleLine(line[1], line[2], 0.4, 0.4, 0.4, 0.4, 0.4, 0.4)
 
-      else
-        GameTooltip:AddDoubleLine(
-          line[1],
-          WHITE_FONT_COLOR:WrapTextInColorCode(line[2])
-        )
-      end
+    else
+      GameTooltip:AddDoubleLine(
+        line[1],
+        WHITE_FONT_COLOR:WrapTextInColorCode(line[2])
+      )
     end
   end
+end
 
-  function AuctionatorScrollListLineMixin:ShowTooltip()
-    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    ComposeTooltip(self.searchTerm)
-    GameTooltip:Show()
-  end
+function AuctionatorScrollListLineMixin:ShowTooltip()
+  GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+  ComposeTooltip(self.searchTerm)
+  GameTooltip:Show()
+end
 
-  function AuctionatorScrollListLineMixin:HideTooltip()
+function AuctionatorScrollListLineMixin:HideTooltip()
   GameTooltip:Hide()
 end
 
