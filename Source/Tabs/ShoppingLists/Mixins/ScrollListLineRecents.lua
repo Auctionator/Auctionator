@@ -42,6 +42,14 @@ function AuctionatorScrollListLineRecentsMixin:DeleteItem()
   end
 end
 
+function AuctionatorScrollListLineRecentsMixin:CopyItem()
+  if not self:IsEnabled() then
+    return
+  end
+
+  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.CopyIntoList, self.searchTerm)
+end
+
 function AuctionatorScrollListLineRecentsMixin:OnSelected()
   self.LastSearchedHighlight:Show()
   self.shouldRemoveHighlight = false

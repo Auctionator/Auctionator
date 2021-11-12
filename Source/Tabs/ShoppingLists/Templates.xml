@@ -82,6 +82,27 @@
   </Button>
   <Button name="AuctionatorScrollListLineRecentsTemplate" inherits="AuctionatorScrollListLineNoButtonsTemplate" mixin="AuctionatorScrollListLineRecentsMixin" virtual="true">
     <Frames>
+      <Button parentKey="CopyButton" inherits="AuctionatorScrollListLineButtonTemplate">
+        <Size>
+          <AbsDimension x="15" y="15"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-30" y="-2"/>
+        </Anchors>
+        <KeyValues>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_COPY_TO_LIST" type="global"/>
+        </KeyValues>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\AddOns\Auctionator\Images\Copy_Icon" parentKey="texture"/>
+            <Texture file="Interface\AddOns\Auctionator\Images\Copy_Icon_Grey" parentKey="hoverTexture"/>
+          </Layer>
+        </Layers>
+
+        <Scripts>
+          <OnClick>self:GetParent():CopyItem()</OnClick>
+        </Scripts>
+      </Button>
       <Button parentKey="DeleteButton" inherits="AuctionatorScrollListLineButtonTemplate">
         <Size>
           <AbsDimension x="15" y="15"/>

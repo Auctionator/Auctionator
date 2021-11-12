@@ -173,6 +173,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SELECT_SHOPPING_LIST"] = "Select Shopping List..."
   L["NEW_SHOPPING_LIST"] = "+ New shopping list"
   L["SAVE_THIS_LIST_AS"] = "Save this list as..."
+  L["COPY_NO_LIST_SELECTED"] = "Can't copy item. No shopping list selected"
+  L["COPY_ITEM_ADDED"] = "Copied %s to %s"
+  L["COPY_TO_LIST"] = "Copy item to active shopping list"
 
   L["SHOPPING_TAB"] = "Shopping"
   L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"

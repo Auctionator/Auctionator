@@ -10,6 +10,7 @@ local ShowHistoricalPrices = Auctionator.ShoppingLists.Events.ShowHistoricalPric
 local ListItemAdded = Auctionator.ShoppingLists.Events.ListItemAdded
 local ListItemReplaced = Auctionator.ShoppingLists.Events.ListItemReplaced
 local ListOrderChanged = Auctionator.ShoppingLists.Events.ListOrderChanged
+local CopyIntoList = Auctionator.ShoppingLists.Events.CopyIntoList
 
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
@@ -38,7 +39,7 @@ function AuctionatorShoppingListTabMixin:SetUpEvents()
 
   -- Auctionator Events
   Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Tab")
-  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices })
+  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices, CopyIntoList })
 end
 
 function AuctionatorShoppingListTabMixin:SetUpItemDialog()
@@ -113,6 +114,10 @@ function AuctionatorShoppingListTabMixin:ReceiveEvent(eventName, eventData)
   elseif eventName == EditListItem then
     self.editingItemIndex = eventData
     self:EditItemClicked()
+
+  elseif eventName == CopyIntoList then
+    local newItem = eventData
+    self:CopyIntoList(newItem)
   end
 end
 
@@ -127,6 +132,18 @@ function AuctionatorShoppingListTabMixin:AddItemToList(newItemString)
   table.insert(self.selectedList.items, newItemString)
 
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListItemAdded, self.selectedList)
+end
+
+function AuctionatorShoppingListTabMixin:CopyIntoList(searchTerm)
+  if self.selectedList == nil then
+    Auctionator.Utilities.Message(AUCTIONATOR_L_COPY_NO_LIST_SELECTED)
+  else
+    self:AddItemToList(searchTerm)
+    Auctionator.Utilities.Message(AUCTIONATOR_L_COPY_ITEM_ADDED:format(
+      GREEN_FONT_COLOR:WrapTextInColorCode(Auctionator.Search.PrettifySearchString(searchTerm)),
+      GREEN_FONT_COLOR:WrapTextInColorCode(self.selectedList.name)
+    ))
+  end
 end
 
 function AuctionatorShoppingListTabMixin:ReplaceItemInList(newItemString)
