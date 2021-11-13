@@ -32,7 +32,7 @@ function Auctionator.ReagentSearch.GetSkillReagentsTotal()
   for reagentIndex = 1, C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) do
 
     local multiplier = select(3, C_TradeSkillUI.GetRecipeReagentInfo(recipeIndex, reagentIndex, recipeLevel))
-    local link = select(1, C_TradeSkillUI.GetRecipeReagentItemLink(recipeIndex, reagentIndex))
+    local link = C_TradeSkillUI.GetRecipeReagentItemLink(recipeIndex, reagentIndex)
     if link ~= nil then
       local unitPrice
 
