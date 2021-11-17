@@ -112,12 +112,23 @@
         </Anchors>
       </Frame>
 
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CONFIG_RESET_STACK_SIZE_MEMORY" parentKey="ResetStackSizeMemory">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultStacks" relativePoint="BOTTOMLEFT" x="-2"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ResetStackSizeMemoryClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
+
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="GearPriceMultiplierHeading">
         <KeyValues>
           <KeyValue key="subHeadingText" value="AUCTIONATOR_L_GEAR_VENDOR_PRICE_MULTIPLIER" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.DefaultStacks" relativePoint="BOTTOMLEFT" x="-25"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResetStackSizeMemory" relativePoint="BOTTOMLEFT" x="-23"/>
         </Anchors>
       </Frame>
 

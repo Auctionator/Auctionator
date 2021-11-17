@@ -359,6 +359,7 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   self:SetDuration()
 
   self.Stacks:SetMaxStackSize(math.min(self.itemInfo.stackSize, self.itemInfo.count))
+
   self:SetQuantity()
 
   Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
@@ -395,13 +396,22 @@ end
 
 function AuctionatorSaleItemMixin:SetQuantity()
   local defaultStacks = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS)
-  if defaultStacks.stackSize == 0 then
+
+  local previousStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
+
+  if previousStackSize ~= nil then
+    self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, previousStackSize))
+  elseif defaultStacks.stackSize == 0 then
     self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, self.itemInfo.stackSize))
   else
     self.Stacks.StackSize:SetNumber(math.min(defaultStacks.stackSize, self.itemInfo.stackSize))
   end
 
   local numStacks = math.floor(self.itemInfo.count/self.itemInfo.stackSize)
+  if previousStackSize ~= nil and previousStackSize ~= 0 then
+    numStacks = math.floor(self.itemInfo.count/previousStackSize)
+  end
+
   if numStacks == 0 then
     numStacks = 1
   end
@@ -528,6 +538,8 @@ function AuctionatorSaleItemMixin:PostItem()
   local duration = self:GetDuration()
   local startingBid = self:GetBidAmount()
   local buyoutPrice = self.StackPrice:GetAmount()
+
+  Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)] = stackSize
 
   Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
 

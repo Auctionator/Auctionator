@@ -37,6 +37,8 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
   self.DefaultStacks.NumStacks:Show()
   self.DefaultStacks:SetMaxStackSize(0)
   self.DefaultStacks:SetMaxNumStacks(0)
+
+  self.ResetStackSizeMemory:SetEnabled(next(Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)) ~= nil)
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:OnSalesPreferenceChange(selectedValue)
@@ -82,6 +84,11 @@ function AuctionatorConfigSellingAllItemsFrameMixin:Save()
     numStacks = self.DefaultStacks.NumStacks:GetNumber()
   }
   Auctionator.Config.Set(Auctionator.Config.Options.DEFAULT_SELLING_STACKS, defaultStacks)
+end
+
+function AuctionatorConfigSellingAllItemsFrameMixin:ResetStackSizeMemoryClicked()
+  Auctionator.Config.Set(Auctionator.Config.Options.STACK_SIZE_MEMORY, {})
+  self.ResetStackSizeMemory:Disable()
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:Cancel()
