@@ -1,13 +1,19 @@
 local function SelectOwnItem(self)
   ClearCursor()
 
-  local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
+  local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID())
 
   if not C_Item.DoesItemExist(itemLocation) then
     return
-  elseif C_Item.IsBound(itemLocation) then
-    UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
-    return
+  else
+    local currentDurability, maxDurability = GetContainerItemDurability(self:GetParent():GetID(), self:GetID())
+    if currentDurability ~= maxDurability then
+      UIErrorsFrame:AddMessage(ERR_AUCTION_REPAIR_ITEM, 1.0, 0.1, 0.1, 1.0)
+      return
+    elseif C_Item.IsBound(itemLocation) then
+      UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
+      return
+    end
   end
 
   AuctionatorTabs_Selling:Click()
