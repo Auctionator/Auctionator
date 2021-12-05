@@ -407,7 +407,7 @@ function AuctionatorSaleItemMixin:SetQuantity()
     self.Stacks.StackSize:SetNumber(math.min(defaultStacks.stackSize, self.itemInfo.stackSize))
   end
 
-  local numStacks = math.floor(self.itemInfo.count/self.itemInfo.stackSize)
+  local numStacks = math.floor(self.itemInfo.count/self.Stacks.StackSize:GetNumber())
   if previousStackSize ~= nil and previousStackSize ~= 0 then
     numStacks = math.floor(self.itemInfo.count/previousStackSize)
   end
