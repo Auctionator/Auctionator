@@ -41,7 +41,7 @@
           <AbsDimension x="15" y="15"/>
         </Size>
         <Anchors>
-          <Anchor point="TOPRIGHT" x="-30" y="0"/>
+          <Anchor point="TOPRIGHT" x="-30" y="-2"/>
         </Anchors>
         <KeyValues>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_EDIT_ITEM" type="global"/>
