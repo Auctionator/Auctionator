@@ -16,6 +16,14 @@ function AuctionatorBuyingItemTooltipMixin:OnLeave()
   GameTooltip:Hide()
 end
 
+function AuctionatorBuyingItemTooltipMixin:OnMouseUp()
+  if IsModifiedClick("CHATLINK") then
+    if self.itemLink ~= nil then
+      ChatEdit_InsertLink(self.itemLink)
+    end
+  end
+end
+
 function AuctionatorBuyingItemTooltipMixin:ReceiveEvent(eventName, eventData)
   self.itemLink = eventData.itemLink
   self.Icon:SetTexture(eventData.iconTexture)

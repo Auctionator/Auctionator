@@ -111,11 +111,12 @@
         </Scripts>
       </Button>
 
-      <Frame mixin="AuctionatorBuyingItemTooltipMixin">
+      <Frame mixin="AuctionatorBuyingItemTooltipMixin" enableMouse="true">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnEnter method="OnEnter"/>
           <OnLeave method="OnLeave"/>
+          <OnMouseUp method="OnMouseUp"/>
         </Scripts>
         <Anchors>
             <Anchor point="TOP" y="-9"/>
