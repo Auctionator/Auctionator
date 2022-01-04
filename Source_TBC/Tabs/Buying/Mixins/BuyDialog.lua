@@ -52,16 +52,11 @@ function AuctionatorBuyDialogMixin:OnHide()
 end
 
 function AuctionatorBuyDialogMixin:UpdatePurchasedCount(newCount)
-  if newCount == 0 then
-    self.NumberPurchased:Hide()
-  else
-    self.NumberPurchased:Show()
-  end
-
+  self.NumberPurchased:SetShown(newCount ~= 0)
   self.NumberPurchased:SetText(AUCTIONATOR_L_ALREADY_PURCHASED_X:format(newCount))
 end
 
-function AuctionatorBuyDialogMixin:SetDetails(auctionData)
+function AuctionatorBuyDialogMixin:SetDetails(auctionData, initialQuantityPurchased)
   self:Reset()
 
   self.auctionData = auctionData
@@ -72,11 +67,13 @@ function AuctionatorBuyDialogMixin:SetDetails(auctionData)
     return
   end
 
+  self.quantityPurchased = initialQuantityPurchased or 0
+
   local stackText = BLUE_FONT_COLOR:WrapTextInColorCode("x" .. auctionData.stackSize)
   local priceText = Auctionator.Utilities.CreateMoneyString(auctionData.stackPrice)
   self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(stackText, priceText))
 
-  self:UpdatePurchasedCount(0)
+  self:UpdatePurchasedCount(self.quantityPurchased)
   self:UpdateButtons()
 
   self:LoadForPurchasing()
@@ -85,8 +82,8 @@ end
 function AuctionatorBuyDialogMixin:LoadForPurchasing()
   if self.auctionData.numStacks < 1 then
     self:UpdateButtons()
-    if Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS) then
-      self:SetDetails(self.auctionData.nextEntry)
+    if Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS) and self.auctionData.nextEntry ~= nil then
+      self:SetDetails(self.auctionData.nextEntry, self.quantityPurchased)
     end
     return
   end
