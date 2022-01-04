@@ -104,6 +104,11 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
       local item = Item:CreateFromItemID(itemID)
       item:ContinueOnItemLoad((function(index)
         return function()
+          -- Don't do anything when the AH window has been closed
+          if not self.inProgress then
+            return
+          end
+
           local link = GetAuctionItemLink("list", i)
 
           Auctionator.Utilities.DBKeyFromLink(link, function(dbKeys)
