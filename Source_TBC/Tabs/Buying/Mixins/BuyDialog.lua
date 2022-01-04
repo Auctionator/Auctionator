@@ -37,9 +37,11 @@ end
 function AuctionatorBuyDialogMixin:OnShow()
   Auctionator.EventBus:Register(self, EVENTS)
   FrameUtil.RegisterFrameForEvents(self, MONEY_EVENTS)
+  self.ChainBuy:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS))
 end
 
 function AuctionatorBuyDialogMixin:OnHide()
+  self:SetChainBuy()
   FrameUtil.UnregisterFrameForEvents(self, MONEY_EVENTS)
   if self.quantityPurchased > 0 and self.auctionData ~= nil then
     Auctionator.Utilities.Message(AUCTIONATOR_L_PURCHASED_X_XX:format(self.auctionData.itemLink, self.quantityPurchased))
@@ -148,13 +150,17 @@ function AuctionatorBuyDialogMixin:UpdateButtons()
   end
 end
 
+function AuctionatorBuyDialogMixin:SetChainBuy()
+  Auctionator.Config.Set(Auctionator.Config.Options.CHAIN_BUY_STACKS, self.ChainBuy:GetChecked())
+end
+
 function AuctionatorBuyDialogMixin:BuyStackClicked()
   if self.auctionData.stackPrice > GetMoney() then
     self:UpdateButtons()
     return
   end
 
-  Auctionator.Config.Set(Auctionator.Config.Options.CHAIN_BUY_STACKS, self.ChainBuy:GetChecked())
+  self:SetChainBuy()
   self:FindAuctionOnCurrentPage()
   if self.buyInfo ~= nil then
     Auctionator.AH.PlaceAuctionBid(self.buyInfo.index, self.auctionData.stackPrice)
@@ -166,4 +172,3 @@ function AuctionatorBuyDialogMixin:BuyStackClicked()
   end
   self:LoadForPurchasing()
 end
-
