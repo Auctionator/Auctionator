@@ -67,6 +67,19 @@
           </OnClick>
         </Scripts>
       </Button>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ChainBuy">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CHAIN_BUY" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CHAIN_BUY_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CHAIN_BUY_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="BOTTOM" y="5" />
+          <Anchor point="LEFT" x="0" />
+          <Anchor point="RIGHT" relativeKey="$parent.BuyStack" relativePoint="LEFT"/>
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

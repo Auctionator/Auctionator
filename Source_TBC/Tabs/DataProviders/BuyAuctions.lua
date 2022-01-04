@@ -198,6 +198,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       prevResult.numStacks = prevResult.numStacks + 1
       Auctionator.Utilities.SetStacksText(prevResult)
     else
+      prevResult.nextEntry = newEntry
       table.insert(results, newEntry)
     end
     results[#results].page = math.min(results[#results].page, auction.page)

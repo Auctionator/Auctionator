@@ -83,6 +83,9 @@ end
 function AuctionatorBuyDialogMixin:LoadForPurchasing()
   if self.auctionData.numStacks < 1 then
     self:UpdateButtons()
+    if Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS) then
+      self:SetDetails(self.auctionData.nextEntry)
+    end
     return
   end
 
@@ -151,6 +154,7 @@ function AuctionatorBuyDialogMixin:BuyStackClicked()
     return
   end
 
+  Auctionator.Config.Set(Auctionator.Config.Options.CHAIN_BUY_STACKS, self.ChainBuy:GetChecked())
   self:FindAuctionOnCurrentPage()
   if self.buyInfo ~= nil then
     Auctionator.AH.PlaceAuctionBid(self.buyInfo.index, self.auctionData.stackPrice)
