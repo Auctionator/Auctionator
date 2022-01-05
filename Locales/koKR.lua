@@ -29,7 +29,7 @@ L["BUYING"] = "구매"
 --[[Translation missing --]]
 L["BUYING_X_FOR_X"] = "%s를 %s에 구매"
 L["BUYOUT_AUCTION_INFO"] = "%s를 %s에 즉시 구매가로 올렸습니다."
-L["BUYOUT_PRICE"] = "즉시구매가"
+L["BUYOUT_PRICE"] = "즉시 구매가"
 L["CANCEL"] = "취소"
 L["CANCEL_UNDERCUT"] = "최저가 경매취소"
 L["CANCELLING_TAB"] = "취소하기"
@@ -300,7 +300,7 @@ L["PERCENTAGE_TOOLTIP_TEXT"] = "최저가를 자동으로 계산하여 경매를
 L["PET_TOOLTIP_TOOLTIP_HEADER"] = "펫 툴팁"
 L["PET_TOOLTIP_TOOLTIP_TEXT"] = "우리에 담긴 펫의 경매장 가격을 표시합니다."
 L["POST"] = "경매 시작"
-L["PRICE"] = "가격"
+L["PRICE"] = "개당 가격"
 L["PROFILE_TOGGLE_TOOLTIP_HEADER"] = "캐릭터 별 설정"
 L["PROFILE_TOGGLE_TOOLTIP_TEXT"] = "캐릭터 별 옥셔네이터 설정을 적용합니다."
 --[[Translation missing --]]
@@ -321,7 +321,7 @@ L["RESET_ALL"] = "모두 삭제"
 L["RESTORE_ALL"] = "모두 복원"
 L["RESULTS_AVAILABLE_COLUMN"] = "경매 수량"
 L["RESULTS_NAME_COLUMN"] = "이름"
-L["RESULTS_PRICE_COLUMN"] = "가격"
+L["RESULTS_PRICE_COLUMN"] = "개당 가격"
 --[[Translation missing --]]
 L["RESULTS_STACK_PRICE_COLUMN"] = "묶음 가격"
 --[[Translation missing --]]
@@ -529,7 +529,7 @@ L["STACK_AUCTION_INFO"] = "%s  (전체 %s, 각 %s)"
 --[[Translation missing --]]
 L["STACK_BID_PRICE"] = "묶음 구매 가격"
 --[[Translation missing --]]
-L["STACK_OF"] = "개 / 묶음"
+L["STACK_OF"] = "묶음 / 개"
 --[[Translation missing --]]
 L["STACK_PRICE"] = "묶음 가격"
 L["STACK_TOOLTIP_TOOLTIP_HEADER"] = "가격 표시 설정"
@@ -580,7 +580,7 @@ L["UNHIDE"] = "숨기기 해제"
 --[[Translation missing --]]
 L["UNHIDE_ALL"] = "모두 숨기기 해제"
 L["UNHIDE_ALL_HIDDEN_ITEMS"] = "숨겨진 아이템 모두 보이기"
-L["UNIT_PRICE"] = "가격"
+L["UNIT_PRICE"] = "개당 가격"
 L["UNKNOWN"] = "알 수 없음"
 L["UNSELECT_ALL"] = "모두선택 취소"
 --[[Translation missing --]]
@@ -595,9 +595,9 @@ L["WAITING_AT_MOST_X_LONGER"] = "최대 %ss 이상 대기 중..."
 --[[Translation missing --]]
 L["X_PRICE_HISTORY"] = "%s 가격 기록"
 --[[Translation missing --]]
-L["X_STACK_OF_X"] = "%s 개 %s 묶음"
+L["X_STACK_OF_X"] = "%s 묶음 %s 개"
 --[[Translation missing --]]
-L["X_STACKS_OF_X"] = "%s 개 %s 묶음"
+L["X_STACKS_OF_X"] = "%s 묶음 %s 개"
 --[[Translation missing --]]
 L["YOU_COLUMN"] = "내 경매"
 L["YOUR_HISTORY"] = "올린 아이템 기록"
