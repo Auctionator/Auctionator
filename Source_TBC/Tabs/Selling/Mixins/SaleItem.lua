@@ -37,6 +37,7 @@ function AuctionatorSaleItemMixin:OnLoad()
   end
 
   self:SetupTabbing()
+  self.clickedSellItem = true
 end
 
 -- Make pressing tab work to jump between edit boxes in the SaleItemFrame
