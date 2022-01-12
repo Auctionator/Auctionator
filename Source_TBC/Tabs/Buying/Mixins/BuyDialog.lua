@@ -16,6 +16,7 @@ local MONEY_EVENTS = {
 function AuctionatorBuyDialogMixin:OnLoad()
   self.NumberPurchased:SetText(AUCTIONATOR_L_ALREADY_PURCHASED_X:format(15))
   self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(BLUE_FONT_COLOR:WrapTextInColorCode("x20"), Auctionator.Utilities.CreateMoneyString(10998)))
+  self.UnitPrice:SetText(AUCTIONATOR_L_BRACKETS_X_EACH:format(Auctionator.Utilities.CreateMoneyString(550)))
   Auctionator.EventBus:RegisterSource(self, "BuyDialogMixin")
 
   self:Reset()
@@ -71,7 +72,9 @@ function AuctionatorBuyDialogMixin:SetDetails(auctionData, initialQuantityPurcha
 
   local stackText = BLUE_FONT_COLOR:WrapTextInColorCode("x" .. auctionData.stackSize)
   local priceText = Auctionator.Utilities.CreateMoneyString(auctionData.stackPrice)
+  local unitPriceText = Auctionator.Utilities.CreateMoneyString(math.ceil(auctionData.stackPrice / auctionData.stackSize))
   self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(stackText, priceText))
+  self.UnitPrice:SetText(AUCTIONATOR_L_BRACKETS_X_EACH:format(unitPriceText))
 
   self:UpdatePurchasedCount(self.quantityPurchased)
   self:UpdateButtons()

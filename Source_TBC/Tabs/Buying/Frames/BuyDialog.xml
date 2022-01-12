@@ -25,12 +25,17 @@
       <Layer>
         <FontString parentKey="PurchaseDetails" inherits="GameFontHighlightLarge" text="AUCTIONATOR_L_BUYING_X_FOR_X">
           <Anchors>
-            <Anchor point="CENTER" y="15"/>
+            <Anchor point="CENTER" y="30"/>
+          </Anchors>
+        </FontString>
+        <FontString parentKey="UnitPrice" inherits="GameFontHighlight" text="AUCTIONATOR_L_BRACKETS_X_EACH">
+          <Anchors>
+            <Anchor point="TOP" relativeKey="$parent.PurchaseDetails" relativePoint="BOTTOM" y="-6"/>
           </Anchors>
         </FontString>
         <FontString parentKey="NumberPurchased" inherits="GameFontNormal" text="ALREADY_PURCHASED_X">
           <Anchors>
-            <Anchor point="TOP" relativeKey="$parent.PurchaseDetails" relativePoint="BOTTOM" y="-10"/>
+            <Anchor point="TOP" relativeKey="$parent.UnitPrice" relativePoint="BOTTOM" y="-8"/>
           </Anchors>
         </FontString>
       </Layer>
