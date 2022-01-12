@@ -46,7 +46,13 @@ function Auctionator.ReagentSearch.GetInfoText()
   local price
 
   if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT) then
-    local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetAHProfit()))
+    local profit = Auctionator.ReagentSearch.GetAHProfit()
+    local price
+    if profit >= 0 then
+      price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(profit))
+    else
+      price = RED_FONT_COLOR:WrapTextInColorCode("-" .. Auctionator.Utilities.CreateMoneyString(-profit))
+    end
 
     return AUCTIONATOR_L_PROFIT_COLON .. " " .. price
 

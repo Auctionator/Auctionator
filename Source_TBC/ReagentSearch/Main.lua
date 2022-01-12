@@ -51,5 +51,5 @@ function Auctionator.ReagentSearch.GetAHProfit()
   end
   local toCraft = Auctionator.ReagentSearch.GetSkillReagentsTotal()
 
-  return math.max(0, math.floor(currentAH * 0.95 - toCraft))
+  return math.floor(currentAH * 0.95 - toCraft)
 end
