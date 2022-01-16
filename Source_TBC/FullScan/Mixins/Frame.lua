@@ -100,7 +100,7 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
 
     if itemID == 0 then
       self.waitingForData = self.waitingForData - 1
-    elseif not info[18] then
+    elseif not link then
       local item = Item:CreateFromItemID(itemID)
       item:ContinueOnItemLoad((function(index)
         return function()
@@ -109,13 +109,13 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
             return
           end
 
-          local link = GetAuctionItemLink("list", i)
+          local link = GetAuctionItemLink("list", index)
 
           Auctionator.Utilities.DBKeyFromLink(link, function(dbKeys)
             self.waitingForData = self.waitingForData - 1
 
             table.insert(self.scanData, {
-              auctionInfo = { GetAuctionItemInfo("list", i) },
+              auctionInfo = { GetAuctionItemInfo("list", index) },
               itemLink      = link,
             })
             table.insert(self.dbKeysMapping, dbKeys)
