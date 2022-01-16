@@ -398,14 +398,20 @@ end
 function AuctionatorSaleItemMixin:SetQuantity()
   local defaultStacks = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS)
 
+  -- Determine what the stack size would be without using stack size memory.
+  -- This is used to clear stack size memory when the max/min is used
+  if defaultStacks.stackSize == 0 then
+    self.normalStackSize = math.min(self.itemInfo.count, self.itemInfo.stackSize)
+  else
+    self.normalStackSize = math.min(defaultStacks.stackSize, self.itemInfo.stackSize)
+  end
+
   local previousStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
 
   if previousStackSize ~= nil then
     self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, previousStackSize))
-  elseif defaultStacks.stackSize == 0 then
-    self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, self.itemInfo.stackSize))
   else
-    self.Stacks.StackSize:SetNumber(math.min(defaultStacks.stackSize, self.itemInfo.stackSize))
+    self.Stacks.StackSize:SetNumber(self.normalStackSize)
   end
 
   local numStacks = math.floor(self.itemInfo.count/self.Stacks.StackSize:GetNumber())
@@ -540,7 +546,14 @@ function AuctionatorSaleItemMixin:PostItem()
   local startingBid = self:GetBidAmount()
   local buyoutPrice = self.StackPrice:GetAmount()
 
-  Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)] = stackSize
+  local stackSizeMemory = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)
+  local basicDBKey = Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)
+  -- Only save stack size if its different to the global default
+  if stackSize ~= self.normalStackSize then
+    stackSizeMemory[basicDBKey] = stackSize
+  else
+    stackSizeMemory[basicDBKey] = nil
+  end
 
   Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
 
