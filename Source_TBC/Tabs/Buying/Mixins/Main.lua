@@ -185,7 +185,6 @@ AuctionatorBuyFrameMixinForSelling = CreateFromMixins(AuctionatorBuyFrameMixin)
 function AuctionatorBuyFrameMixinForSelling:Init()
   AuctionatorBuyFrameMixin.Init(self)
   Auctionator.EventBus:Register(self, {
-    Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RefreshBuying,
   })
 end
