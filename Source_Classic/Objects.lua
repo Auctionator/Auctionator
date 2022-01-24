@@ -1,1 +1,2 @@
 Auctionator.Buying = {}
+Auctionator.CraftSearch = {}

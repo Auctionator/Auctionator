@@ -1,6 +1,8 @@
 local AUCTIONATOR_EVENTS = {
   -- AH Window Initialization Events
   "AUCTION_HOUSE_SHOW",
+
+  "CRAFT_SHOW",
 }
 
 AuctionatorInitializeClassicMixin = {}
@@ -12,6 +14,8 @@ end
 function AuctionatorInitializeClassicMixin:OnEvent(event, ...)
   if event == "AUCTION_HOUSE_SHOW" then
     self:AuctionHouseShown()
+  elseif event == "CRAFT_SHOW" then
+    Auctionator.CraftSearch.InitializeSearchButton()
   end
 end
 
