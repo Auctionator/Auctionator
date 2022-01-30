@@ -84,7 +84,8 @@ end
 local COMPARATORS = {
   minPrice = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
-  totalQuantity = Auctionator.Utilities.NumberComparator
+  totalQuantity = Auctionator.Utilities.NumberComparator,
+  isOwned = Auctionator.Utilities.StringComparator
 }
 
 function AuctionatorShoppingListDataProviderMixin:Sort(fieldName, sortDirection)
