@@ -146,29 +146,5 @@
         </FontString>
       </Layer>
     </Layers>
-
-    <Frames>
-      <!--
-      <Button inherits="RefreshButtonTemplate">
-        <Anchors>
-          <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" relativeKey="$parent" x="110"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>
-            self:GetParent():RefreshButtonClicked()
-          </OnClick>
-        </Scripts>
-     </Button>
-     <Frame
-       parentKey="MultisellProgress"
-       mixin="AuctionatorMultisellProgress"
-     >
-       <Scripts>
-         <OnEvent method="OnEvent"/>
-         <OnShow method="OnShow"/>
-         <OnHide method="OnHide"/>
-       </Scripts>
-      </Frame>-->
-   </Frames>
   </Frame>
 </Ui>
