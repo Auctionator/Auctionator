@@ -1,10 +1,16 @@
 <Ui>
-  <Frame name="AuctionatorBuyDialogTemplate" frameStrata="Dialog" mixin="AuctionatorBuyDialogMixin" virtual="true" enableMouse="true">
+  <Frame name="AuctionatorBuyDialogTemplate" frameStrata="Dialog" mixin="AuctionatorBuyDialogMixin" virtual="true" enableMouse="true" movable="true" clampedToScreen="true">
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnEvent method="OnEvent"/>
       <OnShow method="OnShow"/>
       <OnHide method="OnHide"/>
+      <OnDragStart>
+        self:StartMoving()
+      </OnDragStart>
+      <OnDragStop>
+        self:StopMovingOrSizing()
+      </OnDragStop>
     </Scripts>
     <KeyValues>
       <KeyValue key="layoutType" value="Dialog" type="string"/>

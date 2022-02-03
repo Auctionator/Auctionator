@@ -14,6 +14,7 @@ local MONEY_EVENTS = {
 }
 
 function AuctionatorBuyDialogMixin:OnLoad()
+  self:RegisterForDrag("LeftButton")
   self.NumberPurchased:SetText(AUCTIONATOR_L_ALREADY_PURCHASED_X:format(15))
   self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(BLUE_FONT_COLOR:WrapTextInColorCode("x20"), Auctionator.Utilities.CreateMoneyString(10998)))
   self.UnitPrice:SetText(AUCTIONATOR_L_BRACKETS_X_EACH:format(Auctionator.Utilities.CreateMoneyString(550)))
