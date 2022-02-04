@@ -1,6 +1,6 @@
 AuctionatorCancellingListResultsRowMixin = CreateFromMixins(AuctionatorResultsRowTemplateMixin)
 
-function AuctionatorCancellingListResultsRowMixin:OnClick(...)
+function AuctionatorCancellingListResultsRowMixin:OnClick(button, ...)
   Auctionator.Debug.Message("AuctionatorCancellingListResultsRowMixin:OnClick", self.rowData and self.rowData.id)
 
   if IsModifiedClick("DRESSUP") then
@@ -9,7 +9,7 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(...)
   elseif IsModifiedClick("CHATLINK") then
     ChatEdit_InsertLink(self.rowData.itemLink)
 
-  else
+  elseif button == "LeftButton" then
     self.rowData.cancelled = true
     self:ApplyFade()
 
@@ -17,7 +17,9 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(...)
       :RegisterSource(self, "CancellingListResultRow")
       :Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.rowData.id)
       :UnregisterSource(self)
-    end
+  elseif button == "RightButton" then
+    Auctionator.API.v1.MultiSearchExact("Cancelling", { Auctionator.Utilities.GetNameFromLink(self.rowData.itemLink) })
+  end
 end
 
 function AuctionatorCancellingListResultsRowMixin:Populate(rowData, dataIndex)
