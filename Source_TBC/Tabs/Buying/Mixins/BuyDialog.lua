@@ -115,7 +115,7 @@ function AuctionatorBuyDialogMixin:ReceiveEvent(eventName, ...)
       self:FindAuctionOnCurrentPage()
       if self.buyInfo == nil then
         self:Hide()
-        self:GetParent().SearchDataProvider:RefreshQuery()
+        Auctionator.Utilities.Message(AUCTIONATOR_L_TBC_REFRESH_NEEDED)
       end
       self:UpdateButtons()
     end

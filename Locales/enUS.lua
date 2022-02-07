@@ -511,6 +511,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["HISTORY"] = "History"
   L["CURRENT"] = "Current"
   L["SERVER_TOOK_TOO_LONG"] = "The server took too long to respond. Your action may not have had an effect."
+  L["TBC_REFRESH_NEEDED"] = "Search results are out of date and there are probably cheaper auctions available, refresh required"
 
   L["STARTING_PRICE_PERCENTAGE_SUFFIX"] = "% of the stack price"
   L["STARTING_PRICE_PERCENTAGE"] = "Starting Price"
