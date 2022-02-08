@@ -511,7 +511,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["HISTORY"] = "History"
   L["CURRENT"] = "Current"
   L["SERVER_TOOK_TOO_LONG"] = "The server took too long to respond. Your action may not have had an effect."
-  L["TBC_REFRESH_NEEDED"] = "Search results for the current item are out of date, refresh required"
   L["CONFIG_SHOPPING_LIST_FULL_REFRESH"] = "Refresh all pages when clicking the Refresh button"
   L["CONFIG_SHOPPING_LIST_FULL_REFRESH_TOOLTIP_HEADER"] = "Refresh All Pages"
   L["CONFIG_SHOPPING_LIST_FULL_REFRESH_TOOLTIP_TEXT"] = "Only the first page is needed to determine the cheapest price, if you are only interested in the cheapest price and don't need to see the rest of the results you can turn this option off for a speed boost."
