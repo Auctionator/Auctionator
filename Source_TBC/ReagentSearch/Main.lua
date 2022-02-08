@@ -44,6 +44,7 @@ end
 function Auctionator.ReagentSearch.GetAHProfit()
   local recipeIndex = GetTradeSkillSelectionIndex()
   local recipeLink =  GetTradeSkillItemLink(recipeIndex)
+  local count = GetTradeSkillNumMade(recipeIndex)
 
   local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
   if currentAH == nil then
@@ -51,5 +52,5 @@ function Auctionator.ReagentSearch.GetAHProfit()
   end
   local toCraft = Auctionator.ReagentSearch.GetSkillReagentsTotal()
 
-  return math.floor(currentAH * 0.95 - toCraft)
+  return math.floor(currentAH * count * 0.95 - toCraft)
 end
