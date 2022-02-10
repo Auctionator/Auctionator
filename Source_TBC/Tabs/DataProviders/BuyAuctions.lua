@@ -249,7 +249,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReportNewMinPrice()
     if minPrice ~= 0 and available > 0 then
       Auctionator.Utilities.DBKeyFromLink(self.allAuctions[1].itemLink, function(dbKeys)
         for _, key in ipairs(dbKeys) do
-          Auctionator.Database:SetPrice(key, minPrice, count)
+          Auctionator.Database:SetPrice(key, minPrice, available)
         end
       end)
     end
