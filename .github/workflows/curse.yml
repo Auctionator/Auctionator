@@ -21,9 +21,9 @@ jobs:
 
     - name: Setup Retail build
       run: mv Auctionator_Mainline.toc Auctionator.toc
-    - uses: BigWigsMods/packager@master
+    - uses: BigWigsMods/packager@v2
       with:
-        args: -p 6124 -a kRNL70Go
+        args: -p 6124 -a kRNL70Go -g mainline
       env:
         GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
@@ -31,9 +31,9 @@ jobs:
 
     - name: Setup TBC build
       run: mv Auctionator_TBC.toc Auctionator.toc
-    - uses: BigWigsMods/packager@master
+    - uses: BigWigsMods/packager@v2
       with:
-        args: -p 6124 -a kRNL70Go -m .pkgmeta_tbc
+        args: -p 6124 -a kRNL70Go -m .pkgmeta_tbc -g bcc
       env:
         GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
@@ -41,9 +41,9 @@ jobs:
 
     - name: Setup Vanilla build
       run: mv Auctionator_Vanilla.toc Auctionator.toc
-    - uses: BigWigsMods/packager@master
+    - uses: BigWigsMods/packager@v2
       with:
-        args: -p 6124 -a kRNL70Go -m .pkgmeta_vanilla
+        args: -p 6124 -a kRNL70Go -m .pkgmeta_vanilla -g classic
       env:
         GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
