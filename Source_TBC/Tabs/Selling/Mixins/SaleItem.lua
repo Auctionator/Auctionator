@@ -545,6 +545,7 @@ function AuctionatorSaleItemMixin:PostItem()
   local duration = self:GetDuration()
   local startingBid = self:GetBidAmount()
   local buyoutPrice = self.StackPrice:GetAmount()
+  local deposit = self:GetDeposit()
 
   local stackSizeMemory = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)
   local basicDBKey = Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)
@@ -574,6 +575,7 @@ function AuctionatorSaleItemMixin:PostItem()
       quantity = numStacks * stackSize,
       buyoutAmount = self.UnitPrice:GetAmount(),
       bidAmount = startingBid,
+      deposit = deposit,
     }
   )
 
