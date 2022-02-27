@@ -100,6 +100,22 @@ else
   );
 end
 
+if GameTooltip.SetCraftItem then -- is Auctionator.Constants.IsTBC
+  hooksecurefunc( GameTooltip, 'SetCraftItem',
+    function(tip, recipeIndex, reagentIndex)
+      local itemLink, itemCount
+      if reagentIndex ~= nil then
+        itemLink = GetCraftReagentItemLink(recipeIndex, reagentIndex)
+        itemCount = select(3, GetCraftReagentInfo(recipeIndex, reagentIndex))
+      else
+        itemLink = GetCraftItemLink(recipeIndex);
+        itemCount  = GetCraftNumMade(recipeIndex);
+      end
+      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
+    end
+  );
+end
+
 -- This is called when mousing over an item in the loot window
 hooksecurefunc (GameTooltip, "SetLootItem",
   function (tip, slot)
