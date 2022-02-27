@@ -6,3 +6,7 @@ ignore:
   - docs
   - *Mainline*
   - *Vanilla*
+plain-copy:
+  - Imports_TBC
+  - Source
+  - Source_TBC

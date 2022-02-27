@@ -5,3 +5,8 @@ ignore:
   - scripts
   - docs
   - *Mainline*
+plain-copy:
+  - Imports_TBC
+  - Source
+  - Source_TBC
+  - Source_Vanilla
