@@ -62,7 +62,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   end
 
   if Auctionator.Debug.IsOn() then
-    tooltipFrame:AddDoubleLine("ItemID", dbKeys[1])
+    tooltipFrame:AddDoubleLine("DBKey", dbKeys[1])
   end
 
   if vendorPrice ~= nil then
