@@ -40,6 +40,7 @@ function AuctionatorBuyDialogMixin:OnShow()
   Auctionator.EventBus:Register(self, EVENTS)
   FrameUtil.RegisterFrameForEvents(self, MONEY_EVENTS)
   self.ChainBuy:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS))
+  self.PriceWarning:Hide()
 end
 
 function AuctionatorBuyDialogMixin:OnHide()
@@ -51,10 +52,15 @@ function AuctionatorBuyDialogMixin:OnHide()
   Auctionator.EventBus:Unregister(self, EVENTS)
   Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
   self.auctionData = nil
+
+  if self.priceWarningTimeout then
+    self.priceWarningTimeout:Cancel()
+    self.priceWarningTimeout = nil
+  end
 end
 
 function AuctionatorBuyDialogMixin:UpdatePurchasedCount(newCount)
-  self.NumberPurchased:SetShown(newCount ~= 0)
+  self.NumberPurchased:SetShown(newCount ~= 0 and not self.priceWarningTimeout)
   self.NumberPurchased:SetText(AUCTIONATOR_L_ALREADY_PURCHASED_X:format(newCount))
 end
 
@@ -87,6 +93,25 @@ function AuctionatorBuyDialogMixin:LoadForPurchasing()
   if self.auctionData.numStacks < 1 then
     self:UpdateButtons()
     if Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS) and self.auctionData.nextEntry ~= nil then
+      local nextEntry = self.auctionData.nextEntry
+
+      -- Show warning if the price increases a lot
+      local oldUnitPrice = self.auctionData.stackPrice / self.auctionData.stackSize
+      local newUnitPrice = nextEntry.stackPrice / nextEntry.stackSize
+      local priceIncrease = math.floor((newUnitPrice - oldUnitPrice) / oldUnitPrice * 100)
+      if priceIncrease > Auctionator.Constants.PriceIncreaseWarningThreshold then
+        -- Replace amount purchased text with warning text
+        self.PriceWarning:Show()
+        self.NumberPurchased:Hide()
+        self.PriceWarning:SetText(AUCTIONATOR_L_PRICE_INCREASE_WARNING:format(priceIncrease .. "%", Auctionator.Constants.PriceIncreaseWarningDuration))
+        self.priceWarningTimeout = C_Timer.NewTimer(Auctionator.Constants.PriceIncreaseWarningDuration, function()
+          self.priceWarningTimeout = nil
+          self.PriceWarning:Hide()
+          -- Restore amount purchased text
+          self:UpdatePurchasedCount(self.quantityPurchased)
+        end)
+      end
+
       self:SetDetails(self.auctionData.nextEntry, self.quantityPurchased)
     end
     return
@@ -143,7 +168,7 @@ function AuctionatorBuyDialogMixin:FindAuctionOnCurrentPage()
 end
 
 function AuctionatorBuyDialogMixin:UpdateButtons()
-  self.BuyStack:SetEnabled(self.auctionData ~= nil and Auctionator.AH.IsNotThrottled() and self.buyInfo ~= nil and self.auctionData.numStacks > 0 and GetMoney() >= self.auctionData.stackPrice)
+  self.BuyStack:SetEnabled(self.auctionData ~= nil and Auctionator.AH.IsNotThrottled() and self.buyInfo ~= nil and self.auctionData.numStacks > 0 and GetMoney() >= self.auctionData.stackPrice and not self.priceWarningTimeout)
   if self.auctionData and self.auctionData.numStacks > 0 then
     self.BuyStack:SetText(AUCTIONATOR_L_BUY_STACK)
   else

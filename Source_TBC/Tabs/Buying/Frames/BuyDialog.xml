@@ -39,9 +39,14 @@
             <Anchor point="TOP" relativeKey="$parent.PurchaseDetails" relativePoint="BOTTOM" y="-6"/>
           </Anchors>
         </FontString>
-        <FontString parentKey="NumberPurchased" inherits="GameFontNormal" text="ALREADY_PURCHASED_X">
+        <FontString parentKey="NumberPurchased" inherits="GameFontNormal" text="AUCTIONATOR_L_ALREADY_PURCHASED_X">
           <Anchors>
             <Anchor point="TOP" relativeKey="$parent.UnitPrice" relativePoint="BOTTOM" y="-8"/>
+          </Anchors>
+        </FontString>
+        <FontString parentKey="PriceWarning" inherits="GameFontRedLarge" text="AUCTIONATOR_L_PRICE_INCREASE_WARNING">
+          <Anchors>
+            <Anchor point="TOP" relativeKey="$parent.NumberPurchased" relativePoint="BOTTOM" y="13"/>
           </Anchors>
         </FontString>
       </Layer>
