@@ -109,6 +109,7 @@ function AuctionatorBuyDialogMixin:LoadForPurchasing()
           self.PriceWarning:Hide()
           -- Restore amount purchased text
           self:UpdatePurchasedCount(self.quantityPurchased)
+          self:UpdateButtons()
         end)
       end
 
