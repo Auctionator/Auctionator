@@ -1,7 +1,7 @@
 <Ui>
   <Frame name="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixin" virtual="true">
     <Scripts>
-      <OnShow method="OnEvent"/>
+      <OnEvent method="OnEvent"/>
       <OnShow method="OnShow"/>
       <OnHide method="OnHide"/>
     </Scripts>

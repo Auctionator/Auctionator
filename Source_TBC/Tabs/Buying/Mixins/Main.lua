@@ -1,5 +1,6 @@
-local MONEY_EVENTS = {
-  "PLAYER_MONEY"
+local BUY_EVENTS = {
+  "PLAYER_MONEY",
+  "AUCTION_OWNED_LIST_UPDATE"
 }
 
 AuctionatorBuyFrameMixin = {}
@@ -19,6 +20,7 @@ end
 
 function AuctionatorBuyFrameMixin:Reset()
   self.selectedAuctionData = nil
+  self.lastCancelData = nil
   self.SearchDataProvider:Reset()
   self.HistoryDataProvider:Reset()
 
@@ -31,16 +33,39 @@ function AuctionatorBuyFrameMixin:Reset()
 end
 
 function AuctionatorBuyFrameMixin:OnShow()
-  FrameUtil.RegisterFrameForEvents(self, MONEY_EVENTS)
+  FrameUtil.RegisterFrameForEvents(self, BUY_EVENTS)
 end
 
 function AuctionatorBuyFrameMixin:OnHide()
-  FrameUtil.UnregisterFrameForEvents(self, MONEY_EVENTS)
+  FrameUtil.UnregisterFrameForEvents(self, BUY_EVENTS)
+end
+
+local function CountOwnedAuctions(auctionType)
+  local allAuctions = Auctionator.AH.DumpAuctions("owner")
+
+  local runningTotal = 0
+
+  for _, auction in ipairs(allAuctions) do
+    local stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout]
+    local stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity]
+    local isSold = auction.info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1
+    if not isSold and stackPrice == auctionType.stackPrice and stackSize == auctionType.stackSize and auction.itemLink == auctionType.itemLink then
+      runningTotal = runningTotal + 1
+    end
+  end
+
+  return runningTotal
 end
 
 function AuctionatorBuyFrameMixin:OnEvent(eventName, ...)
   if eventName == "PLAYER_MONEY" then
     self:UpdateButtons()
+  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" and self.lastCancelData ~= nil then
+    -- Determine how many of the auction are left after an attempted
+    -- cancellation
+    self.lastCancelData.numStacks = CountOwnedAuctions(self.lastCancelData)
+    Auctionator.Utilities.SetStacksText(self.lastCancelData)
+    self.lastCancelData = nil
   end
 end
 
@@ -120,9 +145,8 @@ function AuctionatorBuyFrameMixin:CancelFocussed()
     self.SearchDataProvider:RefreshQuery()
   else
     Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.selectedAuctionData)
-    self.selectedAuctionData.numStacks = self.selectedAuctionData.numStacks - 1
-    Auctionator.Utilities.SetStacksText(self.selectedAuctionData)
   end
+  self.lastCancelData = self.selectedAuctionData --Used to set amount left after cancelling
   self:LoadForCancelling()
 end
 
