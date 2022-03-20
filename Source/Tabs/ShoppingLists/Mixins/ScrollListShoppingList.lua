@@ -6,11 +6,6 @@ function AuctionatorScrollListShoppingListMixin:OnLoad()
   self:SetUpEvents()
 
   self:SetLineTemplate("AuctionatorScrollListLineShoppingListTemplate")
-
-  self.searchProviders = {
-    CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate"),
-    CreateFrame("FRAME", nil, nil, "AuctionatorCachingSearchProviderTemplate"),
-  }
 end
 
 function AuctionatorScrollListShoppingListMixin:SetUpEvents()

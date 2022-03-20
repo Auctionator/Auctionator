@@ -13,21 +13,15 @@ function AuctionatorShoppingListSearchManagerMixin:OnLoad()
     SearchForTerms, ListDeleted, ListItemAdded, ListItemReplaced, ListItemDeleted, ListOrderChanged, ListItemReplaced
   })
 
-  self.searchProviders = {
-    CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate"),
-    CreateFrame("FRAME", nil, nil, "AuctionatorCachingSearchProviderTemplate"),
-  }
-
-  for _, searchProvider in ipairs(self.searchProviders) do
-    searchProvider:InitSearch(
-      function(results)
-        Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchEnded, results)
-      end,
-      function(current, total, partialResults)
-        Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, partialResults, total, current)
-      end
-    )
-  end
+  self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate")
+  self.searchProvider:InitSearch(
+    function(results)
+      Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchEnded, results)
+    end,
+    function(current, total, partialResults)
+      Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate, partialResults, total, current)
+    end
+  )
 end
 
 function AuctionatorShoppingListSearchManagerMixin:ReceiveEvent(eventName, eventData)
@@ -35,31 +29,21 @@ function AuctionatorShoppingListSearchManagerMixin:ReceiveEvent(eventName, event
     self:DoSearch(eventData)
 
   elseif eventName == ListDeleted or eventName == ListItemAdded or eventName == ListItemReplaced or eventName == ListItemDeleted or eventName == ListOrderChanged or eventName == ListItemReplaced then
-    self:AbortRunningSearches()
+    self.searchProvider:AbortSearch()
   end
 end
 
 function AuctionatorShoppingListSearchManagerMixin:OnHide()
-  self:AbortRunningSearches()
-end
-
-function AuctionatorShoppingListSearchManagerMixin:AbortRunningSearches()
-  for _, searchProvider in ipairs(self.searchProviders) do
-    searchProvider:AbortSearch()
-  end
+  self.searchProvider:AbortSearch()
 end
 
 function AuctionatorShoppingListSearchManagerMixin:DoSearch(searchTerms)
-  self:AbortRunningSearches()
+  self.searchProvider:AbortSearch()
 
   Auctionator.EventBus:Fire(
     self,
     Auctionator.ShoppingLists.Events.ListSearchStarted
   )
 
-  if #searchTerms < 50 and not (IsShiftKeyDown() and IsControlKeyDown()) then
-    self.searchProviders[1]:Search(searchTerms)
-  else
-    self.searchProviders[2]:Search(searchTerms)
-  end
+  self.searchProvider:Search(searchTerms)
 end

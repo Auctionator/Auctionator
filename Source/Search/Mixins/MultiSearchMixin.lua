@@ -27,7 +27,7 @@ function AuctionatorMultiSearchMixin:Search(terms)
   self:RegisterProviderEvents()
 
   self:SetTerms(terms)
-  self:InitializeNewSearchGroup()
+  self:NextSearch()
 end
 
 function AuctionatorMultiSearchMixin:AbortSearch()
@@ -37,10 +37,6 @@ function AuctionatorMultiSearchMixin:AbortSearch()
   if not isComplete then
     self.onSearchComplete(self.fullResults)
   end
-end
-
-function AuctionatorMultiSearchMixin:SearchGroupReady()
-  self:NextSearch()
 end
 
 function AuctionatorMultiSearchMixin:AddResults(results)

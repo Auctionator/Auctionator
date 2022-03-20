@@ -5,11 +5,6 @@ function AuctionatorSearchProviderMixin:OnSearchEventReceived(eventName, ...)
 end
 
 -- Derive
-function AuctionatorSearchProviderMixin:InitializeNewSearchGroup()
-  self:SearchGroupReady()
-end
-
--- Derive
 function AuctionatorSearchProviderMixin:CreateSearchTerm(term)
 end
 
