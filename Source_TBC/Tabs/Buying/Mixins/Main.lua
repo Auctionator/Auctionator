@@ -115,7 +115,7 @@ function AuctionatorBuyFrameMixin:GetOwnerAuctionIndex()
 end
 
 function AuctionatorBuyFrameMixin:LoadForCancelling()
-  if self.selectedAuctionData.numStacks < 1 then
+  if self.selectedAuctionData ~= nil and self.selectedAuctionData.numStacks < 1 then
     self.selectedAuctionData.isSelected = false
     self.selectedAuctionData = nil
     self:UpdateButtons()
@@ -215,6 +215,7 @@ function AuctionatorBuyFrameMixinForSelling:Init()
 end
 
 function AuctionatorBuyFrameMixinForSelling:OnShow()
+  AuctionatorBuyFrameMixin.OnShow(self)
   self:Reset()
   self.RefreshButton:Disable()
   self.HistoryButton:Disable()
