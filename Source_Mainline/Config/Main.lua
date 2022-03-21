@@ -33,7 +33,7 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION
 Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE
 Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE] = 0
 Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE] = 0
-Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_GEAR_USE_ILVL] = false
+Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_GEAR_USE_ILVL] = true
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.LIFO_AUCTION_DURATION] = 24
 Auctionator.Config.Defaults[Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE
