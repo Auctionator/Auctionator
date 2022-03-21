@@ -25,6 +25,7 @@ function AuctionatorBuyingItemTooltipMixin:OnMouseUp()
     if self.itemLink ~= nil then
       -- Search for item in the browse tab (so that someone can check the bid
       -- prices)
+      BrowseResetButton:Click()
       BrowseName:SetText(Auctionator.Utilities.GetNameFromLink(self.itemLink))
       AuctionFrameTab1:Click()
       AuctionFrameBrowse_Search()
