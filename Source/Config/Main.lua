@@ -166,7 +166,7 @@ function Auctionator.Config.Reset()
   end
 end
 
-function Auctionator.Config.Initialize()
+function Auctionator.Config.InitializeData()
   if AUCTIONATOR_CONFIG == nil then
     Auctionator.Config.Reset()
   else

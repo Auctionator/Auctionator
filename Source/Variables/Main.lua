@@ -5,7 +5,8 @@ local VENDOR_PRICE_CACHE_DB_VERSION = 1
 function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializeSavedState()
 
-  Auctionator.Config.Initialize()
+  Auctionator.Config.InitializeData()
+  Auctionator.Config.InitializeFrames()
 
   Auctionator.State.CurrentVersion = GetAddOnMetadata("Auctionator", "Version")
 

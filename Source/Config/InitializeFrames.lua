@@ -1,4 +1,4 @@
-function Auctionator.Config.InitializeFrames(templateNames)
+function Auctionator.Config.InternalInitializeFrames(templateNames)
   for _, name in ipairs(templateNames) do
     CreateFrame(
       "FRAME",
