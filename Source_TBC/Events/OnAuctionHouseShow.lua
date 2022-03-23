@@ -12,6 +12,4 @@ function Auctionator.Events.OnAuctionHouseShow()
   end
 
   FrameUtil.RegisterFrameForEvents(Auctionator.State.AuctionatorFrame, { "AUCTION_HOUSE_SHOW", "AUCTION_HOUSE_CLOSED" })
-
-  Auctionator.Variables.Initialize()
 end
