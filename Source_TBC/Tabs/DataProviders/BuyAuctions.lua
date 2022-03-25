@@ -28,7 +28,7 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     headerText = AUCTIONATOR_L_SELLERS_COLUMN,
     cellTemplate = "AuctionatorTooltipStringCellTemplate",
     cellParameters = { "otherSellers" },
-    width = 60,
+    width = 65,
   },
 }
 
@@ -185,7 +185,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       newEntry.otherSellers = ""
     end
 
-    if newEntry.otherSellers == (GetUnitName("player")) then
+    if newEntry.isOwned then
       newEntry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_YOU)
     end
     Auctionator.Utilities.SetStacksText(newEntry)
@@ -285,7 +285,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:GetTableLayout()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:GetColumnHideStates()
-  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_BUY_LIVE)
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_BUY_AUCTIONS)
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:GetRowTemplate()
