@@ -23,8 +23,18 @@ function AuctionatorAHScanFrameMixin:IsOnLastPage()
   )
 end
 
+function AuctionatorAHScanFrameMixin:GotAllOwners()
+  local result = true
+  local allAuctions = Auctionator.AH.DumpAuctions("list")
+  for _, auction in ipairs(allAuctions) do
+    result = result and auction.info[Auctionator.Constants.AuctionItemInfo.Owner] ~= nil
+  end
+
+  return result
+end
+
 function AuctionatorAHScanFrameMixin:OnEvent(eventName, ...)
-  if eventName == "AUCTION_ITEM_LIST_UPDATE" and self.waitingOnPage and self.sentQuery then
+  if eventName == "AUCTION_ITEM_LIST_UPDATE" and self.waitingOnPage and self.sentQuery and self:GotAllOwners() then
     self.waitingOnPage = false
     self:ProcessSearchResults()
   end

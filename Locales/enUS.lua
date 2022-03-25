@@ -375,6 +375,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["UNDERCUT_YES"] ="Yes"
   L["UNDERCUT_NO"] = "No"
   L["UNDERCUT_UNKNOWN"] = "?"
+  L["YOU"] = "You"
 
   L["MONTH_1"] = "January"
   L["MONTH_2"] = "February"
