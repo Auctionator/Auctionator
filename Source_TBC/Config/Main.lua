@@ -1,4 +1,5 @@
 Auctionator.Config.Options.COLUMNS_BUYING_HISTORICAL_PRICES = "columns_buying_historical_prices"
+Auctionator.Config.Options.COLUMNS_BUY_LIVE = "columns_buying_historical_prices"
 
 Auctionator.Config.Options.AUCTION_DURATION = "auction_duration"
 Auctionator.Config.Options.AUCTION_SALES_PREFERENCE = "auction_sales_preference"
@@ -13,6 +14,7 @@ Auctionator.Config.Options.SHOPPING_SHOW_ALL_RESULTS = "shopping_show_all_result
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTO_LIST_SEARCH] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.COLUMNS_BUYING_HISTORICAL_PRICES] = {}
+Auctionator.Config.Defaults[Auctionator.Config.Options.COLUMNS_BUY_LIVE] = {}
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ICON_SIZE] = 35
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_DURATION] = 24

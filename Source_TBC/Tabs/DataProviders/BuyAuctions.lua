@@ -282,7 +282,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:GetTableLayout()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:GetColumnHideStates()
-  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_SHOPPING)
+  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_BUY_LIVE)
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:GetRowTemplate()
