@@ -8,7 +8,8 @@
     <Frames>
       <Frame parentKey="MoneyDisplay" inherits="AuctionatorRetailImportMoneyDisplayFrameTemplate">
         <Anchors>
-          <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-20" />
+          <Anchor point="LEFT"/>
+          <Anchor point="RIGHT" x="-20"/>
         </Anchors>
 
         <KeyValues>
