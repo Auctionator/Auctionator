@@ -181,6 +181,8 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
 
     if newEntry.unitPrice ~= nil then
       gotResult = true
+    else
+      newEntry.otherSellers = ""
     end
 
     if newEntry.otherSellers == (GetUnitName("player")) then
