@@ -36,7 +36,7 @@ Auctionator.Config.Options = {
 
   COLUMNS_SHOPPING = "columns_shopping",
   COLUMNS_SHOPPING_HISTORICAL_PRICES = "columns_shopping_historical_prices",
-  COLUMNS_SELLING_SEARCH = "columns_selling_search",
+  COLUMNS_SELLING_SEARCH = "columns_selling_search_2",
   COLUMNS_HISTORICAL_PRICES = "historical_prices",
   COLUMNS_POSTING_HISTORY = "columns_posting_history",
   COLUMNS_CANCELLING = "columns_cancelling",
