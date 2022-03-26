@@ -12,6 +12,9 @@
 
 Patches\TaintLess.xml
 
+Libs\LibStub.lua
+Libs\LibUIDropDownMenu\LibUIDropDownMenu.xml
+
 Assets_TBC.xml
 
 Imports_TBC\Manifest.xml

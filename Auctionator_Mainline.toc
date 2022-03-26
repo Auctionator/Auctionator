@@ -12,6 +12,9 @@
 
 Patches\TaintLess.xml
 
+Libs\LibStub.lua
+Libs\LibUIDropDownMenu\LibUIDropDownMenu.xml
+
 Locales\Manifest.xml
 
 Imports_Mainline\Manifest.xml
