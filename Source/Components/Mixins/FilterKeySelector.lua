@@ -51,7 +51,7 @@ end
 
 function AuctionatorFilterKeySelectorMixin:EntrySelected(displayText)
   self:SetValue(displayText)
-  CloseDropDownMenus()
+  LibDD:CloseDropDownMenus()
 end
 
 function AuctionatorFilterKeySelectorMixin:InitializePrimaryClasses()

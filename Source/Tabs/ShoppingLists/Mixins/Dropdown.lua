@@ -111,7 +111,7 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
       local message = AUCTIONATOR_L_DELETE_LIST_CONFIRM:format(list.name)
       StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = message
       StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList, nil, nil, list.name)
-      HideDropDownMenu(1)
+      LibDD:CloseDropDownMenus(1)
     end
     LibDD:UIDropDownMenu_AddButton(listEntry, 2)
 
@@ -124,7 +124,7 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
       local message = AUCTIONATOR_L_RENAME_LIST_CONFIRM:format(list.name)
       StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].text = message
       StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, list.name)
-      HideDropDownMenu(1)
+      LibDD:CloseDropDownMenus(1)
     end
     LibDD:UIDropDownMenu_AddButton(listEntry, 2)
   end
