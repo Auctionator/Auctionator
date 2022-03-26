@@ -1,8 +1,11 @@
 AuctionatorShoppingListDropdownMixin = {}
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+
 function AuctionatorShoppingListDropdownMixin:OnLoad()
-  UIDropDownMenu_Initialize(self, self.Initialize, "taint prevention")
-  UIDropDownMenu_SetWidth(self, 190)
+  LibDD:Create_UIDropDownMenu(self)
+  LibDD:UIDropDownMenu_Initialize(self, self.Initialize, "taint prevention")
+  LibDD:UIDropDownMenu_SetWidth(self, 190)
 
   self.searchNextTime = true
   self:SetUpEvents()
@@ -10,7 +13,7 @@ function AuctionatorShoppingListDropdownMixin:OnLoad()
 end
 
 function AuctionatorShoppingListDropdownMixin:SetNoList()
-  UIDropDownMenu_SetText(self, AUCTIONATOR_L_SELECT_SHOPPING_LIST)
+  LibDD:UIDropDownMenu_SetText(self, AUCTIONATOR_L_SELECT_SHOPPING_LIST)
   self.currentList = nil
 end
 
@@ -58,19 +61,19 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
     local listEntry
 
     -- Add entry to create a new shopping list
-    listEntry = UIDropDownMenu_CreateInfo()
+    listEntry = LibDD:UIDropDownMenu_CreateInfo()
     listEntry.notCheckable = true
     listEntry.text = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_NEW_SHOPPING_LIST)
     listEntry.func = function(entry)
       StaticPopup_Show(Auctionator.Constants.DialogNames.CreateShoppingList)
     end
-    UIDropDownMenu_AddButton(listEntry)
+    LibDD:UIDropDownMenu_AddButton(listEntry)
 
     -- Add promiment "Save As" entry for temporary shopping lists
     if self.currentList ~= nil then
       local isTemp = self.currentList.isTemporary
       if isTemp then
-        listEntry = UIDropDownMenu_CreateInfo()
+        listEntry = LibDD:UIDropDownMenu_CreateInfo()
         listEntry.notCheckable = true
         listEntry.text = BLUE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_SAVE_THIS_LIST_AS)
         listEntry.func = function(entry)
@@ -78,13 +81,13 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
           StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].text = message
           StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, self.currentList.name)
         end
-        UIDropDownMenu_AddButton(listEntry)
+        LibDD:UIDropDownMenu_AddButton(listEntry)
       end
     end
 
     -- Add an entry for each shopping list
     for index, list in ipairs(Auctionator.ShoppingLists.Lists) do
-      listEntry = UIDropDownMenu_CreateInfo()
+      listEntry = LibDD:UIDropDownMenu_CreateInfo()
       listEntry.text = list.name
       listEntry.value = index
       listEntry.menuList = {index = index}
@@ -94,11 +97,11 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
       listEntry.checked = self.currentList == list
       listEntry.hasArrow = true
 
-      UIDropDownMenu_AddButton(listEntry)
+      LibDD:UIDropDownMenu_AddButton(listEntry)
     end
   --Add Rename and Delete submenu entries for the given shopping list
   elseif level == 2 then
-    listEntry = UIDropDownMenu_CreateInfo()
+    listEntry = LibDD:UIDropDownMenu_CreateInfo()
     listEntry.notCheckable = true
     listEntry.value = index
 
@@ -110,7 +113,7 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
       StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList, nil, nil, list.name)
       HideDropDownMenu(1)
     end
-    UIDropDownMenu_AddButton(listEntry, 2)
+    LibDD:UIDropDownMenu_AddButton(listEntry, 2)
 
     if list.isTemporary then
       listEntry.text = AUCTIONATOR_L_SAVE_AS
@@ -123,12 +126,12 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
       StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, list.name)
       HideDropDownMenu(1)
     end
-    UIDropDownMenu_AddButton(listEntry, 2)
+    LibDD:UIDropDownMenu_AddButton(listEntry, 2)
   end
 end
 
 function AuctionatorShoppingListDropdownMixin:SelectList(selectedList)
-  UIDropDownMenu_SetText(self, selectedList.name)
+  LibDD:UIDropDownMenu_SetText(self, selectedList.name)
   Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSelected, selectedList)
 end
 
