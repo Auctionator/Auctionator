@@ -9,6 +9,7 @@ function AuctionatorConfirmDropDownMixin:OnLoad()
     Auctionator.Selling.Events.ConfirmCallback,
     Auctionator.AH.Events.Ready,
   })
+  self:HookScript("OnHide", self.OnHide)
 end
 
 function AuctionatorConfirmDropDownMixin:OnHide()
