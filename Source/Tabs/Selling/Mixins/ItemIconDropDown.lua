@@ -104,7 +104,7 @@ end
 
 function AuctionatorItemIconDropDownMixin:Initialize()
   if not self.data then
-    HideDropDownMenu(1)
+    LibDD:CloseDropDownMenus(1)
     return
   end
 
@@ -156,5 +156,5 @@ function AuctionatorItemIconDropDownMixin:Callback(itemInfo)
 end
 
 function AuctionatorItemIconDropDownMixin:Toggle()
-  ToggleDropDownMenu(1, nil, self, "cursor", 0, 0)
+  LibDD:ToggleDropDownMenu(1, nil, self, "cursor", 0, 0)
 end
