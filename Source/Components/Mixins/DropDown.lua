@@ -13,7 +13,8 @@ local function localizeArray(array)
   return array
 end
 
-function AuctionatorDropDownMixin:OnLoad()
+function AuctionatorDropDownMixin:OnShow()
+  self:SetScript("OnShow", nil)
   if self.textString ~= nil and self.valuesString ~= nil then
     self:InitAgain(
       localizeArray(splitStrArray(self.textString)),

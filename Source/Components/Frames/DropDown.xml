@@ -8,7 +8,7 @@
       </KeyValues>
     -->
     <Scripts>
-      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
     </Scripts>
     <Size y="40"/>
 
