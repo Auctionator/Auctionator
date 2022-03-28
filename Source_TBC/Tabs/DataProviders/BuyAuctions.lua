@@ -13,6 +13,7 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     headerParameters = { "stackSize" },
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "availablePretty" },
+    width = 120,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
@@ -28,7 +29,6 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     headerText = AUCTIONATOR_L_SELLERS_COLUMN,
     cellTemplate = "AuctionatorTooltipStringCellTemplate",
     cellParameters = { "otherSellers" },
-    width = 65,
     defaultHide = true,
   },
   {
@@ -37,7 +37,6 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     headerText = AUCTIONATOR_L_YOU_COLUMN,
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "isOwnedText" },
-    width = 65,
   },
 }
 
