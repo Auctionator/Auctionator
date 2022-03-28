@@ -43,6 +43,15 @@ local SEARCH_PROVIDER_LAYOUT = {
     headerText = AUCTIONATOR_L_SELLERS_COLUMN,
     cellTemplate = "AuctionatorTooltipStringCellTemplate",
     cellParameters = { "otherSellers" },
+    defaultHide = true,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "owned" },
+    headerText = AUCTIONATOR_L_OWNED_COLUMN,
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "owned" },
+    width = 70
   },
 }
 
@@ -101,6 +110,7 @@ local COMPARATORS = {
   quantity = Auctionator.Utilities.NumberComparator,
   level = Auctionator.Utilities.NumberComparator,
   timeLeft = Auctionator.Utilities.NumberComparator,
+  owned = Auctionator.Utilities.StringComparator,
   otherSellers = Auctionator.Utilities.StringComparator,
 }
 
@@ -188,6 +198,10 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       end
 
       entry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
+      entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+
+    else
+      entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
 
     table.insert(entries, entry)
@@ -248,6 +262,10 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       end
 
       entry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
+      entry.owned = AUCTIONATOR_L_UNDERCUT_YES
+
+    else
+      entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
 
     table.insert(entries, entry)

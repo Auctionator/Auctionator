@@ -1,5 +1,5 @@
 Auctionator.Config.Options.COLUMNS_BUYING_HISTORICAL_PRICES = "columns_buying_historical_prices"
-Auctionator.Config.Options.COLUMNS_BUY_AUCTIONS = "columns_buying_auctions"
+Auctionator.Config.Options.COLUMNS_BUY_AUCTIONS = "columns_buying_auctions_2"
 
 Auctionator.Config.Options.AUCTION_DURATION = "auction_duration"
 Auctionator.Config.Options.AUCTION_SALES_PREFERENCE = "auction_sales_preference"

@@ -29,6 +29,15 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     cellTemplate = "AuctionatorTooltipStringCellTemplate",
     cellParameters = { "otherSellers" },
     width = 65,
+    defaultHide = true,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "isOwnedText" },
+    headerText = AUCTIONATOR_L_YOU_COLUMN,
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "isOwnedText" },
+    width = 65,
   },
 }
 
@@ -187,6 +196,9 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
 
     if newEntry.isOwned then
       newEntry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_YOU)
+      newEntry.isOwnedText = AUCTIONATOR_L_UNDERCUT_YES
+    else
+      newEntry.isOwnedText = ""
     end
     Auctionator.Utilities.SetStacksText(newEntry)
 
@@ -268,6 +280,7 @@ local COMPARATORS = {
   stackSize = Auctionator.Utilities.StringComparator,
   numStacks = Auctionator.Utilities.NumberComparator,
   otherSellers = Auctionator.Utilities.StringComparator,
+  isOwnedText = Auctionator.Utilities.StringComparator,
 }
 
 function AuctionatorBuyAuctionsDataProviderMixin:Sort(fieldName, sortDirection)
