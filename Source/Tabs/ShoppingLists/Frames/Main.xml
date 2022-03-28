@@ -247,7 +247,7 @@
       </Button>
 
       <!-- Shopping List Dropdown -->
-      <Frame parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
+      <Frame inherits="UIDropDownMenuTemplate" parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="35" x="50"/>
         </Anchors>

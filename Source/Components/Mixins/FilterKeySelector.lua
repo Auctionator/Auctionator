@@ -1,19 +1,15 @@
 AuctionatorFilterKeySelectorMixin = {}
 
-local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
-
 function AuctionatorFilterKeySelectorMixin:OnLoad()
-  LibDD:Create_UIDropDownMenu(self)
-
   self.displayText = ""
   self.onEntrySelected = function() end
   self.ResetButton:SetClickCallback(function()
     self:Reset()
   end)
 
-  LibDD:UIDropDownMenu_SetWidth(self, 180)
+  UIDropDownMenu_SetWidth(self, 180)
 
-  LibDD:UIDropDownMenu_Initialize(self, function(_, level, menuList)
+  UIDropDownMenu_Initialize(self, function(_, level, menuList)
     if level == 1 then
       self:InitializePrimaryClasses()
     elseif level == 2 then
@@ -36,13 +32,13 @@ function AuctionatorFilterKeySelectorMixin:SetValue(value)
   self.displayText = value
   self.onEntrySelected(value)
   self.selectedCategory = {strsplit("/", value)}
-  LibDD:UIDropDownMenu_SetText(self, value)
+  UIDropDownMenu_SetText(self, value)
 end
 
 function AuctionatorFilterKeySelectorMixin:Reset()
   self.displayText = ""
   self.selectedCategory = {}
-  LibDD:UIDropDownMenu_SetText(self, "")
+  UIDropDownMenu_SetText(self, "")
 end
 
 function AuctionatorFilterKeySelectorMixin:SetOnEntrySelected(callback)
@@ -51,12 +47,12 @@ end
 
 function AuctionatorFilterKeySelectorMixin:EntrySelected(displayText)
   self:SetValue(displayText)
-  LibDD:CloseDropDownMenus()
+  CloseDropDownMenus()
 end
 
 function AuctionatorFilterKeySelectorMixin:InitializePrimaryClasses()
   local name
-  local info = LibDD:UIDropDownMenu_CreateInfo()
+  local info = UIDropDownMenu_CreateInfo()
 
   info.hasArrow = true
   info.func = function(_, displayText)
@@ -79,14 +75,14 @@ function AuctionatorFilterKeySelectorMixin:InitializePrimaryClasses()
         info.checked = false
       end
 
-      LibDD:UIDropDownMenu_AddButton(info)
+      UIDropDownMenu_AddButton(info)
     end
   end
 end
 
 function AuctionatorFilterKeySelectorMixin:InitializeSecondaryClasses(menuList)
   local name
-  local info = LibDD:UIDropDownMenu_CreateInfo()
+  local info = UIDropDownMenu_CreateInfo()
 
   info.func = function(_, displayText)
     self:EntrySelected(displayText)
@@ -114,13 +110,13 @@ function AuctionatorFilterKeySelectorMixin:InitializeSecondaryClasses(menuList)
       info.checked = false
     end
 
-    LibDD:UIDropDownMenu_AddButton(info, 2)
+    UIDropDownMenu_AddButton(info, 2)
   end
 end
 
 function AuctionatorFilterKeySelectorMixin:InitializeArmorSlots(menuList)
   local name
-  local info = LibDD:UIDropDownMenu_CreateInfo()
+  local info = UIDropDownMenu_CreateInfo()
 
   info.func = function(_, displayText)
     self:EntrySelected(displayText)
@@ -144,6 +140,6 @@ function AuctionatorFilterKeySelectorMixin:InitializeArmorSlots(menuList)
       info.checked = false
     end
 
-    LibDD:UIDropDownMenu_AddButton(info, 3)
+    UIDropDownMenu_AddButton(info, 3)
   end
 end
