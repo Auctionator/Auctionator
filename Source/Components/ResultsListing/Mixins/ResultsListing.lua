@@ -105,6 +105,7 @@ function AuctionatorResultsListingMixin:OnShow()
     return
   end
 
+  self:UpdateForHiding()
   self:UpdateTable()
 end
 
