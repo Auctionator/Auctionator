@@ -6,6 +6,4 @@
   <Script file="Events.lua" />
 
   <Script file="Mixins\DirectSearchProviderMixin.lua"/>
-
-  <Include file="Templates.xml"/>
 </Ui>

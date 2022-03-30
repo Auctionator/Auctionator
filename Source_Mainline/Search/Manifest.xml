@@ -6,6 +6,4 @@
   <Script file="Mixins\DirectSearchProviderMixin.lua" />
 
   <Include file="Filters\Manifest.xml" />
-
-  <Include file="Templates.xml" />
 </Ui>
