@@ -134,6 +134,10 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(pageResults)
     table.insert(self.individualResults, entry)
   end
 
+  if Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED) then
+    Auctionator.AH.AbortQuery()
+  end
+
   if self:HasCompleteTermResults() then
     self:AddFinalResults()
   end
