@@ -75,7 +75,6 @@ function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories
         subCategories = category.subCategories,
         rootChecked = info.checked
       }
-      print(info.text, self.selectedCategory[level])
       UIDropDownMenu_AddButton(info, level)
     end
   end
