@@ -11,9 +11,9 @@ function AuctionatorFilterKeySelectorMixin:OnLoad()
 
   UIDropDownMenu_Initialize(self, function(_, level, menuList)
     if level == 1 then
-      self:InitializeLevels(level, AuctionCategories)
+      self:InitializeLevels(level, AuctionCategories, true)
     elseif menuList ~= nil then
-      self:InitializeLevels(level, menuList.subCategories, menuList.prefix)
+      self:InitializeLevels(level, menuList.subCategories, menuList.rootChecked, menuList.prefix)
     end
   end)
 end
@@ -48,7 +48,7 @@ function AuctionatorFilterKeySelectorMixin:EntrySelected(displayText)
   CloseDropDownMenus()
 end
 
-function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories, prefix)
+function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories, rootChecked, prefix)
   if allCategories == nil then
     return
   end
@@ -68,11 +68,14 @@ function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories
 
       info.text = category.name
       info.arg1 = prefix .. category.name
+      info.checked = rootChecked and info.text == self.selectedCategory[level]
 
       info.menuList = {
         prefix = info.arg1 .. "/",
-        subCategories = category.subCategories
+        subCategories = category.subCategories,
+        rootChecked = info.checked
       }
+      print(info.text, self.selectedCategory[level])
       UIDropDownMenu_AddButton(info, level)
     end
   end
