@@ -76,9 +76,21 @@ local function InitializeFullScanFrame()
   end
 end
 
+local setupSearchCategories = false
+local function InitializeSearchCategories()
+  if setupSearchCategories then
+    return
+  end
+
+  Auctionator.Search.InitializeCategories()
+
+  setTooltipHooks = true
+end
+
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
+  InitializeSearchCategories()
   InitializeAuctionHouseTabs()
   InitializeBuyFrame()
   InitializePageStatusDialog()
