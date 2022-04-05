@@ -68,11 +68,7 @@ function AuctionatorDirectSearchProviderMixin:GetSearchProvider()
     self.resultsByKey = {}
     self.individualResults = {}
 
-    if Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED) then
-      Auctionator.AH.QueryAndFocusPage(searchTerm.query, 0)
-    else
-      Auctionator.AH.QueryAuctionItems(searchTerm.query)
-    end
+    Auctionator.AH.QueryAuctionItems(searchTerm.query)
   end
 end
 
@@ -140,7 +136,10 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(pageResults)
 
   if self:HasCompleteTermResults() then
     self:AddFinalResults()
+  elseif Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED) then
+    Auctionator.AH.AbortQuery()
   end
+
 end
 
 function AuctionatorDirectSearchProviderMixin:ReceiveEvent(eventName, results, gotAllResults)
@@ -149,7 +148,7 @@ function AuctionatorDirectSearchProviderMixin:ReceiveEvent(eventName, results, g
     self:ProcessSearchResults(results)
   elseif eventName == Auctionator.AH.Events.ScanAborted then
     self.gotAllResults = true
-    self:AddResults({})
+    self:ProcessSearchResults({})
   end
 end
 
