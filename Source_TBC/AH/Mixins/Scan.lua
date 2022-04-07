@@ -5,7 +5,7 @@ local SCAN_EVENTS = {
 }
 
 local function ParamsForBlizzardAPI(query, page)
-  return query.searchString, query.minLevel, query.maxLevel, page, nil, nil, false, query.isExact or false, query.itemClassFilters
+  return query.searchString, query.minLevel, query.maxLevel, page, nil, query.quality, false, query.isExact or false, query.itemClassFilters
 end
 
 function AuctionatorAHScanFrameMixin:OnLoad()

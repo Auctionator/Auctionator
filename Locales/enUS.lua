@@ -358,6 +358,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["REFRESH"] = "Refresh"
 
   L["ANY_LOWER"] = "any"
+  L["ANY_UPPER"] = "Any"
 
   L["NO_RESULTS"] = "No results found."
 

@@ -8,7 +8,7 @@
     virtual="true"
     hidden="true"
   >
-    <Size x="350" y="320" />
+    <Size x="350" y="350" />
 
     <Scripts>
       <OnLoad method="OnLoad" />
@@ -101,7 +101,7 @@
           <KeyValue key="titleText" value="AUCTIONATOR_L_ITEM_LEVEL" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.LevelRange" relativePoint="TOPRIGHT" y="-4" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.LevelRange" relativePoint="TOPRIGHT"/>
         </Anchors>
       </Frame>
 
@@ -121,6 +121,38 @@
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.PriceRange" relativePoint="TOPRIGHT"/>
         </Anchors>
+      </Frame>
+
+      <Frame parentKey="QualityContainer">
+        <Size x="50" y="20"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.PriceRange" x="20" y="-20" />
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <FontString inherits="GameFontHighlight" parentKey="Label" text="QUALITY">
+              <Anchors>
+                <Anchor point="TOPLEFT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Frames>
+          <Frame inherits="AuctionatorDropDown" parentKey="DropDown">
+            <KeyValues>
+              <KeyValue key="labelText" value="" type="string" />
+            </KeyValues>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.Label" relativePoint="TOPRIGHT" y="8"/>
+            </Anchors>
+          </Frame>
+
+          <Button parentKey="ResetQualityButton" inherits="AuctionatorResetButton">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="-10" y="-5"/>
+            </Anchors>
+          </Button>
+        </Frames>
       </Frame>
 
       <!-- Action Buttons -->

@@ -12,6 +12,24 @@ local INTERNAL_SEARCH_EVENTS = {
   Auctionator.Search.Events.SearchResultsReady
 }
 
+local QUALITY_TO_FILTER = {
+  [Enum.ItemQuality.Poor] = Enum.AuctionHouseFilter.PoorQuality,
+  [Enum.ItemQuality.Common] = Enum.AuctionHouseFilter.CommonQuality,
+  [Enum.ItemQuality.Uncommon] = Enum.AuctionHouseFilter.UncommonQuality,
+  [Enum.ItemQuality.Rare] = Enum.AuctionHouseFilter.RareQuality,
+  [Enum.ItemQuality.Epic] = Enum.AuctionHouseFilter.EpicQuality,
+  [Enum.ItemQuality.Legendary] = Enum.AuctionHouseFilter.LegendaryQuality,
+  [Enum.ItemQuality.Artifact] = Enum.AuctionHouseFilter.ArtifactQuality,
+}
+
+local function GetQualityFilters(quality)
+  if QUALITY_TO_FILTER[quality] ~= nil then
+    return { QUALITY_TO_FILTER[quality] }
+  else
+    return {}
+  end
+end
+
 function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
   Auctionator.Debug.Message("AuctionatorDirectSearchProviderMixin:CreateSearchTerm()", term)
 
@@ -22,7 +40,7 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
       searchString = parsed.searchString,
       minLevel = parsed.minLevel,
       maxLevel = parsed.maxLevel,
-      filters = {},
+      filters = GetQualityFilters(parsed.quality),
       itemClassFilters = Auctionator.Search.GetItemClassCategories(parsed.categoryKey),
       sorts = Auctionator.Constants.ShoppingListSorts,
     },

@@ -1,10 +1,30 @@
 AuctionatorShoppingItemMixin = CreateFromMixins(AuctionatorEscapeToCloseMixin)
 
+local NO_QUALITY = ""
+
+local function InitializeQualityDropDown(dropDown)
+  local qualityStrings = {}
+  local qualityIDs = {}
+
+  table.insert(qualityStrings, AUCTIONATOR_L_ANY_UPPER)
+  table.insert(qualityIDs, NO_QUALITY)
+
+  for _, quality in ipairs(Auctionator.Constants.QualityIDs) do
+    table.insert(qualityStrings, Auctionator.Utilities.CreateColoredQuality(quality))
+    table.insert(qualityIDs, tostring(quality))
+  end
+  dropDown:InitAgain(qualityStrings, qualityIDs)
+end
+
 function AuctionatorShoppingItemMixin:OnLoad()
   self.onFinishedClicked = function() end
 
   self.SearchContainer.ResetSearchStringButton:SetClickCallback(function()
     self.SearchContainer.SearchString:SetText("")
+  end)
+
+  self.QualityContainer.ResetQualityButton:SetClickCallback(function()
+    self.QualityContainer.DropDown:SetValue(NO_QUALITY)
   end)
 
   local onEnterCallback = function()
@@ -38,6 +58,8 @@ function AuctionatorShoppingItemMixin:OnLoad()
       self.SearchContainer.SearchString:SetFocus()
     end
   })
+
+  InitializeQualityDropDown(self.QualityContainer.DropDown)
 
   Auctionator.EventBus:Register(self, {
     Auctionator.ShoppingLists.Events.ListSearchStarted,
@@ -112,7 +134,8 @@ function AuctionatorShoppingItemMixin:GetItemString()
     self.ItemLevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
     self.LevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
     self.CraftedLevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.PriceRange:GetValue()
+    self.PriceRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
+    self.QualityContainer.DropDown:GetValue()
 end
 
 function AuctionatorShoppingItemMixin:SetItemString(itemString)
@@ -142,6 +165,12 @@ function AuctionatorShoppingItemMixin:SetItemString(itemString)
     self.PriceRange:SetMax(search.maxPrice/10000)
   else
     self.PriceRange:SetMax(nil)
+  end
+
+  if search.quality == nil then
+    self.QualityContainer.DropDown:SetValue(NO_QUALITY)
+  else
+    self.QualityContainer.DropDown:SetValue(tostring(search.quality))
   end
 end
 

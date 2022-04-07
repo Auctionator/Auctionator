@@ -2,7 +2,7 @@
 -- Assumes searchParametersString is an advanced search.
 function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   local queryString, categoryKey, minItemLevel, maxItemLevel, minLevel, maxLevel,
-    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice =
+    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice, quality =
     strsplit( Auctionator.Constants.AdvancedSearchDivider, searchParametersString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
@@ -31,6 +31,8 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
 
   minPrice = (tonumber(minPrice) or 0) * 10000
   maxPrice = (tonumber(maxPrice) or 0) * 10000
+
+  quality = tonumber( quality )
 
   if minLevel == 0 then
     minLevel = nil
@@ -76,6 +78,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
     maxItemLevel = maxItemLevel,
     minCraftedLevel = minCraftedLevel,
     maxCraftedLevel = maxCraftedLevel,
+    quality = quality,
   }
 end
 
@@ -107,10 +110,22 @@ local function TooltipRangeString(min, max)
   end
 end
 
+local function QualityString(quality)
+  if quality ~= nil then
+    return Auctionator.Utilities.CreateColoredQuality(quality)
+  else
+    return ""
+  end
+end
+
 local separator = ", "
 
 local function CategoryKey(splitSearch)
   return splitSearch.categoryKey .. separator
+end
+
+local function Quality(splitSearch)
+  return QualityString(splitSearch.quality) .. separator
 end
 
 local function ItemLevelRange(splitSearch)
@@ -180,6 +195,7 @@ function Auctionator.Search.PrettifySearchString(searchString)
     .. LevelRange(splitSearch)
     .. ItemLevelRange(splitSearch)
     .. CraftedLevelRange(splitSearch)
+    .. Quality(splitSearch)
     .. "]"
 
   -- Clean up string removing empty stuff
@@ -201,6 +217,21 @@ local function TooltipCategory(splitSearch)
 
   return {
     AUCTIONATOR_L_ITEM_CLASS,
+    key
+  }
+end
+
+local function TooltipQuality(splitSearch)
+  local key
+
+  if splitSearch.quality == nil then
+    key = AUCTIONATOR_L_ANY_LOWER
+  else
+    key = Auctionator.Utilities.CreateColoredQuality(splitSearch.quality)
+  end
+
+  return {
+    QUALITY,
     key
   }
 end
@@ -245,6 +276,7 @@ function Auctionator.Search.ComposeTooltip(searchString)
   table.insert(lines, TooltipLevelRange(splitSearch))
   table.insert(lines, TooltipItemLevelRange(splitSearch))
   table.insert(lines, TooltipCraftedLevelRange(splitSearch))
+  table.insert(lines, TooltipQuality(splitSearch))
 
   if splitSearch.searchString == "" then
     splitSearch.searchString = " "

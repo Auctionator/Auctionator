@@ -28,6 +28,13 @@ Auctionator.Constants.ValidItemClassIDs = {
 }
 -- Note that -2 is the keyring bag, which only exists in classic
 Auctionator.Constants.BagIDs = {-2, 0, 1, 2, 3, 4}
+Auctionator.Constants.QualityIDs = {
+  Enum.ItemQuality.Poor,
+  Enum.ItemQuality.Standard,
+  Enum.ItemQuality.Good,
+  Enum.ItemQuality.Rare,
+  Enum.ItemQuality.Epic,
+}
 
 Auctionator.Constants.PriceIncreaseWarningDuration = 5
 Auctionator.Constants.PriceIncreaseWarningThreshold = 40
