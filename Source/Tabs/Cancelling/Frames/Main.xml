@@ -86,7 +86,7 @@
       <Layer>
         <FontString parentKey="Total" inherits="GameFontHighlight" text="">
           <Anchors>
-            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" x="180" y="-19"/>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.SearchFilter" x="15" y="-5"/>
           </Anchors>
         </FontString>
       </Layer>

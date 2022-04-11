@@ -499,6 +499,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["REAGENT_SEARCH"] = "Reagent Search"
   L["NUMBER_SEPARATOR"] = ","
   L["TOTAL_ON_SALE"] = "Total on sale: %s"
+  L["TOTAL_PENDING"] = "(%s pending)"
   L["REALM_HISTORY"] = "Realm History"
   L["YOUR_HISTORY"] = "Your History"
   L["EXPORT_RESULTS"] = "Export Results"

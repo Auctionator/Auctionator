@@ -33,29 +33,38 @@ StaticPopupDialogs[ConfirmBidPricePopup] = {
   hideOnEscape = 1
 }
 
-function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, eventData, ...)
+function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
-    Auctionator.Debug.Message("Executing cancel request", eventData)
+    local auctionData = ...
+    Auctionator.Debug.Message("Executing cancel request", auctionData)
 
     -- Prevent cancelling auctions which someone has bid on
-    local cancelCost = math.floor((eventData.bidAmount * AUCTION_CANCEL_COST) / 100)
+    local cancelCost = math.floor((auctionData.bidAmount * AUCTION_CANCEL_COST) / 100)
     if cancelCost > 0 then
       local dialog = StaticPopup_Show(ConfirmBidPricePopup)
       if dialog then
-        dialog.data = eventData
+        dialog.data = auctionData
         MoneyFrame_Update(dialog.moneyFrame, cancelCost);
       end
     else
-      Auctionator.AH.CancelAuction(eventData)
+      Auctionator.AH.CancelAuction(auctionData)
     end
 
     PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
 
   elseif eventName == Auctionator.Cancelling.Events.TotalUpdated then
-    self.Total:SetText(
-      AUCTIONATOR_L_TOTAL_ON_SALE:format(
-        Auctionator.Utilities.CreateMoneyString(eventData)
+    local totalOnSale, totalPending = ...
+
+    local text = AUCTIONATOR_L_TOTAL_ON_SALE:format(
+        Auctionator.Utilities.CreateMoneyString(totalOnSale)
       )
-    )
+    if totalPending > 0 then
+      text = text .. " " ..
+      AUCTIONATOR_L_TOTAL_PENDING:format(
+        Auctionator.Utilities.CreateMoneyString(totalPending)
+      )
+    end
+
+    self.Total:SetText(text)
   end
 end

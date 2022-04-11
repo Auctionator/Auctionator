@@ -127,6 +127,11 @@ function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
   return not auctionInfo.isSold and auctionInfo.stackPrice ~= 0
 end
 
+function AuctionatorCancellingDataProviderMixin:IsSoldAuction(auctionInfo)
+  return auctionInfo.isSold and auctionInfo.stackPrice ~= 0
+end
+
+
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
   local searchString = self:GetParent().SearchFilter:GetText()
   if searchString ~= "" then
@@ -176,44 +181,49 @@ end
 function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   self:Reset()
   local allAuctions = GroupAuctions(Auctionator.AH.DumpAuctions("owner"))
-  local total = 0
+  local totalOnSale = 0
+  local totalPending = 0
 
   local results = {}
   for _, auction in ipairs(allAuctions) do
 
-    --Only look at unsold and uncancelled (yet) auctions
-    if self:IsValidAuction(auction) and self:FilterAuction(auction) then
-      total = total + auction.stackPrice * auction.numStacks
+    --Only display unsold and uncancelled (yet) auctions
+    if self:IsValidAuction(auction)  then
+      if self:FilterAuction(auction) then
+        totalOnSale = totalOnSale + auction.stackPrice * auction.numStacks
 
-      local cleanLink = Auctionator.Search.GetCleanItemLink(auction.itemLink)
-      local undercutStatus
-      if self.undercutCutoff[cleanLink] == nil then
-        undercutStatus = AUCTIONATOR_L_UNDERCUT_UNKNOWN
-      elseif self.undercutCutoff[cleanLink] < auction.unitPrice then
-        undercutStatus = AUCTIONATOR_L_UNDERCUT_YES
-      else
-        undercutStatus = AUCTIONATOR_L_UNDERCUT_NO
+        local cleanLink = Auctionator.Search.GetCleanItemLink(auction.itemLink)
+        local undercutStatus
+        if self.undercutCutoff[cleanLink] == nil then
+          undercutStatus = AUCTIONATOR_L_UNDERCUT_UNKNOWN
+        elseif self.undercutCutoff[cleanLink] < auction.unitPrice then
+          undercutStatus = AUCTIONATOR_L_UNDERCUT_YES
+        else
+          undercutStatus = AUCTIONATOR_L_UNDERCUT_NO
+        end
+        table.insert(results, {
+          numStacks = auction.numStacks,
+          stackSize = auction.stackSize,
+          stackPrice = auction.stackPrice,
+          itemString = cleanLink,
+          unitPrice = auction.unitPrice,
+          bidder = auction.bidder or "",
+          bidAmount = auction.bidAmount,
+          itemLink = auction.itemLink, -- Used for tooltips
+          timeLeft = auction.timeLeft,
+          timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
+          undercut = undercutStatus,
+        })
+        Auctionator.Utilities.SetStacksText(results[#results])
       end
-      table.insert(results, {
-        numStacks = auction.numStacks,
-        stackSize = auction.stackSize,
-        stackPrice = auction.stackPrice,
-        itemString = cleanLink,
-        unitPrice = auction.unitPrice,
-        bidder = auction.bidder or "",
-        bidAmount = auction.bidAmount,
-        itemLink = auction.itemLink, -- Used for tooltips
-        timeLeft = auction.timeLeft,
-        timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
-        undercut = undercutStatus,
-      })
-      Auctionator.Utilities.SetStacksText(results[#results])
+    elseif self:IsSoldAuction(auction) then
+      totalPending = totalPending + auction.stackPrice * auction.numStacks
     end
   end
   self:AppendEntries(results, true)
 
   Auctionator.EventBus:RegisterSource(self, "CancellingDataProvider")
-    :Fire(self, Auctionator.Cancelling.Events.TotalUpdated, total)
+    :Fire(self, Auctionator.Cancelling.Events.TotalUpdated, totalOnSale, totalPending)
     :UnregisterSource(self)
 end
 

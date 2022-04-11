@@ -19,19 +19,28 @@ function AuctionatorCancellingFrameMixin:RefreshButtonClicked()
   self.DataProvider:QueryAuctions()
 end
 
-function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, eventData, ...)
+function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
-    Auctionator.Debug.Message("Executing cancel request", eventData)
+    local auctionID = ...
+    Auctionator.Debug.Message("Executing cancel request", auctionID)
 
-    Auctionator.AH.CancelAuction(eventData)
+    Auctionator.AH.CancelAuction(auctionID)
 
     PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)
 
   elseif eventName == Auctionator.Cancelling.Events.TotalUpdated then
-    self.Total:SetText(
-      AUCTIONATOR_L_TOTAL_ON_SALE:format(
-        Auctionator.Utilities.CreateMoneyString(eventData)
+    local totalOnSale, totalPending = ...
+
+    local text = AUCTIONATOR_L_TOTAL_ON_SALE:format(
+        Auctionator.Utilities.CreateMoneyString(totalOnSale)
       )
-    )
+    if totalPending > 0 then
+      text = text .. " " ..
+      AUCTIONATOR_L_TOTAL_PENDING:format(
+        Auctionator.Utilities.CreateMoneyString(totalPending)
+      )
+    end
+
+    self.Total:SetText(text)
   end
 end

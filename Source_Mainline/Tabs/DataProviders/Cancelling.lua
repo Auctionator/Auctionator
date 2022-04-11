@@ -169,6 +169,12 @@ function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
     tIndexOf(self.beenCancelled, auctionInfo.auctionID) == nil
 end
 
+function AuctionatorCancellingDataProviderMixin:IsSoldAuction(auctionInfo)
+  return
+    auctionInfo.itemKey.itemID ~= Auctionator.Constants.WOW_TOKEN_ID and
+    auctionInfo.status == 1
+end
+
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
   local searchString = self:GetParent().SearchFilter:GetText()
   if searchString ~= "" then
@@ -183,34 +189,39 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
   self:Reset()
 
   local results = {}
-  local total = 0
+  local totalOnSale = 0
+  local totalPending = 0
 
   for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
     local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
 
-    --Only look at unsold and uncancelled (yet) auctions
-    if self:IsValidAuction(info) and self:FilterAuction(info) then
-      local price = info.buyoutAmount or info.bidAmount
-      total = total + price * info.quantity
-      table.insert(results, {
-        id = info.auctionID,
-        quantity = info.quantity,
-        price = price,
-        bidPrice = info.bidAmount,
-        bidder = info.bidder,
-        itemKey = info.itemKey,
-        itemLink = info.itemLink, -- Used for tooltips
-        timeLeft = info.timeLeftSeconds,
-        timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(info.timeLeftSeconds),
-        cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
-        undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN
-      })
+    local price = info.buyoutAmount or info.bidAmount
+    --Only display unsold and uncancelled (yet) auctions
+    if self:IsValidAuction(info) then
+      totalOnSale = totalOnSale + price * info.quantity
+      if self:FilterAuction(info) then
+        table.insert(results, {
+          id = info.auctionID,
+          quantity = info.quantity,
+          price = price,
+          bidPrice = info.bidAmount,
+          bidder = info.bidder,
+          itemKey = info.itemKey,
+          itemLink = info.itemLink, -- Used for tooltips
+          timeLeft = info.timeLeftSeconds,
+          timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(info.timeLeftSeconds),
+          cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
+          undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN
+        })
+      end
+    elseif self:IsSoldAuction(info) then
+      totalPending = totalPending + price * info.quantity
     end
   end
   self:AppendEntries(results, true)
 
   Auctionator.EventBus:RegisterSource(self, "CancellingDataProvider")
-    :Fire(self, Auctionator.Cancelling.Events.TotalUpdated, total)
+    :Fire(self, Auctionator.Cancelling.Events.TotalUpdated, totalOnSale, totalPending)
     :UnregisterSource(self)
 end
 
