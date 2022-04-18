@@ -24,6 +24,8 @@ local SLASH_COMMANDS = {
   ["c"] = Auctionator.SlashCmd.Config,
   ["v"] = Auctionator.SlashCmd.Version,
   ["version"] = Auctionator.SlashCmd.Version,
+  ["nopricedb"] = Auctionator.SlashCmd.NoPriceDB,
+  ["npd"] = Auctionator.SlashCmd.NoPriceDB,
   ["h"] = Auctionator.SlashCmd.Help,
   ["help"] = Auctionator.SlashCmd.Help,
 }

@@ -1,5 +1,6 @@
 Auctionator.Config.Options = {
   DEBUG = "debug",
+  NO_PRICE_DATABASE = "no_price_database",
   MAILBOX_TOOLTIPS = "mailbox_tooltips",
   VENDOR_TOOLTIPS = "vendor_tooltips",
   AUCTION_TOOLTIPS = "auction_tooltips",
@@ -63,6 +64,7 @@ Auctionator.Config.Shortcuts = {
 
 Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.DEBUG] = false,
+  [Auctionator.Config.Options.NO_PRICE_DATABASE] = false,
   [Auctionator.Config.Options.MAILBOX_TOOLTIPS] = true,
   [Auctionator.Config.Options.VENDOR_TOOLTIPS] = true,
   [Auctionator.Config.Options.AUCTION_TOOLTIPS] = true,

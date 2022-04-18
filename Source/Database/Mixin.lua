@@ -4,6 +4,10 @@ function Auctionator.DatabaseMixin:Init(db)
 end
 
 function Auctionator.DatabaseMixin:SetPrice(dbKey, newMinPrice, available)
+  if Auctionator.Config.Get(Auctionator.Config.Options.NO_PRICE_DATABASE) then
+    return
+  end
+
   if not self.db[dbKey] then
     self.db[dbKey] = {
       l={}, -- Lowest low price on a given day
