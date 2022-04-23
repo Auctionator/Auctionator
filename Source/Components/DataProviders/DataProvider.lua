@@ -52,6 +52,15 @@ function AuctionatorDataProviderMixin:SetPresetSort(fieldName, sortDirection)
   self.presetSort.direction = sortDirection
 end
 
+-- Uses sortingIndex to restore original order before sorting
+function AuctionatorDataProviderMixin:ClearSort()
+  self:SetPresetSort(nil, nil)
+  table.sort(self.results, function(left, right)
+    return left.sortingIndex < right.sortingIndex
+  end)
+end
+
+
 -- Derive: This defines the Results Listing table layout
 -- The table layout should be an array of table layout column entries consisting of:
 --   1. REQUIRED headerTemplate - String

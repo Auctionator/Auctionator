@@ -141,6 +141,11 @@ function AuctionatorResultsListingMixin:InitializeTable()
         self.dataProvider:SetPresetSort(sortKey, sortDirection)
         self.dataProvider:Sort(sortKey, sortDirection)
       end,
+      function()
+        self:ClearColumnSorts()
+
+        self.dataProvider:ClearSort()
+      end,
       unpack((columnEntry.headerParameters or {}))
     )
     column:SetCellPadding(-5, 5)

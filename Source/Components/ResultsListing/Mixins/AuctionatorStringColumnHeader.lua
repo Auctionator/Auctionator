@@ -1,9 +1,10 @@
 AuctionatorStringColumnHeaderTemplateMixin = CreateFromMixins(AuctionatorRetailImportTableBuilderElementMixin)
 
-function AuctionatorStringColumnHeaderTemplateMixin:Init(name, customiseFunction, sortFunction, sortKey, tooltipText)
+function AuctionatorStringColumnHeaderTemplateMixin:Init(name, customiseFunction, sortFunction, clearSortFunction, sortKey, tooltipText)
   self.tooltipText = tooltipText
   self.sortKey = sortKey
   self.customiseFunction = customiseFunction
+  self.clearSortFunction = clearSortFunction
   self.sortFunction = sortFunction
   self.sortDirection = nil
 
@@ -35,7 +36,11 @@ end
 -- Implementing mouse events for sorting
 function AuctionatorStringColumnHeaderTemplateMixin:OnClick(button, ...)
   if button == "LeftButton" then
-    self:DoSort()
+    if IsShiftKeyDown() then
+      self.clearSortFunction()
+    else
+      self:DoSort()
+    end
   end
 end
 
