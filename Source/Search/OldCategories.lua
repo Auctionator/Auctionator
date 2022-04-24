@@ -130,7 +130,5 @@ function Auctionator.Search.GetItemClassOldCategories(categoryKey)
   local lookup = OldCategoryLookup[categoryKey]
   if lookup ~= nil then
     return lookup.category
-  else
-    return {}
   end
 end
