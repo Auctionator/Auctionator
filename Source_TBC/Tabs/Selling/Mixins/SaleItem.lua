@@ -24,7 +24,7 @@ local function GetAmountWithUndercut(amount)
     undercutAmount = math.ceil(amount * Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_PERCENTAGE) / 100)
   end
 
-  return math.max(1, amount - undercutAmount)
+  return math.max(0, amount - undercutAmount)
 end
 
 
