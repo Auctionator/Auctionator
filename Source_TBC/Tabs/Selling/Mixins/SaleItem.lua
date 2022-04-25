@@ -21,10 +21,10 @@ local function GetUndercutFor(amount)
   if salesPreference == Auctionator.Config.SalesTypes.STATIC then
     undercutAmount = Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_STATIC_VALUE)
   else
-    undercutAmount = Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_PERCENTAGE) / 100
+    undercutAmount = math.ceil(amount * Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_PERCENTAGE) / 100)
   end
 
-  return math.max(0, amount - undercutAmount)
+  return math.max(1, amount - undercutAmount)
 end
 
 
