@@ -15,7 +15,7 @@ local function IsValidItem(item)
     C_Item.DoesItemExist(item.location)
 end
 
-local function GetUndercutFor(amount)
+local function GetAmountWithUndercut(amount)
   local salesPreference = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE)
   local undercutAmount = 0
   if salesPreference == Auctionator.Config.SalesTypes.STATIC then
@@ -288,9 +288,9 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
          self.itemInfo ~= nil then
     local info = ...
     if info ~= nil then
-      self:UpdateMinPrice(info.unitPrice)
+      self:UpdateForHistoryPrice(info.unitPrice)
       if not info.isOwned then
-        self:SetUnitPrice(GetUndercutFor(info.unitPrice))
+        self:SetUnitPrice(GetAmountWithUndercut(info.unitPrice))
       else
         self:SetUnitPrice(info.unitPrice)
       end
@@ -313,7 +313,6 @@ function AuctionatorSaleItemMixin:Update()
 
   self:UpdatePostButtonState()
   self:UpdateSkipButtonState()
-
 end
 
 function AuctionatorSaleItemMixin:UpdateVisuals()
@@ -348,7 +347,7 @@ function AuctionatorSaleItemMixin:SetItemName()
   end
 end
 
-function AuctionatorSaleItemMixin:UpdateMinPrice(newPrice)
+function AuctionatorSaleItemMixin:UpdateForHistoryPrice(newPrice)
   if self.minPriceSeen == 0 then
     self.minPriceSeen = newPrice
   else
@@ -583,10 +582,9 @@ function AuctionatorSaleItemMixin:PostItem()
   -- listed. Update the database to include this price.
   if self.minPriceSeen == 0 or self.minPriceSeen > self.UnitPrice:GetAmount() then
     local minPrice = self.UnitPrice:GetAmount()
-    local count = stackSize * numStacks
     Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
       for _, key in ipairs(dbKeys) do
-        Auctionator.Database:SetPrice(key, minPrice, count)
+        Auctionator.Database:SetPrice(key, minPrice)
       end
     end)
   end
