@@ -10,5 +10,6 @@ end
 function AuctionatorConfigShoppingAltFrameMixin:Save()
   AuctionatorConfigShoppingFrameMixin.Save(self)
 
+  Auctionator.Config.Set(Auctionator.Config.Options.SHOPPING_SHOW_ALL_RESULTS, self.FullRefresh:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED, self.ExcludeResultsForSpeed:GetChecked())
 end
