@@ -215,7 +215,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
         })
       end
     elseif self:IsSoldAuction(info) then
-      totalPending = totalPending + price * info.quantity
+      totalPending = totalPending + price
     end
   end
   self:AppendEntries(results, true)
