@@ -3,6 +3,10 @@ local function SearchItem(text)
     return false
   end
 
+  C_Timer.After(0, function()
+    StackSplitFrame:Hide()
+  end)
+
   local name = Auctionator.Utilities.GetNameFromLink(text)
 
   if name == nil then
