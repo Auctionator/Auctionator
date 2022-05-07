@@ -155,7 +155,7 @@ hooksecurefunc (GameTooltip, "SetQuestLogItem",
   function (tip, type, index)
     local itemLink = GetQuestLogItemLink(type, index)
 
-    local itemCount;
+    local itemCount, _;
     if type == "choice" then
       _, _, itemCount = GetQuestLogChoiceInfo(index);
     else
@@ -206,7 +206,7 @@ hooksecurefunc("InboxFrameItem_OnEnter",
 
     if tooltipEnabled and itemCount and itemCount > 1 then
       local itemEntries = {}
-      local name, itemCount, itemLink
+      local name, itemCount, itemLink, _
 
       for attachmentIndex = 1, ATTACHMENTS_MAX_RECEIVE do
         name, _, _, itemCount = GetInboxItem(self.index, attachmentIndex)
