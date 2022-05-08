@@ -188,7 +188,7 @@ end
 function Auctionator.Search.PrettifySearchString(searchString)
   local splitSearch = Auctionator.Search.SplitAdvancedSearch(searchString)
 
-  result = WrapExactSearch(splitSearch)
+  local result = WrapExactSearch(splitSearch)
     .. " ["
     .. CategoryKey(splitSearch)
     .. PriceRange(splitSearch)

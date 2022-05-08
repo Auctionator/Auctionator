@@ -54,8 +54,8 @@ function AuctionatorShoppingListDropdownMixin:SetUpEvents()
 end
 
 function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
+  local listEntry
   if level == 1 then
-    local listEntry
 
     -- Add entry to create a new shopping list
     listEntry = UIDropDownMenu_CreateInfo()
