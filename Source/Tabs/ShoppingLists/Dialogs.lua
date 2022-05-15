@@ -4,14 +4,11 @@ local function InitializeCreateDialog()
 
     Auctionator.ShoppingLists.Create(listName)
 
-    Auctionator.EventBus
-      :RegisterSource(self, "ShoppingLists.CreateDialog")
-      :Fire(
-        self,
-        Auctionator.ShoppingLists.Events.ListCreated,
-        Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
-      )
-      :UnregisterSource(self)
+    Auctionator.EventBus:Fire(
+      self,
+      Auctionator.ShoppingLists.Events.ListCreated,
+      Auctionator.ShoppingLists.Lists[Auctionator.ShoppingLists.ListIndex(listName)]
+    )
   end
 
   StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList] = {
@@ -47,12 +44,7 @@ local function InitializeDeleteDialog()
   local function DeleteList(self, listName)
     Auctionator.ShoppingLists.Delete(listName)
 
-    Auctionator.EventBus
-      :RegisterSource(self, "ShoppingLists.DeleteDialog")
-      :Fire(
-        self, Auctionator.ShoppingLists.Events.ListDeleted, listName
-      )
-      :UnregisterSource(self)
+    Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListDeleted, listName)
   end
 
   StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList] = {
@@ -91,12 +83,7 @@ local function InitializeRenameDialog()
       Auctionator.ShoppingLists.MakePermanent(newListName)
     end
 
-    Auctionator.EventBus
-      :RegisterSource(self, "ShoppingLists.RenameDialog")
-      :Fire(
-        self, Auctionator.ShoppingLists.Events.ListRenamed, currentList
-      )
-      :UnregisterSource(self)
+    Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListRenamed, currentList)
   end
 
   StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
