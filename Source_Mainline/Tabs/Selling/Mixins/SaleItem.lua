@@ -415,7 +415,7 @@ end
 
 function AuctionatorSaleItemMixin:GetCommodityThreshold(itemID)
   local amount = 0
-  local target = math.floor(C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) / 2)
+  local target = math.min(500, math.floor(C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) / 2))
   for index = 1, C_AuctionHouse.GetNumCommoditySearchResults(itemID) do
     local result = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
 
