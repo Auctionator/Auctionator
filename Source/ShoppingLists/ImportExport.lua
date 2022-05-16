@@ -122,6 +122,9 @@ function Auctionator.ShoppingLists.TSMImportFromString(importString)
       items[index] = GetItemInfo(id)
       if itemType == "p" or items[index] == nil then
         items[index] = C_PetJournal.GetPetInfoBySpeciesID(id)
+        if type(items[index]) ~= "string" then
+          items[index] = nil
+        end
       end
 
       if items[index] == nil then
