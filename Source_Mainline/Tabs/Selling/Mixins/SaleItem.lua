@@ -33,6 +33,26 @@ local function IsValidItem(item)
     C_Item.DoesItemExist(item.location)
 end
 
+local ConfirmPostEvent = "SELLING_CONFIRM_POST"
+local ConfirmPostDialogName = "AUCTIONATOR_SELLING_CONFIRM_POST"
+StaticPopupDialogs[ConfirmPostDialogName] = {
+  text = "",
+  button1 = ACCEPT,
+  button2 = CANCEL,
+  OnShow = function(self)
+    Auctionator.EventBus:RegisterSource(self, "Selling Confirm Post Low Price Dialog")
+  end,
+  OnHide = function(self)
+    Auctionator.EventBus:UnregisterSource(self)
+  end,
+  OnAccept = function(self)
+    Auctionator.EventBus:Fire(self, ConfirmPostEvent)
+  end,
+  timeout = 0,
+  exclusive = 1,
+  whileDead = 1,
+  hideOnEscape = 1
+}
 
 AuctionatorSaleItemMixin = {}
 
@@ -46,6 +66,7 @@ function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
+    ConfirmPostEvent,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
     Auctionator.Selling.Events.RefreshSearch,
@@ -173,6 +194,9 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
 
   elseif event == Auctionator.Selling.Events.RequestPost then
     self:PostItem()
+
+  elseif event == ConfirmPostEvent then
+    self:PostItem(true)
 
   elseif event == Auctionator.Components.Events.EnterPressed then
     self:PostItem()
@@ -381,12 +405,28 @@ function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
 
 end
 
-function AuctionatorSaleItemMixin:GetCommodityResult(itemId)
-  if C_AuctionHouse.GetCommoditySearchResultsQuantity(itemId) > 0 then
-    return C_AuctionHouse.GetCommoditySearchResultInfo(itemId, 1)
+function AuctionatorSaleItemMixin:GetCommodityResult(itemID)
+  if C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) > 0 then
+    return C_AuctionHouse.GetCommoditySearchResultInfo(itemID, 1)
   else
     return nil
   end
+end
+
+function AuctionatorSaleItemMixin:GetCommodityThreshold(itemID)
+  local amount = 0
+  local target = math.floor(C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) / 2)
+  for index = 1, C_AuctionHouse.GetNumCommoditySearchResults(itemID) do
+    local result = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
+
+    amount = amount + result.quantity
+
+    if amount >= target then
+      return result.unitPrice * Auctionator.Constants.PreventPostingThreshold
+    end
+  end
+
+  return nil
 end
 
 function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
@@ -401,6 +441,8 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
       Auctionator.Database:SetPrice(key, result.unitPrice)
     end
   end
+
+  self.priceThreshold = self:GetCommodityThreshold(itemID)
 
   -- A few cases to process here:
   -- 1. If the entry containsOwnerItem=true, I should use this price as my
@@ -451,6 +493,8 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
       Auctionator.Database:SetPrice(key, result.buyoutAmount or result.bidAmount)
     end
   end
+
+  self.priceThreshold = nil
 
   local postingPrice = nil
 
@@ -503,6 +547,13 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     Auctionator.AH.IsNotThrottled()
 end
 
+function AuctionatorSaleItemMixin:RequiresConfirmationState()
+  return
+    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE) and
+    self.priceThreshold ~= nil and
+    self.priceThreshold >= self.Price:GetAmount()
+end
+
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
   if self:GetPostButtonState() then
     self.PostButton:Enable()
@@ -525,8 +576,13 @@ function AuctionatorSaleItemMixin:GetDuration()
   return AUCTION_DURATIONS[self.Duration:GetValue()]
 end
 
-function AuctionatorSaleItemMixin:PostItem()
-  if not self:GetPostButtonState() then
+function AuctionatorSaleItemMixin:PostItem(confirmed)
+  if not confirmed and self:RequiresConfirmationState() then
+    StaticPopupDialogs[ConfirmPostDialogName].text
+      = AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(Auctionator.Utilities.CreateMoneyString(self.Price:GetAmount()))
+    StaticPopup_Show(ConfirmPostDialogName)
+    return
+  elseif not self:GetPostButtonState() then
     Auctionator.Debug.Message("Trying to post when we can't. Returning")
     return
   end

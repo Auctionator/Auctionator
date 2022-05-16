@@ -26,3 +26,4 @@ Auctionator.Constants.QualityIDs = {
   Enum.ItemQuality.Legendary,
   Enum.ItemQuality.Artifact,
 }
+Auctionator.Constants.PreventPostingThreshold = 0.3
