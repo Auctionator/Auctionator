@@ -47,10 +47,8 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     local bindType = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE]
     cannotAuction = bindType == LE_ITEM_BIND_ON_ACQUIRE or bindType == LE_ITEM_BIND_QUEST;
     local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
-    local isReagent = itemInfo[Auctionator.Constants.ITEM_INFO.REAGENT]
-    local isArtifact = itemInfo[Auctionator.Constants.ITEM_INFO.RARITY] == Enum.ItemQuality.Artifact
-    local isLegendary = itemInfo[Auctionator.Constants.ITEM_INFO.RARITY] == Enum.ItemQuality.Legendary
-    if sellPrice ~= nil and not isArtifact and (isReagent or not isLegendary) then
+
+    if Auctionator.Utilities.IsVendorable(itemInfo) then
       vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
     end
 

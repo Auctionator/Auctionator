@@ -372,7 +372,7 @@ function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
   local item = Item:CreateFromItemLink(itemLink)
   item:ContinueOnItemLoad(function()
     local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
-    local vendorPrice = select(11, GetItemInfo(itemLink))
+    local vendorPrice = select(Auctionator.Constants.ITEM_INFO.SELL_PRICE, GetItemInfo(itemLink))
     if multiplier ~= 0 and vendorPrice ~= 0 then
       -- Check for a vendor price multiplier being set (and a vendor price)
       self:UpdateSalesPrice(
@@ -549,11 +549,24 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     Auctionator.AH.IsNotThrottled()
 end
 
+function AuctionatorSaleItemMixin:GetConfirmationMessage()
+  if self.priceThreshold ~= nil and self.priceThreshold >= self.Price:GetAmount() then
+    return AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(Auctionator.Utilities.CreateMoneyString(self.Price:GetAmount()))
+  end
+
+  local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
+  local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
+  if Auctionator.Utilities.IsVendorable(itemInfo) and
+     vendorPrice * self.Quantity:GetNumber() + self:GetDeposit()
+       > math.floor(self.Price:GetAmount() * self.Quantity:GetNumber() * 0.95) then
+    return AUCTIONATOR_L_CONFIRM_POST_BELOW_VENDOR
+  end
+end
+
 function AuctionatorSaleItemMixin:RequiresConfirmationState()
   return
     Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE) and
-    self.priceThreshold ~= nil and
-    self.priceThreshold >= self.Price:GetAmount()
+    self:GetConfirmationMessage() ~= nil
 end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
@@ -579,13 +592,12 @@ function AuctionatorSaleItemMixin:GetDuration()
 end
 
 function AuctionatorSaleItemMixin:PostItem(confirmed)
-  if not confirmed and self:RequiresConfirmationState() then
-    StaticPopupDialogs[ConfirmPostDialogName].text
-      = AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(Auctionator.Utilities.CreateMoneyString(self.Price:GetAmount()))
-    StaticPopup_Show(ConfirmPostDialogName)
-    return
-  elseif not self:GetPostButtonState() then
+  if not self:GetPostButtonState() then
     Auctionator.Debug.Message("Trying to post when we can't. Returning")
+    return
+  elseif not confirmed and self:RequiresConfirmationState() then
+    StaticPopupDialogs[ConfirmPostDialogName].text = self:GetConfirmationMessage()
+    StaticPopup_Show(ConfirmPostDialogName)
     return
   end
 
