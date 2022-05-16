@@ -415,14 +415,16 @@ end
 
 function AuctionatorSaleItemMixin:GetCommodityThreshold(itemID)
   local amount = 0
-  local target = math.min(500, math.floor(C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) / 2))
+  local target = math.min(500, math.floor(C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) * 0.5))
   for index = 1, C_AuctionHouse.GetNumCommoditySearchResults(itemID) do
     local result = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
 
     amount = amount + result.quantity
 
     if amount >= target then
-      return result.unitPrice * Auctionator.Constants.PreventPostingThreshold
+      local multiplier = 0.3 + 0.4 * math.min(1, 10000 / result.unitPrice)
+
+      return result.unitPrice * multiplier
     end
   end
 
