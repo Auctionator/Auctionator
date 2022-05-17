@@ -24,6 +24,7 @@ Auctionator.Config.Options = {
   SELLING_POST_SHORTCUT = "selling_post_shortcut",
   SELLING_SKIP_SHORTCUT = "selling_skip_shortcut",
   SHOW_SELLING_BID_PRICE = "show_selling_bid_price",
+  SELLING_CONFIRM_LOW_PRICE = "selling_confirm_low_price",
 
   GEAR_PRICE_MULTIPLIER = "gear_vendor_price_multiplier",
 
@@ -85,6 +86,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.SELLING_POST_SHORTCUT] = "SPACE",
   [Auctionator.Config.Options.SELLING_SKIP_SHORTCUT] = "SHIFT-SPACE",
   [Auctionator.Config.Options.SHOW_SELLING_BID_PRICE] = false,
+  [Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE] = true,
 
   [Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER] = 0,
 

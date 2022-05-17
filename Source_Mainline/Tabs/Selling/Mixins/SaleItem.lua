@@ -33,27 +33,6 @@ local function IsValidItem(item)
     C_Item.DoesItemExist(item.location)
 end
 
-local ConfirmPostEvent = "SELLING_CONFIRM_POST"
-local ConfirmPostDialogName = "AUCTIONATOR_SELLING_CONFIRM_POST"
-StaticPopupDialogs[ConfirmPostDialogName] = {
-  text = "",
-  button1 = ACCEPT,
-  button2 = CANCEL,
-  OnShow = function(self)
-    Auctionator.EventBus:RegisterSource(self, "Selling Confirm Post Low Price Dialog")
-  end,
-  OnHide = function(self)
-    Auctionator.EventBus:UnregisterSource(self)
-  end,
-  OnAccept = function(self)
-    Auctionator.EventBus:Fire(self, ConfirmPostEvent)
-  end,
-  timeout = 0,
-  exclusive = 1,
-  whileDead = 1,
-  hideOnEscape = 1
-}
-
 AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnLoad()
@@ -66,7 +45,7 @@ function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
-    ConfirmPostEvent,
+    Auctionator.Selling.Events.ConfirmPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
     Auctionator.Selling.Events.RefreshSearch,
@@ -86,6 +65,7 @@ function AuctionatorSaleItemMixin:OnHide()
   Auctionator.EventBus:Unregister(self, {
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
+    Auctionator.Selling.Events.ConfirmPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
     Auctionator.Selling.Events.RefreshSearch,
@@ -195,7 +175,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   elseif event == Auctionator.Selling.Events.RequestPost then
     self:PostItem()
 
-  elseif event == ConfirmPostEvent then
+  elseif event == Auctionator.Selling.Events.ConfirmPost then
     self:PostItem(true)
 
   elseif event == Auctionator.Components.Events.EnterPressed then
@@ -604,8 +584,8 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     Auctionator.Debug.Message("Trying to post when we can't. Returning")
     return
   elseif not confirmed and self:RequiresConfirmationState() then
-    StaticPopupDialogs[ConfirmPostDialogName].text = self:GetConfirmationMessage()
-    StaticPopup_Show(ConfirmPostDialogName)
+    StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmPost].text = self:GetConfirmationMessage()
+    StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmPost)
     return
   end
 

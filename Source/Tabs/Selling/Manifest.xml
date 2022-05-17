@@ -1,5 +1,7 @@
 <!-- Tabs\Selling directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Dialogs.lua" />
+
   <Include file="Mixins\Manifest.xml" />
   <Include file="Frames\Manifest.xml" />
 </Ui>

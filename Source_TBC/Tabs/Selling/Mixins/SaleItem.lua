@@ -57,6 +57,7 @@ function AuctionatorSaleItemMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
+    Auctionator.Selling.Events.ConfirmPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.Buying.Events.HistoricalPrice,
@@ -75,6 +76,7 @@ function AuctionatorSaleItemMixin:OnHide()
   Auctionator.EventBus:Unregister(self, {
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
+    Auctionator.Selling.Events.ConfirmPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.Buying.Events.HistoricalPrice,
@@ -280,6 +282,9 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
 
   elseif event == Auctionator.Selling.Events.RequestPost then
     self:PostItem()
+
+  elseif event == Auctionator.Selling.Events.ConfirmPost then
+    self:PostItem(true)
 
   elseif event == Auctionator.Components.Events.EnterPressed then
     self:PostItem()
@@ -511,6 +516,24 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     Auctionator.AH.IsNotThrottled()
 end
 
+function AuctionatorSaleItemMixin:GetConfirmationMessage()
+  -- Determine if the item is worth more to sell to a vendor than to post on the
+  -- AH.
+  local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
+  local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
+  if Auctionator.Utilities.IsVendorable(itemInfo) and
+     vendorPrice * self:GetStackSize() * self:GetNumStacks() + self:GetDeposit()
+       > math.floor(self.StackPrice:GetAmount() * self:GetNumStacks() * Auctionator.Constants.AfterAHCut) then
+    return AUCTIONATOR_L_CONFIRM_POST_BELOW_VENDOR
+  end
+end
+
+function AuctionatorSaleItemMixin:RequiresConfirmationState()
+  return
+    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE) and
+    self:GetConfirmationMessage() ~= nil
+end
+
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
   if self:GetPostButtonState() then
     self.PostButton:Enable()
@@ -533,9 +556,13 @@ function AuctionatorSaleItemMixin:GetDuration()
   return AUCTION_DURATIONS[self.Duration:GetValue()]
 end
 
-function AuctionatorSaleItemMixin:PostItem()
+function AuctionatorSaleItemMixin:PostItem(confirmed)
   if not self:GetPostButtonState() then
     Auctionator.Debug.Message("Trying to post when we can't. Returning")
+    return
+  elseif not confirmed and self:RequiresConfirmationState() then
+    StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmPost].text = self:GetConfirmationMessage()
+    StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmPost)
     return
   end
 

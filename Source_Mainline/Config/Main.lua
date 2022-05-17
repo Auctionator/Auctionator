@@ -5,7 +5,6 @@ Auctionator.Config.Options.AUTOSCAN_INTERVAL = "autoscan_interval"
 Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY = "show_selling_price_history"
 Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT = "selling_cancel_shortcut"
 Auctionator.Config.Options.SELLING_BUY_SHORTCUT = "selling_buy_shortcut"
-Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE = "selling_confirm_low_price"
 
 Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration"
 Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference"
@@ -29,7 +28,6 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] =
 Auctionator.Config.Defaults[Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT] = Auctionator.Config.Shortcuts.RIGHT_CLICK
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_BUY_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_RIGHT_CLICK
-Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE] = true
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48
 Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE
