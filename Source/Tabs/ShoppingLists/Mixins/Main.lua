@@ -15,8 +15,6 @@ local CopyIntoList = Auctionator.ShoppingLists.Events.CopyIntoList
 function AuctionatorShoppingListTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingListTabMixin:OnLoad()")
 
-  Auctionator.ShoppingLists.InitializeDialogs()
-
   self:SetUpEvents()
   self:SetUpItemDialog()
   self:SetUpExportDialog()
