@@ -1,0 +1,5 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Constants\Manifest.xml"/>
+
+  <Include file="Initialize\Manifest.xml"/>
+</Ui>
