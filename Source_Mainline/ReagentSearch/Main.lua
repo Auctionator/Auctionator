@@ -63,5 +63,5 @@ function Auctionator.ReagentSearch.GetAHProfit()
   end
   local toCraft = Auctionator.ReagentSearch.GetSkillReagentsTotal()
 
-  return math.floor(math.floor(currentAH * count * 0.95 - toCraft) / 100) * 100
+  return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
 end

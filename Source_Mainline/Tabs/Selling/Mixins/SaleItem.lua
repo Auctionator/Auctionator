@@ -558,7 +558,7 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
   local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
   if Auctionator.Utilities.IsVendorable(itemInfo) and
      vendorPrice * self.Quantity:GetNumber() + self:GetDeposit()
-       > math.floor(self.Price:GetAmount() * self.Quantity:GetNumber() * 0.95) then
+       > math.floor(self.Price:GetAmount() * self.Quantity:GetNumber() * Auctionator.Constants.AfterAHCut) then
     return AUCTIONATOR_L_CONFIRM_POST_BELOW_VENDOR
   end
 end

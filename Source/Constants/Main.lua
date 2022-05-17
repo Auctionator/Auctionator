@@ -48,4 +48,6 @@ Auctionator.Constants = {
     Medium = 24,
     Long = 48,
   },
+
+  AfterAHCut = 0.95,
 }
