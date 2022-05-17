@@ -413,8 +413,11 @@ function AuctionatorSaleItemMixin:GetCommodityResult(itemID)
   end
 end
 
+-- Identifies when an auction is skewing the current price down and is probably
+-- not meant to be so low.
 function AuctionatorSaleItemMixin:GetCommodityThreshold(itemID)
   local amount = 0
+  -- Scan half the auctions, of the first 500, whichever is fewer
   local target = math.min(500, math.floor(C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) * 0.5))
   for index = 1, C_AuctionHouse.GetNumCommoditySearchResults(itemID) do
     local result = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
@@ -422,6 +425,8 @@ function AuctionatorSaleItemMixin:GetCommodityThreshold(itemID)
     amount = amount + result.quantity
 
     if amount >= target then
+      -- Scale the % of the price that counts as too little from 70% at 1g and
+      -- down to 30% at higher prices
       local multiplier = 0.3 + 0.4 * math.min(1, 10000 / result.unitPrice)
 
       return result.unitPrice * multiplier
@@ -550,10 +555,13 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
 end
 
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
+  -- Check if the item was underpriced compared to the currently on sale items
   if self.priceThreshold ~= nil and self.priceThreshold >= self.Price:GetAmount() then
     return AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(Auctionator.Utilities.CreateMoneyString(self.Price:GetAmount()))
   end
 
+  -- Determine if the item is worth more to sell to a vendor than to post on the
+  -- AH.
   local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
   local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
   if Auctionator.Utilities.IsVendorable(itemInfo) and
