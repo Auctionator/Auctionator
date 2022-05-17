@@ -17,7 +17,6 @@
   <Include file="Variables\Manifest.xml" />
   <Include file="Database\Manifest.xml"/>
 
-  <Include file="Events\Manifest.xml" />
   <Include file="SlashCmd\Manifest.xml" />
 
   <Include file="ShoppingLists\Manifest.xml" />
@@ -32,4 +31,6 @@
   <Include file="API\Manifest.xml" />
 
   <Include file="SplashScreen\Manifest.xml" />
+
+  <Include file="Initialize\Manifest.xml" />
 </Ui>

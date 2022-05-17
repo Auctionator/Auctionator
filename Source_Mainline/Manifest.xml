@@ -4,7 +4,6 @@
   <Include file="Components\Manifest.xml" />
   <Include file="Variables\Manifest.xml" />
   <Include file="Core\Manifest.xml" />
-  <Include file="Events\Manifest.xml" />
   <Include file="Constants\Manifest.xml" />
   <Include file="IncrementalScan\Manifest.xml"/>
   <Include file="FullScan\Manifest.xml"/>
@@ -17,4 +16,6 @@
   <Include file="Tabs\Manifest.xml" />
 
   <Include file="Config\Manifest.xml"/>
+
+  <Include file="Initialize\Manifest.xml" />
 </Ui>
