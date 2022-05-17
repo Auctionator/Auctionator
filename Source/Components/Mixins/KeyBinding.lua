@@ -84,7 +84,7 @@ function AuctionatorKeyBindingConfigMixin:OnKeyDown(keyOrButton)
   if not IsKeyPressIgnoredForBinding(keyPressed) then
     if CreateKeyChordStringUsingMetaKeyState then
       keyPressed = CreateKeyChordStringUsingMetaKeyState(keyPressed)
-    else --if Auctionator.Constants.IsTBC
+    else --if Auctionator.Constants.IsClassic
       keyPressed = CreateKeyChordString(keyPressed)
     end
     self:SetShortcut(keyPressed)

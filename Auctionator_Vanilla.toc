@@ -12,14 +12,14 @@
 
 Patches\TaintLess.xml
 
-Assets_TBC.xml
+Assets_Classic.xml
 
-Imports_TBC\Manifest.xml
+Imports_Classic\Manifest.xml
 
 Locales\Manifest.xml
 
 Source\Manifest.xml
-Source_TBC\Manifest.xml
+Source_Classic\Manifest.xml
 Source_Vanilla\Constants\Main.lua
 
 Auctionator.xml

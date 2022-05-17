@@ -1,5 +1,5 @@
 -- Add a button to the tradeskill frame to search the AH for the reagents.
--- The button (see Source_[Mainline|TBC]/Mixins/Button.lua) will be hidden when
+-- The button (see Source_[Mainline|Classic]/Mixins/Button.lua) will be hidden when
 -- the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false

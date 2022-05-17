@@ -1,6 +1,6 @@
 Auctionator.Constants.MaxResultsPerPage = 50
 Auctionator.Constants.ITEM_LEVEL_THRESHOLD = 0
-Auctionator.Constants.IsTBC = true
+Auctionator.Constants.IsClassic = true
 
 Auctionator.Constants.AuctionItemInfo = {
   Buyout = 10,

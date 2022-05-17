@@ -10,7 +10,7 @@ function AuctionatorBagClassListingMixin:Init(classID)
 
   self.SectionTitle:SetWidth(self:GetRowWidth())
 
-  if Auctionator.Constants.IsTBC then
+  if Auctionator.Constants.IsClassic then
     self.SectionTitle:GetNormalTexture():SetWidth(self:GetRowWidth() + 8)
     self.SectionTitle:GetFontString():SetPoint("LEFT", 12, 0)
     self.SectionTitle:GetHighlightTexture():SetSize(self:GetRowWidth() + 9, self.SectionTitle:GetHeight())

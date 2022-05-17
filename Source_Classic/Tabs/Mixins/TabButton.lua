@@ -34,12 +34,12 @@ function AuctionatorTabMixin:Selected()
   self.frameRef:Show()
 
   --AuctionHouseFrame:SetTitle(self.ahTitle)
-  AuctionFrameTopLeft:SetTexture("Interface\\AddOns\\Auctionator\\Images_TBC\\topleft");
-  AuctionFrameTop:SetTexture("Interface\\AddOns\\Auctionator\\Images_TBC\\top");
-  AuctionFrameTopRight:SetTexture("Interface\\AddOns\\Auctionator\\Images_TBC\\topright");
-  AuctionFrameBotLeft:SetTexture("Interface\\AddOns\\Auctionator\\Images_TBC\\botleft");
-  AuctionFrameBot:SetTexture("Interface\\AddOns\\Auctionator\\Images_TBC\\bot");
-  AuctionFrameBotRight:SetTexture("Interface\\AddOns\\Auctionator\\Images_TBC\\botright");
+  AuctionFrameTopLeft:SetTexture("Interface\\AddOns\\Auctionator\\Images_Classic\\topleft");
+  AuctionFrameTop:SetTexture("Interface\\AddOns\\Auctionator\\Images_Classic\\top");
+  AuctionFrameTopRight:SetTexture("Interface\\AddOns\\Auctionator\\Images_Classic\\topright");
+  AuctionFrameBotLeft:SetTexture("Interface\\AddOns\\Auctionator\\Images_Classic\\botleft");
+  AuctionFrameBot:SetTexture("Interface\\AddOns\\Auctionator\\Images_Classic\\bot");
+  AuctionFrameBotRight:SetTexture("Interface\\AddOns\\Auctionator\\Images_Classic\\botright");
 end
 
 function AuctionatorTabMixin:DeselectTab()

@@ -10,7 +10,7 @@ function Auctionator.Search.GroupResultsForDB(results)
     doneComplete = true
     Auctionator.Database:ProcessScan(groups)
     Auctionator.EventBus
-      :RegisterSource(Auctionator.Search.GroupResultsForDB, "TBC GroupResultsForDB")
+      :RegisterSource(Auctionator.Search.GroupResultsForDB, "Classic GroupResultsForDB")
       :Fire(Auctionator.Search.GroupResultsForDB, Auctionator.Search.Events.PricesProcessed)
       :UnregisterSource(Auctionator.Search.GroupResultsForDB)
   end

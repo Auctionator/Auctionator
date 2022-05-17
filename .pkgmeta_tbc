@@ -7,6 +7,6 @@ ignore:
   - *Mainline*
   - *Vanilla*
 plain-copy:
-  - Imports_TBC
+  - Imports_Classic
   - Source
-  - Source_TBC
+  - Source_Classic

@@ -1,0 +1,44 @@
+<Ui>
+  <Texture name="Auctionator_AuctionHouseBackgroundIndex" virtual="true" file="Interface\FrameGeneral\UI-Background-Marble"/>
+  <Texture name="Auctionator_AuctionHouseBackgroundSellRight" virtual="true" file="Interface\FrameGeneral\UI-Background-Marble"/>
+
+  <Texture name="Auctionator_UIFrameSimpleMetalCornerTopLeft" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetal">
+    <Size x="64" y="64"/>
+    <TexCoords left="0.0078125" right="0.5078212" top="0.261719" bottom="0.511719"/>
+  </Texture>
+  <Texture name="Auctionator_UIFrameSimpleMetalEdgeTop" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetal">
+    <Size x="64" y="64"/>
+    <TexCoords left="0" right="0.5" top="0.00390625" bottom="0.253906"/>
+  </Texture>
+  <Texture name="Auctionator_UIFrameSimpleMetalCornerTopRightButton" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetal">
+    <Size x="64" y="64"/>
+    <TexCoords left="0.078125" right="0.507812" top="0.519531" bottom="0.769531"/>
+  </Texture>
+  <Texture name="Auctionator_UIFrameSimpleMetalEdgeRight" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetalVertical" vertTile="true">
+    <Size x="64" y="64"/>
+    <TexCoords left="0.0078125" right="0.507812" top="0" bottom="1"/>
+  </Texture>
+
+  <Texture name="Auctionator_UIFrameSimpleMetalCornerTopRight" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetal">
+    <Size x="64" y="64"/>
+    <TexCoords left="0.5078212" right="0.0078125" top="0.261719" bottom="0.511719"/>
+  </Texture>
+  <Texture name="Auctionator_UIFrameSimpleMetalCornerBottomRight" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetal">
+    <Size x="64" y="64"/>
+    <TexCoords left="0.5078212" right="0.0078125" top="0.511719" bottom="0.261719"/>
+  </Texture>
+  <Texture name="Auctionator_UIFrameSimpleMetalCornerBottomLeft" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetal">
+    <Size x="64" y="64"/>
+    <TexCoords left="0.0078125" right="0.5078212" top="0.511719" bottom="0.261719"/>
+  </Texture>
+
+  <Texture name="Auctionator_UIFrameSimpleMetalEdgeLeft" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetalVertical" vertTile="true">
+    <Size x="64" y="64"/>
+    <TexCoords left="0.507812" right="0.0078125" top="0" bottom="1"/>
+  </Texture>
+
+  <Texture name="Auctionator_UIFrameSimpleMetalEdgeBottom" virtual="true" file="Interface\Addons\Auctionator\Images_Classic\UIFrameSimpleMetal">
+    <Size x="64" y="64"/>
+    <TexCoords left="0" right="0.5" top="0.253906" bottom="0.00390625"/>
+  </Texture>
+</Ui>

@@ -1,4 +1,4 @@
-if BattlePetToolTip_Show ~= nil then -- not Auctionator.Constants.IsTBC
+if BattlePetToolTip_Show ~= nil then -- not Auctionator.Constants.IsClassic
   hooksecurefunc (_G, "BattlePetToolTip_Show",
     function(speciesID, ...)
       Auctionator.Tooltip.AddPetTip(speciesID)
@@ -62,7 +62,7 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
   end
 );
 
-if GameTooltip.SetRecipeResultItem and GameTooltip.SetRecipeReagentItem then -- not Auctionator.Constants.IsTBC
+if GameTooltip.SetRecipeResultItem and GameTooltip.SetRecipeReagentItem then -- not Auctionator.Constants.IsClassic
   -- This is called when mousing over the result item on a recipe page in the tradeskill window
   hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
     function(tip, recipeResultItemId)
@@ -100,7 +100,7 @@ else
   );
 end
 
-if GameTooltip.SetCraftItem then -- is Auctionator.Constants.IsTBC
+if GameTooltip.SetCraftItem then -- is Auctionator.Constants.IsClassic
   hooksecurefunc( GameTooltip, 'SetCraftItem',
     function(tip, recipeIndex, reagentIndex)
       local itemLink, itemCount
