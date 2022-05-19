@@ -143,7 +143,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="zhCN">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\zhCN"/>
-          <KeyValue key="translators" type="string" value="sugymaylis, LvWind,枫聖御雷@暗夜之月"/>
+          <KeyValue key="translators" type="string" value="sugymaylis, LvWind, 暗影之月@枫聖御雷"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_SIMPLIFIED_CHINESE" type="global"/>
         </KeyValues>
 			  <Anchors>
