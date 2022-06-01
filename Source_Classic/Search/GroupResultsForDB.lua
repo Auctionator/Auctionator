@@ -16,7 +16,7 @@ function Auctionator.Search.GroupResultsForDB(results)
   end
 
   for _, entry in ipairs(results) do
-    if entry.info[10] ~= 0 then
+    if entry.info[3] ~= 0 and entry.info[10] ~= 0 then
       Auctionator.Utilities.DBKeyFromLink(entry.itemLink, function(keys)
         local unitPrice = math.ceil(entry.info[10] / entry.info[3])
         waiting = waiting - 1

@@ -190,7 +190,9 @@ local function MergeInfo(scanData, dbKeysMapping)
   for index = 1, #scanData do
     local effectivePrice, available = GetInfo(scanData[index].auctionInfo)
 
-    if effectivePrice ~= 0 then
+    -- available > 0 check just in case Blizzard returns 0 available it
+    -- occasionally does on retail and breaking the effectivePrice from GetInfo
+    if available > 0 and effectivePrice ~= 0 then
       for _, dbKey in ipairs(dbKeysMapping[index]) do
         if allInfo[dbKey] == nil then
           allInfo[dbKey] = {}

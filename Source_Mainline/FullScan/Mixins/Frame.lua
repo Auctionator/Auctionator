@@ -184,14 +184,17 @@ local function MergeInfo(scanData, dbKeysMapping)
   for index = 1, #scanData do
     local effectivePrice, available = GetInfo(scanData[index].replicateInfo)
 
-    for _, dbKey in ipairs(dbKeysMapping[index]) do
-      if allInfo[dbKey] == nil then
-        allInfo[dbKey] = {}
-      end
+    -- Checks as apparently it returns 0 available in some cases
+    if available > 0 and effectivePrice ~= 0 then
+      for _, dbKey in ipairs(dbKeysMapping[index]) do
+        if allInfo[dbKey] == nil then
+          allInfo[dbKey] = {}
+        end
 
-      table.insert(allInfo[dbKey],
-        { price = effectivePrice, available = available }
-      )
+        table.insert(allInfo[dbKey],
+          { price = effectivePrice, available = available }
+        )
+      end
     end
   end
 
