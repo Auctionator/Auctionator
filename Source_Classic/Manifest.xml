@@ -10,11 +10,12 @@
   <Include file="Search\Manifest.xml" />
   <Include file="Variables\Manifest.xml" />
   <Include file="Core\Manifest.xml" />
-  <Include file="Events\Manifest.xml" />
   <Include file="Buying\Manifest.xml" />
   <Include file="Tabs\Manifest.xml" />
   <Include file="API\Manifest.xml"/>
   <Include file="FullScan\Manifest.xml"/>
   <Include file="Selling\Manifest.xml"/>
   <Include file="ReagentSearch\Manifest.xml"/>
+
+  <Include file="Initialize\Manifest.xml"/>
 </Ui>

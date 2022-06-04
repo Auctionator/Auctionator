@@ -21,5 +21,3 @@ Locales\Manifest.xml
 Source\Manifest.xml
 Source_Classic\Manifest.xml
 Source_Vanilla\Constants\Main.lua
-
-Auctionator.xml
