@@ -3,6 +3,7 @@ AuctionatorShoppingOneItemSearchButtonMixin = {}
 function AuctionatorShoppingOneItemSearchButtonMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "List One Item Search Button")
 
+  self.searchRunning = false
   DynamicResizeButton_Resize(self)
 
   Auctionator.EventBus:Register(self, {
@@ -15,9 +16,17 @@ function AuctionatorShoppingOneItemSearchButtonMixin:ReceiveEvent(eventName, ...
   Auctionator.Debug.Message("AuctionatorShoppingOneItemSearchButtonMixin:ReceiveEvent " .. eventName, ...)
 
   if eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
-    self:Disable()
+    self.searchRunning = true
+
+    self:SetText(CANCEL)
+    self:SetWidth(0)
+    DynamicResizeButton_Resize(self)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
-    self:Enable()
+    self.searchRunning = false
+
+    self:SetText(SEARCH)
+    self:SetWidth(0)
+    DynamicResizeButton_Resize(self)
   end
 end
 
@@ -42,6 +51,10 @@ function AuctionatorShoppingOneItemSearchButtonMixin:DoSearch(searchText)
 end
 
 function AuctionatorShoppingOneItemSearchButtonMixin:OnClick()
-  self:GetParent().OneItemSearchBox:ClearFocus()
-  self:DoSearch(self:GetParent().OneItemSearchBox:GetText())
+  if not self.searchRunning then
+    self:GetParent().OneItemSearchBox:ClearFocus()
+    self:DoSearch(self:GetParent().OneItemSearchBox:GetText())
+  else
+    Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.CancelSearch)
+  end
 end

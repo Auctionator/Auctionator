@@ -5,6 +5,7 @@ function AuctionatorListSearchButtonMixin:OnLoad()
 
   DynamicResizeButton_Resize(self)
   self.listSelected = false
+  self.searchRunning = false
   self:Disable()
 
   self:SetUpEvents()
@@ -23,7 +24,11 @@ function AuctionatorListSearchButtonMixin:SetUpEvents()
 end
 
 function AuctionatorListSearchButtonMixin:OnClick()
-  Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchRequested)
+  if not self.searchRunning then
+    Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.ListSearchRequested)
+  else
+    Auctionator.EventBus:Fire(self, Auctionator.ShoppingLists.Events.CancelSearch)
+  end
 end
 
 function AuctionatorListSearchButtonMixin:ReceiveEvent(eventName, eventData)
@@ -32,12 +37,28 @@ function AuctionatorListSearchButtonMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.ShoppingLists.Events.ListSelected then
     self.listSelected = true
     self:Enable()
+
   elseif eventName == Auctionator.ShoppingLists.Events.ListCreated then
     self:Enable()
+
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
-    self:Disable()
-  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded and self.listSelected then
-    self:Enable()
+    self.searchRunning = true
+
+    self:SetText(AUCTIONATOR_L_CANCEL_SEARCH)
+    self:SetWidth(0)
+    DynamicResizeButton_Resize(self)
+
+  elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
+    self.searchRunning = false
+
+    self:SetText(AUCTIONATOR_L_SEARCH_ALL)
+    self:SetWidth(0)
+    DynamicResizeButton_Resize(self)
+
+    if self.listSelected then
+      self:Enable()
+    end
+
   elseif eventName == Auctionator.ShoppingLists.Events.ListDeleted then
     self:Disable()
   end

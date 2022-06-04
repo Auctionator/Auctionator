@@ -215,7 +215,7 @@
         parentKey="SortItems"
       >
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ManualSearch" relativePoint="TOPLEFT" y="-28" />
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ManualSearch" relativePoint="TOPRIGHT" y="-28" />
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():SortItemsClicked()</OnClick>

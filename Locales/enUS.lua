@@ -164,6 +164,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["EDIT_ITEM"] = "Edit Item"
   L["SEARCH"] = "Search"
   L["SEARCH_ALL"] = "Search All"
+  L["CANCEL_SEARCH"] = "Cancel Search"
   L["EXPORT"] = "Export"
   L["IMPORT"] = "Import"
   L["SORT"] = "Sort"
