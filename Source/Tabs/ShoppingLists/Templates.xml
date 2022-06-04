@@ -9,7 +9,7 @@
 
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString parentKey="Text" inherits="WhiteNormalNumberFont" justifyH="LEFT" maxLines="1">
+        <FontString parentKey="Text" inherits="GameFontHighlightSmall" justifyH="LEFT" maxLines="1">
           <Anchors>
             <Anchor point="LEFT" x="4" y="0"/>
             <Anchor point="RIGHT" x="-45" y="0"/>
