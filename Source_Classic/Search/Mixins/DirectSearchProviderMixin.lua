@@ -28,6 +28,15 @@ local function GetQuantity(entries)
   return total
 end
 
+local function GetOwned(entries)
+  for _, entry in ipairs(entries) do
+    if entry.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")) then
+      return true
+    end
+  end
+  return false
+end
+
 function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
   Auctionator.Debug.Message("AuctionatorDirectSearchProviderMixin:CreateSearchTerm()", term)
 
@@ -100,6 +109,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
       itemString = key,
       minPrice = GetMinPrice(entries),
       totalQuantity = GetQuantity(entries),
+      containsOwnerItem = GetOwned(entries),
       entries = entries,
     }
     local item = Item:CreateFromItemID(GetItemInfoInstant(key))
