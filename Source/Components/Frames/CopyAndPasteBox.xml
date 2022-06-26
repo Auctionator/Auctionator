@@ -23,7 +23,7 @@
     </Anchors>
     <Frames>
       <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="InputBox" letters="150">
-        <Size x="275" y="20" />
+        <Size x="295" y="20" />
         <Anchors>
           <Anchor point="TOPLEFT" x="20" />
         </Anchors>

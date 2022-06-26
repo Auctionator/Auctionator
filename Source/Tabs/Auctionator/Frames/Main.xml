@@ -76,7 +76,7 @@
       <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="DiscordLink">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_DISCORD" type="global"/>
-          <KeyValue key="copyText" value="https://tinyurl.com/AuctionatorDiscord" type="string"/>
+          <KeyValue key="copyText" value="https://discord.com/invite/xgz75Pp" type="string"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_DISCORD_TOOLTIP_HEADER" type="global" />
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_DISCORD_TOOLTIP_TEXT" type="global" />
         </KeyValues>
@@ -88,7 +88,7 @@
       <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="BugReportLink">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_BUG_REPORT" type="global"/>
-          <KeyValue key="copyText" value="https://tinyurl.com/AuctionatorBug" type="string"/>
+          <KeyValue key="copyText" value="https://github.com/Auctionator/Auctionator/issues" type="string"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_BUG_TOOLTIP_HEADER" type="global"/>
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_BUG_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
@@ -97,24 +97,12 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="TechnicalRoadmap">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_ROADMAP" type="global"/>
-          <KeyValue key="copyText" value="https://tinyurl.com/Auctionator83Release" type="string"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_ROADMAP" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_ROADMAP_TOOLTIP_TEXT" type="global" />
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BugReportLink" relativePoint="BOTTOMLEFT" y="10" />
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="TranslatorsHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_TRANSLATORS_HEADER" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TechnicalRoadmap" relativePoint="BOTTOMLEFT" y="15" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.BugReportLink" relativePoint="BOTTOMLEFT" y="15" />
         </Anchors>
       </Frame>
 
