@@ -9,7 +9,6 @@
 
   <Include file="TemplatedList.xml" />
   <Include file="SecureUIPanelTemplates.xml" />
-  <Include file="Fonts.xml" />
   <Include file="ScrollList.xml" />
   <Include file="MoneyFrame.xml" />
   <Include file="MoneyInputFrame.xml" />

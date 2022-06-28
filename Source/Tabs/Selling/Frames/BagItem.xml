@@ -44,7 +44,7 @@
         </Texture>
       </Layer>
       <Layer>
-        <FontString parentKey="Text" inherits="NumberFont_Outline_Med" justifyH="RIGHT" maxLines="1">
+        <FontString parentKey="Text" inherits="NumberFontNormal" justifyH="RIGHT" maxLines="1">
          <Color a="1" r="1" g="1" b="1" />
           <Size x="0" y="18"/>
           <Anchors>

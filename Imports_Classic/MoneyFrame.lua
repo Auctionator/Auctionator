@@ -65,7 +65,7 @@ function AuctionatorRetailImportMoneyDenominationDisplayMixin:GetFontObject()
 end
 
 function AuctionatorRetailImportMoneyDenominationDisplayMixin:SetFontAndIconDisabled(disabled)
-	self:SetFontObject(disabled and PriceFontGray or PriceFontWhite);
+	self:SetFontObject(disabled and NumberFontNormalGray or NumberFontNormal);
 	self.Icon:SetAlpha(disabled and 0.5 or 1);
 end
 

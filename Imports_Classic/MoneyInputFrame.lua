@@ -243,7 +243,7 @@ end
 AuctionatorRetailImportLargeMoneyInputBoxMixin = {};
 
 function AuctionatorRetailImportLargeMoneyInputBoxMixin:OnLoad()
-	self:SetFontObject("AuctionatorRetailImportPriceFont");
+	self:SetFontObject("ChatFontNormal");
 	
 	if self.iconAtlas then
 		self.Icon:SetAtlas(self.iconAtlas);

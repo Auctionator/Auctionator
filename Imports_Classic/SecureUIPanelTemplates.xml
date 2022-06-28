@@ -31,7 +31,7 @@
 				</Texture>
 			</Layer>
 		</Layers>
-		<FontString inherits="NumberFont_Normal_Med">
+		<FontString inherits="ChatFontNormal">
 			<Anchors>
 				<Anchor point="LEFT" x="6" y="0"/>
 			</Anchors>
