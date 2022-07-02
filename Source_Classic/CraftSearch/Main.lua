@@ -17,9 +17,9 @@ end
 
 function Auctionator.CraftSearch.DoCraftReagentsSearch()
   local craftIndex = GetCraftSelectionIndex()
-  local craftLink =  GetCraftItemLink(craftIndex)
+  local craftInfo =  { GetCraftInfo(craftIndex) }
 
-  local items = {Auctionator.Utilities.GetNameFromLink(craftLink)}
+  local items = {craftInfo[1]}
 
   for reagentIndex = 1, GetCraftNumReagents(craftIndex) do
     local reagentName = GetCraftReagentInfo(craftIndex, reagentIndex)
@@ -32,7 +32,6 @@ end
 
 function Auctionator.CraftSearch.GetCraftReagentsTotal()
   local craftIndex = GetCraftSelectionIndex()
-  local craftLink =  GetCraftItemLink(craftIndex)
 
   local total = 0
 

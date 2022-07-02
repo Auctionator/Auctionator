@@ -1,8 +1,8 @@
 function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
   local recipeIndex = GetTradeSkillSelectionIndex()
-  local recipeLink =  GetTradeSkillItemLink(recipeIndex)
+  local recipeInfo =  { GetTradeSkillInfo(recipeIndex) }
 
-  local items = {Auctionator.Utilities.GetNameFromLink(recipeLink)}
+  local items = {recipeInfo[1]}
 
   for reagentIndex = 1, GetTradeSkillNumReagents(recipeIndex) do
     local reagentName = GetTradeSkillReagentInfo(recipeIndex, reagentIndex)
@@ -15,7 +15,6 @@ end
 
 function Auctionator.ReagentSearch.GetSkillReagentsTotal()
   local recipeIndex = GetTradeSkillSelectionIndex()
-  local recipeLink =  GetTradeSkillItemLink(recipeIndex)
 
   local total = 0
 
