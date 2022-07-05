@@ -7,7 +7,7 @@
   >
     <Layers>
       <Layer level="BACKGROUND">
-        <FontString parentKey="text" inherits="Game12Font" setAllPoints="true"/>
+        <FontString parentKey="text" inherits="GameFontHighlight" setAllPoints="true"/>
       </Layer>
     </Layers>
     <Scripts>
