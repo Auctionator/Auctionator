@@ -194,7 +194,9 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
 
         local cleanLink = Auctionator.Search.GetCleanItemLink(auction.itemLink)
         local undercutStatus
-        if self.undercutCutoff[cleanLink] == nil then
+        if auction.bidAmount ~= 0 then
+          undercutStatus = AUCTIONATOR_L_UNDERCUT_BID
+        elseif self.undercutCutoff[cleanLink] == nil then
           undercutStatus = AUCTIONATOR_L_UNDERCUT_UNKNOWN
         elseif self.undercutCutoff[cleanLink] < auction.unitPrice then
           undercutStatus = AUCTIONATOR_L_UNDERCUT_YES

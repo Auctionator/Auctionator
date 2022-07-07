@@ -200,7 +200,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
     if self:IsValidAuction(info) then
       totalOnSale = totalOnSale + price * info.quantity
       if self:FilterAuction(info) then
-        table.insert(results, {
+        local entry = {
           id = info.auctionID,
           quantity = info.quantity,
           price = price,
@@ -212,7 +212,12 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
           timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(info.timeLeftSeconds),
           cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
           undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN
-        })
+        }
+        if info.bidder ~= nil then
+          entry.undercut = AUCTIONATOR_L_UNDERCUT_BID
+        end
+
+        table.insert(results, entry)
       end
     elseif self:IsSoldAuction(info) then
       totalPending = totalPending + price

@@ -374,6 +374,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["IS_UNDERCUT"] = "Undercut?"
   L["UNDERCUT_YES"] ="Yes"
   L["UNDERCUT_NO"] = "No"
+  L["UNDERCUT_BID"] = "Bid"
   L["UNDERCUT_UNKNOWN"] = "?"
   L["YOU"] = "You"
 
