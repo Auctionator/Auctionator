@@ -22,7 +22,7 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
   end
 
   -- Case when picking up a key from your keyring, WoW doesn't always give a
-  -- valid item link, causing an error unless we either:
+  -- valid item location for the cursor, causing an error unless we either:
   --  1. Ignore it
   --  2. Replace the location with one that is valid based on a hook on bag
   --  clicks.
