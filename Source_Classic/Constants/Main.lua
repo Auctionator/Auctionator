@@ -25,6 +25,7 @@ Auctionator.Constants.ValidItemClassIDs = {
   Enum.ItemClass.Gem,
   Enum.ItemClass.Miscellaneous,
   Enum.ItemClass.Questitem,
+  Enum.ItemClass.Key,
 }
 -- Note that -2 is the keyring bag, which only exists in classic
 Auctionator.Constants.BagIDs = {-2, 0, 1, 2, 3, 4}
