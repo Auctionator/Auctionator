@@ -1,0 +1,12 @@
+ignore:
+  - README.md
+  - spec
+  - test-data
+  - scripts
+  - docs
+  - *Mainline*
+  - *Vanilla*
+plain-copy:
+  - Imports_Classic
+  - Source
+  - Source_Classic
