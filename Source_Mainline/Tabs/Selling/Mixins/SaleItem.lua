@@ -598,14 +598,25 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
   self.MultisellProgress:SetDetails(self.itemInfo.iconTexture, quantity)
 
   if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
+    local params = nil
     if startingBid ~= 0 then
       bidAmountReported = startingBid
-      C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, startingBid, buyout)
+      params = {self.itemInfo.location, duration, quantity, startingBid, buyout}
     else
-      C_AuctionHouse.PostItem(self.itemInfo.location, duration, quantity, nil, buyout)
+      params = {self.itemInfo.location, duration, quantity, nil, buyout}
+    end
+    -- Accomodate 9.2.7 dialog for when the AH requires confirmation before the
+    -- commodities AH region merge.
+    if C_AuctionHouse.PostItem(unpack(params)) then
+      AuctionHouseFrame.ItemSellFrame:CachePendingPost(unpack(params))
     end
   else
-    C_AuctionHouse.PostCommodity(self.itemInfo.location, duration, quantity, buyout)
+    local params = {self.itemInfo.location, duration, quantity, buyout}
+    -- Accomodate 9.2.7 dialog for when the AH requires confirmation before the
+    -- commodities AH region merge.
+    if C_AuctionHouse.PostCommodity(unpack(params)) then
+      AuctionHouseFrame.CommoditiesSellFrame:CachePendingPost(unpack(params))
+    end
   end
 
   local postedInfo = {
