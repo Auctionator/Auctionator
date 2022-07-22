@@ -8,7 +8,7 @@ function Auctionator.API.v1.GetVendorPriceByItemID(callerID, itemID)
     )
   end
 
-  return AUCTIONATOR_VENDOR_PRICE_CACHE(tostring(itemID))
+  return AUCTIONATOR_VENDOR_PRICE_CACHE[tostring(itemID)]
 end
 
 function Auctionator.API.v1.GetVendorPriceByItemLink(callerID, itemLink)
