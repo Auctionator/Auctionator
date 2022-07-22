@@ -36,9 +36,9 @@ function Auctionator.ReagentSearch.GetSkillReagentsTotal()
     if link ~= nil then
       local unitPrice
 
-      local dbKey = Auctionator.Utilities.BasicDBKeyFromLink(link)
-      if AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey] ~= nil then
-        unitPrice = AUCTIONATOR_VENDOR_PRICE_CACHE[dbKey]
+      local vendorPrice = Auctionator.API.v1.GetVendorPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
+      if vendorPrice ~= nil then
+        unitPrice = vendorPrice
       else
         unitPrice = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
       end
