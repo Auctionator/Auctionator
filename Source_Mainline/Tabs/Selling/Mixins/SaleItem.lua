@@ -149,14 +149,14 @@ function AuctionatorSaleItemMixin:GetDeposit()
       self.itemInfo.itemKey.itemID,
       self:GetDuration(),
       self.Quantity:GetNumber()
-    )
+    ) or deposit
 
   elseif self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
     deposit = C_AuctionHouse.CalculateItemDeposit(
       self.itemInfo.location,
       self:GetDuration(),
       self.Quantity:GetNumber()
-    )
+    ) or deposit
   end
 
   return NormalizePrice(deposit)
