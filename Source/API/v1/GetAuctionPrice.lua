@@ -8,6 +8,10 @@ function Auctionator.API.v1.GetAuctionPriceByItemID(callerID, itemID)
     )
   end
 
+  if Auctionator.Database == nil then
+    return nil
+  end
+
   return Auctionator.Database:GetPrice(tostring(itemID))
 end
 
@@ -19,6 +23,10 @@ function Auctionator.API.v1.GetAuctionPriceByItemLink(callerID, itemLink)
       callerID,
       "Usage Auctionator.API.v1.GetAuctionPriceByItemLink(string, string)"
     )
+  end
+
+  if Auctionator.Database == nil then
+    return nil
   end
 
   local dbKeys = nil
