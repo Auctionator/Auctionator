@@ -125,6 +125,12 @@ function AuctionatorBuyFrameMixin:LoadForCancelling()
   self:UpdateButtons()
 end
 
+function AuctionatorBuyFrameMixin:LoadAllPages()
+  self.SearchDataProvider:SetRequestAllResults(true)
+  self.LoadAllPagesButton:Hide()
+  self.SearchDataProvider:RefreshQuery()
+end
+
 function AuctionatorBuyFrameMixin:ToggleHistory()
   self.HistoryResultsListing:SetShown(not self.HistoryResultsListing:IsShown())
   self.SearchResultsListing:SetShown(not self.SearchResultsListing:IsShown())
@@ -163,6 +169,8 @@ function AuctionatorBuyFrameMixinForShopping:Init()
     Auctionator.Buying.Events.Show,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
   })
+
+  self.LoadAllPagesButton:Hide()
 end
 
 function AuctionatorBuyFrameMixinForShopping:OnShow()
@@ -219,6 +227,7 @@ function AuctionatorBuyFrameMixinForSelling:OnShow()
   self:Reset()
   self.RefreshButton:Disable()
   self.HistoryButton:Disable()
+  self.LoadAllPagesButton:Hide()
 end
 
 function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, ...)
@@ -227,7 +236,8 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
 
     self.HistoryDataProvider:SetItemLink(eventData.itemLink)
     self.SearchDataProvider:SetQuery(eventData.itemLink)
-    self.SearchDataProvider:SetRequestAllResults(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHOW_ALL_RESULTS))
+    self.SearchDataProvider:SetRequestAllResults(false)
+    self.LoadAllPagesButton:Show()
     self.SearchDataProvider:RefreshQuery()
 
     self.RefreshButton:Enable()

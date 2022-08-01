@@ -42,6 +42,53 @@
         </Anchors>
       </Frame>
 
+      <Button parentKey="LoadAllPagesButton" frameLevel="500" text="AUCTIONATOR_L_LOAD_ALL">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.Inset"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():LoadAllPages()
+          </OnClick>
+        </Scripts>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture>
+              <Anchors>
+                <Anchor point="TOPLEFT" />
+                <Anchor point="BOTTOM" />
+                <Anchor point="RIGHT" relativePoint="CENTER"/>
+              </Anchors>
+              <Color r="0" g="0" b="0"/>
+              <Gradient orientation="HORIZONTAL">
+                <MinColor r="0" g="0" b="0" a="0"/>
+                <MaxColor r="0" g="0" b="0" a="1"/>
+              </Gradient>
+            </Texture>
+            <Texture>
+              <Anchors>
+                <Anchor point="TOPRIGHT" />
+                <Anchor point="BOTTOM" />
+                <Anchor point="LEFT" relativePoint="CENTER"/>
+              </Anchors>
+              <Color r="0" g="0" b="0"/>
+              <Gradient orientation="HORIZONTAL">
+                <MinColor r="0" g="0" b="0" a="1"/>
+                <MaxColor r="0" g="0" b="0" a="0"/>
+              </Gradient>
+            </Texture>
+          </Layer>
+        </Layers>
+        <ButtonText inherits="GameFontNormal"/>
+        <HighlightTexture inherits="UIPanelButtonHighlightTexture" alpha="0.7">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="100"/>
+            <Anchor point="BOTTOMRIGHT" x="-100"/>
+          </Anchors>
+        </HighlightTexture>
+      </Button>
+
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_HISTORY" parentKey="HistoryButton">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent.SearchResultsListing" relativePoint="BOTTOM"/>
