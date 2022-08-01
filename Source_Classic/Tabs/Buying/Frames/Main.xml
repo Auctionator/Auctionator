@@ -83,8 +83,8 @@
         <ButtonText inherits="GameFontNormal"/>
         <HighlightTexture inherits="UIPanelButtonHighlightTexture" alpha="0.7">
           <Anchors>
-            <Anchor point="TOPLEFT" x="100"/>
-            <Anchor point="BOTTOMRIGHT" x="-100"/>
+            <Anchor point="TOPLEFT" x="100" y="2"/>
+            <Anchor point="BOTTOMRIGHT" x="-100" y="1"/>
           </Anchors>
         </HighlightTexture>
       </Button>
