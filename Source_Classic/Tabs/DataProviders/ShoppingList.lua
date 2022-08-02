@@ -27,7 +27,7 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
     headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "totalQuantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
-    cellParameters = { "totalQuantity" },
+    cellParameters = { "totalQuantityString" },
     width = 70
   }
 }
@@ -58,18 +58,24 @@ function AuctionatorShoppingListDataProviderMixin:ReceiveEvent(eventName, eventD
     self:Reset()
     self.onSearchStarted()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
-    self:AppendEntries(self:AddIsOwned(eventData), true)
+    self:AppendEntries(self:AddDetails(eventData), true)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchIncrementalUpdate then
-    self:AppendEntries(self:AddIsOwned(eventData))
+    self:AppendEntries(self:AddDetails(eventData))
   end
 end
 
-function AuctionatorShoppingListDataProviderMixin:AddIsOwned(entries)
+function AuctionatorShoppingListDataProviderMixin:AddDetails(entries)
   for _, entry in ipairs(entries) do
     if entry.containsOwnerItem then
       entry.isOwned = AUCTIONATOR_L_UNDERCUT_YES
     else
       entry.isOwned = ""
+    end
+
+    if not entry.complete then
+      entry.totalQuantityString = AUCTIONATOR_L_UNDERCUT_UNKNOWN
+    else
+      entry.totalQuantityString = tostring(entry.totalQuantity)
     end
   end
 
