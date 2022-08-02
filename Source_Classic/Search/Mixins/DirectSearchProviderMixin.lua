@@ -111,6 +111,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
       totalQuantity = GetQuantity(entries),
       containsOwnerItem = GetOwned(entries),
       entries = entries,
+      complete = not Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED),
     }
     local item = Item:CreateFromItemID(GetItemInfoInstant(key))
     item:ContinueOnItemLoad(function()

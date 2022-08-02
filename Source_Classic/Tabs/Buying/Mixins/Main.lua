@@ -207,7 +207,8 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
       self.SearchDataProvider:SetQuery(nil)
       self.HistoryDataProvider:SetItemLink(nil)
     end
-    self.LoadAllPagesButton:Hide()
+    self.SearchDataProvider:SetRequestAllResults(eventData.complete)
+    self.LoadAllPagesButton:SetShown(not eventData.complete)
     self.SearchDataProvider:SetAuctions(eventData.entries)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Hide()
