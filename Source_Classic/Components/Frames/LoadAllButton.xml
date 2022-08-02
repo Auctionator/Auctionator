@@ -1,5 +1,5 @@
 <Ui>
-  <Button name="AuctionatorLoadAllButton" virtual="true" frameLevel="500" text="AUCTIONATOR_L_LOAD_ALL">
+  <Button name="AuctionatorLoadAllButton" virtual="true" frameLevel="500">
     <Layers>
       <Layer level="ARTWORK">
         <Texture>

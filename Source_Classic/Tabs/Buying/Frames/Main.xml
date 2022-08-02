@@ -42,7 +42,7 @@
         </Anchors>
       </Frame>
 
-      <Button parentKey="LoadAllPagesButton" inherits="AuctionatorLoadAllButton">
+      <Button parentKey="LoadAllPagesButton" inherits="AuctionatorLoadAllButton" text="AUCTIONATOR_L_LOAD_HIGHER_PRICES">
         <Anchors>
           <Anchor point="BOTTOMLEFT" relativeKey="$parent.Inset"/>
           <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" y="20"/>
