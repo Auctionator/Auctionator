@@ -74,6 +74,7 @@ function AuctionatorDirectSearchProviderMixin:GetSearchProvider()
   --Run the query, and save extra filter data for processing
   return function(searchTerm)
     self.gotAllResults = false
+    self.aborted = false
     self.currentFilter = searchTerm.extraFilters
     self.resultsByKey = {}
     self.individualResults = {}
@@ -111,7 +112,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
       totalQuantity = GetQuantity(entries),
       containsOwnerItem = GetOwned(entries),
       entries = entries,
-      complete = not Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED),
+      complete = not self.aborted,
     }
     local item = Item:CreateFromItemID(GetItemInfoInstant(key))
     item:ContinueOnItemLoad(function()
@@ -149,6 +150,7 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(pageResults)
   if self:HasCompleteTermResults() then
     self:AddFinalResults()
   elseif Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED) then
+    self.aborted = true
     Auctionator.AH.AbortQuery()
   end
 

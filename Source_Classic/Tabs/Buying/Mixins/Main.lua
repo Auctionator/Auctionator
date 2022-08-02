@@ -10,6 +10,7 @@ function AuctionatorBuyFrameMixin:Init()
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.Buying.Events.StacksUpdated,
     Auctionator.AH.Events.ThrottleUpdate,
+    Auctionator.AH.Events.ScanResultsUpdate,
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorBuyFrameMixin")
   self.SearchResultsListing:Init(self.SearchDataProvider)
@@ -207,9 +208,13 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
       self.SearchDataProvider:SetQuery(nil)
       self.HistoryDataProvider:SetItemLink(nil)
     end
+    self.SearchDataProvider:SetAuctions(eventData.entries)
+
     self.SearchDataProvider:SetRequestAllResults(eventData.complete)
     self.LoadAllPagesButton:SetShown(not eventData.complete)
-    self.SearchDataProvider:SetAuctions(eventData.entries)
+    if not eventData.complete and #eventData.entries < Auctionator.Constants.MaxResultsPerPage then
+      self.SearchDataProvider:RefreshQuery()
+    end
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Hide()
   else
@@ -223,7 +228,6 @@ function AuctionatorBuyFrameMixinForSelling:Init()
   AuctionatorBuyFrameMixin.Init(self)
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.RefreshBuying,
-    Auctionator.AH.Events.ScanResultsUpdate,
   })
 end
 
