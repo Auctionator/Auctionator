@@ -34,6 +34,7 @@ end
 
 function AuctionatorBuyFrameMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, BUY_EVENTS)
+  self.LoadAllPagesButton:Hide()
 end
 
 function AuctionatorBuyFrameMixin:OnHide()
@@ -83,6 +84,9 @@ function AuctionatorBuyFrameMixin:ReceiveEvent(eventName, eventData, ...)
     end
   elseif self:IsVisible() and eventName == Auctionator.AH.Events.ThrottleUpdate then
     self:UpdateButtons()
+  elseif self:IsVisible() and eventName == Auctionator.AH.Events.ScanResultsUpdate then
+    local gotAllResults = ...
+    self.LoadAllPagesButton:SetShown(not gotAllResults)
   end
 end
 
@@ -169,8 +173,6 @@ function AuctionatorBuyFrameMixinForShopping:Init()
     Auctionator.Buying.Events.Show,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
   })
-
-  self.LoadAllPagesButton:Hide()
 end
 
 function AuctionatorBuyFrameMixinForShopping:OnShow()
@@ -205,6 +207,7 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
       self.SearchDataProvider:SetQuery(nil)
       self.HistoryDataProvider:SetItemLink(nil)
     end
+    self.LoadAllPagesButton:Hide()
     self.SearchDataProvider:SetAuctions(eventData.entries)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Hide()
@@ -219,6 +222,7 @@ function AuctionatorBuyFrameMixinForSelling:Init()
   AuctionatorBuyFrameMixin.Init(self)
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.RefreshBuying,
+    Auctionator.AH.Events.ScanResultsUpdate,
   })
 end
 
@@ -227,7 +231,6 @@ function AuctionatorBuyFrameMixinForSelling:OnShow()
   self:Reset()
   self.RefreshButton:Disable()
   self.HistoryButton:Disable()
-  self.LoadAllPagesButton:Hide()
 end
 
 function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, ...)
@@ -237,7 +240,6 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
     self.HistoryDataProvider:SetItemLink(eventData.itemLink)
     self.SearchDataProvider:SetQuery(eventData.itemLink)
     self.SearchDataProvider:SetRequestAllResults(false)
-    self.LoadAllPagesButton:Show()
     self.SearchDataProvider:RefreshQuery()
 
     self.RefreshButton:Enable()
