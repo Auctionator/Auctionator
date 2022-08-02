@@ -129,7 +129,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results
   for _, entry in ipairs(results) do
     local itemID = entry.info[Auctionator.Constants.AuctionItemInfo.ItemID]
     local itemString = Auctionator.Search.GetCleanItemLink(entry.itemLink)
-    if self.searchKey == itemString then
+    if self.searchKey == itemString and Auctionator.Utilities.ToUnitPrice(entry) ~= 0 then
       table.insert(self.allAuctions, entry)
     end
   end
