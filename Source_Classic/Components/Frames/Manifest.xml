@@ -4,4 +4,5 @@
   <Include file="MoneyInput.xml" />
   <Include file="MoneyInputAlternate.xml" />
   <Include file="StackOf.xml" />
+  <Include file="LoadAllButton.xml" />
 </Ui>
