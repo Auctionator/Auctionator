@@ -149,7 +149,7 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(pageResults)
 
   if self:HasCompleteTermResults() then
     self:AddFinalResults()
-  elseif Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_EXCLUDE_RESULTS_FOR_SPEED) then
+  elseif not Auctionator.State.ShoppingSearchAllPages then
     self.aborted = true
     Auctionator.AH.AbortQuery()
   end

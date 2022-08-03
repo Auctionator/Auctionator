@@ -521,12 +521,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["HISTORY"] = "History"
   L["CURRENT"] = "Current"
   L["SERVER_TOOK_TOO_LONG"] = "The server took too long to respond. Your action may not have had an effect."
-  L["CONFIG_SHOPPING_LIST_FULL_REFRESH"] = "Refresh all pages when clicking the Refresh button"
-  L["CONFIG_SHOPPING_LIST_FULL_REFRESH_TOOLTIP_HEADER"] = "Refresh All Pages"
-  L["CONFIG_SHOPPING_LIST_FULL_REFRESH_TOOLTIP_TEXT"] = "Only the first page is needed to determine the cheapest price, if you are only interested in the cheapest price and don't need to see the rest of the results you can turn this option off for a speed boost."
-  L["CONFIG_SHOPPING_LIST_EXCLUDE_RESULTS_FOR_SPEED"] = "Ignore results that aren't on the first page of the current search"
-  L["CONFIG_SHOPPING_LIST_EXCLUDE_RESULTS_FOR_SPEED_TOOLTIP_HEADER"] = "Exclude Results for Speed"
-  L["CONFIG_SHOPPING_LIST_EXCLUDE_RESULTS_FOR_SPEED_TOOLTIP_TEXT"] = "Ignoring results that are not on the first page may cause some expensive items to not appear. Quantities in the price history and search results will be inaccurate."
 
   L["STARTING_PRICE_PERCENTAGE_SUFFIX"] = "% of the stack price"
   L["STARTING_PRICE_PERCENTAGE"] = "Starting Price"
@@ -548,6 +542,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CHAIN_BUY_TOOLTIP_HEADER"] = "Chain multiple purchases"
   L["CHAIN_BUY_TOOLTIP_TEXT"] = "When finished purchasing at the current price and stack size select the next price and stack size."
   L["LOAD_HIGHER_PRICES"] = "Load higher prices"
+  L["LOAD_MORE_RESULTS"] = "Load more results"
 
   return L
 end
