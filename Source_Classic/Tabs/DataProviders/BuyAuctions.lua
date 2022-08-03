@@ -66,9 +66,8 @@ function AuctionatorBuyAuctionsDataProviderMixin:SetUpEvents()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetAuctions(entries)
-  self.allAuctions = Auctionator.Utilities.Slice(entries, 1, #entries)
-
-  self:PopulateAuctions()
+  self.allAuctions = {}
+  self:ImportAdditionalResults(entries)
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetQuery(itemLink)
