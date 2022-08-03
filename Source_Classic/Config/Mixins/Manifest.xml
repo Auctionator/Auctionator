@@ -1,7 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="BasicOptions.lua"/>
   <Script file="Tooltips.lua"/>
-  <Script file="ShoppingAlt.lua"/>
   <Script file="Selling.lua"/>
   <Script file="SellingAllItems.lua"/>
   <Script file="SellingShortcuts.lua"/>

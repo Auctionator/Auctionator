@@ -182,6 +182,8 @@ function AuctionatorBuyFrameMixinForShopping:OnShow()
   self:GetParent().ResultsListing:Hide()
   self:GetParent().ExportCSV:Hide()
   self:GetParent().ShoppingResultsInset:Hide()
+  self.wasParentLoadAllPagesVisible = self:GetParent().LoadAllPagesButton:IsShown()
+  self:GetParent().LoadAllPagesButton:Hide()
 end
 
 function AuctionatorBuyFrameMixinForShopping:OnHide()
@@ -192,6 +194,7 @@ function AuctionatorBuyFrameMixinForShopping:OnHide()
   self:GetParent().ResultsListing:Show()
   self:GetParent().ExportCSV:Show()
   self:GetParent().ShoppingResultsInset:Show()
+  self:GetParent().LoadAllPagesButton:SetShown(self.wasParentLoadAllPagesVisible)
 end
 
 function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, ...)
@@ -201,7 +204,6 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
     self:Reset()
 
     if #eventData.entries > 0 then
-      self.SearchDataProvider:SetRequestAllResults(Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_SHOW_ALL_RESULTS))
       self.SearchDataProvider:SetQuery(eventData.entries[1].itemLink)
       self.HistoryDataProvider:SetItemLink(eventData.entries[1].itemLink)
     else

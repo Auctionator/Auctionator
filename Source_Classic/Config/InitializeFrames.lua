@@ -3,7 +3,7 @@ function Auctionator.Config.InitializeFrames()
     "BasicOptions",
     "Tooltips",
 
-    "ShoppingAlt",
+    "Shopping",
     "Selling",
     "SellingAllItems",
     "SellingShortcuts",

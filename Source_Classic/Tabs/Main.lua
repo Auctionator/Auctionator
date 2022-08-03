@@ -19,7 +19,7 @@ end
 Auctionator.Tabs.Register( {
   name = "ShoppingLists",
   textLabel = AUCTIONATOR_L_SHOPPING_TAB,
-  tabTemplate = "AuctionatorShoppingListTabFrameTemplate",
+  tabTemplate = "AuctionatorShoppingListClassicTabFrameTemplate",
   tabHeader = AUCTIONATOR_L_SHOPPING_TAB_HEADER,
   tabFrameName = "AuctionatorShoppingListFrame",
   tabOrder = 1,
