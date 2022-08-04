@@ -21,6 +21,7 @@ function AuctionatorReagentSearchButtonMixin:OnLoad()
       self:UpdateTotal()
     end
   end)
+  self:ShowWhenRecipeAndAHOpen()
 end
 
 function AuctionatorReagentSearchButtonMixin:ShowWhenRecipeAndAHOpen()
