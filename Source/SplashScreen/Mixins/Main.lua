@@ -1,6 +1,38 @@
 -- We should probably move this into another file too
 local MESSAGES = {
   {
+    Version = "9.2.25",
+    Description = AUCTIONATOR_L_SPLASH_9225_DESCRIPTION,
+    Sections = {
+      {
+        Title = AUCTIONATOR_L_SPLASH_9225_ALL_VERSIONS_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_9225_ALL_VERSIONS_1,
+          AUCTIONATOR_L_SPLASH_9225_ALL_VERSIONS_2,
+          AUCTIONATOR_L_SPLASH_9225_ALL_VERSIONS_3,
+          AUCTIONATOR_L_SPLASH_9225_ALL_VERSIONS_4,
+          AUCTIONATOR_L_SPLASH_9225_ALL_VERSIONS_5,
+        },
+      },
+      {
+        Title = AUCTIONATOR_L_SPLASH_9225_RETAIL_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_9225_RETAIL_1,
+        },
+      },
+      {
+        Title = AUCTIONATOR_L_SPLASH_9225_CLASSIC_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_9225_CLASSIC_1,
+          AUCTIONATOR_L_SPLASH_9225_CLASSIC_2,
+          AUCTIONATOR_L_SPLASH_9225_CLASSIC_3,
+          AUCTIONATOR_L_SPLASH_9225_CLASSIC_4,
+          AUCTIONATOR_L_SPLASH_9225_CLASSIC_5,
+        },
+      },
+    },
+  },
+  {
     Version = "9.1.8",
     Description = AUCTIONATOR_L_SPLASH_9108_DESCRIPTION,
     Sections = {
