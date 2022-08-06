@@ -1,0 +1,22 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigShoppingAltFrameTemplate"
+    inherits="AuctionatorConfigShoppingFrameTemplate"
+    mixin="AuctionatorConfigShoppingAltFrameMixin"
+    parent="InterfaceOptionsFrame"
+    virtual="true">
+
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AlwaysLoadMore">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHOPPING_ALWAYS_LOAD_MORE" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SHOPPING_ALWAYS_LOAD_MORE_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHOPPING_ALWAYS_LOAD_MORE_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ListMissingTerms" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+   </Frames>
+  </Frame>
+</Ui>

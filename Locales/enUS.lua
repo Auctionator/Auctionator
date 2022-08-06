@@ -559,5 +559,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["LOAD_HIGHER_PRICES"] = "Load higher prices"
   L["LOAD_MORE_RESULTS"] = "Load more results"
 
+  L["CONFIG_SHOPPING_ALWAYS_LOAD_MORE"] = "Always load all available results."
+  L["CONFIG_SHOPPING_ALWAYS_LOAD_MORE_TOOLTIP_HEADER"] = "Always load more"
+  L["CONFIG_SHOPPING_ALWAYS_LOAD_MORE_TOOLTIP_TEXT"] = "By default some pages are skipped to speed up the shopping search. This prevents any pages from being skipped."
+
   return L
 end

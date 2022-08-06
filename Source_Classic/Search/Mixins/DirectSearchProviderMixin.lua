@@ -65,7 +65,8 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term, config)
         max = parsed.maxPrice,
       },
     },
-    searchAllPages = config.searchAllPages or false,
+    -- Force searchAllPages when the config UI forces it
+    searchAllPages = Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE) or config.searchAllPages or false,
   }
 end
 

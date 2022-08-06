@@ -9,6 +9,7 @@ Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE = "starting_price_percentag
 Auctionator.Config.Options.DEFAULT_SELLING_STACKS = "default_selling_stacks"
 Auctionator.Config.Options.STACK_SIZE_MEMORY = "stack_size_memory"
 Auctionator.Config.Options.CHAIN_BUY_STACKS = "chain_buy_stacks"
+Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE = "shopping_always_load_more"
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTO_LIST_SEARCH] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.COLUMNS_BUYING_HISTORICAL_PRICES] = {}
@@ -23,3 +24,4 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.STARTING_PRICE_PERCENTAGE
 Auctionator.Config.Defaults[Auctionator.Config.Options.DEFAULT_SELLING_STACKS] = {numStacks = 0, stackSize = 0}
 Auctionator.Config.Defaults[Auctionator.Config.Options.STACK_SIZE_MEMORY] = {}
 Auctionator.Config.Defaults[Auctionator.Config.Options.CHAIN_BUY_STACKS] = false
+Auctionator.Config.Defaults[Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE] = false
