@@ -16,7 +16,7 @@ function AuctionatorMultiSearchMixin:OnEvent(event, ...)
   self:OnSearchEventReceived(event, ...)
 end
 
-function AuctionatorMultiSearchMixin:Search(terms)
+function AuctionatorMultiSearchMixin:Search(terms, config)
   Auctionator.Debug.Message("AuctionatorMultiSearchMixin:Search()", terms)
 
   self.complete = false
@@ -26,7 +26,7 @@ function AuctionatorMultiSearchMixin:Search(terms)
 
   self:RegisterProviderEvents()
 
-  self:SetTerms(terms)
+  self:SetTerms(terms, config)
   self:NextSearch()
 end
 

@@ -25,9 +25,10 @@ function AuctionatorShoppingListSearchManagerMixin:OnLoad()
   )
 end
 
-function AuctionatorShoppingListSearchManagerMixin:ReceiveEvent(eventName, eventData)
+function AuctionatorShoppingListSearchManagerMixin:ReceiveEvent(eventName, ...)
   if eventName == SearchForTerms then
-    self:DoSearch(eventData)
+    local searchTerms, config = ...
+    self:DoSearch(searchTerms, config)
 
   elseif eventName == ListDeleted or eventName == ListItemAdded or eventName == ListItemReplaced or eventName == ListItemDeleted or eventName == ListOrderChanged or eventName == ListItemReplaced or eventName == CancelSearch then
     self.searchProvider:AbortSearch()
@@ -38,7 +39,7 @@ function AuctionatorShoppingListSearchManagerMixin:OnHide()
   self.searchProvider:AbortSearch()
 end
 
-function AuctionatorShoppingListSearchManagerMixin:DoSearch(searchTerms)
+function AuctionatorShoppingListSearchManagerMixin:DoSearch(searchTerms, config)
   self.searchProvider:AbortSearch()
 
   Auctionator.EventBus:Fire(
@@ -46,5 +47,5 @@ function AuctionatorShoppingListSearchManagerMixin:DoSearch(searchTerms)
     Auctionator.ShoppingLists.Events.ListSearchStarted
   )
 
-  self.searchProvider:Search(searchTerms)
+  self.searchProvider:Search(searchTerms, config)
 end

@@ -37,7 +37,7 @@ local function GetOwned(entries)
   return false
 end
 
-function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
+function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term, config)
   Auctionator.Debug.Message("AuctionatorDirectSearchProviderMixin:CreateSearchTerm()", term)
 
   local parsed = Auctionator.Search.SplitAdvancedSearch(term)
@@ -64,7 +64,8 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
         min = parsed.minPrice,
         max = parsed.maxPrice,
       },
-    }
+    },
+    searchAllPages = config.searchAllPages or false,
   }
 end
 
@@ -75,6 +76,7 @@ function AuctionatorDirectSearchProviderMixin:GetSearchProvider()
   return function(searchTerm)
     self.gotAllResults = false
     self.aborted = false
+    self.searchAllPages = searchTerm.searchAllPages
     self.currentFilter = searchTerm.extraFilters
     self.resultsByKey = {}
     self.individualResults = {}
@@ -149,7 +151,7 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(pageResults)
 
   if self:HasCompleteTermResults() then
     self:AddFinalResults()
-  elseif not Auctionator.State.ShoppingSearchAllPages then
+  elseif not self.searchAllPages then
     self.aborted = true
     Auctionator.AH.AbortQuery()
   end

@@ -14,7 +14,6 @@ function AuctionatorShoppingListsClassicLoadAllButtonMixin:ReceiveEvent(eventNam
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self:Hide()
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
-    Auctionator.State.ShoppingSearchAllPages = false
     if eventData and #eventData > 0 then
       local anyIncomplete = false
       for _, entry in ipairs(eventData) do
@@ -30,7 +29,6 @@ end
 
 function AuctionatorShoppingListsClassicLoadAllButtonMixin:OnClick()
   if self.lastTerms ~= nil then
-    Auctionator.State.ShoppingSearchAllPages = true
-    Auctionator.EventBus:Fire(self:GetParent(), Auctionator.ShoppingLists.Events.SearchForTerms, self.lastTerms)
+    Auctionator.EventBus:Fire(self:GetParent(), Auctionator.ShoppingLists.Events.SearchForTerms, self.lastTerms, { searchAllPages = true })
   end
 end
