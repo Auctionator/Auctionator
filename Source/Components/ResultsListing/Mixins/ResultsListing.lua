@@ -53,7 +53,7 @@ function AuctionatorResultsListingMixin:InitializeDataProvider()
   end)
 
   self.dataProvider:SetOnResetScrollCallback(function()
-    self.savedScrollPosition = self.ScrollFrame.scrollBar:GetValue()
+    self.savedScrollPosition = nil
   end)
 end
 
