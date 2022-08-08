@@ -27,7 +27,6 @@ jobs:
       with:
         args: -p 6124 -a kRNL70Go -g mainline
       env:
-        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
         WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
 
@@ -37,7 +36,6 @@ jobs:
       with:
         args: -p 6124 -a kRNL70Go -m .pkgmeta_tbc -g bcc
       env:
-        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
         WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
 
@@ -47,7 +45,6 @@ jobs:
       with:
         args: -p 6124 -a kRNL70Go -m .pkgmeta_vanilla -g classic
       env:
-        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
         WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
 
@@ -57,6 +54,5 @@ jobs:
       with:
         args: -p 6124 -a kRNL70Go -m .pkgmeta_wrath -g wrath
       env:
-        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
         WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
