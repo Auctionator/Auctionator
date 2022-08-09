@@ -91,6 +91,10 @@ function AuctionatorBuyAuctionsDataProviderMixin:SetRequestAllResults(newValue)
   self.requestAllResults = newValue
 end
 
+function AuctionatorBuyAuctionsDataProviderMixin:GetRequestAllResults()
+  return self.requestAllResults
+end
+
 function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.AH.Events.ScanResultsUpdate then
     self.gotAllResults = ...

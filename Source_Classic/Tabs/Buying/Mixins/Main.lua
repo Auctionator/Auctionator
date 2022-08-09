@@ -98,7 +98,7 @@ function AuctionatorBuyFrameMixin:UpdateButtons()
 
   self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and not self.selectedAuctionData.isOwned and GetMoney() >= self.selectedAuctionData.stackPrice)
 
-  self.LoadAllPagesButton:SetShown(not self.gotCompleteResults and self.SearchResultsListing:IsShown())
+  self.LoadAllPagesButton:SetShown(not self.SearchDataProvider:GetRequestAllResults() and not self.gotCompleteResults and self.SearchResultsListing:IsShown())
 end
 
 function AuctionatorBuyFrameMixin:GetOwnerAuctionIndex()
@@ -252,7 +252,7 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
 
     self.HistoryDataProvider:SetItemLink(eventData.itemLink)
     self.SearchDataProvider:SetQuery(eventData.itemLink)
-    self.SearchDataProvider:SetRequestAllResults(false)
+    self.SearchDataProvider:SetRequestAllResults(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_LOAD_MORE))
     self.SearchDataProvider:RefreshQuery()
 
     self.RefreshButton:Enable()
