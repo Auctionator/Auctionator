@@ -6,7 +6,11 @@ for _, part in ipairs({ strsplit(":", (ITEM_SPELL_CHARGES:match("|4([^;]*);"))) 
   table.insert(possibleChargePatterns, (ITEM_SPELL_CHARGES:gsub("%%d", "%%d%+"):gsub("|4[^;]*;", part)))
 end
 
+-- Gets the string (if any) that specifies the max charges for the item in
+-- its tooltip.
 local function GetChargesText(itemLink)
+  -- Using the tooltip set by item ID gets it to show the max charges
+  -- (unlike when using an item link)
   local itemID = GetItemInfoInstant(itemLink)
   return Auctionator.Utilities.ScanTooltip(
     function(tip)
@@ -22,6 +26,8 @@ local function GetChargesText(itemLink)
   )
 end
 
+-- Given a bag item determine if has the maximum possible charges. Intended for
+-- use on consumables.
 function Auctionator.Utilities.IsAtMaxCharges(bagLocation)
   local itemLink = C_Item.GetItemLink(bagLocation)
   local chargesText = GetChargesText(itemLink)
