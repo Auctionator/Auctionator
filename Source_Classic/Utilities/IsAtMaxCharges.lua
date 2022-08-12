@@ -2,8 +2,21 @@ local possibleChargePatterns = {
   ITEM_SPELL_CHARGES_NONE,
 }
 
-for _, part in ipairs({ strsplit(":", (ITEM_SPELL_CHARGES:match("|4([^;]*);"))) }) do
-  table.insert(possibleChargePatterns, (ITEM_SPELL_CHARGES:gsub("%%d", "%%d%+"):gsub("|4[^;]*;", part)))
+do
+  local replacedNumInsertPoint = ITEM_SPELL_CHARGES:gsub("%%d", "%%d%+")
+
+  local anyEscapes = ITEM_SPELL_CHARGES:match("|4([^;]*);")
+  if anyEscapes then
+    for _, part in ipairs({ strsplit(":", anyEscapes) }) do
+      table.insert(possibleChargePatterns, (replacedNumInsertPoint:gsub("|4[^;]*;", part)))
+    end
+  else
+    table.insert(possibleChargePatterns, replacedNumInsertPoint)
+  end
+
+  for index, pat in ipairs(possibleChargePatterns) do
+    possibleChargePatterns[index] = "^" .. pat .. "$"
+  end
 end
 
 -- Gets the string (if any) that specifies the max charges for the item in
