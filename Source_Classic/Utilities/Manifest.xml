@@ -1,5 +1,6 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="ItemInfoFromLocation.lua"/>
   <Script file="SetStacksText.lua"/>
+  <Script file="IsAtMaxCharges.lua"/>
   <Script file="ToUnitPrice.lua"/>
 </Ui>

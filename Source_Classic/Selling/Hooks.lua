@@ -10,6 +10,9 @@ local function SelectOwnItem(self)
     if currentDurability ~= maxDurability then
       UIErrorsFrame:AddMessage(ERR_AUCTION_REPAIR_ITEM, 1.0, 0.1, 0.1, 1.0)
       return
+    elseif not Auctionator.Utilities.IsAtMaxCharges(itemLocation) then
+      UIErrorsFrame:AddMessage(ERR_AUCTION_USED_CHARGES, 1.0, 0.1, 0.1, 1.0)
+      return
     elseif C_Item.IsBound(itemLocation) then
       UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
       return
