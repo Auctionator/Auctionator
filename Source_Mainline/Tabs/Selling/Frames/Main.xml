@@ -48,35 +48,25 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="CurrentItemListing" inherits="AuctionatorResultsListingTemplate">
+      <Frame parentKey="CurrentPricesListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent.BagListing" y="10"/>
           <Anchor point="LEFT" relativeKey="$parent.BagListing" relativePoint="RIGHT" x="35" />
-          <Anchor point="BOTTOM" relativeKey="$parent.BagListing" relativePoint="CENTER"/>
-          <Anchor point="RIGHT" relativeKey="$parent" x="-20" />
-        </Anchors>
-      </Frame>
-
-      <Frame parentKey="CurrentItemInset" inherits="AuctionatorInsetDarkTemplate">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentItemListing" x="-5" y="-24"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.CurrentItemListing" y="2"/>
+          <Anchor point="BOTTOMRIGHT" x="-20" y="5"/>
         </Anchors>
       </Frame>
 
       <Frame parentKey="HistoricalPriceListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOP" relativeKey="$parent.BagListing" relativePoint="CENTER" />
-          <Anchor point="LEFT" relativeKey="$parent.CurrentItemListing"/>
-          <Anchor point="BOTTOM" y="5"/>
-          <Anchor point="RIGHT" x="-20" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentPricesListing"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.CurrentPricesListing"/>
         </Anchors>
       </Frame>
 
       <Frame parentKey="PostingHistoryListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.HistoricalPriceListing"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.HistoricalPriceListing"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CurrentPricesListing"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.CurrentPricesListing"/>
         </Anchors>
       </Frame>
 
@@ -88,7 +78,7 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="CurrentItemProvider" mixin="AuctionatorSearchDataProviderMixin">
+      <Frame parentKey="CurrentPricesProvider" mixin="AuctionatorSearchDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
@@ -116,7 +106,7 @@
 
       <Frame parentKey="ConfirmDropDown" inherits="AuctionatorConfirmDropDownTemplate"/>
 
-      <Frame parentKey="HistoryTabsContainer" mixin="AuctionatorSellingTabHistoryContainerMixin">
+      <Frame parentKey="PricesTabsContainer" mixin="AuctionatorSellingTabPricesContainerMixin">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.HistoricalPriceInset" x="2"/>
           <Anchor point="RIGHT" relativePoint="BOTTOMRIGHT" y="-20" relativeKey="$parent.HistoricalPriceInset"/>
@@ -125,12 +115,17 @@
           <OnLoad method="OnLoad"/>
         </Scripts>
         <Frames>
-          <Button parentKey="RealmHistoryTab" id="1" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_REALM_HISTORY">
+          <Button parentKey="CurrentPricesTab" id="1" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_CURRENT_PRICES">
             <Anchors>
               <Anchor point="TOPLEFT" />
             </Anchors>
           </Button>
-          <Button parentKey="YourHistoryTab" id="2" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_YOUR_HISTORY">
+          <Button parentKey="RealmHistoryTab" id="2" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_REALM_HISTORY">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.CurrentPricesTab"/>
+            </Anchors>
+          </Button>
+          <Button parentKey="YourHistoryTab" id="3" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_YOUR_HISTORY">
             <Anchors>
               <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.RealmHistoryTab"/>
             </Anchors>

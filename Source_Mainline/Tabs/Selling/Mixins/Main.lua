@@ -9,26 +9,20 @@ function AuctionatorSellingTabMixin:OnLoad()
 
   self.PostingHistoryListing:Init(self.PostingHistoryProvider)
 
-  self.CurrentItemListing:Init(self.CurrentItemProvider)
+  self.CurrentPricesListing:Init(self.CurrentPricesProvider)
 end
 
 function AuctionatorSellingTabMixin:ApplyHiding()
-  if not Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_PRICE_HISTORY) then
-    self.HistoricalPriceProvider:Hide()
-    self.HistoricalPriceListing:Hide()
-    self.HistoricalPriceInset:Hide()
-    self.CurrentItemListing:SetPoint("BOTTOM", self, "BOTTOM")
-    self.HistoryTabsContainer:Hide()
-  end
-
   if not Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BAG) then
     self.BagListing:Hide()
     self.BagInset:Hide()
-    self.CurrentItemListing:SetPoint("LEFT", self, "LEFT", 10, -5)
-    self.HistoryTabsContainer.RealmHistoryTab:ClearAllPoints()
-    self.HistoryTabsContainer.YourHistoryTab:ClearAllPoints()
-    self.HistoryTabsContainer.RealmHistoryTab:SetPoint("TOPRIGHT", self.HistoryTabsContainer, "TOPRIGHT")
-    self.HistoryTabsContainer.YourHistoryTab:SetPoint("TOPRIGHT", self.HistoryTabsContainer.RealmHistoryTab, "TOPLEFT")
+    self.CurrentPricesListing:SetPoint("LEFT", self, "LEFT", 10, -5)
+    self.PricesTabsContainer.CurrentPricesTab:ClearAllPoints()
+    self.PricesTabsContainer.RealmHistoryTab:ClearAllPoints()
+    self.PricesTabsContainer.YourHistoryTab:ClearAllPoints()
+    self.PricesTabsContainer.CurrentPricesTab:SetPoint("TOPRIGHT", self.PricesTabsContainer, "TOPRIGHT")
+    self.PricesTabsContainer.RealmHistoryTab:SetPoint("TOPRIGHT", self.PricesTabsContainer.CurrentPricesTab, "TOPLEFT")
+    self.PricesTabsContainer.YourHistoryTab:SetPoint("TOPRIGHT", self.PricesTabsContainer.RealmHistoryTab, "TOPLEFT")
   end
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE) then
