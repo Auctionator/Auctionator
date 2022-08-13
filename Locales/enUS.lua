@@ -454,9 +454,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_SHORTCUTS_CATEGORY"] = "Selling: Shortcuts"
   L["CONFIG_SELLING_SHORTCUTS_TEXT"] = "Options for keyboard and mouse shortcuts inside the Selling tab"
 
-  L["CONFIG_PRICE_HISTORY"] = "Show historical prices in the selling tab (reload required)"
-  L["CONFIG_PRICE_HISTORY_TOOLTIP_HEADER"] = "Price History"
-  L["CONFIG_PRICE_HISTORY_TOOLTIP_TEXT"] = "If this option is off the price history pane in the Selling tab will be hidden."
   L["CONFIG_SELLING_SHOW_BID_PRICE"] = "Show bid price option when listing an item (reload required)"
   L["CONFIG_SELLING_SHOW_BID_PRICE_TOOLTIP_HEADER"] = "Bid Options"
   L["CONFIG_SELLING_SHOW_BID_PRICE_TOOLTIP_TEXT"] = "Controls whether the bid price option appears when posting an item."

@@ -28,16 +28,6 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="PriceHistory">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_PRICE_HISTORY" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_PRICE_HISTORY_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_PRICE_HISTORY_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT" />
-        </Anchors>
-      </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowBidPrice">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_SHOW_BID_PRICE" type="global" />
@@ -45,7 +35,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_SHOW_BID_PRICE_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.PriceHistory" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionChatLog" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ConfirmPostLowPrice">
