@@ -20,7 +20,7 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
 
   local _, _, _, _, _, classID, _ = GetItemInfoInstant(itemLink)
 
-  if classID == Enum.ItemClass.Consumable and location:IsBagAndSlot() then
+  if auctionable and classID == Enum.ItemClass.Consumable and location:IsBagAndSlot() then
     auctionable = Auctionator.Utilities.IsAtMaxCharges(location)
   end
 
