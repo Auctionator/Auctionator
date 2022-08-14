@@ -119,14 +119,14 @@
               <Anchor point="TOPLEFT" />
             </Anchors>
           </Button>
-          <Button parentKey="RealmHistoryTab" id="2" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_REALM_HISTORY">
+          <Button parentKey="PriceHistoryTab" id="2" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_PRICE_HISTORY">
             <Anchors>
               <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.CurrentPricesTab"/>
             </Anchors>
           </Button>
           <Button parentKey="YourHistoryTab" id="3" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_YOUR_HISTORY">
             <Anchors>
-              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.RealmHistoryTab"/>
+              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.PriceHistoryTab"/>
             </Anchors>
           </Button>
         </Frames>

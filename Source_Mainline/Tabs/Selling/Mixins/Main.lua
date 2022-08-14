@@ -18,11 +18,11 @@ function AuctionatorSellingTabMixin:ApplyHiding()
     self.BagInset:Hide()
     self.CurrentPricesListing:SetPoint("LEFT", self, "LEFT", 10, -5)
     self.PricesTabsContainer.CurrentPricesTab:ClearAllPoints()
-    self.PricesTabsContainer.RealmHistoryTab:ClearAllPoints()
+    self.PricesTabsContainer.PriceHistoryTab:ClearAllPoints()
     self.PricesTabsContainer.YourHistoryTab:ClearAllPoints()
     self.PricesTabsContainer.CurrentPricesTab:SetPoint("TOPRIGHT", self.PricesTabsContainer, "TOPRIGHT")
-    self.PricesTabsContainer.RealmHistoryTab:SetPoint("TOPRIGHT", self.PricesTabsContainer.CurrentPricesTab, "TOPLEFT")
-    self.PricesTabsContainer.YourHistoryTab:SetPoint("TOPRIGHT", self.PricesTabsContainer.RealmHistoryTab, "TOPLEFT")
+    self.PricesTabsContainer.PriceHistoryTab:SetPoint("TOPRIGHT", self.PricesTabsContainer.CurrentPricesTab, "TOPLEFT")
+    self.PricesTabsContainer.YourHistoryTab:SetPoint("TOPRIGHT", self.PricesTabsContainer.PriceHistoryTab, "TOPLEFT")
   end
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE) then
@@ -30,7 +30,7 @@ function AuctionatorSellingTabMixin:ApplyHiding()
   end
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SPLIT_PANELS) then
-    self.PricesTabsContainer.RealmHistoryTab:Click()
+    self.PricesTabsContainer.PriceHistoryTab:Click()
     self.PricesTabsContainer.CurrentPricesTab:Hide()
     self.CurrentPricesListing:SetPoint("BOTTOMLEFT", self.BagListing, "CENTER")
     self.PostingHistoryListing:SetPoint("TOPLEFT", self.CurrentPricesListing, "BOTTOMLEFT", 0, 10)
