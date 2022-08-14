@@ -76,7 +76,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_CANCEL_UNDERCUT_SHORTCUT"] = "A shortcut to cancel the next undercut item found is"
   L["CONFIG_CANCEL_UNDERCUT_SHORTCUT_TOOLTIP_TEXT"] = "Click and then press the buttons that you wish to use as the shortcut. This shortcut will only be active in the Cancelling tab and won't affect any other shortcuts bound to the buttons."
 
-  L["SALES_PREFERENCE"] = "Sales Preference"
   L["UNDERCUT_PREFERENCE"] = "Undercut Preference"
   L["PERCENTAGE"] = "Percentage"
   L["SET_VALUE"] = "Set Value"

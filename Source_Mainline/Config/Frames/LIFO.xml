@@ -44,7 +44,7 @@
 
       <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="CommoditySalesPreference">
         <KeyValues>
-          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_SALES_PREFERENCE" type="global" />
+          <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_UNDERCUT_PREFERENCE" type="global" />
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.CommodityDurationGroup" relativePoint="BOTTOMLEFT" />
