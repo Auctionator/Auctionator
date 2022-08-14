@@ -118,9 +118,7 @@ function AuctionatorSaleItemMixin:OnUpdate()
   end
 
   self.TotalPrice:SetText(
-    Auctionator.Utilities.CreateMoneyString(
-      self.Quantity:GetNumber() * self.Price:GetAmount()
-    )
+    GetMoneyString(self.Quantity:GetNumber() * self.Price:GetAmount(), true)
   )
 
   if self.Quantity:GetNumber() > self:GetPostLimit() then
@@ -129,7 +127,7 @@ function AuctionatorSaleItemMixin:OnUpdate()
 
   self.MaxButton:SetEnabled(self.Quantity:GetNumber() ~= self:GetPostLimit())
 
-  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(self:GetDeposit()))
+  self.DepositPrice:SetText(GetMoneyString(self:GetDeposit(), true))
   self:UpdatePostButtonState()
   self:UpdateSkipButtonState()
 end
@@ -277,8 +275,8 @@ function AuctionatorSaleItemMixin:UpdateForNoItem()
   self.MaxButton:Disable()
   self:UpdateSalesPrice(0)
 
-  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
-  self.TotalPrice:SetText(Auctionator.Utilities.CreateMoneyString(100))
+  self.DepositPrice:SetText(GetMoneyString(100, true))
+  self.TotalPrice:SetText(GetMoneyString(100, true))
 end
 
 function AuctionatorSaleItemMixin:SetDuration()
@@ -537,7 +535,7 @@ end
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
   -- Check if the item was underpriced compared to the currently on sale items
   if self.priceThreshold ~= nil and self.priceThreshold >= self.Price:GetAmount() then
-    return AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(Auctionator.Utilities.CreateMoneyString(self.Price:GetAmount()))
+    return AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(GetMoneyString(self.Price:GetAmount(), true))
   end
 
   -- Determine if the item is worth more to sell to a vendor than to post on the

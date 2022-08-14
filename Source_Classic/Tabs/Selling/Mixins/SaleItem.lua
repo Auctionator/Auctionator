@@ -161,12 +161,13 @@ function AuctionatorSaleItemMixin:OnUpdate()
   self:UpdatePrices()
 
   self.TotalPrice:SetText(
-    Auctionator.Utilities.CreateMoneyString(
-      self:GetNumStacks() * self:GetStackSize() * self.UnitPrice:GetAmount()
+    GetMoneyString(
+      self:GetNumStacks() * self:GetStackSize() * self.UnitPrice:GetAmount(),
+      true
     )
   )
 
-  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(self:GetDeposit()))
+  self.DepositPrice:SetText(GetMoneyString(self:GetDeposit(), true))
   self:UpdatePostButtonState()
   self:UpdateSkipButtonState()
 end
@@ -389,8 +390,8 @@ function AuctionatorSaleItemMixin:UpdateForNoItem()
   self.Stacks:SetMaxNumStacks(0)
   self:SetUnitPrice(0)
 
-  self.DepositPrice:SetText(Auctionator.Utilities.CreateMoneyString(0))
-  self.TotalPrice:SetText(Auctionator.Utilities.CreateMoneyString(0))
+  self.DepositPrice:SetText(GetMoneyString(0))
+  self.TotalPrice:SetText(GetMoneyString(0))
 end
 
 function AuctionatorSaleItemMixin:SetDuration()

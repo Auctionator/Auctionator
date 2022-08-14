@@ -9,12 +9,10 @@
   <Script file="Debug.lua"/>
   <Script file="Slice.lua"/>
   <Script file="CreateCountString.lua"/>
-  <Script file="CreateMoneyString.lua"/>
   <Script file="CreatePaddedMoneyString.lua"/>
   <Script file="CreateColoredQuality.lua"/>
   <Script file="RemoveTextColor.lua"/>
   <Script file="PrettyDate.lua"/>
-  <Script file="DelimitThousands.lua"/>
   <Script file="IsShortcutActive.lua"/>
   <Script file="GetQualityColorFromLink.lua"/>
   <Script file="GetNameFromLink.lua"/>

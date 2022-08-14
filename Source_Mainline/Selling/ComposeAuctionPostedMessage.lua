@@ -5,8 +5,8 @@ function Auctionator.Selling.ComposeAuctionPostedMessage(auctionInfo)
     result = Auctionator.Locales.Apply(
       "STACK_AUCTION_INFO",
       result .. Auctionator.Utilities.CreateCountString(auctionInfo.quantity),
-      Auctionator.Utilities.CreateMoneyString(auctionInfo.quantity * auctionInfo.buyoutAmount),
-      Auctionator.Utilities.CreateMoneyString(auctionInfo.buyoutAmount)
+      GetMoneyString(auctionInfo.quantity * auctionInfo.buyoutAmount, true),
+      GetMoneyString(auctionInfo.buyoutAmount, true)
     )
 
   -- Single item sales
@@ -15,7 +15,7 @@ function Auctionator.Selling.ComposeAuctionPostedMessage(auctionInfo)
       result = Auctionator.Locales.Apply(
         "BIDDING_AUCTION_INFO",
         result,
-        Auctionator.Utilities.CreateMoneyString(auctionInfo.bidAmount)
+        GetMoneyString(auctionInfo.bidAmount, true)
       )
     end
 
@@ -23,7 +23,7 @@ function Auctionator.Selling.ComposeAuctionPostedMessage(auctionInfo)
       result = Auctionator.Locales.Apply(
         "BUYOUT_AUCTION_INFO",
         result,
-        Auctionator.Utilities.CreateMoneyString(auctionInfo.buyoutAmount)
+        GetMoneyString(auctionInfo.buyoutAmount, true)
       )
     end
   end

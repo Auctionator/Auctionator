@@ -176,7 +176,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       totalNumberOfOwners = resultInfo.totalNumberOfOwners,
       otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, PLAYER_LIST_DELIMITER),
       quantity = resultInfo.quantity,
-      quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
+      quantityFormatted = FormatLargeNumber(resultInfo.quantity),
       level = 0,
       levelPretty = "0",
       timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(resultInfo.timeLeftSeconds),
@@ -236,7 +236,7 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(resultInfo.timeLeft),
       timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
       quantity = resultInfo.quantity,
-      quantityFormatted = Auctionator.Utilities.DelimitThousands(resultInfo.quantity),
+      quantityFormatted = FormatLargeNumber(resultInfo.quantity),
       itemLink = resultInfo.itemLink,
       auctionID = resultInfo.auctionID,
       itemType = Auctionator.Constants.ITEM_TYPES.ITEM,

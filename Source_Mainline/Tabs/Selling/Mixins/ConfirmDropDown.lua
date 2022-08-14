@@ -36,7 +36,7 @@ function AuctionatorConfirmDropDownMixin:Initialize()
 
   local confirmInfo = UIDropDownMenu_CreateInfo()
   confirmInfo.notCheckable = 1
-  confirmInfo.text = AUCTIONATOR_L_CONFIRM .. " " .. Auctionator.Utilities.CreateMoneyString(self.data.price * self.data.quantity)
+  confirmInfo.text = AUCTIONATOR_L_CONFIRM .. " " .. GetMoneyString(self.data.price * self.data.quantity, true)
 
   confirmInfo.disabled = false
   confirmInfo.func = function()

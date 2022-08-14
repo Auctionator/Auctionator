@@ -156,12 +156,12 @@ local function ConvertMoneyStrings(splitSearch)
   -- Some padding " " is necessary
   local min = splitSearch.minPrice
   if min ~= nil then
-    min = Auctionator.Utilities.CreateMoneyString(min) .. " "
+    min = GetMoneyString(min, true) .. " "
   end
 
   local max = splitSearch.maxPrice
   if max ~= nil then
-    max = Auctionator.Utilities.CreateMoneyString(splitSearch.maxPrice) .. " "
+    max = GetMoneyString(splitSearch.maxPrice, true) .. " "
   end
 
   return min, max

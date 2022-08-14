@@ -9,6 +9,6 @@ function Auctionator.Selling.ComposeAuctionPostedMessage(auctionInfo)
   return AUCTIONATOR_L_MULTIPLE_STACKS_AUCTION_INFO:format(
     auctionInfo.itemLink,
     stacksText,
-    Auctionator.Utilities.CreateMoneyString(auctionInfo.stackBuyout * auctionInfo.numStacks)
+    GetMoneyString(auctionInfo.stackBuyout * auctionInfo.numStacks, true)
   )
 end

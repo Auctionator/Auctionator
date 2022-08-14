@@ -47,7 +47,7 @@ function AuctionatorHistoricalPriceProviderMixin:SetItem(dbKey)
 
   for _, entry in ipairs(entries) do
     if entry.available then
-      entry.availableFormatted = Auctionator.Utilities.DelimitThousands(entry.available)
+      entry.availableFormatted = FormatLargeNumber(entry.available)
     else
       entry.availableFormatted = ""
     end

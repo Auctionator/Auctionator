@@ -32,12 +32,12 @@ function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, ...)
     local totalOnSale, totalPending = ...
 
     local text = AUCTIONATOR_L_TOTAL_ON_SALE:format(
-        Auctionator.Utilities.CreateMoneyString(totalOnSale)
+        GetMoneyString(totalOnSale, true)
       )
     if totalPending > 0 then
       text = text .. " " ..
       AUCTIONATOR_L_TOTAL_PENDING:format(
-        Auctionator.Utilities.CreateMoneyString(totalPending)
+        GetMoneyString(totalPending, true)
       )
     end
 

@@ -49,15 +49,15 @@ function Auctionator.ReagentSearch.GetInfoText()
     local profit = Auctionator.ReagentSearch.GetAHProfit()
     local price
     if profit >= 0 then
-      price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(profit))
+      price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(profit, true))
     else
-      price = RED_FONT_COLOR:WrapTextInColorCode("-" .. Auctionator.Utilities.CreateMoneyString(-profit))
+      price = RED_FONT_COLOR:WrapTextInColorCode("-" .. GetMoneyString(-profit, true))
     end
 
     return AUCTIONATOR_L_PROFIT_COLON .. " " .. price
 
   else
-    local price = WHITE_FONT_COLOR:WrapTextInColorCode(Auctionator.Utilities.CreateMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal()))
+    local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal(), true))
 
     return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
   end

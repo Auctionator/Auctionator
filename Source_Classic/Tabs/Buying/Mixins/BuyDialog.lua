@@ -16,8 +16,8 @@ local MONEY_EVENTS = {
 function AuctionatorBuyDialogMixin:OnLoad()
   self:RegisterForDrag("LeftButton")
   self.NumberPurchased:SetText(AUCTIONATOR_L_ALREADY_PURCHASED_X:format(15))
-  self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(BLUE_FONT_COLOR:WrapTextInColorCode("x20"), Auctionator.Utilities.CreateMoneyString(10998)))
-  self.UnitPrice:SetText(AUCTIONATOR_L_BRACKETS_X_EACH:format(Auctionator.Utilities.CreateMoneyString(550)))
+  self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(BLUE_FONT_COLOR:WrapTextInColorCode("x20"), GetMoneyString(10998, true)))
+  self.UnitPrice:SetText(AUCTIONATOR_L_BRACKETS_X_EACH:format(GetMoneyString(550, true)))
   Auctionator.EventBus:RegisterSource(self, "BuyDialogMixin")
 
   self:Reset()
@@ -78,8 +78,8 @@ function AuctionatorBuyDialogMixin:SetDetails(auctionData, initialQuantityPurcha
   self.quantityPurchased = initialQuantityPurchased or 0
 
   local stackText = BLUE_FONT_COLOR:WrapTextInColorCode("x" .. auctionData.stackSize)
-  local priceText = Auctionator.Utilities.CreateMoneyString(auctionData.stackPrice)
-  local unitPriceText = Auctionator.Utilities.CreateMoneyString(math.ceil(auctionData.stackPrice / auctionData.stackSize))
+  local priceText = GetMoneyString(auctionData.stackPrice, true)
+  local unitPriceText = GetMoneyString(math.ceil(auctionData.stackPrice / auctionData.stackSize), true)
   self.PurchaseDetails:SetText(AUCTIONATOR_L_BUYING_X_FOR_X:format(stackText, priceText))
   self.UnitPrice:SetText(AUCTIONATOR_L_BRACKETS_X_EACH:format(unitPriceText))
 
