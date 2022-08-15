@@ -19,6 +19,7 @@ function AuctionatorListImportFrameMixin:OnShow()
 end
 
 function AuctionatorListImportFrameMixin:OnHide()
+  self.ScrollFrame.ImportString:SetText("")
   self:Hide()
   Auctionator.EventBus
     :RegisterSource(self, "lists import dialog")
@@ -27,8 +28,6 @@ function AuctionatorListImportFrameMixin:OnHide()
 end
 
 function AuctionatorListImportFrameMixin:OnCloseDialogClicked()
-  self.ScrollFrame.ImportString:SetText("")
-
   self:Hide()
 end
 
