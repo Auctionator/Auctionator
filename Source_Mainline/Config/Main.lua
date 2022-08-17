@@ -19,6 +19,8 @@ Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE = "lifo_undercut_static_va
 Auctionator.Config.Options.DEFAULT_QUANTITIES = "default_quantities"
 Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo"
 
+Auctionator.Config.Options.REPLICATE_SCAN = "replicate_scan_3"
+
 Auctionator.Config.Defaults[Auctionator.Config.Options.SMALL_TABS] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.PET_TOOLTIPS] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN] = false
@@ -52,3 +54,5 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.DEFAULT_QUANTITIES] = {
   [Enum.ItemClass.Questitem]        = 0,
   [Enum.ItemClass.Miscellaneous]    = 0,
 }
+
+Auctionator.Config.Defaults[Auctionator.Config.Options.REPLICATE_SCAN] = false
