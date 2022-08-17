@@ -40,7 +40,7 @@ function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
 
   elseif event == "AUCTION_HOUSE_CLOSED" and self.doingFullScan then
     self.doingFullScan = false
-    Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_ALTERNATE_FAILED)
+    Auctionator.Utilities.Message(AUCTIONATOR_L_FULL_SCAN_FAILED_SUMMARY)
     Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanFailed)
   end
 end
@@ -53,7 +53,7 @@ end
 
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
   if not self.doingFullScan then
-    Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_ALTERNATE)
+    Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_SUMMARY)
     Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
     self.previousDatabaseCount = Auctionator.Database:GetItemCount()
     self.doingFullScan = true

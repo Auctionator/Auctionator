@@ -25,7 +25,7 @@ function AuctionatorFullScanFrameMixin:InitiateScan()
     self.inProgress = true
 
     self:RegisterForEvents()
-    Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN)
+    Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_REPLICATE)
     C_AuctionHouse.ReplicateItems()
     -- 10% complete after making the replicate request
     Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanProgress, 0.1)
@@ -159,7 +159,7 @@ function AuctionatorFullScanFrameMixin:OnEvent(event, ...)
       self:ResetData()
 
       Auctionator.Utilities.Message(
-        AUCTIONATOR_L_FULL_SCAN_FAILED .. " " .. self:NextScanMessage()
+        AUCTIONATOR_L_FULL_SCAN_FAILED_REPLICATE .. " " .. self:NextScanMessage()
       )
       Auctionator.EventBus:Fire(self, Auctionator.FullScan.Events.ScanFailed)
     end
