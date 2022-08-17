@@ -6,6 +6,7 @@ Auctionator.Config.Options = {
   AUCTION_TOOLTIPS = "auction_tooltips",
   SHIFT_STACK_TOOLTIPS = "shift_stack_tooltips",
   ENCHANT_TOOLTIPS = "enchant_tooltips",
+  REPLICATE_SCAN = "replicate_scan_3",
   AUTO_LIST_SEARCH = "auto_list_search",
   DEFAULT_LIST = "default_list_2",
 
@@ -70,6 +71,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.AUCTION_TOOLTIPS] = true,
   [Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS] = true,
   [Auctionator.Config.Options.ENCHANT_TOOLTIPS] = false,
+  [Auctionator.Config.Options.REPLICATE_SCAN] = false,
   [Auctionator.Config.Options.AUTO_LIST_SEARCH] = true,
   [Auctionator.Config.Options.DEFAULT_LIST] = Auctionator.Constants.NO_LIST,
   [Auctionator.Config.Options.AUCTION_CHAT_LOG] = true,
