@@ -67,6 +67,27 @@ local EVENT_BUS_EVENTS = {
   Auctionator.Cancelling.Events.UndercutScanStart,
 }
 
+local function DumpOwnedAuctions(callback)
+  local result = {}
+
+  local waiting = C_AuctionHouse.GetNumOwnedAuctions()
+
+  for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
+    local index = index
+    local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
+
+    table.insert(result, info)
+
+    Auctionator.AH.GetItemKeyInfo(info.itemKey, function(itemKeyInfo)
+      waiting = waiting - 1
+      result[index].searchName = itemKeyInfo.itemName
+      if waiting == 0 then
+        callback(result)
+      end
+    end)
+  end
+end
+
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemKeyLoadingMixin)
 
 function AuctionatorCancellingDataProviderMixin:OnLoad()
@@ -102,7 +123,9 @@ end
 
 function AuctionatorCancellingDataProviderMixin:NoQueryRefresh()
   self.onPreserveScroll()
-  self:PopulateAuctions()
+  DumpOwnedAuctions(function(auctions)
+    self:PopulateAuctions(auctions)
+  end)
 end
 
 local COMPARATORS = {
@@ -136,7 +159,9 @@ function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ..
     end
 
   elseif eventName == "OWNED_AUCTIONS_UPDATED" then
-    self:PopulateAuctions()
+    DumpOwnedAuctions(function(auctions)
+      self:PopulateAuctions(auctions)
+    end)
   end
 end
 
@@ -178,23 +203,20 @@ end
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
   local searchString = self:GetParent().SearchFilter:GetText()
   if searchString ~= "" then
-    local name = Auctionator.Utilities.GetNameFromLink(auctionInfo.itemLink)
-    return string.find(string.lower(name), string.lower(searchString), 1, true)
+    return string.find(string.lower(auctionInfo.searchName), string.lower(searchString), 1, true)
   else
     return true
   end
 end
 
-function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
+function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)
   self:Reset()
 
   local results = {}
   local totalOnSale = 0
   local totalPending = 0
 
-  for index = 1, C_AuctionHouse.GetNumOwnedAuctions() do
-    local info = C_AuctionHouse.GetOwnedAuctionInfo(index)
-
+  for _, info in ipairs(auctions) do
     local price = info.buyoutAmount or info.bidAmount
     --Only display unsold and uncancelled (yet) auctions
     if self:IsValidAuction(info) then
@@ -211,7 +233,8 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
           timeLeft = info.timeLeftSeconds,
           timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(info.timeLeftSeconds),
           cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
-          undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN
+          undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN,
+          searchName = info.searchName,
         }
         if info.bidder ~= nil then
           entry.undercut = AUCTIONATOR_L_UNDERCUT_BID

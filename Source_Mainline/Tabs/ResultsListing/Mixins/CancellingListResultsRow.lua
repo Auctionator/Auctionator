@@ -18,7 +18,7 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(button, ...)
       :Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.rowData.id)
       :UnregisterSource(self)
   elseif button == "RightButton" then
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_CANCELLING_TAB, { Auctionator.Utilities.GetNameFromLink(self.rowData.itemLink) })
+    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_CANCELLING_TAB, { self.rowData.searchName })
   end
 end
 
