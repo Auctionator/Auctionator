@@ -183,6 +183,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"
   L["INFO_TAB_HEADER"] = "Auctionator - Info"
 
+  L["OPEN_IN_SHOPPING_TAB"] = "Open in Shopping Tab"
+
   L["SELLING_TAB"] = "Selling"
   L["SELLING_TAB_HEADER"] = "Auctionator - Selling"
 

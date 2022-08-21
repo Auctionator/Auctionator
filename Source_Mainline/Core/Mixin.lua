@@ -73,6 +73,7 @@ local function InitializeLateTooltipHooks()
   end
 
   Auctionator.Tooltip.MainlineLateHooks()
+  Auctionator.ShoppingLists.MainlineLateHooks()
 
   setTooltipHooks = true
 end

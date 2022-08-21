@@ -9,6 +9,7 @@
   <Include file="FullScan\Manifest.xml"/>
   <Include file="API\Manifest.xml"/>
   <Include file="Selling\Manifest.xml"/>
+  <Include file="ShoppingLists\Manifest.xml"/>
 
   <Include file="Enchant\Manifest.xml" />
   <Include file="ReagentSearch\Manifest.xml" />
