@@ -6,8 +6,7 @@ function Auctionator.Config.InitializeFrames()
     "Shopping",
     "Selling",
     "SellingShortcuts",
-    "LIFO",
-    "NotLIFO",
+    "SellingAllItems",
     "Quantities",
     "Cancelling",
 

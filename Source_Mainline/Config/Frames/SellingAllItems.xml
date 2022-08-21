@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorConfigNotLIFOFrameTemplate" mixin="AuctionatorConfigNotLIFOFrameMixin" parent="InterfaceOptionsFrame" virtual="true">
+  <Frame name="AuctionatorConfigSellingAllItemsFrameTemplate" mixin="AuctionatorConfigSellingAllItemsFrameMixin" parent="InterfaceOptionsFrame" virtual="true">
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
@@ -8,8 +8,8 @@
     <Frames>
       <Frame inherits="AuctionatorConfigurationTitleFrame" parentKey="TitleArea">
         <KeyValues>
-        <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_SELLING_NOT_LIFO_HEADER" type="global"/>
-          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_NOT_LIFO_TEXT" type="global"/>
+        <KeyValue key="titleText" value="AUCTIONATOR_L_CONFIG_SELLING_ALL_ITEMS_CATEGORY" type="global"/>
+          <KeyValue key="subTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_TBC_ALL_ITEMS" type="global"/>
         </KeyValues>
       </Frame>
 

@@ -5,16 +5,11 @@ Auctionator.Config.Options.AUTOSCAN_INTERVAL = "autoscan_interval"
 Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT = "selling_cancel_shortcut"
 Auctionator.Config.Options.SELLING_BUY_SHORTCUT = "selling_buy_shortcut"
 
-Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION = "not_lifo_auction_duration"
-Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE = "not_lifo_auction_sales_preference"
-Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE = "not_lifo_undercut_percentage"
-Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE = "not_lifo_undercut_static_value"
+Auctionator.Config.Options.AUCTION_DURATION = "selling_auction_duration"
+Auctionator.Config.Options.AUCTION_SALES_PREFERENCE = "selling_auction_sales_preference"
+Auctionator.Config.Options.UNDERCUT_PERCENTAGE = "selling_undercut_percentage"
+Auctionator.Config.Options.UNDERCUT_STATIC_VALUE = "selling_undercut_static_value"
 Auctionator.Config.Options.SELLING_GEAR_USE_ILVL = "gear_use_ilvl"
-
-Auctionator.Config.Options.LIFO_AUCTION_DURATION = "lifo_auction_duration"
-Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE = "lifo_auction_sales_preference"
-Auctionator.Config.Options.LIFO_UNDERCUT_PERCENTAGE = "lifo_undercut_percentage"
-Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE = "lifo_undercut_static_value"
 
 Auctionator.Config.Options.DEFAULT_QUANTITIES = "default_quantities"
 Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo"
@@ -27,16 +22,11 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] =
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT] = Auctionator.Config.Shortcuts.RIGHT_CLICK
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_BUY_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_RIGHT_CLICK
 
-Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION] = 48
-Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE
-Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_UNDERCUT_PERCENTAGE] = 0
-Auctionator.Config.Defaults[Auctionator.Config.Options.NOT_LIFO_UNDERCUT_STATIC_VALUE] = 0
+Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_DURATION] = 24
+Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE
+Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_PERCENTAGE] = 0
+Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_STATIC_VALUE] = 0
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_GEAR_USE_ILVL] = true
-
-Auctionator.Config.Defaults[Auctionator.Config.Options.LIFO_AUCTION_DURATION] = 24
-Auctionator.Config.Defaults[Auctionator.Config.Options.LIFO_AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE
-Auctionator.Config.Defaults[Auctionator.Config.Options.LIFO_UNDERCUT_PERCENTAGE] = 0
-Auctionator.Config.Defaults[Auctionator.Config.Options.LIFO_UNDERCUT_STATIC_VALUE] = 0
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.DEFAULT_QUANTITIES] = {
   [Enum.ItemClass.Weapon]           = 1,

@@ -184,11 +184,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     local buyoutAmount, shouldUndercut = ...
 
     if shouldUndercut then
-      if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
-        buyoutAmount = Auctionator.Selling.CalculateNotLIFOPriceFromPrice(buyoutAmount)
-      else --Not LIFO
-        buyoutAmount = Auctionator.Selling.CalculateLIFOPriceFromPrice(buyoutAmount)
-      end
+      buyoutAmount = Auctionator.Selling.CalculateItemPriceFromPrice(buyoutAmount)
     end
 
     self:UpdateSalesPrice(buyoutAmount)
@@ -280,16 +276,9 @@ function AuctionatorSaleItemMixin:UpdateForNoItem()
 end
 
 function AuctionatorSaleItemMixin:SetDuration()
-  if Auctionator.Utilities.IsNotLIFOItemKey(self.itemInfo.itemKey) then
-    self.Duration:SetSelectedValue(
-      Auctionator.Config.Get(Auctionator.Config.Options.NOT_LIFO_AUCTION_DURATION)
-    )
-
-  else
-    self.Duration:SetSelectedValue(
-      Auctionator.Config.Get(Auctionator.Config.Options.LIFO_AUCTION_DURATION)
-    )
-  end
+  self.Duration:SetSelectedValue(
+    Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
+  )
 end
 
 function AuctionatorSaleItemMixin:SetQuantity()
@@ -445,7 +434,7 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
     postingPrice = result.unitPrice
   else
     -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    postingPrice = Auctionator.Selling.CalculateLIFOPriceFromPrice(result.unitPrice)
+    postingPrice = Auctionator.Selling.CalculateItemPriceFromPrice(result.unitPrice)
   end
 
   -- Didn't find anything currently posted, and nothing in DB
@@ -491,12 +480,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
     -- use this price
     postingPrice = result.buyoutAmount
   else
-    -- Otherwise, we're not the lowest price, so calculate based on user preferences
-    if Auctionator.Utilities.IsNotLIFOItemKey(itemKey) then
-      postingPrice = Auctionator.Selling.CalculateNotLIFOPriceFromPrice(result.buyoutAmount or result.bidAmount)
-    else --Not LIFO
-      postingPrice = Auctionator.Selling.CalculateLIFOPriceFromPrice(result.buyoutAmount or result.bidAmount)
-    end
+    postingPrice = Auctionator.Selling.CalculateItemPriceFromPrice(result.buyoutAmount or result.bidAmount)
   end
 
   -- Didn't find anything currently posted, and nothing in DB
