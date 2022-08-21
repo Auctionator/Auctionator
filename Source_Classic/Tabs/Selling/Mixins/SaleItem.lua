@@ -617,6 +617,10 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     end)
   end
 
+  if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
+    Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
+  end
+
   -- Save item info for refreshing search results
   local lastItemInfo = self.itemInfo
   self:Reset()

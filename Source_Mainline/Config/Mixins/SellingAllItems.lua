@@ -17,7 +17,8 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
   self.currentItemDuration = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
   self.currentItemSalesPreference = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE)
 
-  self.ItemDurationGroup:SetSelectedValue(self.currentItemDuration)
+  self.DurationGroup:SetSelectedValue(self.currentItemDuration)
+  self.SaveLastDurationAsDefault:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT))
   self.ItemSalesPreference:SetSelectedValue(self.currentItemSalesPreference)
 
   self:OnSalesPreferenceChange(self.currentItemSalesPreference)
@@ -44,7 +45,8 @@ end
 function AuctionatorConfigSellingAllItemsFrameMixin:Save()
   Auctionator.Debug.Message("AuctionatorConfigSellingAllItemsFrameMixin:Save()")
 
-  Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.ItemDurationGroup:GetValue())
+  Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.DurationGroup:GetValue())
+  Auctionator.Config.Set(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT, self.SaveLastDurationAsDefault:GetChecked())
 
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE, self.ItemSalesPreference:GetValue())
   Auctionator.Config.Set(

@@ -42,12 +42,23 @@
         </Frames>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="SaveLastDurationAsDefault">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SAVE_LAST_DURATION_AS_DEFAULT" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SAVE_LAST_DURATION_AS_DEFAULT_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SAVE_LAST_DURATION_AS_DEFAULT_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.DurationGroup" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationRadioButtonGroup" parentKey="SalesPreference">
         <KeyValues>
           <KeyValue key="groupHeadingText" value="AUCTIONATOR_L_UNDERCUT_PREFERENCE" type="global" />
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.DurationGroup" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.SaveLastDurationAsDefault" relativePoint="BOTTOMLEFT"/>
         </Anchors>
         <Frames>
           <Frame inherits="AuctionatorConfigurationRadioButton">

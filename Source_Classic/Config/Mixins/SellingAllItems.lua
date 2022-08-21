@@ -19,6 +19,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
   self.currentUndercutPreference = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE)
 
   self.DurationGroup:SetSelectedValue(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION))
+  self.SaveLastDurationAsDefault:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT))
   self.SalesPreference:SetSelectedValue(self.currentUndercutPreference)
 
   self:OnSalesPreferenceChange(self.currentUndercutPreference)
@@ -61,6 +62,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:Save()
   Auctionator.Debug.Message("AuctionatorConfigSellingAllItemsFrameMixin:Save()")
 
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.DurationGroup:GetValue())
+  Auctionator.Config.Set(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT, self.SaveLastDurationAsDefault:GetChecked())
 
   Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE, self.SalesPreference:GetValue())
   Auctionator.Config.Set(
