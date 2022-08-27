@@ -86,6 +86,10 @@ local function DumpOwnedAuctions(callback)
       end
     end)
   end
+
+  if C_AuctionHouse.GetNumOwnedAuctions() == 0 then
+    callback(result)
+  end
 end
 
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemKeyLoadingMixin)
