@@ -2,7 +2,7 @@
 name: Feature request for the latest release (not classic)
 about: Auctionator can always be better
 title: ''
-labels: enhancement
+labels: [retail, enhancement]
 assignees: ''
 
 ---

@@ -1,8 +1,8 @@
 ---
-name: Bug report for a Shadowlands alpha
+name: Bug report for a retail alpha
 about: You're using the latest alpha build on Shadowlands
 title: ''
-labels: alpha
+labels: [alpha, retail]
 assignees: ''
 
 ---

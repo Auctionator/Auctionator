@@ -1,3 +1,12 @@
+---
+name: Bug report for the latest retail release (not classic)
+about: You're using the latest normal release of Auctionator on retail
+title: ''
+labels: release
+assignees: ''
+
+---
+
 Please include as much of the following information as possible to help me fix the bug:
 
 ## Brief Description of Bug

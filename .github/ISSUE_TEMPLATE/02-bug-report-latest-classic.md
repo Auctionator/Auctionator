@@ -1,8 +1,8 @@
 ---
-name: Bug report for a Vanilla alpha
-about: You're using WoW Vanilla and an alpha version of Auctionator
+name: Bug report for the latest classic release
+about: You're using the latest normal release of Auctionator on classic
 title: ''
-labels: vanilla
+labels: classic
 assignees: ''
 
 ---

@@ -1,6 +1,6 @@
 ---
-name: Bug report for a TBC alpha
-about: You're using WoW TBC and an alpha version of Auctionator
+name: Bug report for an alpha on classic
+about: You're playing on classic and using an alpha version of Auctionator
 title: ''
 labels: tbc
 assignees: ''
