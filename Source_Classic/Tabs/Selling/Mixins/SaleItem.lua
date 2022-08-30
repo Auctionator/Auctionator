@@ -295,11 +295,15 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     local info = ...
     if info ~= nil then
       self:UpdateForHistoryPrice(info.unitPrice)
+      local unitPrice
       if not info.isOwned then
-        self:SetUnitPrice(GetAmountWithUndercut(info.unitPrice))
+        unitPrice = GetAmountWithUndercut(info.unitPrice)
       else
-        self:SetUnitPrice(info.unitPrice)
+        unitPrice = info.unitPrice
       end
+      self:SetUnitPrice(unitPrice)
+      -- Used to check if the undercut is more than 50% below configured setting
+      self.priceThreshold = unitPrice * 0.5
     end
   elseif event == Auctionator.Buying.Events.HistoricalPrice and
          self.itemInfo ~= nil then
@@ -367,6 +371,8 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   self.Stacks:SetMaxStackSize(math.min(self.itemInfo.stackSize, self.itemInfo.count))
 
   self:SetQuantity()
+
+  self.priceThreshold = nil
 
   Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
     local price = Auctionator.Database:GetFirstPrice(dbKeys)
@@ -462,6 +468,8 @@ function AuctionatorSaleItemMixin:SetUnitPrice(salesPrice)
   self.StackPrice:SetAmount(self.UnitPrice:GetAmount() * self.Stacks.StackSize:GetNumber())
   self.BidPrice:SetAmount(self:GetAutoBidAmount())
 
+  self.priceThreshold = nil
+
   self.prevStackSize = self.Stacks.StackSize:GetNumber()
   self.prevUnitPrice = self.UnitPrice:GetAmount()
   self.prevStackPrice = self.StackPrice:GetAmount()
@@ -518,6 +526,10 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
 end
 
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
+  if self.priceThreshold ~= nil and self.UnitPrice:GetAmount() < self.priceThreshold then
+    return AUCTIONATOR_L_CONFIRM_POST_PRICE_DROP:format(GetMoneyString(self.UnitPrice:GetAmount(), true))
+  end
+
   -- Determine if the item is worth more to sell to a vendor than to post on the
   -- AH.
   local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
