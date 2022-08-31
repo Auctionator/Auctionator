@@ -31,6 +31,7 @@ end
 function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
   if event == "AUCTION_HOUSE_BROWSE_RESULTS_UPDATED" then
     self.info = {} -- New search results so reset info
+    self.rawScan = {}
 
     self:AddPrices(C_AuctionHouse.GetBrowseResults())
     self:NextStep()
@@ -109,6 +110,9 @@ function AuctionatorIncrementalScanFrameMixin:AddPrices(results)
           { price = resultInfo.minPrice, available = resultInfo.totalQuantity }
         )
       end
+      if self.doingFullScan then
+        table.insert(self.rawScan, resultInfo)
+      end
     end
   end
 
@@ -122,16 +126,18 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
     Auctionator.AH.RequestMoreBrowseResults()
   else
     local count = Auctionator.Database:ProcessScan(self.info)
+    local rawScan = self.rawScan
+
+    self.info = {} --Already processed, so clear
+    self.rawScan = {}
 
     if self.doingFullScan then
       Auctionator.Utilities.Message(AUCTIONATOR_L_FINISHED_PROCESSING:format(count))
       self.doingFullScan = false
 
-      Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete)
       self.state.TimeOfLastBrowseScan = time()
+      Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete, rawScan)
     end
     Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.PricesProcessed)
-
-    self.info = {} --Already processed, so clear
   end
 end
