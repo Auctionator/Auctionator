@@ -18,6 +18,7 @@ Auctionator.Constants.ValidItemClassIDs = {
   Enum.ItemClass.Armor,
   Enum.ItemClass.Container,
   Enum.ItemClass.Consumable,
+  Enum.ItemClass.Glyph,
   Enum.ItemClass.Tradegoods,
   Enum.ItemClass.Projectile,
   Enum.ItemClass.Quiver,
