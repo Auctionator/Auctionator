@@ -54,6 +54,7 @@ local DATA_EVENTS = {
 local EVENT_BUS_EVENTS = {
   Auctionator.Cancelling.Events.UndercutStatus,
   Auctionator.Cancelling.Events.UndercutScanStart,
+  Auctionator.AH.Events.ThrottleUpdate,
 }
 
 AuctionatorCancellingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemStringLoadingMixin)
@@ -120,6 +121,10 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
     self.undercutCutoff[eventData] = ...
 
     self:NoQueryRefresh()
+  elseif eventName == Auctionator.AH.Events.ThrottleUpdate then
+    if eventData then
+      self:NoQueryRefresh()
+    end
   end
 end
 
