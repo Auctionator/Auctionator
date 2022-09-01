@@ -216,6 +216,17 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorTranslatorTemplate" parentKey="tkTK">
+        <KeyValues>
+          <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\trTR"/>
+          <KeyValue key="translators" type="string" value="Serdar Çoban-Hellßringer"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_TURKISH_INFO" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ruRU" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_FULL_SCAN_BUTTON" mixin="AuctionatorScanButtonMixin" parentKey="ScanButton">
         <Anchors>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" y="7" x="-3" />

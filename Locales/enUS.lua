@@ -115,6 +115,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["TRANSLATORS_ITALIAN"] = "Italian"
   L["TRANSLATORS_KOREAN"] = "Korean"
   L["TRANSLATORS_RUSSIAN"] = "Russian"
+  L["TRANSLATORS_TURKISH_INFO"] = "Turkish (available separately)"
 
   L["STACK_AUCTION_INFO"] = "%s for %s (at %s each)"
   L["BIDDING_AUCTION_INFO"] = "%s bidding at %s"
