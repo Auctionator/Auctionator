@@ -30,15 +30,6 @@ jobs:
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
         WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
 
-    - name: Setup TBC build
-      run: mv Auctionator_TBC.toc Auctionator.toc
-    - uses: BigWigsMods/packager@v2
-      with:
-        args: -p 6124 -a kRNL70Go -m .pkgmeta_tbc -g bcc
-      env:
-        CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
-        WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
-
     - name: Setup Vanilla build
       run: mv Auctionator_Vanilla.toc Auctionator.toc
     - uses: BigWigsMods/packager@v2
