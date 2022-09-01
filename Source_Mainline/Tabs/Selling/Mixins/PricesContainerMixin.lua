@@ -12,7 +12,10 @@ function AuctionatorSellingTabPricesContainerMixin:OnLoad()
 end
 
 function AuctionatorSellingTabPricesContainerMixin:SetView(viewIndex)
-  self:GetParent().CurrentPricesListing:Hide()
+  if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SPLIT_PANELS) then
+    self:GetParent().CurrentPricesListing:Hide()
+  end
+
   self:GetParent().PostingHistoryListing:Hide()
   self:GetParent().HistoricalPriceListing:Hide()
 
