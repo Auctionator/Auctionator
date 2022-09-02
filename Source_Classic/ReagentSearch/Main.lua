@@ -9,8 +9,12 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
     table.insert(items, reagentName)
   end
 
-  -- Exact search to avoid spurious results, say with "Runecloth"
-  Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  if recipeInfo[5] == ENSCRIBE then
+    Auctionator.API.v1.MultiSearch(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  else
+    -- Exact search to avoid spurious results, say with "Runecloth"
+    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  end
 end
 
 function Auctionator.ReagentSearch.GetSkillReagentsTotal()
