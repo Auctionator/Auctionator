@@ -2,7 +2,15 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
   local recipeIndex = GetTradeSkillSelectionIndex()
   local recipeInfo =  { GetTradeSkillInfo(recipeIndex) }
 
-  local items = {recipeInfo[1]}
+  local items = {}
+
+  local linkName = Auctionator.Utilities.GetNameFromLink(GetTradeSkillItemLink(recipeIndex))
+
+  if linkName and linkName ~= "" then
+    table.insert(items, linkName)
+  else
+    table.insert(items, recipeInfo[1])
+  end
 
   for reagentIndex = 1, GetTradeSkillNumReagents(recipeIndex) do
     local reagentName = GetTradeSkillReagentInfo(recipeIndex, reagentIndex)

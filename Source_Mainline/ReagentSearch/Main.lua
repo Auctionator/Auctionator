@@ -4,7 +4,14 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
 
   local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeIndex, recipeLevel)
 
-  local items = {recipeInfo.name}
+  local items = {}
+
+  local linkName = Auctionator.Utilities.GetNameFromLink(C_TradeSkillUI.GetRecipeItemLink(recipeIndex))
+  if linkName and linkName ~= "" then
+    table.insert(items, linkName)
+  else
+    table.insert(recipeInfo.name)
+  end
 
   for reagentIndex = 1, C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) do
 
