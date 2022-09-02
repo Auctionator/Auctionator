@@ -267,6 +267,9 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
     self.SearchDataProvider.onSearchStarted()
   elseif eventName == Auctionator.Selling.Events.StopFakeBuyLoading then
     self.SearchDataProvider.onSearchEnded()
+    self:Reset()
+    self.RefreshButton:Disable()
+    self.HistoryButton:Disable()
   else
     AuctionatorBuyFrameMixin.ReceiveEvent(self, eventName, eventData, ...)
   end
