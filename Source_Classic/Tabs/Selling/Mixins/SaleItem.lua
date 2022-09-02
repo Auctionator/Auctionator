@@ -386,6 +386,11 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
     end
   end)
 
+  -- Used because it can take a while for the throttle to clear on a megaserver,
+  -- this makes it clear that something is loading rather than leaving the
+  -- prices frozen on the previous item.
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.FakeBuyLoading, {itemLink = self.itemInfo.itemLink})
+
   self.minPriceSeen = 0
 end
 
