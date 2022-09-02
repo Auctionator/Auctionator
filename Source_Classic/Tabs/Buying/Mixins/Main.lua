@@ -23,6 +23,7 @@ function AuctionatorBuyFrameMixin:Reset()
   self.selectedAuctionData = nil
   self.lastCancelData = nil
   self.gotCompleteResults = true
+  self.SearchDataProvider.onSearchEnded()
   self.SearchDataProvider:Reset()
   self.HistoryDataProvider:Reset()
 
