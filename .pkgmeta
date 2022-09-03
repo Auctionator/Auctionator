@@ -6,6 +6,8 @@ ignore:
   - docs
   - *Classic*
   - *Vanilla*
+  - Auctionator_TBC.toc
+  - Auctionator_Wrath.toc
 plain-copy:
   - Imports_Mainline
   - Source
