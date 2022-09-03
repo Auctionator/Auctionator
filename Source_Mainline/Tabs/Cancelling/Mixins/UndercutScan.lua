@@ -151,54 +151,56 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, auctionID)
 end
 
 function AuctionatorUndercutScanMixin:SearchForUndercuts(auctionInfo)
-  local sortingOrder = nil
+  Auctionator.AH.GetItemKeyInfo(auctionInfo.itemKey, function(itemKeyInfo)
+    local sortingOrder = nil
 
-  local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(auctionInfo.itemKey)
-  if itemKeyInfo == nil then
-    self:EndScan()
-  elseif itemKeyInfo.isCommodity then
-    sortingOrder = {sortOrder = 0, reverseSort = false}
-  else
-    sortingOrder = {sortOrder = 4, reverseSort = false}
-  end
+    if itemKeyInfo == nil then
+      self:EndScan()
+    elseif itemKeyInfo.isCommodity then
+      sortingOrder = {sortOrder = 0, reverseSort = false}
+    else
+      sortingOrder = {sortOrder = 4, reverseSort = false}
+    end
 
-  Auctionator.AH.SendSearchQuery(auctionInfo.itemKey, {sortingOrder}, true)
+    Auctionator.AH.SendSearchQuery(auctionInfo.itemKey, {sortingOrder}, true)
+  end)
 end
 
 function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
-  local itemKeyInfo = C_AuctionHouse.GetItemKeyInfo(auctionInfo.itemKey)
-  local notUndercutIDs = {}
-  local resultCount = 0
+  Auctionator.AH.GetItemKeyInfo(auctionInfo.itemKey, function(itemKeyInfo)
+    local notUndercutIDs = {}
+    local resultCount = 0
 
-  if itemKeyInfo.isCommodity then
-    resultCount = C_AuctionHouse.GetNumCommoditySearchResults(auctionInfo.itemKey.itemID)
-  else
-    resultCount = C_AuctionHouse.GetNumItemSearchResults(auctionInfo.itemKey)
-  end
-
-  -- Identify all auctions which aren't undercut
-  for index = 1, resultCount do
-    local resultInfo
     if itemKeyInfo.isCommodity then
-      resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(auctionInfo.itemKey.itemID, index)
+      resultCount = C_AuctionHouse.GetNumCommoditySearchResults(auctionInfo.itemKey.itemID)
     else
-      resultInfo = C_AuctionHouse.GetItemSearchResultInfo(auctionInfo.itemKey, index)
+      resultCount = C_AuctionHouse.GetNumItemSearchResults(auctionInfo.itemKey)
     end
 
-    if resultInfo.owners[1] ~= "player" then
-      break
-    else
-      table.insert(notUndercutIDs, resultInfo.auctionID)
+    -- Identify all auctions which aren't undercut
+    for index = 1, resultCount do
+      local resultInfo
+      if itemKeyInfo.isCommodity then
+        resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(auctionInfo.itemKey.itemID, index)
+      else
+        resultInfo = C_AuctionHouse.GetItemSearchResultInfo(auctionInfo.itemKey, index)
+      end
+
+      if resultInfo.owners[1] ~= "player" then
+        break
+      else
+        table.insert(notUndercutIDs, resultInfo.auctionID)
+      end
     end
-  end
 
-  if resultCount == 0 then
-    return
-  end
+    if resultCount == 0 then
+      return
+    end
 
-  self:ProcessUndercutResult(auctionInfo, notUndercutIDs)
+    self:ProcessUndercutResult(auctionInfo, notUndercutIDs)
 
-  self:NextStep()
+    self:NextStep()
+  end)
 end
 
 function AuctionatorUndercutScanMixin:ProcessUndercutResult(auctionInfo, notUndercutIDs)
