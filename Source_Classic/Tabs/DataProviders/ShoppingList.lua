@@ -24,6 +24,15 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "isTop" },
+    headerText = AUCTIONATOR_L_IS_TOP_COLUMN,
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "isTop" },
+    defaultHide = true,
+    width = 70,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_RESULTS_AVAILABLE_COLUMN,
     headerParameters = { "totalQuantity" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -70,6 +79,12 @@ function AuctionatorShoppingListDataProviderMixin:AddDetails(entries)
       entry.isOwned = AUCTIONATOR_L_UNDERCUT_YES
     else
       entry.isOwned = ""
+    end
+
+    if entry.isTopItem then
+      entry.isTop = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_YES)
+    else
+      entry.isTop = RED_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
     end
 
     if not entry.complete then

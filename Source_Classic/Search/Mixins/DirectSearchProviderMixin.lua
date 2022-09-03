@@ -5,10 +5,14 @@ local SEARCH_EVENTS = {
   Auctionator.AH.Events.ScanAborted,
 }
 
+local function GetPrice(entry)
+  return entry.info[Auctionator.Constants.AuctionItemInfo.Buyout] / entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
+end
+
 local function GetMinPrice(entries)
   local minPrice = nil
   for _, entry in ipairs(entries) do
-    local buyout = entry.info[Auctionator.Constants.AuctionItemInfo.Buyout] / entry.info[Auctionator.Constants.AuctionItemInfo.Quantity]
+    local buyout = GetPrice(entry)
     if buyout ~= 0 then
       if minPrice == nil then
         minPrice = buyout
@@ -31,6 +35,15 @@ end
 local function GetOwned(entries)
   for _, entry in ipairs(entries) do
     if entry.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")) then
+      return true
+    end
+  end
+  return false
+end
+
+local function GetIsTop(entries, minPrice)
+  for _, entry in ipairs(entries) do
+    if entry.info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player")) and minPrice == GetPrice(entry) then
       return true
     end
   end
@@ -109,11 +122,13 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
   end
 
   for key, entries in pairs(self.resultsByKey) do
+    local minPrice = GetMinPrice(entries)
     local possibleResult = {
       itemString = key,
       minPrice = GetMinPrice(entries),
-      totalQuantity = GetQuantity(entries),
+      totalQuantity = minPrice,
       containsOwnerItem = GetOwned(entries),
+      isTopItem = GetIsTop(entries, minPrice),
       entries = entries,
       complete = not self.aborted,
     }

@@ -197,6 +197,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SELLERS_COLUMN"] = "Seller(s)"
   L["SELLERS_OVERFLOW_TEXT"] = "%s, and %s more"
   L["OWNED_COLUMN"] = "Owned?"
+  L["IS_TOP_COLUMN"] = "Top?"
   L["YOU_COLUMN"] = "You?"
 
   L["FULL_SCAN_BUTTON"] = "Full Scan"
