@@ -126,7 +126,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
     local possibleResult = {
       itemString = key,
       minPrice = GetMinPrice(entries),
-      totalQuantity = minPrice,
+      totalQuantity = GetQuantity(entries),
       containsOwnerItem = GetOwned(entries),
       isTopItem = GetIsTop(entries, minPrice),
       entries = entries,
