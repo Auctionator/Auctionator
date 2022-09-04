@@ -95,6 +95,9 @@ function AuctionatorDirectSearchProviderMixin:GetSearchProvider()
     self.resultsByKey = {}
     self.individualResults = {}
 
+    self.ignoreAbort = true
+    Auctionator.AH.AbortQuery()
+    self.ignoreAbort = false
     Auctionator.AH.QueryAuctionItems(searchTerm.query)
   end
 end
@@ -178,7 +181,7 @@ function AuctionatorDirectSearchProviderMixin:ReceiveEvent(eventName, results, g
   if eventName == Auctionator.AH.Events.ScanResultsUpdate then
     self.gotAllResults = gotAllResults
     self:ProcessSearchResults(results)
-  elseif eventName == Auctionator.AH.Events.ScanAborted then
+  elseif eventName == Auctionator.AH.Events.ScanAborted and not self.ignoreAbort then
     self.gotAllResults = true
     self:ProcessSearchResults({})
   end
