@@ -4,7 +4,7 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
 
   local items = {}
 
-  local linkName = Auctionator.Utilities.GetNameFromLink(GetTradeSkillItemLink(recipeIndex))
+  local linkName = Auctionator.Utilities.GetNameFromLink(GetTradeSkillItemLink(recipeIndex) or "")
 
   if linkName and linkName ~= "" then
     table.insert(items, linkName)

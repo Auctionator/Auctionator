@@ -6,7 +6,7 @@
       <OnEvent method="OnEvent" />
     </Scripts>
     <Anchors>
-      <Anchor point="TOPRIGHT" relativeTo="TradeSkillDetailScrollFrame" x="0" y="-35"/>
+      <Anchor point="TOPRIGHT" relativeTo="TradeSkillDetailScrollFrame" x="0" y="-25"/>
     </Anchors>
     <Layers>
       <Layer level="OVERLAY">
