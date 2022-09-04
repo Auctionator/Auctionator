@@ -1,8 +1,3 @@
-local SALE_ITEM_EVENTS = {
-  "ITEM_SEARCH_RESULTS_UPDATED",
-  "COMMODITY_SEARCH_RESULTS_UPDATED",
-}
-
 local function IsEquipment(itemInfo)
   return itemInfo.classId == Enum.ItemClass.Weapon or itemInfo.classId == Enum.ItemClass.Armor
 end
