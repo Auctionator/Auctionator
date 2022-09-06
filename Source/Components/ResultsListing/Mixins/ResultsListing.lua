@@ -20,13 +20,6 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
   -- Set the frame that will be used for header columns for this tableBuilder
   self.tableBuilder:SetHeaderContainer(self.HeaderContainer)
 
-  -- annoyingly, the table builder code loses the dataProvider's self reference
-  -- when it assigns its GetEntryAt function internally, so overriding here so that we can
-  -- use our DataProvider mixin
-  self.tableBuilder.Populate = function(_, offset, count)
-    self:PopulateOverride(offset, count)
-  end
-
   self:InitializeTable()
   self:InitializeDataProvider()
 end
@@ -70,35 +63,6 @@ function AuctionatorResultsListingMixin:RestoreScrollPosition()
   self.ScrollFrame.scrollBar:SetValue(val)
 end
 
-function AuctionatorResultsListingMixin:PopulateOverride(offset, count)
-    local columns = self.tableBuilder:GetColumns();
-
-    for rowIndex = 1, count do
-      local dataIndex = rowIndex + offset;
-      local rowData = self.dataProvider:GetEntryAt(dataIndex);
-      if not rowData then
-        break;
-      end
-
-      local row = self.tableBuilder:GetRowByIndex(rowIndex);
-
-      if row then
-        row.rowData = rowData;
-        if row.Populate then
-          row:Populate(rowData, dataIndex);
-        end
-
-        for columnIndex, _ in ipairs(columns) do
-          local cell = self.tableBuilder:GetCellByIndex(rowIndex, columnIndex);
-          if cell.Populate then
-            cell.rowData = rowData;
-            cell:Populate(rowData, dataIndex);
-          end
-        end
-      end
-    end
-end
-
 function AuctionatorResultsListingMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorResultsListingMixin:OnShow()", self.isInitialized)
   if not self.isInitialized then
@@ -121,7 +85,9 @@ end
 
 function AuctionatorResultsListingMixin:InitializeTable()
   self.tableBuilder:Reset()
-  self.tableBuilder:SetDataProvider(self.dataProvider.GetEntryAt)
+  self.tableBuilder:SetDataProvider(function(index)
+    return self.dataProvider:GetEntryAt(index)
+  end)
   self.tableBuilder:SetTableMargins(15)
 
   local column
