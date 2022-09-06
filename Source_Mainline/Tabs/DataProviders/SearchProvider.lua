@@ -141,11 +141,12 @@ function AuctionatorSearchDataProviderMixin:OnEvent(eventName, itemRef, auctionI
     self:Reset()
     self:AppendEntries(self:ProcessItemResults(itemRef), true)
 
-  else
-    if eventName == "AUCTION_CANCELED" then
-      self:UnregisterEvent("AUCTION_CANCELED")
-    end
+  elseif eventName == "COMMODITY_PURCHASE_SUCCEEDED" then
+    self.onPreserveScroll()
+    self:RefreshView()
 
+  elseif eventName == "AUCTION_CANCELED" then
+    self:UnregisterEvent("AUCTION_CANCELED")
     self.onPreserveScroll()
     self:RefreshView()
   end
