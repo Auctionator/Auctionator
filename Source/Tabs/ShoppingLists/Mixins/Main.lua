@@ -71,6 +71,7 @@ function AuctionatorShoppingListTabMixin:OnShow()
   if self.selectedList ~= nil then
     self.AddItem:Enable()
   end
+  self.OneItemSearchBox:SetFocus()
 end
 
 function AuctionatorShoppingListTabMixin:OnEvent(event, ...)
