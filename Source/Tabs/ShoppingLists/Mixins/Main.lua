@@ -159,12 +159,16 @@ function AuctionatorShoppingListTabMixin:ReplaceItemInList(newItemString)
 end
 
 function AuctionatorShoppingListTabMixin:AddItemClicked()
-  self.itemDialog:Init(AUCTIONATOR_L_LIST_ADD_ITEM_HEADER, AUCTIONATOR_L_ADD_ITEM)
-  self.itemDialog:SetOnFinishedClicked(function(newItemString)
-    self:AddItemToList(newItemString)
-  end)
+  if IsShiftKeyDown() then
+    self:AddItemToList(self.OneItemSearchBox:GetText())
+  else
+    self.itemDialog:Init(AUCTIONATOR_L_LIST_ADD_ITEM_HEADER, AUCTIONATOR_L_ADD_ITEM)
+    self.itemDialog:SetOnFinishedClicked(function(newItemString)
+      self:AddItemToList(newItemString)
+    end)
 
-  self.itemDialog:Show()
+    self.itemDialog:Show()
+  end
 end
 
 function AuctionatorShoppingListTabMixin:EditItemClicked()
