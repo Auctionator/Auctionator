@@ -18,12 +18,12 @@
       </Layer>
 
       <Layer level="OVERLAY"><!-- Using a normal texture for highlight to control the behavior. -->
-        <Texture parentKey="SelectedHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true"/>
-        <Texture parentKey="LastSearchedHighlight" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" hidden="true"/>
+        <Texture parentKey="LastSearchedHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true"/>
       </Layer>
     </Layers>
 
     <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
+    <HighlightTexture parentKey="HighlightHighlight" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" hidden="true"/>
   </Button>
 
   <Button name="AuctionatorScrollListLineButtonTemplate" virtual="true" mixin="AuctionatorScrollListLineButtonMixin">
