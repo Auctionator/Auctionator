@@ -28,6 +28,13 @@
             <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
           </Anchors>
         </Texture>
+
+        <Texture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
       </Layer>
     </Layers>
 
@@ -36,12 +43,5 @@
       <OnEnter method="OnEnter" />
       <OnLeave method="OnLeave" />
     </Scripts>
-
-    <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true">
-      <Anchors>
-        <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
-        <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
-      </Anchors>
-    </NormalTexture>
   </Frame>
 </Ui>

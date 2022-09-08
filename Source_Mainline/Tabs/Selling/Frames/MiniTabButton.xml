@@ -4,7 +4,7 @@
         <AbsDimension x="115" y="32"/>
     </Size>
         <Layers>
-        	<Layer level="BACKGROUND" sublevel="2">
+        	<Layer level="BACKGROUND">
         		<Texture name="$parentLeftDisabled" parentKey="LeftDisabled" file="Interface\HelpFrame\HelpFrameTab-Active">
         			<Size>
         				<AbsDimension x="16" y="32"/>

@@ -6,7 +6,7 @@
     </Scripts>
     <Size y="15"/>
     <Layers>
-      <Layer layer="ARTWORK">
+      <Layer level="ARTWORK">
         <FontString parentKey="Text" inherits="GameFontHighlight" justifyH="LEFT" text="0%">
           <Size x="60"/>
           <Anchors>
