@@ -22,6 +22,23 @@ local function GetAmountWithUndercut(amount)
   return math.max(0, amount - undercutAmount)
 end
 
+local function FindItemAgain(itemLink)
+  local cleanItemLink = Auctionator.Search.GetCleanItemLink(itemLink)
+  for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
+    for slot = 1, GetContainerNumSlots(bagID) do
+      index = index + 1
+
+      local location = ItemLocation:CreateFromBagAndSlot(bagID, slot)
+      if C_Item.DoesItemExist(location) then
+        local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+        if Auctionator.Selling.UniqueBagKey(itemInfo) == cleanItemLink then
+          return location
+        end
+      end
+    end
+  end
+end
+
 
 AuctionatorSaleItemMixin = {}
 
@@ -139,7 +156,7 @@ end
 
 function AuctionatorSaleItemMixin:OnUpdate()
   if not self.clickedSellItem then
-    if Auctionator.AH.IsNotThrottled() then
+    if self.retryingItem or Auctionator.AH.IsNotThrottled() then
       self:SellItemClick()
     end
     return
@@ -671,7 +688,7 @@ end
 
 function AuctionatorSaleItemMixin:DoNextItem(details)
   if (Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and
-      IsValidItem(details.nextItem)
+      IsValidItem(details.itemInfo.nextItem)
      ) then
     -- Option to automatically select the next item in the bag view
     Auctionator.EventBus:Fire(
@@ -694,7 +711,21 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
     self:Update()
     self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
   else
-    print("item missing, won't retry")
+    local location = FindItemAgain(self.itemInfo.itemLink)
+    if self.itemInfo.location ~= nil then
+      print("found again, trying")
+      self.retryingItem = true
+      self.itemInfo = CopyTable(details.itemInfo)
+      self.itemInfo.location = location
+      self.itemInfo.count = Auctionator.Selling.GetItemCount(self.itemInfo.location)
+      self.clickedSellItem = false
+      self.minPriceSeen = details.minPriceSeen
+      self:Update()
+      self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
+    else
+      print("item missing, won't retry")
+      self:DoNextItem(details)
+    end
   end
 end
 
