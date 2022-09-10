@@ -1,6 +1,6 @@
 SYSTEM_EVENTS = {
-  "CHAT_MSG_SYSTEM", --ERR_AUCTION_STARTED "Auction Created"
-  "UI_ERROR_MESSAGE", --ERR_AUCTION_DATABASE_ERROR "Internal Auction Error"
+  "CHAT_MSG_SYSTEM", --ERR_AUCTION_STARTED "Auction created"
+  "UI_ERROR_MESSAGE", --ERR_AUCTION_DATABASE_ERROR "Internal auction error"
 }
 
 AuctionatorPostWatchMixin = {}
