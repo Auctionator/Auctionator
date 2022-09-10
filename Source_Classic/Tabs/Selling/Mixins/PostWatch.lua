@@ -1,9 +1,5 @@
 SYSTEM_EVENTS = {
   "CHAT_MSG_SYSTEM", --ERR_AUCTION_STARTED "Auction Created"
-  "NEW_AUCTION_UPDATE",
-  "AUCTION_MULTISELL_START",
-  "AUCTION_MULTISELL_UPDATE",
-  "AUCTION_MULTISELL_FAILURE",
   "UI_ERROR_MESSAGE", --ERR_AUCTION_DATABASE_ERROR "Internal Auction Error"
 }
 
@@ -21,6 +17,7 @@ function AuctionatorPostWatchMixin:ReceiveEvent(eventName, details)
   if eventName == Auctionator.Selling.Events.PostAttempt then
     self.details = details
     self.details.numStacksReached = 0
+    print("post attempt", self.details.itemInfo.itemLink)
     if not self.waitingForConfirmation then
       self.waitingForConfirmation = true
       FrameUtil.RegisterFrameForEvents(self, SYSTEM_EVENTS)
@@ -30,24 +27,17 @@ end
 
 function AuctionatorPostWatchMixin:OnEvent(eventName, eventData1, eventData2)
   if eventName == "CHAT_MSG_SYSTEM" and eventData1 == ERR_AUCTION_STARTED then
-    if self.details.numStacks == 1 then
+    self.details.numStacksReached = self.details.numStacksReached + 1
+
+    if self.details.numStacksReached == self.details.numStacks then
+      print("pass", self.details.itemInfo.itemLink)
       local details = self.details
       self:StopWatching()
       details.numStacksReached = 1
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostSuccessful, details)
     end
-  elseif eventName == "UI_ERROR_MESSAGE" and eventData1 == ERR_AUCTION_DATABASE_ERROR then
-    local details = self.details
-    self:StopWatching()
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostFailed, details)
-  elseif eventName == "AUCTION_MULTISELL_UPDATE" then
-    self.details.numStacksReached = eventData1
-    if eventData1 == eventData2 then
-      local details = self.details
-      self:StopWatching()
-      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostSuccessful, details)
-    end
-  elseif eventName == "AUCTION_MULTISELL_FAILURE" then
+  elseif eventName == "UI_ERROR_MESSAGE" and eventData2 == ERR_AUCTION_DATABASE_ERROR then
+    print("fail internal", self.details.itemInfo.itemLink)
     local details = self.details
     self:StopWatching()
     Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostFailed, details)

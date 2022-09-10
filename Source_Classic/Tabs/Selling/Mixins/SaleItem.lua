@@ -580,12 +580,10 @@ end
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
   self.PostButton:SetEnabled(self:GetPostButtonState())
 
-  if self.PostButton:IsEnabled() then
-    if Auctionator.AH.IsNotThrottled() then
-      self.PostButton:SetAlpha(1)
-    else
-      self.PostButton:SetAlpha(0.5)
-    end
+  if self.PostButton:IsEnabled() and not Auctionator.AH.IsNotThrottled() then
+    self.PostButton:SetText(AUCTIONATOR_L_POST_MAY_FAIL)
+  else
+    self.PostButton:SetText(AUCTIONATOR_L_POST)
   end
 end
 
@@ -629,12 +627,6 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     stackSizeMemory[basicDBKey] = nil
   end
 
-  Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
-
-  if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
-    Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
-  end
-
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostAttempt, {
     numStacks = numStacks,
     stackSize = stackSize,
@@ -646,6 +638,12 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     itemInfo = self.itemInfo,
     minPriceSeen = self.minPriceSeen,
   })
+
+  Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
+    Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
+  end
 
   self:Reset()
 end

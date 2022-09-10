@@ -434,6 +434,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIRM_POST_LOW_PRICE"] = "The price of %s looks a bit low. Are you sure you want to post at that price?"
   L["CONFIRM_POST_BELOW_VENDOR"] = "You can make more gold selling this to a vendor. Are you sure you want to post at that price?"
   L["CONFIRM_POST_PRICE_DROP"] = "The unit price of %s is a large price drop. Are you sure you want to post at that price?"
+  L["POST_MAY_FAIL"] = "Post (may fail)"
 
   L["DEFAULT_TAB"] = "Default Tab"
   L["DEFAULT_TAB_TEXT"] = "shows as the default tab"
