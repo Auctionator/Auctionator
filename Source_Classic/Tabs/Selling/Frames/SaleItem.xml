@@ -33,6 +33,13 @@
           </Layer>
         </Layers>
       </Frame>
+      <Frame parentKey="PostWatch" mixin="AuctionatorPostWatchMixin">
+        <Scripts>
+          <OnShow method="OnShow" />
+          <OnHide method="OnHide" />
+          <OnEvent method="OnEvent" />
+        </Scripts>
+      </Frame>
 
       <Button parentKey="Icon" inherits="AuctionatorBagItem" mixin="AuctionatorBagItemSelectedMixin">
         <Size x="60" y="60" />

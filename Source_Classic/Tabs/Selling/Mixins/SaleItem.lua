@@ -53,6 +53,8 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
     Auctionator.Selling.Events.ConfirmPost,
+    Auctionator.Selling.Events.PostSuccessful,
+    Auctionator.Selling.Events.PostFailed,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.Buying.Events.HistoricalPrice,
@@ -72,6 +74,8 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.RequestPost,
     Auctionator.Selling.Events.ConfirmPost,
+    Auctionator.Selling.Events.PostSuccessful,
+    Auctionator.Selling.Events.PostFailed,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.Buying.Events.HistoricalPrice,
@@ -230,7 +234,9 @@ function AuctionatorSaleItemMixin:SellItemClick()
     if (GetAuctionSellItemInfo()) ~= nil then
       Auctionator.Debug.Message("Valid sell item", GetAuctionSellItemInfo())
       self:LockItem()
-      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshBuying, self.itemInfo)
+      if not self.retryingItem then
+        Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshBuying, self.itemInfo)
+      end
     -- Failed; this item can't be auctioned
     else
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.StopFakeBuyLoading)
@@ -251,6 +257,7 @@ end
 function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemClicked then
     local itemInfo = ...
+    self.retryingItem = false
 
     self:UnlockItem()
     self.clickedSellItem = false
@@ -307,6 +314,12 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
          self.itemInfo ~= nil then
     local price = ...
     self:SetUnitPrice(price)
+  elseif event == Auctionator.Selling.Events.PostSuccessful then
+    self:SuccessfulPost(...)
+    self:DoNextItem(...)
+  elseif event == Auctionator.Selling.Events.PostFailed then
+    self:SuccessfulPost(...)
+    self:ReselectItem(...)
   end
 end
 
@@ -384,12 +397,14 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
     end
   end)
 
-  -- Used because it can take a while for the throttle to clear on a megaserver,
-  -- this makes it clear that something is loading rather than leaving the
-  -- prices frozen on the previous item.
-  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.StartFakeBuyLoading, {itemLink = self.itemInfo.itemLink})
+  if not self.retryingItem then
+    -- Used because it can take a while for the throttle to clear on a megaserver,
+    -- this makes it clear that something is loading rather than leaving the
+    -- prices frozen on the previous item.
+    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.StartFakeBuyLoading, {itemLink = self.itemInfo.itemLink})
 
-  self.minPriceSeen = 0
+    self.minPriceSeen = 0
+  end
 end
 
 function AuctionatorSaleItemMixin:UpdateForNoItem()
@@ -522,10 +537,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     self.Stacks.NumStacks:GetNumber() * self.Stacks.StackSize:GetNumber() <= self.itemInfo.count and
 
     -- Positive price
-    self.UnitPrice:GetAmount() > 0 and
-
-    -- Not throttled
-    Auctionator.AH.IsNotThrottled()
+    self.UnitPrice:GetAmount() > 0
 end
 
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
@@ -551,10 +563,14 @@ function AuctionatorSaleItemMixin:RequiresConfirmationState()
 end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
-  if self:GetPostButtonState() then
-    self.PostButton:Enable()
-  else
-    self.PostButton:Disable()
+  self.PostButton:SetEnabled(self:GetPostButtonState())
+
+  if self.PostButton:IsEnabled() then
+    if Auctionator.AH.IsNotThrottled() then
+      self.PostButton:SetAlpha(1)
+    else
+      self.PostButton:SetAlpha(0.5)
+    end
   end
 end
 
@@ -600,57 +616,85 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
 
   Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
 
+  if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
+    Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
+  end
+
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostAttempt, {
+    numStacks = numStacks,
+    stackSize = stackSize,
+    duration = duration,
+    unitPrice = self.UnitPrice:GetAmount(),
+    startingBid = startingBid,
+    buyoutPrice = buyoutPrice,
+    deposit = deposit,
+    itemInfo = self.itemInfo,
+    minPriceSeen = self.minPriceSeen,
+  })
+
+  self:Reset()
+end
+
+function AuctionatorSaleItemMixin:SuccessfulPost(details)
   --Print auction to chat
   if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG) then
     Auctionator.Utilities.Message(Auctionator.Selling.ComposeAuctionPostedMessage({
-      itemLink = self.itemInfo.itemLink,
-      numStacks = numStacks,
-      stackSize = stackSize,
-      stackBuyout = buyoutPrice,
+      itemLink = details.itemInfo.itemLink,
+      numStacks = details.numStacksReached,
+      stackSize = details.stackSize,
+      stackBuyout = details.buyoutPrice,
     }))
   end
 
   Auctionator.EventBus:Fire(self,
     Auctionator.Selling.Events.AuctionCreated,
     {
-      itemLink = self.itemInfo.itemLink,
-      quantity = numStacks * stackSize,
-      buyoutAmount = self.UnitPrice:GetAmount(),
-      bidAmount = startingBid,
-      deposit = deposit,
+      itemLink = details.itemInfo.itemLink,
+      quantity = details.numStacksReached * details.stackSize,
+      buyoutAmount = details.unitPrice,
+      bidAmount = details.startingBid,
+      deposit = details.deposit,
     }
   )
 
   -- If not seen in any queries before this, then this price is the first one
   -- listed. Update the database to include this price.
-  if self.minPriceSeen == 0 or self.minPriceSeen > self.UnitPrice:GetAmount() then
-    local minPrice = self.UnitPrice:GetAmount()
-    Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
+  if details.minPriceSeen == 0 or details.minPriceSeen > details.unitPrice then
+    local minPrice = details.unitPrice
+    Auctionator.Utilities.DBKeyFromLink(details.itemInfo.itemLink, function(dbKeys)
       for _, key in ipairs(dbKeys) do
         Auctionator.Database:SetPrice(key, minPrice)
       end
     end)
   end
+end
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
-    Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
-  end
-
-  -- Save item info for refreshing search results
-  local lastItemInfo = self.itemInfo
-  self:Reset()
-
+function AuctionatorSaleItemMixin:DoNextItem(details)
   if (Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and
-      IsValidItem(lastItemInfo.nextItem)
+      IsValidItem(details.nextItem)
      ) then
     -- Option to automatically select the next item in the bag view
     Auctionator.EventBus:Fire(
-      self, Auctionator.Selling.Events.BagItemClicked, lastItemInfo.nextItem
+      self, Auctionator.Selling.Events.BagItemClicked, details.itemInfo.nextItem
     )
 
   else
     -- Search for current auctions of the last item posted
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshBuying, lastItemInfo)
+    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshBuying, details.itemInfo)
+  end
+end
+
+function AuctionatorSaleItemMixin:ReselectItem(details)
+  if IsValidItem(details.itemInfo) then
+    print("got the item ready to try again")
+    self.retryingItem = true
+    self.itemInfo = details.itemInfo
+    self.clickedSellItem = false
+    self.minPriceSeen = details.minPriceSeen
+    self:Update()
+    self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
+  else
+    print("item missing, won't retry")
   end
 end
 
