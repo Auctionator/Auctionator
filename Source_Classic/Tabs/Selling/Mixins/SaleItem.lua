@@ -156,9 +156,7 @@ end
 
 function AuctionatorSaleItemMixin:OnUpdate()
   if not self.clickedSellItem then
-    if self.retryingItem or Auctionator.AH.IsNotThrottled() then
-      self:SellItemClick()
-    end
+    self:SellItemClick()
     return
 
   elseif self.itemInfo == nil then
