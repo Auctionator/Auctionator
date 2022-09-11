@@ -2,7 +2,7 @@ AuctionatorBuyingItemTooltipMixin = {}
 
 function AuctionatorBuyingItemTooltipMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
-    Auctionator.Buying.Events.Show
+    Auctionator.Buying.Events.ShowForShopping
   })
 end
 

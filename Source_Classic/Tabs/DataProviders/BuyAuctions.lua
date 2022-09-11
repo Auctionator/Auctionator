@@ -241,6 +241,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
         break
       end
     end
+    Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.ViewSetup, result)
   end
 end
 

@@ -72,6 +72,7 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.ConfirmPost,
     Auctionator.Selling.Events.PostSuccessful,
     Auctionator.Selling.Events.PostFailed,
+    Auctionator.Buying.Events.ViewSetup,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.Buying.Events.HistoricalPrice,
@@ -93,6 +94,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.ConfirmPost,
     Auctionator.Selling.Events.PostSuccessful,
     Auctionator.Selling.Events.PostFailed,
+    Auctionator.Buying.Events.ViewSetup,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Buying.Events.AuctionFocussed,
     Auctionator.Buying.Events.HistoricalPrice,
@@ -301,6 +303,10 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   elseif event == Auctionator.AH.Events.ThrottleUpdate then
     self:UpdatePostButtonState()
 
+  elseif event == Auctionator.Buying.Events.ViewSetup then
+    self.buyViewSetup = true
+    self:UpdatePostButtonState()
+
   elseif event == Auctionator.Selling.Events.RequestPost then
     self:PostItem()
 
@@ -399,6 +405,9 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   self:SetQuantity()
 
   self.priceThreshold = nil
+  if not self.retryingItem then
+    self.buyViewSetup = false
+  end
 
   Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
     local price = Auctionator.Database:GetFirstPrice(dbKeys)
@@ -537,6 +546,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     self.itemInfo ~= nil and
     self.itemInfo.count > 0 and
     self.clickedSellItem and
+    self.buyViewSetup and
 
     C_Item.DoesItemExist(self.itemInfo.location) and
 

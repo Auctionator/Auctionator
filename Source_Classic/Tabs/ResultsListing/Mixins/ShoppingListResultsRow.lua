@@ -17,7 +17,7 @@ function AuctionatorShoppingListResultsRowMixin:OnClick(button, ...)
 
     Auctionator.EventBus
       :RegisterSource(self, "ShoppingListResultsRowMixin")
-      :Fire(self, Auctionator.Buying.Events.Show, self.rowData)
+      :Fire(self, Auctionator.Buying.Events.ShowForShopping, self.rowData)
       :UnregisterSource(self)
   end
 end

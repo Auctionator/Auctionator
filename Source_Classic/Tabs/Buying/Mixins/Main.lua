@@ -176,7 +176,7 @@ AuctionatorBuyFrameMixinForShopping = CreateFromMixins(AuctionatorBuyFrameMixin)
 function AuctionatorBuyFrameMixinForShopping:Init()
   AuctionatorBuyFrameMixin.Init(self)
   Auctionator.EventBus:Register(self, {
-    Auctionator.Buying.Events.Show,
+    Auctionator.Buying.Events.ShowForShopping,
     Auctionator.ShoppingLists.Events.ListSearchStarted,
   })
 end
@@ -203,7 +203,7 @@ function AuctionatorBuyFrameMixinForShopping:OnHide()
 end
 
 function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, ...)
-  if eventName == Auctionator.Buying.Events.Show then
+  if eventName == Auctionator.Buying.Events.ShowForShopping then
     self:Show()
 
     self:Reset()
