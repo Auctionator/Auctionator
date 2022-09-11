@@ -17,7 +17,7 @@ function AuctionatorPostWatchMixin:ReceiveEvent(eventName, details)
   if eventName == Auctionator.Selling.Events.PostAttempt then
     self.details = details
     self.details.numStacksReached = 0
-    print("post attempt", self.details.itemInfo.itemLink)
+    Auctionator.Debug.Message("post attempt", self.details.itemInfo.itemLink)
     if not self.waitingForConfirmation then
       self.waitingForConfirmation = true
       FrameUtil.RegisterFrameForEvents(self, SYSTEM_EVENTS)
@@ -30,14 +30,14 @@ function AuctionatorPostWatchMixin:OnEvent(eventName, eventData1, eventData2)
     self.details.numStacksReached = self.details.numStacksReached + 1
 
     if self.details.numStacksReached == self.details.numStacks then
-      print("pass", self.details.itemInfo.itemLink)
+      Auctionator.Debug.Message("pass", self.details.itemInfo.itemLink)
       local details = self.details
       self:StopWatching()
       details.numStacksReached = 1
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostSuccessful, details)
     end
   elseif eventName == "UI_ERROR_MESSAGE" and eventData2 == ERR_AUCTION_DATABASE_ERROR then
-    print("fail internal", self.details.itemInfo.itemLink)
+    Auctionator.Debug.Message("fail blizz internal auction error", self.details.itemInfo.itemLink)
     local details = self.details
     self:StopWatching()
     Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostFailed, details)

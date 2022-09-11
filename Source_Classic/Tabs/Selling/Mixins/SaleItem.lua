@@ -336,11 +336,16 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     local price = ...
     self:SetUnitPrice(price)
   elseif event == Auctionator.Selling.Events.PostSuccessful then
-    self:SuccessfulPost(...)
-    self:DoNextItem(...)
+    local details = ...
+    self:SuccessfulPost(details)
+    self:DoNextItem(details)
   elseif event == Auctionator.Selling.Events.PostFailed then
-    self:SuccessfulPost(...)
-    self:ReselectItem(...)
+    local details = ...
+    if details.numStacksReached > 0 then
+      self:SuccessfulPost(details)
+    end
+    Auctionator.Utilities.Message(AUCTIONATOR_L_POST_ATTEMPT_FAILED)
+    self:ReselectItem(details)
   end
 end
 
@@ -709,7 +714,7 @@ end
 
 function AuctionatorSaleItemMixin:ReselectItem(details)
   if IsValidItem(details.itemInfo) then
-    print("got the item ready to try again")
+    Auctionator.Debug.Message("got the item ready to try again")
     self.retryingItem = true
     self.itemInfo = details.itemInfo
     self.clickedSellItem = false
@@ -719,7 +724,7 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
   else
     local location = FindItemAgain(self.itemInfo.itemLink)
     if self.itemInfo.location ~= nil then
-      print("found again, trying")
+      Auctionator.Debug.Message("found again, trying")
       self.retryingItem = true
       self.itemInfo = CopyTable(details.itemInfo)
       self.itemInfo.location = location
@@ -729,7 +734,7 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
       self:Update()
       self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
     else
-      print("item missing, won't retry")
+      Auctionator.Debug.Message("item missing, won't retry")
       self:DoNextItem(details)
     end
   end
