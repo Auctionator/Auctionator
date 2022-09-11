@@ -720,7 +720,7 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
     if self.itemInfo.location ~= nil then
       Auctionator.Debug.Message("found again, trying")
       self.retryingItem = true
-      self.itemInfo = CopyTable(details.itemInfo)
+      self.itemInfo = CopyTable(details.itemInfo, true)
       self.itemInfo.location = location
       self.itemInfo.count = Auctionator.Selling.GetItemCount(self.itemInfo.location)
       self.clickedSellItem = false
