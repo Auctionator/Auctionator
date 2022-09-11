@@ -594,12 +594,6 @@ end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
   self.PostButton:SetEnabled(self:GetPostButtonState())
-
-  if self.PostButton:IsEnabled() and not Auctionator.AH.IsNotThrottled() then
-    self.PostButton:SetText(AUCTIONATOR_L_POST_MAY_FAIL)
-  else
-    self.PostButton:SetText(AUCTIONATOR_L_POST)
-  end
 end
 
 function AuctionatorSaleItemMixin:UpdateSkipButtonState()
