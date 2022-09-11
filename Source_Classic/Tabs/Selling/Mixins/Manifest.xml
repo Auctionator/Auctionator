@@ -2,6 +2,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="BagItemSelected.lua"/>
 
+  <Script file="PostWatch.lua"/>
   <Script file="SaleItem.lua"/>
 
   <Script file="Main.lua"/>
