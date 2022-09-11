@@ -33,7 +33,6 @@ function AuctionatorPostWatchMixin:OnEvent(eventName, eventData1, eventData2)
       Auctionator.Debug.Message("pass", self.details.itemInfo.itemLink)
       local details = self.details
       self:StopWatching()
-      details.numStacksReached = 1
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.PostSuccessful, details)
     end
   elseif eventName == "UI_ERROR_MESSAGE" and eventData2 == ERR_AUCTION_DATABASE_ERROR then
