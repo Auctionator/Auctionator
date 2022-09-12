@@ -411,23 +411,22 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   self:SetQuantity()
 
   self.priceThreshold = nil
+
   if not self.retryingItem then
     self.buyViewSetup = false
-  end
 
-  Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
-    local price = Auctionator.Database:GetFirstPrice(dbKeys)
+    Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
+      local price = Auctionator.Database:GetFirstPrice(dbKeys)
 
-    if price ~= nil then
-      self:SetUnitPrice(price)
-    elseif IsEquipment(self.itemInfo) then
-      self:SetEquipmentMultiplier(self.itemInfo.itemLink)
-    else
-      self:SetUnitPrice(0)
-    end
-  end)
+      if price ~= nil then
+        self:SetUnitPrice(price)
+      elseif IsEquipment(self.itemInfo) then
+        self:SetEquipmentMultiplier(self.itemInfo.itemLink)
+      else
+        self:SetUnitPrice(0)
+      end
+    end)
 
-  if not self.retryingItem then
     -- Used because it can take a while for the throttle to clear on a megaserver,
     -- this makes it clear that something is loading rather than leaving the
     -- prices frozen on the previous item.
@@ -715,6 +714,7 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
     self.clickedSellItem = false
     self.minPriceSeen = details.minPriceSeen
     self:Update()
+    self:SetUnitPrice(details.unitPrice)
     self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
   else
     local location = FindItemAgain(self.itemInfo.itemLink)
@@ -727,6 +727,7 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
       self.clickedSellItem = false
       self.minPriceSeen = details.minPriceSeen
       self:Update()
+      self:SetUnitPrice(details.unitPrice)
       self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
     else
       Auctionator.Debug.Message("item missing, won't retry")
