@@ -251,7 +251,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ow
 
     local newAllAuctions = {}
     for _, entry in ipairs(self.allAuctions) do
-      if ToOwner(entry) ~= "player" then
+      if ToOwner(entry) ~= (GetUnitName("player")) then
         table.insert(newAllAuctions, entry)
       end
     end

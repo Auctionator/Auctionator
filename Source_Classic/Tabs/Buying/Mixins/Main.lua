@@ -64,8 +64,12 @@ end
 function AuctionatorBuyFrameMixin:OnEvent(eventName, ...)
   if eventName == "PLAYER_MONEY" then
     self:UpdateButtons()
-  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" then
-    self.SearchDataProvider:PurgeAndReplaceOwnedAuctions(Auctionator.AH.DumpAuctions("owner"))
+  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" and self.lastCancelData ~= nil then
+    -- Determine how many of the auction are left after an attempted
+    -- cancellation
+    self.lastCancelData.numStacks = CountOwnedAuctions(self.lastCancelData)
+    Auctionator.Utilities.SetStacksText(self.lastCancelData)
+    self.lastCancelData = nil
   end
 end
 
@@ -235,7 +239,14 @@ function AuctionatorBuyFrameMixinForSelling:Init()
     Auctionator.Selling.Events.RefreshBuying,
     Auctionator.Selling.Events.StartFakeBuyLoading,
     Auctionator.Selling.Events.StopFakeBuyLoading,
+    Auctionator.Selling.Events.AuctionCreated,
   })
+end
+
+function AuctionatorBuyFrameMixinForSelling:Reset()
+  AuctionatorBuyFrameMixin.Reset(self)
+
+  self.waitingOnNewAuction = false
 end
 
 function AuctionatorBuyFrameMixinForSelling:OnShow()
@@ -267,7 +278,18 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
     self:Reset()
     self.RefreshButton:Disable()
     self.HistoryButton:Disable()
+  elseif eventName == Auctionator.Selling.Events.AuctionCreated then
+    self.waitingOnNewAuction = true
   else
     AuctionatorBuyFrameMixin.ReceiveEvent(self, eventName, eventData, ...)
+  end
+end
+
+function AuctionatorBuyFrameMixinForSelling:OnEvent(eventName, ...)
+  AuctionatorBuyFrameMixin.OnEvent(self, eventName, ...)
+
+  if eventName == "AUCTION_OWNED_LIST_UPDATE" and self.waitingOnNewAuction then
+    self.waitingOnNewAuction = false
+    self.SearchDataProvider:PurgeAndReplaceOwnedAuctions(Auctionator.AH.DumpAuctions("owner"))
   end
 end
