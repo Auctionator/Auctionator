@@ -344,6 +344,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     if details.numStacksReached > 0 then
       self:SuccessfulPost(details)
     end
+    UIErrorsFrame:AddMessage(AUCTIONATOR_L_POST_ATTEMPT_FAILED, 1.0, 0.1, 0.1, 1.0)
     Auctionator.Utilities.Message(AUCTIONATOR_L_POST_ATTEMPT_FAILED)
     self:ReselectItem(details)
   end
