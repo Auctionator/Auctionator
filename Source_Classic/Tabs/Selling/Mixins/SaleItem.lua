@@ -699,10 +699,6 @@ function AuctionatorSaleItemMixin:DoNextItem(details)
     Auctionator.EventBus:Fire(
       self, Auctionator.Selling.Events.BagItemClicked, details.itemInfo.nextItem
     )
-
-  else
-    -- Search for current auctions of the last item posted
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshBuying, details.itemInfo)
   end
 end
 

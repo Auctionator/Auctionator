@@ -64,12 +64,8 @@ end
 function AuctionatorBuyFrameMixin:OnEvent(eventName, ...)
   if eventName == "PLAYER_MONEY" then
     self:UpdateButtons()
-  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" and self.lastCancelData ~= nil then
-    -- Determine how many of the auction are left after an attempted
-    -- cancellation
-    self.lastCancelData.numStacks = CountOwnedAuctions(self.lastCancelData)
-    Auctionator.Utilities.SetStacksText(self.lastCancelData)
-    self.lastCancelData = nil
+  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" then
+    self.SearchDataProvider:PurgeAndReplaceOwnedAuctions(Auctionator.AH.DumpAuctions("owner"))
   end
 end
 

@@ -245,6 +245,28 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
   end
 end
 
+function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ownedAuctions)
+  if self.query ~= nil then
+    self.onPreserveScroll()
+
+    local newAllAuctions = {}
+    for _, entry in ipairs(self.allAuctions) do
+      if ToOwner(entry) ~= "player" then
+        table.insert(newAllAuctions, entry)
+      end
+    end
+
+    self.allAuctions = newAllAuctions
+
+    for _, entry in ipairs(ownedAuctions) do
+      entry.page = 0
+      entry.query = self.query
+    end
+
+    self:ImportAdditionalResults(ownedAuctions)
+  end
+end
+
 -- Set a new price in the price database based on the current results.
 -- Assumes being called after PopulateAuctions which will have sorted the
 -- auctions from min price to max AND that all the results have been acquired
