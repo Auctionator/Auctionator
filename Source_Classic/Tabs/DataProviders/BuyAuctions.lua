@@ -132,7 +132,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results
   for _, entry in ipairs(results) do
     local itemID = entry.info[Auctionator.Constants.AuctionItemInfo.ItemID]
     local itemString = Auctionator.Search.GetCleanItemLink(entry.itemLink)
-    if self.searchKey == itemString and Auctionator.Utilities.ToUnitPrice(entry) ~= 0 then
+    if self.searchKey == itemString then
       table.insert(self.allAuctions, entry)
     end
   end
@@ -169,6 +169,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
     end
   end)
 
+  local bidOnlyItems = false
   local results = {}
   for _, auction in ipairs(self.allAuctions) do
     local newEntry = {
@@ -204,19 +205,41 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
     end
     Auctionator.Utilities.SetStacksText(newEntry)
 
-    local prevResult = results[#results] or {}
-    if prevResult.unitPrice == newEntry.unitPrice and
-       prevResult.stackSize == newEntry.stackSize and
-       prevResult.itemLink == newEntry.itemLink and 
-       prevResult.otherSellers == newEntry.otherSellers and
-       (prevResult.bidAmount == newEntry.bidAmount or prevResult.unitPrice == nil) then
-      prevResult.numStacks = prevResult.numStacks + 1
-      Auctionator.Utilities.SetStacksText(prevResult)
+    if newEntry.unitPrice == nil then
+      bidOnlyItems = true
     else
-      prevResult.nextEntry = newEntry
-      table.insert(results, newEntry)
+      local prevResult = results[#results] or {}
+      if prevResult.unitPrice == newEntry.unitPrice and
+         prevResult.stackSize == newEntry.stackSize and
+         prevResult.itemLink == newEntry.itemLink and
+         prevResult.otherSellers == newEntry.otherSellers and
+         (prevResult.bidAmount == newEntry.bidAmount or prevResult.unitPrice == nil) then
+        prevResult.numStacks = prevResult.numStacks + 1
+        Auctionator.Utilities.SetStacksText(prevResult)
+      else
+        prevResult.nextEntry = newEntry
+        table.insert(results, newEntry)
+      end
+      results[#results].page = math.min(results[#results].page, auction.page)
     end
-    results[#results].page = math.min(results[#results].page, auction.page)
+  end
+
+  if bidOnlyItems then
+    table.insert(results, {
+      itemLink = self.query.itemLink,
+      unitPrice = nil,
+      stackPrice = nil,
+      stackSize = 0,
+      numStacks = 0,
+      isOwned = false,
+      otherSellers = "",
+      bidAmount = 0,
+      isSelected = false,
+      notReady = true,
+      query = self.query,
+      page = 0,
+    })
+    results[#results].availablePretty = AUCTIONATOR_L_BID_ONLY_AVAILABLE
   end
 
   if not self.requestAllResults and gotResult and not self.gotAllResults then

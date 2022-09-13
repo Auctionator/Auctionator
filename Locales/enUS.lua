@@ -550,6 +550,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ERROR_REOPEN_AUCTION_HOUSE"] = "Unable to complete action, please close and reopen the Auction House."
   L["X_STACK_OF_X"] = "%s stack of %s"
   L["X_STACKS_OF_X"] = "%s stacks of %s"
+  L["BID_ONLY_AVAILABLE"] = "bid only available"
   L["BUYING_X_FOR_X"] = "Buying %s for %s"
   L["BRACKETS_X_EACH"] = "(%s each)"
   L["ALREADY_PURCHASED_X"] = "Already purchased %s"
