@@ -58,12 +58,22 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.ConfirmPostLowPrice" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="GreyPostButton">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_GREY_POST_BUTTON" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_GREY_POST_BUTTON_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_GREY_POST_BUTTON_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AlwaysLoadMore" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="BagHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_CONFIG_BAG" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AlwaysLoadMore" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.GreyPostButton" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 

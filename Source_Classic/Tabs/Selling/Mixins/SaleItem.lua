@@ -567,7 +567,10 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     self.Stacks.NumStacks:GetNumber() * self.Stacks.StackSize:GetNumber() <= self.itemInfo.count and
 
     -- Positive price
-    self.UnitPrice:GetAmount() > 0
+    self.UnitPrice:GetAmount() > 0 and
+
+    -- Have opted to ignore the throttle or searches on the client aren't throttled
+    (not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GREY_POST_BUTTON) or Auctionator.AH.IsNotThrottled())
 end
 
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
