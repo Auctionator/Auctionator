@@ -57,7 +57,7 @@ function Auctionator.ReagentSearch.GetAHProfit()
   local recipeLink =  GetTradeSkillItemLink(recipeIndex)
   local count = GetTradeSkillNumMade(recipeIndex)
 
-  if recipeLink == nil or recipeLink:match("recipe:") then
+  if recipeLink == nil or recipeLink:match("enchant:") then
     return nil
   end
 
