@@ -64,6 +64,10 @@ function Auctionator.ReagentSearch.GetAHProfit()
   local recipeLink = C_TradeSkillUI.GetRecipeItemLink(recipeIndex)
   local count = C_TradeSkillUI.GetRecipeNumItemsProduced(recipeIndex)
 
+  if recipeLink == nil or recipeLink:match("recipe:") then
+    return nil
+  end
+
   local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
   if currentAH == nil then
     currentAH = 0

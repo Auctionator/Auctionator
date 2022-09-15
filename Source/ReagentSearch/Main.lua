@@ -38,23 +38,34 @@ function Auctionator.ReagentSearch.CacheVendorPrices()
   end
 end
 
-function Auctionator.ReagentSearch.GetInfoText()
-  local price
+local function CraftCostString()
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal(), true))
 
+  return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
+end
+
+local function ProfitString(profit)
+  local price
+  if profit >= 0 then
+    price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(profit, true))
+  else
+    price = RED_FONT_COLOR:WrapTextInColorCode("-" .. GetMoneyString(-profit, true))
+  end
+
+  return AUCTIONATOR_L_PROFIT_COLON .. " " .. price
+
+end
+
+function Auctionator.ReagentSearch.GetInfoText()
   if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT) then
     local profit = Auctionator.ReagentSearch.GetAHProfit()
-    local price
-    if profit >= 0 then
-      price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(profit, true))
+
+    if profit == nil then
+      return CraftCostString()
     else
-      price = RED_FONT_COLOR:WrapTextInColorCode("-" .. GetMoneyString(-profit, true))
+      return ProfitString(profit)
     end
-
-    return AUCTIONATOR_L_PROFIT_COLON .. " " .. price
-
   else
-    local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal(), true))
-
-    return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
+    return CraftCostString()
   end
 end
