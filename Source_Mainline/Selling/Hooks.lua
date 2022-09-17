@@ -31,9 +31,11 @@ hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
   end
 end)
 
-hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", function(self, button)
-  if AHShown() and
-      Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
-    SelectOwnItem(self)
-  end
-end)
+if ContainerFrameItemButton_OnModifiedClick then
+  hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", function(self, button)
+    if AHShown() and
+        Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
+      SelectOwnItem(self)
+    end
+  end)
+end
