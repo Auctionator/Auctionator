@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorConfigQuantitiesFrameTemplate" mixin="AuctionatorConfigQuantitiesFrameMixin" parent="InterfaceOptionsFrame" virtual="true">
+  <Frame name="AuctionatorConfigQuantitiesFrameTemplate" mixin="AuctionatorConfigQuantitiesFrameMixin" virtual="true">
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>

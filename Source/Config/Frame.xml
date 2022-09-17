@@ -1,8 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame
-    name="AuctionatorConfigurationFrame"
+    name="AuctionatorConfigurationFrameTemplate"
     mixin="AuctionatorConfigFrameMixin"
-    parent="InterfaceOptionsFrame"
+    hidden="true"
   >
     <Scripts>
       <OnLoad method="OnLoad"/>

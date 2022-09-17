@@ -2,7 +2,6 @@
   <Frame
     name="AuctionatorConfigCancellingFrameTemplate"
     mixin="AuctionatorConfigCancellingFrameMixin"
-    parent="InterfaceOptionsFrame"
     virtual="true">
 
     <Scripts>

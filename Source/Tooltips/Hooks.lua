@@ -62,7 +62,7 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
   end
 );
 
-if GameTooltip.SetRecipeResultItem and GameTooltip.SetRecipeReagentItem then -- not Auctionator.Constants.IsClassic
+if GameTooltip.SetRecipeResultItem and GameTooltip.SetRecipeReagentItem then -- Shadowlands
   -- This is called when mousing over the result item on a recipe page in the tradeskill window
   hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
     function(tip, recipeResultItemId)
@@ -84,7 +84,9 @@ if GameTooltip.SetRecipeResultItem and GameTooltip.SetRecipeReagentItem then -- 
       Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
     end
   );
-else
+end
+
+if GameTooltip.SetTradeSkillItem then -- Classic
   hooksecurefunc( GameTooltip, 'SetTradeSkillItem',
     function(tip, recipeIndex, reagentIndex)
       local itemLink, itemCount
@@ -100,7 +102,7 @@ else
   );
 end
 
-if GameTooltip.SetCraftItem then -- is Auctionator.Constants.IsClassic
+if GameTooltip.SetCraftItem then -- TBC classic and earlier
   hooksecurefunc( GameTooltip, 'SetCraftItem',
     function(tip, recipeIndex, reagentIndex)
       local itemLink, itemCount
