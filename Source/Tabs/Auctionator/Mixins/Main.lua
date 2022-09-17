@@ -13,8 +13,6 @@ end
 function AuctionatorConfigTabMixin:OpenOptions()
   if Settings ~= nil then -- Dragonflight
     Settings.OpenToCategory(AUCTIONATOR_L_AUCTIONATOR)
-    -- Doesn't work in Dragonflight beta, hence ^^ being used.
-    Settings.OpenToCategory(AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY)
   else
     InterfaceOptionsFrame:Show()
     InterfaceOptionsFrame_OpenToCategory(AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY)

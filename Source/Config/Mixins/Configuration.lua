@@ -10,10 +10,7 @@ function AuctionatorConfigFrameMixin:OnLoad()
 end
 
 function AuctionatorConfigFrameMixin:Show()
-  if Settings ~= nil then
-    -- Doesn't work
-    Settings.OpenToCategory(AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY)
-  else
+  if InterfaceOptionsFrame then
     InterfaceOptionsFrame_OpenToCategory(AuctionatorConfigBasicOptionsFrame)
   end
   -- For some reason OnShow doesn't fire?
