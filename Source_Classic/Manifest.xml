@@ -7,6 +7,7 @@
   <Include file="Constants\Manifest.xml"/>
   <Include file="Config\Manifest.xml"/>
   <Include file="Enchant\Manifest.xml"/>
+  <Include file="Prospect\Manifest.xml"/>
   <Include file="Search\Manifest.xml" />
   <Include file="Variables\Manifest.xml" />
   <Include file="Core\Manifest.xml" />

@@ -59,6 +59,17 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     end
   end
 
+  local prospectStatus = false
+  local prospectValue
+  if Auctionator.Prospect then
+    local itemID = GetItemInfoInstant(itemLink)
+    prospectStatus = Auctionator.Prospect.IsProspectable(itemID)
+    local prospectForOne = Auctionator.Prospect.GetProspectAuctionPrice(itemID)
+    if prospectForOne ~= nil then
+      prospectValue = math.floor(prospectForOne * (showStackPrices and itemCount or 1))
+    end
+  end
+
   if Auctionator.Debug.IsOn() then
     tooltipFrame:AddDoubleLine("DBKey", dbKeys[1])
   end
@@ -75,6 +86,10 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
         tooltipFrame:AddLine(line)
       end
     end
+  end
+
+  if prospectStatus then
+    Auctionator.Tooltip.AddProspectTip(tooltipFrame, prospectValue, countString)
   end
   tooltipFrame:Show()
 end
@@ -182,6 +197,30 @@ function Auctionator.Tooltip.AddDisenchantTip (
          disenchantStatus.supportedXpac then
     tooltipFrame:AddDoubleLine(
       L("DISENCHANT") .. countString,
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        L("UNKNOWN") .. "  "
+      )
+    )
+  end
+end
+
+function Auctionator.Tooltip.AddProspectTip (
+  tooltipFrame, prospectValue, countString
+)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.PROSPECT_TOOLTIPS) then
+    return
+  end
+
+  if prospectValue ~= nil then
+    tooltipFrame:AddDoubleLine(
+      L("PROSPECT") .. countString,
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        Auctionator.Utilities.CreatePaddedMoneyString(prospectValue)
+      )
+    )
+  else
+    tooltipFrame:AddDoubleLine(
+      L("PROSPECT") .. countString,
       WHITE_FONT_COLOR:WrapTextInColorCode(
         L("UNKNOWN") .. "  "
       )
