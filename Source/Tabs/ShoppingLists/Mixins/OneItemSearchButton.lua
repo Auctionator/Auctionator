@@ -18,13 +18,13 @@ function AuctionatorShoppingOneItemSearchButtonMixin:ReceiveEvent(eventName, ...
   if eventName == Auctionator.ShoppingLists.Events.ListSearchStarted then
     self.searchRunning = true
 
-    self:SetText(CANCEL)
+    self:SetText(AUCTIONATOR_L_CANCEL)
     self:SetWidth(0)
     DynamicResizeButton_Resize(self)
   elseif eventName == Auctionator.ShoppingLists.Events.ListSearchEnded then
     self.searchRunning = false
 
-    self:SetText(SEARCH)
+    self:SetText(AUCTIONATOR_L_SEARCH)
     self:SetWidth(0)
     DynamicResizeButton_Resize(self)
   end
