@@ -10,7 +10,9 @@ local EVENTS = {
 }
 
 local MONEY_EVENTS = {
-  "PLAYER_MONEY"
+  "PLAYER_MONEY",
+  "UI_ERROR_MESSAGE",
+  "CHAT_MSG_SYSTEM",
 }
 
 function AuctionatorBuyDialogMixin:OnLoad()
@@ -26,13 +28,31 @@ end
 function AuctionatorBuyDialogMixin:Reset()
   self.auctionData = nil
   self.buyInfo = nil
+  self.blacklistedBefore = 0
   self.gotAllResults = true
   self.quantityPurchased = 0
+  self.lastBuyStackSize = 0
 end
 
-function AuctionatorBuyDialogMixin:OnEvent(eventName)
+function AuctionatorBuyDialogMixin:OnEvent(eventName, ...)
   if eventName == "PLAYER_MONEY" then
     self:UpdateButtons()
+  elseif eventName == "UI_ERROR_MESSAGE" then
+    local _, message = ...
+    if message == ERR_ITEM_NOT_FOUND and self.buyInfo ~= nil then
+      Auctionator.Debug.Message("AuctionatorBuyDialogMixin", "failed purchase", self.buyInfo.index, self.lastBuyStackSize)
+      self.lastBuyStackSize = 0
+      self.blacklistedBefore = self.buyInfo.index
+      self:SetDetails(self.auctionData, self.quantityPurchased, self.lastBuyStackSize, self.blacklistedBefore)
+      self:LoadForPurchasing()
+    end
+  elseif eventName == "CHAT_MSG_SYSTEM" then
+    local message = ...
+    if message == ERR_AUCTION_BID_PLACED then
+      self.quantityPurchased = self.quantityPurchased + self.lastBuyStackSize
+      self:SetDetails(self.auctionData, self.quantityPurchased, self.lastBuyStackSize, self.blacklistedBefore)
+      self:LoadForPurchasing()
+    end
   end
 end
 
@@ -64,7 +84,7 @@ function AuctionatorBuyDialogMixin:UpdatePurchasedCount(newCount)
   self.NumberPurchased:SetText(AUCTIONATOR_L_ALREADY_PURCHASED_X:format(newCount))
 end
 
-function AuctionatorBuyDialogMixin:SetDetails(auctionData, initialQuantityPurchased)
+function AuctionatorBuyDialogMixin:SetDetails(auctionData, initialQuantityPurchased, lastBuyStackSize, blacklistedBefore)
   self:Reset()
 
   self.auctionData = auctionData
@@ -76,6 +96,8 @@ function AuctionatorBuyDialogMixin:SetDetails(auctionData, initialQuantityPurcha
   end
 
   self.quantityPurchased = initialQuantityPurchased or 0
+  self.lastBuyStackSize = lastBuyStackSize or 0
+  self.blacklistedBefore = blacklistedBefore or 0
 
   local stackText = BLUE_FONT_COLOR:WrapTextInColorCode("x" .. auctionData.stackSize)
   local priceText = GetMoneyString(auctionData.stackPrice, true)
@@ -113,7 +135,7 @@ function AuctionatorBuyDialogMixin:LoadForPurchasing()
         end)
       end
 
-      self:SetDetails(self.auctionData.nextEntry, self.quantityPurchased)
+      self:SetDetails(self.auctionData.nextEntry, self.quantityPurchased, self.lastBuyStackSize, self.blacklistedBefore)
     end
     return
   end
@@ -121,6 +143,7 @@ function AuctionatorBuyDialogMixin:LoadForPurchasing()
   Auctionator.AH.AbortQuery()
   self:FindAuctionOnCurrentPage()
   if self.buyInfo == nil then
+    self.blacklistedBefore = 0
     Auctionator.EventBus:Register(self, QUERY_EVENTS)
     self.gotAllResults = false
     Auctionator.AH.QueryAndFocusPage(self.auctionData.query, self.auctionData.page)
@@ -155,15 +178,17 @@ function AuctionatorBuyDialogMixin:FindAuctionOnCurrentPage()
 
   local page = Auctionator.AH.GetCurrentPage()
   for index, auction in ipairs(page) do
-    local stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout]
-    local stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity]
-    local bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount]
-    if auction.itemLink == self.auctionData.itemLink and
-       stackPrice == self.auctionData.stackPrice and
-       stackSize == self.auctionData.stackSize and
-       bidAmount ~= stackPrice then
-      self.buyInfo = {index = index}
-      break
+    if index > self.blacklistedBefore then
+      local stackPrice = auction.info[Auctionator.Constants.AuctionItemInfo.Buyout]
+      local stackSize = auction.info[Auctionator.Constants.AuctionItemInfo.Quantity]
+      local bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount]
+      if auction.itemLink == self.auctionData.itemLink and
+         stackPrice == self.auctionData.stackPrice and
+         stackSize == self.auctionData.stackSize and
+         bidAmount ~= stackPrice then
+        self.buyInfo = {index = index}
+        break
+      end
     end
   end
 end
@@ -193,7 +218,7 @@ function AuctionatorBuyDialogMixin:BuyStackClicked()
     Auctionator.AH.PlaceAuctionBid(self.buyInfo.index, self.auctionData.stackPrice)
     self.auctionData.numStacks = self.auctionData.numStacks - 1
     Auctionator.Utilities.SetStacksText(self.auctionData)
-    self.quantityPurchased = self.quantityPurchased + self.auctionData.stackSize
+    self.lastBuyStackSize = self.auctionData.stackSize
     self:UpdatePurchasedCount(self.quantityPurchased)
     Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.StacksUpdated)
   end
