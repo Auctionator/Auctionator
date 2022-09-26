@@ -68,6 +68,8 @@ end
 function AuctionatorBuyAuctionsDataProviderMixin:SetAuctions(entries)
   self.allAuctions = {}
   self:ImportAdditionalResults(entries)
+  self:PopulateAuctions()
+  self:SetSelectedIndex(1)
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetQuery(itemLink)
@@ -101,7 +103,23 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventDa
     if self.gotAllResults then
       Auctionator.EventBus:Unregister(self, BUY_EVENTS)
     end
+
     self:ImportAdditionalResults(eventData)
+
+    if not self.requestAllResults and #self.allAuctions > 0 then
+      Auctionator.AH.AbortQuery()
+      self.gotAllResults = true
+    end
+
+    self:PopulateAuctions()
+
+    if self.gotAllResults then
+      self:ReportNewMinPrice()
+      self:SetSelectedIndex(1)
+
+      Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.ViewSetup, result)
+    end
+
   elseif eventName == Auctionator.AH.Events.ScanAborted then
     Auctionator.EventBus:Unregister(self, BUY_EVENTS)
     self.onSearchEnded()
@@ -136,7 +154,6 @@ function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results
       table.insert(self.allAuctions, entry)
     end
   end
-  self:PopulateAuctions()
 end
 
 local function ToStackSize(entry)
@@ -148,8 +165,6 @@ end
 
 function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
   self:Reset()
-
-  local gotResult = false
 
   table.sort(self.allAuctions, function(a, b)
     local unitA = Auctionator.Utilities.ToUnitPrice(a)
@@ -189,12 +204,6 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
     if newEntry.unitPrice == 0 then
       newEntry.unitPrice = nil
       newEntry.stackPrice = nil
-    end
-
-    if newEntry.unitPrice ~= nil then
-      gotResult = true
-    else
-      newEntry.otherSellers = ""
     end
 
     if newEntry.isOwned then
@@ -242,35 +251,14 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
     results[#results].availablePretty = AUCTIONATOR_L_BID_ONLY_AVAILABLE
   end
 
-  if not self.requestAllResults and gotResult and not self.gotAllResults then
-    Auctionator.AH.AbortQuery()
-    self.gotAllResults = true
-  end
-
   self:AppendEntries(results, self.gotAllResults)
-
-  if self.gotAllResults then
-    self:ReportNewMinPrice()
-
-    -- Enable selection
-    for _, result in ipairs(results) do
-      result.notReady = false
-    end
-
-    for _, result in ipairs(results) do
-      if result.unitPrice ~= nil then
-        result.isSelected = true
-        Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.AuctionFocussed, result)
-        break
-      end
-    end
-    Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.ViewSetup, result)
-  end
+  self.currentResults = results
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ownedAuctions)
   if self.query ~= nil then
     self.onPreserveScroll()
+    local prevSelectedIndex = self:GetSelectedIndex()
 
     local newAllAuctions = {}
     for _, entry in ipairs(self.allAuctions) do
@@ -287,6 +275,9 @@ function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ow
     end
 
     self:ImportAdditionalResults(ownedAuctions)
+    self:PopulateAuctions()
+
+    self:SetSelectedIndex(prevSelectedIndex or 1)
   end
 end
 
@@ -313,6 +304,26 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReportNewMinPrice()
           Auctionator.Database:SetPrice(key, minPrice, available)
         end
       end)
+    end
+  end
+end
+
+function AuctionatorBuyAuctionsDataProviderMixin:GetSelectedIndex()
+  for index, result in ipairs(self.currentResults) do
+    if result.isSelected then
+      return index
+    end
+  end
+end
+
+function AuctionatorBuyAuctionsDataProviderMixin:SetSelectedIndex(newSelectedIndex)
+  for index, result in ipairs(self.currentResults) do
+    result.notReady = false
+    result.isSelected = false
+
+    if index == newSelectedIndex then
+      result.isSelected = true
+      Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.AuctionFocussed, result)
     end
   end
 end
