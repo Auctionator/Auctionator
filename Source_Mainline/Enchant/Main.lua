@@ -43,14 +43,16 @@ function Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
 
   local price = 0
 
-  for reagentKey, meanDrop in pairs(disenchantInfo) do
+  for reagentKey, allDrops in pairs(disenchantInfo) do
     local reagentPrice = Auctionator.Database:GetPrice(reagentKey)
 
     if reagentPrice == nil then
       return nil
     end
 
-    price = price + reagentPrice * meanDrop
+    for index, drop in ipairs(allDrops) do
+      price = price + reagentPrice * index * drop
+    end
   end
 
   return price
