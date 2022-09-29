@@ -17,14 +17,16 @@ function Auctionator.Prospect.GetProspectAuctionPrice(itemID)
 
   local price = 0
 
-  for reagentKey, meanDrop in pairs(prospectResults) do
+  for reagentKey, allDrops in pairs(prospectResults) do
     local reagentPrice = Auctionator.Database:GetPrice(reagentKey)
 
     if reagentPrice == nil then
       return nil
     end
 
-    price = price + reagentPrice * meanDrop
+    for index, drop in ipairs(allDrops) do
+      price = price + reagentPrice * index * drop
+    end
   end
 
   return price / 5
