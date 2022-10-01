@@ -19,8 +19,9 @@ local NEW_AUCTION_EVENTS = {
 }
 -- If we don't wait for the owned list to update before doing the next query it
 -- sometimes never updates and requires that the AH is reopened to update again.
-local OWNER_LIST_EVENTS = {
-  "AUCTION_OWNED_LIST_UPDATE",
+-- Includes alternate check for when the owned list doesn't update
+local AUCTIONS_UPDATED_EVENTS = {
+  "CHAT_MSG_SYSTEM",
 }
 local BID_PLACED_EVENTS = {
   "AUCTION_ITEM_LIST_UPDATE",
@@ -58,9 +59,9 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     self:ResetTimeout()
     if not self.multisellInProgress then
       FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
-      FrameUtil.RegisterFrameForEvents(self, OWNER_LIST_EVENTS)
+      FrameUtil.RegisterFrameForEvents(self, AUCTIONS_UPDATED_EVENTS)
       self.waitingForNewAuction = false
-      self.waitingForOwnerAuctionsUpdate = GetNumAuctionItems("owner")
+      self.waitingForOwnerUpdate = true
     end
 
   elseif eventName == "AUCTION_MULTISELL_UPDATE" then
@@ -76,10 +77,14 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
     self.multisellInProgress = false
     self.waitingForNewAuction = false
 
-  elseif eventName == "AUCTION_OWNED_LIST_UPDATE" then
-    self:ResetTimeout()
-    FrameUtil.UnregisterFrameForEvents(self, OWNER_LIST_EVENTS)
-    self.waitingForOwnerAuctionsUpdate = nil
+  elseif eventName == "CHAT_MSG_SYSTEM" then
+    local msg = ...
+    -- Use "Auction ..." message to confirm the post/cancel went through
+    if msg == ERR_AUCTION_STARTED or msg == ERR_AUCTION_REMOVED then
+      self:ResetTimeout()
+      FrameUtil.UnregisterFrameForEvents(self, AUCTIONS_UPDATED_EVENTS)
+      self.waitingForOwnerUpdate = false
+    end
 
   elseif eventName == "AUCTION_ITEM_LIST_UPDATE" then
     self:ComparePages()
@@ -92,19 +97,6 @@ function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
 end
 
 function AuctionatorAHThrottlingFrameMixin:OnUpdate(elapsed)
-  -- Normally this query only needs to happen after having posting multiple
-  -- stacks in a multisell. An elapsed time counter is used to ensure we don't
-  -- overload the server with requests
-  if self.waitingForOwnerAuctionsUpdate ~= nil then
-    if not AuctionFrame.gotAuctions then
-      GetOwnerAuctionItems()
-      AuctionFrame.gotAuctions = 1
-    end
-    if self.waitingForOwnerAuctionsUpdate ~= GetNumAuctionItems("owner") then
-      FrameUtil.UnregisterFrameForEvents(self, OWNER_LIST_EVENTS)
-      self.waitingForOwnerAuctionsUpdate = nil
-    end
-  end
   if self:AnyWaiting() then
     self.timeout = self.timeout - elapsed
     if self.timeout <= 0 then
@@ -138,7 +130,7 @@ function AuctionatorAHThrottlingFrameMixin:IsReady()
 end
 
 function AuctionatorAHThrottlingFrameMixin:AnyWaiting()
-  return self.waitingForNewAuction or self.multisellInProgress or self.waitingOnBid or self.waitingForOwnerAuctionsUpdate ~= nil
+  return self.waitingForNewAuction or self.multisellInProgress or self.waitingOnBid or self.waitingForOwnerUpdate
 end
 
 function AuctionatorAHThrottlingFrameMixin:ResetTimeout()
@@ -150,10 +142,10 @@ function AuctionatorAHThrottlingFrameMixin:ResetWaiting()
   self.waitingForNewAuction = false
   self.multisellInProgress = false
   self.waitingOnBid = false
-  self.waitingForOwnerAuctionsUpdate = nil
+  self.waitingForOwnerUpdate = false
   FrameUtil.UnregisterFrameForEvents(self, BID_PLACED_EVENTS)
   FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
-  FrameUtil.UnregisterFrameForEvents(self, OWNER_LIST_EVENTS)
+  FrameUtil.UnregisterFrameForEvents(self, AUCTIONS_UPDATED_EVENTS)
 end
 
 function AuctionatorAHThrottlingFrameMixin:AuctionsPosted()
@@ -165,9 +157,9 @@ end
 
 function AuctionatorAHThrottlingFrameMixin:AuctionCancelled()
   self:ResetTimeout()
-  self.waitingForOwnerAuctionsUpdate = GetNumAuctionItems("owner")
+  self.waitingForOwnerUpdate = true
   self.oldReady = false
-  FrameUtil.RegisterFrameForEvents(self, OWNER_LIST_EVENTS)
+  FrameUtil.RegisterFrameForEvents(self, AUCTIONS_UPDATED_EVENTS)
 end
 
 function AuctionatorAHThrottlingFrameMixin:BidPlaced()
