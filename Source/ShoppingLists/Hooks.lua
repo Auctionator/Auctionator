@@ -13,7 +13,7 @@ local function SearchItem(text)
     name = text
   end
 
-  AuctionatorShoppingListFrame.OneItemSearchBox:SetText(name)
+  AuctionatorShoppingListFrame.OneItemSearchBox:SetText("\"" .. name .. "\"")
   AuctionatorShoppingListFrame.OneItemSearchButton:Click()
 
   return true
