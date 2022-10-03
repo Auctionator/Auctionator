@@ -1,7 +1,5 @@
 AuctionatorDataProviderMixin = {}
 
--- AuctionatorDataProviderMixin registers for the following events for derived mixins:
---   1. Auctionator.Shopping.Events.ListResultItemProcessed
 function AuctionatorDataProviderMixin:OnLoad()
   self.results = {}
   self.insertedKeys = {}

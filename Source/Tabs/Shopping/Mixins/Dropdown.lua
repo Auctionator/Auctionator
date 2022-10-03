@@ -134,16 +134,12 @@ end
 
 function AuctionatorShoppingListDropdownMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.Shopping.Events.ListCreated then
-    self:SetNoList()
+    self:SelectList(eventData)
   end
 
   if eventName == Auctionator.Shopping.Events.ListDeleted and
      self.currentList ~= nil and self.currentList.name == eventData then
     self:SetNoList()
-  end
-
-  if eventName == Auctionator.Shopping.Events.ListCreated then
-    self:SelectList(eventData)
   end
 
   if eventName == Auctionator.Shopping.Events.ListSelected then
