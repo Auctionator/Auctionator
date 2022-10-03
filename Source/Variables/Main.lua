@@ -113,10 +113,10 @@ function Auctionator.Variables.InitializeShoppingLists()
     AUCTIONATOR_SHOPPING_LISTS = {}
   end
 
-  Auctionator.ShoppingLists.Lists = AUCTIONATOR_SHOPPING_LISTS
-  Auctionator.ShoppingLists.Prune()
-  Auctionator.ShoppingLists.Sort()
-  AUCTIONATOR_SHOPPING_LISTS = Auctionator.ShoppingLists.Lists
+  Auctionator.Shopping.Lists.Data = AUCTIONATOR_SHOPPING_LISTS
+  Auctionator.Shopping.Lists.Prune()
+  Auctionator.Shopping.Lists.Sort()
+  AUCTIONATOR_SHOPPING_LISTS = Auctionator.Shopping.Lists.Data
 
   AUCTIONATOR_RECENT_SEARCHES = AUCTIONATOR_RECENT_SEARCHES or {}
 end

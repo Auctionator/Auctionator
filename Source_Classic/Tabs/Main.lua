@@ -17,11 +17,11 @@ function Auctionator.Tabs.Register(details)
 end
 
 Auctionator.Tabs.Register( {
-  name = "ShoppingLists",
+  name = "Shopping",
   textLabel = AUCTIONATOR_L_SHOPPING_TAB,
-  tabTemplate = "AuctionatorShoppingListClassicTabFrameTemplate",
-  tabHeader = AUCTIONATOR_L_SHOPPING_TAB_HEADER,
-  tabFrameName = "AuctionatorShoppingListFrame",
+  tabTemplate = "AuctionatorShoppingClassicTabFrameTemplate",
+  tabHeader = AUCTIONATOR_L_SHOPPING_TAB_HEADER_2,
+  tabFrameName = "AuctionatorShoppingFrame",
   tabOrder = 1,
 })
 Auctionator.Tabs.Register( {

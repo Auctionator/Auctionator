@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="ShoppingListResultsRow.xml" />
+  <Include file="ShoppingResultsRow.xml" />
   <Include file="SellSearchRow.xml"/>
   <Include file="CancellingListResultsRow.xml"/>
   <Include file="HistoricalPriceRow.xml"/>

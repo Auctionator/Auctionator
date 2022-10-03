@@ -179,7 +179,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["COPY_TO_LIST"] = "Copy item to active shopping list"
 
   L["SHOPPING_TAB"] = "Shopping"
-  L["SHOPPING_TAB_HEADER"] = "Auctionator - Shopping Lists"
+  L["SHOPPING_TAB_HEADER_2"] = "Auctionator - Shopping"
   L["INFO_TAB_HEADER"] = "Auctionator - Info"
 
   L["OPEN_IN_SHOPPING_TAB"] = "Open in Shopping Tab"

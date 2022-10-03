@@ -22,15 +22,15 @@ function AuctionatorInitializeVanillaMixin:CraftShown()
   end
 
   local reagentHook = function(self)
-    if IsModifiedClick("CHATLINK") and AuctionatorShoppingListFrame ~= nil and AuctionatorShoppingListFrame:IsVisible() then
+    if IsModifiedClick("CHATLINK") and AuctionatorShoppingFrame ~= nil and AuctionatorShoppingFrame:IsVisible() then
       local name = GetCraftReagentInfo(GetCraftSelectionIndex(), self:GetID())
 
       if name == nil then
         return
       end
 
-      AuctionatorShoppingListFrame.OneItemSearchBox:SetText(name)
-      AuctionatorShoppingListFrame.OneItemSearchButton:Click()
+      AuctionatorShoppingFrame.OneItemSearchBox:SetText(name)
+      AuctionatorShoppingFrame.OneItemSearchButton:Click()
     end
   end
   CraftReagent1:HookScript("OnClick", reagentHook)

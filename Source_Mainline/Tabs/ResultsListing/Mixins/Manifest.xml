@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="HistoricalPriceRow.lua"/>
   <Script file="PostingHistoryRow.lua"/>
-  <Script file="ShoppingListResultsRow.lua" />
+  <Script file="ShoppingResultsRow.lua" />
   <Script file="CancellingListResultsRow.lua" />
   <Script file="SellSearchRow.lua"/>
 </Ui>

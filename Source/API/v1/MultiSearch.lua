@@ -28,24 +28,24 @@ end
 
 local function StartSearch(callerID, cloned)
   -- Show the shopping list tab for results
-  AuctionatorTabs_ShoppingLists:Click()
+  AuctionatorTabs_Shopping:Click()
 
   local listName = callerID .. " (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
 
   -- Remove any old searches
-  if Auctionator.ShoppingLists.ListIndex(listName) ~= nil then
-    Auctionator.ShoppingLists.Delete(listName)
+  if Auctionator.Shopping.Lists.ListIndex(listName) ~= nil then
+    Auctionator.Shopping.Lists.Delete(listName)
   end
 
-  Auctionator.ShoppingLists.CreateTemporary(listName)
+  Auctionator.Shopping.Lists.CreateTemporary(listName)
 
-  local list = Auctionator.ShoppingLists.GetListByName(listName)
+  local list = Auctionator.Shopping.Lists.GetListByName(listName)
 
   list.items = cloned
 
   Auctionator.EventBus:RegisterSource(StartSearch, "API v1 Multi search start")
-    :Fire(StartSearch, Auctionator.ShoppingLists.Events.ListCreated, list)
-    :Fire(StartSearch, Auctionator.ShoppingLists.Events.ListSearchRequested, list)
+    :Fire(StartSearch, Auctionator.Shopping.Events.ListCreated, list)
+    :Fire(StartSearch, Auctionator.Shopping.Events.ListSearchRequested, list)
     :UnregisterSource(StartSearch)
 end
 

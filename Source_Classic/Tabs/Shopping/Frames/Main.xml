@@ -1,0 +1,20 @@
+<Ui>
+  <Frame
+    name="AuctionatorShoppingClassicTabFrameTemplate"
+    virtual="true"
+    inherits="AuctionatorShoppingTabFrameTemplate"
+  >
+    <Frames>
+      <Button parentKey="LoadAllPagesButton" inherits="AuctionatorLoadAllButton" text="AUCTIONATOR_L_LOAD_MORE_RESULTS" mixin="AuctionatorShoppingClassicLoadAllButtonMixin" hidden="true">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ShoppingResultsInset"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.ShoppingResultsInset" relativePoint="BOTTOMRIGHT" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnClick method="OnClick"/>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

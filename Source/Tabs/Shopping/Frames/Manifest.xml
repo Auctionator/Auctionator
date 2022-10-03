@@ -1,0 +1,11 @@
+<!-- Tabs/Shopping/Frames directory manifest -->
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Item.xml"/>
+  <Include file="ExportText.xml"/>
+  <Include file="Export.xml"/>
+  <Include file="Import.xml"/>
+  <Include file="ItemHistory.xml"/>
+  <Include file="MiniTabButton.xml"/>
+
+  <Include file="Main.xml"/>
+</Ui>

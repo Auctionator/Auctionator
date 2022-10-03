@@ -19,7 +19,7 @@
 
   <Include file="SlashCmd\Manifest.xml" />
 
-  <Include file="ShoppingLists\Manifest.xml" />
+  <Include file="Shopping\Manifest.xml" />
   <Include file="Config\Manifest.xml" />
   <Include file="Selling\Manifest.xml"/>
   <Include file="PostingHistory\Manifest.xml"/>

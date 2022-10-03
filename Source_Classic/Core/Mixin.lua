@@ -16,7 +16,7 @@ local function InitializeBuyFrame()
     Auctionator.State.BuyFrameRef = CreateFrame(
       "Frame",
       "AuctionatorBuyFrame",
-      AuctionatorShoppingListFrame,
+      AuctionatorShoppingFrame,
       "AuctionatorBuyFrameTemplateForShopping"
     )
   end

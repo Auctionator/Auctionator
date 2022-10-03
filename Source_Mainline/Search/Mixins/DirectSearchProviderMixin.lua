@@ -42,7 +42,7 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
       maxLevel = parsed.maxLevel,
       filters = GetQualityFilters(parsed.quality),
       itemClassFilters = Auctionator.Search.GetItemClassCategories(parsed.categoryKey),
-      sorts = Auctionator.Constants.ShoppingListSorts,
+      sorts = Auctionator.Constants.ShoppingSorts,
     },
     extraFilters = {
       itemLevel = {

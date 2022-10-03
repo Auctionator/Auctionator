@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="ShoppingListResultsRow.lua" />
+  <Script file="ShoppingResultsRow.lua" />
   <Script file="CancellingListResultsRow.lua" />
   <Script file="BuyAuctionsResultsRow.lua" />
   <Script file="BuyingHistoricalPriceRow.lua" />

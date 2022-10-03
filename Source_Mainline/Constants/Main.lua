@@ -1,4 +1,4 @@
-Auctionator.Constants.ShoppingListSorts = {
+Auctionator.Constants.ShoppingSorts = {
   {sortOrder = Enum.AuctionHouseSortOrder.Name, reverseSort = false},
   {sortOrder = Enum.AuctionHouseSortOrder.Price, reverseSort = true}
 }
