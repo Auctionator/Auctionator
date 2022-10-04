@@ -22,12 +22,12 @@ local function IsGear(itemLink)
 end
 
 function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
-  if itemLink == nil then
+  local basicKey = Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
+
+  if basicKey == nil then
     callback({})
     return
   end
-
-  local basicKey = Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
 
   if IsGear(itemLink) then
     local item = Item:CreateFromItemLink(itemLink)
