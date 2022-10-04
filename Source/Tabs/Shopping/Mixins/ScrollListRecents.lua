@@ -40,9 +40,9 @@ function AuctionatorScrollListRecentsMixin:StartSearch(searchTerms)
 end
 
 function AuctionatorScrollListRecentsMixin:GetNumEntries()
-  return #AUCTIONATOR_RECENT_SEARCHES
+  return #Auctionator.Shopping.Recents.GetAll()
 end
 
 function AuctionatorScrollListRecentsMixin:GetEntry(index)
-  return AUCTIONATOR_RECENT_SEARCHES[index]
+  return Auctionator.Shopping.Recents.GetAll()[index]
 end

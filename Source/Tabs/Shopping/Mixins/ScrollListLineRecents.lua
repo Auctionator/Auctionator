@@ -34,12 +34,7 @@ function AuctionatorScrollListLineRecentsMixin:DeleteItem()
     return
   end
 
-  local index = tIndexOf(AUCTIONATOR_RECENT_SEARCHES, self.searchTerm)
-
-  if index ~= nil then
-    table.remove(AUCTIONATOR_RECENT_SEARCHES, index)
-    Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.RecentSearchesUpdate)
-  end
+  Auctionator.Shopping.Recents.DeleteEntry(self.searchTerm)
 end
 
 function AuctionatorScrollListLineRecentsMixin:CopyItem()
