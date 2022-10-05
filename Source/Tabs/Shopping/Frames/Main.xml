@@ -32,7 +32,7 @@
         </Scripts>
       </Frame>
 
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="OneItemSearchBox" letters="100">
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="OneItemSearchBox" letters="100" mixin="AuctionatorShoppingOneItemSearchEditBoxMixin">
         <Size x="180" y="20"/>
         <Anchors>
           <Anchor point="TOPLEFT" x="50" y="-48"/>
@@ -41,6 +41,7 @@
         <Scripts>
           <OnEnterPressed>self:GetParent().OneItemSearchButton:Click()</OnEnterPressed>
           <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+          <OnTextChanged method="OnTextChanged"/>
         </Scripts>
       </EditBox>
 

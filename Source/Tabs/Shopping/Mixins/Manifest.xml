@@ -21,6 +21,7 @@
   <Script file="ImportFrame.lua"/>
   <Script file="ItemHistory.lua"/>
 
+  <Script file="OneItemSearchEditBox.lua"/>
   <Script file="OneItemSearchButton.lua"/>
   <Script file="RecentsContainer.lua"/>
 
