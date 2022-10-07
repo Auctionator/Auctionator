@@ -11,6 +11,7 @@
 ## SavedVariablesPerCharacter: AUCTIONATOR_CHARACTER_CONFIG
 
 Patches\TaintLess.xml
+Libs\Manifest.xml
 
 Assets_Classic.xml
 

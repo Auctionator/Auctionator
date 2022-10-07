@@ -1,7 +1,10 @@
 AuctionatorCustomiseColumnsDropDownMixin = {}
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+
 function AuctionatorCustomiseColumnsDropDownMixin:OnLoad()
-  UIDropDownMenu_Initialize(self, AuctionatorCustomiseColumnsDropDownMixin.Initialize, "MENU")
+  LibDD:Create_UIDropDownMenu(self)
+  LibDD:UIDropDownMenu_Initialize(self, AuctionatorCustomiseColumnsDropDownMixin.Initialize, "MENU")
 end
 
 function AuctionatorCustomiseColumnsDropDownMixin:Callback(columns, hideStates, applyChanges)
@@ -30,7 +33,7 @@ function AuctionatorCustomiseColumnsDropDownMixin:Initialize()
   end
 
   for _, column in ipairs(self.columns) do
-    local info = UIDropDownMenu_CreateInfo()
+    local info = LibDD:UIDropDownMenu_CreateInfo()
     info.text = column.headerText
     info.isNotRadio = true
     info.checked = not self.hideStates[column.headerText]
@@ -41,10 +44,10 @@ function AuctionatorCustomiseColumnsDropDownMixin:Initialize()
         self.applyChanges()
       end
       end)(column)
-    UIDropDownMenu_AddButton(info)
+    LibDD:UIDropDownMenu_AddButton(info)
   end
 end
 
 function AuctionatorCustomiseColumnsDropDownMixin:Toggle()
-  ToggleDropDownMenu(1, nil, self, "cursor", 0, 0)
+  LibDD:ToggleDropDownMenu(1, nil, self, "cursor", 0, 0)
 end

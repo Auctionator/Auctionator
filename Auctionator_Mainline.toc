@@ -12,6 +12,7 @@
 
 
 Patches\TaintLess.xml
+Libs\Manifest.xml
 
 Locales\Manifest.xml
 

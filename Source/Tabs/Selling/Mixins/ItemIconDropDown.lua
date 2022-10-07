@@ -1,5 +1,7 @@
 AuctionatorItemIconDropDownMixin = {}
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+
 local function HideItem(info)
   table.insert(
     Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS),
@@ -87,7 +89,9 @@ local function NoItemKeysHidden()
 end
 
 function AuctionatorItemIconDropDownMixin:OnLoad()
-  UIDropDownMenu_Initialize(self, AuctionatorItemIconDropDownMixin.Initialize, "MENU")
+  LibDD:Create_UIDropDownMenu(self)
+
+  LibDD:UIDropDownMenu_Initialize(self, AuctionatorItemIconDropDownMixin.Initialize, "MENU")
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.ItemIconCallback,
   })
@@ -101,11 +105,11 @@ end
 
 function AuctionatorItemIconDropDownMixin:Initialize()
   if not self.data then
-    HideDropDownMenu(1)
+    LibDD:HideDropDownMenu(1)
     return
   end
 
-  local hideInfo = UIDropDownMenu_CreateInfo()
+  local hideInfo = LibDD:UIDropDownMenu_CreateInfo()
   hideInfo.notCheckable = 1
   if IsHidden(self.data) then
     hideInfo.text = AUCTIONATOR_L_UNHIDE
@@ -118,9 +122,9 @@ function AuctionatorItemIconDropDownMixin:Initialize()
     ToggleHidden(self.data)
   end
 
-  UIDropDownMenu_AddButton(hideInfo)
+  LibDD:UIDropDownMenu_AddButton(hideInfo)
 
-  local unhideAllAllInfo = UIDropDownMenu_CreateInfo()
+  local unhideAllAllInfo = LibDD:UIDropDownMenu_CreateInfo()
   unhideAllAllInfo.notCheckable = 1
   unhideAllAllInfo.text = AUCTIONATOR_L_UNHIDE_ALL
 
@@ -129,9 +133,9 @@ function AuctionatorItemIconDropDownMixin:Initialize()
     UnhideAllItemKeys()
   end
 
-  UIDropDownMenu_AddButton(unhideAllAllInfo)
+  LibDD:UIDropDownMenu_AddButton(unhideAllAllInfo)
 
-  local favouriteItemInfo = UIDropDownMenu_CreateInfo()
+  local favouriteItemInfo = LibDD:UIDropDownMenu_CreateInfo()
   favouriteItemInfo.notCheckable = 1
   if Auctionator.Selling.IsFavourite(self.data) then
     favouriteItemInfo.text = AUCTIONATOR_L_REMOVE_FAVOURITE
@@ -144,7 +148,7 @@ function AuctionatorItemIconDropDownMixin:Initialize()
     ToggleFavouriteItem(self.data)
   end
 
-  UIDropDownMenu_AddButton(favouriteItemInfo)
+  LibDD:UIDropDownMenu_AddButton(favouriteItemInfo)
 end
 
 function AuctionatorItemIconDropDownMixin:Callback(itemInfo)
@@ -153,5 +157,5 @@ function AuctionatorItemIconDropDownMixin:Callback(itemInfo)
 end
 
 function AuctionatorItemIconDropDownMixin:Toggle()
-  ToggleDropDownMenu(1, nil, self, "cursor", 0, 0)
+  LibDD:ToggleDropDownMenu(1, nil, self, "cursor", 0, 0)
 end

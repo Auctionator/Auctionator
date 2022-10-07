@@ -1,5 +1,7 @@
 AuctionatorFilterKeySelectorMixin = {}
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+
 function AuctionatorFilterKeySelectorMixin:OnLoad()
   self.displayText = ""
   self.onEntrySelected = function() end
@@ -7,9 +9,10 @@ function AuctionatorFilterKeySelectorMixin:OnLoad()
     self:Reset()
   end)
 
-  UIDropDownMenu_SetWidth(self, 180)
+  LibDD:Create_UIDropDownMenu(self)
+  LibDD:UIDropDownMenu_SetWidth(self, 180)
 
-  UIDropDownMenu_Initialize(self, function(_, level, menuList)
+  LibDD:UIDropDownMenu_Initialize(self, function(_, level, menuList)
     if level == 1 then
       self:InitializeLevels(level, AuctionCategories, true)
     elseif menuList ~= nil then
@@ -30,13 +33,13 @@ function AuctionatorFilterKeySelectorMixin:SetValue(value)
   self.displayText = value
   self.onEntrySelected(value)
   self.selectedCategory = {strsplit("/", value)}
-  UIDropDownMenu_SetText(self, value)
+  LibDD:UIDropDownMenu_SetText(self, value)
 end
 
 function AuctionatorFilterKeySelectorMixin:Reset()
   self.displayText = ""
   self.selectedCategory = {}
-  UIDropDownMenu_SetText(self, "")
+  LibDD:UIDropDownMenu_SetText(self, "")
 end
 
 function AuctionatorFilterKeySelectorMixin:SetOnEntrySelected(callback)
@@ -45,7 +48,7 @@ end
 
 function AuctionatorFilterKeySelectorMixin:EntrySelected(displayText)
   self:SetValue(displayText)
-  CloseDropDownMenus()
+  LibDD:CloseDropDownMenus()
 end
 
 function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories, rootChecked, prefix)
@@ -54,7 +57,7 @@ function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories
   end
 
   local name
-  local info = UIDropDownMenu_CreateInfo()
+  local info = LibDD:UIDropDownMenu_CreateInfo()
   prefix = prefix or ""
 
   info.hasArrow = true
@@ -75,7 +78,7 @@ function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories
         subCategories = category.subCategories,
         rootChecked = info.checked
       }
-      UIDropDownMenu_AddButton(info, level)
+      LibDD:UIDropDownMenu_AddButton(info, level)
     end
   end
 end
