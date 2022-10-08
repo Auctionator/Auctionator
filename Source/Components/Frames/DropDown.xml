@@ -8,12 +8,12 @@
       </KeyValues>
     -->
     <Scripts>
-      <OnShow method="OnShow"/>
+      <OnLoad method="OnLoad"/>
     </Scripts>
     <Size y="40"/>
 
     <Frames>
-      <Frame inherits="UIDropDownMenuTemplate" mixin="AuctionatorDropDownInternalMixin" parentKey="DropDown">
+      <Frame mixin="AuctionatorDropDownInternalMixin" parentKey="DropDown">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="7"/>
         </Anchors>

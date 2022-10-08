@@ -1,5 +1,7 @@
 AuctionatorDropDownMixin = {}
 
+local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
+
 local ARRAY_DELIMITER = ";"
 local function splitStrArray(arrayString)
   return {strsplit(ARRAY_DELIMITER, arrayString)}
@@ -13,8 +15,9 @@ local function localizeArray(array)
   return array
 end
 
-function AuctionatorDropDownMixin:OnShow()
-  self:SetScript("OnShow", nil)
+function AuctionatorDropDownMixin:OnLoad()
+  LibDD:Create_UIDropDownMenu(self.DropDown)
+
   if self.textString ~= nil and self.valuesString ~= nil then
     self:InitAgain(
       localizeArray(splitStrArray(self.textString)),
@@ -46,16 +49,16 @@ function AuctionatorDropDownInternalMixin:Initialize(text, values)
   self.values = values
   self.value = self.values[1]
 
-  UIDropDownMenu_Initialize(self, self.BlizzInitialize)
+  LibDD:UIDropDownMenu_Initialize(self, self.BlizzInitialize)
 
-  UIDropDownMenu_SetWidth(self, 150)
+  LibDD:UIDropDownMenu_SetWidth(self, 150)
 end
 
 function AuctionatorDropDownInternalMixin:BlizzInitialize()
   local listEntry
 
   for index = 1, #self.text do
-    listEntry = UIDropDownMenu_CreateInfo()
+    listEntry = LibDD:UIDropDownMenu_CreateInfo()
     listEntry.notCheckable = true
     listEntry.text = self.text[index]
     listEntry.value = self.values[index]
@@ -63,7 +66,7 @@ function AuctionatorDropDownInternalMixin:BlizzInitialize()
       self:SetValue(entry.value)
     end
 
-    UIDropDownMenu_AddButton(listEntry)
+    LibDD:UIDropDownMenu_AddButton(listEntry)
   end
 
   self:SetValue(self.value)
@@ -76,7 +79,7 @@ end
 function AuctionatorDropDownInternalMixin:SetValue(newValue)
   for index, value in ipairs(self.values) do
     if newValue == value then
-      UIDropDownMenu_SetText(self, self.text[index])
+      LibDD:UIDropDownMenu_SetText(self, self.text[index])
       break
     end
   end
