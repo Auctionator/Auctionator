@@ -321,7 +321,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:SetSelectedIndex(newSelectedInd
     result.notReady = false
     result.isSelected = false
 
-    if index == newSelectedIndex then
+    if index == newSelectedIndex and result.unitPrice ~= nil then
       result.isSelected = true
       Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.AuctionFocussed, result)
     end
