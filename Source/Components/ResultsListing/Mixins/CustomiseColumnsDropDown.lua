@@ -28,7 +28,7 @@ end
 
 function AuctionatorCustomiseColumnsDropDownMixin:Initialize()
   if not self.columns then
-    HideDropDownMenu(1)
+    LibDD:HideDropDownMenu(1)
     return
   end
 
