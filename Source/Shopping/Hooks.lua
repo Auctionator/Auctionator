@@ -13,7 +13,12 @@ local function SearchItem(text)
     name = text
   end
 
-  AuctionatorShoppingFrame.OneItemSearchBox:SetText("\"" .. name .. "\"")
+  -- Non-exact with enchants as the name doesn't match exactly
+  if text:match("enchant:") then
+    AuctionatorShoppingFrame.OneItemSearchBox:SetText(name)
+  else
+    AuctionatorShoppingFrame.OneItemSearchBox:SetText("\"" .. name .. "\"")
+  end
   AuctionatorShoppingFrame.OneItemSearchButton:Click()
 
   return true
