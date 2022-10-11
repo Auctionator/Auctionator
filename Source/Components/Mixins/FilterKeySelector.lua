@@ -12,7 +12,7 @@ function AuctionatorFilterKeySelectorMixin:OnLoad()
   LibDD:Create_UIDropDownMenu(self)
   LibDD:UIDropDownMenu_SetWidth(self, 180)
 
-  LibDD:UIDropDownMenu_Initialize(self, function(_, level, menuList)
+  LibDD:UIDropDownMenu_SetInitializeFunction(self, function(_, level, menuList)
     if level == 1 then
       self:InitializeLevels(level, AuctionCategories, true)
     elseif menuList ~= nil then

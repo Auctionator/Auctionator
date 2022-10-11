@@ -91,7 +91,8 @@ end
 function AuctionatorItemIconDropDownMixin:OnLoad()
   LibDD:Create_UIDropDownMenu(self)
 
-  LibDD:UIDropDownMenu_Initialize(self, AuctionatorItemIconDropDownMixin.Initialize, "MENU")
+  LibDD:UIDropDownMenu_SetInitializeFunction(self, AuctionatorItemIconDropDownMixin.Initialize)
+  LibDD:UIDropDownMenu_SetDisplayMode(self, "MENU")
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.ItemIconCallback,
   })

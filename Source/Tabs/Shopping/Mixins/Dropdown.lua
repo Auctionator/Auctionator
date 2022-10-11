@@ -5,7 +5,7 @@ local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
 function AuctionatorShoppingListDropdownMixin:OnLoad()
   LibDD:Create_UIDropDownMenu(self)
 
-  LibDD:UIDropDownMenu_Initialize(self, self.Initialize)
+  LibDD:UIDropDownMenu_SetInitializeFunction(self, self.Initialize)
   LibDD:UIDropDownMenu_SetWidth(self, 190)
 
   self.searchNextTime = true

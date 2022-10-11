@@ -49,7 +49,9 @@ function AuctionatorDropDownInternalMixin:Initialize(text, values)
   self.values = values
   self.value = self.values[1]
 
-  LibDD:UIDropDownMenu_Initialize(self, self.BlizzInitialize)
+  self:SetValue(self.value)
+
+  LibDD:UIDropDownMenu_SetInitializeFunction(self, self.BlizzInitialize)
 
   LibDD:UIDropDownMenu_SetWidth(self, 150)
 end

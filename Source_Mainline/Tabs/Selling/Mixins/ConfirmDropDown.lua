@@ -5,7 +5,8 @@ local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
 function AuctionatorConfirmDropDownMixin:OnLoad()
   LibDD:Create_UIDropDownMenu(self)
 
-  LibDD:UIDropDownMenu_Initialize(self, AuctionatorConfirmDropDownMixin.Initialize, "MENU")
+  LibDD:UIDropDownMenu_SetInitializeFunction(self, AuctionatorConfirmDropDownMixin.Initialize)
+  LibDD:UIDropDownMenu_SetDisplayMode(self, "MENU")
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.ConfirmCallback,
     Auctionator.AH.Events.Ready,
