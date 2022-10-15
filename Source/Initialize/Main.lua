@@ -23,7 +23,7 @@ function AuctionatorInitializeMixin:OnEvent(event, ...)
   if event == "PLAYER_LOGIN" then
     self:AddonDataLoaded()
   elseif event == "TRADE_SKILL_SHOW" then
-    Auctionator.CraftingInfo.InitializeSearchButton()
+    Auctionator.CraftingInfo.Initialize()
   elseif event == "MERCHANT_SHOW" then
     Auctionator.CraftingInfo.CacheVendorPrices()
   elseif event == "CHAT_MSG_ADDON" then

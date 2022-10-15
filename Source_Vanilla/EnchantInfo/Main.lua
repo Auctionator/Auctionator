@@ -1,9 +1,8 @@
 -- Add a button to the craft (enchant) frame to search the AH for the reagents.
--- The button (see Source_TBC/EnchantInfo/Mixins/Button.lua) will be hidden when
--- the AH is closed.
+-- The button will be hidden when the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
-function Auctionator.EnchantInfo.InitializeSearchButton()
+function Auctionator.EnchantInfo.Initialize()
   if addedFunctionality then
     return
   end

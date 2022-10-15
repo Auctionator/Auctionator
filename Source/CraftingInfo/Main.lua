@@ -1,9 +1,8 @@
 -- Add a button to the tradeskill frame to search the AH for the reagents.
--- The button (see Source_[Mainline|Classic]/Mixins/Button.lua) will be hidden when
--- the AH is closed.
+-- The button will be hidden when the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
-function Auctionator.CraftingInfo.InitializeSearchButton()
+function Auctionator.CraftingInfo.Initialize()
   if addedFunctionality then
     return
   end

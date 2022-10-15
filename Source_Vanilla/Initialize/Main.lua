@@ -10,7 +10,7 @@ end
 
 function AuctionatorInitializeVanillaMixin:OnEvent(event, ...)
   if event == "CRAFT_SHOW" then
-    Auctionator.EnchantInfo.InitializeSearchButton()
+    Auctionator.EnchantInfo.Initialize()
     self:CraftShown()
   end
 end
