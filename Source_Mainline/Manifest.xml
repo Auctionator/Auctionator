@@ -11,7 +11,7 @@
   <Include file="Selling\Manifest.xml"/>
 
   <Include file="Enchant\Manifest.xml" />
-  <Include file="ReagentSearch\Manifest.xml" />
+  <Include file="CraftingInfo\Manifest.xml" />
   <Include file="Search\Manifest.xml" />
   <Include file="Tabs\Manifest.xml" />
 

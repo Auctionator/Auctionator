@@ -23,9 +23,9 @@ function AuctionatorInitializeMixin:OnEvent(event, ...)
   if event == "PLAYER_LOGIN" then
     self:AddonDataLoaded()
   elseif event == "TRADE_SKILL_SHOW" then
-    Auctionator.ReagentSearch.InitializeSearchButton()
+    Auctionator.CraftingInfo.InitializeSearchButton()
   elseif event == "MERCHANT_SHOW" then
-    Auctionator.ReagentSearch.CacheVendorPrices()
+    Auctionator.CraftingInfo.CacheVendorPrices()
   elseif event == "CHAT_MSG_ADDON" then
     -- For now, just drop the message - we
     -- need to aggregate the messages and provide a pop up

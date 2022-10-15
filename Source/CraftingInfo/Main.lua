@@ -3,7 +3,7 @@
 -- the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
-function Auctionator.ReagentSearch.InitializeSearchButton()
+function Auctionator.CraftingInfo.InitializeSearchButton()
   if addedFunctionality then
     return
   end
@@ -11,11 +11,11 @@ function Auctionator.ReagentSearch.InitializeSearchButton()
   if TradeSkillFrame then
     addedFunctionality = true
 
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", TradeSkillFrame, "AuctionatorReagentSearchButtonTemplate");
+    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", TradeSkillFrame, "AuctionatorCraftingInfoSearchButtonTemplate");
   end
 end
 
-function Auctionator.ReagentSearch.CacheVendorPrices()
+function Auctionator.CraftingInfo.CacheVendorPrices()
   for i = 1, GetMerchantNumItems() do
     local itemID = GetMerchantItemID(i)
     if itemID ~= nil then
@@ -39,7 +39,7 @@ function Auctionator.ReagentSearch.CacheVendorPrices()
 end
 
 local function CraftCostString()
-  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.ReagentSearch.GetSkillReagentsTotal(), true))
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.CraftingInfo.GetSkillReagentsTotal(), true))
 
   return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
 end
@@ -56,9 +56,9 @@ local function ProfitString(profit)
 
 end
 
-function Auctionator.ReagentSearch.GetInfoText()
+function Auctionator.CraftingInfo.GetInfoText()
   if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT) then
-    local profit = Auctionator.ReagentSearch.GetAHProfit()
+    local profit = Auctionator.CraftingInfo.GetAHProfit()
 
     if profit == nil then
       return CraftCostString()

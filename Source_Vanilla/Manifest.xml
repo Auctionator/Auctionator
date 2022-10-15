@@ -1,5 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Objects.lua"/>
+
   <Include file="Constants\Manifest.xml"/>
 
+  <Include file="EnchantInfo\Manifest.xml"/>
   <Include file="Initialize\Manifest.xml"/>
 </Ui>

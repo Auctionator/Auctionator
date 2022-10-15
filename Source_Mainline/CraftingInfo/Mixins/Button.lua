@@ -1,6 +1,6 @@
-AuctionatorReagentSearchButtonMixin = {}
+AuctionatorCraftingInfoSearchButtonMixin = {}
 
-function AuctionatorReagentSearchButtonMixin:OnLoad()
+function AuctionatorCraftingInfoSearchButtonMixin:OnLoad()
   DynamicResizeButton_Resize(self)
 
   FrameUtil.RegisterFrameForEvents(self, {
@@ -29,29 +29,29 @@ function AuctionatorReagentSearchButtonMixin:OnLoad()
   end)
 end
 
-function AuctionatorReagentSearchButtonMixin:ShowWhenRecipeAndAHOpen()
+function AuctionatorCraftingInfoSearchButtonMixin:ShowWhenRecipeAndAHOpen()
   self:SetShown(AuctionHouseFrame ~= nil and AuctionHouseFrame:IsShown() and TradeSkillFrame.RecipeList:GetSelectedRecipeID() ~= nil and self:IsAnyReagents())
 end
 
 -- Checks for case when there are no regeants, for example a DK Runeforging
 -- crafting view.
-function AuctionatorReagentSearchButtonMixin:IsAnyReagents()
+function AuctionatorCraftingInfoSearchButtonMixin:IsAnyReagents()
   local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
   local recipeLevel = TradeSkillFrame.DetailsFrame:GetSelectedRecipeLevel()
 
   return C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) > 0
 end
 
-function AuctionatorReagentSearchButtonMixin:UpdateTotal()
-  self.Total:SetText(Auctionator.ReagentSearch.GetInfoText())
+function AuctionatorCraftingInfoSearchButtonMixin:UpdateTotal()
+  self.Total:SetText(Auctionator.CraftingInfo.GetInfoText())
 end
 
-function AuctionatorReagentSearchButtonMixin:OnClick()
+function AuctionatorCraftingInfoSearchButtonMixin:OnClick()
   if AuctionHouseFrame and AuctionHouseFrame:IsShown() then
-    Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
+    Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
   end
 end
 
-function AuctionatorReagentSearchButtonMixin:OnEvent(...)
+function AuctionatorCraftingInfoSearchButtonMixin:OnEvent(...)
   self:ShowWhenRecipeAndAHOpen()
 end

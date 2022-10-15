@@ -1,12 +1,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Button name="AuctionatorCraftSearchButtonTemplate" inherits="UIPanelDynamicResizeButtonTemplate" mixin="AuctionatorCraftSearchButtonMixin" text="AUCTIONATOR_L_SEARCH" virtual="true" parent="CraftFrame">
+  <Button name="AuctionatorCraftingInfoSearchButtonTemplate" inherits="UIPanelDynamicResizeButtonTemplate" mixin="AuctionatorCraftingInfoSearchButtonMixin" text="AUCTIONATOR_L_SEARCH" virtual="true" parent="TradeSkillFrame">
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnClick method="OnClick" />
       <OnEvent method="OnEvent" />
     </Scripts>
     <Anchors>
-      <Anchor point="TOPRIGHT" relativeTo="CraftDetailScrollFrame" x="0" y="-22"/>
+      <Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" x="-35" y="-137"/>
     </Anchors>
     <Layers>
       <Layer level="OVERLAY">

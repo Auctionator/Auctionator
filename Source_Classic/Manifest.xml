@@ -16,8 +16,7 @@
   <Include file="API\Manifest.xml"/>
   <Include file="FullScan\Manifest.xml"/>
   <Include file="Selling\Manifest.xml"/>
-  <Include file="ReagentSearch\Manifest.xml"/>
-  <Include file="CraftSearch\Manifest.xml"/>
+  <Include file="CraftingInfo\Manifest.xml"/>
 
   <Include file="Initialize\Manifest.xml"/>
 </Ui>

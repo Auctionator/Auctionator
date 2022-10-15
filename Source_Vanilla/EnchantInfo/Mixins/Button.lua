@@ -1,6 +1,6 @@
-AuctionatorCraftSearchButtonMixin = {}
+AuctionatorEnchantInfoSearchButtonMixin = {}
 
-function AuctionatorCraftSearchButtonMixin:OnLoad()
+function AuctionatorEnchantInfoSearchButtonMixin:OnLoad()
   DynamicResizeButton_Resize(self)
 
   FrameUtil.RegisterFrameForEvents(self, {
@@ -23,21 +23,21 @@ function AuctionatorCraftSearchButtonMixin:OnLoad()
   end)
 end
 
-function AuctionatorCraftSearchButtonMixin:ShowWhenEnchantAndAHOpen()
+function AuctionatorEnchantInfoSearchButtonMixin:ShowWhenEnchantAndAHOpen()
   self:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown() and GetCraftSelectionIndex() ~= 0)
 end
 
-function AuctionatorCraftSearchButtonMixin:UpdateTotal()
-  self.Total:SetText(Auctionator.CraftSearch.GetInfoText())
+function AuctionatorEnchantInfoSearchButtonMixin:UpdateTotal()
+  self.Total:SetText(Auctionator.EnchantInfo.GetInfoText())
 end
 
-function AuctionatorCraftSearchButtonMixin:OnClick()
+function AuctionatorEnchantInfoSearchButtonMixin:OnClick()
   if AuctionFrame and AuctionFrame:IsShown() then
-    Auctionator.CraftSearch.DoCraftReagentsSearch()
+    Auctionator.EnchantInfo.DoCraftReagentsSearch()
   end
 end
 
-function AuctionatorCraftSearchButtonMixin:OnEvent(...)
+function AuctionatorEnchantInfoSearchButtonMixin:OnEvent(...)
   self:ShowWhenEnchantAndAHOpen()
   if self:IsVisible() then
     self:UpdateTotal()

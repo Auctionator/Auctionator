@@ -1,9 +1,9 @@
 -- Add a button to the craft (enchant) frame to search the AH for the reagents.
--- The button (see Source_TBC/CraftSearch/Mixins/Button.lua) will be hidden when
+-- The button (see Source_TBC/EnchantInfo/Mixins/Button.lua) will be hidden when
 -- the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
-function Auctionator.CraftSearch.InitializeSearchButton()
+function Auctionator.EnchantInfo.InitializeSearchButton()
   if addedFunctionality then
     return
   end
@@ -11,11 +11,11 @@ function Auctionator.CraftSearch.InitializeSearchButton()
   if CraftFrame then
     addedFunctionality = true
 
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorCraftFrameSearch", CraftFrame, "AuctionatorCraftSearchButtonTemplate");
+    local buttonFrame = CreateFrame("BUTTON", "AuctionatorCraftFrameSearch", CraftFrame, "AuctionatorEnchantInfoSearchButtonTemplate");
   end
 end
 
-function Auctionator.CraftSearch.DoCraftReagentsSearch()
+function Auctionator.EnchantInfo.DoCraftReagentsSearch()
   local craftIndex = GetCraftSelectionIndex()
   local craftInfo =  { GetCraftInfo(craftIndex) }
 
@@ -26,11 +26,10 @@ function Auctionator.CraftSearch.DoCraftReagentsSearch()
     table.insert(items, reagentName)
   end
 
-  -- Exact search to avoid spurious results, say with "Runecloth"
-  Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  Auctionator.API.v1.MultiSearch(AUCTIONATOR_L_REAGENT_SEARCH, items)
 end
 
-function Auctionator.CraftSearch.GetCraftReagentsTotal()
+function Auctionator.EnchantInfo.GetCraftReagentsTotal()
   local craftIndex = GetCraftSelectionIndex()
 
   local total = 0
@@ -57,7 +56,7 @@ function Auctionator.CraftSearch.GetCraftReagentsTotal()
   return total
 end
 
-function Auctionator.CraftSearch.GetInfoText()
-  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.CraftSearch.GetCraftReagentsTotal(), true))
+function Auctionator.EnchantInfo.GetInfoText()
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.EnchantInfo.GetCraftReagentsTotal(), true))
   return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
 end

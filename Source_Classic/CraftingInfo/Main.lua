@@ -1,4 +1,4 @@
-function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
+function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
   local recipeIndex = GetTradeSkillSelectionIndex()
   local recipeInfo =  { GetTradeSkillInfo(recipeIndex) }
 
@@ -25,7 +25,7 @@ function Auctionator.ReagentSearch.DoTradeSkillReagentsSearch()
   end
 end
 
-function Auctionator.ReagentSearch.GetSkillReagentsTotal()
+function Auctionator.CraftingInfo.GetSkillReagentsTotal()
   local recipeIndex = GetTradeSkillSelectionIndex()
 
   local total = 0
@@ -52,7 +52,7 @@ function Auctionator.ReagentSearch.GetSkillReagentsTotal()
   return total
 end
 
-function Auctionator.ReagentSearch.GetAHProfit()
+function Auctionator.CraftingInfo.GetAHProfit()
   local recipeIndex = GetTradeSkillSelectionIndex()
   local recipeLink =  GetTradeSkillItemLink(recipeIndex)
   local count = GetTradeSkillNumMade(recipeIndex)
@@ -65,7 +65,7 @@ function Auctionator.ReagentSearch.GetAHProfit()
   if currentAH == nil then
     currentAH = 0
   end
-  local toCraft = Auctionator.ReagentSearch.GetSkillReagentsTotal()
+  local toCraft = Auctionator.CraftingInfo.GetSkillReagentsTotal()
 
   return math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft)
 end
