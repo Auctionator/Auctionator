@@ -11,7 +11,7 @@ function Auctionator.EnchantInfo.InitializeSearchButton()
   if CraftFrame then
     addedFunctionality = true
 
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorCraftFrameSearch", CraftFrame, "AuctionatorEnchantInfoSearchButtonTemplate");
+    CreateFrame("Frame", "AuctionatorEnchantInfoFrame", CraftFrame, "AuctionatorEnchantInfoFrameTemplate");
   end
 end
 

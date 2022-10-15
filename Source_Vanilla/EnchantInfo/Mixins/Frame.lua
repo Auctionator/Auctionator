@@ -1,8 +1,6 @@
-AuctionatorEnchantInfoSearchButtonMixin = {}
+AuctionatorEnchantInfoFrameMixin = {}
 
-function AuctionatorEnchantInfoSearchButtonMixin:OnLoad()
-  DynamicResizeButton_Resize(self)
-
+function AuctionatorEnchantInfoFrameMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, {
     "AUCTION_HOUSE_SHOW",
     "AUCTION_HOUSE_CLOSED",
@@ -23,21 +21,22 @@ function AuctionatorEnchantInfoSearchButtonMixin:OnLoad()
   end)
 end
 
-function AuctionatorEnchantInfoSearchButtonMixin:ShowWhenEnchantAndAHOpen()
-  self:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown() and GetCraftSelectionIndex() ~= 0)
+function AuctionatorEnchantInfoFrameMixin:ShowWhenEnchantAndAHOpen()
+  self:SetShown(GetCraftSelectionIndex() ~= 0)
+  self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
 end
 
-function AuctionatorEnchantInfoSearchButtonMixin:UpdateTotal()
+function AuctionatorEnchantInfoFrameMixin:UpdateTotal()
   self.Total:SetText(Auctionator.EnchantInfo.GetInfoText())
 end
 
-function AuctionatorEnchantInfoSearchButtonMixin:OnClick()
+function AuctionatorEnchantInfoFrameMixin:SearchButtonClicked()
   if AuctionFrame and AuctionFrame:IsShown() then
     Auctionator.EnchantInfo.DoCraftReagentsSearch()
   end
 end
 
-function AuctionatorEnchantInfoSearchButtonMixin:OnEvent(...)
+function AuctionatorEnchantInfoFrameMixin:OnEvent(...)
   self:ShowWhenEnchantAndAHOpen()
   if self:IsVisible() then
     self:UpdateTotal()

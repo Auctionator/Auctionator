@@ -1,0 +1,33 @@
+<Ui>
+  <Frame name="AuctionatorCraftingInfoFrameTemplate" mixin="AuctionatorCraftingInfoFrameMixin" frameLevel="3" virtual="true">
+    <Size x="200" y="22"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnEvent method="OnEvent"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="TOPRIGHT" relativeTo="TradeSkillDetailScrollFrame" x="0" y="-25"/>
+    </Anchors>
+    <Frames>
+      <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH">
+        <Scripts>
+          <OnClick>
+            self:GetParent():SearchButtonClicked()
+          </OnClick>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPRIGHT"/>
+        </Anchors>
+      </Button>
+    </Frames>
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString inherits="GameFontNormal" parentKey="Total">
+          <Anchors>
+            <Anchor relativeKey="$parent.SearchButton" point="RIGHT" relativePoint="LEFT" x="-5" y="-1" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

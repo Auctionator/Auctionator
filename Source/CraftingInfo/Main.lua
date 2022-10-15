@@ -11,7 +11,7 @@ function Auctionator.CraftingInfo.InitializeSearchButton()
   if TradeSkillFrame then
     addedFunctionality = true
 
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", TradeSkillFrame, "AuctionatorCraftingInfoSearchButtonTemplate");
+    CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
   end
 end
 
