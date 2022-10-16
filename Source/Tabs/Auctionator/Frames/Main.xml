@@ -120,7 +120,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="ptBR">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\ptBR"/>
-          <KeyValue key="translators" type="string" value="Dagnet"/>
+          <KeyValue key="translators" type="string" value="Magnuss_lm, Dagnet"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_BRAZIL_PORTUGUEUSE" type="global"/>
         </KeyValues>
 			  <Anchors>
@@ -142,7 +142,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="zhTW">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\zhTW"/>
-          <KeyValue key="translators" type="string" value="RainbowUI"/>
+          <KeyValue key="translators" type="string" value="RainbowUI, BNS333"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_TRADITIONAL_CHINESE" type="global"/>
         </KeyValues>
 			  <Anchors>
