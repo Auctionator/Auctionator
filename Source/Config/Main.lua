@@ -45,6 +45,7 @@ Auctionator.Config.Options = {
   COLUMNS_CANCELLING = "columns_cancelling",
 
   CRAFTING_COST_SHOW_PROFIT = "crafting_cost_show_profit",
+  CRAFTING_INFO_SHOW = "crafting_info_show",
 
   SHOPPING_LIST_MISSING_TERMS = "shopping_list_missing_terms",
 }
@@ -110,6 +111,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.COLUMNS_POSTING_HISTORY] = {},
 
   [Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT] = false,
+  [Auctionator.Config.Options.CRAFTING_INFO_SHOW] = true,
 
   [Auctionator.Config.Options.SHOPPING_LIST_MISSING_TERMS] = false,
 }

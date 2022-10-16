@@ -6,6 +6,8 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
     "AUCTION_HOUSE_CLOSED",
   })
 
+  self.originalDescriptionPoint = {TradeSkillFrame.DetailsFrame.Contents.Description:GetPoint(1)}
+
   hooksecurefunc(TradeSkillFrame, "OnRecipeChanged", function(_, recipeID)
     self:ShowWhenRecipeAndAHOpen()
     if self:IsVisible() then
@@ -28,8 +30,16 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
 end
 
 function AuctionatorCraftingInfoFrameMixin:ShowWhenRecipeAndAHOpen()
-  self:SetShown(TradeSkillFrame.RecipeList:GetSelectedRecipeID() ~= nil and self:IsAnyReagents())
-  self.SearchButton:SetShown(AuctionHouseFrame ~= nil and AuctionHouseFrame:IsShown())
+  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and TradeSkillFrame.RecipeList:GetSelectedRecipeID() ~= nil and self:IsAnyReagents())
+
+  if self:IsShown() then
+    self.SearchButton:SetShown(AuctionHouseFrame ~= nil and AuctionHouseFrame:IsShown())
+
+    self:SetPoint(unpack(self.originalDescriptionPoint))
+    TradeSkillFrame.DetailsFrame.Contents.Description:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
+  else
+    TradeSkillFrame.DetailsFrame.Contents.Description:SetPoint(unpack(self.originalDescriptionPoint))
+  end
 end
 
 -- Checks for case when there are no regeants, for example a DK Runeforging

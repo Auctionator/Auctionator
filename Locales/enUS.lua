@@ -448,7 +448,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SMALL_TABS_TOOLTIP_HEADER"] = "Small Tabs"
   L["CONFIG_SMALL_TABS_TOOLTIP_TEXT"] = "When too many addons add tabs to the Auction House they can end up overflowing past the end of the Auction House window. This setting makes the tabs smaller so they fit better."
 
-  L["REAGENT_SEARCH"] = "Reagent Search"
+  L["CRAFTING_INFO"] = "Crafting Info"
+  L["CONFIG_CRAFTING_INFO_SHOW"] = "Show crafting costs in the crafting view"
+  L["CONFIG_CRAFTING_INFO_SHOW_TOOLTIP_HEADER"] = "Crafting screen extra info"
+  L["CONFIG_CRAFTING_INFO_SHOW_TOOLTIP_TEXT"] = "The crafting screen will show the cost of crafting an item. Disable this option to not show the crafting costs."
   L["CONFIG_CRAFTING_COST_SHOW_PROFIT"] = "Show profit instead of crafting cost"
   L["CONFIG_CRAFTING_COST_SHOW_PROFIT_TOOLTIP_HEADER"] = "Crafting Cost Show Profit"
   L["CONFIG_CRAFTING_COST_SHOW_PROFIT_TOOLTIP_TEXT"] = "When the Auction House is open the crafting screen will show the cost of crafting an item. Enable this option to show the profit instead."

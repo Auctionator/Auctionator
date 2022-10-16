@@ -6,6 +6,9 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
     "AUCTION_HOUSE_CLOSED",
   })
 
+  self.originalFirstLine = TradeSkillDescription or TradeSkillReagentLabel
+  self.originalDescriptionPoint = {self.originalFirstLine:GetPoint(1)}
+
   hooksecurefunc(_G, "TradeSkillFrame_SetSelection", function(ecipeID)
     self:ShowWhenRecipeAndAHOpen()
     if self:IsVisible() then
@@ -20,13 +23,20 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
     end
   end)
   self:ShowWhenRecipeAndAHOpen()
+  if self:IsVisible() then
+    self:UpdateTotal()
+  end
 end
 
 function AuctionatorCraftingInfoFrameMixin:ShowWhenRecipeAndAHOpen()
-  self:SetShown(GetTradeSkillSelectionIndex() ~= 0 and self:IsAnyReagents())
-  self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
+  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and GetTradeSkillSelectionIndex() ~= 0 and self:IsAnyReagents())
   if self:IsShown() then
-    self:UpdateTotal()
+    self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
+
+    self:SetPoint(unpack(self.originalDescriptionPoint))
+    self.originalFirstLine:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
+  else
+    self.originalFirstLine:SetPoint(unpack(self.originalDescriptionPoint))
   end
 end
 

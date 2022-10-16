@@ -9,10 +9,7 @@ function Auctionator.CraftingInfo.Initialize()
 
   if TradeSkillFrame then
     addedFunctionality = true
-    local infoFrame = CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
-    infoFrame:SetPoint(TradeSkillDescription:GetPoint(1))
-
-    TradeSkillDescription:SetPoint("TOPLEFT", infoFrame, "BOTTOMLEFT")
+    CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
   end
 end
 

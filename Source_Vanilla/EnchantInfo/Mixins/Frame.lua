@@ -22,8 +22,10 @@ function AuctionatorEnchantInfoFrameMixin:OnLoad()
 end
 
 function AuctionatorEnchantInfoFrameMixin:ShowWhenEnchantAndAHOpen()
-  self:SetShown(GetCraftSelectionIndex() ~= 0)
-  self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
+  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and GetCraftSelectionIndex() ~= 0)
+  if self:IsShown() then
+    self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
+  end
 end
 
 function AuctionatorEnchantInfoFrameMixin:UpdateTotal()

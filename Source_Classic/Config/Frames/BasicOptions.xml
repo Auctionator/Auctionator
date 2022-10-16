@@ -39,12 +39,23 @@
        </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ReagentSearchHeading">
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="CraftingInfoHeading">
         <KeyValues>
-          <KeyValue key="headingText" value="AUCTIONATOR_L_REAGENT_SEARCH" type="global"/>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CRAFTING_INFO" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.DefaultTab" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowCraftingInfo">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.CraftingInfoHeading" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
 
@@ -55,7 +66,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CRAFTING_COST_SHOW_PROFIT_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ReagentSearchHeading" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShowCraftingInfo" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
    </Frames>
