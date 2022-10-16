@@ -1,3 +1,21 @@
+-- Add a button to the tradeskill frame to search the AH for the reagents.
+-- The button will be hidden when the AH is closed.
+-- The total price is shown in a FontString next to the button
+local addedFunctionality = false
+function Auctionator.CraftingInfo.Initialize()
+  if addedFunctionality then
+    return
+  end
+
+  if TradeSkillFrame then
+    addedFunctionality = true
+    local infoFrame = CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
+    infoFrame:SetPoint(TradeSkillDescription:GetPoint(1))
+
+    TradeSkillDescription:SetPoint("TOPLEFT", infoFrame, "BOTTOMLEFT")
+  end
+end
+
 function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
   local recipeIndex = GetTradeSkillSelectionIndex()
   local recipeInfo =  { GetTradeSkillInfo(recipeIndex) }
