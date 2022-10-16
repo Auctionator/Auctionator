@@ -1,7 +1,7 @@
 AuctionatorShoppingOneItemSearchEditBoxMixin = {}
 
 function AuctionatorShoppingOneItemSearchEditBoxMixin:OnTextChanged(isUserInput)
-  if isUserInput then
+  if isUserInput and not self:IsInIMECompositionMode() then
     local current = self:GetText():lower()
     if current == "" or (self.prevCurrent ~= nil and #self.prevCurrent >= #current) then
       self.prevCurrent = current
