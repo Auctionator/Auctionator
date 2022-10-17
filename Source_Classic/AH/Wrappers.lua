@@ -65,11 +65,10 @@ function Auctionator.AH.CancelAuction(auction)
     local stackPrice = info[Auctionator.Constants.AuctionItemInfo.Buyout]
     local stackSize = info[Auctionator.Constants.AuctionItemInfo.Quantity]
     local bidAmount = info[Auctionator.Constants.AuctionItemInfo.BidAmount]
-    local isOwned = info[Auctionator.Constants.AuctionItemInfo.Owner] == (GetUnitName("player"))
     local saleStatus = info[Auctionator.Constants.AuctionItemInfo.SaleStatus]
     local itemLink = GetAuctionItemLink("owner", index)
 
-    if saleStatus ~= 1 and auction.bidAmount == bidAmount and auction.stackPrice == stackPrice and auction.stackSize == stackSize and isOwned and Auctionator.Search.GetCleanItemLink(itemLink) == Auctionator.Search.GetCleanItemLink(auction.itemLink) then
+    if saleStatus ~= 1 and auction.bidAmount == bidAmount and auction.stackPrice == stackPrice and auction.stackSize == stackSize and Auctionator.Search.GetCleanItemLink(itemLink) == Auctionator.Search.GetCleanItemLink(auction.itemLink) then
       Auctionator.AH.Internals.throttling:AuctionCancelled()
       CancelAuction(index)
       break
