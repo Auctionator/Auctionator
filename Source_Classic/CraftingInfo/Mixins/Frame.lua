@@ -10,25 +10,25 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
   self.originalDescriptionPoint = {self.originalFirstLine:GetPoint(1)}
 
   hooksecurefunc(_G, "TradeSkillFrame_SetSelection", function(ecipeID)
-    self:ShowWhenRecipeAndAHOpen()
+    self:ShowIfRelevant()
     if self:IsVisible() then
       self:UpdateTotal()
     end
   end)
   Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
-    self:ShowWhenRecipeAndAHOpen()
+    self:ShowIfRelevant()
 
     if self:IsVisible() then
       self:UpdateTotal()
     end
   end)
-  self:ShowWhenRecipeAndAHOpen()
+  self:ShowIfRelevant()
   if self:IsVisible() then
     self:UpdateTotal()
   end
 end
 
-function AuctionatorCraftingInfoFrameMixin:ShowWhenRecipeAndAHOpen()
+function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
   self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and GetTradeSkillSelectionIndex() ~= 0 and self:IsAnyReagents())
   if self:IsShown() then
     self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
@@ -58,7 +58,7 @@ function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
 end
 
 function AuctionatorCraftingInfoFrameMixin:OnEvent(...)
-  self:ShowWhenRecipeAndAHOpen()
+  self:ShowIfRelevant()
   if self:IsVisible() then
     self:UpdateTotal()
   end
