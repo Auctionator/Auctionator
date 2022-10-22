@@ -74,6 +74,17 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="MillTooltips">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_MILL_TOOLTIP" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_MILL_TOOLTIP_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_MILL_TOOLTIP_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ProspectTooltips" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftStackTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_STACK_TOOLTIP" type="global"/>
@@ -81,7 +92,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_STACK_TOOLTIP_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ProspectTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.MillTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
     </Frames>

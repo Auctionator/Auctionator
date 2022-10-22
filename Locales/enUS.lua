@@ -58,6 +58,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_PROSPECT_TOOLTIP"] = "Show prospect value for ore from jewelcrafting in tooltips"
   L["PROSPECT_TOOLTIP_TOOLTIP_HEADER"] = "Prospect Tooltip Information"
   L["PROSPECT_TOOLTIP_TOOLTIP_TEXT"] = "Show jewelcrafting prospecting estimated value in tooltip on mouseover."
+  L["CONFIG_MILL_TOOLTIP"] = "Show mill value for herbs from inscription in tooltips"
+  L["MILL_TOOLTIP_TOOLTIP_HEADER"] = "Mill Tooltip Information"
+  L["MILL_TOOLTIP_TOOLTIP_TEXT"] = "Show inscription milling estimated value in tooltip on mouseover."
   L["CONFIG_STACK_TOOLTIP"] = "Show stack price when holding shift."
   L["STACK_TOOLTIP_TOOLTIP_HEADER"] = "Stack Prices"
   L["STACK_TOOLTIP_TOOLTIP_TEXT"] = "When selected, the shift key must be held to see stack prices. When not selected, stack prices show by default."
@@ -148,6 +151,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["VENDOR"] = "Vendor"
   L["DISENCHANT"] = "Disenchant"
   L["PROSPECT"] = "Prospect"
+  L["MILL"] = "Mill"
   L["TOTAL_ITEMS_COLORED"] = "Total |cFFAAAAFF %s items|r"
 
   L["DELETE_LIST_NONE_SELECTED"] = "You must select a list to delete."
