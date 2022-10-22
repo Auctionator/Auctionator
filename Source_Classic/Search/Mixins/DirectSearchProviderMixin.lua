@@ -106,7 +106,9 @@ function AuctionatorDirectSearchProviderMixin:HasCompleteTermResults()
 end
 
 function AuctionatorDirectSearchProviderMixin:GetCurrentEmptyResult()
-  return Auctionator.Search.GetEmptyResult(self:GetCurrentSearchParameter(), self:GetCurrentSearchIndex())
+  local r = Auctionator.Search.GetEmptyResult(self:GetCurrentSearchParameter(), self:GetCurrentSearchIndex())
+  r.complete = not self.aborted
+  return r
 end
 
 function AuctionatorDirectSearchProviderMixin:AddFinalResults()
@@ -117,6 +119,11 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
     table.sort(results, function(a, b)
       return a.minPrice > b.minPrice
     end)
+    -- Handle case when no results on the first page after filters have been
+    -- applied.
+    if #results == 0 and self.aborted then
+      table.insert(results, self:GetCurrentEmptyResult())
+    end
     Auctionator.Search.GroupResultsForDB(self.individualResults)
     self:AddResults(results)
   end
