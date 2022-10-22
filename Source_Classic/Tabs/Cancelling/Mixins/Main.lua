@@ -18,7 +18,7 @@ end
 local ConfirmBidPricePopup = "AuctionatorConfirmBidPricePopupDialog"
 
 StaticPopupDialogs[ConfirmBidPricePopup] = {
-  text = "Someone has bid on this auction so cancelling will cost you your deposit and:",
+  text = AUCTIONATOR_L_BID_EXISTING_ON_OWNED_AUCTION,
   button1 = ACCEPT,
   button2 = CANCEL,
   OnAccept = function(self)

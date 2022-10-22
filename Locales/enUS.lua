@@ -189,6 +189,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["CANCELLING_TAB"] = "Cancelling"
   L["CANCELLING_TAB_HEADER"] = "Auctionator - Cancelling"
+  L["BID_EXISTING_ON_OWNED_AUCTION"] = "Someone has bid on this auction so cancelling will cost you your deposit and:"
 
   L["FETCHING_ITEM_INFO"] = "Fetching item info..."
   L["LIST_SEARCH_START"] = "Searching for items in %s..."
