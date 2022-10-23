@@ -8,6 +8,7 @@ ignore:
   - *Vanilla*
   - Auctionator_TBC.toc
   - Auctionator_Wrath.toc
+  - Patches
 plain-copy:
   - Imports_Mainline
   - Source
