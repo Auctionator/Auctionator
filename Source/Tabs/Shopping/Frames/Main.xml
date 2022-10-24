@@ -166,8 +166,6 @@
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" x="10"/>
           <Anchor point="RIGHT" relativePoint="TOPRIGHT" y="15" relativeKey="$parent.ScrollListShoppingList"/>
-        </Anchors>
-        <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" relativePoint="TOPLEFT" x="25"/>
         </Anchors>
         <Scripts>

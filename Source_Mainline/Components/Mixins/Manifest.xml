@@ -1,3 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="MiniTabButton.lua"/>
   <Script file="MoneyInput.lua" />
 </Ui>

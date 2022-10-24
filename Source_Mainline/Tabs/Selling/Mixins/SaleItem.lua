@@ -240,6 +240,8 @@ function AuctionatorSaleItemMixin:SetItemName()
       self.itemInfo.keyName = AuctionHouseUtil.GetItemDisplayTextFromItemKey(
         self.itemInfo.itemKey, itemInfo, false
       )
+      self.itemInfo.keyName = Auctionator.Utilities.ApplyProfessionQuality(self.itemInfo.keyName, self.itemInfo.itemKey.itemID)
+
       self.TitleArea.Text:SetText(self.itemInfo.keyName)
       self:UpdateVisuals()
     end)

@@ -31,11 +31,23 @@ hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
   end
 end)
 
+local function ModifiedClickHook(self, button)
+  if AHShown() and
+      Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
+    SelectOwnItem(self)
+  end
+end
 if ContainerFrameItemButton_OnModifiedClick then
-  hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", function(self, button)
-    if AHShown() and
-        Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
-      SelectOwnItem(self)
+  hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", ModifiedClickHook)
+else
+  for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
+    local index = 1
+    local item = _G["ContainerFrame" .. (bagID + 1) .. "Item" .. (index)]
+    while item ~= nil do
+      hooksecurefunc(item, "OnModifiedClick", ModifiedClickHook)
+
+      index = index + 1
+      item = _G["ContainerFrame" .. (bagID + 1) .. "Item" .. (index)]
     end
-  end)
+  end
 end

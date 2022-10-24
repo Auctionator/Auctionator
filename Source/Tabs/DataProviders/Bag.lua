@@ -50,8 +50,16 @@ function AuctionatorBagDataProviderMixin:LoadBagData()
   local results = {}
   local index = 0
 
+  local function NumSlots(bagID)
+    if C_Container and C_Container.GetContainerNumSlots then
+      return C_Container.GetContainerNumSlots(bagID)
+    else
+      return GetContainerNumSlots(bagID)
+    end
+  end
+
   for _, bagId in ipairs(Auctionator.Constants.BagIDs) do
-    for slot = 1, GetContainerNumSlots(bagId) do
+    for slot = 1, NumSlots(bagId) do
       index = index + 1
 
       local location = ItemLocation:CreateFromBagAndSlot(bagId, slot)

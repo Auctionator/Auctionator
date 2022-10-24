@@ -62,28 +62,34 @@ hooksecurefunc (GameTooltip, "SetGuildBankItem",
   end
 );
 
-if GameTooltip.SetRecipeResultItem and GameTooltip.SetRecipeReagentItem then -- Shadowlands
-  -- This is called when mousing over the result item on a recipe page in the tradeskill window
-  hooksecurefunc( GameTooltip, 'SetRecipeResultItem',
-    function(tip, recipeResultItemId)
-      local itemLink = C_TradeSkillUI.GetRecipeItemLink(recipeResultItemId)
-
-      local itemCount  = C_TradeSkillUI.GetRecipeNumItemsProduced(recipeResultItemId)
-
-      Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
-    end
-  );
-
-  -- This is called when mousing over a reagant item on a recipe page in the tradeskill window
+if GameTooltip.SetRecipeReagentItem then -- Dragonflight
+  -- Reagent in Dragonflight recipe tradeskill page, only for reagents without a
+  -- quality rating.
   hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
-    function( tip, reagentId, index )
-      local itemLink = C_TradeSkillUI.GetRecipeReagentItemLink(reagentId, index)
+    function( tip, recipeID, slotID )
+      local itemLink = C_TradeSkillUI.GetRecipeFixedReagentItemLink(recipeID, slotID)
 
-      local itemCount = select(3, C_TradeSkillUI.GetRecipeReagentInfo(reagentId, index))
+      local schematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, ProfessionsFrame.CraftingPage.SchematicForm:GetCurrentRecipeLevel())
+      local slot = schematic.reagentSlotSchematics[slotID]
+
+      local itemCount = slot.quantityRequired
 
       Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
     end
   );
+end
+
+local function DFRecipeResultTooltip(recipeID, reagents, allocations, recipeRank)
+  local outputData = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
+  if outputData.hyperlink then
+    Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, outputData.hyperlink, 1)
+  end
+end
+
+if C_TradeSkillUI and C_TradeSkillUI.SetTooltipRecipeResultItem then -- Dragonflight Pre-patch
+  hooksecurefunc(C_TradeSkillUI, "SetTooltipRecipeResultItem", DFRecipeResultTooltip)
+elseif GameTooltip.SetRecipeResultItem then -- Dragonflight real
+  hooksecurefunc(GameTooltip, "SetRecipeResultItem", function(tip, ...) DFRecipeResultTooltip(...) end)
 end
 
 if GameTooltip.SetTradeSkillItem then -- Classic

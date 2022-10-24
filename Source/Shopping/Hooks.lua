@@ -7,7 +7,18 @@ local function SearchItem(text)
     StackSplitFrame:Hide()
   end)
 
-  local name = Auctionator.Utilities.GetNameFromLink(text)
+  -- Borrowed from Blizzard ChatEdit_InsertLink to avoid inserting textures with
+  -- DF reagent links
+  local name;
+  if ( strfind(text, "battlepet:") ) then
+    local petName = strmatch(text, "%[(.+)%]");
+    name = petName;
+  elseif ( strfind(text, "item:", 1, true) ) then
+    name = GetItemInfo(text);
+  end
+  if not name then
+    name = text
+  end
 
   if name == nil then
     name = text

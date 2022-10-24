@@ -18,7 +18,6 @@
     mixin="AuctionatorTabMixin"
 
     parentKey="AuctionatorTab"
-    parentArray="Tabs"
     inherits="AuctionHouseFrameDisplayModeTabTemplate"
   >
   </Button>

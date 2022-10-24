@@ -18,11 +18,23 @@ function AuctionatorItemKeyCellTemplateMixin:Populate(rowData, index)
 end
 
 function AuctionatorItemKeyCellTemplateMixin:OnEnter()
-  AuctionHouseUtil.LineOnEnterCallback(self, self.rowData)
+  -- Process itemLink directly (as bug in Blizz code prevents potions with a
+  -- quality rating having their tooltip show)
+  if self.rowData.itemLink and not Auctionator.Utilities.IsPetLink(self.rowData.itemLink) then
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    GameTooltip:SetHyperlink(self.rowData.itemLink)
+    GameTooltip:Show()
+  else
+    AuctionHouseUtil.LineOnEnterCallback(self, self.rowData)
+  end
   AuctionatorCellMixin.OnEnter(self)
 end
 
 function AuctionatorItemKeyCellTemplateMixin:OnLeave()
-  AuctionHouseUtil.LineOnLeaveCallback(self, self.rowData)
+  if self.rowData.itemLink ~= nil and not Auctionator.Utilities.IsPetLink(self.rowData.itemLink) then
+    GameTooltip:Hide()
+  else
+    AuctionHouseUtil.LineOnLeaveCallback(self, self.rowData)
+  end
   AuctionatorCellMixin.OnLeave(self)
 end

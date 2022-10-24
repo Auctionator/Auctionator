@@ -1,13 +1,10 @@
 <Ui>
-  <Frame name="AuctionatorCraftingInfoFrameTemplate" mixin="AuctionatorCraftingInfoFrameMixin" virtual="true">
-    <Size x="200" y="22"/>
+  <Frame name="AuctionatorCraftingInfoFrameTemplate" mixin="AuctionatorCraftingInfoFrameMixin" virtual="true" frameLevel="520">
+    <Size x="400" y="22"/>
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnEvent method="OnEvent"/>
     </Scripts>
-    <Anchors>
-      <Anchor point="TOPRIGHT" x="-35" y="-137"/>
-    </Anchors>
     <Layers>
       <Layer level="OVERLAY">
         <FontString inherits="GameFontNormal" parentKey="Total">

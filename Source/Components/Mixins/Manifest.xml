@@ -15,7 +15,6 @@
   <Script file="ResetButton.lua"/>
   <Script file="DropDown.lua"/>
   <Script file="KeyBinding.lua"/>
-  <Script file="MiniTabButton.lua"/>
 
   <Script file="Heading.lua"/>
   <Script file="SubHeading.lua"/>

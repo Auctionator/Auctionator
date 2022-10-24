@@ -1,3 +1,4 @@
 <Ui>
+  <Script file="MiniTabButton.lua"/>
   <Script file="LoadAllButton.lua"/>
 </Ui>

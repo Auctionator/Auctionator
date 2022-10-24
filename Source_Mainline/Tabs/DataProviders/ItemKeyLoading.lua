@@ -20,6 +20,8 @@ function AuctionatorItemKeyLoadingMixin:ProcessItemKey(rowEntry, itemKeyInfo)
     false
   )
 
+  text = Auctionator.Utilities.ApplyProfessionQuality(text, rowEntry.itemKey.itemID)
+
   rowEntry.itemName = text
   rowEntry.name = Auctionator.Utilities.RemoveTextColor(text)
   rowEntry.iconTexture = itemKeyInfo.iconFileID

@@ -4,7 +4,13 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
   local itemKey = C_AuctionHouse.GetItemKeyFromItem(location)
   local itemType = C_AuctionHouse.GetItemCommodityStatus(location)
 
-  local icon, itemCount, _, quality, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
+  local icon, itemCount, quality, itemLink, _
+  if C_Container and C_Container.GetContainerItemInfo then
+    local itemInfo = C_Container.GetContainerItemInfo(location:GetBagAndSlot())
+    icon, itemCount, quality, itemLink = itemInfo.iconFileID, itemInfo.stackCount, itemInfo.quality, itemInfo.hyperlink
+  else
+    icon, itemCount, _, quality, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
+  end
 
   local _, _, _, _, _, classID, _ = GetItemInfoInstant(itemLink or itemKey.itemID)
 

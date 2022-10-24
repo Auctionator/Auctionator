@@ -4,14 +4,20 @@ local YOUR_VIEW = 3
 
 AuctionatorSellingTabPricesContainerMixin = {}
 function AuctionatorSellingTabPricesContainerMixin:OnLoad()
-  self.Tabs = {self.CurrentPricesTab, self.RealmHistoryTab, self.YourHistoryTab}
-  self.numTabs = #self.Tabs
+  PanelTemplates_SetNumTabs(self, #self.Tabs)
 
-  PanelTemplates_SetTab(self, 1)
+  for _, tab in ipairs(self.Tabs) do
+    for _, tabTexture in ipairs(tab.TabTextures) do
+      tabTexture:SetHeight(tabTexture:GetHeight() * 0.8)
+    end
+  end
+
   self:SetView(1)
 end
 
 function AuctionatorSellingTabPricesContainerMixin:SetView(viewIndex)
+  PanelTemplates_SetTab(self, viewIndex)
+
   if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SPLIT_PANELS) then
     self:GetParent().CurrentPricesListing:Hide()
   end

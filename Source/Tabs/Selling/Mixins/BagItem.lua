@@ -28,10 +28,10 @@ end
 
 function AuctionatorBagItemMixin:OnEnter()
   if self.itemInfo ~= nil then
-    if AuctionHouseUtil ~= nil then
-      AuctionHouseUtil.LineOnEnterCallback(self, self.itemInfo)
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
+      BattlePetToolTip_ShowLink(self.itemInfo.itemLink)
     else
-      GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
       GameTooltip:SetHyperlink(self.itemInfo.itemLink)
       GameTooltip:Show()
     end
@@ -40,8 +40,8 @@ end
 
 function AuctionatorBagItemMixin:OnLeave()
   if self.itemInfo ~= nil then
-    if AuctionHouseUtil ~= nil then
-      AuctionHouseUtil.LineOnLeaveCallback(self, self.itemInfo)
+    if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
+      BattlePetTooltip:Hide()
     else
       GameTooltip:Hide()
     end

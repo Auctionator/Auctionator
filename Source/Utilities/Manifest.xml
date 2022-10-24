@@ -3,6 +3,7 @@
 
   <Script file="DBKeyFromLink.lua"/>
   <Script file="IsPetDBKey.lua"/>
+  <Script file="IsPetLink.lua"/>
   <Script file="Message.lua"/>
   <Script file="ReverseArray.lua"/>
   <Script file="Table.lua" />
