@@ -11,10 +11,10 @@ function AuctionatorConfigTabMixin:OnLoad()
 end
 
 function AuctionatorConfigTabMixin:OpenOptions()
-  if Settings ~= nil then -- Dragonflight
-    Settings.OpenToCategory(AUCTIONATOR_L_AUCTIONATOR)
-  else
+  if InterfaceOptionsFrame ~= nil then
     InterfaceOptionsFrame:Show()
     InterfaceOptionsFrame_OpenToCategory(AUCTIONATOR_L_CONFIG_BASIC_OPTIONS_CATEGORY)
+  else -- Dragonflight
+    Settings.OpenToCategory(AUCTIONATOR_L_AUCTIONATOR)
   end
 end
