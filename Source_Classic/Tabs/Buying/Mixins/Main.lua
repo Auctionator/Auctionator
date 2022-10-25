@@ -44,6 +44,11 @@ function AuctionatorBuyFrameMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, BUY_EVENTS)
 end
 
+function AuctionatorBuyFrameMixin:DoRefresh()
+  self.SearchDataProvider:SetRequestAllResults(false)
+  self.SearchDataProvider:RefreshQuery()
+end
+
 local function CountOwnedAuctions(auctionType)
   local allAuctions = Auctionator.AH.DumpAuctions("owner")
 
@@ -158,7 +163,7 @@ function AuctionatorBuyFrameMixin:CancelFocussed()
       Auctionator.Utilities.Message(AUCTIONATOR_L_ERROR_REOPEN_AUCTION_HOUSE)
     end
     self:Reset()
-    self.SearchDataProvider:RefreshQuery()
+    self:DoRefresh()
   else
     Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.selectedAuctionData)
   end
@@ -217,7 +222,7 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
     end
     self.SearchDataProvider:SetAuctions(eventData.entries)
 
-    self.SearchDataProvider:SetRequestAllResults(eventData.complete)
+    self.SearchDataProvider:SetRequestAllResults(false)
     if not eventData.complete and #eventData.entries < Auctionator.Constants.MaxResultsPerPage then
       self.SearchDataProvider:RefreshQuery()
     else

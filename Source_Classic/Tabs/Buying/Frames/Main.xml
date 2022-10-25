@@ -95,7 +95,7 @@
         </Anchors>
         <Scripts>
           <OnClick>
-            self:GetParent().SearchDataProvider:RefreshQuery()
+            self:GetParent():DoRefresh()
           </OnClick>
         </Scripts>
       </Button>
