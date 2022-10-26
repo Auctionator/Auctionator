@@ -1,6 +1,8 @@
 local AUCTIONATOR_EVENTS = {
   -- AH Window Initialization Events
   "AUCTION_HOUSE_SHOW",
+  -- Cache vendor prices events
+  "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
 }
 
 AuctionatorInitializeMainlineMixin = {}
@@ -12,6 +14,11 @@ end
 function AuctionatorInitializeMainlineMixin:OnEvent(event, ...)
   if event == "AUCTION_HOUSE_SHOW" then
     self:AuctionHouseShown()
+  elseif event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
+    local showType = ...
+    if showType == Enum.PlayerInteractionType.Merchant then
+      Auctionator.CraftingInfo.CacheVendorPrices()
+    end
   end
 end
 
