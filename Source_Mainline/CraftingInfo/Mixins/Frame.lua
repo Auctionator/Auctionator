@@ -22,7 +22,7 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
 end
 
 function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
-  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW))
+  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo() ~= nil)
 
   if self:IsShown() then
     self:ClearAllPoints()
