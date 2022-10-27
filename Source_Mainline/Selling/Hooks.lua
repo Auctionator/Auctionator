@@ -1,4 +1,6 @@
-local function SelectOwnItem(itemLocation)
+local function SelectOwnItem(self)
+  local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
+
   if not itemLocation:IsValid() or not C_AuctionHouse.IsSellItemValid(itemLocation) then
     return
   end
@@ -13,9 +15,9 @@ local function SelectOwnItem(itemLocation)
   itemInfo.count = C_AuctionHouse.GetAvailablePostCount(itemLocation)
 
   Auctionator.EventBus
-    :RegisterSource(SelectOwnItem, "ContainerFrameItemButton_OnModifiedClick hook")
-    :Fire(SelectOwnItem, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-    :UnregisterSource(SelectOwnItem)
+    :RegisterSource(self, "ContainerFrameItemButton_OnModifiedClick hook")
+    :Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+    :UnregisterSource(self)
 end
 
 local function AHShown()
@@ -25,14 +27,27 @@ end
 hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
   if AHShown() and
       Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
-    local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
-    SelectOwnItem(itemLocation)
+    SelectOwnItem(self)
   end
 end)
 
-hooksecurefunc(_G, "HandleModifiedItemClick", function(itemLink, itemLocation)
-  if itemLocation ~= nil and AHShown() and
-      Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), GetMouseButtonClicked()) then
-    SelectOwnItem(itemLocation)
+local function ModifiedClickHook(self, button)
+  if AHShown() and
+      Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
+    SelectOwnItem(self)
   end
-end)
+end
+if ContainerFrameItemButton_OnModifiedClick then
+  hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", ModifiedClickHook)
+else
+  for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
+    local index = 1
+    local item = _G["ContainerFrame" .. (bagID + 1) .. "Item" .. (index)]
+    while item ~= nil do
+      hooksecurefunc(item, "OnModifiedClick", ModifiedClickHook)
+
+      index = index + 1
+      item = _G["ContainerFrame" .. (bagID + 1) .. "Item" .. (index)]
+    end
+  end
+end
