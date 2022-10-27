@@ -62,7 +62,7 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term, config)
       maxLevel = parsed.maxLevel,
       itemClassFilters = Auctionator.Search.GetItemClassCategories(parsed.categoryKey),
       isExact = parsed.isExact,
-      quality = parsed.quality,
+      quality = parsed.quality, -- Blizzard API ignores this parameter, but kept in case it works again
     },
     extraFilters = {
       itemLevel = {
@@ -77,6 +77,7 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term, config)
         min = parsed.minPrice,
         max = parsed.maxPrice,
       },
+      quality = parsed.quality, -- Check the quality locally because the Blizzard search API ignores quality
     },
     -- Force searchAllPages when the config UI forces it
     searchAllPages = Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE) or config.searchAllPages or false,

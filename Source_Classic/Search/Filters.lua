@@ -28,6 +28,10 @@ function ALL_FILTERS.price(resultWithKey, limits)
   return SatisfiesLimit(resultWithKey.minPrice, limits)
 end
 
+function ALL_FILTERS.quality(resultWithKey, quality)
+  return (select(Auctionator.Constants.ITEM_INFO.RARITY, GetItemInfo(resultWithKey.entries[1].itemLink))) == quality
+end
+
 function Auctionator.Search.CheckFilters(resultWithKey, filters)
   for filterName, limits in pairs(filters) do
     if not ALL_FILTERS[filterName](resultWithKey, limits) then
