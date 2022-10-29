@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Frame name="AuctionatorAHFrameTemplate" mixin="AuctionatorAHFrameMixin" virtual="true">
     <Scripts>
+      <OnLoad method="OnLoad" />
       <OnShow method="OnShow" />
       <OnEvent method="OnEvent" />
     </Scripts>

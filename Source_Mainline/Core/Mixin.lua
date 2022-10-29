@@ -98,6 +98,13 @@ local function ShowDefaultTab()
   end
 end
 
+function AuctionatorAHFrameMixin:OnLoad()
+  FrameUtil.RegisterFrameForEvents(self, {
+    "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
+    "PLAYER_INTERACTION_MANAGER_FRAME_HIDE",
+  })
+end
+
 function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
@@ -113,9 +120,10 @@ function AuctionatorAHFrameMixin:OnShow()
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
-  if eventName == "AUCTION_HOUSE_SHOW" then
+  local paneType = ...
+  if eventName == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" and paneType == Enum.PlayerInteractionType.Auctioneer then
     self:Show()
-  elseif eventName == "AUCTION_HOUSE_CLOSED" then
+  elseif eventName == "PLAYER_INTERACTION_MANAGER_FRAME_HIDE" and paneType == Enum.PlayerInteractionType.Auctioneer then
     self:Hide()
   end
 end

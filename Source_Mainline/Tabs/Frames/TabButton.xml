@@ -17,7 +17,6 @@
     virtual="true"
     mixin="AuctionatorTabMixin"
 
-    parentKey="AuctionatorTab"
     inherits="AuctionHouseFrameDisplayModeTabTemplate"
   >
   </Button>

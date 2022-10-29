@@ -6,7 +6,6 @@ function AuctionatorTabMixin:Initialize(name, tabTemplate, tabHeader, displayMod
   self.ahTitle = tabHeader
   self.displayMode = displayMode
 
-  PanelTemplates_DeselectTab(self)
 
   -- Create this tab's frame
   self.frameRef = CreateFrame(
@@ -19,6 +18,7 @@ function AuctionatorTabMixin:Initialize(name, tabTemplate, tabHeader, displayMod
   AuctionHouseFrame.tabsForDisplayMode[name] = #AuctionHouseFrame.Tabs
 
   PanelTemplates_SetNumTabs(AuctionHouseFrame, #AuctionHouseFrame.Tabs)
+  PanelTemplates_DeselectTab(self)
   self:OnShow()
 end
 

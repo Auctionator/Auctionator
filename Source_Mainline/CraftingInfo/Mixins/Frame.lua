@@ -2,8 +2,8 @@ AuctionatorCraftingInfoFrameMixin = {}
 
 function AuctionatorCraftingInfoFrameMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, {
-    "AUCTION_HOUSE_SHOW",
-    "AUCTION_HOUSE_CLOSED",
+    "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
+    "PLAYER_INTERACTION_MANAGER_FRAME_HIDE",
   })
   self:UpdateSearchButton()
 
@@ -68,5 +68,8 @@ function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
 end
 
 function AuctionatorCraftingInfoFrameMixin:OnEvent(...)
-  self:UpdateSearchButton()
+  local eventName, paneType = ...
+  if paneType == Enum.PlayerInteractionType.Auctioneer then
+    self:UpdateSearchButton()
+  end
 end
