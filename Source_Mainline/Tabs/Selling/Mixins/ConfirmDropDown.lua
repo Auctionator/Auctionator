@@ -2,13 +2,18 @@ AuctionatorConfirmDropDownMixin = {}
 
 local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
 
+local COMMODITY_PURCHASE_EVENTS = {
+  "COMMODITY_PRICE_UNAVAILABLE",
+  "COMMODITY_PRICE_UPDATED",
+}
+
 function AuctionatorConfirmDropDownMixin:OnLoad()
   LibDD:Create_UIDropDownMenu(self)
 
   LibDD:UIDropDownMenu_SetInitializeFunction(self, AuctionatorConfirmDropDownMixin.Initialize)
   LibDD:UIDropDownMenu_SetDisplayMode(self, "MENU")
   Auctionator.EventBus:Register(self, {
-    Auctionator.Selling.Events.ConfirmCallback,
+    Auctionator.Selling.Events.ShowConfirmPurchase,
     Auctionator.AH.Events.Ready,
   })
 end
@@ -16,37 +21,56 @@ end
 function AuctionatorConfirmDropDownMixin:OnHide()
   if self.commoditiesPurchaseOngoing then
     self.commoditiesPurchaseOngoing = false
+
+    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+
     C_AuctionHouse.CancelCommoditiesPurchase()
   end
 end
 
-function AuctionatorConfirmDropDownMixin:ReceiveEvent(event, ...)
-  if event == Auctionator.Selling.Events.ConfirmCallback then
-    self:Callback(...)
-  elseif event == Auctionator.AH.Events.Ready and self.waitingForThrottle then
+function AuctionatorConfirmDropDownMixin:OnEvent(eventName, ...)
+  if eventName == "COMMODITY_PRICE_UPDATED" then
+    local newUnitPrice, newTotalPrice = ...
+    self.totalPrice = newTotalPrice
     self:Toggle()
-    self.waitingForThrottle = false
+    
+  elseif eventName == "COMMODITY_PRICE_UNAVAILABLE" then
+    self:Toggle()
+  end
+end
+
+function AuctionatorConfirmDropDownMixin:ReceiveEvent(event, ...)
+  if event == Auctionator.Selling.Events.ShowConfirmPurchase then
+    self.data = ...
+    self.totalPrice = nil
+
+    if self.data.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+      self.commoditiesPurchaseOngoing = true
+
+      C_AuctionHouse.StartCommoditiesPurchase(self.data.itemID, self.data.quantity)
+      FrameUtil.RegisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+
+    else --Auctionator.Constants.ITEM_TYPES.ITEM
+      self.totalPrice = self.data.price
+      self:Toggle()
+    end
   end
 end
 
 function AuctionatorConfirmDropDownMixin:Initialize()
-  if not self.data then
-    LibDD:HideDropDownMenu(1)
-    return
-  end
-
-  if self.data.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
-    self.commoditiesPurchaseOngoing = true
-  end
-
   local confirmInfo = LibDD:UIDropDownMenu_CreateInfo()
   confirmInfo.notCheckable = 1
-  confirmInfo.text = AUCTIONATOR_L_CONFIRM .. " " .. GetMoneyString(self.data.price * self.data.quantity, true)
+  if self.totalPrice ~= nil then
+    confirmInfo.text = AUCTIONATOR_L_CONFIRM .. " " .. GetMoneyString(self.totalPrice, true)
+    confirmInfo.disabled = false
+  else
+    confirmInfo.text = AUCTIONATOR_L_NO_LONGER_AVAILABLE
+    confirmInfo.disabled = true
+  end
 
-  confirmInfo.disabled = false
   confirmInfo.func = function()
     if self.data.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
-      C_AuctionHouse.PlaceBid(self.data.auctionID, self.data.price)
+      C_AuctionHouse.PlaceBid(self.data.auctionID, self.totalPrice)
     else
       self.commoditiesPurchaseOngoing = false
       C_AuctionHouse.ConfirmCommoditiesPurchase(self.data.itemID, self.data.quantity)
@@ -64,15 +88,6 @@ function AuctionatorConfirmDropDownMixin:Initialize()
 
   LibDD:UIDropDownMenu_AddButton(confirmInfo)
   LibDD:UIDropDownMenu_AddButton(cancelInfo)
-end
-
-function AuctionatorConfirmDropDownMixin:Callback(itemInfo)
-  self.data = itemInfo
-  if Auctionator.AH.IsNotThrottled() then
-    self:Toggle()
-  else
-    self.waitingForThrottle = true
-  end
 end
 
 function AuctionatorConfirmDropDownMixin:Toggle()

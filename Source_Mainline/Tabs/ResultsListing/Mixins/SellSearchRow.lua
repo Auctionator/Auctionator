@@ -1,12 +1,9 @@
 AuctionatorSellSearchRowMixin = CreateFromMixins(AuctionatorResultsRowTemplateMixin)
 
 local function BuyEntry(entry)
-  if entry.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
-    C_AuctionHouse.StartCommoditiesPurchase(entry.itemID, entry.quantity)
-  end
   Auctionator.EventBus
     :RegisterSource(BuyEntry, "BuyEntry")
-    :Fire(BuyEntry, Auctionator.Selling.Events.ConfirmCallback, entry)
+    :Fire(BuyEntry, Auctionator.Selling.Events.ShowConfirmPurchase, entry)
     :UnregisterSource(BuyEntry)
 end
 

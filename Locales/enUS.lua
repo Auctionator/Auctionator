@@ -373,6 +373,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SELECT_ALL"] = "Select All"
   L["UNSELECT_ALL"] = "Unselect All"
   L["CONFIRM"] = "Confirm"
+  L["NO_LONGER_AVAILABLE"] = "No longer available"
   L["X_PRICE_HISTORY"] = "%s Price History"
   L["NO_ITEM_INFO_SPECIFIED"] = "No item info was specified."
   L["BUY_STACK"] = "Buy Stack"

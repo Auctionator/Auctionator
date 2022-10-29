@@ -2,6 +2,7 @@
     <Frame name="AuctionatorConfirmDropDownTemplate" mixin="AuctionatorConfirmDropDownMixin" virtual="true">
         <Scripts>
             <OnLoad method="OnLoad"/>
+            <OnEvent method="OnEvent"/>
             <OnHide method="OnHide"/>
         </Scripts>
     </Frame>
