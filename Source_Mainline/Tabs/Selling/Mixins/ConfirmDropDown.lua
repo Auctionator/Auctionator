@@ -30,11 +30,16 @@ end
 
 function AuctionatorConfirmDropDownMixin:OnEvent(eventName, ...)
   if eventName == "COMMODITY_PRICE_UPDATED" then
+    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+
     local newUnitPrice, newTotalPrice = ...
+    self.unitPrice = newUnitPrice
     self.totalPrice = newTotalPrice
     self:Toggle()
 
   elseif eventName == "COMMODITY_PRICE_UNAVAILABLE" then
+    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+
     self:Toggle()
   end
 end
@@ -52,6 +57,7 @@ function AuctionatorConfirmDropDownMixin:ReceiveEvent(event, ...)
 
     else --Auctionator.Constants.ITEM_TYPES.ITEM
       self.totalPrice = self.data.price
+      self.unitPrice = self.data.price
       self:Toggle()
     end
   end
@@ -61,7 +67,10 @@ function AuctionatorConfirmDropDownMixin:Initialize()
   local confirmInfo = LibDD:UIDropDownMenu_CreateInfo()
   confirmInfo.notCheckable = 1
   if self.totalPrice ~= nil then
-    confirmInfo.text = AUCTIONATOR_L_CONFIRM .. " " .. GetMoneyString(self.totalPrice, true)
+    confirmInfo.text = AUCTIONATOR_L_CONFIRM_X_TOTAL_PRICE_X:format(
+      GetMoneyString(self.unitPrice, true),
+      GetMoneyString(self.totalPrice, true)
+      )
     confirmInfo.disabled = false
   else
     confirmInfo.text = AUCTIONATOR_L_NO_LONGER_AVAILABLE
