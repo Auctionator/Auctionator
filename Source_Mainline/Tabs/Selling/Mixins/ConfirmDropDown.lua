@@ -33,7 +33,7 @@ function AuctionatorConfirmDropDownMixin:OnEvent(eventName, ...)
     local newUnitPrice, newTotalPrice = ...
     self.totalPrice = newTotalPrice
     self:Toggle()
-    
+
   elseif eventName == "COMMODITY_PRICE_UNAVAILABLE" then
     self:Toggle()
   end
