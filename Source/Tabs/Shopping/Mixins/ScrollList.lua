@@ -28,11 +28,30 @@ function AuctionatorScrollListMixin:Init()
 
   self.ScrollBox.wheelPanScalar = 4.0
 
-  self.ScrollView = CreateScrollBoxListLinearView()
+  local view = CreateScrollBoxListLinearView()
 
-  self.ScrollView:SetPadding(2, 2, 2, 2, 0);
+  view:SetPadding(2, 2, 2, 2, 0);
 
-  ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollBox, self.ScrollBar, self.ScrollView);
+  ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollBox, self.ScrollBar, view);
+
+  local function FirstTimeInit(frame)
+    if frame.created == nil then
+      self:InitLine(frame)
+      frame.created = true
+    end
+  end
+  view:SetElementExtent(20)
+  if Auctionator.Constants.IsClassic then
+    view:SetElementInitializer("Button", self.lineTemplate, function(frame, elementData)
+      FirstTimeInit(frame)
+      frame:Populate(elementData.searchTerm, elementData.index)
+    end)
+  else
+    view:SetElementInitializer(self.lineTemplate, function(frame, elementData)
+      FirstTimeInit(frame)
+      frame:Populate(elementData.searchTerm, elementData.index)
+    end)
+  end
 end
 
 function AuctionatorScrollListMixin:RefreshScrollFrame(persistScroll)
@@ -42,33 +61,6 @@ function AuctionatorScrollListMixin:RefreshScrollFrame(persistScroll)
     return
   end
 
-  local oldScrollPosition
-  if persistScroll then
-    oldScrollPosition = self.ScrollBox:GetScrollPercentage()
-  end
-
-  self.DataProvider = CreateDataProvider()
-
-  local function FirstTimeInit(frame)
-    if frame.created == nil then
-      self:InitLine(frame)
-      frame.created = true
-    end
-  end
-  self.ScrollView:SetDataProvider(self.DataProvider)
-  self.ScrollView:SetElementExtent(20)
-  if Auctionator.Constants.IsClassic then
-    self.ScrollView:SetElementInitializer("Button", self.lineTemplate, function(frame, elementData)
-      FirstTimeInit(frame)
-      frame:Populate(elementData.searchTerm, elementData.index)
-    end)
-  else
-    self.ScrollView:SetElementInitializer(self.lineTemplate, function(frame, elementData)
-      FirstTimeInit(frame)
-      frame:Populate(elementData.searchTerm, elementData.index)
-    end)
-  end
-
   local entries = {}
   for i = 1, self:GetNumEntries() do
     table.insert(entries, {
@@ -76,11 +68,8 @@ function AuctionatorScrollListMixin:RefreshScrollFrame(persistScroll)
       index = i,
     })
   end
-  self.DataProvider:InsertTable(entries)
 
-  if oldScrollPosition ~= nil then
-    self.ScrollBox:SetScrollPercentage(oldScrollPosition)
-  end
+  self.ScrollBox:SetDataProvider(CreateDataProvider(entries), persistScroll)
 end
 
 function AuctionatorScrollListMixin:ScrollToBottom()
