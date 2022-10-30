@@ -22,7 +22,7 @@ function AuctionatorScrollListRecentsMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.Shopping.Events.OneItemSearch and self:IsShown() then
     self:StartSearch({ eventData }, true)
   elseif eventName == Auctionator.Shopping.Events.RecentSearchesUpdate then
-    self:RefreshScrollFrame()
+    self:RefreshScrollFrame(true)
   elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
     self.SpinnerAnim:Play()
     self.LoadingSpinner:Show()

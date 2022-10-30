@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Button name="AuctionatorScrollListLineNoButtonsTemplate" inherits="AuctionatorRetailImportScrollListLineTextTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
+  <Button name="AuctionatorScrollListLineNoButtonsTemplate" mixin="AuctionatorScrollListLineMixin" virtual="true">
     <Size x="0" y="20"/>
 
     <Anchors>
@@ -11,8 +11,8 @@
       <Layer level="BACKGROUND">
         <FontString parentKey="Text" inherits="GameFontHighlightSmall" justifyH="LEFT" maxLines="1">
           <Anchors>
-            <Anchor point="LEFT" x="4" y="0"/>
-            <Anchor point="RIGHT" x="-45" y="0"/>
+            <Anchor point="LEFT" x="8" y="0"/>
+            <Anchor point="RIGHT" x="-49" y="0"/>
           </Anchors>
         </FontString>
       </Layer>
@@ -24,6 +24,10 @@
 
     <NormalTexture parentKey="NormalTexture" atlas="auctionhouse-rowstripe-1" setAllPoints="true"/>
     <HighlightTexture parentKey="HighlightHighlight" atlas="auctionhouse-ui-row-highlight" alphaMode="ADD" hidden="true"/>
+
+    <Scripts>
+      <OnClick method="OnClick"/>
+    </Scripts>
   </Button>
 
   <Button name="AuctionatorScrollListLineButtonTemplate" virtual="true" mixin="AuctionatorScrollListLineButtonMixin">

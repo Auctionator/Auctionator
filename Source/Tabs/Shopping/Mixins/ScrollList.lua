@@ -16,7 +16,7 @@ end
 
 function AuctionatorScrollListMixin:OnShow()
   self:Init()
-  self:RefreshScrollFrame()
+  self:RefreshScrollFrame(true)
 end
 
 function AuctionatorScrollListMixin:Init()
@@ -24,83 +24,67 @@ function AuctionatorScrollListMixin:Init()
     return
   end
 
-  self.ScrollFrame.update = function()
-    self:RefreshScrollFrame()
-  end
-
-  HybridScrollFrame_CreateButtons(self.ScrollFrame, self.lineTemplate, 0, 0)
-
-  for i, button in ipairs(self.ScrollFrame.buttons) do
-    local oddRow = (i % 2) == 1
-
-    button:GetNormalTexture():SetAtlas(oddRow and "auctionhouse-rowstripe-1" or "auctionhouse-rowstripe-2");
-    self:InitLine(button)
-    button:SetShown(false)
-  end
-
-  HybridScrollFrame_SetDoNotHideScrollBar(self.ScrollFrame, true);
-
-  self.tableBuilder = AuctionatorRetailImportCreateTableBuilder(
-    HybridScrollFrame_GetButtons(self.ScrollFrame),
-    AuctionatorShoppingTableBuilderMixin
-  )
-
-  self.tableBuilder:SetDataProvider(function(index)
-    return self:GetEntry(index)
-  end)
-
   self.isInitialized = true
+
+  self.ScrollBox.wheelPanScalar = 4.0
+
+  self.ScrollView = CreateScrollBoxListLinearView()
+
+  self.ScrollView:SetPadding(2, 2, 2, 2, 0);
+
+  ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollBox, self.ScrollBar, self.ScrollView);
 end
 
-function AuctionatorScrollListMixin:RefreshScrollFrame()
+function AuctionatorScrollListMixin:RefreshScrollFrame(persistScroll)
   Auctionator.Debug.Message("AuctionatorScrollListMixin:RefreshScrollFrame()")
 
-  self.scrollFrameDirty = false
-
-  if not self.isInitialized or not self:IsShown() then
+  if not self.isInitialized or not self:IsVisible() then
     return
   end
 
-  local buttons = HybridScrollFrame_GetButtons(self.ScrollFrame)
-  local buttonCount = #buttons
-
-  local numResults = self:GetNumEntries()
-  if numResults == 0 then
-    -- Make sure previous list items are removed from UI
-    for i = 1, buttonCount do
-      buttons[i]:SetShown(false)
-    end
-
-    return
+  local oldScrollPosition
+  if persistScroll then
+    oldScrollPosition = self.ScrollBox:GetScrollPercentage()
   end
 
-  local buttonHeight = buttons[1]:GetHeight()
+  self.DataProvider = CreateDataProvider()
 
-  local offset = self:GetScrollOffset()
-  local populateCount = math.min(buttonCount, numResults)
-
-  self.tableBuilder:Populate(offset, populateCount)
-
-  for i = 1, buttonCount do
-    local visible = (i + offset <= numResults) and (i <= numResults)
-    local button = buttons[i]
-
-    if visible then
-      button:Enable()
-      button:UpdateDisplay()
+  local function FirstTimeInit(frame)
+    if frame.created == nil then
+      self:InitLine(frame)
+      frame.created = true
     end
-
-    button:SetShown(visible)
+  end
+  self.ScrollView:SetDataProvider(self.DataProvider)
+  self.ScrollView:SetElementExtent(20)
+  if Auctionator.Constants.IsClassic then
+    self.ScrollView:SetElementInitializer("Button", self.lineTemplate, function(frame, elementData)
+      FirstTimeInit(frame)
+      frame:Populate(elementData.searchTerm, elementData.index)
+    end)
+  else
+    self.ScrollView:SetElementInitializer(self.lineTemplate, function(frame, elementData)
+      FirstTimeInit(frame)
+      frame:Populate(elementData.searchTerm, elementData.index)
+    end)
   end
 
-  local totalHeight = numResults * buttonHeight
-  local displayedHeight = populateCount * buttonHeight
+  local entries = {}
+  for i = 1, self:GetNumEntries() do
+    table.insert(entries, {
+      searchTerm = self:GetEntry(i),
+      index = i,
+    })
+  end
+  self.DataProvider:InsertTable(entries)
 
-  HybridScrollFrame_Update(self.ScrollFrame, totalHeight, displayedHeight)
+  if oldScrollPosition ~= nil then
+    self.ScrollBox:SetScrollPercentage(oldScrollPosition)
+  end
 end
 
-function AuctionatorScrollListMixin:GetScrollOffset()
-	return HybridScrollFrame_GetOffset(self.ScrollFrame);
+function AuctionatorScrollListMixin:ScrollToBottom()
+  self.ScrollBox:SetScrollPercentage(1)
 end
 
 function AuctionatorScrollListMixin:SetLineTemplate(lineTemplate)

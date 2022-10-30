@@ -1,19 +1,13 @@
-AuctionatorScrollListLineMixin = CreateFromMixins(
-  AuctionatorRetailImportScrollListLineMixin,
-  AuctionatorRetailImportTableBuilderRowMixin
-)
+AuctionatorScrollListLineMixin = {}
 
 function AuctionatorScrollListLineMixin:DeleteItem()
-end
-
-function AuctionatorScrollListLineMixin:UpdateDisplay()
-  self.Text:SetText(Auctionator.Search.PrettifySearchString(self.searchTerm))
 end
 
 function AuctionatorScrollListLineMixin:Populate(searchTerm, dataIndex)
   self.LastSearchedHighlight:Hide()
   self.searchTerm = searchTerm
   self.dataIndex = dataIndex
+  self.Text:SetText(Auctionator.Search.PrettifySearchString(self.searchTerm))
 end
 
 local function ComposeTooltip(searchTerm)
@@ -43,6 +37,10 @@ end
 
 function AuctionatorScrollListLineMixin:HideTooltip()
   GameTooltip:Hide()
+end
+
+function AuctionatorScrollListLineMixin:OnClick()
+  print("clicked")
 end
 
 function AuctionatorScrollListLineMixin:OnEnter()

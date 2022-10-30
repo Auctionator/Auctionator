@@ -1,8 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
-..\FrameXML\UI.xsd">
-  <Button name="AuctionatorRetailImportScrollListLineTemplate" inherits="ScrollListLineTemplate" virtual="true" />
-
-  <Button name="AuctionatorRetailImportScrollListLineTextTemplate" inherits="ScrollListLineTextTemplate" virtual="true" />
-
-  <Frame name="AuctionatorRetailImportScrollListTemplate" inherits="ScrollListTemplate" virtual="true" />
-</Ui>

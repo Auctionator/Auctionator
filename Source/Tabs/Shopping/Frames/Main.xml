@@ -77,7 +77,7 @@
       </Button>
 
       <!-- Shopping List item scroll frame -->
-      <Frame parentKey="ScrollListShoppingList" inherits="AuctionatorRetailImportScrollListTemplate" mixin="AuctionatorScrollListShoppingListMixin">
+      <Frame parentKey="ScrollListShoppingList" mixin="AuctionatorScrollListShoppingListMixin">
         <Anchors>
           <Anchor point="TOPLEFT" y="-106" />
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" y="35" />
@@ -114,19 +114,29 @@
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
         </Scripts>
-        <Layers>
-          <Layer level="BACKGROUND">
-            <Texture inherits="Auctionator_AuctionHouseBackgroundSellRight">
+        <Frames>
+          <Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
+            <Anchors>
+              <Anchor point="TOPLEFT" y="-4"/>
+              <Anchor point="BOTTOMRIGHT" x="-25" y="4"/>
+            </Anchors>
+          </Frame>
+          <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
               <Anchors>
-                <Anchor point="TOPLEFT"/>
-                <Anchor point="BOTTOMRIGHT" y="2"/>
+                  <Anchor point="TOPRIGHT"/>
+                  <Anchor point="BOTTOMRIGHT"/>
               </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
+          </EventFrame>
+          <Frame parentKey="Inset" inherits="AuctionatorInsetTemplate">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeKey="$parent.ScrollBar" x="2"/>
+            </Anchors>
+          </Frame>
+        </Frames>
       </Frame>
 
-      <Frame parentKey="ScrollListRecents" inherits="AuctionatorRetailImportScrollListTemplate" mixin="AuctionatorScrollListRecentsMixin">
+      <Frame parentKey="ScrollListRecents" mixin="AuctionatorScrollListRecentsMixin">
         <Anchors>
           <Anchor point="TOPLEFT" y="-106" />
           <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" />
@@ -150,16 +160,26 @@
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>
         </Scripts>
-        <Layers>
-          <Layer level="BACKGROUND">
-            <Texture parentKey="Bg" inherits="Auctionator_AuctionHouseBackgroundSellRight">
+        <Frames>
+          <Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
+            <Anchors>
+              <Anchor point="TOPLEFT" y="-4"/>
+              <Anchor point="BOTTOMRIGHT" x="-25" y="4"/>
+            </Anchors>
+          </Frame>
+          <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
               <Anchors>
-                <Anchor point="TOPLEFT"/>
-                <Anchor point="BOTTOMRIGHT" y="2"/>
+                  <Anchor point="TOPRIGHT"/>
+                  <Anchor point="BOTTOMRIGHT"/>
               </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
+          </EventFrame>
+          <Frame parentKey="Inset" inherits="AuctionatorInsetTemplate">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeKey="$parent.ScrollBar" x="2"/>
+            </Anchors>
+          </Frame>
+        </Frames>
       </Frame>
 
       <Frame parentKey="RecentsTabsContainer" mixin="AuctionatorShoppingTabRecentsContainerMixin">
