@@ -3,5 +3,4 @@
   <Script file="DBKeyFromBrowseResult.lua"/>
   <Script file="GetPetLevelFromLink.lua"/>
   <Script file="ItemKeyString.lua"/>
-  <Script file="ApplyProfessionQuality.lua"/>
 </Ui>
