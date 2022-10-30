@@ -8,39 +8,39 @@
 
     <Scripts>
       <OnShow method="OnShow" />
-      <OnUpdate method="OnUpdate" />
     </Scripts>
 
     <Frames>
       <Frame parentKey="HeaderContainer">
         <Size y="19"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" y="-7" x="-20" />
-          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+          <Anchor point="TOPLEFT" y="-7" x="-20" />
+          <Anchor point="RIGHT"/>
         </Anchors>
       </Frame>
 
       <Frame parentKey="CustomiseDropDown" inherits="AuctionatorCustomiseColumnsDropDownTemplate" hidden="true"/>
 
 
-      <ScrollFrame parentKey="ScrollFrame" inherits="HybridScrollFrameTemplate">
+      <Frame parentKey="ScrollArea">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.HeaderContainer" relativePoint="BOTTOMLEFT" y="-3" x="15"/>
-          <Anchor point="RIGHT" relativeKey="$parent.HeaderContainer" relativePoint="RIGHT" x="-2"/>
+          <Anchor point="RIGHT" relativeKey="$parent.HeaderContainer" relativePoint="RIGHT" x="-3"/>
           <Anchor point="BOTTOM" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="4"/>
         </Anchors>
         <Frames>
-          <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+          <Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
             <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPRIGHT" y="-12"/>
-              <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" y="13"/>
+              <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
             </Anchors>
-            <Layers>
-              <Layer level="BACKGROUND">
-                <Texture parentKey="Background" file="Interface\FrameGeneral\UI-Background-Marble" horizTile="true" vertTile="true" setAllPoints="true"/>
-              </Layer>
-            </Layers>
-          </Slider>
+          </Frame>
+          <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
+              <Anchors>
+                  <Anchor point="TOPLEFT" relativePoint="TOPRIGHT"/>
+                  <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT"/>
+              </Anchors>
+          </EventFrame>
         </Frames>
         <Layers>
           <Layer level="OVERLAY">
@@ -81,7 +81,7 @@
             <Rotation childKey="LoadingSpinner" order="1" duration="1" degrees="-360"/>
           </AnimationGroup>
         </Animations>
-      </ScrollFrame>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

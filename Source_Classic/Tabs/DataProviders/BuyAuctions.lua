@@ -62,6 +62,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:SetUpEvents()
 
   Auctionator.EventBus:Register( self, {
     Auctionator.Buying.Events.AuctionFocussed,
+    Auctionator.Buying.Events.StacksUpdated,
   })
 end
 
@@ -127,6 +128,9 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventDa
     for _, entry in ipairs(self.results) do
       entry.isSelected = entry == eventData
     end
+    self.onUpdate()
+  elseif eventName == Auctionator.Buying.Events.StacksUpdated and self:IsShown() then
+    self.onUpdate()
   end
 end
 
