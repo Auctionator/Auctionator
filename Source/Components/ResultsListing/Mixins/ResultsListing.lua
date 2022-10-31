@@ -88,7 +88,7 @@ function AuctionatorResultsListingMixin:InitializeTable()
   ScrollUtil.RegisterTableBuilder(self.ScrollArea.ScrollBox, self.tableBuilder, function(a) return a end)
 
   for _, columnEntry in ipairs(self.columnSpecification) do
-    column = self.tableBuilder:AddColumn()
+    local column = self.tableBuilder:AddColumn()
     column:ConstructHeader(
       "BUTTON",
       columnEntry.headerTemplate,
