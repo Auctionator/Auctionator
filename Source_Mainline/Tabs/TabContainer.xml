@@ -7,7 +7,6 @@
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
-      <OnHide method="OnHide"/>
     </Scripts>
   </Frame>
 </Ui>
