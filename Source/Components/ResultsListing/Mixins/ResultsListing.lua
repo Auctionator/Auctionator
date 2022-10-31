@@ -51,13 +51,20 @@ function AuctionatorResultsListingMixin:InitializeDataProvider()
     self.ScrollArea.NoResultsText:SetShown(self.dataProvider:GetCount() == 0)
   end)
 
+  self.dataProvider:SetOnPreserveScrollCallback(function()
+    self.savedScrollPosition = self.ScrollArea.ScrollBox:GetScrollPercentage()
+  end)
+
   self.dataProvider:SetOnResetScrollCallback(function()
     self.savedScrollPosition = nil
   end)
 end
 
 function AuctionatorResultsListingMixin:RestoreScrollPosition()
-  self:UpdateTable(true)
+  if self.savedScrollPosition ~= nil then
+    self:UpdateTable()
+    self.ScrollArea.ScrollBox:SetScrollPercentage(self.savedScrollPosition)
+  end
 end
 
 function AuctionatorResultsListingMixin:OnShow()
@@ -123,7 +130,9 @@ function AuctionatorResultsListingMixin:UpdateTable()
 
   local tmpDataProvider = CreateIndexRangeDataProvider(self.dataProvider:GetCount())
 
-  self.ScrollArea.ScrollBox:SetDataProvider(tmpDataProvider, true)
+  local shouldPreserveScroll = self.savedScrollPosition ~= nil
+
+  self.ScrollArea.ScrollBox:SetDataProvider(tmpDataProvider, shouldPreserveScroll)
 end
 
 function AuctionatorResultsListingMixin:ClearColumnSorts()
