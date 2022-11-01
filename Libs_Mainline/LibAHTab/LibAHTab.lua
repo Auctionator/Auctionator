@@ -1,4 +1,4 @@
-local lib = LibStub:NewLibrary("LibAHTab-1-0", 1)
+local lib = LibStub:NewLibrary("LibAHTab-1-0", 2)
 
 if not lib or lib.internalState then return end
 
@@ -52,9 +52,9 @@ function lib:CreateTab(tabID, attachedFrame, displayText)
   PanelTemplates_TabResize(newTab, TAB_PADDING, nil, MIN_TAB_WIDTH)
 
   if #lib.internalState.Tabs > 1 then
-    newTab:SetPoint("TOPLEFT", lib.internalState.Tabs[#lib.internalState.Tabs - 1], "TOPRIGHT")
+    newTab:SetPoint("TOPLEFT", lib.internalState.Tabs[#lib.internalState.Tabs - 1], "TOPRIGHT", 3, 0)
   else
-    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT")
+    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT", 3, 0)
   end
 
   PanelTemplates_DeselectTab(newTab)
