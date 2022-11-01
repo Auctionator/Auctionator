@@ -25,7 +25,7 @@ end
 hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
   if AHShown() and
       Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
-    local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetParent():GetID(), self:GetID());
+    local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetBagID(), self:GetID());
     SelectOwnItem(itemLocation)
   end
 end)
