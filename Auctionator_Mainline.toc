@@ -12,6 +12,7 @@
 ## OptionalDeps: LibAHTab
 
 Libs\Manifest.xml
+Libs_Mainline\Manifest.xml
 
 Locales\Manifest.xml
 
