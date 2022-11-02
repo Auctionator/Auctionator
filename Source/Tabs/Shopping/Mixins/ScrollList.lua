@@ -26,11 +26,10 @@ function AuctionatorScrollListMixin:Init()
 
   self.isInitialized = true
 
-  self.ScrollBox.wheelPanScalar = 4.0
-
   local view = CreateScrollBoxListLinearView()
 
   view:SetPadding(2, 2, 2, 2, 0);
+  view:SetPanExtent(50)
 
   ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollBox, self.ScrollBar, view);
 
