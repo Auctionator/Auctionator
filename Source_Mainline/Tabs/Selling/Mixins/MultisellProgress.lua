@@ -30,6 +30,7 @@ function AuctionatorMultisellProgress:OnEvent(event, ...)
   if event == "AUCTION_MULTISELL_START" then
     AuctionHouseMultisellProgressFrame:Start(self.icon, self.quantity)
     AuctionHouseMultisellProgressFrame:Show()
+    AuctionHouseMultisellProgressFrame.ProgressBar:Show()
 
   elseif event == "AUCTION_MULTISELL_UPDATE" then
     local numPosted, total = ...
