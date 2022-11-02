@@ -48,7 +48,9 @@ function AuctionatorCraftingInfoFrameMixin:IsAnyReagents()
 end
 
 function AuctionatorCraftingInfoFrameMixin:UpdateTotal()
-  self.Total:SetText(Auctionator.CraftingInfo.GetInfoText())
+  local infoText, lines = Auctionator.CraftingInfo.GetInfoText()
+  self.Total:SetText(infoText)
+  self:SetHeight(16 * lines)
 end
 
 function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()

@@ -15,7 +15,8 @@ function AuctionatorConfigBasicOptionsFrameMixin:OnShow()
   self.SmallTabs:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SMALL_TABS))
   self.DefaultTab:SetValue(tostring(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_TAB)))
   self.ShowCraftingInfo:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW))
-  self.CraftingCostShowProfit:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT))
+  self.ShowCraftingCost:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST))
+  self.ShowCraftingProfit:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT))
 end
 
 function AuctionatorConfigBasicOptionsFrameMixin:Save()
@@ -26,7 +27,8 @@ function AuctionatorConfigBasicOptionsFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.SMALL_TABS, self.SmallTabs:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.DEFAULT_TAB, tonumber(self.DefaultTab:GetValue()))
   Auctionator.Config.Set(Auctionator.Config.Options.CRAFTING_INFO_SHOW, self.ShowCraftingInfo:GetChecked())
-  Auctionator.Config.Set(Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT, self.CraftingCostShowProfit:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST, self.ShowCraftingCost:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT, self.ShowCraftingProfit:GetChecked())
 end
 
 function AuctionatorConfigBasicOptionsFrameMixin:Cancel()

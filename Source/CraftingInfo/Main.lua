@@ -40,15 +40,26 @@ local function ProfitString(profit)
 end
 
 function Auctionator.CraftingInfo.GetInfoText()
-  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_COST_SHOW_PROFIT) then
+  local result = ""
+  local lines = 0
+  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST) then
+    if lines > 0 then
+      result = result .. "\n"
+    end
+    result = result .. CraftCostString()
+    lines = lines + 1
+  end
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT) then
     local profit = Auctionator.CraftingInfo.GetAHProfit()
 
-    if profit == nil then
-      return CraftCostString()
-    else
-      return ProfitString(profit)
+    if profit ~= nil then
+      if lines > 0 then
+        result = result .. "\n"
+      end
+      result = result .. ProfitString(profit)
+      lines = lines + 1
     end
-  else
-    return CraftCostString()
   end
+  return result, lines
 end

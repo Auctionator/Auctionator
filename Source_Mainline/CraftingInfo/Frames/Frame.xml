@@ -7,7 +7,7 @@
     </Scripts>
     <Layers>
       <Layer level="OVERLAY">
-        <FontString inherits="GameFontNormal" parentKey="Total">
+        <FontString inherits="GameFontNormal" parentKey="Total" justifyH="LEFT" spacing="1.5">
           <Anchors>
             <Anchor point="TOPLEFT" />
           </Anchors>
