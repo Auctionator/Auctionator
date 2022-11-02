@@ -40,7 +40,7 @@ function AuctionatorScrollListLineMixin:HideTooltip()
 end
 
 function AuctionatorScrollListLineMixin:OnClick()
-  print("clicked")
+
 end
 
 function AuctionatorScrollListLineMixin:OnEnter()
