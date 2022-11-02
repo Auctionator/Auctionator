@@ -33,6 +33,7 @@ function AuctionatorDataProviderMixin:Reset()
   self.processingIndex = 0
 
   self.searchCompleted = false
+  self.isDirty = true
 end
 
 -- Derive: This will be used to help with sorting and filtering unique entries
