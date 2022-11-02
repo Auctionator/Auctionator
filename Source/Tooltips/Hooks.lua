@@ -79,10 +79,12 @@ if GameTooltip.SetRecipeReagentItem then -- Dragonflight
   );
 end
 
-local function DFRecipeResultTooltip(recipeID, reagents, allocations, recipeRank)
+local function DFRecipeResultTooltip(recipeID, reagents, allocations, recipeLevel, qualityID)
   local outputData = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
+  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
+
   if outputData.hyperlink then
-    Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, outputData.hyperlink, 1)
+    Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, outputData.hyperlink, recipeSchematic.quantityMin)
   end
 end
 
