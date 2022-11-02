@@ -22,7 +22,7 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
 
   ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollArea.ScrollBox, self.ScrollArea.ScrollBar, view)
 
-  self.ScrollArea.ScrollBox:RegisterCallback("OnUpdate", self.ApplyHiding, self)
+  self.ScrollArea.ScrollBox:RegisterCallback(ScrollBoxListMixin.Event.OnDataRangeChanged, self.ApplyHiding, self)
 
   -- Create an instance of table builder - note that the ScrollFrame we reference
   -- mixes a TableBuilder implementation in
