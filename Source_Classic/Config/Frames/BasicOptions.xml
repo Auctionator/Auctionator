@@ -74,7 +74,7 @@
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_PROFIT" type="global" />
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_PROFIT_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CRAFTING_COST_INFO_PROFIT_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_PROFIT_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ShowCraftingCost" relativePoint="BOTTOMLEFT" />
