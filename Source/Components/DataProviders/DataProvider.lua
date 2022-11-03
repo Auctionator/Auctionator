@@ -2,6 +2,7 @@ AuctionatorDataProviderMixin = {}
 
 function AuctionatorDataProviderMixin:OnLoad()
   self.results = {}
+  self.cachedResults = {}
   self.insertedKeys = {}
   self.entriesToProcess = {}
   self.processCountPerUpdate = 200
