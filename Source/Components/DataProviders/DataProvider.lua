@@ -27,13 +27,17 @@ function AuctionatorDataProviderMixin:OnUpdate(elapsed)
 end
 
 function AuctionatorDataProviderMixin:Reset()
+   -- Last set of results passed to self.onUpdate. Used to avoid errors with out
+   -- of range indexes if :GetEntry is called before the OnUpdate fires.
+  self.cachedResults = self.results or {}
+
   self.results = {}
   self.insertedKeys = {}
   self.entriesToProcess = {}
   self.processingIndex = 0
 
   self.searchCompleted = false
-  self.isDirty = true
+  self:SetDirty()
 end
 
 -- Derive: This will be used to help with sorting and filtering unique entries
@@ -94,11 +98,11 @@ end
 function AuctionatorDataProviderMixin:GetEntryAt(index)
   -- Auctionator.Debug.Message("INDEX", index)
 
-  return self.results[index]
+  return self.cachedResults[index]
 end
 
 function AuctionatorDataProviderMixin:GetCount()
-  return #self.results
+  return #self.cachedResults
 end
 
 function AuctionatorDataProviderMixin:SetOnEntryProcessedCallback(onEntryProcessedCallback)
@@ -154,6 +158,7 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
     end
 
     if self.isDirty then
+      self.cachedResults = self.results
       self.onUpdate(self.results)
       self.isDirty = false
     end
@@ -202,6 +207,7 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
     self.announcedCompletion = true
   end
 
+  self.cachedResults = self.results
   self.onUpdate(self.results)
   self.isDirty = false
 end
