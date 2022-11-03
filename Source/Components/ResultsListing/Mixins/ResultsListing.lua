@@ -11,7 +11,7 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
   view:SetElementExtent(20)
 
   if Auctionator.Constants.IsClassic then
-    view:SetElementInitializer("Button", dataProvider:GetRowTemplate(), function(frame, index)
+    view:SetElementInitializer("Frame", dataProvider:GetRowTemplate(), function(frame, index)
       frame:Populate(self.dataProvider:GetEntryAt(index), index)
     end)
   else
