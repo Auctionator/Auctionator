@@ -153,17 +153,16 @@ end
 -- client.
 function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
   if #self.entriesToProcess == 0 then
-    if not self.announcedCompletion and self.searchCompleted then
-      self.announcedCompletion = true
-      self.onSearchEnded()
-    end
-
     if self.isDirty then
       self.cachedResults = self.results
       self.onUpdate(self.results)
       self.isDirty = false
     end
 
+    if not self.announcedCompletion and self.searchCompleted then
+      self.announcedCompletion = true
+      self.onSearchEnded()
+    end
     return
   end
 
@@ -203,14 +202,14 @@ function AuctionatorDataProviderMixin:CheckForEntriesToProcess()
     resetQueue = true
   end
 
+  self.cachedResults = self.results
+  self.onUpdate(self.results)
+  self.isDirty = false
+
   if resetQueue and self.searchCompleted then
     self.onSearchEnded()
     self.announcedCompletion = true
   end
-
-  self.cachedResults = self.results
-  self.onUpdate(self.results)
-  self.isDirty = false
 end
 
 local function WrapCSVParameter(parameter)
