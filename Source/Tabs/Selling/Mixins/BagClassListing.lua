@@ -8,7 +8,7 @@ function AuctionatorBagClassListingMixin:Init(classID)
   self:UpdateTitle()
   self:SetHeight(self.SectionTitle:GetHeight())
 
-  self.SectionTitle:SetWidth(self:GetRowWidth())
+  self:SetWidth(self:GetRowWidth())
 
   if Auctionator.Constants.IsClassic then
     self.SectionTitle:GetNormalTexture():SetWidth(self:GetRowWidth() + 8)
@@ -79,11 +79,9 @@ function AuctionatorBagClassListingMixin:UpdateForEmpty()
   -- Shift the title up slightly
   if self.ItemContainer:GetNumItems() == 0 then
     self:SetPoint("TOPLEFT", relativeTo, relativePoint, 0, self:GetTitleHeight())
-    self:SetPoint("RIGHT", self:GetParent(), "RIGHT")
     self:Hide()
   else
     self:SetPoint("TOPLEFT", relativeTo, relativePoint, 0, 0)
-    self:SetPoint("RIGHT", self:GetParent(), "RIGHT")
     self:Show()
   end
 end
@@ -92,4 +90,6 @@ function AuctionatorBagClassListingMixin:OnClick()
   self.collapsed = not self.collapsed
 
   self:UpdateForCollapsing()
+  self:GetParent():OnSettingDirty()
+  self:GetParent():MarkDirty()
 end

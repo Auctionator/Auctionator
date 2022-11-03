@@ -10,7 +10,7 @@ function AuctionatorSellingBagFrameMixin:OnLoad()
     FAVOURITE,
   }
   self.frameMap = {
-    [FAVOURITE] = self.ScrollFrame.ItemListingFrame.Favourites
+    [FAVOURITE] = self.ScrollBox.ItemListingFrame.Favourites
   }
 
   self.frameMap[FAVOURITE]:Init()
@@ -21,17 +21,39 @@ function AuctionatorSellingBagFrameMixin:OnLoad()
     table.insert(self.orderedClassIds, classID)
 
     local frame = CreateFrame(
-      "FRAME", nil, self.ScrollFrame.ItemListingFrame, "AuctionatorBagClassListing"
+      "FRAME", nil, self.ScrollBox.ItemListingFrame, "AuctionatorBagClassListing"
     )
     frame:Init(classID)
     frame:SetPoint("TOPLEFT", prevFrame, "BOTTOMLEFT")
-    frame:SetPoint("RIGHT", self.ScrollFrame.ItemListingFrame)
+    frame:SetPoint("RIGHT", self.ScrollBox.ItemListingFrame)
 
     self.frameMap[classID] = frame
     prevFrame = frame
   end
 
-  self.ScrollFrame.ItemListingFrame:SetWidth(self.frameMap[FAVOURITE]:GetRowWidth())
+  self:SetWidth(self.frameMap[FAVOURITE]:GetRowWidth())
+
+  -- Used to preserve scroll position relative to top when contents change
+  self.ScrollBox.ItemListingFrame.OnSettingDirty = function(listing)
+    listing.oldHeight = listing:GetHeight() -- Used to get absolute offset from top
+  end
+
+  self.ScrollBox.ItemListingFrame.OnCleaned = function(listing)
+    local maxShift = math.max(0, (listing.oldHeight or listing:GetHeight()) - self.ScrollBox:GetHeight())
+    local offset = self.ScrollBox:GetScrollPercentage() * maxShift
+
+    self.ScrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately);
+
+    local newMaxShift =  math.max(0, listing:GetHeight() - self.ScrollBox:GetHeight())
+    if newMaxShift == 0 then
+      return
+    end
+    self.ScrollBox:SetScrollPercentage(offset / newMaxShift)
+  end
+
+  local view = CreateScrollBoxLinearView()
+  view:SetPanExtent(50)
+  ScrollUtil.InitScrollBoxWithScrollBar(self.ScrollBox, self.ScrollBar, view);
 end
 
 function AuctionatorSellingBagFrameMixin:Init(dataProvider)
@@ -110,6 +132,7 @@ end
 
 function AuctionatorSellingBagFrameMixin:Update()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:Update()")
+  self.ScrollBox.ItemListingFrame.oldHeight = self.ScrollBox.ItemListingFrame:GetHeight()
 
   local minHeight = 0
   local maxHeight = 0
@@ -139,6 +162,6 @@ function AuctionatorSellingBagFrameMixin:Update()
     maxHeight = maxHeight + frame:GetHeight()
   end
 
-  self:SetSize(self.frameMap[1]:GetRowWidth(), maxHeight)
-  self.ScrollFrame.ItemListingFrame:SetSize(self.frameMap[1]:GetRowWidth(), minHeight)
+  self.ScrollBox.ItemListingFrame:OnSettingDirty()
+  self.ScrollBox.ItemListingFrame:MarkDirty()
 end

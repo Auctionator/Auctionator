@@ -44,7 +44,7 @@
       <Frame parentKey="BagInset" inherits="AuctionatorInsetLeaveScrollSpaceTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" x="-5" y="5"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" y="-3" x="25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" y="-3" x="30"/>
         </Anchors>
       </Frame>
 
