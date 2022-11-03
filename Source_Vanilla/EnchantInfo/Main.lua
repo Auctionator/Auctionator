@@ -56,6 +56,10 @@ function Auctionator.EnchantInfo.GetCraftReagentsTotal()
 end
 
 function Auctionator.EnchantInfo.GetInfoText()
-  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.EnchantInfo.GetCraftReagentsTotal(), true))
-  return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
+  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST) then
+    local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(Auctionator.EnchantInfo.GetCraftReagentsTotal(), true))
+    return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
+  else
+    return ""
+  end
 end

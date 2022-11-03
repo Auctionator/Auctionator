@@ -5,9 +5,15 @@
       <OnLoad method="OnLoad"/>
       <OnEvent method="OnEvent"/>
     </Scripts>
-    <Anchors>
-      <Anchor point="TOPRIGHT" relativeTo="CraftDetailScrollFrame" x="0" y="-22"/>
-    </Anchors>
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString inherits="GameFontNormal" parentKey="Total" justifyH="LEFT" spacing="1.5">
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
     <Frames>
       <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH">
         <Scripts>
@@ -16,18 +22,9 @@
           </OnClick>
         </Scripts>
         <Anchors>
-          <Anchor point="TOPRIGHT"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-5" y="6"/>
         </Anchors>
       </Button>
     </Frames>
-    <Layers>
-      <Layer level="OVERLAY">
-        <FontString inherits="GameFontNormal" parentKey="Total">
-          <Anchors>
-            <Anchor relativeKey="$parent.SearchButton" point="RIGHT" relativePoint="LEFT" x="-5" y="-1" />
-          </Anchors>
-        </FontString>
-      </Layer>
-    </Layers>
   </Frame>
 </Ui>

@@ -6,14 +6,17 @@ function AuctionatorEnchantInfoFrameMixin:OnLoad()
     "AUCTION_HOUSE_CLOSED",
   })
 
+  self.originalFirstLine = CraftDescription or CraftReagentLabel
+  self.originalDescriptionPoint = {self.originalFirstLine:GetPoint(1)}
+
   hooksecurefunc(_G, "CraftFrame_SetSelection", function(ecipeID)
-    self:ShowWhenEnchantAndAHOpen()
+    self:ShowIfRelevant()
     if self:IsVisible() then
       self:UpdateTotal()
     end
   end)
   Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
-    self:ShowWhenEnchantAndAHOpen()
+    self:ShowIfRelevant()
 
     if self:IsVisible() then
       self:UpdateTotal()
@@ -21,10 +24,15 @@ function AuctionatorEnchantInfoFrameMixin:OnLoad()
   end)
 end
 
-function AuctionatorEnchantInfoFrameMixin:ShowWhenEnchantAndAHOpen()
+function AuctionatorEnchantInfoFrameMixin:ShowIfRelevant()
   self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and GetCraftSelectionIndex() ~= 0)
   if self:IsShown() then
     self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
+
+    self:SetPoint(unpack(self.originalDescriptionPoint))
+    self.originalFirstLine:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
+  else
+    self.originalFirstLine:SetPoint(unpack(self.originalDescriptionPoint))
   end
 end
 
@@ -39,7 +47,7 @@ function AuctionatorEnchantInfoFrameMixin:SearchButtonClicked()
 end
 
 function AuctionatorEnchantInfoFrameMixin:OnEvent(...)
-  self:ShowWhenEnchantAndAHOpen()
+  self:ShowIfRelevant()
   if self:IsVisible() then
     self:UpdateTotal()
   end
