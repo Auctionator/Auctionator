@@ -16,8 +16,6 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
     end
   end)
   Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
-    self:ShowIfRelevant()
-
     if self:IsVisible() then
       self:UpdateTotal()
     end
@@ -60,7 +58,6 @@ function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
 end
 
 function AuctionatorCraftingInfoFrameMixin:OnEvent(...)
-  self:ShowIfRelevant()
   if self:IsVisible() then
     self:UpdateTotal()
   end
