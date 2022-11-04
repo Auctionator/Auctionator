@@ -62,6 +62,7 @@ function AuctionatorDataProviderMixin:ClearSort()
   table.sort(self.results, function(left, right)
     return left.sortingIndex < right.sortingIndex
   end)
+  self:SetDirty()
 end
 
 
