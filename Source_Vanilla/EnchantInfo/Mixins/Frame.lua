@@ -26,7 +26,7 @@ end
 
 function AuctionatorEnchantInfoFrameMixin:ShowIfRelevant()
   self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and GetCraftSelectionIndex() ~= 0)
-  if self:IsShown() then
+  if self:IsVisible() then
     self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
 
     self:SetPoint(unpack(self.originalDescriptionPoint))
