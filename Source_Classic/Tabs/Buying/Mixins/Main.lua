@@ -42,6 +42,8 @@ end
 
 function AuctionatorBuyFrameMixin:OnHide()
   FrameUtil.UnregisterFrameForEvents(self, BUY_EVENTS)
+
+  self.SearchDataProvider:EndAnyQuery()
 end
 
 function AuctionatorBuyFrameMixin:DoRefresh()

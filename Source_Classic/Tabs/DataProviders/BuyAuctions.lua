@@ -149,6 +149,11 @@ function AuctionatorBuyAuctionsDataProviderMixin:RefreshQuery()
   end
 end
 
+function AuctionatorBuyAuctionsDataProviderMixin:EndAnyQuery()
+  Auctionator.AH.AbortQuery()
+  Auctionator.EventBus:Unregister(self, BUY_EVENTS)
+end
+
 function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results)
   local waiting = #results
   for _, entry in ipairs(results) do
