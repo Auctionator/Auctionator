@@ -44,6 +44,10 @@ end
 function AuctionatorUndercutScanMixin:OnHide()
   ClearOverrideBindings(self)
   Auctionator.EventBus:Unregister(self, THROTTLE_EVENTS)
+
+  -- Stop scan when changing away from the Cancelling tab
+  Auctionator.AH.AbortQuery()
+  self:EndScan()
 end
 
 function AuctionatorUndercutScanMixin:StartScan()
