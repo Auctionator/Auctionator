@@ -39,7 +39,4 @@ creating a new issue on the
 
 ### Donations
 
-You can also contribute to the addon by [donating](https://www.paypal.com/cgi-bin/webscr?return=https://www.curseforge.com/projects/6124&cn=Add+special+instructions+to+the+addon+author%28%29&business=borj%40auctionator.app&bn=PP-DonationsBF:btn_donateCC_LG.gif:NonHosted&cancel_return=https://www.curseforge.com/projects/6124&lc=US&item_name=Auctionator+%28from+curseforge.com%29&cmd=_donations&rm=1&no_shipping=1&currency_code=USD).
-
-
-
+You can also contribute to the addon by donating on [our Patreon](https://patreon.com/auctionator).
