@@ -326,6 +326,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:GetSelectedIndex()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetSelectedIndex(newSelectedIndex)
+  self.onPreserveScroll()
   for index, result in ipairs(self.currentResults) do
     result.notReady = false
     result.isSelected = false
