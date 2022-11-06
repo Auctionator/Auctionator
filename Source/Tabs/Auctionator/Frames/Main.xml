@@ -227,6 +227,17 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorTranslatorTemplate" parentKey="roRO">
+        <KeyValues>
+          <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\roRO"/>
+          <KeyValue key="translators" type="string" value="Radu Ursache"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_ROMANIAN_INFO" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.tkTK" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_FULL_SCAN_BUTTON" mixin="AuctionatorScanButtonMixin" parentKey="ScanButton">
         <Anchors>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="TOPRIGHT" y="7" x="-3" />

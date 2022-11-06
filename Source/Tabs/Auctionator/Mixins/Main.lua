@@ -6,7 +6,7 @@ function AuctionatorConfigTabMixin:OnLoad()
   if Auctionator.Constants.IsClassic then
     -- Reposition lower down translator entries so that they don't go past the
     -- bottom of the tab
-    self.esMX:SetPoint("TOPLEFT", self.deDE, "TOPLEFT", 300, 0)
+    self.frFR:SetPoint("TOPLEFT", self.deDE, "TOPLEFT", 300, 0)
   end
 end
 
