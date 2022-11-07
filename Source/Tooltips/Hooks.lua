@@ -67,6 +67,10 @@ if GameTooltip.SetRecipeReagentItem then -- Dragonflight
   -- quality rating.
   hooksecurefunc( GameTooltip, 'SetRecipeReagentItem',
     function( tip, recipeID, slotID )
+      if slotID == nil then -- Work around bug #1264
+        return
+      end
+
       local itemLink = C_TradeSkillUI.GetRecipeFixedReagentItemLink(recipeID, slotID)
 
       local schematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, ProfessionsFrame.CraftingPage.SchematicForm:GetCurrentRecipeLevel())
