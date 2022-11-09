@@ -93,6 +93,7 @@ end
 
 function AuctionatorScrollListLineShoppingListMixin:OnLeave()
   AuctionatorScrollListLineMixin.OnLeave(self)
+
   self:DetectDragEnd()
 end
 

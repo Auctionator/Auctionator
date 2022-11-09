@@ -27,6 +27,8 @@
 
     <Scripts>
       <OnClick method="OnClick"/>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
     </Scripts>
   </Button>
 
