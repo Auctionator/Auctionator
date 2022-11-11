@@ -2,7 +2,8 @@
 ## Title: Auctionator
 ## Version: @project-version@
 ## Author: Borjamacare, plusmouse
-## X-Website: http://mods.curse.com/addons/wow/auctionator
+## X-Website: https://www.curseforge.com/wow/addons/auctionator
+## X-Category: Auction/Economy
 ## X-Localizations: enUS, itIT, deDE, ruRU, koKR, frFR, esES, esMX, zhTW, ptBR, zhCN
 ## Notes: A lightweight addon that makes it easy and fast to buy, sell and manage auctions
 ## Notes-esES: Un addon liviano que hace que comprar, vender y administrar subastas sea fácil y rápido
