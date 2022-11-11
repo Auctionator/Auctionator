@@ -24,8 +24,6 @@ StaticPopupDialogs[ConfirmBidPricePopup] = {
   OnAccept = function(self)
     Auctionator.AH.CancelAuction(self.data)
   end,
-  OnShow = function(self)
-  end,
   hasMoneyFrame = 1,
   showAlert = 1,
   timeout = 0,
