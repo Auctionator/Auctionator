@@ -287,3 +287,26 @@ function Auctionator.Search.ComposeTooltip(searchString)
     lines = lines
   }
 end
+
+local function GetQueryString(search)
+  if search.isExact then
+    return "\"" .. search.searchString .. "\""
+  else
+    return search.searchString
+  end
+end
+function Auctionator.Search.ReconstituteAdvancedSearch(search)
+  return strjoin(";",
+    GetQueryString(search),
+    search.categoryKey,
+    tostring(search.minItemLevel or ""),
+    tostring(search.maxItemLevel or ""),
+    tostring(search.minLevel or ""),
+    tostring(search.maxLevel or ""),
+    tostring(search.minCraftedLevel or ""),
+    tostring(search.maxCraftedLevel or ""),
+    tostring((search.minPrice and search.minPrice / 10000) or ""),
+    tostring((search.maxPrice and search.maxPrice / 10000) or ""),
+    tostring(search.quality or "")
+  )
+end

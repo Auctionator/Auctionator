@@ -123,19 +123,20 @@ function AuctionatorShoppingItemMixin:HasItemInfo()
 end
 
 function AuctionatorShoppingItemMixin:GetItemString()
-  local searchString = self.SearchContainer.SearchString:GetText()
-  if self.SearchContainer.IsExact:GetChecked() then
-    searchString = "\"" .. searchString .. "\""
-  end
-
-  return
-    searchString .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.FilterKeySelector:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.ItemLevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.LevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.CraftedLevelRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.PriceRange:GetValue() .. Auctionator.Constants.AdvancedSearchDivider ..
-    self.QualityContainer.DropDown:GetValue()
+  local search = {
+    searchString = self.SearchContainer.SearchString:GetText(),
+    isExact = self.SearchContainer.IsExact:GetChecked(),
+    categoryKey = self.FilterKeySelector:GetValue(),
+    minLevel = self.LevelRange:GetMin(),
+    maxLevel = self.LevelRange:GetMax(),
+    minItemLevel = self.ItemLevelRange:GetMin(),
+    maxItemLevel = self.ItemLevelRange:GetMax(),
+    minCraftedLevel = self.CraftedLevelRange:GetMin(),
+    maxCraftedLevel = self.CraftedLevelRange:GetMax(),
+    quality = tonumber(self.QualityContainer.DropDown:GetValue()),
+  }
+  
+  return Auctionator.Search.ReconstituteAdvancedSearch(search)
 end
 
 function AuctionatorShoppingItemMixin:SetItemString(itemString)

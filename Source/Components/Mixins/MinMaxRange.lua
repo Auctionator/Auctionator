@@ -34,18 +34,12 @@ function AuctionatorConfigMinMaxMixin:MaxTabPressed()
   self.onTabOut()
 end
 
-function AuctionatorConfigMinMaxMixin:GetValue()
-  return self.MinBox:GetText() ..
-    Auctionator.Constants.AdvancedSearchDivider ..
-    self.MaxBox:GetText()
+function AuctionatorConfigMinMaxMixin:GetMin()
+  return self.MinBox:GetNumber()
 end
 
-function AuctionatorConfigMinMaxMixin:GetMin(value)
-  return self.MinBox:GetNumber(value)
-end
-
-function AuctionatorConfigMinMaxMixin:GetMax(value)
-  return self.MaxBox:GetNumber(value)
+function AuctionatorConfigMinMaxMixin:GetMax()
+  return self.MaxBox:GetNumber()
 end
 
 function AuctionatorConfigMinMaxMixin:SetMin(value)
