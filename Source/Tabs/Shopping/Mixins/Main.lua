@@ -157,7 +157,7 @@ end
 
 function AuctionatorShoppingTabMixin:AddItemClicked()
   if IsShiftKeyDown() then
-    self:AddItemToList(self.OneItemSearchBox:GetText())
+    self:AddItemToList(self.OneItemSearch:GetLastSearch() or "")
   else
     self.itemDialog:Init(AUCTIONATOR_L_LIST_ADD_ITEM_HEADER, AUCTIONATOR_L_ADD_ITEM)
     self.itemDialog:SetOnFinishedClicked(function(newItemString)

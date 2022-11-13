@@ -111,3 +111,7 @@ function AuctionatorShoppingOneItemSearchMixin:OpenExtendedOptions()
   end
   itemDialog:SetItemString(searchTerm)
 end
+
+function AuctionatorShoppingOneItemSearchMixin:GetLastSearch()
+  return self.lastSearch
+end
