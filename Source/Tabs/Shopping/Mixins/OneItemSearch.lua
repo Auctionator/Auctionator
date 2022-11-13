@@ -7,6 +7,8 @@ function AuctionatorShoppingOneItemSearchMixin:OnLoad()
   DynamicResizeButton_Resize(self.SearchButton)
 
   Auctionator.EventBus:Register(self, {
+    Auctionator.Shopping.Events.OneItemSearch,
+    Auctionator.Shopping.Events.ListItemSelected,
     Auctionator.Shopping.Events.ListSearchStarted,
     Auctionator.Shopping.Events.ListSearchEnded,
     Auctionator.Shopping.Events.DialogOpened,
@@ -21,7 +23,13 @@ end
 function AuctionatorShoppingOneItemSearchMixin:ReceiveEvent(eventName, ...)
   Auctionator.Debug.Message("AuctionatorShoppingOneItemSearchButtonMixin:ReceiveEvent " .. eventName, ...)
 
-  if eventName == Auctionator.Shopping.Events.ListSearchStarted then
+  if eventName == Auctionator.Shopping.Events.OneItemSearch or
+     eventName == Auctionator.Shopping.Events.ListItemSelected then
+    self.lastSearch = ...
+    if self.lastSearch ~= self.SearchBox:GetText() then
+      self.SearchBox:SetText(AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS)
+    end
+  elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
     self.searchRunning = true
 
     self.SearchButton:SetText(AUCTIONATOR_L_CANCEL)
@@ -51,8 +59,17 @@ end
 
 function AuctionatorShoppingOneItemSearchMixin:SearchButtonClicked()
   if not self.searchRunning then
+    local searchTerm = self.SearchBox:GetText()
+    if searchTerm == AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS then
+      searchTerm = self.lastSearch
+      if searchTerm == nil then
+        searchTerm = ""
+        self.SearchBox:SetText("")
+      end
+    end
+
     self.SearchBox:ClearFocus()
-    self:DoSearch(self.SearchBox:GetText())
+    self:DoSearch(searchTerm)
   else
     Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.CancelSearch)
   end
@@ -63,9 +80,15 @@ function AuctionatorShoppingOneItemSearchMixin:OpenExtendedOptions()
 
   itemDialog:Init(AUCTIONATOR_L_LIST_EXTENDED_SEARCH_HEADER, AUCTIONATOR_L_SEARCH)
   itemDialog:SetOnFinishedClicked(function(newItemString)
+    self.SearchBox:SetText(AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS)
     self:DoSearch(newItemString)
   end)
 
   itemDialog:Show()
-  itemDialog:SetItemString(self.SearchBox:GetText())
+
+  local searchTerm = self.SearchBox:GetText()
+  if searchTerm == AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS then
+    searchTerm = self.lastSearch
+  end
+  itemDialog:SetItemString(searchTerm)
 end
