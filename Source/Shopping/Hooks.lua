@@ -15,6 +15,8 @@ local function SearchItem(text)
     name = petName;
   elseif ( strfind(text, "item:", 1, true) ) then
     name = GetItemInfo(text);
+  elseif ( strfind(text, "enchant:", 1, true) ) then
+    name = Auctionator.Utilities.GetNameFromLink(text)
   end
   if not name then
     name = text
@@ -26,11 +28,10 @@ local function SearchItem(text)
 
   -- Non-exact with enchants as the name doesn't match exactly
   if text:match("enchant:") then
-    AuctionatorShoppingFrame.OneItemSearchBox:SetText(name)
+    AuctionatorShoppingFrame.OneItemSearch:DoSearch(name)
   else
-    AuctionatorShoppingFrame.OneItemSearchBox:SetText("\"" .. name .. "\"")
+    AuctionatorShoppingFrame.OneItemSearch:DoSearch("\"" .. name .. "\"")
   end
-  AuctionatorShoppingFrame.OneItemSearchButton:Click()
 
   return true
 end
