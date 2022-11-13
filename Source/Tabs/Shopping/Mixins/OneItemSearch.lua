@@ -1,5 +1,24 @@
 AuctionatorShoppingOneItemSearchMixin = {}
 
+local function GetAppropriateText(searchTerm)
+  local search = Auctionator.Search.SplitAdvancedSearch(searchTerm)
+  local newSearch = search.searchString
+  for key, value in pairs(search) do
+    if key == "isExact" then
+      if value then
+        newSearch = "\"" .. newSearch .. "\""
+      end
+    elseif key == "categoryKey" then
+      if value ~= "" then
+        return AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT
+      end
+    elseif key ~= "searchString" then
+      return AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT
+    end
+  end
+  return newSearch
+end
+
 function AuctionatorShoppingOneItemSearchMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "Shopping One Item Search")
 
@@ -27,7 +46,7 @@ function AuctionatorShoppingOneItemSearchMixin:ReceiveEvent(eventName, ...)
      eventName == Auctionator.Shopping.Events.ListItemSelected then
     self.lastSearch = ...
     if self.lastSearch ~= self.SearchBox:GetText() then
-      self.SearchBox:SetText(AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT)
+      self.SearchBox:SetText(GetAppropriateText(self.lastSearch))
     end
   elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
     self.searchRunning = true
