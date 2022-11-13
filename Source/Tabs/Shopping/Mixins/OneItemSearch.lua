@@ -27,7 +27,7 @@ function AuctionatorShoppingOneItemSearchMixin:ReceiveEvent(eventName, ...)
      eventName == Auctionator.Shopping.Events.ListItemSelected then
     self.lastSearch = ...
     if self.lastSearch ~= self.SearchBox:GetText() then
-      self.SearchBox:SetText(AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS)
+      self.SearchBox:SetText(AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT)
     end
   elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
     self.searchRunning = true
@@ -60,7 +60,7 @@ end
 function AuctionatorShoppingOneItemSearchMixin:SearchButtonClicked()
   if not self.searchRunning then
     local searchTerm = self.SearchBox:GetText()
-    if searchTerm == AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS then
+    if searchTerm == AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT then
       searchTerm = self.lastSearch
       if searchTerm == nil then
         searchTerm = ""
@@ -80,14 +80,14 @@ function AuctionatorShoppingOneItemSearchMixin:OpenExtendedOptions()
 
   itemDialog:Init(AUCTIONATOR_L_LIST_EXTENDED_SEARCH_HEADER, AUCTIONATOR_L_SEARCH)
   itemDialog:SetOnFinishedClicked(function(newItemString)
-    self.SearchBox:SetText(AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS)
+    self.SearchBox:SetText(AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT)
     self:DoSearch(newItemString)
   end)
 
   itemDialog:Show()
 
   local searchTerm = self.SearchBox:GetText()
-  if searchTerm == AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_BRACKETS then
+  if searchTerm == AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT then
     searchTerm = self.lastSearch
   end
   itemDialog:SetItemString(searchTerm)
