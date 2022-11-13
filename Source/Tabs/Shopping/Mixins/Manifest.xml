@@ -22,7 +22,7 @@
   <Script file="ItemHistory.lua"/>
 
   <Script file="OneItemSearchEditBox.lua"/>
-  <Script file="OneItemSearchButton.lua"/>
+  <Script file="OneItemSearch.lua"/>
   <Script file="RecentsContainer.lua"/>
 
   <Script file="SearchManager.lua"/>

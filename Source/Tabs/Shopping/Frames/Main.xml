@@ -32,49 +32,62 @@
         </Scripts>
       </Frame>
 
-      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="OneItemSearchBox" letters="100" mixin="AuctionatorShoppingOneItemSearchEditBoxMixin">
-        <Size x="180" y="20"/>
+      <Frame parentKey="OneItemSearch" mixin="AuctionatorShoppingOneItemSearchMixin">
+        <Size x="10" y="10"/>
         <Anchors>
           <Anchor point="TOPLEFT" x="50" y="-48"/>
         </Anchors>
-        <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
-        <Scripts>
-          <OnEnterPressed>self:GetParent().OneItemSearchButton:Click()</OnEnterPressed>
-          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
-          <OnTextChanged method="OnTextChanged"/>
-        </Scripts>
-      </EditBox>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" mixin="AuctionatorShoppingOneItemSearchButtonMixin" parentKey="OneItemSearchButton">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.OneItemSearchBox" relativePoint="TOPRIGHT" y="1"/>
-        </Anchors>
         <Scripts>
           <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
+          <OnShow method="OnShow" />
         </Scripts>
-      </Button>
+        <Frames>
+          <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchBox" letters="100" mixin="AuctionatorShoppingOneItemSearchEditBoxMixin">
+            <Size x="180" y="20"/>
+            <Anchors>
+              <Anchor point="TOPLEFT"/>
+            </Anchors>
+            <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
+            <Scripts>
+              <OnEnterPressed>self:GetParent():SearchButtonClicked()</OnEnterPressed>
+              <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+              <OnTextChanged method="OnTextChanged"/>
+            </Scripts>
+          </EditBox>
 
-      <Button parentKey="OneItemSearchExtendedButton" inherits="UIPanelButtonTemplate">
-        <Size x="32" y="22"/>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.OneItemSearchButton" relativePoint="TOPRIGHT"/>
-        </Anchors>
-        <Layers>
-          <Layer level="ARTWORK">
-            <Texture file="Interface\WorldMap\Gear_64">
-              <TexCoords left="0.5" top="0" right="0" bottom="0.5"/>
-              <Size x="19" y="19"/>
-              <Anchors>
-                <Anchor point="CENTER"/>
-              </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
-        <Scripts>
-          <OnClick>self:GetParent():ExtendedSearchClicked()</OnClick>
-        </Scripts>
-      </Button>
+          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" parentKey="SearchButton">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.SearchBox" relativePoint="TOPRIGHT" y="1"/>
+            </Anchors>
+            <Scripts>
+              <OnClick>
+                self:GetParent():SearchButtonClicked()
+              </OnClick>
+            </Scripts>
+          </Button>
+
+          <Button parentKey="ExtendedButton" inherits="UIPanelButtonTemplate">
+            <Size x="32" y="22"/>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.SearchButton" relativePoint="TOPRIGHT"/>
+            </Anchors>
+            <Layers>
+              <Layer level="ARTWORK">
+                <Texture file="Interface\WorldMap\Gear_64">
+                  <TexCoords left="0.5" top="0" right="0" bottom="0.5"/>
+                  <Size x="19" y="19"/>
+                  <Anchors>
+                    <Anchor point="CENTER"/>
+                  </Anchors>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnClick>self:GetParent():OpenExtendedOptions()</OnClick>
+            </Scripts>
+          </Button>
+        </Frames>
+      </Frame>
 
       <!-- Shopping List item scroll frame -->
       <Frame parentKey="ScrollListShoppingList" mixin="AuctionatorScrollListShoppingListMixin">

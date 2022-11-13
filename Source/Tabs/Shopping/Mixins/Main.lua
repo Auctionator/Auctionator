@@ -71,7 +71,6 @@ function AuctionatorShoppingTabMixin:OnShow()
   if self.selectedList ~= nil then
     self.AddItem:Enable()
   end
-  self.OneItemSearchBox:SetFocus()
 end
 
 function AuctionatorShoppingTabMixin:OnEvent(event, ...)
@@ -96,7 +95,6 @@ function AuctionatorShoppingTabMixin:ReceiveEvent(eventName, eventData)
     self.Export:Disable()
     self.Import:Disable()
     self.ExportCSV:Disable()
-    self.OneItemSearchExtendedButton:Disable()
   elseif eventName == DialogClosed then
     self.isDialogOpen = false
     if self.selectedList ~= nil then
@@ -105,7 +103,6 @@ function AuctionatorShoppingTabMixin:ReceiveEvent(eventName, eventData)
     self.Export:Enable()
     self.Import:Enable()
     self.ExportCSV:Enable()
-    self.OneItemSearchExtendedButton:Enable()
 
   elseif eventName == ShowHistoricalPrices and not self.isDialogOpen then
     self.itemHistoryDialog:Show()
@@ -179,16 +176,6 @@ function AuctionatorShoppingTabMixin:EditItemClicked()
 
   self.itemDialog:Show()
   self.itemDialog:SetItemString(self.selectedList.items[self.editingItemIndex])
-end
-
-function AuctionatorShoppingTabMixin:ExtendedSearchClicked()
-  self.itemDialog:Init(AUCTIONATOR_L_LIST_EXTENDED_SEARCH_HEADER, AUCTIONATOR_L_SEARCH)
-  self.itemDialog:SetOnFinishedClicked(function(newItemString)
-    self.OneItemSearchButton:DoSearch(newItemString)
-  end)
-
-  self.itemDialog:Show()
-  self.itemDialog:SetItemString(self.OneItemSearchBox:GetText())
 end
 
 function AuctionatorShoppingTabMixin:ImportListsClicked()
