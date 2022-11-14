@@ -40,10 +40,11 @@ function Auctionator.EnchantInfo.GetCraftReagentsTotal()
       local unitPrice
 
       local vendorPrice = Auctionator.API.v1.GetVendorPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
-      if vendorPrice ~= nil then
-        unitPrice = vendorPrice
+      local auctionPrice = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
+      if vendorPrice ~= nil and auctionPrice ~= nil then
+        unitPrice = math.min(vendorPrice, auctionPrice)
       else
-        unitPrice = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, link)
+        unitPrice = vendorPrice or auctionPrice
       end
 
       if unitPrice ~= nil then
