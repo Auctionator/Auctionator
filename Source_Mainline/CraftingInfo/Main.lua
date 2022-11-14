@@ -115,10 +115,10 @@ function Auctionator.CraftingInfo.GetSkillReagentsTotal()
   local total = 0
 
   for slotIndex, reagentSlotSchematic in ipairs(recipeSchematic.reagentSlotSchematics) do
-    if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and #reagentSlotSchematic.reagents > 0 then
+    if #reagentSlotSchematic.reagents > 0 then
       local slotAllocations = transaction:GetAllocations(slotIndex)
       local selected = slotAllocations:Accumulate()
-      if selected == reagentSlotSchematic.quantityRequired then
+      if reagentSlotSchematic.reagentType ~= Enum.CraftingReagentType.Basic or selected == reagentSlotSchematic.quantityRequired then
         total = total + GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
       else -- Not all allocated, so use first available reagent quality for the price
         local itemID = reagentSlotSchematic.reagents[1].itemID
@@ -136,7 +136,7 @@ function Auctionator.CraftingInfo.GetAHProfit()
   local schematicForm = ProfessionsFrame.CraftingPage.SchematicForm
   local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(
     schematicForm.recipeSchematic.recipeID,
-    nil, -- optional reagents not accounted for
+    schematicForm:GetTransaction():CreateCraftingReagentInfoTbl(),
     schematicForm:GetTransaction():GetAllocationItemGUID()
   )
   local count = schematicForm.recipeSchematic.quantityMin

@@ -16,21 +16,10 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
     end
   end)
 
-  EventRegistry:RegisterCallback("Professions.AllocationUpdated", function()
-    local transaction = ProfessionsFrame.CraftingPage.SchematicForm:GetTransaction()
-    if transaction == nil then
-      return
-    end
-
-    -- The callback function is set to nil during initialization of the recipe,
-    -- we'll be updating with a different callback for that so we only update once
-    if transaction.onChangedFunc == nil then
-      return
-    end
-
+  ProfessionsFrame.CraftingPage.SchematicForm:RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.AllocationsModified, function()
     self:ShowIfRelevant()
     if self:IsVisible() then
-      --self:UpdateTotal()
+      self:UpdateTotal()
     end
   end, self)
 
