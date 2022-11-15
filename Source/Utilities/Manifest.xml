@@ -21,7 +21,6 @@
   <Script file="StringJoin.lua"/>
   <Script file="SplitCommand.lua"/>
   <Script file="IsVendorable.lua"/>
-  <Script file="ScanTooltip.lua"/>
 
   <Script file="VerifyListTypes.lua"/>
   <Script file="ValidatePercentage.lua"/>

@@ -2,5 +2,6 @@
   <Script file="ItemInfoFromLocation.lua"/>
   <Script file="SetStacksText.lua"/>
   <Script file="IsAtMaxCharges.lua"/>
+  <Script file="ScanTooltip.lua"/>
   <Script file="ToUnitPrice.lua"/>
 </Ui>
