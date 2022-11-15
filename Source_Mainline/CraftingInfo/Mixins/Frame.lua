@@ -7,21 +7,19 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
   })
   self:UpdateSearchButton()
 
+  local function Update()
+    self:ShowIfRelevant()
+    if self:IsVisible() then
+      self:UpdateTotal()
+    end
+  end
+
   -- Uses Init rather than an event as the event handler can fire before the
   -- ProfessionsPane pane has finished initialising a recipe
-  hooksecurefunc(ProfessionsFrame.CraftingPage.SchematicForm, "Init", function(...)
-    self:ShowIfRelevant()
-    if self:IsVisible() then
-      self:UpdateTotal()
-    end
-  end)
+  hooksecurefunc(ProfessionsFrame.CraftingPage.SchematicForm, "Init", Update)
 
-  ProfessionsFrame.CraftingPage.SchematicForm:RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.AllocationsModified, function()
-    self:ShowIfRelevant()
-    if self:IsVisible() then
-      self:UpdateTotal()
-    end
-  end, self)
+  ProfessionsFrame.CraftingPage.SchematicForm:RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.AllocationsModified, Update)
+  ProfessionsFrame.CraftingPage.SchematicForm:RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.UseBestQualityModified, Update)
 
   Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
     if self:IsVisible() then
