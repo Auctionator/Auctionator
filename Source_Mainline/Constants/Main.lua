@@ -12,6 +12,7 @@ Auctionator.Constants.ValidItemClassIDs = {
   Enum.ItemClass.Glyph,
   Enum.ItemClass.Tradegoods,
   Enum.ItemClass.Recipe,
+  Enum.ItemClass.Profession,
   Enum.ItemClass.Battlepet,
   Enum.ItemClass.Questitem,
   Enum.ItemClass.Miscellaneous,
