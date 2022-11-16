@@ -79,19 +79,15 @@ if GameTooltip.SetRecipeReagentItem then -- Dragonflight
   );
 end
 
-local function DFRecipeResultTooltip(recipeID, reagents, allocations, recipeLevel, qualityID)
-  local outputData = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
-  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
+if GameTooltip.SetRecipeResultItem then -- Dragonflight
+  hooksecurefunc(GameTooltip, "SetRecipeResultItem", function(tip, recipeID, reagents, allocations, recipeLevel, qualityID)
+    local outputData = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
+    local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
 
-  if outputData.hyperlink then
-    Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, outputData.hyperlink, recipeSchematic.quantityMin)
-  end
-end
-
-if C_TradeSkillUI and C_TradeSkillUI.SetTooltipRecipeResultItem then -- Dragonflight Pre-patch
-  hooksecurefunc(C_TradeSkillUI, "SetTooltipRecipeResultItem", DFRecipeResultTooltip)
-elseif GameTooltip.SetRecipeResultItem then -- Dragonflight real
-  hooksecurefunc(GameTooltip, "SetRecipeResultItem", function(tip, ...) DFRecipeResultTooltip(...) end)
+    if outputData.hyperlink then
+      Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, outputData.hyperlink, recipeSchematic.quantityMin)
+    end
+  end)
 end
 
 if GameTooltip.SetTradeSkillItem then -- Classic
