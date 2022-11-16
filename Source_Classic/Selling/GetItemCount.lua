@@ -1,3 +1,6 @@
+-- Gets the quantity of the item available to post as an auction.
+-- This requires all the user's bags' items to have been queried with
+-- Auctionator.Utilities.LoadBag (to load info on whether they are auctionable)
 function Auctionator.Selling.GetItemCount(itemLocation)
   local locationKey = Auctionator.Selling.UniqueBagKey(Auctionator.Utilities.ItemInfoFromLocation(itemLocation))
 

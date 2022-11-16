@@ -10,12 +10,7 @@ AuctionatorBagDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
 function AuctionatorBagDataProviderMixin:Reload()
   self:Reset()
-  self:LoadBagData()
-
-  --Reload once more, as in some cases a full scan running/having run will cause
-  --the initial load to miss items and some information
-  C_Timer.After(0.01, function()
-    self:Reset()
+  Auctionator.Utilities.CacheBagItems(function()
     self:LoadBagData()
   end)
 end

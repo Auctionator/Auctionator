@@ -21,13 +21,19 @@ local function SelectOwnItem(self)
 
   AuctionatorTabs_Selling:Click()
 
-  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
-  itemInfo.count = Auctionator.Selling.GetItemCount(itemLocation)
+  Auctionator.Utilities.CacheBagItems(function()
+    if not C_Item.DoesItemExist(itemLocation) then
+      return
+    end
 
-  Auctionator.EventBus
-    :RegisterSource(self, "ContainerFrameItemButton_On.*Click hook")
-    :Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-    :UnregisterSource(self)
+    local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
+    itemInfo.count = Auctionator.Selling.GetItemCount(itemLocation)
+
+    Auctionator.EventBus
+      :RegisterSource(self, "ContainerFrameItemButton_On.*Click hook")
+      :Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+      :UnregisterSource(self)
+  end)
 end
 
 local function AHShown()
