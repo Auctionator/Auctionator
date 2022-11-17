@@ -442,9 +442,9 @@ function AuctionatorSaleItemMixin:SetQuantity()
   -- Determine what the stack size would be without using stack size memory.
   -- This is used to clear stack size memory when the max/min is used
   if defaultStacks.stackSize == 0 then
-    self.normalStackSize = math.min(self.itemInfo.count, self.itemInfo.stackSize or 0)
+    self.normalStackSize = math.min(self.itemInfo.count, self.itemInfo.stackSize)
   else
-    self.normalStackSize = math.min(defaultStacks.stackSize, self.itemInfo.stackSize or 0)
+    self.normalStackSize = math.min(defaultStacks.stackSize, self.itemInfo.stackSize)
   end
 
   local previousStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
