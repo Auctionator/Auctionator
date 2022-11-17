@@ -10,7 +10,7 @@ AuctionatorBagDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
 
 function AuctionatorBagDataProviderMixin:Reload()
   self:Reset()
-  Auctionator.Utilities.CacheBagItems(function()
+  Auctionator.Utilities.CachePossessedItems(function()
     self:LoadBagData()
   end)
 end

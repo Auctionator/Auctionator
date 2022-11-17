@@ -3,7 +3,7 @@ AuctionatorBagItemSelectedMixin = CreateFromMixins(AuctionatorBagItemMixin)
 local seenBag, seenSlot
 
 function AuctionatorBagItemSelectedMixin:OnClick(button)
-  Auctionator.Utilities.CacheBagItems(function()
+  Auctionator.Utilities.CachePossessedItems(function()
     if not self:ProcessCursor() then
       AuctionatorBagItemMixin.OnClick(self, button)
     end

@@ -15,8 +15,7 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
   ClearCursor()
 
   if location and C_AuctionHouse.IsSellItemValid(location, true) then
-    local item = Item:CreateFromItemLocation(location)
-    item:ContinueOnItemLoad(function()
+    Auctionator.Utilities.CacheOneItem(location, function()
       if not C_AuctionHouse.IsSellItemValid(location, true) then
         return
       end

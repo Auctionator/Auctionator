@@ -695,7 +695,7 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
     self:SetUnitPrice(details.unitPrice)
     self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
   else
-    Auctionator.Utilities.CacheBagItems(function()
+    Auctionator.Utilities.CachePossessedItems(function()
       local location = FindItemAgain(self.itemInfo.itemLink)
       if self.itemInfo.location ~= nil then
         Auctionator.Debug.Message("found again, trying")

@@ -21,7 +21,7 @@ local function SelectOwnItem(self)
 
   AuctionatorTabs_Selling:Click()
 
-  Auctionator.Utilities.CacheBagItems(function()
+  Auctionator.Utilities.CachePossessedItems(function()
     if not C_Item.DoesItemExist(itemLocation) then
       return
     end

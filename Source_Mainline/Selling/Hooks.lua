@@ -9,8 +9,7 @@ local function SelectOwnItem(itemLocation)
 
   AuctionatorTabs_Selling:Click()
 
-  local item = Item:CreateFromItemLocation(itemLocation)
-  item:ContinueOnItemLoad(function()
+  Auctionator.Utilities.CacheOneItem(itemLocation, function()
     if not itemLocation:IsValid() or not C_AuctionHouse.IsSellItemValid(itemLocation) then
       return
     end
