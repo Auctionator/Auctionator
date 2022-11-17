@@ -7,32 +7,34 @@ function Auctionator.Utilities.CacheOneItem(location, callback)
     return
   end
 
-  local waiting = 2
+  local waiting = 0
   local hitEnd = false
   if not C_Item.IsItemDataCached(location) then
     local item = Item:CreateFromItemLocation(location)
+    waiting = waiting + 1
     item:ContinueOnItemLoad(function()
       waiting = waiting - 1
       if waiting <= 0 and hitEnd then
         callback()
       end
     end)
-  else
-    waiting = waiting - 1
   end
-  local itemID = C_Item.GetItemID(location)
-  local spellName, spellID = GetItemSpell(itemID)
-  if spellID ~= nil and not C_Spell.IsSpellDataCached(spellID) then
-    local spell = Spell:CreateFromSpellID(spellID)
-    spell:ContinueOnSpellLoad(function()
-      waiting = waiting - 1
-      if waiting <= 0 and hitEnd then
-        callback()
-      end
-    end)
-  else
-    waiting = waiting - 1
+
+  if Auctionator.Constants.IsClassic then
+    local itemID = C_Item.GetItemID(location)
+    local spellName, spellID = GetItemSpell(itemID)
+    if spellID ~= nil and not C_Spell.IsSpellDataCached(spellID) then
+      local spell = Spell:CreateFromSpellID(spellID)
+      waiting = waiting + 1
+      spell:ContinueOnSpellLoad(function()
+        waiting = waiting - 1
+        if waiting <= 0 and hitEnd then
+          callback()
+        end
+      end)
+    end
   end
+
   hitEnd = true
   if waiting <= 0 then
     callback()
