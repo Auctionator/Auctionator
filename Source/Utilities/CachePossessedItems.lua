@@ -63,6 +63,20 @@ function Auctionator.Utilities.CachePossessedItems(callback)
       end)
     end
   end
+
+  if Auctionator.Constants.IsClassic then
+    for i = 1, 19 do
+      local location = ItemLocation:CreateFromEquipmentSlot(i)
+      waiting = waiting + 1
+      Auctionator.Utilities.CacheOneItem(location, function()
+        waiting = waiting - 1
+        if waiting <= 0 and hitEnd then
+          callback()
+        end
+      end)
+    end
+  end
+
   hitEnd = true
   if waiting <= 0 and hitEnd then
     callback()
