@@ -1,3 +1,11 @@
+local function NumSlots(bagID)
+  if C_Container and C_Container.GetContainerNumSlots then
+    return C_Container.GetContainerNumSlots(bagID)
+  else
+    return GetContainerNumSlots(bagID)
+  end
+end
+
 -- Get Blizzard APIs to cache items and item spells ready for accessing by
 -- Auctionator.Utilities.ItemInfoFromItemLocation (both retail and classic
 -- versions)
@@ -40,15 +48,8 @@ function Auctionator.Utilities.CacheOneItem(location, callback)
     callback()
   end
 end
-function Auctionator.Utilities.CachePossessedItems(callback)
-  local function NumSlots(bagID)
-    if C_Container and C_Container.GetContainerNumSlots then
-      return C_Container.GetContainerNumSlots(bagID)
-    else
-      return GetContainerNumSlots(bagID)
-    end
-  end
 
+function Auctionator.Utilities.CachePossessedItems(callback)
   local waiting = 0
   local hitEnd = false
   for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
@@ -64,17 +65,16 @@ function Auctionator.Utilities.CachePossessedItems(callback)
     end
   end
 
+  -- On classic some worn items are auctionable
   if Auctionator.Constants.IsClassic then
-    for i = 1, 19 do
-      local location = ItemLocation:CreateFromEquipmentSlot(i)
-      waiting = waiting + 1
-      Auctionator.Utilities.CacheOneItem(location, function()
-        waiting = waiting - 1
-        if waiting <= 0 and hitEnd then
-          callback()
-        end
-      end)
-    end
+    local location = ItemLocation:CreateFromEquipmentSlot(4) -- shirt
+    waiting = waiting + 1
+    Auctionator.Utilities.CacheOneItem(location, function()
+      waiting = waiting - 1
+      if waiting <= 0 and hitEnd then
+        callback()
+      end
+    end)
   end
 
   hitEnd = true
