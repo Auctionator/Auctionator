@@ -15,6 +15,9 @@ function Auctionator.Utilities.CacheOneItem(location, callback)
     return
   end
 
+  local waiting = 0
+  local hitEnd = false
+
   local function CacheCallback()
     waiting = waiting - 1
     if waiting <= 0 and hitEnd then
@@ -22,8 +25,6 @@ function Auctionator.Utilities.CacheOneItem(location, callback)
     end
   end
 
-  local waiting = 0
-  local hitEnd = false
   if not C_Item.IsItemDataCached(location) then
     local item = Item:CreateFromItemLocation(location)
     waiting = waiting + 1
