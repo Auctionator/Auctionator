@@ -78,7 +78,7 @@ function Auctionator.Utilities.CachePossessedItems(callback)
   end
 
   hitEnd = true
-  if waiting <= 0 and hitEnd then
+  if waiting <= 0 then
     callback()
   end
 end
