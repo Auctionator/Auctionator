@@ -47,31 +47,21 @@ function Auctionator.Utilities.CacheOneItem(location, callback)
   end
 end
 
-function Auctionator.Utilities.CachePossessedItems(callback)
+function Auctionator.Utilities.CacheBagItems(callback)
   local waiting = 0
   local hitEnd = false
-
-  local function CacheLocation(location)
-    waiting = waiting + 1
-    Auctionator.Utilities.CacheOneItem(location, function()
-      waiting = waiting - 1
-      if waiting <= 0 and hitEnd then
-        callback()
-      end
-    end)
-  end
 
   for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
     for slot = 1, NumSlots(bagID) do
       local location = ItemLocation:CreateFromBagAndSlot(bagID, slot)
-      CacheLocation(location)
+      waiting = waiting + 1
+      Auctionator.Utilities.CacheOneItem(location, function()
+        waiting = waiting - 1
+        if waiting <= 0 and hitEnd then
+          callback()
+        end
+      end)
     end
-  end
-
-  -- On classic some worn items are auctionable
-  if Auctionator.Constants.IsClassic then
-    local location = ItemLocation:CreateFromEquipmentSlot(4) -- shirt
-    CacheLocation(location)
   end
 
   hitEnd = true

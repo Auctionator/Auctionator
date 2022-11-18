@@ -3,11 +3,9 @@ AuctionatorBagItemSelectedMixin = CreateFromMixins(AuctionatorBagItemMixin)
 local seenBag, seenSlot
 
 function AuctionatorBagItemSelectedMixin:OnClick(button)
-  Auctionator.Utilities.CachePossessedItems(function()
-    if not self:ProcessCursor() then
-      AuctionatorBagItemMixin.OnClick(self, button)
-    end
-  end)
+  if not self:ProcessCursor() then
+    AuctionatorBagItemMixin.OnClick(self, button)
+  end
 end
 
 function AuctionatorBagItemSelectedMixin:OnReceiveDrag()
@@ -39,22 +37,27 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
     return false
   end
 
-  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
-  itemInfo.count = Auctionator.Selling.GetItemCount(location)
+  Auctionator.Utilities.CacheOneItem(location, function()
+    Auctionator.Utilities.CacheBagItems(function()
+      local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+      itemInfo.count = Auctionator.Selling.GetItemCount(location)
 
-  if not Auctionator.EventBus:IsSourceRegistered(self) then
-    Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
-  end
+      if not Auctionator.EventBus:IsSourceRegistered(self) then
+        Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
+      end
 
-  if itemInfo.auctionable then
-    Auctionator.Debug.Message("AuctionatorBagItemSelected", "auctionable")
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-    return true
-  end
+      if itemInfo.auctionable then
+        Auctionator.Debug.Message("AuctionatorBagItemSelected", "auctionable")
+        Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+        return
+      end
 
-  Auctionator.Debug.Message("AuctionatorBagItemSelected", "err")
-  UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
-  return false
+      Auctionator.Debug.Message("AuctionatorBagItemSelected", "err")
+      UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
+    end)
+  end)
+
+  return true
 end
 
 -- Record clicks on bag items so that we can make keyring items being picked up

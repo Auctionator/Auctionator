@@ -21,18 +21,22 @@ local function SelectOwnItem(self)
 
   AuctionatorTabs_Selling:Click()
 
-  Auctionator.Utilities.CachePossessedItems(function()
-    if not C_Item.DoesItemExist(itemLocation) then
-      return
-    end
+  -- We load the bags (for counting items) and the item separately as the item
+  -- may not come from a bag.
+  Auctionator.Utilities.CacheOneItem(itemLocation, function()
+    Auctionator.Utilities.CacheBagItems(function()
+      if not C_Item.DoesItemExist(itemLocation) then
+        return
+      end
 
-    local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
-    itemInfo.count = Auctionator.Selling.GetItemCount(itemLocation)
+      local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
+      itemInfo.count = Auctionator.Selling.GetItemCount(itemLocation)
 
-    Auctionator.EventBus
-      :RegisterSource(self, "ContainerFrameItemButton_On.*Click hook")
-      :Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-      :UnregisterSource(self)
+      Auctionator.EventBus
+        :RegisterSource(self, "ContainerFrameItemButton_On.*Click hook")
+        :Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+        :UnregisterSource(self)
+    end)
   end)
 end
 
