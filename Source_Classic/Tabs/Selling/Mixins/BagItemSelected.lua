@@ -3,9 +3,11 @@ AuctionatorBagItemSelectedMixin = CreateFromMixins(AuctionatorBagItemMixin)
 local seenBag, seenSlot
 
 function AuctionatorBagItemSelectedMixin:OnClick(button)
-  if not self:ProcessCursor() then
-    AuctionatorBagItemMixin.OnClick(self, button)
-  end
+  Auctionator.Utilities.CachePossessedItems(function()
+    if not self:ProcessCursor() then
+      AuctionatorBagItemMixin.OnClick(self, button)
+    end
+  end)
 end
 
 function AuctionatorBagItemSelectedMixin:OnReceiveDrag()

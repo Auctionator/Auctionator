@@ -15,13 +15,18 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
   ClearCursor()
 
   if location and C_AuctionHouse.IsSellItemValid(location, true) then
-    local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
-    itemInfo.count = C_AuctionHouse.GetAvailablePostCount(location)
+    Auctionator.Utilities.CacheOneItem(location, function()
+      if not C_AuctionHouse.IsSellItemValid(location, true) then
+        return
+      end
+      local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+      itemInfo.count = C_AuctionHouse.GetAvailablePostCount(location)
 
-    if not Auctionator.EventBus:IsSourceRegistered(self) then
-      Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
-    end
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+      if not Auctionator.EventBus:IsSourceRegistered(self) then
+        Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
+      end
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+    end)
 
     return true
   end

@@ -90,10 +90,10 @@ function AuctionatorSellingBagFrameMixin:AggregateItemsByClass()
   for index = 1, bagItemCount do
     entry = self.dataProvider:GetEntryAt(index)
 
-    if self.items[entry.classId] ~= nil then
-      table.insert(self.items[entry.classId], entry)
+    if self.items[entry.classID] ~= nil then
+      table.insert(self.items[entry.classID], entry)
     else
-      Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:AggregateItemsByClass Missing item class table", entry.classId)
+      Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:AggregateItemsByClass Missing item class table", entry.classID)
     end
   end
 end
@@ -139,9 +139,9 @@ function AuctionatorSellingBagFrameMixin:Update()
   local classItems = {}
   local lastItem = nil
 
-  for _, classId in ipairs(self.orderedClassIds) do
-    local frame = self.frameMap[classId]
-    local items = self.items[classId]
+  for _, classID in ipairs(self.orderedClassIds) do
+    local frame = self.frameMap[classID]
+    local items = self.items[classID]
     frame:Reset()
 
     classItems = {}

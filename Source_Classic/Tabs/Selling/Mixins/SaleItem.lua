@@ -1,5 +1,5 @@
 local function IsEquipment(itemInfo)
-  return itemInfo.classId == Enum.ItemClass.Weapon or itemInfo.classId == Enum.ItemClass.Armor
+  return itemInfo.classID == Enum.ItemClass.Weapon or itemInfo.classID == Enum.ItemClass.Armor
 end
 
 local function IsValidItem(item)
@@ -281,23 +281,6 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
 
     self.itemInfo = itemInfo
 
-    if self.itemInfo ~= nil and self.itemInfo.stackSize == nil then
-      self.itemInfo = nil
-
-      local item
-      if itemInfo.location ~= nil then
-        item = Item:CreateFromItemLocation(itemInfo.location)
-      else
-        item = Item:CreateFromItemLink(itemInfo.itemLink)
-      end
-
-      item:ContinueOnItemLoad(function()
-        itemInfo.stackSize = select(8, GetItemInfo(itemInfo.itemLink))
-        self.itemInfo = itemInfo
-
-        self:Update()
-      end)
-    end
     self:Update()
 
   elseif event == Auctionator.AH.Events.ThrottleUpdate then
@@ -421,7 +404,7 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
       if price ~= nil then
         self:SetUnitPrice(price)
       elseif IsEquipment(self.itemInfo) then
-        self:SetEquipmentMultiplier(self.itemInfo.itemLink)
+        self:SetEquipmentMultiplier(self.itemInfo)
       else
         self:SetUnitPrice(0)
       end
@@ -522,20 +505,17 @@ function AuctionatorSaleItemMixin:SetUnitPrice(salesPrice)
   self.prevStackPrice = self.StackPrice:GetAmount()
 end
 
-function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
+function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemInfo)
   self:SetUnitPrice(0)
 
-  local item = Item:CreateFromItemLink(itemLink)
-  item:ContinueOnItemLoad(function()
-    local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
-    local vendorPrice = select(11, GetItemInfo(itemLink))
-    if multiplier ~= 0 and vendorPrice ~= 0 then
-      -- Check for a vendor price multiplier being set (and a vendor price)
-      self:SetUnitPrice(
-        vendorPrice * multiplier + self:GetDeposit()
-      )
-    end
-  end)
+  local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
+  local vendorPrice = itemInfo.vendorPrice
+  if multiplier ~= 0 and vendorPrice ~= 0 then
+    -- Check for a vendor price multiplier being set (and a vendor price)
+    self:SetUnitPrice(
+      vendorPrice * multiplier + self:GetDeposit()
+    )
+  end
 end
 
 function AuctionatorSaleItemMixin:GetCommodityResult(itemId)
@@ -580,9 +560,8 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
 
   -- Determine if the item is worth more to sell to a vendor than to post on the
   -- AH.
-  local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
-  local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
-  if Auctionator.Utilities.IsVendorable(itemInfo) and
+  local vendorPrice = self.itemInfo.vendorPrice
+  if self.itemInfo.isVendorable and
      vendorPrice * self:GetStackSize() * self:GetNumStacks() + self:GetDeposit()
        > math.floor(self.StackPrice:GetAmount() * self:GetNumStacks() * Auctionator.Constants.AfterAHCut) then
     return AUCTIONATOR_L_CONFIRM_POST_BELOW_VENDOR
@@ -716,22 +695,24 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
     self:SetUnitPrice(details.unitPrice)
     self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
   else
-    local location = FindItemAgain(self.itemInfo.itemLink)
-    if self.itemInfo.location ~= nil then
-      Auctionator.Debug.Message("found again, trying")
-      self.retryingItem = true
-      self.itemInfo = CopyTable(details.itemInfo, true)
-      self.itemInfo.location = location
-      self.itemInfo.count = Auctionator.Selling.GetItemCount(self.itemInfo.location)
-      self.clickedSellItem = false
-      self.minPriceSeen = details.minPriceSeen
-      self:Update()
-      self:SetUnitPrice(details.unitPrice)
-      self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
-    else
-      Auctionator.Debug.Message("item missing, won't retry")
-      self:DoNextItem(details)
-    end
+    Auctionator.Utilities.CachePossessedItems(function()
+      local location = FindItemAgain(self.itemInfo.itemLink)
+      if self.itemInfo.location ~= nil then
+        Auctionator.Debug.Message("found again, trying")
+        self.retryingItem = true
+        self.itemInfo = CopyTable(details.itemInfo, true)
+        self.itemInfo.location = location
+        self.itemInfo.count = Auctionator.Selling.GetItemCount(self.itemInfo.location)
+        self.clickedSellItem = false
+        self.minPriceSeen = details.minPriceSeen
+        self:Update()
+        self:SetUnitPrice(details.unitPrice)
+        self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
+      else
+        Auctionator.Debug.Message("item missing, won't retry")
+        self:DoNextItem(details)
+      end
+    end)
   end
 end
 
