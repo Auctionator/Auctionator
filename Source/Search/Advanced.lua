@@ -305,8 +305,8 @@ function Auctionator.Search.ReconstituteAdvancedSearch(search)
     tostring(search.maxLevel or ""),
     tostring(search.minCraftedLevel or ""),
     tostring(search.maxCraftedLevel or ""),
-    tostring((search.minPrice and search.minPrice / 10000) or ""),
-    tostring((search.maxPrice and search.maxPrice / 10000) or ""),
+    tostring(((search.minPrice and search.minPrice / 10000) or "")),
+    tostring(((search.maxPrice and search.maxPrice / 10000) or "")),
     tostring(search.quality or "")
   )
 end

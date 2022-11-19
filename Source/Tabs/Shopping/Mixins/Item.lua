@@ -133,6 +133,8 @@ function AuctionatorShoppingItemMixin:GetItemString()
     maxItemLevel = self.ItemLevelRange:GetMax(),
     minCraftedLevel = self.CraftedLevelRange:GetMin(),
     maxCraftedLevel = self.CraftedLevelRange:GetMax(),
+    minPrice = self.PriceRange:GetMin() * 10000,
+    maxPrice = self.PriceRange:GetMax() * 10000,
     quality = tonumber(self.QualityContainer.DropDown:GetValue()),
   }
   
