@@ -37,27 +37,22 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
     return false
   end
 
-  Auctionator.Utilities.CacheOneItem(location, function()
-    Auctionator.Utilities.CacheBagItems(function()
-      local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
-      itemInfo.count = Auctionator.Selling.GetItemCount(location)
+  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+  itemInfo.count = Auctionator.Selling.GetItemCount(location)
 
-      if not Auctionator.EventBus:IsSourceRegistered(self) then
-        Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
-      end
+  if not Auctionator.EventBus:IsSourceRegistered(self) then
+    Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
+  end
 
-      if itemInfo.auctionable then
-        Auctionator.Debug.Message("AuctionatorBagItemSelected", "auctionable")
-        Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-        return
-      end
+  if itemInfo.auctionable then
+    Auctionator.Debug.Message("AuctionatorBagItemSelected", "auctionable")
+    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+    return true
+  end
 
-      Auctionator.Debug.Message("AuctionatorBagItemSelected", "err")
-      UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
-    end)
-  end)
-
-  return true
+  Auctionator.Debug.Message("AuctionatorBagItemSelected", "err")
+  UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
+  return false
 end
 
 -- Record clicks on bag items so that we can make keyring items being picked up

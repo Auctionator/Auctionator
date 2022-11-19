@@ -22,7 +22,7 @@ local function NormalizePrice(price)
 end
 
 local function IsEquipment(itemInfo)
-  return itemInfo.classID == Enum.ItemClass.Weapon or itemInfo.classID == Enum.ItemClass.Armor
+  return itemInfo.classId == Enum.ItemClass.Weapon or itemInfo.classId == Enum.ItemClass.Armor
 end
 
 local function IsValidItem(item)
@@ -259,7 +259,7 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
   if price ~= nil then
     self:UpdateSalesPrice(price)
   elseif IsEquipment(self.itemInfo) then
-    self:SetEquipmentMultiplier(self.itemInfo)
+    self:SetEquipmentMultiplier(self.itemInfo.itemLink)
   else
     self:UpdateSalesPrice(0)
   end
@@ -283,7 +283,7 @@ function AuctionatorSaleItemMixin:SetDuration()
 end
 
 function AuctionatorSaleItemMixin:SetQuantity()
-  local defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_QUANTITIES)[self.itemInfo.classID]
+  local defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_QUANTITIES)[self.itemInfo.classId]
 
   if self.itemInfo.count == 0 then
     self.Quantity:SetNumber(0)
@@ -334,17 +334,20 @@ function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice)
   self.BidPrice:Clear()
 end
 
-function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemInfo)
+function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
   self:UpdateSalesPrice(0)
 
-  local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
-  local vendorPrice = itemInfo.vendorPrice
-  if multiplier ~= 0 and vendorPrice ~= 0 then
-    -- Check for a vendor price multiplier being set (and a vendor price)
-    self:UpdateSalesPrice(
-      vendorPrice * multiplier + self:GetDeposit()
-    )
-  end
+  local item = Item:CreateFromItemLink(itemLink)
+  item:ContinueOnItemLoad(function()
+    local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
+    local vendorPrice = select(Auctionator.Constants.ITEM_INFO.SELL_PRICE, GetItemInfo(itemLink))
+    if multiplier ~= 0 and vendorPrice ~= 0 then
+      -- Check for a vendor price multiplier being set (and a vendor price)
+      self:UpdateSalesPrice(
+        vendorPrice * multiplier + self:GetDeposit()
+      )
+    end
+  end)
 end
 
 function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
@@ -522,8 +525,9 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
 
   -- Determine if the item is worth more to sell to a vendor than to post on the
   -- AH.
-  local vendorPrice = self.itemInfo.vendorPrice
-  if self.itemInfo.isVendorable and
+  local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
+  local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
+  if Auctionator.Utilities.IsVendorable(itemInfo) and
      vendorPrice * self.Quantity:GetNumber() + self:GetDeposit()
        > math.floor(self.Price:GetAmount() * self.Quantity:GetNumber() * Auctionator.Constants.AfterAHCut) then
     return AUCTIONATOR_L_CONFIRM_POST_BELOW_VENDOR

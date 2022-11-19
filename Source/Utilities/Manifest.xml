@@ -20,7 +20,6 @@
   <Script file="FormatTime.lua"/>
   <Script file="StringJoin.lua"/>
   <Script file="SplitCommand.lua"/>
-  <Script file="CacheBagItems.lua"/>
   <Script file="IsVendorable.lua"/>
 
   <Script file="VerifyListTypes.lua"/>

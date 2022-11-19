@@ -9,19 +9,13 @@ local function SelectOwnItem(itemLocation)
 
   AuctionatorTabs_Selling:Click()
 
-  Auctionator.Utilities.CacheOneItem(itemLocation, function()
-    if not itemLocation:IsValid() or not C_AuctionHouse.IsSellItemValid(itemLocation) then
-      return
-    end
+  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
+  itemInfo.count = C_AuctionHouse.GetAvailablePostCount(itemLocation)
 
-    local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
-    itemInfo.count = C_AuctionHouse.GetAvailablePostCount(itemLocation)
-
-    Auctionator.EventBus
-      :RegisterSource(SelectOwnItem, "ContainerFrameItemButton_OnModifiedClick hook")
-      :Fire(SelectOwnItem, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-      :UnregisterSource(SelectOwnItem)
-  end)
+  Auctionator.EventBus
+    :RegisterSource(SelectOwnItem, "ContainerFrameItemButton_OnModifiedClick hook")
+    :Fire(SelectOwnItem, Auctionator.Selling.Events.BagItemClicked, itemInfo)
+    :UnregisterSource(SelectOwnItem)
 end
 
 local function AHShown()

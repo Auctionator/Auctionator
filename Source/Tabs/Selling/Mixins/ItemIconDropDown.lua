@@ -42,11 +42,6 @@ end
 function Auctionator.Selling.GetAllFavourites()
   local favourites = {}
   for _, fav in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
-    -- Compatibility with old favourites
-    fav.vendorPrice = fav.vendorPrice or 0
-    fav.stackSize = fav.stackSize or 0
-    fav.classID = fav.classID or fav.classId
-
     table.insert(favourites, fav)
   end
 
@@ -65,13 +60,11 @@ local function ToggleFavouriteItem(data)
       itemKey = data.itemKey,
       itemLink = data.itemLink,
       count = 0,
-      stackSize = 0,
-      vendorPrice = 0,
       iconTexture = data.iconTexture,
       itemType = data.itemType,
       location = nil,
       quality = data.quality,
-      classID = data.classID,
+      classId = data.classId,
       auctionable = data.auctionable,
     }
   end

@@ -1,17 +1,13 @@
 -- Returns just enough information that the BagItem mixin can display the item
 -- and the SaleItemMixin can post it.
 function Auctionator.Utilities.ItemInfoFromLocation(location)
-  assert(C_Item.IsItemDataCached(location))
-
   local itemKey = C_AuctionHouse.GetItemKeyFromItem(location)
   local itemType = C_AuctionHouse.GetItemCommodityStatus(location)
 
   local itemInfo = C_Container.GetContainerItemInfo(location:GetBagAndSlot())
   local icon, itemCount, quality, itemLink = itemInfo.iconFileID, itemInfo.stackCount, itemInfo.quality, itemInfo.hyperlink
 
-  local itemInfo = {GetItemInfo(itemLink)}
-
-  local classID = itemInfo[Auctionator.Constants.ITEM_INFO.CLASS]
+  local _, _, _, _, _, classID, _ = GetItemInfoInstant(itemLink or itemKey.itemID)
 
   -- For some reason no class ID is returned on battle pets in cages
   if itemKey.battlePetSpeciesID ~= 0 then
@@ -23,6 +19,13 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
     classID = Enum.ItemClass.Tradegoods
   end
 
+  -- The first time the AH is loaded sometimes when a full scan is running the
+  -- quality info may not be available. This just gives a sensible fail value.
+  if quality == nil then
+    Auctionator.Debug.Message("Missing quality", itemKey.itemID)
+    quality = 1
+  end
+
   return {
     itemKey = itemKey,
     itemLink = itemLink,
@@ -31,9 +34,7 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
     itemType = itemType,
     location = location,
     quality = quality,
-    classID = classID,
-    vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE],
-    isVendorable = Auctionator.Utilities.IsVendorable(itemInfo),
-    auctionable = C_AuctionHouse.IsSellItemValid(location, false),
+    classId = classID,
+    auctionable = C_AuctionHouse.IsSellItemValid(location, false)
   }
 end
