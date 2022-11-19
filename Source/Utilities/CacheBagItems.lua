@@ -29,15 +29,21 @@ function Auctionator.Utilities.CacheOneItem(location, callback)
     local item = Item:CreateFromItemLocation(location)
     waiting = waiting + 1
     item:ContinueOnItemLoad(CacheCallback)
+  else -- Prevent data being evicted from the cache
+    C_Item.RequestLoadItemData(location)
   end
 
   if Auctionator.Constants.IsClassic then
     local itemID = C_Item.GetItemID(location)
     local _, spellID = GetItemSpell(itemID)
-    if spellID ~= nil and not C_Spell.IsSpellDataCached(spellID) then
-      local spell = Spell:CreateFromSpellID(spellID)
-      waiting = waiting + 1
-      spell:ContinueOnSpellLoad(CacheCallback)
+    if spellID ~= nil then
+      if not C_Spell.IsSpellDataCached(spellID) then
+        local spell = Spell:CreateFromSpellID(spellID)
+        waiting = waiting + 1
+        spell:ContinueOnSpellLoad(CacheCallback)
+      else -- Prevent data being evicted from the cache
+        C_Spell.RequestLoadSpellData(spellID)
+      end
     end
   end
 
