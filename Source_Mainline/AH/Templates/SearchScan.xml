@@ -1,7 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorAHThrottlingFrameTemplate" mixin="AuctionatorAHThrottlingFrameMixin" virtual="true">
+  <Frame name="AuctionatorAHSearchScanFrameTemplate" mixin="AuctionatorAHSearchScanFrameMixin" virtual="true">
     <Scripts>
       <OnLoad method="OnLoad"/>
+      <OnHide method="OnHide"/>
       <OnEvent method="OnEvent" />
     </Scripts>
   </Frame>

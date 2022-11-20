@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="ItemKeyLoader.lua" />
   <Script file="Throttling.lua" />
+  <Script file="SearchScan.lua" />
 </Ui>

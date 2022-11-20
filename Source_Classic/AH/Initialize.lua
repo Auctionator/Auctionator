@@ -18,5 +18,5 @@ function Auctionator.AH.Initialize()
     "AuctionatorAHScanFrameTemplate"
   )
 
-  Auctionator.AH.Queue:Init()
+  Auctionator.AH.Queue = CreateAndInitFromMixin(Auctionator.AH.QueueMixin)
 end
