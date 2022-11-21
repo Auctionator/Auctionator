@@ -1,6 +1,6 @@
 local SALE_ITEM_EVENTS = {
-  "ITEM_SEARCH_RESULTS_UPDATED",
-  "COMMODITY_SEARCH_RESULTS_UPDATED",
+  Auctionator.AH.Events.CommoditySearchResultsReady,
+  Auctionator.AH.Events.ItemSearchResultsReady,
 }
 
 -- Necessary because attempting to post an auction with copper value silently
@@ -191,6 +191,25 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
 
   elseif event == Auctionator.Selling.Events.RefreshSearch then
     self:RefreshButtonClicked()
+
+  elseif event == Auctionator.AH.Events.CommoditySearchResultsReady then
+    local itemID = ...
+    if itemID ~= self.expectedItemKey.itemID then
+      return
+    end
+
+    self:ProcessCommodityResults(...)
+    Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
+
+  elseif eventName == Auctionator.AH.Events.ItemSearchResultsReady then
+    local itemKey = ...
+    if Auctionator.Utilities.ItemKeyString(itemKey) ~=
+        Auctionator.Utilities.ItemKeyString(self.expectedItemKey) then
+      return
+    end
+
+    self:ProcessItemResults(...)
+    Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
   end
 end
 
@@ -297,7 +316,7 @@ function AuctionatorSaleItemMixin:SetQuantity()
 end
 
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
-  FrameUtil.RegisterFrameForEvents(self, SALE_ITEM_EVENTS)
+  Auctionator.EventBus:Register(self, SALE_ITEM_EVENTS)
 
   local sortingOrder
 
@@ -311,10 +330,10 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
     -- Bug with PTR C_AuctionHouse.MakeItemKey(...), it always sets the
     -- itemLevel to a non-zero value, so we have to create the key directly
     self.expectedItemKey = {itemID = itemInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
-    Auctionator.AH.SendSellSearchQuery(self.expectedItemKey, {sortingOrder}, true)
+    Auctionator.AH.SendSellSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   else
     self.expectedItemKey = itemInfo.itemKey
-    Auctionator.AH.SendSearchQuery(itemInfo.itemKey, {sortingOrder}, true)
+    Auctionator.AH.SendSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   end
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart, self.expectedItemKey)
 end
@@ -351,26 +370,6 @@ function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
 end
 
 function AuctionatorSaleItemMixin:OnEvent(eventName, ...)
-  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" then
-    local itemID = ...
-    if itemID ~= self.expectedItemKey.itemID then
-      return
-    end
-
-    self:ProcessCommodityResults(...)
-    FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
-
-  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" then
-    local itemKey = ...
-    if Auctionator.Utilities.ItemKeyString(itemKey) ~=
-        Auctionator.Utilities.ItemKeyString(self.expectedItemKey) then
-      return
-    end
-
-    self:ProcessItemResults(...)
-    FrameUtil.UnregisterFrameForEvents(self, SALE_ITEM_EVENTS)
-  end
-
 end
 
 function AuctionatorSaleItemMixin:GetCommodityResult(itemID)

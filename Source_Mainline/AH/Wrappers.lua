@@ -1,15 +1,39 @@
-function Auctionator.AH.SendSearchQuery(...)
-  local args = {...}
-  Auctionator.AH.Queue:Enqueue(function()
-    C_AuctionHouse.SendSearchQuery(unpack(args))
-  end)
+function Auctionator.AH.SendSearchQueryByGenerator(itemKeyGenerator, sorts, splitOwnedItems)
+  function rawSearch(itemKey)
+    C_AuctionHouse.SendSearchQuery(itemKey, sorts, splitOwnedItems)
+  end
+
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
 end
 
-function Auctionator.AH.SendSellSearchQuery(...)
-  local args = {...}
-  Auctionator.AH.Queue:Enqueue(function()
-    C_AuctionHouse.SendSellSearchQuery(unpack(args))
-  end)
+function Auctionator.AH.SendSearchQueryByItemKey(itemKey, sorts, splitOwnedItems)
+  function itemKeyGenerator()
+    return itemKey
+  end
+  function rawSearch(itemKey)
+    C_AuctionHouse.SendSearchQuery(itemKey, sorts, splitOwnedItems)
+  end
+
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
+end
+
+function Auctionator.AH.SendSellSearchQueryByGenerator(itemKeyGenerator, sorts, splitOwnedItems)
+  function rawSearch(itemKey)
+    C_AuctionHouse.SendSellSearchQuery(itemKey, sorts, splitOwnedItems)
+  end
+
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
+end
+
+function Auctionator.AH.SendSellSearchQueryByItemKey(itemKey, sorts, splitOwnedItems)
+  function itemKeyGenerator()
+    return itemKey
+  end
+  function rawSearch(itemKey)
+    C_AuctionHouse.SendSellSearchQuery(itemKey, sorts, splitOwnedItems)
+  end
+
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
 end
 
 function Auctionator.AH.QueryOwnedAuctions(...)

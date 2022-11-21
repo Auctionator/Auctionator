@@ -1,6 +1,6 @@
-Auctionator.AH.Queue = {}
+Auctionator.AH.QueueMixin = {}
 
-function Auctionator.AH.Queue:Init()
+function Auctionator.AH.QueueMixin:Init()
   self.queue = {}
   Auctionator.EventBus:Register(self, {
     Auctionator.AH.Events.Ready
@@ -15,7 +15,7 @@ local function Dequeue(self)
   end
 end
 
-function Auctionator.AH.Queue:Enqueue(func)
+function Auctionator.AH.QueueMixin:Enqueue(func)
   table.insert(self.queue, func)
 
   if Auctionator.AH.Internals.throttling:IsReady() then
@@ -23,13 +23,13 @@ function Auctionator.AH.Queue:Enqueue(func)
   end
 end
 
-function Auctionator.AH.Queue:Remove(func)
+function Auctionator.AH.QueueMixin:Remove(func)
   local index = tIndexOf(self.queue, func)
   if index ~= nil then
     table.remove(self.queue, index)
   end
 end
 
-function Auctionator.AH.Queue:ReceiveEvent(event)
+function Auctionator.AH.QueueMixin:ReceiveEvent(event)
   Dequeue(self)
 end

@@ -1,10 +1,13 @@
 AuctionatorUndercutScanMixin = {}
 
-local UNDERCUT_EVENTS = {
+local UNDERCUT_START_STOP_EVENTS = {
   "OWNED_AUCTIONS_UPDATED",
-  "COMMODITY_SEARCH_RESULTS_UPDATED",
-  "ITEM_SEARCH_RESULTS_UPDATED",
   "AUCTION_HOUSE_CLOSED"
+}
+
+local AH_SCAN_EVENTS = {
+  Auctionator.AH.Events.CommoditySearchResultsReady,
+  Auctionator.AH.Events.ItemSearchResultsReady,
 }
 
 local CANCELLING_EVENTS = {
@@ -42,7 +45,8 @@ function AuctionatorUndercutScanMixin:StartScan()
 
   Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.UndercutScanStart)
 
-  FrameUtil.RegisterFrameForEvents(self, UNDERCUT_EVENTS)
+  FrameUtil.RegisterFrameForEvents(self, UNDERCUT_START_STOP_EVENTS)
+  Auctionator.EventBus:Register(self, AH_SCAN_EVENTS)
 
   self.StartScanButton:SetEnabled(false)
   self:SetCancel()
@@ -57,7 +61,8 @@ end
 function AuctionatorUndercutScanMixin:EndScan()
   Auctionator.Debug.Message("undercut scan ended")
 
-  FrameUtil.UnregisterFrameForEvents(self, UNDERCUT_EVENTS)
+  FrameUtil.UnregisterFrameForEvents(self, UNDERCUT_START_STOP_EVENTS)
+  Auctionator.EventBus:Unregister(self, AH_SCAN_EVENTS)
 
   self.StartScanButton:SetEnabled(true)
 
@@ -127,15 +132,12 @@ function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)
   elseif eventName == "AUCTION_CANCELED" then
     FrameUtil.UnregisterFrameForEvents(self, CANCELLING_EVENTS)
     self:SetCancel()
-
-  else
-    Auctionator.Debug.Message("search results")
-    self:ProcessSearchResults(self.currentAuction, ...)
   end
 end
 
-function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, auctionID)
+function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
+    local auctionID = ...
     -- Used to disable button if all the undercut auctions have been cancelled
     for index, info in ipairs(self.undercutAuctions) do
       if info.auctionID == auctionID then
@@ -147,6 +149,10 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, auctionID)
     if self.CancelNextButton:IsEnabled() then
       self:CancelNextAuction()
     end
+
+  else -- AH_SCAN_EVENTS
+    Auctionator.Debug.Message("search results")
+    self:ProcessSearchResults(self.currentAuction, ...)
   end
 end
 
@@ -162,7 +168,7 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auctionInfo)
       sortingOrder = {sortOrder = 4, reverseSort = false}
     end
 
-    Auctionator.AH.SendSearchQuery(auctionInfo.itemKey, {sortingOrder}, true)
+    Auctionator.AH.SendSearchQueryByItemKey(auctionInfo.itemKey, {sortingOrder}, true)
   end)
 end
 

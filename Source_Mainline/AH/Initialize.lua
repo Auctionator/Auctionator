@@ -18,5 +18,12 @@ function Auctionator.AH.Initialize()
     "AuctionatorAHItemKeyLoaderFrameTemplate"
   )
 
-  Auctionator.AH.Queue:Init()
+  Auctionator.AH.Internals.searchScan = CreateFrame(
+    "FRAME",
+    "AuctionatorAHSearchScanFrame",
+    AuctionHouseFrame,
+    "AuctionatorAHSearchScanFrameTemplate"
+  )
+
+  Auctionator.AH.Queue = CreateAndInitFromMixin(Auctionator.AH.QueueMixin)
 end
