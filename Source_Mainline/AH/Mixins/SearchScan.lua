@@ -89,6 +89,7 @@ function AuctionatorAHSearchScanFrameMixin:AttemptSearch()
     Auctionator.AH.Queue:Remove(self.searchFunc)
   end
   self.searchFunc = function()
+    self.searchFunc = nil
     self.itemKey = self.itemKeyGenerator()
     if C_AuctionHouse.GetItemKeyInfo(self.itemKey) then
       FrameUtil.RegisterFrameForEvents(self, SEARCH_EVENTS)
