@@ -33,8 +33,14 @@ function AuctionatorIncrementalScanFrameMixin:OnEvent(event, ...)
     self.info = {} -- New search results so reset info
     self.rawScan = {}
 
-    self:AddPrices(C_AuctionHouse.GetBrowseResults())
-    self:NextStep()
+    local browseResults = C_AuctionHouse.GetBrowseResults()
+    -- Check this is probably the start of a new batch, as the UPDATED event
+    -- will fire when doing other specific items searches (to update the price
+    -- and quantity) on any size search results.
+    if #browseResults <= Auctionator.Constants.SummaryBatchSize then
+      self:AddPrices(browseResults)
+      self:NextStep()
+    end
   elseif event == "AUCTION_HOUSE_BROWSE_RESULTS_ADDED" then
     self:AddPrices(...)
     self:NextStep()
