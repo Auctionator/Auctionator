@@ -5,9 +5,10 @@
 -- There's 2 parts.
 -- 1. The AttemptSearch function waits for the item to be in the cache before
 -- doing a search request.
--- 2. The event listeners looks for the right itemID/itemKey for the search
--- results, and verify that a valid set of returns was returned, as sometimes no
+-- 2. The event listener looks for the right itemID/itemKey for the search
+-- results, and verifies that a valid set of returns was returned, as sometimes no
 -- results are returned when there are actually some results.
+-- 3. If 2. failed, attempt to search again.
 AuctionatorAHSearchScanFrameMixin = {}
 
 local SEARCH_EVENTS = {
