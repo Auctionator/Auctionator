@@ -33,7 +33,7 @@ function AuctionatorAHSearchScanFrameMixin:OnUpdate()
 end
 
 function AuctionatorAHSearchScanFrameMixin:OnEvent(eventName, ...)
-  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" and self.itemInfoValidator(...) then
+  if eventName == "COMMODITY_SEARCH_RESULTS_UPDATED" and self:ValidateItemInfo(...) then
     local itemID = ...
     local has = C_AuctionHouse.HasSearchResults(C_AuctionHouse.MakeItemKey(itemID))
     local full = C_AuctionHouse.HasFullCommoditySearchResults(itemID)
@@ -47,7 +47,7 @@ function AuctionatorAHSearchScanFrameMixin:OnEvent(eventName, ...)
       Auctionator.EventBus:Fire(self, Auctionator.AH.Events.CommodityResultsReady, itemID)
       FrameUtil.UnregisterFrameForEvents(self, SEARCH_EVENTS)
     end
-  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" and self.itemInfoValidator(...) then
+  elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" and self:ValidateItemInfo(...) then
     local itemKey = ...
     local has = C_AuctionHouse.HasSearchResults(itemKey)
     local full = C_AuctionHouse.HasFullItemSearchResults(itemKey)
@@ -67,17 +67,21 @@ end
 -- itemKeyGenerator: Function that when called returns the item key intended for
 -- the search. Parameter is useful when the item key depends on Blizzard caches
 -- to retry getting the item key when the cache is ready.
--- itemInfoValidator: Function to check that the number or item key table as its
--- parameter match the wanted item key for the search results.
-function AuctionatorAHSearchScanFrameMixin:SetSearch(itemKeyGenerator, itemInfoValidator, rawSearch)
+-- rawSearch: Function with an item key as its only parameter to run the
+-- Blizzard API search command
+function AuctionatorAHSearchScanFrameMixin:SetSearch(itemKeyGenerator, rawSearch)
   if self.searchFunc ~= nil then
     Auctionator.AH.Queue:Remove(self.searchFunc)
     self.searchFunc = nil
   end
   self.itemKeyGenerator = itemKeyGenerator
-  self.itemInfoValidator = itemInfoValidator
   self.rawSearch = rawSearch
   self:AttemptSearch()
+end
+
+function AuctionatorAHSearchScanFrameMixin:ValidateItemInfo(itemInfo)
+  return (type(itemInfo) == "number" and self.itemKey.itemID == itemInfo) or
+    (type(itemInfo) == "table" and Auctionator.Utilities.ItemKeyString(itemInfo) == Auctionator.Utilities.ItemKeyString(self.itemKey))
 end
 
 function AuctionatorAHSearchScanFrameMixin:AttemptSearch()
@@ -85,11 +89,11 @@ function AuctionatorAHSearchScanFrameMixin:AttemptSearch()
     Auctionator.AH.Queue:Remove(self.searchFunc)
   end
   self.searchFunc = function()
-    local itemKey = self.itemKeyGenerator()
-    if C_AuctionHouse.GetItemKeyInfo(itemKey) then
+    self.itemKey = self.itemKeyGenerator()
+    if C_AuctionHouse.GetItemKeyInfo(self.itemKey) then
       FrameUtil.RegisterFrameForEvents(self, SEARCH_EVENTS)
       self:SetScript("OnUpdate", nil)
-      self.rawSearch(itemKey)
+      self.rawSearch(self.itemKey)
     else
       self:SetScript("OnUpdate", self.OnUpdate)
     end

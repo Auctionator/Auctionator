@@ -2,29 +2,22 @@ function Auctionator.AH.SendSearchQueryByItemID(itemID, sorts, splitOwnedItems)
   function itemKeyGenerator()
     return C_AuctionHouse.MakeItemKey(itemID)
   end
-  function itemInfoValidator(itemInfo)
-    return itemInfo == itemID
-  end
   function rawSearch(itemKey)
     C_AuctionHouse.SendSearchQuery(itemKey, sorts, splitOwnedItems)
   end
 
-  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, itemInfoValidator, rawSearch)
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
 end
 
 function Auctionator.AH.SendSearchQueryByItemKey(itemKey, sorts, splitOwnedItems)
   function itemKeyGenerator()
     return itemKey
   end
-  function itemInfoValidator(itemInfo)
-    return (type(itemInfo) == "number" and itemKey.itemID == itemInfo) or
-      (type(itemInfo) == "table" and Auctionator.Utilities.ItemKeyString(itemInfo) == Auctionator.Utilities.ItemKeyString(itemKey))
-  end
   function rawSearch(itemKey)
     C_AuctionHouse.SendSearchQuery(itemKey, sorts, splitOwnedItems)
   end
 
-  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, itemInfoValidator, rawSearch)
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
 end
 
 function Auctionator.AH.SendGeneralGearSearchQuery(itemID, sorts, splitOwnedItems)
@@ -36,14 +29,11 @@ function Auctionator.AH.SendGeneralGearSearchQuery(itemID, sorts, splitOwnedItem
       battlePetSpeciesID = 0,
     }
   end
-  function itemInfoValidator(itemInfo)
-    return (type(itemInfo) == "table" and itemInfo.itemID == itemID)
-  end
   function rawSearch(itemKey)
     C_AuctionHouse.SendSellSearchQuery(itemKey, sorts, splitOwnedItems)
   end
 
-  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, itemInfoValidator, rawSearch)
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
 end
 
 function Auctionator.AH.QueryOwnedAuctions(...)
