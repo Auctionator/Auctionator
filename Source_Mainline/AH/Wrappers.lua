@@ -43,7 +43,7 @@ function Auctionator.AH.SendGeneralGearSearchQuery(itemID, sorts, splitOwnedItem
     C_AuctionHouse.SendSellSearchQuery(itemKey, sorts, splitOwnedItems)
   end
 
-  Auctionator.AH.Internals.searchScan:SetSellSearch(itemKeyGenerator, itemInfoValidator, sorts, splitOwnedItems)
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, itemInfoValidator, rawSearch)
 end
 
 function Auctionator.AH.QueryOwnedAuctions(...)

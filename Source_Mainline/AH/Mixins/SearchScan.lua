@@ -1,3 +1,13 @@
+-- This mixin is used to work around that when the item key info for an item
+-- isn't in the Blizzard cache the SendSellSearchQuery and SendSearchQuery APIs
+-- will often ignore any search requests for that specific item.
+--
+-- There's 2 parts.
+-- 1. The AttemptSearch function waits for the item to be in the cache before
+-- doing a search request.
+-- 2. The event listeners looks for the right itemID/itemKey for the search
+-- results, and verify that a valid set of returns was returned, as sometimes no
+-- results are returned when there are actually some results.
 AuctionatorAHSearchScanFrameMixin = {}
 
 local SEARCH_EVENTS = {
@@ -29,6 +39,8 @@ function AuctionatorAHSearchScanFrameMixin:OnEvent(eventName, ...)
     local full = C_AuctionHouse.HasFullCommoditySearchResults(itemID)
     local quantity = C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID)
 
+    -- Check for not having results OR supposedly having results when not all
+    -- results are there and there are 0 loaded.
     if (not has) or (has and not full and quantity == 0) then
       self:AttemptSearch()
     else
@@ -41,8 +53,8 @@ function AuctionatorAHSearchScanFrameMixin:OnEvent(eventName, ...)
     local full = C_AuctionHouse.HasFullItemSearchResults(itemKey)
     local quantity = C_AuctionHouse.GetItemSearchResultsQuantity(itemKey)
 
-    -- Check for supposedly having results when not all results are there and
-    -- there are 0 loaded.
+    -- Check for not having results OR supposedly having results when not all
+    -- results are there and there are 0 loaded.
     if (not has) or (has and not full and quantity == 0) then
       self:AttemptSearch()
     else
@@ -52,6 +64,11 @@ function AuctionatorAHSearchScanFrameMixin:OnEvent(eventName, ...)
   end
 end
 
+-- itemKeyGenerator: Function that when called returns the item key intended for
+-- the search. Parameter is useful when the item key depends on Blizzard caches
+-- to retry getting the item key when the cache is ready.
+-- itemInfoValidator: Function to check that the number or item key table as its
+-- parameter match the wanted item key for the search results.
 function AuctionatorAHSearchScanFrameMixin:SetSearch(itemKeyGenerator, itemInfoValidator, rawSearch)
   if self.searchFunc ~= nil then
     Auctionator.AH.Queue:Remove(self.searchFunc)
