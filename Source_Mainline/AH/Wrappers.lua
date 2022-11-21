@@ -20,7 +20,7 @@ function Auctionator.AH.SendSearchQueryByItemKey(itemKey, sorts, splitOwnedItems
   Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
 end
 
-function Auctionator.AH.SendGeneralGearSearchQuery(itemID, sorts, splitOwnedItems)
+function Auctionator.AH.SendSellSearchQueryByItemID(itemID, sorts, splitOwnedItems)
   function itemKeyGenerator()
     return {
       itemID = itemID,
@@ -28,6 +28,17 @@ function Auctionator.AH.SendGeneralGearSearchQuery(itemID, sorts, splitOwnedItem
       itemLevel = 0,
       battlePetSpeciesID = 0,
     }
+  end
+  function rawSearch(itemKey)
+    C_AuctionHouse.SendSellSearchQuery(itemKey, sorts, splitOwnedItems)
+  end
+
+  Auctionator.AH.Internals.searchScan:SetSearch(itemKeyGenerator, rawSearch)
+end
+
+function Auctionator.AH.SendSellSearchQueryByItemKey(itemKey, sorts, splitOwnedItems)
+  function itemKeyGenerator()
+    return itemKey
   end
   function rawSearch(itemKey)
     C_AuctionHouse.SendSellSearchQuery(itemKey, sorts, splitOwnedItems)

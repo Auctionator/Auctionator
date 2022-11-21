@@ -330,7 +330,7 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
     -- Bug with PTR C_AuctionHouse.MakeItemKey(...), it always sets the
     -- itemLevel to a non-zero value, so we have to create the key directly
     self.expectedItemKey = {itemID = itemInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
-    Auctionator.AH.SendGeneralGearSearchQuery(itemInfo.itemKey.itemID, {sortingOrder}, true)
+    Auctionator.AH.SendSellSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   else
     self.expectedItemKey = itemInfo.itemKey
     Auctionator.AH.SendSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
