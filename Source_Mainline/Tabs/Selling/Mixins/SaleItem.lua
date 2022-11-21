@@ -1,6 +1,6 @@
 local SALE_ITEM_EVENTS = {
-  Auctionator.AH.Events.CommodityResultsReady,
-  Auctionator.AH.Events.ItemResultsReady,
+  Auctionator.AH.Events.CommoditySearchResultsReady,
+  Auctionator.AH.Events.ItemSearchResultsReady,
 }
 
 -- Necessary because attempting to post an auction with copper value silently
@@ -192,7 +192,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   elseif event == Auctionator.Selling.Events.RefreshSearch then
     self:RefreshButtonClicked()
 
-  elseif event == Auctionator.AH.Events.CommodityResultsReady then
+  elseif event == Auctionator.AH.Events.CommoditySearchResultsReady then
     local itemID = ...
     if itemID ~= self.expectedItemKey.itemID then
       return
@@ -201,7 +201,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     self:ProcessCommodityResults(...)
     Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
 
-  elseif eventName == Auctionator.AH.Events.ItemResultsReady then
+  elseif eventName == Auctionator.AH.Events.ItemSearchResultsReady then
     local itemKey = ...
     if Auctionator.Utilities.ItemKeyString(itemKey) ~=
         Auctionator.Utilities.ItemKeyString(self.expectedItemKey) then

@@ -45,7 +45,7 @@ function AuctionatorAHSearchScanFrameMixin:OnEvent(eventName, ...)
     if (not has) or (has and not full and quantity == 0) then
       self:AttemptSearch()
     else
-      Auctionator.EventBus:Fire(self, Auctionator.AH.Events.CommodityResultsReady, itemID)
+      Auctionator.EventBus:Fire(self, Auctionator.AH.Events.CommoditySearchResultsReady, itemID)
       FrameUtil.UnregisterFrameForEvents(self, SEARCH_EVENTS)
     end
   elseif eventName == "ITEM_SEARCH_RESULTS_UPDATED" and self:ValidateItemInfo(...) then
@@ -60,7 +60,7 @@ function AuctionatorAHSearchScanFrameMixin:OnEvent(eventName, ...)
       self:AttemptSearch()
     else
       FrameUtil.UnregisterFrameForEvents(self, SEARCH_EVENTS)
-      Auctionator.EventBus:Fire(self, Auctionator.AH.Events.ItemResultsReady, itemKey)
+      Auctionator.EventBus:Fire(self, Auctionator.AH.Events.ItemSearchResultsReady, itemKey)
     end
   end
 end

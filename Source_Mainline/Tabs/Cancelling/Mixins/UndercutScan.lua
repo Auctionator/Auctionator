@@ -6,8 +6,8 @@ local UNDERCUT_START_STOP_EVENTS = {
 }
 
 local AH_SCAN_EVENTS = {
-  Auctionator.AH.Events.CommodityResultsReady,
-  Auctionator.AH.Events.ItemResultsReady,
+  Auctionator.AH.Events.CommoditySearchResultsReady,
+  Auctionator.AH.Events.ItemSearchResultsReady,
 }
 
 local CANCELLING_EVENTS = {
