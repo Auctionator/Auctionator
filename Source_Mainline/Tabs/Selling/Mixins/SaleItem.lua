@@ -201,7 +201,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     self:ProcessCommodityResults(...)
     Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
 
-  elseif eventName == Auctionator.AH.Events.ItemSearchResultsReady then
+  elseif event == Auctionator.AH.Events.ItemSearchResultsReady then
     local itemKey = ...
     if Auctionator.Utilities.ItemKeyString(itemKey) ~=
         Auctionator.Utilities.ItemKeyString(self.expectedItemKey) then
