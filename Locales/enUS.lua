@@ -546,6 +546,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["TOTAL_PENDING"] = "(%s pending)"
   L["CURRENT_PRICES"] = "Current Prices"
   L["PRICE_HISTORY"] = "Price History"
+  L["REALM_HISTORY"] = "Realm History"
   L["YOUR_HISTORY"] = "Your History"
   L["EXPORT_RESULTS"] = "Export Results"
   L["TO_CRAFT_COLON"] = "To Craft:"

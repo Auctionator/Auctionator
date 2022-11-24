@@ -27,11 +27,6 @@ AuctionatorPostingHistoryProviderMixin = CreateFromMixins(AuctionatorDataProvide
 
 function AuctionatorPostingHistoryProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
-
-  Auctionator.EventBus:Register( self, {
-    Auctionator.Selling.Events.BagItemClicked,
-    Auctionator.Selling.Events.RefreshHistory,
-  })
 end
 
 function AuctionatorPostingHistoryProviderMixin:OnShow()
@@ -55,18 +50,6 @@ end
 function AuctionatorPostingHistoryProviderMixin:GetTableLayout()
   return POSTING_HISTORY_PROVIDER_LAYOUT
 end
-function AuctionatorPostingHistoryProviderMixin:GetColumnHideStates()
-  return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_POSTING_HISTORY)
-end
-
-function AuctionatorPostingHistoryProviderMixin:ReceiveEvent(eventName, eventData)
-  if eventName == Auctionator.Selling.Events.BagItemClicked then
-    self:SetItem(Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = eventData.itemKey })[1])
-
-  elseif eventName == Auctionator.Selling.Events.RefreshHistory and self.currentDBKey ~= nil then
-    self:SetItem(self.currentDBKey)
-  end
-end
 
 function AuctionatorPostingHistoryProviderMixin:UniqueKey(entry)
   return tostring(tostring(entry.price) .. tostring(entry.rawDay))
@@ -86,8 +69,4 @@ function AuctionatorPostingHistoryProviderMixin:Sort(fieldName, sortDirection)
   end)
 
   self:SetDirty()
-end
-
-function AuctionatorPostingHistoryProviderMixin:GetRowTemplate()
-  return "AuctionatorPostingHistoryRowTemplate"
 end

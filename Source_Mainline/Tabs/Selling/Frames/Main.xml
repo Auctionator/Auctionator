@@ -95,7 +95,7 @@
         </Scripts>
       </Frame>
 
-      <Frame parentKey="PostingHistoryProvider" mixin="AuctionatorPostingHistoryProviderMixin">
+      <Frame parentKey="PostingHistoryProvider" mixin="AuctionatorSellingPostingHistoryProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow"/>

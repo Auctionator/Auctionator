@@ -3,5 +3,5 @@
   <Include file="SellSearchRow.xml"/>
   <Include file="CancellingListResultsRow.xml"/>
   <Include file="HistoricalPriceRow.xml"/>
-  <Include file="PostingHistoryRow.xml"/>
+  <Include file="SellingPostingHistoryRow.xml"/>
 </Ui>

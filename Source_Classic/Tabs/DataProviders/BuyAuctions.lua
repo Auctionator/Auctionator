@@ -128,9 +128,9 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventDa
     for _, entry in ipairs(self.results) do
       entry.isSelected = entry == eventData
     end
-    self.onUpdate()
+    self:SetDirty()
   elseif eventName == Auctionator.Buying.Events.StacksUpdated and self:IsShown() then
-    self.onUpdate()
+    self:SetDirty()
   end
 end
 
@@ -287,6 +287,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ow
     self:PopulateAuctions()
 
     self:SetSelectedIndex(prevSelectedIndex or 1)
+    self:SetDirty()
   end
 end
 
