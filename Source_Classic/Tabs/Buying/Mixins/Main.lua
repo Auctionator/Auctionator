@@ -1,8 +1,3 @@
-local BUY_EVENTS = {
-  "PLAYER_MONEY",
-  "AUCTION_OWNED_LIST_UPDATE"
-}
-
 AuctionatorBuyFrameMixin = {}
 
 function AuctionatorBuyFrameMixin:Init()
@@ -88,6 +83,9 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
 end
 
 AuctionatorBuyFrameMixinForSelling = CreateFromMixins(AuctionatorBuyFrameMixin)
+local AUCTION_EVENTS = {
+  "AUCTION_OWNED_LIST_UPDATE",
+}
 
 function AuctionatorBuyFrameMixinForSelling:Init()
   AuctionatorBuyFrameMixin.Init(self)
@@ -106,7 +104,12 @@ function AuctionatorBuyFrameMixinForSelling:Reset()
 end
 
 function AuctionatorBuyFrameMixinForSelling:OnShow()
+  FrameUtil.RegisterFrameForEvents(self, AUCTION_EVENTS)
   self:Reset()
+end
+
+function AuctionatorBuyFrameMixinForSelling:OnHide()
+  FrameUtil.UnregisterFrameForEvents(self, AUCTION_EVENTS)
 end
 
 function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, ...)

@@ -86,6 +86,8 @@
   <Frame name="AuctionatorBuyFrameTemplateForSelling" inherits="AuctionatorBuyFrameTemplate" mixin="AuctionatorBuyFrameMixinForSelling" virtual="true">
     <Scripts>
       <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+      <OnEvent method="OnEvent"/>
     </Scripts>
   </Frame>
 </Ui>
