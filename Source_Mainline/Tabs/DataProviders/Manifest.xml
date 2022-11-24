@@ -3,7 +3,7 @@
   <Script file="Shopping.lua" />
   <Script file="Cancelling.lua" />
   <Script file="SearchProvider.lua" />
-  <Script file="PostingHistory.lua" />
+  <Script file="SellingPostingHistory.lua" />
   <Script file="SellingHistoricalPrice.lua" />
   <Script file="ShoppingHistoricalPrice.lua" />
 </Ui>

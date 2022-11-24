@@ -1,0 +1,78 @@
+<Ui>
+  <Frame name="AuctionatorBuyCurrentPricesFrameTemplate" mixin="AuctionatorBuyCurrentPricesFrameMixin" virtual="true">
+    <Scripts>
+      <OnEvent method="OnEvent"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Frames>
+      <Frame parentKey="SearchDataProvider" mixin="AuctionatorBuyAuctionsDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnUpdate method="OnUpdate" />
+        </Scripts>
+      </Frame>
+
+      <Frame parentKey="SearchResultsListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT"/>
+          <Anchor point="BOTTOMRIGHT" x="-20"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Inset" inherits="AuctionatorInsetTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchResultsListing" relativePoint="TOPLEFT" x="-10" y="-25"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.SearchResultsListing" relativePoint="BOTTOMRIGHT" y="2"/>
+        </Anchors>
+      </Frame>
+
+      <Button parentKey="LoadAllPagesButton" inherits="AuctionatorLoadAllButton" text="AUCTIONATOR_L_LOAD_HIGHER_PRICES">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.Inset"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():LoadAllPages()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="CANCEL_AUCTION" parentKey="CancelButton">
+        <Anchors>
+          <Anchor point="TOP" relativeKey="$parent.SearchResultsListing" relativePoint="BOTTOM"/>
+          <Anchor point="RIGHT" relativePoint="RIGHT" x="-8" y="10" />
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():CancelFocussed()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_BUY" parentKey="BuyButton">
+        <Anchors>
+          <Anchor point="LEFT" relativePoint="LEFT" relativeKey="$parent.CancelButton" x="-100"/>
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeKey="$parent.CancelButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():BuyClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_REFRESH" parentKey="RefreshButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeKey="$parent.BuyButton"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():DoRefresh()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Frame parentKey="BuyDialog" inherits="AuctionatorBuyDialogTemplate" />
+    </Frames>
+  </Frame>
+</Ui>

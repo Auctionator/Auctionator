@@ -4,6 +4,7 @@
   <Script file="BuyAuctions.lua"/>
   <Script file="Shopping.lua"/>
   <Script file="ShoppingHistoricalPrice.lua"/>
-  <Script file="BuyingHistoricalPrice.lua"/>
+  <Script file="BuyingRealmHistory.lua"/>
+  <Script file="BuyingPostingHistory.lua"/>
   <Script file="Cancelling.lua"/>
 </Ui>
