@@ -67,6 +67,7 @@ function AuctionatorBuyCurrentPricesFrameMixin:OnEvent(eventName, ...)
     self.lastCancelData.numStacks = CountOwnedAuctions(self.lastCancelData)
     Auctionator.Utilities.SetStacksText(self.lastCancelData)
     self.lastCancelData = nil
+    self.SearchDataProvider:SetDirty()
   end
 end
 

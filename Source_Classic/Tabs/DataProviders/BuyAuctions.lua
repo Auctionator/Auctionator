@@ -287,6 +287,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ow
     self:PopulateAuctions()
 
     self:SetSelectedIndex(prevSelectedIndex or 1)
+    self:SetDirty()
   end
 end
 
