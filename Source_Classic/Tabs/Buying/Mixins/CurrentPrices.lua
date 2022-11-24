@@ -33,9 +33,11 @@ end
 function AuctionatorBuyCurrentPricesFrameMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, BUY_EVENTS)
   self.LoadAllPagesButton:Hide()
+  self:UpdateButtons()
 end
 
 function AuctionatorBuyCurrentPricesFrameMixin:OnHide()
+  FrameUtil.UnregisterFrameForEvents(self, BUY_EVENTS)
   self.SearchDataProvider:EndAnyQuery()
 end
 
@@ -157,13 +159,4 @@ function AuctionatorBuyCurrentPricesFrameMixin:LoadAllPages()
   self.SearchDataProvider:SetRequestAllResults(true)
   self.LoadAllPagesButton:Hide()
   self.SearchDataProvider:RefreshQuery()
-end
-
-function AuctionatorBuyCurrentPricesFrameMixin:StartFakeLoading()
-end
-
-function AuctionatorBuyCurrentPricesFrameMixin:EndFakeLoading()
-  self.SearchDataProvider.onSearchEnded()
-  self:Reset()
-  self.RefreshButton:Disable()
 end
