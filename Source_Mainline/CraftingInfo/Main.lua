@@ -71,13 +71,7 @@ local function GetCostByItemID(itemID, multiplier)
   local vendorPrice = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID)
   local auctionPrice = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID)
 
-  local unitPrice
-
-  if vendorPrice ~= nil and auctionPrice ~= nil then
-    unitPrice = math.min(vendorPrice, auctionPrice)
-  else
-    unitPrice = vendorPrice or auctionPrice
-  end
+  local unitPrice = vendorPrice or auctionPrice
 
   if unitPrice ~= nil then
     return multiplier * unitPrice
