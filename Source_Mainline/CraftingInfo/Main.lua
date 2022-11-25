@@ -97,7 +97,6 @@ local function GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
   return total
 end
 
--- Note: Optional reagents are not accounted for
 function Auctionator.CraftingInfo.GetSkillReagentsTotal()
   local recipeInfo = ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo()
   local recipeID = recipeInfo.recipeID
