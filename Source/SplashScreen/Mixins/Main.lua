@@ -1,6 +1,42 @@
 -- We should probably move this into another file too
 local MESSAGES = {
   {
+    Version = "10.0.15",
+    Description = AUCTIONATOR_L_SPLASH_100015_DESCRIPTION,
+    Sections = {
+      {
+        Title = AUCTIONATOR_L_SPLASH_100015_ALL_VERSIONS_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_100015_ALL_VERSIONS_1,
+          AUCTIONATOR_L_SPLASH_100015_ALL_VERSIONS_2,
+          AUCTIONATOR_L_SPLASH_100015_ALL_VERSIONS_3,
+          AUCTIONATOR_L_SPLASH_100015_ALL_VERSIONS_4,
+          AUCTIONATOR_L_SPLASH_100015_ALL_VERSIONS_5,
+          AUCTIONATOR_L_SPLASH_100015_ALL_VERSIONS_6,
+        },
+      },
+      {
+        Title = AUCTIONATOR_L_SPLASH_100015_RETAIL_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_100015_RETAIL_1,
+          AUCTIONATOR_L_SPLASH_100015_RETAIL_2,
+        },
+      },
+      {
+        Title = AUCTIONATOR_L_SPLASH_100015_CLASSIC_HEADER,
+        Entries = {
+          AUCTIONATOR_L_SPLASH_100015_CLASSIC_1,
+          AUCTIONATOR_L_SPLASH_100015_CLASSIC_2,
+          AUCTIONATOR_L_SPLASH_100015_CLASSIC_3,
+          AUCTIONATOR_L_SPLASH_100015_CLASSIC_4,
+          AUCTIONATOR_L_SPLASH_100015_CLASSIC_5,
+          AUCTIONATOR_L_SPLASH_100015_CLASSIC_6,
+          AUCTIONATOR_L_SPLASH_100015_CLASSIC_7,
+        },
+      },
+    },
+  },
+  {
     Version = "9.2.25",
     Description = AUCTIONATOR_L_SPLASH_9225_DESCRIPTION,
     Sections = {
