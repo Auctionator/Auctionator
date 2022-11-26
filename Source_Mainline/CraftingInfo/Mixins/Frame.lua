@@ -16,10 +16,10 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
 
   -- Uses Init rather than an event as the event handler can fire before the
   -- ProfessionsPane pane has finished initialising a recipe
-  hooksecurefunc(ProfessionsFrame.CraftingPage.SchematicForm, "Init", Update)
+  hooksecurefunc(self:GetParent(), "Init", Update)
 
-  ProfessionsFrame.CraftingPage.SchematicForm:RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.AllocationsModified, Update)
-  ProfessionsFrame.CraftingPage.SchematicForm:RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.UseBestQualityModified, Update)
+  self:GetParent():RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.AllocationsModified, Update)
+  self:GetParent():RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.UseBestQualityModified, Update)
 
   Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
     if self:IsVisible() then
@@ -29,16 +29,16 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
 end
 
 function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
-  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo() ~= nil)
+  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and self:GetParent():GetRecipeInfo() ~= nil)
 
   if self:IsVisible() then
     self:ClearAllPoints()
 
-    local reagents = ProfessionsFrame.CraftingPage.SchematicForm.Reagents
+    local reagents = self:GetParent().Reagents
     local framesToBeBelow = {
-      ProfessionsFrame.CraftingPage.SchematicForm.OptionalReagents,
+      self:GetParent().OptionalReagents,
     }
-    for _, f in ipairs(ProfessionsFrame.CraftingPage.SchematicForm.extraSlotFrames) do
+    for _, f in ipairs(self:GetParent().extraSlotFrames) do
       table.insert(framesToBeBelow, f)
     end
     local min = reagents
@@ -70,14 +70,14 @@ function AuctionatorCraftingInfoFrameMixin:IsAnyReagents()
 end
 
 function AuctionatorCraftingInfoFrameMixin:UpdateTotal()
-  local text, lines = Auctionator.CraftingInfo.GetInfoText()
+  local text, lines = Auctionator.CraftingInfo.GetInfoText(self:GetParent())
   self.Total:SetText(text)
   self:SetHeight(16 * lines)
 end
 
 function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
   if AuctionHouseFrame and AuctionHouseFrame:IsShown() then
-    Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
+    Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(self:GetParent())
   else
     print("I would queue a search")
   end

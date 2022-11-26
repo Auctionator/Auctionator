@@ -9,17 +9,18 @@ function Auctionator.CraftingInfo.Initialize()
     addedFunctionality = true
 
     local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", ProfessionsFrame.CraftingPage.SchematicForm, "AuctionatorCraftingInfoFrameTemplate");
+    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", ProfessionsFrame.OrdersPage.OrderView.OrderDetails.SchematicForm, "AuctionatorCraftingInfoFrameTemplate");
   end
 end
 
-function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
-  local recipeInfo = ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo()
+function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(form)
+  local recipeInfo = form:GetRecipeInfo()
   local recipeID = recipeInfo.recipeID
-  local recipeLevel = ProfessionsFrame.CraftingPage.SchematicForm:GetCurrentRecipeLevel()
+  local recipeLevel = form:GetCurrentRecipeLevel()
 
   local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
 
-  local transaction = ProfessionsFrame.CraftingPage.SchematicForm:GetTransaction()
+  local transaction = form:GetTransaction()
 
   local searchTerms = {}
 
@@ -97,11 +98,11 @@ local function GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
   return total
 end
 
-function Auctionator.CraftingInfo.GetSkillReagentsTotal()
-  local recipeInfo = ProfessionsFrame.CraftingPage.SchematicForm:GetRecipeInfo()
+function Auctionator.CraftingInfo.GetSkillReagentsTotal(schematicForm)
+  local recipeInfo = schematicForm:GetRecipeInfo()
   local recipeID = recipeInfo.recipeID
-  local recipeLevel = ProfessionsFrame.CraftingPage.SchematicForm:GetCurrentRecipeLevel()
-  local transaction = ProfessionsFrame.CraftingPage.SchematicForm:GetTransaction()
+  local recipeLevel = schematicForm:GetCurrentRecipeLevel()
+  local transaction = schematicForm:GetTransaction()
 
   local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
 
@@ -125,8 +126,7 @@ function Auctionator.CraftingInfo.GetSkillReagentsTotal()
   return total
 end
 
-function Auctionator.CraftingInfo.GetAHProfit()
-  local schematicForm = ProfessionsFrame.CraftingPage.SchematicForm
+function Auctionator.CraftingInfo.GetAHProfit(schematicForm)
   local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(
     schematicForm.recipeSchematic.recipeID,
     schematicForm:GetTransaction():CreateCraftingReagentInfoTbl(),
@@ -143,7 +143,7 @@ function Auctionator.CraftingInfo.GetAHProfit()
   if currentAH == nil then
     currentAH = 0
   end
-  local toCraft = Auctionator.CraftingInfo.GetSkillReagentsTotal()
+  local toCraft = Auctionator.CraftingInfo.GetSkillReagentsTotal(schematicForm)
 
   return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
 end
