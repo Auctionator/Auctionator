@@ -15,7 +15,7 @@ end
 local function CraftCostString(cost)
   local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(cost, true))
 
-  return AUCTIONATOR_L_REAGENT_VALUE_COLON .. " " .. price
+  return AUCTIONATOR_L_REAGENTS_VALUE_COLON .. " " .. price
 end
 
 function Auctionator.CraftingInfo.GetCustomerOrdersInfoText(customerOrdersForm)
