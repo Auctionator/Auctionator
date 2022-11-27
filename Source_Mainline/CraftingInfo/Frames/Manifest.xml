@@ -1,3 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="Frame.xml" />
+  <Include file="Professions.xml" />
+  <Include file="CustomerOrders.xml" />
 </Ui>

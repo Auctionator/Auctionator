@@ -1,5 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Main.lua" />
+  <Script file="Professions.lua" />
+  <Script file="CustomerOrders.lua" />
 
   <Include file="Mixins\Manifest.xml" />
   <Include file="Frames\Manifest.xml" />

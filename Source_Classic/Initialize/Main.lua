@@ -1,6 +1,8 @@
 local AUCTIONATOR_EVENTS = {
   -- AH Window Initialization Events
   "AUCTION_HOUSE_SHOW",
+  -- Trade Window Initialization Events
+  "TRADE_SKILL_SHOW",
   -- Cache vendor prices event
   "MERCHANT_SHOW",
 }
@@ -14,6 +16,8 @@ end
 function AuctionatorInitializeClassicMixin:OnEvent(event, ...)
   if event == "AUCTION_HOUSE_SHOW" then
     self:AuctionHouseShown()
+  elseif event == "TRADE_SKILL_SHOW" then
+    Auctionator.CraftingInfo.Initialize()
   elseif event == "MERCHANT_SHOW" then
     Auctionator.CraftingInfo.CacheVendorPrices()
   end

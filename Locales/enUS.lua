@@ -571,6 +571,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["EXPORT_RESULTS"] = "Export Results"
   L["TO_CRAFT_COLON"] = "To Craft:"
   L["PROFIT_COLON"] = "Profit:"
+  L["REAGENT_VALUE_COLON"] = "Reagent Value:"
 
   L["SCANNING_PAGE_X"] = "Scanning page %s..."
   L["WAITING_AT_MOST_X_LONGER"] = "Waiting at most %ss longer..."
