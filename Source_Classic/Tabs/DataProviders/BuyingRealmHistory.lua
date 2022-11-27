@@ -11,5 +11,5 @@ function AuctionatorBuyingRealmHistoryDataProviderMixin:GetColumnHideStates()
 end
 
 function AuctionatorBuyingRealmHistoryDataProviderMixin:GetRowTemplate()
-  return "AuctionatorBuyingPostingHistoryRowTemplate"
+  return "AuctionatorBuyingHistoricalPriceRowTemplate"
 end
