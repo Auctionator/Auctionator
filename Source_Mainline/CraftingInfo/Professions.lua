@@ -8,8 +8,9 @@ function Auctionator.CraftingInfo.InitializeProfessionsFrame()
   if ProfessionsFrame then
     addedFunctionality = true
 
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", ProfessionsFrame.CraftingPage.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", ProfessionsFrame.OrdersPage.OrderView.OrderDetails.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
+    local craftingPageButton = CreateFrame("BUTTON", "AuctionatorCraftingInfoProfessionsFrame", ProfessionsFrame.CraftingPage.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
+    local ordersPageButton = CreateFrame("BUTTON", "AuctionatorCraftingInfoProfessionsOrderFrame", ProfessionsFrame.OrdersPage.OrderView.OrderDetails.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
+    ordersPageButton:SetDoNotShowProfit()
   end
 end
 
@@ -118,7 +119,7 @@ local function ProfitString(profit)
 
 end
 
-function Auctionator.CraftingInfo.GetInfoText(schematicForm)
+function Auctionator.CraftingInfo.GetInfoText(schematicForm, showProfit)
   local result = ""
   local lines = 0
   if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST) then
@@ -129,7 +130,7 @@ function Auctionator.CraftingInfo.GetInfoText(schematicForm)
     lines = lines + 1
   end
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT) then
+  if showProfit and Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT) then
     local profit = GetAHProfit(schematicForm)
 
     if profit ~= nil then

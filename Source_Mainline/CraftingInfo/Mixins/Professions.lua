@@ -28,6 +28,10 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:OnLoad()
   end)
 end
 
+function AuctionatorCraftingInfoProfessionsFrameMixin:SetDoNotShowProfit()
+  self.doNotShowProfit = true
+end
+
 function AuctionatorCraftingInfoProfessionsFrameMixin:ShowIfRelevant()
   self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and self:GetParent():GetRecipeInfo() ~= nil)
 
@@ -70,7 +74,7 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:IsAnyReagents()
 end
 
 function AuctionatorCraftingInfoProfessionsFrameMixin:UpdateTotal()
-  local text, lines = Auctionator.CraftingInfo.GetInfoText(self:GetParent())
+  local text, lines = Auctionator.CraftingInfo.GetInfoText(self:GetParent(), not self.doNotShowProfit)
   self.Total:SetText(text)
   self:SetHeight(16 * lines)
 end
