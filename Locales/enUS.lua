@@ -359,6 +359,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SPLASH_100015_RETAIL_HEADER"] = "Recent features for Retail"
   L["SPLASH_100015_RETAIL_1"] = "Crafting cost and profit updates based on the reagents and quality selected."
   L["SPLASH_100015_RETAIL_2"] = "Selling tab has an expanded prices view with historical prices available in a separate tab. Reverting to the split screen view is available as an option."
+  L["SPLASH_100015_RETAIL_3"] = "Reagents value on the auction house is shown when listing a crafting order."
   L["SPLASH_100015_CLASSIC_HEADER"] = "Recent features for Classic"
   L["SPLASH_100015_CLASSIC_1"] = "Warning when posting with a massive undercut (50% or more) to reduce mistakes."
   L["SPLASH_100015_CLASSIC_2"] = "New optional \"Top?\" column in the Shopping tab to see if your auction is top for an item."

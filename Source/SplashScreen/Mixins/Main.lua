@@ -20,6 +20,7 @@ local MESSAGES = {
         Entries = {
           AUCTIONATOR_L_SPLASH_100015_RETAIL_1,
           AUCTIONATOR_L_SPLASH_100015_RETAIL_2,
+          AUCTIONATOR_L_SPLASH_100015_RETAIL_3,
         },
       },
       {
