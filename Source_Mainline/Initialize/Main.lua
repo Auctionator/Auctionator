@@ -1,5 +1,6 @@
 local AUCTIONATOR_EVENTS = {
   "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
+  "TRADE_SKILL_SHOW",
 }
 
 AuctionatorInitializeMainlineMixin = {}
@@ -17,7 +18,11 @@ function AuctionatorInitializeMainlineMixin:OnEvent(event, ...)
      -- AH Window Initialization Events
     elseif showType == Enum.PlayerInteractionType.Auctioneer then
       self:AuctionHouseShown()
+    elseif showType == Enum.PlayerInteractionType.ProfessionsCustomerOrder then
+      Auctionator.CraftingInfo.InitializeCustomerOrdersFrame()
     end
+  elseif event == "TRADE_SKILL_SHOW" then
+    Auctionator.CraftingInfo.InitializeProfessionsFrame()
   end
 end
 

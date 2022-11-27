@@ -1,6 +1,6 @@
-AuctionatorCraftingInfoFrameMixin = {}
+AuctionatorCraftingInfoProfessionsFrameMixin = {}
 
-function AuctionatorCraftingInfoFrameMixin:OnLoad()
+function AuctionatorCraftingInfoProfessionsFrameMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, {
     "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
     "PLAYER_INTERACTION_MANAGER_FRAME_HIDE",
@@ -28,7 +28,11 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
   end)
 end
 
-function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
+function AuctionatorCraftingInfoProfessionsFrameMixin:SetDoNotShowProfit()
+  self.doNotShowProfit = true
+end
+
+function AuctionatorCraftingInfoProfessionsFrameMixin:ShowIfRelevant()
   self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and self:GetParent():GetRecipeInfo() ~= nil)
 
   if self:IsVisible() then
@@ -56,26 +60,26 @@ function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
   end
 end
 
-function AuctionatorCraftingInfoFrameMixin:UpdateSearchButton()
+function AuctionatorCraftingInfoProfessionsFrameMixin:UpdateSearchButton()
   self.SearchButton:SetShown(AuctionHouseFrame and AuctionHouseFrame:IsShown())
 end
 
 -- Checks for case when there are no regeants, for example a DK Runeforging
 -- crafting view.
-function AuctionatorCraftingInfoFrameMixin:IsAnyReagents()
+function AuctionatorCraftingInfoProfessionsFrameMixin:IsAnyReagents()
   local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
   local recipeLevel = TradeSkillFrame.DetailsFrame:GetSelectedRecipeLevel()
 
   return C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) > 0
 end
 
-function AuctionatorCraftingInfoFrameMixin:UpdateTotal()
-  local text, lines = Auctionator.CraftingInfo.GetInfoText(self:GetParent())
+function AuctionatorCraftingInfoProfessionsFrameMixin:UpdateTotal()
+  local text, lines = Auctionator.CraftingInfo.GetInfoText(self:GetParent(), not self.doNotShowProfit)
   self.Total:SetText(text)
   self:SetHeight(16 * lines)
 end
 
-function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
+function AuctionatorCraftingInfoProfessionsFrameMixin:SearchButtonClicked()
   if AuctionHouseFrame and AuctionHouseFrame:IsShown() then
     Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(self:GetParent())
   else
@@ -83,7 +87,7 @@ function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
   end
 end
 
-function AuctionatorCraftingInfoFrameMixin:OnEvent(...)
+function AuctionatorCraftingInfoProfessionsFrameMixin:OnEvent(...)
   local eventName, paneType = ...
   if paneType == Enum.PlayerInteractionType.Auctioneer then
     self:UpdateSearchButton()

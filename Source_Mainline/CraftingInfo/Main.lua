@@ -1,73 +1,3 @@
--- Add a info to the tradeskill frame for reagent prices
-local addedFunctionality = false
-function Auctionator.CraftingInfo.Initialize()
-  if addedFunctionality then
-    return
-  end
-
-  if ProfessionsFrame then
-    addedFunctionality = true
-
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", ProfessionsFrame.CraftingPage.SchematicForm, "AuctionatorCraftingInfoFrameTemplate");
-    local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", ProfessionsFrame.OrdersPage.OrderView.OrderDetails.SchematicForm, "AuctionatorCraftingInfoFrameTemplate");
-  end
-end
-
-function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(form)
-  local recipeInfo = form:GetRecipeInfo()
-  local recipeID = recipeInfo.recipeID
-  local recipeLevel = form:GetCurrentRecipeLevel()
-
-  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
-
-  local transaction = form:GetTransaction()
-
-  local searchTerms = {}
-
-  local possibleItems = {}
-
-  local continuableContainer = ContinuableContainer:Create()
-
-  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, transaction:CreateOptionalCraftingReagentInfoTbl(), transaction:GetAllocationItemGUID())
-
-  if outputInfo.hyperlink then
-    table.insert(possibleItems, outputInfo.hyperlink)
-    continuableContainer:AddContinuable(Item:CreateFromItemLink(outputInfo.hyperlink))
-  else
-    table.insert(searchTerms, recipeInfo.name)
-  end
-
-  for slotIndex, reagentSlotSchematic in ipairs(recipeSchematic.reagentSlotSchematics) do
-    if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and #reagentSlotSchematic.reagents > 0 then
-      local itemID = reagentSlotSchematic.reagents[1].itemID
-      if itemID ~= nil then
-        continuableContainer:AddContinuable(Item:CreateFromItemID(itemID))
-
-        table.insert(possibleItems, itemID)
-      end
-    end
-  end
-
-  local function OnItemInfoReady()
-    for _, itemInfo in ipairs(possibleItems) do
-      local name = GetItemInfo(itemInfo)
-      table.insert(searchTerms, name)
-    end
-
-    if transaction:IsRecipeType(Enum.TradeskillRecipeType.Enchant) then
-      -- Enchanting names are pretty unique, and we want to be able to find the
-      -- enchantment (which has a name that isn't exactly recipeInfo.name)
-      -- Hence we do a non-exact search.
-      Auctionator.API.v1.MultiSearch(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
-    else
-      -- Exact search to avoid spurious results, say with "Shrouded Cloth"
-      Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
-    end
-  end
-
-  continuableContainer:ContinueOnLoad(OnItemInfoReady)
-end
-
 local function GetCostByItemID(itemID, multiplier)
   local vendorPrice = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID)
   local auctionPrice = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID)
@@ -98,52 +28,23 @@ local function GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
   return total
 end
 
-function Auctionator.CraftingInfo.GetSkillReagentsTotal(schematicForm)
-  local recipeInfo = schematicForm:GetRecipeInfo()
-  local recipeID = recipeInfo.recipeID
-  local recipeLevel = schematicForm:GetCurrentRecipeLevel()
-  local transaction = schematicForm:GetTransaction()
-
-  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
-
+function Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
   local total = 0
 
   for slotIndex, reagentSlotSchematic in ipairs(recipeSchematic.reagentSlotSchematics) do
     if #reagentSlotSchematic.reagents > 0 then
       local slotAllocations = transaction:GetAllocations(slotIndex)
       local selected = slotAllocations:Accumulate()
-      if reagentSlotSchematic.reagentType ~= Enum.CraftingReagentType.Basic or selected == reagentSlotSchematic.quantityRequired then
-        total = total + GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
-      else -- Not all allocated, so use first available reagent quality for the price
+      total = total + GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
+      -- Not all allocated, so use first available reagent quality for the price
+      if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and selected ~= reagentSlotSchematic.quantityRequired then
         local itemID = reagentSlotSchematic.reagents[1].itemID
         if itemID ~= nil then
-          total = total + GetCostByItemID(itemID, reagentSlotSchematic.quantityRequired)
+          total = total + GetCostByItemID(itemID, reagentSlotSchematic.quantityRequired - selected)
         end
       end
     end
   end
 
   return total
-end
-
-function Auctionator.CraftingInfo.GetAHProfit(schematicForm)
-  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(
-    schematicForm.recipeSchematic.recipeID,
-    schematicForm:GetTransaction():CreateCraftingReagentInfoTbl(),
-    schematicForm:GetTransaction():GetAllocationItemGUID()
-  )
-  local count = schematicForm.recipeSchematic.quantityMin
-  local recipeLink = outputInfo.hyperlink
-
-  if recipeLink == nil or recipeLink:match("enchant:") then
-    return nil
-  end
-
-  local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
-  if currentAH == nil then
-    currentAH = 0
-  end
-  local toCraft = Auctionator.CraftingInfo.GetSkillReagentsTotal(schematicForm)
-
-  return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
 end

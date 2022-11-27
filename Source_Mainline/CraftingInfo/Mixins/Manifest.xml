@@ -1,4 +1,5 @@
 <!-- Tabs/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="Frame.lua" />
+  <Script file="Professions.lua" />
+  <Script file="CustomerOrders.lua" />
 </Ui>

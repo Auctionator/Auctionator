@@ -1,0 +1,18 @@
+<Ui>
+  <Frame name="AuctionatorCraftingInfoCustomerOrdersFrameTemplate" mixin="AuctionatorCraftingInfoCustomerOrdersFrameMixin" virtual="true" frameLevel="520">
+    <Size x="400" y="22"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+    </Scripts>
+    <Layers>
+      <Layer level="OVERLAY">
+        <FontString inherits="GameFontNormal" parentKey="Total" justifyH="LEFT" spacing="1.5">
+          <Anchors>
+            <Anchor point="TOPLEFT" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>
