@@ -33,7 +33,7 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:SetDoNotShowProfit()
 end
 
 function AuctionatorCraftingInfoProfessionsFrameMixin:ShowIfRelevant()
-  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and self:GetParent():GetRecipeInfo() ~= nil)
+  self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and self:GetParent():GetRecipeInfo() ~= nil and self:IsAnyReagents())
 
   if self:IsVisible() then
     self:ClearAllPoints()
@@ -67,10 +67,12 @@ end
 -- Checks for case when there are no regeants, for example a DK Runeforging
 -- crafting view.
 function AuctionatorCraftingInfoProfessionsFrameMixin:IsAnyReagents()
-  local recipeIndex = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
-  local recipeLevel = TradeSkillFrame.DetailsFrame:GetSelectedRecipeLevel()
-
-  return C_TradeSkillUI.GetRecipeNumReagents(recipeIndex, recipeLevel) > 0
+  local schematicForm = self:GetParent()
+  local recipeInfo = schematicForm:GetRecipeInfo()
+  local recipeID = recipeInfo.recipeID
+  local recipeLevel = schematicForm:GetCurrentRecipeLevel()
+  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
+  return #recipeSchematic.reagentSlotSchematics > 0
 end
 
 function AuctionatorCraftingInfoProfessionsFrameMixin:UpdateTotal()
