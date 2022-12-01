@@ -31,6 +31,11 @@ function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
 
   if IsGear(itemLink) then
     local item = Item:CreateFromItemLink(itemLink)
+    if item:IsItemEmpty() then
+      callback({})
+      return
+    end
+
     item:ContinueOnItemLoad(function()
       local itemLevel = GetDetailedItemLevelInfo(itemLink) or 0
 
