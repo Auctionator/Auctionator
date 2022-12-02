@@ -156,7 +156,9 @@ end
 
 function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
   if Auctionator.Config.Get(Auctionator.Config.Options.VENDOR_TOOLTIPS) and vendorPrice > 0 then
-    GameTooltip_ClearMoney(tooltipFrame) -- Remove default price
+    if Auctionator.Constants.IsClassic then
+      GameTooltip_ClearMoney(tooltipFrame) -- Remove default price
+    end
 
     tooltipFrame:AddDoubleLine(
       L("VENDOR") .. countString,
