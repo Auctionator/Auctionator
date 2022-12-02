@@ -21,9 +21,6 @@
             self:GetParent():SearchButtonClicked()
           </OnClick>
         </Scripts>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="-5" y="6"/>
-        </Anchors>
       </Button>
     </Frames>
   </Frame>

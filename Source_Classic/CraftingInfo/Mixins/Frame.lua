@@ -31,10 +31,25 @@ function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
   if self:IsVisible() then
     self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
 
-    self:SetPoint(unpack(self.originalDescriptionPoint))
     self.originalFirstLine:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
   else
     self.originalFirstLine:SetPoint(unpack(self.originalDescriptionPoint))
+  end
+end
+
+-- Update the position of the search button and other anchors so that nothing
+-- gets hidden if crafting costs are hidden but the search button for the AH is
+-- left enabled.
+function AuctionatorCraftingInfoFrameMixin:AdjustPosition()
+  self:ClearAllPoints()
+  self.SearchButton:ClearAllPoints()
+  self:SetPoint(unpack(self.originalDescriptionPoint))
+  if self:GetHeight() == 0 then
+    self:SetPoint("LEFT")
+    self:SetPoint("RIGHT")
+    self.SearchButton:SetPoint("BOTTOMLEFT", 205, 6)
+  else
+    self.SearchButton:SetPoint("TOPLEFT", 205, 6)
   end
 end
 
@@ -49,6 +64,8 @@ function AuctionatorCraftingInfoFrameMixin:UpdateTotal()
   local infoText, lines = Auctionator.CraftingInfo.GetInfoText()
   self.Total:SetText(infoText)
   self:SetHeight(16 * lines)
+
+  self:AdjustPosition()
 end
 
 function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
