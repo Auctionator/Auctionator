@@ -13,31 +13,50 @@ function Auctionator.CraftingInfo.Initialize()
   end
 end
 
-function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
+local function EnchantLinkToItemID(enchantLink)
+  return Auctionator.CraftingInfo.EnchantSpellsToItems[tonumber(enchantLink:match("enchant:(%d+)"))]
+end
+
+local function GetOutputName(callback)
   local recipeIndex = GetTradeSkillSelectionIndex()
-  local recipeInfo =  { GetTradeSkillInfo(recipeIndex) }
+  local outputLink = GetTradeSkillItemLink(recipeIndex)
+  local itemID
 
-  local items = {}
-
-  local linkName = Auctionator.Utilities.GetNameFromLink(GetTradeSkillItemLink(recipeIndex) or "")
-
-  if linkName and linkName ~= "" then
-    table.insert(items, linkName)
-  else
-    table.insert(items, recipeInfo[1])
+  if outputLink then
+    itemID = GetItemInfoInstant(outputLink)
+  else -- Probably an enchant
+    itemID = EnchantLinkToItemID(GetTradeSkillRecipeLink(recipeIndex))
+    if itemID == nil then
+      callback(nil)
+      return
+    end
   end
 
-  for reagentIndex = 1, GetTradeSkillNumReagents(recipeIndex) do
-    local reagentName = GetTradeSkillReagentInfo(recipeIndex, reagentIndex)
-    table.insert(items, reagentName)
-  end
-
-  if recipeInfo[5] == ENSCRIBE then
-    Auctionator.API.v1.MultiSearch(AUCTIONATOR_L_REAGENT_SEARCH, items)
+  local item = Item:CreateFromItemID(itemID)
+  if item:IsItemEmpty() then
+    callback(nil)
   else
-    -- Exact search to avoid spurious results, say with "Runecloth"
+    item:ContinueOnItemLoad(function()
+      callback(item:GetItemName())
+    end)
+  end
+end
+
+function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
+  GetOutputName(function(outputName)
+    local items = {}
+    if outputName then
+      table.insert(items, outputName)
+    end
+    local recipeIndex = GetTradeSkillSelectionIndex()
+
+    for reagentIndex = 1, GetTradeSkillNumReagents(recipeIndex) do
+      local reagentName = GetTradeSkillReagentInfo(recipeIndex, reagentIndex)
+      table.insert(items, reagentName)
+    end
+
     Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
-  end
+  end)
 end
 
 local function GetSkillReagentsTotal()

@@ -34,6 +34,10 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
   if outputInfo.hyperlink then
     table.insert(possibleItems, outputInfo.hyperlink)
     continuableContainer:AddContinuable(Item:CreateFromItemLink(outputInfo.hyperlink))
+  elseif Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID] then
+    local itemID = Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID]
+    table.insert(possibleItems, itemID)
+    continuableContainer:AddContinuable(Item:CreateFromItemID(itemID))
   else
     table.insert(searchTerms, recipeInfo.name)
   end
@@ -55,15 +59,7 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
       table.insert(searchTerms, name)
     end
 
-    if transaction:IsRecipeType(Enum.TradeskillRecipeType.Enchant) then
-      -- Enchanting names are pretty unique, and we want to be able to find the
-      -- enchantment (which has a name that isn't exactly recipeInfo.name)
-      -- Hence we do a non-exact search.
-      Auctionator.API.v1.MultiSearch(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
-    else
-      -- Exact search to avoid spurious results, say with "Shrouded Cloth"
-      Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
-    end
+    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
   end
 
   continuableContainer:ContinueOnLoad(OnItemInfoReady)
