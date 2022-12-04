@@ -144,7 +144,7 @@
           <KeyValue key="subHeadingText" value="GLYPHS" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" x="300"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ConsumableQuantity" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
@@ -165,7 +165,7 @@
           <KeyValue key="subHeadingText" value="AUCTION_CATEGORY_TRADE_GOODS" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.GlyphQuantity" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" x="300"/>
         </Anchors>
       </Frame>
 
@@ -181,12 +181,33 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="ProfessionToolsHeading">
+        <KeyValues>
+          <KeyValue key="subHeadingText" value="AUCTION_CATEGORY_PROFESSION_EQUIPMENT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.TradeGoodsQuantity" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="ProfessionToolsQuantity" parentArray="Quantities">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_SUFFIX" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_DEFAULT_QUANTITY_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="classID" value="Enum.ItemClass.Profession" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ProfessionToolsHeading" relativePoint="BOTTOMLEFT" y="-15"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationSubHeadingFrame" parentKey="RecipesHeading">
         <KeyValues>
           <KeyValue key="subHeadingText" value="AUCTION_CATEGORY_RECIPES" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.TradeGoodsQuantity" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ProfessionToolsQuantity" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 

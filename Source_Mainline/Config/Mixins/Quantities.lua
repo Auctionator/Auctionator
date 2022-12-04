@@ -15,7 +15,8 @@ function AuctionatorConfigQuantitiesFrameMixin:OnShow()
 
   local settings = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_QUANTITIES)
   for _, quantityOption in ipairs(self.Quantities) do
-    quantityOption:SetNumber(settings[quantityOption.classID])
+    -- We use or 0 to permit adding more quantities later
+    quantityOption:SetNumber(settings[quantityOption.classID] or 0)
   end
 end
 

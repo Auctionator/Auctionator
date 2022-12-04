@@ -39,6 +39,7 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.DEFAULT_QUANTITIES] = {
   [Enum.ItemClass.Consumable]       = 0,
   [Enum.ItemClass.Glyph]            = 0,
   [Enum.ItemClass.Tradegoods]       = 0,
+  [Enum.ItemClass.Profession]       = 0,
   [Enum.ItemClass.Recipe]           = 0,
   [Enum.ItemClass.Battlepet]        = 1,
   [Enum.ItemClass.Questitem]        = 0,
