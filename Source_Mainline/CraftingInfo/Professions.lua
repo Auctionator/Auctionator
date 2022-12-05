@@ -76,41 +76,23 @@ local function GetSkillReagentsTotal(schematicForm)
 end
 
 local function GetAHProfit(schematicForm)
-  local recipeID = schematicForm.recipeSchematic.recipeID
   local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(
-    recipeID,
+    schematicForm.recipeSchematic.recipeID,
     schematicForm:GetTransaction():CreateCraftingReagentInfoTbl(),
     schematicForm:GetTransaction():GetAllocationItemGUID()
   )
   local count = schematicForm.recipeSchematic.quantityMin
   local recipeLink = outputInfo.hyperlink
 
-  local toCraft = GetSkillReagentsTotal(schematicForm)
-
-  local currentAH
-
-  local recipeLevel = schematicForm:GetCurrentRecipeLevel()
-  local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
-
-  if recipeInfo.isEnchantingRecipe then
-    local itemID = Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID]
-    if itemID == nil then
-      return nil
-    end
-
-    currentAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID)
-    local vellumCost = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, Auctionator.Constants.EnchantingVellumID)
-    toCraft = toCraft + vellumCost
-
-  elseif recipeLink ~= nil then
-    currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
-  else
+  if recipeLink == nil or recipeLink:match("enchant:") then
     return nil
   end
 
+  local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
   if currentAH == nil then
     currentAH = 0
   end
+  local toCraft = GetSkillReagentsTotal(schematicForm)
 
   return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
 end
