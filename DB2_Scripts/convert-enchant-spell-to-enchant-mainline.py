@@ -24,8 +24,15 @@ with open('itemeffect.csv') as f:
         effects_to_spell[int(row['ID'])] = int(row['SpellID'])
 
 
+# Only use the first item for a spell, sorted by id for result of an enchantment
+# as that will be the lowest quality tier in Dragonflight, and enchants do the
+# same thing regardless of the quality tier
+seen_spells = {}
+
 def print_enchant(itemID, spellID):
-    print("  [" + str(spellID) + "] = " + str(itemID) + ",")
+    if spellID not in seen_spells:
+        seen_spells[spellID] = True
+        print("  [" + str(spellID) + "] = " + str(itemID) + ",")
 
 print("Auctionator.CraftingInfo.EnchantSpellsToItems = {")
 for key in enchants_only:
