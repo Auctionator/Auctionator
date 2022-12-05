@@ -112,7 +112,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.COLUMNS_POSTING_HISTORY] = {},
 
   [Auctionator.Config.Options.CRAFTING_INFO_SHOW] = true,
-  [Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT] = false,
+  [Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT] = true,
   [Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST] = true,
 
   [Auctionator.Config.Options.SHOPPING_LIST_MISSING_TERMS] = false,
