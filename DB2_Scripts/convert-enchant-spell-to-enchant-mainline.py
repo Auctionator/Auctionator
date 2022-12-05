@@ -24,17 +24,28 @@ with open('itemeffect.csv') as f:
         effects_to_spell[int(row['ID'])] = int(row['SpellID'])
 
 
-seen_spells = {}
+enchants_to_items = {}
 
-def print_enchant(itemID, spellID):
-    if spellID not in seen_spells:
-        seen_spells[spellID] = True
-        print("  [" + str(spellID) + "] = " + str(itemID) + ",")
+for itemID in enchants_only:
+    itemeffects = enchants_only[itemID]
+    if len(itemeffects) == 1:
+        spellID = effects_to_spell[itemeffects[0]]
+        if spellID not in enchants_to_items:
+            enchants_to_items[spellID] = [itemID]
+        else:
+            enchants_to_items[spellID].append(itemID)
+
+def array_str(array):
+    result = "{"
+    for index, item in enumerate(array):
+        if index + 1 < len(array):
+            result = result + str(item) + ","
+        else:
+            result = result + str(item)
+    result = result + "}"
+    return result
 
 print("Auctionator.CraftingInfo.EnchantSpellsToItems = {")
-for key in enchants_only:
-    itemeffects = enchants_only[key]
-
-    if len(itemeffects) == 1:
-        print_enchant(key, effects_to_spell[itemeffects[0]])
+for spellID, itemIDs in enchants_to_items.items():
+    print("  [" + str(spellID) + "] = " + array_str(itemIDs) + ",")
 print("}")

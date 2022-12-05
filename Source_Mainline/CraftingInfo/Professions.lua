@@ -35,7 +35,7 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
     table.insert(possibleItems, outputInfo.hyperlink)
     continuableContainer:AddContinuable(Item:CreateFromItemLink(outputInfo.hyperlink))
   elseif Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID] then
-    local itemID = Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID]
+    local itemID = Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID][1]
     table.insert(possibleItems, itemID)
     continuableContainer:AddContinuable(Item:CreateFromItemID(itemID))
   else
@@ -75,26 +75,74 @@ local function GetSkillReagentsTotal(schematicForm)
   return Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
 end
 
-local function GetAHProfit(schematicForm)
-  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(
-    schematicForm.recipeSchematic.recipeID,
-    schematicForm:GetTransaction():CreateCraftingReagentInfoTbl(),
-    schematicForm:GetTransaction():GetAllocationItemGUID()
-  )
-  local count = schematicForm.recipeSchematic.quantityMin
-  local recipeLink = outputInfo.hyperlink
+local function CalculateProfitFromCosts(currentAH, toCraft, count)
+  return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
+end
 
-  if recipeLink == nil or recipeLink:match("enchant:") then
+local function GetEnchantProfit(schematicForm)
+  local recipeID = schematicForm.recipeSchematic.recipeID
+  local reagents = schematicForm:GetTransaction():CreateCraftingReagentInfoTbl()
+  local allocationGUID = schematicForm:GetTransaction():GetAllocationItemGUID()
+
+  local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
+
+  local recipeLevel = schematicForm:GetCurrentRecipeLevel()
+  local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
+
+  local itemID
+
+  local possibleOutputItemIDs = Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID] or {}
+
+  if #possibleOutputItemIDs > 1 then
+    -- XXX May break if a recipe with no low quality crafting results exists
+    itemID = possibleOutputItemIDs[operationInfo.guaranteedCraftingQualityID]
+  else
+    itemID = possibleOutputItemIDs[1]
+  end
+
+  if itemID ~= nil then
+    local currentAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID) or 0
+
+    local vellumCost = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, Auctionator.Constants.EnchantingVellumID) or 0
+    local toCraft = GetSkillReagentsTotal(schematicForm) + vellumCost
+
+    local count = schematicForm.recipeSchematic.quantityMin
+
+    return CalculateProfitFromCosts(currentAH, toCraft, count)
+  else
     return nil
   end
+end
 
-  local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
-  if currentAH == nil then
-    currentAH = 0
+local function GetAHProfit(schematicForm)
+  local recipeID = schematicForm.recipeSchematic.recipeID
+  local recipeLevel = schematicForm:GetCurrentRecipeLevel()
+
+  local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
+
+  if recipeInfo.isEnchantingRecipe then
+    return GetEnchantProfit(schematicForm)
+
+  else
+    local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(
+      recipeID,
+      schematicForm:GetTransaction():CreateCraftingReagentInfoTbl(),
+      schematicForm:GetTransaction():GetAllocationItemGUID()
+    )
+    local recipeLink = outputInfo.hyperlink
+
+    if recipeLink ~= nil then
+      local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink) or 0
+
+      local toCraft = GetSkillReagentsTotal(schematicForm)
+
+      local count = schematicForm.recipeSchematic.quantityMin
+
+      return CalculateProfitFromCosts(currentAH, toCraft, count)
+    else
+      return nil
+    end
   end
-  local toCraft = GetSkillReagentsTotal(schematicForm)
-
-  return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
 end
 
 local function CraftCostString(schematicForm)
