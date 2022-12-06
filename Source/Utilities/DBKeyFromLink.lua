@@ -18,7 +18,10 @@ end
 
 local function IsGear(itemLink)
   local classType = select(6, GetItemInfoInstant(itemLink))
-  return classType == Enum.ItemClass.Weapon or classType == Enum.ItemClass.Armor
+  return classType == Enum.ItemClass.Weapon
+    or classType == Enum.ItemClass.Armor
+    -- In DF profession equipment is its own class:
+    or (not Auctionator.Constants.IsClassic and classType ~= nil and classType == Enum.ItemClass.Profession)
 end
 
 function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
