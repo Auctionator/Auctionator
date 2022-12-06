@@ -81,11 +81,12 @@ end
 
 if GameTooltip.SetRecipeResultItem then -- Dragonflight
   hooksecurefunc(GameTooltip, "SetRecipeResultItem", function(tip, recipeID, reagents, allocations, recipeLevel, qualityID)
-    local outputData = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
-    local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
+    local outputLink = Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reagents, allocations)
 
-    if outputData.hyperlink then
-      Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, outputData.hyperlink, recipeSchematic.quantityMin)
+    if outputLink then
+      local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
+
+      Auctionator.Tooltip.ShowTipWithPricing(GameTooltip, outputLink, recipeSchematic.quantityMin)
     end
   end)
 end
@@ -236,6 +237,7 @@ hooksecurefunc("InboxFrameItem_OnEnter",
 -- This occurs when clicking on an item link (i.e. in chat)
 hooksecurefunc(ItemRefTooltip, "SetHyperlink",
   function(tip, itemLink)
+    print("hyperlink")
     Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
