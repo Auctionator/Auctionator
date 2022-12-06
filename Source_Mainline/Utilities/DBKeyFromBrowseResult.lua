@@ -1,6 +1,9 @@
 local function IsGear(itemID)
   local classType = select(6, GetItemInfoInstant(itemID))
-  return classType == Enum.ItemClass.Weapon or classType == Enum.ItemClass.Armor
+  return classType == Enum.ItemClass.Weapon
+    or classType == Enum.ItemClass.Armor
+    -- In DF profession equipment is its own class:
+    or classType == Enum.ItemClass.Profession
 end
 
 function Auctionator.Utilities.DBKeyFromBrowseResult(result)
