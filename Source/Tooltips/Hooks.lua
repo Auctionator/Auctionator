@@ -237,7 +237,6 @@ hooksecurefunc("InboxFrameItem_OnEnter",
 -- This occurs when clicking on an item link (i.e. in chat)
 hooksecurefunc(ItemRefTooltip, "SetHyperlink",
   function(tip, itemLink)
-    print("hyperlink")
     Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
