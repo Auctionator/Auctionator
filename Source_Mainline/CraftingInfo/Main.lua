@@ -65,12 +65,15 @@ end
 -- Work around Blizzard APIs returning the wrong item ID for crafted reagents in
 -- the C_TradeSKillUI.GetRecipeOutputItemData function
 function Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reagents, allocations)
-  local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
+  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
 
-  if recipeInfo ~= nil then
+  -- Use the operation and recipe info to determine the expected output of a
+  -- craftable reagent
+  if recipeSchematic ~= nil and recipeSchematic.hasCraftingOperationInfo then
     local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
+    local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
 
-    if operationInfo ~= nil and recipeInfo.qualityItemIDs then
+    if operationInfo ~= nil and recipeInfo ~= nil then
       local itemID = Auctionator.CraftingInfo.GetItemIDByQuality(recipeInfo.qualityItemIDs, operationInfo.guaranteedCraftingQualityID)
       local _, link = GetItemInfo(itemID)
       return link
