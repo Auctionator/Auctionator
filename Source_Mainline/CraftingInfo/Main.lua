@@ -66,15 +66,18 @@ end
 -- the C_TradeSKillUI.GetRecipeOutputItemData function
 function Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reagents, allocations)
   local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
-  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
 
-  local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
+  if recipeInfo ~= nil then
+    local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
 
-  if operationInfo and recipeInfo.qualityItemIDs then
-    local itemID = Auctionator.CraftingInfo.GetItemIDByQuality(recipeInfo.qualityItemIDs, operationInfo.guaranteedCraftingQualityID)
-    local _, link = GetItemInfo(itemID)
-    return link
+    if operationInfo ~= nil and recipeInfo.qualityItemIDs then
+      local itemID = Auctionator.CraftingInfo.GetItemIDByQuality(recipeInfo.qualityItemIDs, operationInfo.guaranteedCraftingQualityID)
+      local _, link = GetItemInfo(itemID)
+      return link
+    end
   end
+
+  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
 
   if outputInfo == nil then
     return nil
