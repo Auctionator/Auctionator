@@ -84,14 +84,23 @@ local function GetEnchantProfit(schematicForm)
   local reagents = schematicForm:GetTransaction():CreateCraftingReagentInfoTbl()
   local allocationGUID = schematicForm:GetTransaction():GetAllocationItemGUID()
 
-  local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
 
   local recipeLevel = schematicForm:GetCurrentRecipeLevel()
   local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
 
   local possibleOutputItemIDs = Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID] or {}
+  local itemID
 
-  local itemID = Auctionator.CraftingInfo.GetItemIDByQuality(possibleOutputItemIDs, operationInfo.guaranteedCraftingQualityID)
+  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
+  if recipeSchematic ~= nil and recipeSchematic.hasCraftingOperationInfo then
+    local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
+    if operationInfo ~= nil then
+      itemID = Auctionator.CraftingInfo.GetItemIDByQuality(possibleOutputItemIDs, operationInfo.guaranteedCraftingQualityID)
+    end
+  end
+  if itemID == nil then
+    itemID = possibleOutputItemIDs[1]
+  end
 
   if itemID ~= nil then
     local currentAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID) or 0
