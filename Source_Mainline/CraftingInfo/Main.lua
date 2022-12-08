@@ -87,7 +87,7 @@ function Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reage
     if operationInfo ~= nil and recipeInfo ~= nil and recipeInfo.qualityItemIDs then
       local itemID = Auctionator.CraftingInfo.GetItemIDByQuality(recipeInfo.qualityItemIDs, operationInfo.guaranteedCraftingQualityID)
       local _, link = GetItemInfo(itemID)
-      return link
+      return "item:" .. itemID
     end
   end
 
