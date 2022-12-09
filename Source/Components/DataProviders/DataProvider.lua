@@ -30,7 +30,7 @@ end
 function AuctionatorDataProviderMixin:Reset()
    -- Last set of results passed to self.onUpdate. Used to avoid errors with out
    -- of range indexes if :GetEntry is called before the OnUpdate fires.
-  self.cachedResults = self.results or {}
+  self.cachedResults = self.cachedResults or self.results or {}
 
   self.results = {}
   self.insertedKeys = {}
