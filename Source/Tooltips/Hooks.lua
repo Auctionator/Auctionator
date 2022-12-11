@@ -274,6 +274,19 @@ if GameTooltip.SetAuctionItem then
   end)
 end
 
+if GameTooltip.SetItemKey then
+  hooksecurefunc (GameTooltip, "SetItemKey", function(tip, itemID, itemLevel, itemSuffix)
+    local info = C_TooltipInfo.GetItemKey(itemID, itemLevel, itemSuffix)
+    if info == nil then
+      return
+    end
+    TooltipUtil.SurfaceArgs(info)
+    if info.hyperlink then
+      Auctionator.Tooltip.ShowTipWithPricing(tip, info.hyperlink, 1)
+    end
+  end)
+end
+
 -- Occurs when mousing over items in the Refer-a-Friend frame, and a few other places
 hooksecurefunc (GameTooltip, "SetItemByID",
   function (tip, itemID)
@@ -293,33 +306,3 @@ hooksecurefunc (GameTooltip, "SetHyperlink",
     Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
   end
 );
-function Auctionator.Tooltip.MainlineLateHooks()
-  -- As AuctionHouseUtil doesn't exist until the AH is opened this cannot be
-  -- called before the AH opens.
-  -- Only shows disenchant information as the auction price is already displayed
-  -- and an itemKey is too inaccurate to use for a vendor price.
-  hooksecurefunc(AuctionHouseUtil, "SetAuctionHouseTooltip",
-    function(owner, rowData)
-      if rowData.itemLink then
-        -- Already set with SetHyperlink
-        return
-
-      elseif rowData.itemKey then
-        if rowData.itemKey.battlePetSpeciesID ~= 0 then
-          return
-        end
-        local itemInfo = { GetItemInfo(rowData.itemKey.itemID) }
-
-        if #itemInfo ~= 0 then
-          local disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
-          local disenchantPrice = Auctionator.Enchant.GetDisenchantAuctionPrice(itemInfo[2], itemInfo)
-
-          if disenchantStatus ~= nil then
-            Auctionator.Tooltip.AddDisenchantTip(GameTooltip, disenchantPrice, "", disenchantStatus)
-            GameTooltip:Show()
-          end
-        end
-      end
-    end
-  )
-end
