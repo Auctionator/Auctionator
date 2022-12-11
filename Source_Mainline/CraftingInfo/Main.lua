@@ -35,10 +35,14 @@ function Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transactio
 
   for slotIndex, reagentSlotSchematic in ipairs(recipeSchematic.reagentSlotSchematics) do
     if #reagentSlotSchematic.reagents > 0 then
+      local selected = 0
       local slotAllocations = transaction:GetAllocations(slotIndex)
-      local selected = slotAllocations:Accumulate()
-      -- Select the value of the allocated reagents only including optional ones
-      total = total + GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
+      -- Sometimes allocations may be missing, so check they exist
+      if slotAllocations ~= nil then
+        selected = slotAllocations:Accumulate()
+        -- Select the value of the allocated reagents only including optional ones
+        total = total + GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
+      end
       -- Calculate using the lowest quality for remaining mandatatory reagents
       -- that aren't allocated
       if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and selected ~= reagentSlotSchematic.quantityRequired then
