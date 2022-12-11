@@ -119,7 +119,7 @@ function AuctionatorBuyDialogMixin:LoadForPurchasing()
       local priceIncrease = math.floor((newUnitPrice - oldUnitPrice) / oldUnitPrice * 100)
       if priceIncrease > Auctionator.Constants.PriceIncreaseWarningThreshold then
         self.WarningDialog:Show()
-        self.WarningDialog.Text:SetText(AUCTIONATOR_L_PRICE_INCREASE_WARNING_2:format(priceIncrease .. "%"))
+        self.WarningDialog.Text:SetText(AUCTIONATOR_L_PRICE_INCREASE_WARNING_2:format(FormatLargeNumber(priceIncrease) .. "%"))
         self:UpdateButtons()
       end
 
