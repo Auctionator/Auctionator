@@ -275,6 +275,8 @@ TooltipHandlers["SetHyperlink"] = function (tip, itemLink)
   Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
 end
 
+-- Magic to update the tooltip with the prices when it is cleared and still
+-- retain stack size information
 if TooltipDataProcessor then
   TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
     if tooltip == GameTooltip or tooltip == ItemRefTooltip then
@@ -282,7 +284,9 @@ if TooltipDataProcessor then
         return
       end
       local handler = TooltipHandlers[tooltip.info.getterName:gsub("^Get", "Set")]
-      handler(tooltip, unpack(tooltip.info.getterArgs))
+      if handler ~= nil then
+        handler(tooltip, unpack(tooltip.info.getterArgs))
+      end
     end
   end)
 else
