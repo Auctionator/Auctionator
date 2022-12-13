@@ -248,7 +248,13 @@ if GameTooltip.SetItemKey then
     end
     TooltipUtil.SurfaceArgs(info)
     if info.hyperlink then
-      Auctionator.Tooltip.ShowTipWithPricing(tip, info.hyperlink, 1)
+      local hyperlink = info.hyperlink
+      -- Necessary as for recipes the crafted item is returned info.hyperlink,
+      -- so we check we actually got the recipe item
+      if GetItemInfoInstant(info.hyperlink) ~= itemID then
+        hyperlink = select(2, GetItemInfo(itemID))
+      end
+      Auctionator.Tooltip.ShowTipWithPricing(tip, hyperlink, 1)
     end
   end
 end
