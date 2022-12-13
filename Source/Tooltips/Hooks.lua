@@ -61,11 +61,14 @@ if GameTooltip.SetRecipeReagentItem then -- Dragonflight
     local itemLink = C_TradeSkillUI.GetRecipeFixedReagentItemLink(recipeID, slotID)
 
     local schematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, ProfessionsFrame.CraftingPage.SchematicForm:GetCurrentRecipeLevel())
-    local slot = schematic.reagentSlotSchematics[slotID]
 
-    local itemCount = slot and slot.quantityRequired or 1
-
-    Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
+    for _, reagentSlotSchematic in ipairs(schematic.reagentSlotSchematics) do
+      if reagentSlotSchematic.dataSlotIndex == slotID then
+        local itemCount = reagentSlotSchematic.quantityRequired
+        Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, itemCount)
+        break
+      end
+    end
   end
 end
 
