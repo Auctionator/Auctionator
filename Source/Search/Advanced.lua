@@ -2,7 +2,7 @@
 -- Assumes searchParametersString is an advanced search.
 function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   local queryString, categoryKey, minItemLevel, maxItemLevel, minLevel, maxLevel,
-    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice, quality =
+    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice, quality, tier =
     strsplit( Auctionator.Constants.AdvancedSearchDivider, searchParametersString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
@@ -33,6 +33,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   maxPrice = (tonumber(maxPrice) or 0) * 10000
 
   quality = tonumber( quality )
+  tier = tonumber( tier )
 
   if minLevel == 0 then
     minLevel = nil
@@ -79,6 +80,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
     minCraftedLevel = minCraftedLevel,
     maxCraftedLevel = maxCraftedLevel,
     quality = quality,
+    tier = tier,
   }
 end
 
@@ -118,6 +120,14 @@ local function QualityString(quality)
   end
 end
 
+local function TierString(tier)
+  if not Auctionator.Constants.IsClassic and tier ~= nil then
+    return C_Texture.GetCraftingReagentQualityChatIcon(tier)
+  else
+    return ""
+  end
+end
+
 local separator = ", "
 
 local function CategoryKey(splitSearch)
@@ -126,6 +136,10 @@ end
 
 local function Quality(splitSearch)
   return QualityString(splitSearch.quality) .. separator
+end
+
+local function Tier(splitSearch)
+  return TierString(splitSearch.tier) .. separator
 end
 
 local function ItemLevelRange(splitSearch)
@@ -196,6 +210,7 @@ function Auctionator.Search.PrettifySearchString(searchString)
     .. ItemLevelRange(splitSearch)
     .. CraftedLevelRange(splitSearch)
     .. Quality(splitSearch)
+    .. Tier(splitSearch)
     .. "]"
 
   -- Clean up string removing empty stuff
@@ -232,6 +247,21 @@ local function TooltipQuality(splitSearch)
 
   return {
     QUALITY,
+    key
+  }
+end
+
+local function TooltipTier(splitSearch)
+  local key
+
+  if Auctionator.Constants.IsClassic or splitSearch.tier == nil then
+    key = AUCTIONATOR_L_ANY_LOWER
+  else
+    key = C_Texture.GetCraftingReagentQualityChatIcon(splitSearch.tier)
+  end
+
+  return {
+    AUCTIONATOR_L_TIER,
     key
   }
 end
@@ -277,6 +307,7 @@ function Auctionator.Search.ComposeTooltip(searchString)
   table.insert(lines, TooltipItemLevelRange(splitSearch))
   table.insert(lines, TooltipCraftedLevelRange(splitSearch))
   table.insert(lines, TooltipQuality(splitSearch))
+  table.insert(lines, TooltipTier(splitSearch))
 
   if splitSearch.searchString == "" then
     splitSearch.searchString = " "
@@ -307,6 +338,7 @@ function Auctionator.Search.ReconstituteAdvancedSearch(search)
     tostring(search.maxCraftedLevel or ""),
     tostring(((search.minPrice and search.minPrice / 10000) or "")),
     tostring(((search.maxPrice and search.maxPrice / 10000) or "")),
-    tostring(search.quality or "")
+    tostring(search.quality or ""),
+    tostring(search.tier or "")
   )
 end

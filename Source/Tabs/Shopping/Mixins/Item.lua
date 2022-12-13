@@ -13,7 +13,25 @@ local function InitializeQualityDropDown(dropDown)
     table.insert(qualityStrings, Auctionator.Utilities.CreateColoredQuality(quality))
     table.insert(qualityIDs, tostring(quality))
   end
+
   dropDown:InitAgain(qualityStrings, qualityIDs)
+end
+
+local function InitializeTierDropDown(dropDown)
+  local tierStrings = {}
+  local tierIDs = {}
+
+  table.insert(tierStrings, AUCTIONATOR_L_ANY_UPPER)
+  table.insert(tierIDs, NO_QUALITY)
+
+  if not Auctionator.Constants.IsClassic then
+    for tier = 1, 3 do
+      table.insert(tierStrings, C_Texture.GetCraftingReagentQualityChatIcon(tier))
+      table.insert(tierIDs, tostring(tier))
+    end
+  end
+
+  dropDown:InitAgain(tierStrings, tierIDs)
 end
 
 function AuctionatorShoppingItemMixin:OnLoad()
@@ -25,6 +43,10 @@ function AuctionatorShoppingItemMixin:OnLoad()
 
   self.QualityContainer.ResetQualityButton:SetClickCallback(function()
     self.QualityContainer.DropDown:SetValue(NO_QUALITY)
+  end)
+
+  self.TierContainer.ResetTierButton:SetClickCallback(function()
+    self.TierContainer.DropDown:SetValue(NO_QUALITY)
   end)
 
   local onEnterCallback = function()
@@ -60,6 +82,15 @@ function AuctionatorShoppingItemMixin:OnLoad()
   })
 
   InitializeQualityDropDown(self.QualityContainer.DropDown)
+  InitializeTierDropDown(self.TierContainer.DropDown)
+
+  if not Auctionator.Constants.IsClassic then
+    self:SetHeight(390)
+    self.TierContainer:Show()
+  else
+    self:SetHeight(350)
+    self.TierContainer:Hide()
+  end
 
   Auctionator.EventBus:Register(self, {
     Auctionator.Shopping.Events.ListSearchStarted,
@@ -136,6 +167,7 @@ function AuctionatorShoppingItemMixin:GetItemString()
     minPrice = self.PriceRange:GetMin() * 10000,
     maxPrice = self.PriceRange:GetMax() * 10000,
     quality = tonumber(self.QualityContainer.DropDown:GetValue()),
+    tier = tonumber(self.TierContainer.DropDown:GetValue()),
   }
   
   return Auctionator.Search.ReconstituteAdvancedSearch(search)
@@ -174,6 +206,12 @@ function AuctionatorShoppingItemMixin:SetItemString(itemString)
     self.QualityContainer.DropDown:SetValue(NO_QUALITY)
   else
     self.QualityContainer.DropDown:SetValue(tostring(search.quality))
+  end
+
+  if Auctionator.Constants.IsClassic or search.tier == nil then
+    self.TierContainer.DropDown:SetValue(NO_QUALITY)
+  else
+    self.TierContainer.DropDown:SetValue(tostring(search.tier))
   end
 end
 

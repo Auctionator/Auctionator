@@ -5,5 +5,6 @@
   <Script file="ItemLevel.lua"/>
   <Script file="Price.lua"/>
   <Script file="Exact.lua"/>
+  <Script file="Tier.lua"/>
   <Script file="Create.lua"/>
 </Ui>

@@ -58,6 +58,7 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
         max = parsed.maxPrice,
       },
       exactSearch = (parsed.isExact and parsed.searchString) or nil,
+      tier = parsed.tier,
     }
   }
 end
