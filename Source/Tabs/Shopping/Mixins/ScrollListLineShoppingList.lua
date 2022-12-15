@@ -75,7 +75,7 @@ function AuctionatorScrollListLineShoppingListMixin:DetectDragStart()
 end
 
 function AuctionatorScrollListLineShoppingListMixin:DetectDragEnd()
-  if IsMouseButtonDown("LeftButton") then
+  if self.dragStartY ~= nil and IsMouseButtonDown("LeftButton") then
     local y = select(2, GetCursorPosition())
     if y > self.dragStartY then
       self:ShiftItem(-1)
