@@ -57,47 +57,23 @@ function Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transactio
   return total
 end
 
--- Search through a list of items for the first matching the wantedQuality
--- If there's only one possible item, that item will be returned
--- If there are multiple items and none match the quality nil will be returned.
-function Auctionator.CraftingInfo.GetItemIDByQuality(possibleItemIDs, wantedQuality)
-  if #possibleItemIDs == 1 then
-    return possibleItemIDs[1]
-  end
-
-  for _, itemID in ipairs(possibleItemIDs) do
-    local quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(itemID) or C_TradeSkillUI.GetItemCraftedQualityByItemInfo(itemID)
-    if quality == wantedQuality then
-      return itemID
-    end
-  end
-end
-
 -- Work around Blizzard APIs returning the wrong item ID for crafted reagents in
 -- the C_TradeSKillUI.GetRecipeOutputItemData function with Dragonflight
 function Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reagents, allocations)
   local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
 
-  -- Use the operation and recipe info to determine the expected output of a
+  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
+
+  -- Use the operation and recipe info to override the expected output of a
   -- craftable reagent
   -- Check that the recipe probably has an operation
   if recipeSchematic ~= nil and recipeSchematic.hasCraftingOperationInfo then
     local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
-    local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
 
-    -- Check that there are multiple quality ids that can be created and the
-    -- operation exists. If the operation doesn't exist there's no way to
-    -- predict the quality.
-    if operationInfo ~= nil and recipeInfo ~= nil and recipeInfo.qualityItemIDs then
-      local itemID = Auctionator.CraftingInfo.GetItemIDByQuality(recipeInfo.qualityItemIDs, operationInfo.guaranteedCraftingQualityID)
-      local _, link = GetItemInfo(itemID)
-      return "item:" .. itemID
+    if operationInfo ~= nil then
+      outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations, operationInfo.guaranteedCraftingQualityID)
     end
   end
-
-  -- No operation, so no special qualities, get the output using the default
-  -- method
-  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
 
   if outputInfo == nil then
     return nil

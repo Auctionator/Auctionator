@@ -85,6 +85,20 @@ local function CalculateProfitFromCosts(currentAH, toCraft, count)
   return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
 end
 
+-- Search through a list of items for the first matching the wantedQuality
+local function GetItemIDByReagentQuality(possibleItemIDs, wantedQuality)
+  if #possibleItemIDs == 1 then
+    return possibleItemIDs[1]
+  end
+
+  for _, itemID in ipairs(possibleItemIDs) do
+    local quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(itemID)
+    if quality == wantedQuality then
+      return itemID
+    end
+  end
+end
+
 local function GetEnchantProfit(schematicForm)
   local recipeID = schematicForm.recipeSchematic.recipeID
   local reagents = schematicForm:GetTransaction():CreateCraftingReagentInfoTbl()
@@ -103,7 +117,7 @@ local function GetEnchantProfit(schematicForm)
   if recipeSchematic ~= nil and recipeSchematic.hasCraftingOperationInfo then
     local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
     if operationInfo ~= nil then
-      itemID = Auctionator.CraftingInfo.GetItemIDByQuality(possibleOutputItemIDs, operationInfo.guaranteedCraftingQualityID)
+      itemID = GetItemIDByReagentQuality(possibleOutputItemIDs, operationInfo.guaranteedCraftingQualityID)
     end
   end
   -- Not a dragonflight recipe, or has no quality data, so only one possible
