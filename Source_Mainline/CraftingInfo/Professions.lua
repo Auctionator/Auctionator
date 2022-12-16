@@ -59,8 +59,10 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
   -- Go through the items one by one and get their names
   local function OnItemInfoReady()
     for _, itemInfo in ipairs(possibleItems) do
-      local name = GetItemInfo(itemInfo)
-      table.insert(searchTerms, name)
+      local itemInfo = {GetItemInfo(itemInfo)}
+      if not Auctionator.Utilities.IsBound(itemInfo) then
+        table.insert(searchTerms, itemInfo[1])
+      end
     end
 
     Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)

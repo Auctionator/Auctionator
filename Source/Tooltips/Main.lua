@@ -44,8 +44,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
 
   local itemInfo = { GetItemInfo(itemLink) };
   if (#itemInfo) ~= 0 then
-    local bindType = itemInfo[Auctionator.Constants.ITEM_INFO.BIND_TYPE]
-    cannotAuction = bindType == LE_ITEM_BIND_ON_ACQUIRE or bindType == LE_ITEM_BIND_QUEST;
+    cannotAuction = Auctionator.Utilities.IsBound(itemInfo)
     local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
 
     if Auctionator.Utilities.IsVendorable(itemInfo) then
