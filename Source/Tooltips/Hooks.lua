@@ -296,4 +296,8 @@ else
   for func, handler in pairs(TooltipHandlers) do
     hooksecurefunc(GameTooltip, func, handler)
   end
+
+  if LinkWrangler then
+    LinkWrangler.RegisterCallback("Auctionator", TooltipHandlers["SetHyperlink"], "refresh")
+  end
 end
