@@ -74,7 +74,7 @@ local function InitializeSearchCategories()
 
   Auctionator.Search.InitializeCategories()
 
-  setTooltipHooks = true
+  setupSearchCategories = true
 end
 
 local function ShowDefaultTab()

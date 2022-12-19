@@ -18,9 +18,6 @@ local function SearchItem(text)
   elseif ( strfind(text, "enchant:", 1, true) ) then
     name = Auctionator.Utilities.GetNameFromLink(text)
   end
-  if not name then
-    name = text
-  end
 
   if name == nil then
     name = text
