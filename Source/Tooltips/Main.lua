@@ -5,7 +5,7 @@ local waitingForPricing = false
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCount)
-  if waitingForPricing then
+  if waitingForPricing or Auctionator.Database == nil then
     return
   end
   -- Keep this commented out unless testing please.
@@ -114,7 +114,7 @@ end
 -- count
 local isMultiplePricesPending = false
 function Auctionator.Tooltip.ShowTipWithMultiplePricing(tooltipFrame, itemEntries)
-  if isMultiplePricesPending then
+  if isMultiplePricesPending or Auctionator.Database == nil then
     return
   end
   isMultiplePricesPending = true
