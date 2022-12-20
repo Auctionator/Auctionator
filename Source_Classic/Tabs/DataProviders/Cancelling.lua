@@ -23,6 +23,15 @@ local CANCELLING_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_STACK_PRICE,
+    headerParameters = { "stackPrice" },
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "stackPrice" },
+    defaultHide = true,
+    width = 150,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_BIDDER,
     headerParameters = { "bidder" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -87,6 +96,7 @@ end
 
 local COMPARATORS = {
   unitPrice = Auctionator.Utilities.NumberComparator,
+  stackPrice = Auctionator.Utilities.NumberComparator,
   bidAmount = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   bidder = Auctionator.Utilities.StringComparator,
