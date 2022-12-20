@@ -3,19 +3,14 @@
 [![Auctionator Discord](https://img.shields.io/badge/discord-auctionator-blue.svg)](https://discord.gg/xgz75Pp)
 [![Donate to Auctionator](https://img.shields.io/badge/paypal-donate-yellow.svg)](http://paypal.me/auctionator)
 
-Auctionator is designed for casual everyday auction house users. This addon
-makes the auction house easier to use, by presenting auction house listings
-clearly and succinctly, and by eliminating the tedium involved in posting and
-managing auctions.
-
-## Functionality
-
-* Auction prices in your item tooltips so you can quickly see how valuable the
-  item is that you just picked up
-* Adds the Shopping tab to search and filter for multiple items at once
-* Adds the Selling tab which lets you buy, sell and cancel all in one place
-* And adds the Cancelling tab that lets you cancel auctions in one click and
-scan for undercuts.
+Auctionator is designed for casual everyday auction house users, to make interactions easier and faster, and to provide quick access to auction prices.
+## Key Features
+* Auction prices in item tooltips (with an AH full scan function to update the prices)
+* Straightforward UI
+* Protection against posting too low
+* Recipe reagent costs and profits in crafting views
+* Searches with lots of filters with a search history and organised into shopping lists
+* Undercut scan and one-click cancelling for owned auctions
 
 For a description of and usage guide for more features please see the
 [Curseforge page](https://www.curseforge.com/wow/addons/auctionator).
