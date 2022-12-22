@@ -5,7 +5,7 @@ function Auctionator.CraftingInfo.InitializeCustomerOrdersFrame()
     return
   end
 
-  if ProfessionsFrame then
+  if ProfessionsCustomerOrdersFrame then
     addedFunctionality = true
 
     local buttonFrame = CreateFrame("BUTTON", "AuctionatorTradeSkillSearch", ProfessionsCustomerOrdersFrame.Form, "AuctionatorCraftingInfoCustomerOrdersFrameTemplate");
