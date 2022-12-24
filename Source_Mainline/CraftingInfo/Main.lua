@@ -11,6 +11,17 @@ local function GetCostByItemID(itemID, multiplier)
   return 0
 end
 
+local function GetByMinCostOption(reagents, multiplier)
+  local min = 0
+  for _, entry in ipairs(reagents) do
+    local newValue = GetCostByItemID(entry.itemID, multiplier)
+    if newValue ~= 0 and (min == 0 or newValue < min) then
+      min = newValue
+    end
+  end
+  return min
+end
+
 -- Go through all allocated reagents and get the total auction value of them
 local function GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
   local total = 0
@@ -46,10 +57,7 @@ function Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transactio
       -- Calculate using the lowest quality for remaining mandatatory reagents
       -- that aren't allocated
       if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and selected ~= reagentSlotSchematic.quantityRequired then
-        local itemID = reagentSlotSchematic.reagents[1].itemID
-        if itemID ~= nil then
-          total = total + GetCostByItemID(itemID, reagentSlotSchematic.quantityRequired - selected)
-        end
+        total = total + GetByMinCostOption(reagentSlotSchematic.reagents, reagentSlotSchematic.quantityRequired - selected)
       end
     end
   end
