@@ -42,7 +42,7 @@
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_CONFIRM_LOW_PRICE" type="global" />
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_CONFIRM_LOW_PRICE_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_CONFIRM_LOW_PRICE_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_CONFIRM_LOW_PRICE_TOOLTIP_TEXT_2" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.ShowBidPrice" relativePoint="BOTTOMLEFT" />
