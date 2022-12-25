@@ -24,6 +24,7 @@ function AuctionatorBuyCurrentPricesFrameMixin:Reset()
   self.gotCompleteResults = true
   self.SearchDataProvider.onSearchEnded()
   self.SearchDataProvider:Reset()
+  self.loadAllPagesPending = false
 
   self.BuyDialog:Hide()
 
@@ -33,6 +34,7 @@ end
 function AuctionatorBuyCurrentPricesFrameMixin:OnShow()
   FrameUtil.RegisterFrameForEvents(self, BUY_EVENTS)
   self.LoadAllPagesButton:Hide()
+  self.StopLoadingNowButton:Hide()
   self:UpdateButtons()
 end
 
@@ -81,6 +83,7 @@ function AuctionatorBuyCurrentPricesFrameMixin:UpdateButtons()
   self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and not self.selectedAuctionData.isOwned and self.selectedAuctionData.stackPrice ~= nil and GetMoney() >= self.selectedAuctionData.stackPrice)
 
   self.LoadAllPagesButton:SetShown(not self.SearchDataProvider:GetRequestAllResults() and not self.gotCompleteResults and self.SearchResultsListing:IsShown())
+  self.StopLoadingNowButton:SetShown(self.loadAllPagesPending and not self.SearchDataProvider:HasAllQueriedResults() and self.SearchResultsListing:IsShown())
 end
 
 function AuctionatorBuyCurrentPricesFrameMixin:ReceiveEvent(eventName, eventData, ...)
@@ -153,6 +156,7 @@ end
 function AuctionatorBuyCurrentPricesFrameMixin:DoRefresh()
   self.SearchDataProvider:SetRequestAllResults(false)
   self.SearchDataProvider:RefreshQuery()
+  self.loadAllPagesPending = false
 end
 
 function AuctionatorBuyCurrentPricesFrameMixin:BuyClicked()
@@ -162,5 +166,17 @@ end
 function AuctionatorBuyCurrentPricesFrameMixin:LoadAllPages()
   self.SearchDataProvider:SetRequestAllResults(true)
   self.LoadAllPagesButton:Hide()
+  self.StopLoadingNowButton:Show()
+  self.loadAllPagesPending = true
+
   self.SearchDataProvider:RefreshQuery()
+end
+
+function AuctionatorBuyCurrentPricesFrameMixin:StopLoadingPages()
+  self.SearchDataProvider:SetRequestAllResults(false)
+  self.LoadAllPagesButton:Show()
+  self.StopLoadingNowButton:Hide()
+  self.loadAllPagesPending = false
+
+  self.SearchDataProvider:EndAnyQuery()
 end

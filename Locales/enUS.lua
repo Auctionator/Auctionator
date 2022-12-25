@@ -607,6 +607,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CHAIN_BUY_TOOLTIP_HEADER"] = "Chain multiple purchases"
   L["CHAIN_BUY_TOOLTIP_TEXT"] = "When finished purchasing at the current price and stack size select the next price and stack size."
   L["LOAD_HIGHER_PRICES"] = "Load higher prices"
+  L["STOP_LOADING_NOW"] = "Stop loading now"
   L["LOAD_MORE_RESULTS"] = "Load more results"
 
   L["CONFIG_SHOPPING_ALWAYS_LOAD_MORE"] = "Always load all available results."

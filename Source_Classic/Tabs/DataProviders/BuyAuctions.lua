@@ -149,6 +149,10 @@ function AuctionatorBuyAuctionsDataProviderMixin:RefreshQuery()
   end
 end
 
+function AuctionatorBuyAuctionsDataProviderMixin:HasAllQueriedResults()
+  return self.gotAllResults
+end
+
 function AuctionatorBuyAuctionsDataProviderMixin:EndAnyQuery()
   Auctionator.AH.AbortQuery()
   Auctionator.EventBus:Unregister(self, BUY_EVENTS)

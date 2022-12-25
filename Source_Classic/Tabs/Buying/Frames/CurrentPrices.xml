@@ -39,6 +39,18 @@
         </Scripts>
       </Button>
 
+      <Button parentKey="StopLoadingNowButton" inherits="AuctionatorLoadAllButton" text="AUCTIONATOR_L_STOP_LOADING_NOW">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.Inset"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():StopLoadingPages()
+          </OnClick>
+        </Scripts>
+      </Button>
+
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="CANCEL_AUCTION" parentKey="CancelButton">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent.SearchResultsListing" relativePoint="BOTTOM"/>
