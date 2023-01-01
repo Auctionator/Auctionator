@@ -392,11 +392,7 @@ function AuctionatorSaleItemMixin:GetCommodityThreshold(itemID)
     amount = amount + result.quantity
 
     if amount >= target then
-      -- Scale the % of the price that counts as too little from 70% at 1g and
-      -- down to 30% at higher prices
-      local multiplier = 0.3 + 0.4 * math.min(1, 10000 / result.unitPrice)
-
-      return result.unitPrice * multiplier
+      return Auctionator.Utilities.PriceWarningThreshold(result.unitPrice)
     end
   end
 

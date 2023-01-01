@@ -329,7 +329,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
       end
       self:SetUnitPrice(unitPrice)
       -- Used to check if the undercut is more than 50% below configured setting
-      self.priceThreshold = unitPrice * 0.5
+      self.priceCutThreshold = unitPrice * 0.5
     end
   elseif event == Auctionator.Buying.Events.HistoricalPrice and
          self.itemInfo ~= nil then
@@ -410,7 +410,7 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
 
   self:SetQuantity()
 
-  self.priceThreshold = nil
+  self.priceCutThreshold = nil
 
   if not self.retryingItem then
     self.buyViewSetup = false
@@ -515,7 +515,7 @@ function AuctionatorSaleItemMixin:SetUnitPrice(salesPrice)
   self.StackPrice:SetAmount(self.UnitPrice:GetAmount() * self.Stacks.StackSize:GetNumber())
   self.BidPrice:SetAmount(self:GetAutoBidAmount())
 
-  self.priceThreshold = nil
+  self.priceCutThreshold = nil
 
   self.prevStackSize = self.Stacks.StackSize:GetNumber()
   self.prevUnitPrice = self.UnitPrice:GetAmount()
@@ -573,9 +573,33 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     (not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GREY_POST_BUTTON) or Auctionator.AH.IsNotThrottled())
 end
 
+function AuctionatorSaleItemMixin:GetStackableWarningThreshold()
+  -- Limit warning to stackable items only (like the retail warning on
+  -- commodities)
+  if self.itemInfo.stackSize <= 1 then
+    return 0
+  end
+
+  -- Identifies when an auction is skewing the current price down and is
+  -- probably not meant to be so low.
+  local watchPoint = self:GetParent().BuyFrame.CurrentPrices.SearchDataProvider.allAuctions[5] or self:GetParent().BuyFrame.CurrentPrices.SearchDataProvider.allAuctions[1]
+  if watchPoint ~= nil then
+    local watchPointPrice = Auctionator.Utilities.ToUnitPrice(watchPoint) or 0
+    return Auctionator.Utilities.PriceWarningThreshold(watchPointPrice)
+  end
+  return 0
+end
+
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
-  if self.priceThreshold ~= nil and self.UnitPrice:GetAmount() < self.priceThreshold then
+  -- Check if the price may have had the unit and stack price entered in the
+  -- wrong box with the item being underpriced compared to the on sale items
+  if self.UnitPrice:GetAmount() < self.priceCutThreshold then
     return AUCTIONATOR_L_CONFIRM_POST_PRICE_DROP:format(GetMoneyString(self.UnitPrice:GetAmount(), true))
+  end
+
+  -- Check if the item was underpriced compared to the currently on sale items
+  if self.UnitPrice:GetAmount() < self:GetStackableWarningThreshold() then
+    return AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(GetMoneyString(self.UnitPrice:GetAmount(), true))
   end
 
   -- Determine if the item is worth more to sell to a vendor than to post on the
