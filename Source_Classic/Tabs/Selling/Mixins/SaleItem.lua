@@ -593,7 +593,7 @@ end
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
   -- Check if the price may have had the unit and stack price entered in the
   -- wrong box with the item being underpriced compared to the on sale items
-  if self.UnitPrice:GetAmount() < self.priceCutThreshold then
+  if self.priceCutThreshold ~= nil and self.UnitPrice:GetAmount() < self.priceCutThreshold then
     return AUCTIONATOR_L_CONFIRM_POST_PRICE_DROP:format(GetMoneyString(self.UnitPrice:GetAmount(), true))
   end
 
