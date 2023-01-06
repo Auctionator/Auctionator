@@ -76,7 +76,7 @@ function Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reage
   -- craftable reagent
   -- Check that the recipe probably has an operation
   if recipeSchematic ~= nil and recipeSchematic.hasCraftingOperationInfo then
-    local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
+    local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocations)
 
     if operationInfo ~= nil then
       outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations, operationInfo.guaranteedCraftingQualityID)
