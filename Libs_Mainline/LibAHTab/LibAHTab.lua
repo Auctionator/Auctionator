@@ -35,9 +35,6 @@ function lib:CreateTab(tabID, attachedFrame, displayText)
           PanelTemplates_DeselectTab(tab)
         end
       end
-      if not issecurevariable(AuctionHouseFrame, "displayMode") then
-        AuctionHouseFrame.displayMode = nil
-      end
     end)
   end
 
@@ -83,6 +80,7 @@ function lib:SetSelected(tabID)
   end
 
   AuctionHouseFrame:SetDisplayMode({})
+  AuctionHouseFrame.displayMode = nil
 
   for _, tab in ipairs(lib.internalState.Tabs) do
     tab.frameRef:Hide()
