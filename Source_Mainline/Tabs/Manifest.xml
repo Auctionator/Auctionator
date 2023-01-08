@@ -8,7 +8,6 @@
   <Include file="Cancelling\Manifest.xml" />
 
   <Include file="Mixins\Manifest.xml" />
-  <Include file="Frames\Manifest.xml" />
 
   <Script file="Main.lua" />
 
