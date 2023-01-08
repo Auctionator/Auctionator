@@ -48,6 +48,8 @@ function AuctionatorShoppingResultsRowMixin:OnClick(button, ...)
 
     if C_AuctionHouse.GetItemKeyInfo(self.rowData.itemKey) then
       AuctionHouseFrame:SelectBrowseResult(self.rowData)
+      -- Clear displayMode (prevents bag items breaking in some scenarios)
+      AuctionHouseFrame.displayMode = nil
 
       -- Switch state _after_ the button is shown. This is enough to check
       -- whether the user was on the "Shopping" tab or not.
