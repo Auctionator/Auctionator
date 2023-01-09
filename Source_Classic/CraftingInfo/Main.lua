@@ -32,6 +32,11 @@ local function GetOutputName(callback)
     end
   end
 
+  if itemID == nil then
+    callback(nil)
+    return
+  end
+
   local item = Item:CreateFromItemID(itemID)
   if item:IsItemEmpty() then
     callback(nil)
