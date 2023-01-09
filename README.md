@@ -1,8 +1,6 @@
 # Auctionator
 [![Auctionator Discord](https://img.shields.io/badge/discord-auctionator-blue.svg)](https://discord.gg/xgz75Pp)
 [![Donate to Auctionator](https://shields.io/badge/patreon-donate-red?logo=patreon&ia=software)](https://patreon.com/auctionator)
-
-![Build Status](https://github.com/Auctionator/Auctionator/workflows/Curse%20Build/badge.svg)
 [![On Curseforge](https://img.shields.io/badge/download-Curseforge-orange)](https://www.curseforge.com/wow/addons/auctionator)
 [![On Wago](https://img.shields.io/badge/download-Wago-3a3a3a)](https://addons.wago.io/addons/auctionator/)
 
