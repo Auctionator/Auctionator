@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Include file="Professions.xml" />
   <Include file="CustomerOrders.xml" />
+  <Include file="ObjectiveTracker.xml" />
 </Ui>

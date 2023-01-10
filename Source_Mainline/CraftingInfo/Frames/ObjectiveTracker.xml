@@ -1,0 +1,24 @@
+<Ui>
+  <Frame name="AuctionatorCraftingInfoObjectiveTrackerFrameTemplate" mixin="AuctionatorCraftingInfoObjectiveTrackerFrameMixin" virtual="true" frameLevel="520">
+    <Size x="100" y="22"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnEvent method="OnEvent"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="TOPRIGHT" x="-40"/>
+    </Anchors>
+    <Frames>
+      <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH">
+        <Scripts>
+          <OnClick>
+            self:GetParent():SearchButtonClicked()
+          </OnClick>
+        </Scripts>
+        <Anchors>
+          <Anchor point="TOPRIGHT"/>
+        </Anchors>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

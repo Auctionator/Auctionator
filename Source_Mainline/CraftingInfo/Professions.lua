@@ -8,9 +8,9 @@ function Auctionator.CraftingInfo.InitializeProfessionsFrame()
   if ProfessionsFrame then
     addedFunctionality = true
 
-    local craftingPageButton = CreateFrame("BUTTON", "AuctionatorCraftingInfoProfessionsFrame", ProfessionsFrame.CraftingPage.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
-    local ordersPageButton = CreateFrame("BUTTON", "AuctionatorCraftingInfoProfessionsOrderFrame", ProfessionsFrame.OrdersPage.OrderView.OrderDetails.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
-    ordersPageButton:SetDoNotShowProfit()
+    local craftingPageContainer = CreateFrame("Frame", "AuctionatorCraftingInfoProfessionsFrame", ProfessionsFrame.CraftingPage.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
+    local ordersPageContainer = CreateFrame("Frame", "AuctionatorCraftingInfoProfessionsOrderFrame", ProfessionsFrame.OrdersPage.OrderView.OrderDetails.SchematicForm, "AuctionatorCraftingInfoProfessionsFrameTemplate");
+    ordersPageContainer:SetDoNotShowProfit()
   end
 end
 
@@ -40,6 +40,8 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
     local itemID = Auctionator.CraftingInfo.EnchantSpellsToItems[recipeID][1]
     table.insert(possibleItems, itemID)
     continuableContainer:AddContinuable(Item:CreateFromItemID(itemID))
+  -- Probably doesn't have a specific item output, but include the recipe name
+  -- anyway just in case
   else
     table.insert(searchTerms, recipeInfo.name)
   end

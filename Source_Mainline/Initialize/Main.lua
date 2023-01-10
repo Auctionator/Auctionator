@@ -1,4 +1,5 @@
 local AUCTIONATOR_EVENTS = {
+  "PLAYER_LOGIN",
   "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
   "TRADE_SKILL_SHOW",
 }
@@ -10,7 +11,9 @@ function AuctionatorInitializeMainlineMixin:OnLoad()
 end
 
 function AuctionatorInitializeMainlineMixin:OnEvent(event, ...)
-  if event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
+  if event == "PLAYER_LOGIN" then
+    Auctionator.CraftingInfo.InitializeObjectiveTrackerFrame()
+  elseif event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
     local showType = ...
     -- Cache vendor prices events
     if showType == Enum.PlayerInteractionType.Merchant then

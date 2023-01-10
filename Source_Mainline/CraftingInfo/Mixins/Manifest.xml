@@ -2,4 +2,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Professions.lua" />
   <Script file="CustomerOrders.lua" />
+  <Script file="ObjectiveTracker.lua" />
 </Ui>

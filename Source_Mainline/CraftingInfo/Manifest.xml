@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Main.lua" />
   <Script file="Professions.lua" />
+  <Script file="ObjectiveTracker.lua" />
   <Script file="EnchantSpellsToItems.lua" />
   <Script file="CustomerOrders.lua" />
 
