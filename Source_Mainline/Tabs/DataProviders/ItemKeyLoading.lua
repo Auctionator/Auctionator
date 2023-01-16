@@ -21,7 +21,7 @@ function AuctionatorItemKeyLoadingMixin:ProcessItemKey(rowEntry, itemKeyInfo)
   )
 
   rowEntry.itemName = text
-  rowEntry.name = Auctionator.Utilities.RemoveTextColor(text)
+  rowEntry.name = Auctionator.Utilities.RemoveTextColor(text):gsub("|A.-Tier(%d).-|a", AUCTIONATOR_L_TIER .. " %1")
   rowEntry.iconTexture = itemKeyInfo.iconFileID
   rowEntry.noneAvailable = rowEntry.totalQuantity == 0
 
