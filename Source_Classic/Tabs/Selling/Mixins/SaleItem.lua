@@ -239,7 +239,11 @@ function AuctionatorSaleItemMixin:SellItemClick()
 
   if IsValidItem(self.itemInfo) then
     if self.itemInfo.location:IsBagAndSlot() then
-      PickupContainerItem(self.itemInfo.location:GetBagAndSlot())
+      if C_Container and C_Container.PickupContainerItem then
+        C_Container.PickupContainerItem(self.itemInfo.location:GetBagAndSlot())
+      else
+        PickupContainerItem(self.itemInfo.location:GetBagAndSlot())
+      end
     else
       PickupInventoryItem(self.itemInfo.location:GetEquipmentSlot())
     end

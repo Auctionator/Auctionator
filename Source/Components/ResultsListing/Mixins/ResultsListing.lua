@@ -10,7 +10,7 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
   local view = CreateScrollBoxListLinearView()
   view:SetElementExtent(20)
 
-  if Auctionator.Constants.IsClassic then
+  if Auctionator.Constants.IsVanilla or Auctionator.Constants.IsWrathPhase1 then
     view:SetElementInitializer("Frame", dataProvider:GetRowTemplate(), function(frame, index)
       frame:Populate(self.dataProvider:GetEntryAt(index), index)
     end)

@@ -40,7 +40,7 @@ function AuctionatorScrollListMixin:Init()
     end
   end
   view:SetElementExtent(20)
-  if Auctionator.Constants.IsClassic then
+  if Auctionator.Constants.IsVanilla or Auctionator.Constants.IsWrathPhase1 then
     view:SetElementInitializer("Button", self.lineTemplate, function(frame, elementData)
       FirstTimeInit(frame)
       frame:Populate(elementData.searchTerm, elementData.index)

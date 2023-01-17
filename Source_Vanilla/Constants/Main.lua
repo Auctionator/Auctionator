@@ -11,6 +11,8 @@ Auctionator.Constants.ValidItemClassIDs = {
   Enum.ItemClass.Miscellaneous,
 }
 
+Auctionator.Constants.IsVanilla = true
+
 Auctionator.Constants.Durations = {
   Short = 2,
   Medium = 8,

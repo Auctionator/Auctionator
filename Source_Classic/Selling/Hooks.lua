@@ -6,7 +6,12 @@ local function SelectOwnItem(self)
   if not C_Item.DoesItemExist(itemLocation) then
     return
   else
-    local currentDurability, maxDurability = GetContainerItemDurability(self:GetParent():GetID(), self:GetID())
+    local currentDurability, maxDurability
+    if C_Container then
+      currentDurability, maxDurability = C_Container.GetContainerItemDurability(self:GetParent():GetID(), self:GetID())
+    else
+      currentDurability, maxDurability = GetContainerItemDurability(self:GetParent():GetID(), self:GetID())
+    end
     if currentDurability ~= maxDurability then
       UIErrorsFrame:AddMessage(ERR_AUCTION_REPAIR_ITEM, 1.0, 0.1, 0.1, 1.0)
       return

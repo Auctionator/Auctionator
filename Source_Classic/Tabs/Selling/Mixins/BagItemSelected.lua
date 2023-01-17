@@ -55,9 +55,15 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
   return false
 end
 
--- Record clicks on bag items so that we can make keyring items being picked up
--- and placed in the Selling tab work.
-hooksecurefunc("PickupContainerItem", function(bag, slot)
+local function HookForPickup(bag, slot)
   seenBag = bag
   seenSlot = slot
-end)
+end
+
+-- Record clicks on bag items so that we can make keyring items being picked up
+-- and placed in the Selling tab work.
+if C_Container and C_Container.PickupContainerItem then
+  hooksecurefunc(C_Container, "PickupContainerItem", HookForPickup)
+else
+  hooksecurefunc("PickupContainerItem", HookForPickup)
+end
