@@ -307,7 +307,9 @@ function Auctionator.Search.ComposeTooltip(searchString)
   table.insert(lines, TooltipItemLevelRange(splitSearch))
   table.insert(lines, TooltipCraftedLevelRange(splitSearch))
   table.insert(lines, TooltipQuality(splitSearch))
-  table.insert(lines, TooltipTier(splitSearch))
+  if not Auctionator.Constants.IsClassic then
+    table.insert(lines, TooltipTier(splitSearch))
+  end
 
   if splitSearch.searchString == "" then
     splitSearch.searchString = " "
