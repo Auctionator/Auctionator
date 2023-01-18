@@ -16,17 +16,6 @@
             <Anchor point="BOTTOMRIGHT"/>
           </Anchors>
         </Texture>
-        <!--
-        <MaskTexture parentKey="IconMask" file="Interface\Common\common-iconmask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
-          <Anchors>
-            <Anchor point="TOPLEFT" relativeKey="$parent.Icon" />
-            <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Icon" />
-          </Anchors>
-          <MaskedTextures>
-            <MaskedTexture childKey="Icon"/>
-          </MaskedTextures>
-        </MaskTexture>
-        -->
       </Layer>
       <Layer level="BACKGROUND" textureSubLevel="1">
         <Texture parentKey="EmptySlot" file="Interface\BUTTONS\UI-Slot-Background">

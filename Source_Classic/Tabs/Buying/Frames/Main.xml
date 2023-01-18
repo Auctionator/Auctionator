@@ -61,17 +61,6 @@
                   <Anchor point="LEFT" x="15"/>
               </Anchors>
             </Texture>
-            <!--
-            <MaskTexture parentKey="IconMask" file="Interface\Common\common-iconmask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
-              <Anchors>
-                <Anchor point="TOPLEFT" relativeKey="$parent.Icon" />
-                <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Icon" />
-              </Anchors>
-              <MaskedTextures>
-                <MaskedTexture childKey="Icon"/>
-              </MaskedTextures>
-            </MaskTexture>
-            -->
             <FontString parentKey="Text" text="Item text" inherits="GameFontHighlight" justifyH="LEFT">
               <Size x="400" y="50"/>
               <Anchors>
