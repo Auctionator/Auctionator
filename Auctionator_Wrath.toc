@@ -1,4 +1,4 @@
-## Interface: 30400
+## Interface: 30401
 ## Title: Auctionator
 ## Version: @project-version@
 ## Author: Borjamacare, plusmouse

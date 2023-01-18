@@ -1,7 +1,6 @@
 Auctionator.Constants.MaxResultsPerPage = 50
 Auctionator.Constants.ITEM_LEVEL_THRESHOLD = 0
 Auctionator.Constants.IsClassic = true
-Auctionator.Constants.IsWrathPhase1 = (select(4, GetBuildInfo())) == 30400
 
 Auctionator.Constants.AuctionItemInfo = {
   Buyout = 10,
