@@ -32,7 +32,7 @@ function AuctionatorCraftingInfoObjectiveTrackerFrameMixin:UpdateSearchButton()
 end
 
 function AuctionatorCraftingInfoObjectiveTrackerFrameMixin:IsAnythingTracked()
-  return #C_TradeSkillUI.GetRecipesTracked() > 0
+  return #C_TradeSkillUI.GetRecipesTracked(true) > 0 or #C_TradeSkillUI.GetRecipesTracked(false) > 0 
 end
 
 function AuctionatorCraftingInfoObjectiveTrackerFrameMixin:SearchButtonClicked()
