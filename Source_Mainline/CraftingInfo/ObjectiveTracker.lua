@@ -13,9 +13,7 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
   local possibleItems = {}
   local continuableContainer = ContinuableContainer:Create()
 
-  local trackedRecipes = C_TradeSkillUI.GetRecipesTracked()
-
-  for _, recipeID in ipairs(trackedRecipes) do
+  local function ProcessRecipe(recipeID, isRecraft)
     local outputLink = Auctionator.CraftingInfo.GetOutputItemLink(recipeID, nil, {})
     if outputLink then
       table.insert(possibleItems, outputLink)
@@ -33,7 +31,7 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
       table.insert(searchTerms, recipeInfo.name)
     end
 
-    local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false)
+    local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, isRecraft)
     -- Select all mandatory reagents
     for slotIndex, reagentSlotSchematic in ipairs(recipeSchematic.reagentSlotSchematics) do
       if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and #reagentSlotSchematic.reagents > 0 then
@@ -45,6 +43,16 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
         end
       end
     end
+  end
+
+  local trackedRecipes = C_TradeSkillUI.GetRecipesTracked(true)
+  for _, recipeID in ipairs(trackedRecipes) do
+    ProcessRecipe(recipeID, true)
+  end
+
+  local trackedRecipes = C_TradeSkillUI.GetRecipesTracked(false)
+  for _, recipeID in ipairs(trackedRecipes) do
+    ProcessRecipe(recipeID, false)
   end
 
   local function OnItemInfoReady()
