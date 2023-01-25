@@ -84,6 +84,12 @@ end
 
 function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
   if startIndex >= limit then
+    C_Timer.After(2, function()
+      if self.waitingForData > 0 then
+        self.waitingForData = 0
+        self:EndProcessing()
+      end
+    end)
     return
   end
 
