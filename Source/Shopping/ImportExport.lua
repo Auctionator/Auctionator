@@ -92,6 +92,7 @@ function Auctionator.Shopping.Lists.OldOneImportFromString(listName, importStrin
 end
 
 local TSMImportName = "TSM (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
+local IMPORT_ERROR = "IMPORT ERROR"
 
 --Import a TSM group in the format
 --  i:itemID 1,i:itemID 2 OR
@@ -106,6 +107,22 @@ function Auctionator.Shopping.Lists.TSMImportFromString(importString)
   local left = #itemStrings
   local items = {}
 
+  local function OnFinish()
+    if Auctionator.Shopping.Lists.ListIndex(TSMImportName) ~= nil then
+      Auctionator.Shopping.Lists.Delete(TSMImportName)
+    end
+
+    Auctionator.Shopping.Lists.CreateTemporary(TSMImportName)
+
+    local list = Auctionator.Shopping.Lists.GetListByName(TSMImportName)
+    list.items = items
+
+    Auctionator.EventBus
+      :RegisterSource(Auctionator.Shopping.Lists.TSMImportFromString, "TSMImportFromString")
+      :Fire(Auctionator.Shopping.Lists.TSMImportFromString, Auctionator.Shopping.Events.ListCreated, list)
+      :UnregisterSource(Auctionator.Shopping.Lists.TSMImportFromString)
+  end
+
   for index, itemString in ipairs(itemStrings) do
     --TSM uses the same format for normal items and pets, so we try to load an
     --item with the ID first, if that doesn't work, then we try loading a pet.
@@ -118,35 +135,40 @@ function Auctionator.Shopping.Lists.TSMImportFromString(importString)
     if itemType == "p" or item:IsItemEmpty() then
       item = Item:CreateFromItemID(Auctionator.Constants.PET_CAGE_ID)
     end
-    item:ContinueOnItemLoad(function()
-      items[index] = GetItemInfo(id)
-      if itemType == "p" or items[index] == nil then
-        items[index] = C_PetJournal.GetPetInfoBySpeciesID(id)
-        if type(items[index]) ~= "string" then
-          items[index] = nil
-        end
-      end
-
-      if items[index] == nil then
-        items[index] = "IMPORT ERROR"
-      end
-
-      left = left - 1
-      if left == 0 then
-        if Auctionator.Shopping.Lists.ListIndex(TSMImportName) ~= nil then
-          Auctionator.Shopping.Lists.Delete(TSMImportName)
+    if item:IsItemEmpty() then
+      items[index] = IMPORT_ERROR
+    else
+      item:ContinueOnItemLoad(function()
+        items[index] = GetItemInfo(id)
+        if itemType == "p" or items[index] == nil then
+          items[index] = C_PetJournal.GetPetInfoBySpeciesID(id)
+          if type(items[index]) ~= "string" then
+            items[index] = nil
+          end
         end
 
-        Auctionator.Shopping.Lists.CreateTemporary(TSMImportName)
-
-        local list = Auctionator.Shopping.Lists.GetListByName(TSMImportName)
-        list.items = items
-
-        Auctionator.EventBus
-          :RegisterSource(Auctionator.Shopping.Lists.TSMImportFromString, "TSMImportFromString")
-          :Fire(Auctionator.Shopping.Lists.TSMImportFromString, Auctionator.Shopping.Events.ListCreated, list)
-          :UnregisterSource(Auctionator.Shopping.Lists.TSMImportFromString)
+        if items[index] == nil then
+          items[index] = IMPORT_ERROR
         end
-    end)
+
+        left = left - 1
+        if left == 0 then
+          OnFinish()
+        end
+      end)
+    end
   end
+  -- Check for case when item data is missing from the Blizzard item database so
+  -- that some kind of list is imported
+  C_Timer.After(2, function()
+    if left > 0 then
+      left = 0
+      for index in ipairs(itemStrings) do
+        if items[index] == nil then
+          items[index] = IMPORT_ERROR
+        end
+      end
+      OnFinish()
+    end
+  end)
 end
