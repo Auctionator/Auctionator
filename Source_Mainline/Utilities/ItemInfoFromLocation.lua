@@ -35,6 +35,7 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
     location = location,
     quality = quality,
     classId = classID,
-    auctionable = C_AuctionHouse.IsSellItemValid(location, false)
+    auctionable = C_AuctionHouse.IsSellItemValid(location, false),
+    bagListing = quality ~= Enum.ItemQuality.Poor or Auctionator.Utilities.IsEquipment(classID),
   }
 end

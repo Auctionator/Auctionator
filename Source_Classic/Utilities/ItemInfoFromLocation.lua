@@ -45,5 +45,6 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
     quality = quality,
     classId = classID,
     auctionable = auctionable,
+    bagListing = quality ~= Enum.ItemQuality.Poor,
   }
 end

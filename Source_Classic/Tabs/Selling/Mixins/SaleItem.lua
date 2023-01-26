@@ -1,5 +1,5 @@
 local function IsEquipment(itemInfo)
-  return itemInfo.classId == Enum.ItemClass.Weapon or itemInfo.classId == Enum.ItemClass.Armor
+  return Auctionator.Utilities.IsEquipment(itemInfo.classId)
 end
 
 local function IsValidItem(item)

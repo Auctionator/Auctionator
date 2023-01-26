@@ -4,4 +4,5 @@
   <Script file="IsAtMaxCharges.lua"/>
   <Script file="ScanTooltip.lua"/>
   <Script file="ToUnitPrice.lua"/>
+  <Script file="IsEquipment.lua"/>
 </Ui>
