@@ -113,7 +113,7 @@ local function TooltipRangeString(min, max)
 end
 
 local function QualityString(quality)
-  if quality ~= nil then
+  if quality ~= nil and ITEM_QUALITY_COLORS[quality] ~= nil then
     return Auctionator.Utilities.CreateColoredQuality(quality)
   else
     return ""
@@ -239,7 +239,7 @@ end
 local function TooltipQuality(splitSearch)
   local key
 
-  if splitSearch.quality == nil then
+  if splitSearch.quality == nil or ITEM_QUALITY_COLORS[splitSearch.quality] ~= nil then
     key = AUCTIONATOR_L_ANY_LOWER
   else
     key = Auctionator.Utilities.CreateColoredQuality(splitSearch.quality)
