@@ -7,63 +7,7 @@ local COMMODITY_PURCHASE_EVENTS = {
   "COMMODITY_PRICE_UPDATED",
 }
 
-function AuctionatorConfirmDropDownMixin:OnLoad()
-  LibDD:Create_UIDropDownMenu(self)
-
-  LibDD:UIDropDownMenu_SetInitializeFunction(self, AuctionatorConfirmDropDownMixin.Initialize)
-  LibDD:UIDropDownMenu_SetDisplayMode(self, "MENU")
-  Auctionator.EventBus:Register(self, {
-    Auctionator.Selling.Events.ShowConfirmPurchase,
-    Auctionator.AH.Events.Ready,
-  })
-end
-
-function AuctionatorConfirmDropDownMixin:OnHide()
-  if self.commoditiesPurchaseOngoing then
-    self.commoditiesPurchaseOngoing = false
-
-    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
-
-    C_AuctionHouse.CancelCommoditiesPurchase()
-  end
-end
-
-function AuctionatorConfirmDropDownMixin:OnEvent(eventName, ...)
-  if eventName == "COMMODITY_PRICE_UPDATED" then
-    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
-
-    local newUnitPrice, newTotalPrice = ...
-    self.unitPrice = newUnitPrice
-    self.totalPrice = newTotalPrice
-    self:Toggle()
-
-  elseif eventName == "COMMODITY_PRICE_UNAVAILABLE" then
-    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
-
-    self:Toggle()
-  end
-end
-
-function AuctionatorConfirmDropDownMixin:ReceiveEvent(event, ...)
-  if event == Auctionator.Selling.Events.ShowConfirmPurchase then
-    self.data = ...
-    self.totalPrice = nil
-
-    if self.data.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
-      self.commoditiesPurchaseOngoing = true
-
-      C_AuctionHouse.StartCommoditiesPurchase(self.data.itemID, self.data.quantity)
-      FrameUtil.RegisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
-
-    else --Auctionator.Constants.ITEM_TYPES.ITEM
-      self.totalPrice = self.data.price
-      self.unitPrice = self.data.price
-      self:Toggle()
-    end
-  end
-end
-
-function AuctionatorConfirmDropDownMixin:Initialize()
+local function DropDown_Initialize(self)
   local confirmInfo = LibDD:UIDropDownMenu_CreateInfo()
   confirmInfo.notCheckable = 1
   if self.totalPrice ~= nil then
@@ -99,6 +43,67 @@ function AuctionatorConfirmDropDownMixin:Initialize()
   LibDD:UIDropDownMenu_AddButton(cancelInfo)
 end
 
+function AuctionatorConfirmDropDownMixin:OnLoad()
+  self.dropDown = CreateFrame("Frame", nil, self)
+  LibDD:Create_UIDropDownMenu(self.dropDown)
+
+  LibDD:UIDropDownMenu_SetInitializeFunction(self.dropDown, DropDown_Initialize)
+  LibDD:UIDropDownMenu_SetDisplayMode(self.dropDown, "MENU")
+  Auctionator.EventBus:Register(self, {
+    Auctionator.Selling.Events.ShowConfirmPurchase,
+    Auctionator.AH.Events.Ready,
+  })
+end
+
+function AuctionatorConfirmDropDownMixin:OnHide()
+  self:CancelCommoditiesPurchase()
+end
+
+function AuctionatorConfirmDropDownMixin:CancelCommoditiesPurchase()
+  if self.commoditiesPurchaseOngoing then
+    self.commoditiesPurchaseOngoing = false
+    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+    C_AuctionHouse.CancelCommoditiesPurchase()
+  end
+end
+
+function AuctionatorConfirmDropDownMixin:OnEvent(eventName, ...)
+  if eventName == "COMMODITY_PRICE_UPDATED" then
+    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+
+    local newUnitPrice, newTotalPrice = ...
+    self.dropDown.unitPrice = newUnitPrice
+    self.dropDown.totalPrice = newTotalPrice
+    self:Toggle()
+
+  elseif eventName == "COMMODITY_PRICE_UNAVAILABLE" then
+    FrameUtil.UnregisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+
+    self:Toggle()
+  end
+end
+
+function AuctionatorConfirmDropDownMixin:ReceiveEvent(event, ...)
+  if event == Auctionator.Selling.Events.ShowConfirmPurchase then
+    self:CancelCommoditiesPurchase()
+
+    self.dropDown.data = ...
+    self.dropDown.totalPrice = nil
+
+    if self.dropDown.data.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+      self.commoditiesPurchaseOngoing = true
+
+      C_AuctionHouse.StartCommoditiesPurchase(self.dropDown.data.itemID, self.dropDown.data.quantity)
+      FrameUtil.RegisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
+
+    else --Auctionator.Constants.ITEM_TYPES.ITEM
+      self.dropDown.totalPrice = self.dropDown.data.price
+      self.dropDown.unitPrice = self.dropDown.data.price
+      self:Toggle()
+    end
+  end
+end
+
 function AuctionatorConfirmDropDownMixin:Toggle()
-  LibDD:ToggleDropDownMenu(1, nil, self, "cursor", -15, 20)
+  LibDD:ToggleDropDownMenu(1, nil, self.dropDown, "cursor", -15, 20)
 end
