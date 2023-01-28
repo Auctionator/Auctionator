@@ -17,6 +17,7 @@ function Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
 end
 
 local function IsGear(itemLink)
+  local classType = select(6, GetItemInfoInstant(itemLink))
   return classType ~= nil and Auctionator.Utilities.IsEquipment(classType)
 end
 
