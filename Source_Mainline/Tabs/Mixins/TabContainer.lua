@@ -28,7 +28,7 @@ function AuctionatorTabContainerMixin:OnLoad()
       details.tabTemplate
     )
     local buttonFrameName = "AuctionatorTabs_" .. details.name
-    LibAHTab:CreateTab(buttonFrameName, frameRef, details.textLabel)
+    LibAHTab:CreateTab(buttonFrameName, frameRef, details.textLabel, details.tabHeader)
     _G[buttonFrameName] = LibAHTab:GetButton(buttonFrameName)
     table.insert(AuctionatorAHTabsContainer.Tabs, _G[buttonFrameName])
 

@@ -27,7 +27,7 @@ frame:SetScript("OnEvent", function(_, eventName, panelType)
 end)
 
 -- API
-LibAHTab:CreateTab(UNIQUE_TAB_ID, attachedFrame, "Tab Button Text")
+LibAHTab:CreateTab(UNIQUE_TAB_ID, attachedFrame, "Tab Button Text", "Optional tab header")
 LibAHTab:DoesIDExist(UNIQUE_TAB_ID)
 LibAHTab:GetButton(UNIQUE_TAB_ID)
 LibAHTab:SetSelected(UNIQUE_TAB_ID)
