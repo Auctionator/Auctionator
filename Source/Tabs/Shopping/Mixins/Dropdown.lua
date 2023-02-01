@@ -109,7 +109,7 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
     local list = Auctionator.Shopping.Lists.Data[tonumber(rootEntry.index)]
     listEntry.text = AUCTIONATOR_L_DELETE
     listEntry.func = function(entry)
-      local message = AUCTIONATOR_L_DELETE_LIST_CONFIRM:format(list.name)
+      local message = AUCTIONATOR_L_DELETE_LIST_CONFIRM:format(list.name):gsub("%%", "%%%%")
       StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = message
       StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList, nil, nil, list.name)
       LibDD:HideDropDownMenu(1)
@@ -122,7 +122,7 @@ function AuctionatorShoppingListDropdownMixin:Initialize(level, rootEntry)
       listEntry.text = AUCTIONATOR_L_RENAME
     end
     listEntry.func = function(entry)
-      local message = AUCTIONATOR_L_RENAME_LIST_CONFIRM:format(list.name)
+      local message = AUCTIONATOR_L_RENAME_LIST_CONFIRM:format(list.name):gsub("%%", "%%%%")
       StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList].text = message
       StaticPopup_Show(Auctionator.Constants.DialogNames.RenameShoppingList, nil, nil, list.name)
       LibDD:HideDropDownMenu(1)
