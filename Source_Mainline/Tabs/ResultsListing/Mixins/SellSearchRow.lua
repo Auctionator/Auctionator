@@ -44,11 +44,6 @@ function AuctionatorSellSearchRowMixin:OnClick(button, ...)
         :UnregisterSource(self)
     end
 
-  elseif Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BUY_SHORTCUT), button) then
-    if self.rowData.canBuy then
-      BuyEntry(self.rowData)
-    end
-
   elseif IsModifiedClick("DRESSUP") then
     DressUpLink(self.rowData.itemLink);
 

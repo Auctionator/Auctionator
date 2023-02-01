@@ -185,7 +185,6 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       auctionID = resultInfo.auctionID,
       itemID = itemID,
       itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
-      canBuy = not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 
     if #entry.owners > 0 and #entry.owners < entry.totalNumberOfOwners then
@@ -241,7 +240,6 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
       itemLink = resultInfo.itemLink,
       auctionID = resultInfo.auctionID,
       itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
-      canBuy = resultInfo.buyoutAmount ~= nil and not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 
     if #entry.owners > 0 and #entry.owners < entry.totalNumberOfOwners then
