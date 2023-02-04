@@ -32,7 +32,8 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
 
   -- The first time the AH is loaded sometimes when a full scan is running the
   -- quality info may not be available. This just gives a sensible fail value.
-  if quality == -1 then
+  -- -1 is the classic era fail value and nil is the Wrath fail value
+  if quality == -1 or quality == nil then
     Auctionator.Debug.Message("Missing quality", itemLink)
     quality = 1
   end
