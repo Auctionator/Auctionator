@@ -7,7 +7,6 @@
 AuctionatorAHThrottlingFrameMixin = {}
 
 local THROTTLING_EVENTS = {
-  "AUCTION_HOUSE_SHOW",
   "AUCTION_HOUSE_CLOSED",
   "UI_ERROR_MESSAGE",
 }
@@ -37,19 +36,11 @@ function AuctionatorAHThrottlingFrameMixin:OnLoad()
 
   self.oldReady = false
   self:ResetTimeout()
-
-  if AuctionFrame:IsShown() then
-    self:SetScript("OnUpdate", self.OnUpdate)
-  end
 end
 
 function AuctionatorAHThrottlingFrameMixin:OnEvent(eventName, ...)
-  if eventName == "AUCTION_HOUSE_SHOW" then
-    self:SetScript("OnUpdate", self.OnUpdate)
-
-  elseif eventName == "AUCTION_HOUSE_CLOSED" then
+  if eventName == "AUCTION_HOUSE_CLOSED" then
     self:ResetWaiting()
-    self:SetScript("OnUpdate", nil)
 
   elseif eventName == "AUCTION_MULTISELL_START" then
     self:ResetTimeout()
