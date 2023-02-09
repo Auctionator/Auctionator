@@ -103,6 +103,8 @@
         </Scripts>
       </Frame>
 
+      <Frame parentKey="ConfirmDropDown" inherits="AuctionatorConfirmDropDownTemplate"/>
+
       <Frame parentKey="PricesTabsContainer" mixin="AuctionatorSellingTabPricesContainerMixin">
         <Anchors>
           <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.HistoricalPriceInset" x="2"/>

@@ -3,6 +3,7 @@ Auctionator.Config.Options.PET_TOOLTIPS = "pet_tooltips"
 Auctionator.Config.Options.AUTOSCAN = "autoscan_2"
 Auctionator.Config.Options.AUTOSCAN_INTERVAL = "autoscan_interval"
 Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT = "selling_cancel_shortcut"
+Auctionator.Config.Options.SELLING_BUY_SHORTCUT = "selling_buy_shortcut"
 Auctionator.Config.Options.SELLING_SPLIT_PANELS = "selling_split_panels"
 
 Auctionator.Config.Options.AUCTION_DURATION = "auction_duration"
@@ -20,6 +21,7 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN_INTERVAL] = 15
 Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT] = Auctionator.Config.Shortcuts.RIGHT_CLICK
+Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_BUY_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_RIGHT_CLICK
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_SPLIT_PANELS] = false
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_DURATION] = 24
