@@ -5,7 +5,7 @@ local seenBag, seenSlot
 function AuctionatorBagItemSelectedMixin:OnClick(button)
   local wasCursorItem = C_Cursor.GetCursorItem()
   if not self:ProcessCursor() then
-    if not wasCursorItem and self.itemInfo ~= nil then
+    if button == "LeftButton" and not wasCursorItem and self.itemInfo ~= nil then
       self:SearchInShoppingTab()
     else
       AuctionatorBagItemMixin.OnClick(self, button)
