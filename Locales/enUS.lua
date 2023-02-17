@@ -534,6 +534,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["HIDE"] = "Hide"
   L["UNHIDE"] = "Unhide"
   L["UNHIDE_ALL"] = "Unhide All"
+  L["CONFIRM_UNHIDE_ALL"] = "Are you sure you want to unhide all hidden items?"
   L["UNHIDE_ALL_HIDDEN_ITEMS"] = "Unhide all hidden items"
   L["FAVOURITES"] = "Favourites"
   L["ADD_FAVOURITE"] = "Add Favourite"

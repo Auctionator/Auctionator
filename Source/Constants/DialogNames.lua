@@ -5,4 +5,5 @@ Auctionator.Constants.DialogNames = {
   RenameShoppingList = "AUCTIONATOR_RENAME_SHOPPING_LIST",
 
   SellingConfirmPost = "AUCTIONATOR_SELLING_CONFIRM_POST",
+  SellingConfirmUnhideAll = "AUCTIONATOR_SELLING_CONFIRM_UNHIDE_ALL",
 }

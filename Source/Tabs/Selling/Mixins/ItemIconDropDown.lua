@@ -131,7 +131,7 @@ function AuctionatorItemIconDropDownMixin:Initialize()
 
   unhideAllAllInfo.disabled = NoItemKeysHidden()
   unhideAllAllInfo.func = function()
-    UnhideAllItemKeys()
+    StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmUnhideAll)
   end
 
   LibDD:UIDropDownMenu_AddButton(unhideAllAllInfo)
