@@ -13,6 +13,10 @@ Auctionator.Shopping.Events = {
   EditListItem = "AUCTIONATOR_EDIT_LIST_ITEM",
   CopyIntoList = "AUCTIONATOR_COPY_INTO_LIST",
 
+  DragItemStart = "shopping list drag item start",
+  DragItemEnter = "shopping list drag item enter",
+  DragItemStop = "shopping list drag item stop",
+
   OneItemSearch = "AUCTIONATOR_ONE_ITEM_SEARCH",
   RecentSearchesUpdate = "AUCTIONATOR_RECENT_SEARCHES_UPDATE",
 

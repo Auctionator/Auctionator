@@ -1,5 +1,3 @@
-AuctionatorShoppingTableBuilderMixin = CreateFromMixins(AuctionatorRetailImportTableBuilderMixin)
-
 AuctionatorScrollListMixin = {}
 
 function AuctionatorScrollListMixin:GetNumEntries()

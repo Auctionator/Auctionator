@@ -41,6 +41,10 @@
   </Button>
 
   <Button name="AuctionatorScrollListLineShoppingListTemplate" inherits="AuctionatorScrollListLineNoButtonsTemplate" mixin="AuctionatorScrollListLineShoppingListMixin" virtual="true">
+    <Scripts>
+      <OnMouseUp method="OnMouseUp"/>
+      <OnMouseDown method="OnMouseDown"/>
+    </Scripts>
     <Frames>
       <Button parentKey="EditButton" inherits="AuctionatorScrollListLineButtonTemplate">
         <Size>

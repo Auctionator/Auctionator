@@ -58,43 +58,20 @@ function AuctionatorScrollListLineShoppingListMixin:EditItem()
   Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.EditListItem, self:GetListIndex())
 end
 
-function AuctionatorScrollListLineShoppingListMixin:ShiftItem(amount)
-  local index = self:GetListIndex()
-  local otherItem = self.currentList.items[index + amount]
-  if otherItem ~= nil then
-    self.currentList.items[index] = otherItem
-    self.currentList.items[index + amount] = self.searchTerm
-  end
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListOrderChanged)
+function AuctionatorScrollListLineShoppingListMixin:OnMouseDown()
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.DragItemStart, self:GetListIndex())
 end
 
-function AuctionatorScrollListLineShoppingListMixin:DetectDragStart()
-  --If the mouse leaves above this point, its been dragged up, and if dragged
-  --down, it has been dragged below this point
-  self.dragStartY = select(2, GetCursorPosition())
-end
-
-function AuctionatorScrollListLineShoppingListMixin:DetectDragEnd()
-  if self.dragStartY ~= nil and IsMouseButtonDown("LeftButton") then
-    local y = select(2, GetCursorPosition())
-    if y > self.dragStartY then
-      self:ShiftItem(-1)
-    elseif y < self.dragStartY then
-      self:ShiftItem(1)
-    end
-  end
+function AuctionatorScrollListLineShoppingListMixin:OnMouseUp()
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.DragItemStop)
 end
 
 function AuctionatorScrollListLineShoppingListMixin:OnEnter()
   AuctionatorScrollListLineMixin.OnEnter(self)
 
-  self:DetectDragStart()
-end
-
-function AuctionatorScrollListLineShoppingListMixin:OnLeave()
-  AuctionatorScrollListLineMixin.OnLeave(self)
-
-  self:DetectDragEnd()
+  if IsMouseButtonDown("LeftButton") then
+    Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.DragItemEnter, self:GetListIndex())
+  end
 end
 
 function AuctionatorScrollListLineShoppingListMixin:OnClick()

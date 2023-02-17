@@ -26,6 +26,9 @@ function AuctionatorScrollListShoppingListMixin:SetUpEvents()
     Auctionator.Shopping.Events.ListItemDeleted,
     Auctionator.Shopping.Events.ListOrderChanged,
     Auctionator.Shopping.Events.OneItemSearch,
+    Auctionator.Shopping.Events.DragItemStart,
+    Auctionator.Shopping.Events.DragItemEnter,
+    Auctionator.Shopping.Events.DragItemStop,
   })
 end
 
@@ -76,6 +79,14 @@ function AuctionatorScrollListShoppingListMixin:ReceiveEvent(eventName, eventDat
     self:RefreshScrollFrame(true)
   elseif eventName == Auctionator.Shopping.Events.ListOrderChanged then
     self:RefreshScrollFrame(true)
+  elseif eventName == Auctionator.Shopping.Events.DragItemStart then
+    self.dragStartIndex = eventData
+  elseif eventName == Auctionator.Shopping.Events.DragItemEnter then
+    self.dragNewIndex = eventData
+    self:UpdateForDrag()
+  elseif eventName == Auctionator.Shopping.Events.DragItemStop then
+    self.dragStartIndex = nil
+    self.dragNewIndex = nil
   elseif eventName == Auctionator.Shopping.Events.ListSearchRequested then
     self:StartSearch(self:GetAllSearchTerms())
   elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
@@ -94,6 +105,19 @@ end
 
 function AuctionatorScrollListShoppingListMixin:InitLine(line)
   line:InitLine(self.currentList)
+end
+
+function AuctionatorScrollListShoppingListMixin:UpdateForDrag()
+  if self.dragStartIndex ~= nil and self.dragNewIndex ~= nil and self.dragStartIndex ~= self.dragNewIndex then
+    local toDrag = self.currentList.items[self.dragStartIndex]
+
+    table.remove(self.currentList.items, self.dragStartIndex)
+
+    self.dragStartIndex = self.dragNewIndex
+    table.insert(self.currentList.items, self.dragStartIndex, toDrag)
+
+    Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListOrderChanged)
+  end
 end
 
 function AuctionatorScrollListShoppingListMixin:StartSearch(searchTerms, isSearchingForOneItem)
