@@ -12,9 +12,8 @@ function AuctionatorBagItemSelectedMixin:OnClick(button)
 end
 
 function AuctionatorBagItemSelectedMixin:SearchInShoppingTab()
-  local item = Item:CreateFromItemLink(self.itemInfo.itemLink)
-  item:ContinueOnItemLoad(function()
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_SELLING_TAB, { item:GetItemName() })
+  Auctionator.AH.GetItemKeyInfo(self.itemInfo.itemKey, function(itemInfo)
+    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_SELLING_TAB, { itemInfo.itemName })
   end)
 end
 
