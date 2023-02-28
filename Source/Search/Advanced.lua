@@ -239,7 +239,7 @@ end
 local function TooltipQuality(splitSearch)
   local key
 
-  if splitSearch.quality == nil or ITEM_QUALITY_COLORS[splitSearch.quality] ~= nil then
+  if splitSearch.quality == nil or ITEM_QUALITY_COLORS[splitSearch.quality] == nil then
     key = AUCTIONATOR_L_ANY_LOWER
   else
     key = Auctionator.Utilities.CreateColoredQuality(splitSearch.quality)
