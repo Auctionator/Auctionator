@@ -91,7 +91,7 @@ function Auctionator.Shopping.Lists.OldOneImportFromString(listName, importStrin
   list.items = {strsplit("\n", importString)}
 end
 
-local TSMImportName = "TSM (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
+local TSMImportName = AUCTIONATOR_L_IMPORTED .. " (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
 local IMPORT_ERROR = "IMPORT ERROR"
 
 --Import a TSM group in the format

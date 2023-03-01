@@ -450,6 +450,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["TODAY"] = "Today"
 
   L["TEMPORARY_LOWER_CASE"] = "temporary"
+  L["IMPORTED"] = "Imported"
 
   L["CONFIG_PROFILE_CATEGORY"] = "Profile"
   L["CONFIG_PROFILE_TEXT"] = "Setup per-character settings."
