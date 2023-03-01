@@ -4,7 +4,7 @@ local SALE_ITEM_EVENTS = {
 }
 
 -- Necessary because attempting to post an auction with copper value silently
--- failes
+-- fails
 local function NormalizePrice(price)
   local normalizedPrice = price
 
