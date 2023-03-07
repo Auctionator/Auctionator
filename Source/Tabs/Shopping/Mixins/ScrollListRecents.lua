@@ -11,22 +11,22 @@ function AuctionatorScrollListRecentsMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Recents Scroll Frame")
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.ListSearchStarted,
-    Auctionator.Shopping.Events.ListSearchEnded,
-    Auctionator.Shopping.Events.RecentSearchesUpdate,
-    Auctionator.Shopping.Events.OneItemSearch,
+    Auctionator.Shopping.Tab.Events.ListSearchStarted,
+    Auctionator.Shopping.Tab.Events.ListSearchEnded,
+    Auctionator.Shopping.Tab.Events.RecentSearchesUpdate,
+    Auctionator.Shopping.Tab.Events.OneItemSearch,
   })
 end
 
 function AuctionatorScrollListRecentsMixin:ReceiveEvent(eventName, eventData)
-  if eventName == Auctionator.Shopping.Events.OneItemSearch and self:IsShown() then
+  if eventName == Auctionator.Shopping.Tab.Events.OneItemSearch and self:IsShown() then
     self:StartSearch({ eventData }, true)
-  elseif eventName == Auctionator.Shopping.Events.RecentSearchesUpdate then
+  elseif eventName == Auctionator.Shopping.Tab.Events.RecentSearchesUpdate then
     self:RefreshScrollFrame(true)
-  elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
     self.SpinnerAnim:Play()
     self.LoadingSpinner:Show()
-  elseif eventName == Auctionator.Shopping.Events.ListSearchEnded then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchEnded then
     self.LoadingSpinner:Hide()
   end
 end
@@ -34,7 +34,7 @@ end
 function AuctionatorScrollListRecentsMixin:StartSearch(searchTerms)
   Auctionator.EventBus:Fire(
     self,
-    Auctionator.Shopping.Events.SearchForTerms,
+    Auctionator.Shopping.Tab.Events.SearchForTerms,
     searchTerms
   )
 end

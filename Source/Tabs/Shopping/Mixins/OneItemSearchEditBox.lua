@@ -31,8 +31,10 @@ function AuctionatorShoppingOneItemSearchEditBoxMixin:OnTextChanged(isUserInput)
       end
     end
 
-    for _, list in ipairs(Auctionator.Shopping.Lists.Data) do
-      for _, search in ipairs(list.items) do
+    for i = 1, Auctionator.Shopping.ListManager:GetCount() do
+      local list = Auctionator.Shopping.ListManager:GetByIndex(i)
+      for j = 1, list:GetItemCount() do
+        local search = list:GetItemByIndex(j)
         if CompareSearch(search) then
           return
         end

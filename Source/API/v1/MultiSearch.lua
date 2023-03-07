@@ -33,19 +33,21 @@ local function StartSearch(callerID, cloned)
   local listName = callerID .. " (" .. AUCTIONATOR_L_TEMPORARY_LOWER_CASE .. ")"
 
   -- Remove any old searches
-  if Auctionator.Shopping.Lists.ListIndex(listName) ~= nil then
-    Auctionator.Shopping.Lists.Delete(listName)
+  if Auctionator.Shopping.ListManager:GetIndexForName(listName) ~= nil then
+    Auctionator.Shopping.ListManager:Delete(listName)
   end
 
-  Auctionator.Shopping.Lists.CreateTemporary(listName)
+  Auctionator.Shopping.ListManager:Create(listName, true)
 
-  local list = Auctionator.Shopping.Lists.GetListByName(listName)
+  local list = Auctionator.Shopping.ListManager:GetByName(listName)
 
-  list.items = cloned
+  for _, item in ipairs(cloned) do
+    list:InsertItem(item)
+  end
 
   Auctionator.EventBus:RegisterSource(StartSearch, "API v1 Multi search start")
-    :Fire(StartSearch, Auctionator.Shopping.Events.ListCreated, list)
-    :Fire(StartSearch, Auctionator.Shopping.Events.ListSearchRequested, list)
+    :Fire(StartSearch, Auctionator.Shopping.Tab.Events.ListCreated, list)
+    :Fire(StartSearch, Auctionator.Shopping.Tab.Events.ListSearchRequested, list)
     :UnregisterSource(StartSearch)
 end
 

@@ -11,6 +11,11 @@ function Auctionator.Shopping.Recents.Save(searchText)
   while #AUCTIONATOR_RECENT_SEARCHES > Auctionator.Constants.RecentsListLimit do
     table.remove(AUCTIONATOR_RECENT_SEARCHES)
   end
+
+  Auctionator.EventBus
+    :RegisterSource(Auctionator.Shopping.Recents.Save, "save recents entry")
+    :Fire(Auctionator.Shopping.Recents.Save, Auctionator.Shopping.Events.RecentSearchesUpdate)
+    :UnregisterSource(Auctionator.Shopping.Recents.Save)
 end
 
 function Auctionator.Shopping.Recents.DeleteEntry(searchTerm)

@@ -1,12 +1,12 @@
 local function CreateList(self, listName)
-  listName = Auctionator.Shopping.Lists.GetUnusedListName(listName)
+  listName = Auctionator.Shopping.ListManager:GetUnusedName(listName)
 
-  Auctionator.Shopping.Lists.Create(listName)
+  Auctionator.Shopping.ListManager:Create(listName)
 
   Auctionator.EventBus:Fire(
     self,
-    Auctionator.Shopping.Events.ListCreated,
-    Auctionator.Shopping.Lists.Data[Auctionator.Shopping.Lists.ListIndex(listName)]
+    Auctionator.Shopping.Tab.Events.ListCreated,
+    Auctionator.Shopping.ListManager:GetByName(listName)
   )
 end
 
@@ -39,9 +39,7 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList] = {
 }
 
 local function DeleteList(self, listName)
-  Auctionator.Shopping.Lists.Delete(listName)
-
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListDeleted, listName)
+  Auctionator.Shopping.ListManager:Delete(listName)
 end
 
 StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList] = {
@@ -64,21 +62,18 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList] = {
 }
 
 local function RenameList(self, newListName)
-  local currentList = Auctionator.Shopping.Lists.GetListByName(self.data)
-  if newListName ~= currentList.name then
-    newListName = Auctionator.Shopping.Lists.GetUnusedListName(newListName)
+  local currentList = Auctionator.Shopping.ListManager:GetByName(self.data)
+  if newListName ~= currentList:GetName() then
+    newListName = Auctionator.Shopping.ListManager:GetUnusedName(newListName)
 
-    Auctionator.Shopping.Lists.Rename(
-      Auctionator.Shopping.Lists.ListIndex(currentList.name),
-      newListName
-    )
+    currentList:Rename(newListName)
   end
 
   if currentList.isTemporary then
-    Auctionator.Shopping.Lists.MakePermanent(newListName)
+    currentList:MakePermanent()
   end
 
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListRenamed, currentList)
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.ListRenamed, currentList)
 end
 
 StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {

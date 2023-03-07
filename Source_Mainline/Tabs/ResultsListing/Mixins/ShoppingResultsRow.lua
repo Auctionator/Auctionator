@@ -41,7 +41,7 @@ function AuctionatorShoppingResultsRowMixin:OnClick(button, ...)
   elseif button == "RightButton" then
     Auctionator.EventBus
       :RegisterSource(self, "ShoppingResultsRowMixin")
-      :Fire(self, Auctionator.Shopping.Events.ShowHistoricalPrices, self.rowData)
+      :Fire(self, Auctionator.Shopping.Tab.Events.ShowHistoricalPrices, self.rowData)
       :UnregisterSource(self)
   else
     AuctionatorResultsRowTemplateMixin.OnClick(self, button, ...)

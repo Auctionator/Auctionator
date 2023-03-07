@@ -14,7 +14,7 @@ function AuctionatorListImportFrameMixin:OnShow()
 
   Auctionator.EventBus
     :RegisterSource(self, "lists import dialog")
-    :Fire(self, Auctionator.Shopping.Events.DialogOpened)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogOpened)
     :UnregisterSource(self)
 end
 
@@ -23,8 +23,18 @@ function AuctionatorListImportFrameMixin:OnHide()
   self:Hide()
   Auctionator.EventBus
     :RegisterSource(self, "lists import dialog")
-    :Fire(self, Auctionator.Shopping.Events.DialogClosed)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogClosed)
     :UnregisterSource(self)
+end
+
+function AuctionatorListImportFrameMixin:ReceiveEvent(eventName, eventData)
+  if eventName == Auctionator.Shopping.Events.ListImportFinished then
+    Auctionator.EventBus:Unregister(self, { Auctionator.Shopping.Events.ListImportFinished })
+    Auctionator.EventBus
+      :RegisterSource(self, "lists import dialog")
+      :Fire(self, Auctionator.Shopping.Tab.Events.ListCreated, Auctionator.Shopping.ListManager:GetByName(eventData))
+      :UnregisterSource(self)
+  end
 end
 
 function AuctionatorListImportFrameMixin:OnCloseDialogClicked()
@@ -32,8 +42,12 @@ function AuctionatorListImportFrameMixin:OnCloseDialogClicked()
 end
 
 function AuctionatorListImportFrameMixin:OnImportClicked()
+  -- register finished event early as sometimes it fires immediately
+  Auctionator.EventBus:Register(self, { Auctionator.Shopping.Events.ListImportFinished })
+
   local importString = self.ScrollFrame.ImportString:GetText()
 
+  local waiting = true
   if string.match(importString, "%^") then
     Auctionator.Debug.Message("Import shopping list with 8.3+ format")
     Auctionator.Shopping.Lists.BatchImportFromString(importString)
@@ -43,6 +57,13 @@ function AuctionatorListImportFrameMixin:OnImportClicked()
   elseif string.match(importString, "%,") then
     Auctionator.Debug.Message("Import shopping list from TSM group")
     Auctionator.Shopping.Lists.TSMImportFromString(importString)
+  else
+    waiting = false
+  end
+
+  -- Only listen for the import finished event if a valid format was detected
+  if not waiting then
+    Auctionator.EventBus:Unregister(self, { Auctionator.Shopping.Events.ListImportFinished })
   end
 
   self:Hide()

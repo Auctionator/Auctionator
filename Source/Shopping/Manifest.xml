@@ -1,7 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Events.lua" />
-  <Script file="Lists.lua" />
   <Script file="Recents.lua" />
   <Script file="ImportExport.lua" />
   <Script file="Hooks.lua" />
+
+  <Include file="Mixins\Manifest.xml" />
 </Ui>

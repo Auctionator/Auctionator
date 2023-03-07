@@ -3,7 +3,7 @@ AuctionatorItemHistoryFrameMixin = CreateFromMixins(AuctionatorEscapeToCloseMixi
 function AuctionatorItemHistoryFrameMixin:Init()
   self.ResultsListing:Init(self.DataProvider)
 
-  Auctionator.EventBus:Register(self, { Auctionator.Shopping.Events.ShowHistoricalPrices })
+  Auctionator.EventBus:Register(self, { Auctionator.Shopping.Tab.Events.ShowHistoricalPrices })
   self.isDocked = false
 end
 
@@ -12,7 +12,7 @@ function AuctionatorItemHistoryFrameMixin:OnShow()
 
   Auctionator.EventBus
     :RegisterSource(self, "lists item history dialog")
-    :Fire(self, Auctionator.Shopping.Events.DialogOpened)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogOpened)
     :UnregisterSource(self)
 end
 
@@ -21,12 +21,12 @@ function AuctionatorItemHistoryFrameMixin:OnHide()
 
   Auctionator.EventBus
     :RegisterSource(self, "lists item history 1")
-    :Fire(self, Auctionator.Shopping.Events.DialogClosed)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogClosed)
     :UnregisterSource(self)
 end
 
 function AuctionatorItemHistoryFrameMixin:ReceiveEvent(event, itemInfo)
-  if event == Auctionator.Shopping.Events.ShowHistoricalPrices then
+  if event == Auctionator.Shopping.Tab.Events.ShowHistoricalPrices then
     self.Title:SetText(AUCTIONATOR_L_X_PRICE_HISTORY:format(itemInfo.name))
   end
 end

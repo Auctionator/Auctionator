@@ -93,8 +93,8 @@ function AuctionatorShoppingItemMixin:OnLoad()
   end
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.ListSearchStarted,
-    Auctionator.Shopping.Events.ListSearchEnded
+    Auctionator.Shopping.Tab.Events.ListSearchStarted,
+    Auctionator.Shopping.Tab.Events.ListSearchEnded
   })
 end
 
@@ -110,7 +110,7 @@ function AuctionatorShoppingItemMixin:OnShow()
 
   Auctionator.EventBus
     :RegisterSource(self, "add item dialog")
-    :Fire(self, Auctionator.Shopping.Events.DialogOpened)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogOpened)
     :UnregisterSource(self)
 end
 
@@ -119,7 +119,7 @@ function AuctionatorShoppingItemMixin:OnHide()
 
   Auctionator.EventBus
     :RegisterSource(self, "add item dialog")
-    :Fire(self, Auctionator.Shopping.Events.DialogClosed)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogClosed)
     :UnregisterSource(self)
 end
 
@@ -230,9 +230,9 @@ function AuctionatorShoppingItemMixin:ResetAll()
 end
 
 function AuctionatorShoppingItemMixin:ReceiveEvent(eventName)
-  if eventName == Auctionator.Shopping.Events.ListSearchStarted then
+  if eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
     self.Finished:Disable()
-  elseif eventName == Auctionator.Shopping.Events.ListSearchEnded then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchEnded then
     self.Finished:Enable()
   end
 end

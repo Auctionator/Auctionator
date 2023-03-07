@@ -19,7 +19,7 @@ Auctionator = {
   Locales = {},
   Config = {},
   Variables = {},
-  Shopping = {},
+  Shopping = { Tab = {}, Lists = {} },
   Cancelling = {},
   Enchant = {},
   Selling = {},

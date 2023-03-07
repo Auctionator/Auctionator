@@ -1,8 +1,5 @@
 AuctionatorListExportFrameMixin = {}
 
-local ListDeleted = Auctionator.Shopping.Events.ListDeleted
-local ListCreated = Auctionator.Shopping.Events.ListCreated
-
 function AuctionatorListExportFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorListExportFrameMixin:OnLoad()")
 
@@ -28,7 +25,7 @@ function AuctionatorListExportFrameMixin:OnShow()
 
   Auctionator.EventBus
     :RegisterSource(self, "lists export dialog 1")
-    :Fire(self, Auctionator.Shopping.Events.DialogOpened)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogOpened)
     :UnregisterSource(self)
 end
 
@@ -37,21 +34,21 @@ function AuctionatorListExportFrameMixin:OnHide()
 
   Auctionator.EventBus
     :RegisterSource(self, "lists export dialog 1")
-    :Fire(self, Auctionator.Shopping.Events.DialogClosed)
+    :Fire(self, Auctionator.Shopping.Tab.Events.DialogClosed)
     :UnregisterSource(self)
 end
 
 function AuctionatorListExportFrameMixin:InitializeCheckBoxes()
   self.checkBoxPool = {}
-  self.listCount = #Auctionator.Shopping.Lists.Data
+  self.listCount = Auctionator.Shopping.ListManager:GetCount()
 
   -- Create enough frames for current number of lists
-  for _, _ in ipairs(Auctionator.Shopping.Lists.Data) do
+  for i = 1, self.listCount do
     self:AddToPool()
   end
 
   -- Listen for create/delete events to add more to pool if necessary
-  Auctionator.EventBus:Register(self, { ListDeleted, ListCreated })
+  Auctionator.EventBus:Register(self, { Auctionator.Shopping.Events.ListChange })
 end
 
 function AuctionatorListExportFrameMixin:AddToPool()
@@ -77,18 +74,15 @@ function AuctionatorListExportFrameMixin:AddToPool()
 
 end
 
-function AuctionatorListExportFrameMixin:ReceiveEvent(eventName)
-  if eventName == ListCreated then
+function AuctionatorListExportFrameMixin:ReceiveEvent(eventName, listName)
+  if eventName == Auctionator.Shopping.Events.ListChange then
     -- On list creation, increment listCount, and add a new check box
     -- to our pool, if necesssary
-    self.listCount = self.listCount + 1
+    self.listCount = Auctionator.Shopping.ListManager:GetCount()
 
     if #self.checkBoxPool < self.listCount then
       self:AddToPool()
     end
-  elseif eventName == ListDeleted then
-    -- On list deletion, decrement listCount
-    self.listCount = self.listCount - 1
   end
 end
 
@@ -101,8 +95,9 @@ function AuctionatorListExportFrameMixin:RefreshLists()
     checkbox:Hide()
   end
 
-  for index, list in ipairs(Auctionator.Shopping.Lists.Data) do
-    self.checkBoxPool[index]:SetText(list.name)
+  for index = 1, Auctionator.Shopping.ListManager:GetCount() do
+    local list = Auctionator.Shopping.ListManager:GetByIndex(index)
+    self.checkBoxPool[index]:SetText(list:GetName())
     self.checkBoxPool[index]:Show()
 
     -- The 3 is for the padding adding when setting point for the checkbox
