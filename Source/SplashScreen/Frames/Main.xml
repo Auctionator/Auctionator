@@ -26,22 +26,35 @@
         </Anchors>
       </Frame>
       <!-- Frame Close Button -->
-      <Button parentKey="Close" inherits="AuctionatorRetailImportUIStaticPopupSpecialCloseButton">
+      <Button parentKey="Close" inherits="UIPanelCloseButtonDefaultAnchors">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="2" y="1"/>
         </Anchors>
       </Button>
 
-      <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+      <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="10" y="-7"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-23" y="3"/>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset"/>
         </Anchors>
+      </EventFrame>
 
-        <ScrollChild>
-          <Frame parentKey="Content" />
-        </ScrollChild>
-      </ScrollFrame>
+      <Frame inherits="WowScrollBox" parentKey="ScrollBox">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ScrollBar" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+        <Frames>
+          <Frame parentKey="Content" inherits="ResizeLayoutFrame">
+            <KeyValues>
+              <KeyValue key="scrollable" value="true" type="boolean" />
+            </KeyValues>
+            <Anchors>
+              <Anchor point="TOP"/>
+            </Anchors>
+          </Frame>
+        </Frames>
+      </Frame>
 
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="HideCheckbox">
         <KeyValues>

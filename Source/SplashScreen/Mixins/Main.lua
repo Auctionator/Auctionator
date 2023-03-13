@@ -373,6 +373,15 @@ function AuctionatorSplashScreenMixin:OnLoad()
   --Trap mouse events (prevents click-through the frame)
   self:EnableMouse(true)
 
+  local view = CreateScrollBoxLinearView()
+  view:SetPadding(0, 25, 10, 10, 0)
+  view:SetPanExtent(50)
+  ScrollUtil.InitScrollBoxWithScrollBar(self.ScrollBox, self.ScrollBar, view);
+
+  self.ScrollBox.Content.OnCleaned = function()
+    self.ScrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately);
+  end
+
   table.insert(UISpecialFrames, self:GetName())
 
   self:ReformatCheckbox()
@@ -423,7 +432,6 @@ function AuctionatorSplashScreenMixin:CreateMessagesText()
 
   local previous
   local current
-  local height = 0
 
   for _, messageSpec in ipairs(MESSAGES) do
     -- Gray out previously viewed versions
@@ -433,35 +441,32 @@ function AuctionatorSplashScreenMixin:CreateMessagesText()
 
     -- Add version string
     current = self:CreateString(messageSpec.Version, fonts.version, previous, -30)
-    height = height + current:GetStringHeight()
     previous = current
 
     -- Add description string
     if messageSpec.Description ~= nil then
       current = self:CreateString(messageSpec.Description, fonts.description, previous)
-      height = height + current:GetStringHeight()
       previous = current
     end
 
     -- Add sections
     for _, section in ipairs(messageSpec.Sections or {}) do
       current = self:CreateString(section.Title, fonts.title, previous, -8)
-      height = height + current:GetStringHeight()
       previous = current
 
       for _, entry in ipairs(section.Entries) do
         current = self:CreateBulletedString(entry, fonts.entry, previous)
-        height = height + current:GetStringHeight()
         previous = current
       end
     end
   end
 
-  self.ScrollFrame.Content:SetSize(600, height)
+  self.ScrollBox.Content:SetWidth(600)
+  self.ScrollBox.Content:MarkDirty()
 end
 
 function AuctionatorSplashScreenMixin:CreateString(text, font, previousElement, offset)
-  local entry = self.ScrollFrame.Content:CreateFontString(nil, "ARTWORK")
+  local entry = self.ScrollBox.Content:CreateFontString(nil, "ARTWORK")
 
   if offset == nil then
     offset = -5
@@ -475,7 +480,7 @@ function AuctionatorSplashScreenMixin:CreateString(text, font, previousElement, 
   if previousElement ~= nil then
     entry:SetPoint("TOPLEFT", previousElement, "BOTTOMLEFT", 0, offset)
   else
-    entry:SetPoint("TOPLEFT", self.ScrollFrame.Content, "TOPLEFT", -5)
+    entry:SetPoint("TOPLEFT", self.ScrollBox.Content, "TOPLEFT", 0, -10)
   end
 
   return entry
