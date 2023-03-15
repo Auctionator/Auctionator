@@ -229,7 +229,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)
         local entry = {
           id = info.auctionID,
           quantity = info.quantity,
-          price = price,
+          price = info.buyoutAmount,
           bidPrice = info.bidAmount,
           bidder = info.bidder,
           itemKey = info.itemKey,
