@@ -39,6 +39,15 @@ function AuctionatorListExportFrameMixin:OnHide()
 end
 
 function AuctionatorListExportFrameMixin:InitializeCheckBoxes()
+  local view = CreateScrollBoxLinearView()
+  view:SetPadding(5, 5, 0, 0, 0)
+  view:SetPanExtent(50)
+  ScrollUtil.InitScrollBoxWithScrollBar(self.ScrollBox, self.ScrollBar, view);
+
+  self.ScrollBox.ListListingFrame.OnCleaned = function()
+    self.ScrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately);
+  end
+
   self.checkBoxPool = {}
   self.listCount = Auctionator.Shopping.ListManager:GetCount()
 
@@ -57,7 +66,7 @@ function AuctionatorListExportFrameMixin:AddToPool()
   table.insert(self.checkBoxPool, CreateFrame(
       "FRAME",
       "ExportListCheckbox" .. newIndex,
-      self.ScrollFrame.ListListingFrame,
+      self.ScrollBox.ListListingFrame,
       "AuctionatorConfigurationCheckbox"
     )
   )
@@ -65,8 +74,8 @@ function AuctionatorListExportFrameMixin:AddToPool()
   self.checkBoxPool[newIndex]:SetHeight( self.checkBoxPool[newIndex]:GetHeight() / 2 )
 
   if newIndex == 1 then
-    self.checkBoxPool[newIndex]:SetPoint("TOPLEFT", self.ScrollFrame.ListListingFrame, "TOPLEFT", 0, 0)
-    self.checkBoxPool[newIndex]:SetPoint("TOPRIGHT", self.ScrollFrame.ListListingFrame, "TOPRIGHT", 0, 0)
+    self.checkBoxPool[newIndex]:SetPoint("TOPLEFT", self.ScrollBox.ListListingFrame, "TOPLEFT", 0, 0)
+    self.checkBoxPool[newIndex]:SetPoint("TOPRIGHT", self.ScrollBox.ListListingFrame, "TOPRIGHT", 0, 0)
   else
     self.checkBoxPool[newIndex]:SetPoint("TOPLEFT", self.checkBoxPool[newIndex - 1], "BOTTOMLEFT", 0, -3)
     self.checkBoxPool[newIndex]:SetPoint("TOPRIGHT", self.checkBoxPool[newIndex - 1], "BOTTOMRIGHT", 0, -3)
@@ -89,8 +98,6 @@ end
 function AuctionatorListExportFrameMixin:RefreshLists()
   Auctionator.Debug.Message("AuctionatorListExportFrameMixin:RefreshLists()")
 
-  local height = 0
-
   for _, checkbox in ipairs(self.checkBoxPool) do
     checkbox:Hide()
   end
@@ -99,12 +106,9 @@ function AuctionatorListExportFrameMixin:RefreshLists()
     local list = Auctionator.Shopping.ListManager:GetByIndex(index)
     self.checkBoxPool[index]:SetText(list:GetName())
     self.checkBoxPool[index]:Show()
-
-    -- The 3 is for the padding adding when setting point for the checkbox
-    height = height + self.checkBoxPool[index]:GetHeight() + 3
   end
 
-  self.ScrollFrame.ListListingFrame:SetSize(340, height)
+  self.ScrollBox.ListListingFrame:MarkDirty()
 end
 
 function AuctionatorListExportFrameMixin:OnCloseDialogClicked()

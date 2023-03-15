@@ -23,17 +23,27 @@
           <Anchor point="BOTTOMRIGHT" x="-6" y="32"/>
         </Anchors>
       </Frame>
-      <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+
+      <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="TOPRIGHT"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </EventFrame>
+
+      <Frame parentKey="ScrollBox" inherits="WowScrollBox">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="5" y="-6"/>
-          <!-- TODO: Uncomment this to continue working on export via whisper -->
-          <!-- <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-22" y="64" /> -->
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-27" y="4"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ScrollBar" relativePoint="BOTTOMLEFT" y="4"/>
         </Anchors>
-        <ScrollChild>
-          <Frame parentKey="ListListingFrame"/>
-        </ScrollChild>
-      </ScrollFrame>
+        <Frames>
+          <Frame parentKey="ListListingFrame" inherits="ResizeLayoutFrame">
+            <KeyValues>
+              <KeyValue type="boolean" key="scrollable" value="true"/>
+            </KeyValues>
+          </Frame>
+        </Frames>
+      </Frame>
 
       <!-- Export options -->
       <!-- TODO: Uncomment this to continue working on export via whisper -->
