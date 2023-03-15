@@ -92,6 +92,7 @@ function AuctionatorUndercutScanMixin:NextStep()
   local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
 
   if (self.currentAuction.status == 1 or
+      self.currentAuction.buyoutAmount == nil or
       self.currentAuction.bidder ~= nil or
       self.currentAuction.itemKey.itemID == Auctionator.Constants.WOW_TOKEN_ID or
       not ShouldInclude(self.currentAuction.itemKey)) then
