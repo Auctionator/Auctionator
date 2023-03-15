@@ -32,6 +32,15 @@ local CANCELLING_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_BID_PRICE,
+    headerParameters = { "minBid" },
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "minBid" },
+    defaultHide = true,
+    width = 150,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerText = AUCTIONATOR_L_BIDDER,
     headerParameters = { "bidder" },
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -139,7 +148,7 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
 end
 
 function AuctionatorCancellingDataProviderMixin:IsValidAuction(auctionInfo)
-  return not auctionInfo.isSold and auctionInfo.stackPrice ~= 0
+  return not auctionInfo.isSold and (auctionInfo.stackPrice ~= 0 or auctionInfo.minBid ~= 0)
 end
 
 function AuctionatorCancellingDataProviderMixin:IsSoldAuction(auctionInfo)
@@ -222,6 +231,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
           numStacks = auction.numStacks,
           stackSize = auction.stackSize,
           stackPrice = auction.stackPrice,
+          minBid = auction.minBid,
           itemString = cleanLink,
           unitPrice = auction.unitPrice,
           bidder = auction.bidder or "",

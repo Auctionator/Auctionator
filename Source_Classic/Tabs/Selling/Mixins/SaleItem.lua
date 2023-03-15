@@ -571,7 +571,10 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     self.Stacks.NumStacks:GetNumber() * self.Stacks.StackSize:GetNumber() <= self.itemInfo.count and
 
     -- Positive price
-    self.UnitPrice:GetAmount() > 0 and
+    (
+      self.UnitPrice:GetAmount() > 0 or
+      self.BidPrice:GetAmount() > 0
+    ) and
 
     -- Have opted to ignore the throttle or searches on the client aren't throttled
     (not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GREY_POST_BUTTON) or Auctionator.AH.IsNotThrottled())
@@ -595,14 +598,18 @@ function AuctionatorSaleItemMixin:GetStackableWarningThreshold()
 end
 
 function AuctionatorSaleItemMixin:GetConfirmationMessage()
+  local effectiveUnitPrice = self.UnitPrice:GetAmount()
+  if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE) and effectiveUnitPrice == 0 then
+    effectiveUnitPrice = math.ceil(self.BidPrice:GetAmount() / self:GetStackSize())
+  end
   -- Check if the price may have had the unit and stack price entered in the
   -- wrong box with the item being underpriced compared to the on sale items
-  if self.priceCutThreshold ~= nil and self.UnitPrice:GetAmount() < self.priceCutThreshold then
+  if self.priceCutThreshold ~= nil and effectiveUnitPrice < self.priceCutThreshold then
     return AUCTIONATOR_L_CONFIRM_POST_PRICE_DROP:format(GetMoneyString(self.UnitPrice:GetAmount(), true))
   end
 
   -- Check if the item was underpriced compared to the currently on sale items
-  if self.UnitPrice:GetAmount() < self:GetStackableWarningThreshold() then
+  if effectiveUnitPrice < self:GetStackableWarningThreshold() then
     return AUCTIONATOR_L_CONFIRM_POST_LOW_PRICE:format(GetMoneyString(self.UnitPrice:GetAmount(), true))
   end
 
@@ -612,7 +619,7 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
   local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
   if Auctionator.Utilities.IsVendorable(itemInfo) and
      vendorPrice * self:GetStackSize() * self:GetNumStacks() + self:GetDeposit()
-       > math.floor(self.StackPrice:GetAmount() * self:GetNumStacks() * Auctionator.Constants.AfterAHCut) then
+       > math.floor(effectiveUnitPrice * self:GetStackSize() * self:GetNumStacks() * Auctionator.Constants.AfterAHCut) then
     return AUCTIONATOR_L_CONFIRM_POST_BELOW_VENDOR
   end
 end
