@@ -411,6 +411,9 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
       Auctionator.Database:SetPrice(key, result.unitPrice)
     end
   end
+  if self.itemInfo ~= nil then
+    self.itemInfo.existingValue = result and result.unitPrice
+  end
 
   self.priceThreshold = self:GetCommodityThreshold(itemID)
 
@@ -462,6 +465,9 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
     for _, key in ipairs(dbKeys) do
       Auctionator.Database:SetPrice(key, result.buyoutAmount or result.bidAmount)
     end
+  end
+  if self.itemInfo ~= nil then
+    self.itemInfo.existingValue = result and (result.buyoutAmount or result.bidAmount)
   end
 
   self.priceThreshold = nil
@@ -632,7 +638,24 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     postedInfo
   )
 
-  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistory)
+  -- If there aren't any other auctions or this item is posted lower than the
+  -- existing auctions then this item has become the new price for the item
+  local priceToSave = postedInfo.buyoutAmount
+  if postedInfo.buyoutAmount == 0 then
+    priceToSave = postedInfo.bidAmount
+  end
+  if self.itemInfo.existingValue == nil or self.itemInfo.existingValue > priceToSave then
+    Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
+      for _, key in ipairs(dbKeys) do
+        Auctionator.Database:SetPrice(key, priceToSave)
+      end
+      -- Refresh history listing after the new price is saved
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistory)
+    end)
+  else
+    -- Refresh history (posting and price history)
+    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistory)
+  end
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
     Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())

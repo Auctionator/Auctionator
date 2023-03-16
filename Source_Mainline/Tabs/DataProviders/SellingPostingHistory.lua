@@ -15,10 +15,13 @@ end
 
 function AuctionatorSellingPostingHistoryProviderMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.Selling.Events.BagItemClicked then
-    self:SetItem(Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = eventData.itemKey })[1])
+    local dbKey = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = eventData.itemKey })[1]
+    self.lastDBKey = dbKey
 
-  elseif eventName == Auctionator.Selling.Events.RefreshHistory and self.currentDBKey ~= nil then
-    self:SetItem(self.currentDBKey)
+    self:SetItem(dbKey)
+
+  elseif eventName == Auctionator.Selling.Events.RefreshHistory and self.lastDBKey ~= nil then
+    self:SetItem(self.lastDBKey)
   end
 end
 

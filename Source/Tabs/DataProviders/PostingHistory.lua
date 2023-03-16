@@ -39,8 +39,6 @@ function AuctionatorPostingHistoryProviderMixin:SetItem(dbKey)
   -- Reset columns
   self.onSearchStarted()
 
-  self.currentDBKey = dbKey
-
   local entries = Auctionator.PostingHistory:GetPriceHistory(dbKey)
   table.sort(entries, function(a, b) return b.rawDay < a.rawDay end)
 
