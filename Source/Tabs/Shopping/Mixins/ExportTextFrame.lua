@@ -1,8 +1,8 @@
 AuctionatorExportTextFrameMixin = {}
 
 function AuctionatorExportTextFrameMixin:OnLoad()
-  self.ScrollFrame:SetHeight(self.Inset:GetHeight())
-  self.ScrollFrame.ExportString:SetWidth(300)
+  ScrollUtil.RegisterScrollBoxWithScrollBar(self.EditBoxContainer:GetScrollBox(), self.ScrollBar)
+  self.EditBoxContainer:GetScrollBox():GetView():SetPanExtent(50)
 end
 
 function AuctionatorExportTextFrameMixin:SetOpeningEvents(open, close)
@@ -13,8 +13,8 @@ end
 function AuctionatorExportTextFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorExportTextFrameMixin:OnShow()")
 
-  self.ScrollFrame.ExportString:SetFocus()
-  self.ScrollFrame.ExportString:HighlightText()
+  self.EditBoxContainer:GetEditBox():SetFocus()
+  self.EditBoxContainer:GetEditBox():HighlightText()
 
   if self.openEvent then
     Auctionator.EventBus
@@ -36,11 +36,11 @@ function AuctionatorExportTextFrameMixin:OnHide()
 end
 
 function AuctionatorExportTextFrameMixin:SetExportString(exportString)
-  self.ScrollFrame.ExportString:SetText(exportString)
-  self.ScrollFrame.ExportString:HighlightText()
+  self.EditBoxContainer:GetEditBox():SetText(exportString)
+  self.EditBoxContainer:GetEditBox():HighlightText()
 end
 
 function AuctionatorExportTextFrameMixin:OnCloseClicked()
-  self.ScrollFrame.ExportString:SetText("")
+  self.EditBoxContainer:GetEditBox():SetText("")
   self:Hide()
 end

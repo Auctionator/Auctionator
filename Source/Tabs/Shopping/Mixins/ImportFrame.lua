@@ -3,14 +3,14 @@ AuctionatorListImportFrameMixin = {}
 function AuctionatorListImportFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorListImportFrameMixin:OnLoad()")
 
-  self.ScrollFrame:SetHeight(self.Inset:GetHeight())
-  self.ScrollFrame.ImportString:SetWidth(300)
+  ScrollUtil.RegisterScrollBoxWithScrollBar(self.EditBoxContainer:GetScrollBox(), self.ScrollBar)
+  self.EditBoxContainer:GetScrollBox():GetView():SetPanExtent(50)
 end
 
 function AuctionatorListImportFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorListImportFrameMixin:OnShow()")
 
-  self.ScrollFrame.ImportString:SetFocus()
+  self.EditBoxContainer:GetEditBox():SetFocus()
 
   Auctionator.EventBus
     :RegisterSource(self, "lists import dialog")
@@ -19,7 +19,7 @@ function AuctionatorListImportFrameMixin:OnShow()
 end
 
 function AuctionatorListImportFrameMixin:OnHide()
-  self.ScrollFrame.ImportString:SetText("")
+  self.EditBoxContainer:GetEditBox():SetText("")
   self:Hide()
   Auctionator.EventBus
     :RegisterSource(self, "lists import dialog")
@@ -45,7 +45,7 @@ function AuctionatorListImportFrameMixin:OnImportClicked()
   -- register finished event early as sometimes it fires immediately
   Auctionator.EventBus:Register(self, { Auctionator.Shopping.Events.ListImportFinished })
 
-  local importString = self.ScrollFrame.ImportString:GetText()
+  local importString = self.EditBoxContainer:GetEditBox():GetText()
 
   local waiting = true
   if string.match(importString, "%^") then

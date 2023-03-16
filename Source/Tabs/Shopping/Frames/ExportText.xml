@@ -23,20 +23,20 @@
           <Anchor point="BOTTOMRIGHT" x="-6" y="32"/>
         </Anchors>
       </Frame>
-      <ScrollFrame parentKey="ScrollFrame" inherits="UIPanelScrollFrameTemplate">
+
+      <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Inset" relativePoint="TOPRIGHT"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </EventFrame>
+
+      <Frame parentKey="EditBoxContainer" inherits="ScrollingEditBoxTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.Inset" relativePoint="TOPLEFT" x="5" y="-6"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Inset" relativePoint="BOTTOMRIGHT" x="-27" y="4" />
         </Anchors>
-        <ScrollChild>
-          <EditBox autoFocus="false" multiLine="true" parentKey="ExportString">
-            <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
-            <Scripts>
-              <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
-            </Scripts>
-          </EditBox>
-        </ScrollChild>
-      </ScrollFrame>
+      </Frame>
 
       <!-- Action Buttons -->
       <Button parentKey="Close" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CLOSE">
