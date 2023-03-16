@@ -80,7 +80,7 @@ function AuctionatorShoppingTabMixin:ReceiveEvent(eventName, eventData)
     self.selectedList = eventData
     self.AddItem:Enable()
     self.SortItems:Enable()
-  elseif eventName == Auctionator.Shopping.Events.ListChange and self.selectedList ~= nil and eventData == self.selectedList:GetName() and Auctionator.Shopping.ListManager:GetIndexForName(eventData) == nil then
+  elseif eventName == Auctionator.Shopping.Events.ListMetaChange and self.selectedList ~= nil and eventData == self.selectedList:GetName() and Auctionator.Shopping.ListManager:GetIndexForName(eventData) == nil then
     self.selectedList = nil
     self.AddItem:Disable()
     self.ManualSearch:Disable()

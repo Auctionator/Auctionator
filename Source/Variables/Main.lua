@@ -112,8 +112,7 @@ function Auctionator.Variables.InitializeShoppingLists()
   Auctionator.Shopping.ListManager = CreateAndInitFromMixin(
     AuctionatorShoppingListManagerMixin,
     function() return AUCTIONATOR_SHOPPING_LISTS end,
-    function(newVal) AUCTIONATOR_SHOPPING_LISTS = newVal end,
-    Auctionator.Shopping.Events.ListChange
+    function(newVal) AUCTIONATOR_SHOPPING_LISTS = newVal end
   )
 
   AUCTIONATOR_RECENT_SEARCHES = AUCTIONATOR_RECENT_SEARCHES or {}

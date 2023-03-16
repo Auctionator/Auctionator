@@ -57,7 +57,7 @@ function AuctionatorListExportFrameMixin:InitializeCheckBoxes()
   end
 
   -- Listen for create/delete events to add more to pool if necessary
-  Auctionator.EventBus:Register(self, { Auctionator.Shopping.Events.ListChange })
+  Auctionator.EventBus:Register(self, { Auctionator.Shopping.Events.ListMetaChange })
 end
 
 function AuctionatorListExportFrameMixin:AddToPool()
@@ -84,7 +84,7 @@ function AuctionatorListExportFrameMixin:AddToPool()
 end
 
 function AuctionatorListExportFrameMixin:ReceiveEvent(eventName, listName)
-  if eventName == Auctionator.Shopping.Events.ListChange then
+  if eventName == Auctionator.Shopping.Events.ListMetaChange then
     -- On list creation, increment listCount, and add a new check box
     -- to our pool, if necesssary
     self.listCount = Auctionator.Shopping.ListManager:GetCount()

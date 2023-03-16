@@ -16,7 +16,7 @@ function AuctionatorShoppingListMixin:Rename(newName)
 
   self.data.name = newName
 
-  self.manager:FireChangeEvent(self:GetName())
+  self.manager:FireMetaChangeEvent(self:GetName())
 end
 
 function AuctionatorShoppingListMixin:IsTemporary()
@@ -26,7 +26,7 @@ end
 function AuctionatorShoppingListMixin:MakePermanent()
   self.data.isTemporary = false
 
-  self.manager:FireChangeEvent(self:GetName())
+  self.manager:FireMetaChangeEvent(self:GetName())
 end
 
 function AuctionatorShoppingListMixin:GetItemCount()
@@ -49,7 +49,7 @@ function AuctionatorShoppingListMixin:DeleteItem(index)
   assert(self.data.items[index], "Nonexistent item")
   table.remove(self.data.items, index)
 
-  self.manager:FireChangeEvent(self:GetName())
+  self.manager:FireItemChangeEvent(self:GetName())
 end
 
 function AuctionatorShoppingListMixin:AlterItem(index, newItem)
@@ -58,7 +58,7 @@ function AuctionatorShoppingListMixin:AlterItem(index, newItem)
 
   self.data.items[index] = newItem
 
-  self.manager:FireChangeEvent(self:GetName())
+  self.manager:FireItemChangeEvent(self:GetName())
 end
 
 function AuctionatorShoppingListMixin:InsertItem(newItem, index)
@@ -69,12 +69,12 @@ function AuctionatorShoppingListMixin:InsertItem(newItem, index)
     table.insert(self.data.items, newItem)
   end
 
-  self.manager:FireChangeEvent(self:GetName())
+  self.manager:FireItemChangeEvent(self:GetName())
 end
 
 function AuctionatorShoppingListMixin:Sort()
   table.sort(self.selectedList.items, function(a, b)
     return a:lower():gsub("\"", "") < b:lower():gsub("\"", "")
   end)
-  self.manager:FireChangeEvent(self:GetName())
+  self.manager:FireItemChangeEvent(self:GetName())
 end

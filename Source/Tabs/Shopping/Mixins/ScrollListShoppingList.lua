@@ -13,7 +13,8 @@ function AuctionatorScrollListShoppingListMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Scroll Frame for Lists")
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.ListChange,
+    Auctionator.Shopping.Events.ListMetaChange,
+    Auctionator.Shopping.Events.ListItemChange,
     Auctionator.Shopping.Tab.Events.ListSearchStarted,
     Auctionator.Shopping.Tab.Events.ListSearchEnded,
     Auctionator.Shopping.Tab.Events.ListSearchIncrementalUpdate,
@@ -44,12 +45,16 @@ end
 function AuctionatorScrollListShoppingListMixin:ReceiveEvent(eventName, eventData, ...)
   Auctionator.Debug.Message("AuctionatorScrollListShoppingListMixin:ReceiveEvent()", eventName, eventData)
 
-  if eventName == Auctionator.Shopping.Events.ListChange then
+  if eventName == Auctionator.Shopping.Events.ListItemChange then
+    if self.currentList and self.currentList:GetName() == eventData then
+      self:RefreshScrollFrame()
+    end
+  elseif eventName == Auctionator.Shopping.Events.ListMetaChange then
     if self.currentList and self.currentList:GetName() == eventData then
       if Auctionator.Shopping.ListManager:GetIndexForName(eventData) == nil then
         self.currentList = nil
+        self:RefreshScrollFrame()
       end
-      self:RefreshScrollFrame()
     end
   elseif eventName == Auctionator.Shopping.Tab.Events.ListSelected then
     self.currentList = eventData

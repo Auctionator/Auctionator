@@ -3,7 +3,7 @@ AuctionatorShoppingListManagerMixin = {}
 -- getData: function() -> table. Returns raw shopping list data storage
 -- setData: function(newVal) newVal: table -> nil. Used to overwrite the
 --  shopping list data storage with new data
-function AuctionatorShoppingListManagerMixin:Init(getData, setData, listChangeEvent)
+function AuctionatorShoppingListManagerMixin:Init(getData, setData)
   assert(type(getData) == "function" and type(setData) == "function")
   self.getData = getData
   self.setData = setData
@@ -32,7 +32,7 @@ function AuctionatorShoppingListManagerMixin:Create(listName, isTemporary)
 
   self:Sort()
 
-  self:FireChangeEvent(listName)
+  self:FireMetaChangeEvent(listName)
 end
 
 function AuctionatorShoppingListManagerMixin:Sort()
@@ -48,7 +48,7 @@ function AuctionatorShoppingListManagerMixin:Sort()
     end
   end)
 
-  self:FireChangeEvent()
+  self:FireMetaChangeEvent()
 end
 
 function AuctionatorShoppingListManagerMixin:Prune()
@@ -62,7 +62,7 @@ function AuctionatorShoppingListManagerMixin:Prune()
 
   self.setData(lists)
 
-  self:FireChangeEvent()
+  self:FireMetaChangeEvent()
 end
 
 function AuctionatorShoppingListManagerMixin:GetIndexForName(listName)
@@ -96,7 +96,7 @@ function AuctionatorShoppingListManagerMixin:Delete(listName)
 
   table.remove(self.getData(), listIndex)
 
-  self:FireChangeEvent(listName)
+  self:FireMetaChangeEvent(listName)
 end
 
 function AuctionatorShoppingListManagerMixin:GetUnusedName(prefix)
@@ -111,6 +111,10 @@ function AuctionatorShoppingListManagerMixin:GetUnusedName(prefix)
   return newName
 end
 
-function AuctionatorShoppingListManagerMixin:FireChangeEvent(listName)
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListChange, listName)
+function AuctionatorShoppingListManagerMixin:FireItemChangeEvent(listName)
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListItemChange, listName)
+end
+
+function AuctionatorShoppingListManagerMixin:FireMetaChangeEvent(listName)
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListMetaChange, listName)
 end

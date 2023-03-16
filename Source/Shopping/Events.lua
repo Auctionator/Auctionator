@@ -1,5 +1,9 @@
 Auctionator.Shopping.Events = {
-  ListChange = "shopping list change",
+  -- Changes to list meta data (including renames, deletes and pruning)
+  ListMetaChange = "shopping list meta change",
+  -- Changes to individual items in a list (edit, delete, add, etc.)
+  ListItemChange = "shopping list item change",
+  -- The list import code finished importing whatever data was supplied
   ListImportFinished = "shopping list import finished",
 
   RecentSearchesUpdate = "shopping tab recent searches update",

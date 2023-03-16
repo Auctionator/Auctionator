@@ -6,7 +6,7 @@ local CancelSearch = Auctionator.Shopping.Tab.Events.CancelSearch
 function AuctionatorShoppingSearchManagerMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Search Manager")
   Auctionator.EventBus:Register(self, {
-    SearchForTerms, CancelSearch, Auctionator.Shopping.Events.ListChange,
+    SearchForTerms, CancelSearch, Auctionator.Shopping.Events.ListItemChange, Auctionator.Shopping.Events.ListMetaChange
   })
 
   self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate")

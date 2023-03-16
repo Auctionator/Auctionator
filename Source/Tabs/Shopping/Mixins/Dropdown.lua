@@ -47,7 +47,7 @@ function AuctionatorShoppingListDropdownMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Dropdown")
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.ListChange,
+    Auctionator.Shopping.Events.ListMetaChange,
     Auctionator.Shopping.Tab.Events.ListCreated,
     Auctionator.Shopping.Tab.Events.ListRenamed,
     Auctionator.Shopping.Tab.Events.ListSelected,
@@ -138,9 +138,8 @@ function AuctionatorShoppingListDropdownMixin:SelectList(selectedList)
 end
 
 function AuctionatorShoppingListDropdownMixin:ReceiveEvent(eventName, eventData)
-  if eventName == Auctionator.Shopping.Events.ListChange then
-    if self.currentList and self.currentList:GetName() == eventData and Auctionator.Shopping.ListManager:GetIndexForName(eventData) == nil then
-      print("clear", self.currentList:GetName())
+  if eventName == Auctionator.Shopping.Events.ListMetaChange then
+    if self.currentList ~= nil and self.currentList:GetName() == eventData and Auctionator.Shopping.ListManager:GetIndexForName(eventData) == nil then
       self:SetNoList()
     end
   elseif eventName == Auctionator.Shopping.Tab.Events.ListCreated then
@@ -148,7 +147,7 @@ function AuctionatorShoppingListDropdownMixin:ReceiveEvent(eventName, eventData)
   elseif eventName == Auctionator.Shopping.Tab.Events.ListSelected then
     self.currentList = eventData
   elseif eventName == Auctionator.Shopping.Tab.Events.ListRenamed then
-    if self.currentList:GetName() == eventData:GetName() then
+    if self.currentList ~= nil and self.currentList:GetName() == eventData:GetName() then
       self:SelectList(eventData)
     end
   end
