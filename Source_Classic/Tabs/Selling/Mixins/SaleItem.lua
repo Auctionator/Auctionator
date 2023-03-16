@@ -725,7 +725,10 @@ function AuctionatorSaleItemMixin:SuccessfulPost(details)
       for _, key in ipairs(dbKeys) do
         Auctionator.Database:SetPrice(key, minPrice)
       end
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistoryOnly, details.itemInfo)
     end)
+  else
+    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistoryOnly, details.itemInfo)
   end
 end
 
