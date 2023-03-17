@@ -1,5 +1,5 @@
-local tooltip = CreateFrame("GameTooltip", "AuctionatorUtilitiesScanTooltipTooltip", UIParent, "GameTooltipTemplate")
-tooltip:SetOwner(UIParent, "ANCHOR_NONE")
+local tooltip = CreateFrame("GameTooltip", "AuctionatorUtilitiesScanTooltipTooltip", WorldFrame, "GameTooltipTemplate")
+tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
 
 --Identifies if any text on a tooltip matches a given predicate
 --  tooltipSet: Function to set the item on a tooltip ready for scanning
