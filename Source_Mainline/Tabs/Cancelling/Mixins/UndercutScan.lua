@@ -169,7 +169,14 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auctionInfo)
       sortingOrder = {sortOrder = 4, reverseSort = false}
     end
 
-    Auctionator.AH.SendSearchQueryByItemKey(auctionInfo.itemKey, {sortingOrder}, true)
+    if not Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_GEAR_MATCH_ILVL_VARIANTS) and
+       Auctionator.Utilities.IsEquipment(select(6, GetItemInfoInstant(auctionInfo.itemKey.itemID))) then
+      self.expectedItemKey = {itemID = auctionInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
+      Auctionator.AH.SendSellSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
+    else
+      self.expectedItemKey = auctionInfo.itemKey
+      Auctionator.AH.SendSearchQueryByItemKey(auctionInfo.itemKey, {sortingOrder}, true)
+    end
   end)
 end
 
@@ -179,18 +186,18 @@ function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
     local resultCount = 0
 
     if itemKeyInfo.isCommodity then
-      resultCount = C_AuctionHouse.GetNumCommoditySearchResults(auctionInfo.itemKey.itemID)
+      resultCount = C_AuctionHouse.GetNumCommoditySearchResults(self.expectedItemKey.itemID)
     else
-      resultCount = C_AuctionHouse.GetNumItemSearchResults(auctionInfo.itemKey)
+      resultCount = C_AuctionHouse.GetNumItemSearchResults(self.expectedItemKey)
     end
 
     -- Identify all auctions which aren't undercut
     for index = 1, resultCount do
       local resultInfo
       if itemKeyInfo.isCommodity then
-        resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(auctionInfo.itemKey.itemID, index)
+        resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(self.expectedItemKey.itemID, index)
       else
-        resultInfo = C_AuctionHouse.GetItemSearchResultInfo(auctionInfo.itemKey, index)
+        resultInfo = C_AuctionHouse.GetItemSearchResultInfo(self.expectedItemKey, index)
       end
 
       if resultInfo.owners[1] ~= "player" then
