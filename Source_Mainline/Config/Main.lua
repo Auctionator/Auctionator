@@ -14,12 +14,14 @@ Auctionator.Config.Options.SELLING_GEAR_USE_ILVL = "gear_use_ilvl"
 
 Auctionator.Config.Options.DEFAULT_QUANTITIES = "default_quantities"
 Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO = "undercut_scan_not_lifo"
+Auctionator.Config.Options.UNDERCUT_SCAN_GEAR_MATCH_ILVL_VARIANTS = "undercut_scan_gear_use_ilvl_variants"
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.SMALL_TABS] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.PET_TOOLTIPS] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUTOSCAN_INTERVAL] = 15
 Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO] = true
+Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_GEAR_MATCH_ILVL_VARIANTS] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT] = Auctionator.Config.Shortcuts.RIGHT_CLICK
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_BUY_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_RIGHT_CLICK
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_SPLIT_PANELS] = false
