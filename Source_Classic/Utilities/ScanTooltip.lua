@@ -1,4 +1,4 @@
-local tooltip = CreateFrame("GameTooltip", "AuctionatorUtilitiesScanTooltipTooltip", WorldFrame, "GameTooltipTemplate")
+local tooltip = CreateFrame("GameTooltip", "AuctionatorUtilitiesScanTooltipTooltip", nil, "GameTooltipTemplate")
 tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
 
 --Identifies if any text on a tooltip matches a given predicate
