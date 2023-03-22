@@ -1,26 +1,21 @@
 AuctionatorShoppingSearchManagerMixin = {}
 
-local SearchForTerms = Auctionator.Shopping.Events.SearchForTerms
-local CancelSearch = Auctionator.Shopping.Events.CancelSearch
-local ListDeleted = Auctionator.Shopping.Events.ListDeleted
-local ListItemAdded = Auctionator.Shopping.Events.ListItemAdded
-local ListItemDeleted = Auctionator.Shopping.Events.ListItemDeleted
-local ListOrderChanged = Auctionator.Shopping.Events.ListOrderChanged
-local ListItemReplaced = Auctionator.Shopping.Events.ListItemReplaced
+local SearchForTerms = Auctionator.Shopping.Tab.Events.SearchForTerms
+local CancelSearch = Auctionator.Shopping.Tab.Events.CancelSearch
 
 function AuctionatorShoppingSearchManagerMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Search Manager")
   Auctionator.EventBus:Register(self, {
-    SearchForTerms, CancelSearch, ListDeleted, ListItemAdded, ListItemReplaced, ListItemDeleted, ListOrderChanged, ListItemReplaced
+    SearchForTerms, CancelSearch, Auctionator.Shopping.Events.ListItemChange, Auctionator.Shopping.Events.ListMetaChange
   })
 
   self.searchProvider = CreateFrame("FRAME", nil, nil, "AuctionatorDirectSearchProviderTemplate")
   self.searchProvider:InitSearch(
     function(results)
-      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListSearchEnded, results)
+      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.ListSearchEnded, results)
     end,
     function(current, total, partialResults)
-      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListSearchIncrementalUpdate, partialResults, total, current)
+      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.ListSearchIncrementalUpdate, partialResults, total, current)
     end
   )
 end
@@ -30,7 +25,7 @@ function AuctionatorShoppingSearchManagerMixin:ReceiveEvent(eventName, ...)
     local searchTerms, config = ...
     self:DoSearch(searchTerms, config)
 
-  elseif eventName == ListDeleted or eventName == ListItemAdded or eventName == ListItemReplaced or eventName == ListItemDeleted or eventName == ListOrderChanged or eventName == ListItemReplaced or eventName == CancelSearch then
+  else
     self.searchProvider:AbortSearch()
   end
 end
@@ -44,7 +39,7 @@ function AuctionatorShoppingSearchManagerMixin:DoSearch(searchTerms, config)
 
   Auctionator.EventBus:Fire(
     self,
-    Auctionator.Shopping.Events.ListSearchStarted
+    Auctionator.Shopping.Tab.Events.ListSearchStarted
   )
 
   self.searchProvider:Search(searchTerms, config)

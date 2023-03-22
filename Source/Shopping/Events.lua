@@ -1,24 +1,31 @@
 Auctionator.Shopping.Events = {
+  -- Changes to list meta data (including renames, deletes and pruning)
+  ListMetaChange = "shopping list meta change",
+  -- Changes to individual items in a list (edit, delete, add, etc.)
+  ListItemChange = "shopping list item change",
+  -- The list import code finished importing whatever data was supplied
+  ListImportFinished = "shopping list import finished",
+
+  RecentSearchesUpdate = "shopping tab recent searches update",
+}
+
+Auctionator.Shopping.Tab.Events = {
   ListSelected = "AUCTIONATOR_LIST_SELECTED",
-  ListDeleted = "AUCTIONATOR_LIST_DELETED",
   ListCreated = "AUCTIONATOR_LIST_CREATED",
   ListRenamed = "AUCTIONATOR_LIST_RENAMED",
 
   ListItemAdded = "AUCTIONATOR_LIST_ITEM_ADDED",
-  ListItemReplaced = "AUCTIONATOR_LIST_ITEM_REPLACED",
   ListItemSelected = "AUCTIONATOR_LIST_ITEM_SELECTED",
-  ListItemDeleted = "AUCTIONATOR_LIST_ITEM_DELETED",
-  ListOrderChanged = "AUCTIONATOR_LIST_ORDER_CHANGED",
   DeleteFromList = "AUCTIONATOR_DELETE_FROM_CURRENT_LIST",
   EditListItem = "AUCTIONATOR_EDIT_LIST_ITEM",
   CopyIntoList = "AUCTIONATOR_COPY_INTO_LIST",
 
-  DragItemStart = "shopping list drag item start",
-  DragItemEnter = "shopping list drag item enter",
-  DragItemStop = "shopping list drag item stop",
+  DragItemStart = "shopping tab list drag item start",
+  DragItemEnter = "shopping tab list drag item enter",
+  DragItemStop = "shopping tab list drag item stop",
 
-  OneItemSearch = "AUCTIONATOR_ONE_ITEM_SEARCH",
-  RecentSearchesUpdate = "AUCTIONATOR_RECENT_SEARCHES_UPDATE",
+  OneItemSearch = "shopping tab one item search",
+  RecentSearchesUpdate = "shopping tab recent searches update",
 
   SearchForTerms = "AUCTIONATOR_SEARCH_FOR_TERMS",
   CancelSearch = "AUCTIONATOR_CANCEL_SEARCH",

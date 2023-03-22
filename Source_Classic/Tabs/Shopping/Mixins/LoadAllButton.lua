@@ -2,18 +2,18 @@ AuctionatorShoppingClassicLoadAllButtonMixin = {}
 
 function AuctionatorShoppingClassicLoadAllButtonMixin:OnLoad()
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.SearchForTerms,
-    Auctionator.Shopping.Events.ListSearchStarted,
-    Auctionator.Shopping.Events.ListSearchEnded,
+    Auctionator.Shopping.Tab.Events.SearchForTerms,
+    Auctionator.Shopping.Tab.Events.ListSearchStarted,
+    Auctionator.Shopping.Tab.Events.ListSearchEnded,
   })
 end
 
 function AuctionatorShoppingClassicLoadAllButtonMixin:ReceiveEvent(eventName, eventData)
-  if eventName == Auctionator.Shopping.Events.SearchForTerms then
+  if eventName == Auctionator.Shopping.Tab.Events.SearchForTerms then
     self.lastTerms = eventData
-  elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
     self:Hide()
-  elseif eventName == Auctionator.Shopping.Events.ListSearchEnded then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchEnded then
     if eventData and #eventData > 0 then
       local anyIncomplete = false
       for _, entry in ipairs(eventData) do
@@ -29,6 +29,6 @@ end
 
 function AuctionatorShoppingClassicLoadAllButtonMixin:OnClick()
   if self.lastTerms ~= nil then
-    Auctionator.EventBus:Fire(self:GetParent(), Auctionator.Shopping.Events.SearchForTerms, self.lastTerms, { searchAllPages = true })
+    Auctionator.EventBus:Fire(self:GetParent(), Auctionator.Shopping.Tab.Events.SearchForTerms, self.lastTerms, { searchAllPages = true })
   end
 end

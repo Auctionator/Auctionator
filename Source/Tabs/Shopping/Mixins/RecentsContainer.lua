@@ -6,12 +6,12 @@ function AuctionatorShoppingTabRecentsContainerMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "List Search Button")
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.ListSelected,
+    Auctionator.Shopping.Tab.Events.ListSelected,
   })
 end
 
 function AuctionatorShoppingTabRecentsContainerMixin:ReceiveEvent(eventName)
-  if eventName == Auctionator.Shopping.Events.ListSelected then
+  if eventName == Auctionator.Shopping.Tab.Events.ListSelected then
     self:SetView(Auctionator.Constants.ShoppingListViews.Lists)
   end
 end

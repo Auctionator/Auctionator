@@ -1,16 +1,13 @@
 AuctionatorShoppingTabMixin = {}
 
-local ListDeleted = Auctionator.Shopping.Events.ListDeleted
-local ListSelected = Auctionator.Shopping.Events.ListSelected
-local ListItemSelected = Auctionator.Shopping.Events.ListItemSelected
-local EditListItem = Auctionator.Shopping.Events.EditListItem
-local DialogOpened = Auctionator.Shopping.Events.DialogOpened
-local DialogClosed = Auctionator.Shopping.Events.DialogClosed
-local ShowHistoricalPrices = Auctionator.Shopping.Events.ShowHistoricalPrices
-local ListItemAdded = Auctionator.Shopping.Events.ListItemAdded
-local ListItemReplaced = Auctionator.Shopping.Events.ListItemReplaced
-local ListOrderChanged = Auctionator.Shopping.Events.ListOrderChanged
-local CopyIntoList = Auctionator.Shopping.Events.CopyIntoList
+local ListSelected = Auctionator.Shopping.Tab.Events.ListSelected
+local ListItemSelected = Auctionator.Shopping.Tab.Events.ListItemSelected
+local EditListItem = Auctionator.Shopping.Tab.Events.EditListItem
+local DialogOpened = Auctionator.Shopping.Tab.Events.DialogOpened
+local DialogClosed = Auctionator.Shopping.Tab.Events.DialogClosed
+local ShowHistoricalPrices = Auctionator.Shopping.Tab.Events.ShowHistoricalPrices
+local ListItemAdded = Auctionator.Shopping.Tab.Events.ListItemAdded
+local CopyIntoList = Auctionator.Shopping.Tab.Events.CopyIntoList
 
 function AuctionatorShoppingTabMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorShoppingTabMixin:OnLoad()")
@@ -37,7 +34,7 @@ function AuctionatorShoppingTabMixin:SetUpEvents()
 
   -- Auctionator Events
   Auctionator.EventBus:RegisterSource(self, "Auctionator Shopping List Tab")
-  Auctionator.EventBus:Register(self, { ListSelected, ListDeleted, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices, CopyIntoList })
+  Auctionator.EventBus:Register(self, { ListSelected, ListItemSelected, EditListItem, DialogOpened, DialogClosed, ShowHistoricalPrices, CopyIntoList })
 end
 
 function AuctionatorShoppingTabMixin:SetUpItemDialog()
@@ -83,7 +80,7 @@ function AuctionatorShoppingTabMixin:ReceiveEvent(eventName, eventData)
     self.selectedList = eventData
     self.AddItem:Enable()
     self.SortItems:Enable()
-  elseif eventName == ListDeleted and self.selectedList ~= nil and eventData == self.selectedList.name then
+  elseif eventName == Auctionator.Shopping.Events.ListMetaChange and self.selectedList ~= nil and eventData == self.selectedList:GetName() and Auctionator.Shopping.ListManager:GetIndexForName(eventData) == nil then
     self.selectedList = nil
     self.AddItem:Disable()
     self.ManualSearch:Disable()
@@ -125,9 +122,9 @@ function AuctionatorShoppingTabMixin:AddItemToList(newItemString)
     return
   end
 
-  table.insert(self.selectedList.items, newItemString)
+  self.selectedList:InsertItem(newItemString)
 
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListItemAdded, self.selectedList)
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.ListItemAdded, self.selectedList)
 end
 
 function AuctionatorShoppingTabMixin:CopyIntoList(searchTerm)
@@ -137,7 +134,7 @@ function AuctionatorShoppingTabMixin:CopyIntoList(searchTerm)
     self:AddItemToList(searchTerm)
     Auctionator.Utilities.Message(AUCTIONATOR_L_COPY_ITEM_ADDED:format(
       GREEN_FONT_COLOR:WrapTextInColorCode(Auctionator.Search.PrettifySearchString(searchTerm)),
-      GREEN_FONT_COLOR:WrapTextInColorCode(self.selectedList.name)
+      GREEN_FONT_COLOR:WrapTextInColorCode(self.selectedList:GetName())
     ))
   end
 end
@@ -150,9 +147,7 @@ function AuctionatorShoppingTabMixin:ReplaceItemInList(newItemString)
     return
   end
 
-  self.selectedList.items[self.editingItemIndex] = newItemString
-
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListItemReplaced, self.selectedList)
+  self.selectedList:AlterItem(self.editingItemIndex, newItemString)
 end
 
 function AuctionatorShoppingTabMixin:AddItemClicked()
@@ -175,7 +170,7 @@ function AuctionatorShoppingTabMixin:EditItemClicked()
   end)
 
   self.itemDialog:Show()
-  self.itemDialog:SetItemString(self.selectedList.items[self.editingItemIndex])
+  self.itemDialog:SetItemString(self.selectedList:GetItemByIndex(self.editingItemIndex))
 end
 
 function AuctionatorShoppingTabMixin:ImportListsClicked()
@@ -194,8 +189,5 @@ function AuctionatorShoppingTabMixin:ExportCSVClicked()
 end
 
 function AuctionatorShoppingTabMixin:SortItemsClicked()
-  table.sort(self.selectedList.items, function(a, b)
-    return a:lower():gsub("\"", "") < b:lower():gsub("\"", "")
-  end)
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.ListOrderChanged, self.selectedList)
+  self.selectedList:Sort()
 end

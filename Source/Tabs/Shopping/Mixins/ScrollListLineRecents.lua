@@ -4,27 +4,27 @@ function AuctionatorScrollListLineRecentsMixin:InitLine()
   Auctionator.EventBus:RegisterSource(self, "Recents List Line Item")
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.ListSearchStarted,
-    Auctionator.Shopping.Events.ListSearchEnded,
-    Auctionator.Shopping.Events.DialogOpened,
-    Auctionator.Shopping.Events.DialogClosed,
+    Auctionator.Shopping.Tab.Events.ListSearchStarted,
+    Auctionator.Shopping.Tab.Events.ListSearchEnded,
+    Auctionator.Shopping.Tab.Events.DialogOpened,
+    Auctionator.Shopping.Tab.Events.DialogClosed,
   })
 
   self.shouldRemoveHighlight = true
 end
 
 function AuctionatorScrollListLineRecentsMixin:ReceiveEvent(eventName, eventData, ...)
-  if eventName == Auctionator.Shopping.Events.ListSearchStarted then
+  if eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
     if self.shouldRemoveHighlight then
       self.LastSearchedHighlight:Hide()
     end
     self:Disable()
-  elseif eventName == Auctionator.Shopping.Events.ListSearchEnded then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchEnded then
     self.shouldRemoveHighlight = true
     self:Enable()
-  elseif eventName == Auctionator.Shopping.Events.DialogOpened then
+  elseif eventName == Auctionator.Shopping.Tab.Events.DialogOpened then
     self:Disable()
-  elseif eventName == Auctionator.Shopping.Events.DialogClosed then
+  elseif eventName == Auctionator.Shopping.Tab.Events.DialogClosed then
     self:Enable()
   end
 end
@@ -42,11 +42,11 @@ function AuctionatorScrollListLineRecentsMixin:CopyItem()
     return
   end
 
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.CopyIntoList, self.searchTerm)
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.CopyIntoList, self.searchTerm)
 end
 
 function AuctionatorScrollListLineRecentsMixin:OnClick()
   self.LastSearchedHighlight:Show()
   self.shouldRemoveHighlight = false
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.OneItemSearch, self.searchTerm)
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.OneItemSearch, self.searchTerm)
 end

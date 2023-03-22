@@ -47,19 +47,19 @@ function AuctionatorShoppingDataProviderMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Data Provider")
 
   Auctionator.EventBus:Register( self, {
-    Auctionator.Shopping.Events.ListSearchStarted,
-    Auctionator.Shopping.Events.ListSearchEnded,
-    Auctionator.Shopping.Events.ListSearchIncrementalUpdate
+    Auctionator.Shopping.Tab.Events.ListSearchStarted,
+    Auctionator.Shopping.Tab.Events.ListSearchEnded,
+    Auctionator.Shopping.Tab.Events.ListSearchIncrementalUpdate
   })
 end
 
 function AuctionatorShoppingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
-  if eventName == Auctionator.Shopping.Events.ListSearchStarted then
+  if eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
     self:Reset()
     self.onSearchStarted()
-  elseif eventName == Auctionator.Shopping.Events.ListSearchEnded then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchEnded then
     self:AppendEntries(self:PrettifyData(eventData), true)
-  elseif eventName == Auctionator.Shopping.Events.ListSearchIncrementalUpdate then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchIncrementalUpdate then
     self:AppendEntries(self:PrettifyData(eventData))
   end
 end

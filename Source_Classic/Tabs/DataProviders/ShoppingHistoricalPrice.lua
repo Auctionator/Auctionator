@@ -3,11 +3,11 @@ AuctionatorShoppingHistoricalPriceProviderMixin = CreateFromMixins(AuctionatorHi
 function AuctionatorShoppingHistoricalPriceProviderMixin:OnLoad()
   AuctionatorHistoricalPriceProviderMixin.OnLoad(self)
 
-  Auctionator.EventBus:Register( self, { Auctionator.Shopping.Events.ShowHistoricalPrices })
+  Auctionator.EventBus:Register( self, { Auctionator.Shopping.Tab.Events.ShowHistoricalPrices })
 end
 
 function AuctionatorShoppingHistoricalPriceProviderMixin:ReceiveEvent(event, itemInfo)
-  if event == Auctionator.Shopping.Events.ShowHistoricalPrices then
+  if event == Auctionator.Shopping.Tab.Events.ShowHistoricalPrices then
     Auctionator.Utilities.DBKeyFromLink(itemInfo.itemLink, function(dbKeys)
       self:SetItem(dbKeys[1])
     end)

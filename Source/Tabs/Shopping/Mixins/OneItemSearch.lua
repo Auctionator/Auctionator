@@ -26,12 +26,12 @@ function AuctionatorShoppingOneItemSearchMixin:OnLoad()
   DynamicResizeButton_Resize(self.SearchButton)
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Shopping.Events.OneItemSearch,
-    Auctionator.Shopping.Events.ListItemSelected,
-    Auctionator.Shopping.Events.ListSearchStarted,
-    Auctionator.Shopping.Events.ListSearchEnded,
-    Auctionator.Shopping.Events.DialogOpened,
-    Auctionator.Shopping.Events.DialogClosed,
+    Auctionator.Shopping.Tab.Events.OneItemSearch,
+    Auctionator.Shopping.Tab.Events.ListItemSelected,
+    Auctionator.Shopping.Tab.Events.ListSearchStarted,
+    Auctionator.Shopping.Tab.Events.ListSearchEnded,
+    Auctionator.Shopping.Tab.Events.DialogOpened,
+    Auctionator.Shopping.Tab.Events.DialogClosed,
   })
 end
 
@@ -42,38 +42,37 @@ end
 function AuctionatorShoppingOneItemSearchMixin:ReceiveEvent(eventName, ...)
   Auctionator.Debug.Message("AuctionatorShoppingOneItemSearchButtonMixin:ReceiveEvent " .. eventName, ...)
 
-  if eventName == Auctionator.Shopping.Events.OneItemSearch or
-     eventName == Auctionator.Shopping.Events.ListItemSelected then
+  if eventName == Auctionator.Shopping.Tab.Events.OneItemSearch or
+     eventName == Auctionator.Shopping.Tab.Events.ListItemSelected then
     self.lastSearch = ...
     if self.lastSearch ~= self.SearchBox:GetText() then
       self.SearchBox:SetText(GetAppropriateText(self.lastSearch))
     end
-  elseif eventName == Auctionator.Shopping.Events.ListSearchStarted then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
     self.searchRunning = true
 
     self.SearchButton:SetText(AUCTIONATOR_L_CANCEL)
     self.SearchButton:SetWidth(0)
     DynamicResizeButton_Resize(self.SearchButton)
-  elseif eventName == Auctionator.Shopping.Events.ListSearchEnded then
+  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchEnded then
     self.searchRunning = false
 
     self.SearchButton:SetText(AUCTIONATOR_L_SEARCH)
     self.SearchButton:SetWidth(0)
     DynamicResizeButton_Resize(self.SearchButton)
 
-  elseif eventName == Auctionator.Shopping.Events.DialogOpened then
+  elseif eventName == Auctionator.Shopping.Tab.Events.DialogOpened then
     self.ExtendedButton:Disable()
 
-  elseif eventName == Auctionator.Shopping.Events.DialogClosed then
+  elseif eventName == Auctionator.Shopping.Tab.Events.DialogClosed then
     self.ExtendedButton:Enable()
   end
 end
 
 function AuctionatorShoppingOneItemSearchMixin:DoSearch(searchTerm)
   Auctionator.Shopping.Recents.Save(searchTerm)
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.RecentSearchesUpdate)
 
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.OneItemSearch, searchTerm)
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.OneItemSearch, searchTerm)
 end
 
 function AuctionatorShoppingOneItemSearchMixin:SearchButtonClicked()
@@ -90,7 +89,7 @@ function AuctionatorShoppingOneItemSearchMixin:SearchButtonClicked()
     self.SearchBox:ClearFocus()
     self:DoSearch(searchTerm)
   else
-    Auctionator.EventBus:Fire(self, Auctionator.Shopping.Events.CancelSearch)
+    Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.CancelSearch)
   end
 end
 
