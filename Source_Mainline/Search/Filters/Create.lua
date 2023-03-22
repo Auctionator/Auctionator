@@ -4,6 +4,7 @@ local MAPPING = {
   craftedLevel = Auctionator.Search.Filters.CraftedLevelMixin,
   price = Auctionator.Search.Filters.PriceMixin,
   tier = Auctionator.Search.Filters.TierMixin,
+  expansion = Auctionator.Search.Filters.ExpansionMixin,
 }
 
 function Auctionator.Search.Filters.Create(browseResult, allFilters, filterTracker)

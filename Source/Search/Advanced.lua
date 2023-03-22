@@ -2,7 +2,8 @@
 -- Assumes searchParametersString is an advanced search.
 function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   local queryString, categoryKey, minItemLevel, maxItemLevel, minLevel, maxLevel,
-    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice, quality, tier =
+    minCraftedLevel, maxCraftedLevel, minPrice, maxPrice, quality, tier,
+    expansion =
     strsplit( Auctionator.Constants.AdvancedSearchDivider, searchParametersString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
@@ -34,6 +35,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
 
   quality = tonumber( quality )
   tier = tonumber( tier )
+  expansion = tonumber( expansion )
 
   if minLevel == 0 then
     minLevel = nil
@@ -81,6 +83,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
     maxCraftedLevel = maxCraftedLevel,
     quality = quality,
     tier = tier,
+    expansion = expansion,
   }
 end
 
@@ -128,6 +131,14 @@ local function TierString(tier)
   end
 end
 
+local function ExpansionString(expansion)
+  if expansion ~= nil then
+    return _G["EXPANSION_NAME" .. expansion] or ""
+  else
+    return ""
+  end
+end
+
 local separator = ", "
 
 local function CategoryKey(splitSearch)
@@ -140,6 +151,10 @@ end
 
 local function Tier(splitSearch)
   return TierString(splitSearch.tier) .. separator
+end
+
+local function Expansion(splitSearch)
+  return ExpansionString(splitSearch.expansion) .. separator
 end
 
 local function ItemLevelRange(splitSearch)
@@ -209,6 +224,7 @@ function Auctionator.Search.PrettifySearchString(searchString)
     .. LevelRange(splitSearch)
     .. ItemLevelRange(splitSearch)
     .. CraftedLevelRange(splitSearch)
+    .. Expansion(splitSearch)
     .. Quality(splitSearch)
     .. Tier(splitSearch)
     .. "]"
@@ -232,6 +248,21 @@ local function TooltipCategory(splitSearch)
 
   return {
     AUCTIONATOR_L_ITEM_CLASS,
+    key
+  }
+end
+
+local function TooltipExpansion(splitSearch)
+  local key
+
+  if splitSearch.expansion == nil then
+    key = AUCTIONATOR_L_ANY_LOWER
+  else
+    key = _G["EXPANSION_NAME" .. splitSearch.expansion] or AUCTIONATOR_L_UNKNOWN
+  end
+
+  return {
+    AUCTIONATOR_L_EXPANSION,
     key
   }
 end
@@ -308,6 +339,7 @@ function Auctionator.Search.ComposeTooltip(searchString)
   table.insert(lines, TooltipCraftedLevelRange(splitSearch))
   table.insert(lines, TooltipQuality(splitSearch))
   if not Auctionator.Constants.IsClassic then
+    table.insert(lines, TooltipExpansion(splitSearch))
     table.insert(lines, TooltipTier(splitSearch))
   end
 
@@ -341,6 +373,7 @@ function Auctionator.Search.ReconstituteAdvancedSearch(search)
     tostring(((search.minPrice and search.minPrice / 10000) or "")),
     tostring(((search.maxPrice and search.maxPrice / 10000) or "")),
     tostring(search.quality or ""),
-    tostring(search.tier or "")
+    tostring(search.tier or "#"),
+    tostring(search.expansion or "")
   )
 end

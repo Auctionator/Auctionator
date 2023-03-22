@@ -386,6 +386,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["DATE"] = "Date"
   L["CRAFTED_LEVEL"] = "Crafted Level"
   L["TIER"] = "Tier"
+  L["EXPANSION"] = "Expansion"
   L["MIN"] = "Min"
   L["MAX"] = "Max"
   L["CANCEL"] = "Cancel"

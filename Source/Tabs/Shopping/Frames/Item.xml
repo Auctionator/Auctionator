@@ -126,7 +126,7 @@
       <Frame parentKey="QualityContainer">
         <Size x="50" y="20"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.PriceRange" x="20" y="-20" />
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.PriceRange" x="26" y="-20" />
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
@@ -155,10 +155,42 @@
         </Frames>
       </Frame>
 
+      <Frame parentKey="ExpansionContainer">
+        <Size x="50" y="20"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.QualityContainer" x="-6" y="-20" />
+        </Anchors>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <FontString inherits="GameFontHighlight" parentKey="Label" text="AUCTIONATOR_L_EXPANSION">
+              <Anchors>
+                <Anchor point="TOPLEFT"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Frames>
+          <Frame inherits="AuctionatorDropDown" parentKey="DropDown">
+            <KeyValues>
+              <KeyValue key="labelText" value="" type="string" />
+            </KeyValues>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.Label" relativePoint="TOPRIGHT" y="8"/>
+            </Anchors>
+          </Frame>
+
+          <Button parentKey="ResetExpansionButton" inherits="AuctionatorResetButton">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="-10" y="-5"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
+
       <Frame parentKey="TierContainer">
         <Size x="50" y="20"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.QualityContainer" x="20" y="-20" />
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.ExpansionContainer" x="25" y="-20" />
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
