@@ -14,9 +14,11 @@ end
 local function GetByMinCostOption(reagents, multiplier)
   local min = 0
   for _, entry in ipairs(reagents) do
-    local newValue = GetCostByItemID(entry.itemID, multiplier)
-    if newValue ~= 0 and (min == 0 or newValue < min) then
-      min = newValue
+    if entry.itemID ~= nil then
+      local newValue = GetCostByItemID(entry.itemID, multiplier)
+      if newValue ~= 0 and (min == 0 or newValue < min) then
+        min = newValue
+      end
     end
   end
   return min
