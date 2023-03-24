@@ -47,14 +47,14 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:ShowIfRelevant()
     end
     local min = reagents
     for _, f in ipairs(framesToBeBelow) do
-      if f:GetBottom() < min:GetBottom() then
+      if f:IsShown() and f:GetBottom() < min:GetBottom() then
         min = f
       end
     end
 
     self:SetPoint("LEFT", reagents, "LEFT", 0, -10)
 
-    self:SetPoint("TOP", min, "BOTTOM")
+    self:SetPoint("TOP", min, "BOTTOM", 0, -5)
 
     self:UpdateSearchButton()
   end
