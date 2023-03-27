@@ -73,7 +73,7 @@ function AuctionatorShoppingListMixin:InsertItem(newItem, index)
 end
 
 function AuctionatorShoppingListMixin:Sort()
-  table.sort(self.selectedList.items, function(a, b)
+  table.sort(self.data.items, function(a, b)
     return a:lower():gsub("\"", "") < b:lower():gsub("\"", "")
   end)
   self.manager:FireItemChangeEvent(self:GetName())
