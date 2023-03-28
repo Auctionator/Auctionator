@@ -13,8 +13,10 @@ function Auctionator.CraftingInfo.Initialize()
   end
 end
 
-local function EnchantLinkToItemID(enchantLink)
-  return Auctionator.CraftingInfo.EnchantSpellsToItems[tonumber(enchantLink:match("enchant:(%d+)"))]
+-- Get the associated item, spell level and spell equipped item class for an
+-- enchant
+local function EnchantLinkToData(enchantLink)
+  return Auctionator.CraftingInfo.EnchantSpellsToItemData[tonumber(enchantLink:match("enchant:(%d+)"))]
 end
 
 local function GetOutputName(callback)
@@ -25,11 +27,12 @@ local function GetOutputName(callback)
   if outputLink then
     itemID = GetItemInfoInstant(outputLink)
   else -- Probably an enchant
-    itemID = EnchantLinkToItemID(GetTradeSkillRecipeLink(recipeIndex))
-    if itemID == nil then
+    local data = EnchantLinkToData(GetTradeSkillRecipeLink(recipeIndex))
+    if data == nil then
       callback(nil)
       return
     end
+    itemID = data.itemID
   end
 
   if itemID == nil then
@@ -87,8 +90,57 @@ local function GetSkillReagentsTotal()
   return total
 end
 
+local function GetEnchantProfit()
+  local toCraft = GetSkillReagentsTotal()
+
+  local recipeIndex = GetTradeSkillSelectionIndex()
+  local data = EnchantLinkToData(GetTradeSkillRecipeLink(recipeIndex))
+  if data == nil then
+    return nil
+  end
+
+  -- Determine which vellum for the item class of the enchanted item
+  local vellumForClass = Auctionator.CraftingInfo.EnchantVellums[data.itemClass]
+  if vellumForClass == nil then
+    return nil
+  end
+
+  -- Find the cheapest vellum that will work
+  local vellumCost
+  local anyMatch = false
+  for vellumItemID, vellumLevel in pairs(vellumForClass) do
+    if data.level <= vellumLevel then
+      anyMatch = true
+      local optionOnAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, vellumItemID)
+      if vellumCost == nil or (optionOnAH ~= nil and optionOnAH <= vellumCost) then
+        Auctionator.Debug.Message("CraftingInfo: Selecting vellum for enchant", vellumItemID)
+        vellumCost = optionOnAH
+      end
+    end
+  end
+
+  -- Couldn't find a vellum for the level (so presumably not in the enchant data)
+  if not anyMatch then
+    return nil
+  end
+
+  vellumCost = vellumCost or 0
+
+  local currentAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, data.itemID)
+  if currentAH == nil then
+    currentAH = 0
+  end
+
+  return math.floor(currentAH * Auctionator.Constants.AfterAHCut - vellumCost - toCraft)
+end
+
 local function GetAHProfit()
   local recipeIndex = GetTradeSkillSelectionIndex()
+
+  if select(5, GetTradeSkillInfo(recipeIndex)) == ENSCRIBE then
+    return GetEnchantProfit()
+  end
+
   local recipeLink =  GetTradeSkillItemLink(recipeIndex)
   local count = GetTradeSkillNumMade(recipeIndex)
 

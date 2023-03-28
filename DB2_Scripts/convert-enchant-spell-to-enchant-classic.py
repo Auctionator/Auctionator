@@ -1,7 +1,9 @@
 #!/usr/bin/python3
-# This script converts the csv version of the item and itemeffect db2 files
-# exported from a client to get a mapping of the enchant spell id to the enchant
-# item
+# This script converts the csv version of the item, itemeffect, spelllevels and
+# spellequippeditems db2 files exported from a client to get a mapping of the
+# enchant spell id to the enchant item (for searching the AH for the enchant or
+# calculation crafting profit), and spell level/equipped slot (for the vellum
+# needed for crafting cost/profit)
 import csv
 
 enchants_only = {}
@@ -18,10 +20,29 @@ with open('itemeffect.csv') as f:
     for row in reader:
         item_to_spell[int(row['ParentItemID'])] = int(row['SpellID'])
 
-def print_enchant(itemID, spellID):
-    print("  [" + str(spellID) + "] = " + str(itemID) + ",")
+spell_to_level = {}
+with open('spelllevels.csv') as f:
+    reader = csv.DictReader(f, delimiter=',')
+    for row in reader:
+        spell_to_level[int(row['SpellID'])] = int(row['BaseLevel'])
 
-print("Auctionator.CraftingInfo.EnchantSpellsToItems = {")
-for key in enchants_only:
-    print_enchant(key, item_to_spell[key])
+spell_to_item_class = {}
+with open('spellequippeditems.csv') as f:
+    reader = csv.DictReader(f, delimiter=',')
+    for row in reader:
+        spell_to_item_class[int(row['SpellID'])] = int(row['EquippedItemClass'])
+
+data_format = """\
+  [{}] = {{itemID = {}, level = {}, itemClass = {}}},\
+"""
+
+print("Auctionator.CraftingInfo.EnchantSpellsToItemData = {")
+for item_id in enchants_only:
+    spell_id = item_to_spell[item_id]
+    spell_level = 0
+    if spell_id in spell_to_level:
+        spell_level = spell_to_level[spell_id]
+    if spell_id in spell_to_item_class:
+        spell_class = spell_to_item_class[spell_id]
+        print(data_format.format(spell_id, item_id, spell_level, spell_class))
 print("}")

@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Main.lua" />
-  <Script file="EnchantSpellsToItems.lua" />
+  <Script file="EnchantSpellsData.lua" />
+  <Script file="EnchantVellums.lua" />
 
   <Include file="Mixins\Manifest.xml" />
   <Include file="Frames\Manifest.xml" />
