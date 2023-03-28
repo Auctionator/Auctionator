@@ -4,7 +4,7 @@ function AuctionatorListExportFrameMixin:OnLoad()
   Auctionator.Debug.Message("AuctionatorListExportFrameMixin:OnLoad()")
 
   self:InitializeCheckBoxes()
-  self.copyTextDialog = CreateFrame("Frame", "AuctionatorCopyTextFrame", self:GetParent(), "AuctionatorExportTextFrame")
+  self.copyTextDialog = CreateFrame("Frame", nil, self:GetParent(), "AuctionatorExportTextFrame")
   self.copyTextDialog:SetPoint("CENTER")
 
   -- self.ExportOption:SetOnChange(function(selectedValue)
