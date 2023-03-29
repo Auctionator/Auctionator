@@ -26,7 +26,7 @@
         </Anchors>
       </Frame>
       <!-- Frame Close Button -->
-      <Button parentKey="Close" inherits="UIPanelCloseButtonDefaultAnchors">
+      <Button parentKey="Close" inherits="UIPanelCloseButton">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="2" y="1"/>
         </Anchors>
