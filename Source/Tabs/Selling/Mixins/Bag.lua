@@ -39,16 +39,11 @@ function AuctionatorSellingBagFrameMixin:OnLoad()
   end
 
   self.ScrollBox.ItemListingFrame.OnCleaned = function(listing)
-    local maxShift = math.max(0, (listing.oldHeight or listing:GetHeight()) - self.ScrollBox:GetHeight())
-    local offset = self.ScrollBox:GetScrollPercentage() * maxShift
+    local oldOffset = self.ScrollBox:GetDerivedScrollOffset()
 
     self.ScrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately);
 
-    local newMaxShift =  math.max(0, listing:GetHeight() - self.ScrollBox:GetHeight())
-    if newMaxShift == 0 then
-      return
-    end
-    self.ScrollBox:SetScrollPercentage(offset / newMaxShift)
+    self.ScrollBox:SetScrollTargetOffset(oldOffset)
   end
 
   local view = CreateScrollBoxLinearView()
