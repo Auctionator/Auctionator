@@ -8,6 +8,7 @@ function Auctionator.Variables.Initialize()
   Auctionator.Config.InitializeData()
   Auctionator.Config.InitializeFrames()
 
+  local GetAddOnMetadata = C_AddOns and C_AddOns.GetAddOnMetadata or GetAddOnMetadata
   Auctionator.State.CurrentVersion = GetAddOnMetadata("Auctionator", "Version")
 
   Auctionator.Variables.InitializeDatabase()
