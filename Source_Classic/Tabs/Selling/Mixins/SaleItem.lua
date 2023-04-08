@@ -22,12 +22,18 @@ local function GetAmountWithUndercut(amount)
   return math.max(0, amount - undercutAmount)
 end
 
+local function GetNumSlots(bag)
+  if C_Container and C_Container.GetContainerNumSlots then
+    return C_Container.GetContainerNumSlots(bag)
+  else
+    return GetContainerNumSlots(bag)
+  end
+end
+
 local function FindItemAgain(itemLink)
   local cleanItemLink = Auctionator.Search.GetCleanItemLink(itemLink)
   for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
-    for slot = 1, GetContainerNumSlots(bagID) do
-      index = index + 1
-
+    for slot = 1, GetNumSlots(bagID) do
       local location = ItemLocation:CreateFromBagAndSlot(bagID, slot)
       if C_Item.DoesItemExist(location) then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
@@ -157,22 +163,29 @@ function AuctionatorSaleItemMixin:UpdatePrices()
 end
 
 function AuctionatorSaleItemMixin:OnUpdate()
+  if self.itemInfo == nil then
+    return
+
+  elseif self.itemInfo.count == 0 and self.clickedSellItem then
+    return
+
+  elseif self.itemInfo.location ~= nil and not C_Item.DoesItemExist(self.itemInfo.location) then
+    self.itemInfo.location = FindItemAgain(self.itemInfo.itemLink)
+    -- Bag position changes (race condition or posting reattempt)
+    if not C_Item.DoesItemExist(self.itemInfo.location) then
+      self.itemInfo = nil
+      self:Reset()
+      return
+    else
+      self.clickedSellItem = false
+    end
+  end
+
   if not self.clickedSellItem then
     self:SellItemClick()
     return
-
-  elseif self.itemInfo == nil then
-    return
-
-  elseif self.itemInfo.count == 0 then
-    return
-
-  elseif not C_Item.DoesItemExist(self.itemInfo.location) then
-    --Bag item location invalid due to posting (race condition)
-    self.itemInfo = nil
-    self:Reset()
-    return
   end
+
 
   self:UpdatePrices()
 
@@ -232,10 +245,7 @@ function AuctionatorSaleItemMixin:SellItemClick()
   -- Remove any item already selected in the Auctions frame, as if it is the
   -- same as the item we're trying to add it will cause the add to fail.
   ClickAuctionSellItemButton()
-  if C_Cursor.GetCursorItem() then
-    Auctionator.Debug.Message("some sell item already selected")
-    ClearCursor()
-  end
+  ClearCursor()
 
   if IsValidItem(self.itemInfo) then
     if self.itemInfo.location:IsBagAndSlot() then
@@ -342,7 +352,11 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   elseif event == Auctionator.Selling.Events.PostSuccessful then
     local details = ...
     self:SuccessfulPost(details)
-    self:DoNextItem(details)
+    if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_POST_STACK_REMAINDER) and (details.itemInfo.count - details.numStacks * details.stackSize) < details.stackSize then
+      self:ReselectItem(details)
+    else
+      self:DoNextItem(details)
+    end
   elseif event == Auctionator.Selling.Events.PostFailed then
     local details = ...
     if details.numStacksReached > 0 then
@@ -542,14 +556,6 @@ function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
   end)
 end
 
-function AuctionatorSaleItemMixin:GetCommodityResult(itemId)
-  if C_AuctionHouse.GetCommoditySearchResultsQuantity(itemId) > 0 then
-    return C_AuctionHouse.GetCommoditySearchResultInfo(itemId, 1)
-  else
-    return nil
-  end
-end
-
 function AuctionatorSaleItemMixin:GetPostButtonState()
   return
     self.itemInfo ~= nil and
@@ -744,33 +750,29 @@ function AuctionatorSaleItemMixin:DoNextItem(details)
 end
 
 function AuctionatorSaleItemMixin:ReselectItem(details)
-  if IsValidItem(details.itemInfo) then
-    Auctionator.Debug.Message("got the item ready to try again")
-    self.retryingItem = true
-    self.itemInfo = details.itemInfo
-    self.clickedSellItem = false
-    self.minPriceSeen = details.minPriceSeen
-    self:Update()
-    self:SetUnitPrice(details.unitPrice)
-    self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
-  else
-    local location = FindItemAgain(self.itemInfo.itemLink)
-    if self.itemInfo.location ~= nil then
+  -- estimate count as the bag may not have updated to remove the posted items
+  -- yet
+  local count = details.itemInfo.count - details.stackSize * details.numStacksReached
+  if count > 0 then
+    local location = FindItemAgain(details.itemInfo.itemLink)
+    if location ~= nil then
       Auctionator.Debug.Message("found again, trying")
+      self:UnlockItem()
       self.retryingItem = true
       self.itemInfo = CopyTable(details.itemInfo, true)
       self.itemInfo.location = location
-      self.itemInfo.count = Auctionator.Selling.GetItemCount(self.itemInfo.location)
+      self.itemInfo.count = count
       self.clickedSellItem = false
       self.minPriceSeen = details.minPriceSeen
       self:Update()
       self:SetUnitPrice(details.unitPrice)
-      self.Stacks.NumStacks:SetNumber(details.numStacks - details.numStacksReached)
-    else
-      Auctionator.Debug.Message("item missing, won't retry")
-      self:DoNextItem(details)
+      self.Stacks.NumStacks:SetNumber(math.max(1, details.numStacks - details.numStacksReached))
+      return
     end
   end
+
+  Auctionator.Debug.Message("item missing, won't retry")
+  self:DoNextItem(details)
 end
 
 function AuctionatorSaleItemMixin:SkipItem()

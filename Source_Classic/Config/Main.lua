@@ -15,6 +15,7 @@ Auctionator.Config.Options.CHAIN_BUY_STACKS = "chain_buy_stacks"
 Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE = "shopping_always_load_more"
 Auctionator.Config.Options.SELLING_ALWAYS_LOAD_MORE = "selling_always_load_more"
 Auctionator.Config.Options.SELLING_GREY_POST_BUTTON = "selling_grey_post_button"
+Auctionator.Config.Options.SELLING_POST_STACK_REMAINDER = "selling_post_stack_remainder"
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.PROSPECT_TOOLTIPS] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.MILL_TOOLTIPS] = false
@@ -35,3 +36,4 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.CHAIN_BUY_STACKS] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ALWAYS_LOAD_MORE] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_GREY_POST_BUTTON] = true
+Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_POST_STACK_REMAINDER] = false
