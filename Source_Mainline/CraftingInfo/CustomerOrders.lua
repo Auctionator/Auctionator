@@ -13,9 +13,7 @@ function Auctionator.CraftingInfo.InitializeCustomerOrdersFrame()
 end
 
 local function CraftCostString(cost)
-  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(cost, true))
-
-  return AUCTIONATOR_L_REAGENTS_VALUE_COLON .. " " .. price
+  return WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(cost, true))
 end
 
 function Auctionator.CraftingInfo.GetCustomerOrdersInfoText(customerOrdersForm)
@@ -28,6 +26,12 @@ function Auctionator.CraftingInfo.GetCustomerOrdersInfoText(customerOrdersForm)
   local recipeSchematic = transaction:GetRecipeSchematic()
 
   local cost = Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
+  local mincost = Auctionator.CraftingInfo.CalculateMinCraftCost(recipeSchematic, transaction)
+  local text = AUCTIONATOR_L_REAGENTS_VALUE_COLON .. " " .. CraftCostString(cost)
 
-  return CraftCostString(cost)
+  if cost ~= mincost then
+    text = text .. " (" .. CraftCostString(mincost) .. ")"
+  end
+
+  return text
 end

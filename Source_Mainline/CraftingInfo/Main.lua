@@ -56,11 +56,24 @@ function Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transactio
         -- Select the value of the allocated reagents only including optional ones
         total = total + GetAllocatedCosts(reagentSlotSchematic, slotAllocations)
       end
-      -- Calculate using the lowest priced quality for remaining mandatatory
+      -- Calculate using the cheapest priced quality for remaining mandatory
       -- reagents that aren't allocated
       if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and selected ~= reagentSlotSchematic.quantityRequired then
         total = total + GetByMinCostOption(reagentSlotSchematic.reagents, reagentSlotSchematic.quantityRequired - selected)
       end
+    end
+  end
+
+  return total
+end
+
+function Auctionator.CraftingInfo.CalculateMinCraftCost(recipeSchematic, transaction)
+  local total = 0
+
+  for slotIndex, reagentSlotSchematic in ipairs(recipeSchematic.reagentSlotSchematics) do
+    -- Calculate using the cheapest priced quality for remaining mandatory
+    if #reagentSlotSchematic.reagents > 0 and reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic then
+      total = total + GetByMinCostOption(reagentSlotSchematic.reagents, reagentSlotSchematic.quantityRequired)
     end
   end
 
