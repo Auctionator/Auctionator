@@ -47,7 +47,7 @@ function AuctionatorScrollListShoppingListMixin:ReceiveEvent(eventName, eventDat
 
   if eventName == Auctionator.Shopping.Events.ListItemChange then
     if self.currentList and self.currentList:GetName() == eventData then
-      self:RefreshScrollFrame()
+      self:RefreshScrollFrame(true)
     end
   elseif eventName == Auctionator.Shopping.Events.ListMetaChange then
     if self.currentList and self.currentList:GetName() == eventData then
