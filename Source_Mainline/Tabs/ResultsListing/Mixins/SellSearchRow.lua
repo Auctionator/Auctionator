@@ -15,12 +15,8 @@ function AuctionatorSellSearchRowMixin:OnEnter()
 end
 
 function AuctionatorSellSearchRowMixin:OnLeave()
-  if self.rowData.itemLink then
-    if Auctionator.Utilities.IsPetLink(self.rowData.itemLink) then
-      BattlePetTooltip:Hide()
-    else
-      GameTooltip:Hide()
-    end
+  if AuctionHouseUtil ~= nil then
+    AuctionHouseUtil.LineOnLeaveCallback(self, self.rowData)
   end
   AuctionatorResultsRowTemplateMixin.OnLeave(self)
 end
