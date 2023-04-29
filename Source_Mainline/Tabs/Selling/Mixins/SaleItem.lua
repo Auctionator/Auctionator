@@ -335,7 +335,7 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
     self.expectedItemKey = itemInfo.itemKey
     Auctionator.AH.SendSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   end
-  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart, self.expectedItemKey, self.itemInfo.itemKey, self.itemInfo.itemLink)
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart, self.expectedItemKey, itemInfo.itemKey, itemInfo.itemLink)
 end
 
 function AuctionatorSaleItemMixin:Reset()
@@ -446,9 +446,10 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
 end
 
 function AuctionatorSaleItemMixin:GetItemResult(itemKey)
+  local itemInfo = self.itemInfo or self.lastItemInfo
   for i = 1, C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, i)
-    if Auctionator.Selling.DoesItemMatch(self.itemInfo.itemKey, self.itemInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
+    if Auctionator.Selling.DoesItemMatch(itemInfo.itemKey, itemInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
       return resultInfo
     end
   end
