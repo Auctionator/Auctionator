@@ -27,7 +27,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
   self.ItemUndercutValue:SetAmount(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_STATIC_VALUE))
 
   self.GearPriceMultiplier:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER))
-  self.GearUseItemLevel:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL))
+  self.ItemMatching:SetSelectedValue(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_MATCHING))
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:OnSalesPreferenceChange(selectedValue)
@@ -56,7 +56,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.UNDERCUT_STATIC_VALUE, tonumber(self.ItemUndercutValue:GetAmount()))
 
   Auctionator.Config.Set(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER, self.GearPriceMultiplier:GetNumber())
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL, self.GearUseItemLevel:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_ITEM_MATCHING, self.ItemMatching:GetValue())
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:Cancel()

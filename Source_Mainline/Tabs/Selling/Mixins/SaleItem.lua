@@ -326,7 +326,7 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
     sortingOrder = {sortOrder = 4, reverseSort = false}
   end
 
-  if IsEquipment(itemInfo) and not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GEAR_USE_ILVL) then
+  if IsEquipment(itemInfo) and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_MATCHING) ~= Auctionator.Config.ItemMatching.ITEM_NAME_AND_LEVEL then
     -- Bug with PTR C_AuctionHouse.MakeItemKey(...), it always sets the
     -- itemLevel to a non-zero value, so we have to create the key directly
     self.expectedItemKey = {itemID = itemInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
@@ -335,7 +335,7 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
     self.expectedItemKey = itemInfo.itemKey
     Auctionator.AH.SendSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   end
-  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart, self.expectedItemKey)
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart, self.expectedItemKey, self.itemInfo.itemKey, self.itemInfo.itemLink)
 end
 
 function AuctionatorSaleItemMixin:Reset()
@@ -446,11 +446,13 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
 end
 
 function AuctionatorSaleItemMixin:GetItemResult(itemKey)
-  if C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) > 0 then
-    return C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1)
-  else
-    return nil
+  for i = 1, C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) do
+    local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, i)
+    if Auctionator.Selling.DoesItemMatch(self.itemInfo.itemKey, self.itemInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
+      return resultInfo
+    end
   end
+  return nil
 end
 
 function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
