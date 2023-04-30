@@ -80,6 +80,7 @@ function Auctionator.SlashCmd.ResetConfig()
   end
 end
 
+local INVALID_OPTION_VALUE = "Wrong config value type %s (required %s)"
 function Auctionator.SlashCmd.Config(optionName, value1, ...)
   if optionName == nil then
     Auctionator.Utilities.Message("No config option name supplied")
