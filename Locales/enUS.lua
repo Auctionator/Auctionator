@@ -569,10 +569,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_HEADER"] = "Use Item Level and Title"
   L["CONFIG_SELLING_GEAR_USE_ILVL_VARIANTS_TOOLTIP_TEXT"] = "Normally gear is compared with any other gear that is similar, but without taking item level and the \"of the\" titles into account. This will make them be taken into account."
   L["CONFIG_MATCHING"] = "Choose how the item price is automatically selected"
-  L["CONFIG_MATCHING_ITEM_ID_AND_LEVEL"] = "Item/pet level with the same item/pet id"
+  L["CONFIG_MATCHING_ITEM_ID_AND_LEVEL"] = "Same item/pet level with the same item/pet id"
   L["CONFIG_MATCHING_ITEM_ID"] = "Same item/pet id"
-  L["CONFIG_MATCHING_ITEM_NAME_AND_LEVEL"] = "The same item/pet id, title and level"
-  L["CONFIG_MATCHING_ITEM_NAME"] = "The same item/pet id and title (ignoring level)"
+  L["CONFIG_MATCHING_ITEM_NAME_AND_LEVEL"] = "Same item/pet id, title and level"
+  L["CONFIG_MATCHING_ITEM_NAME"] = "Same item/pet id and title (ignoring level)"
 
   L["DEFAULT_LIST_HEADER"] = "Default Shopping List"
 

@@ -459,16 +459,19 @@ end
 function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   Auctionator.Debug.Message("AuctionatorSaleItemMixin:ProcessItemResults()")
 
-  local dbKeys = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = itemKey })
-
-  local result = self:GetItemResult(itemKey)
-
-  -- Update DB with current lowest price
-  if result ~= nil then
+  -- Update DB with current lowest price (accomodating for itemKey variations
+  -- from the searched for itemKey)
+  if C_AuctionHouse.GetNumItemSearchResults(itemKey) > 0 then
+    local result = C_AuctionHouse.GetItemSearchResultInfo(itemKey, 1)
+    local dbKeys = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = result.itemKey })
     for _, key in ipairs(dbKeys) do
       Auctionator.Database:SetPrice(key, result.buyoutAmount or result.bidAmount)
     end
   end
+
+  -- Get the first result that matches the price matching requirements
+  local result = self:GetItemResult(itemKey)
+
   if self.itemInfo ~= nil then
     self.itemInfo.existingValue = result and (result.buyoutAmount or result.bidAmount)
   end
@@ -478,6 +481,7 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   local postingPrice = nil
 
   if result == nil then
+    local dbKeys = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = itemKey })
     -- This item was not found in the AH, so use the lowest price from the dbKey
     postingPrice = Auctionator.Database:GetFirstPrice(dbKeys)
   elseif result ~= nil and result.containsOwnerItem then
