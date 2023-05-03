@@ -280,12 +280,13 @@ end
 if TooltipDataProcessor then
   TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
     if tooltip == GameTooltip or tooltip == ItemRefTooltip then
-      if not tooltip.info or not tooltip.info.getterName or tooltip.info.excludeLines then
+      local info = tooltip.info or tooltip.processingInfo
+      if not info or not info.getterName or info.excludeLines then
         return
       end
-      local handler = TooltipHandlers[tooltip.info.getterName:gsub("^Get", "Set")]
+      local handler = TooltipHandlers[info.getterName:gsub("^Get", "Set")]
       if handler ~= nil then
-        handler(tooltip, unpack(tooltip.info.getterArgs))
+        handler(tooltip, unpack(info.getterArgs))
       end
     end
   end)
