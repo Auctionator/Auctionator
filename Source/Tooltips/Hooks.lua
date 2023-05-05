@@ -246,7 +246,6 @@ if GameTooltip.SetItemKey then
     if info == nil then
       return
     end
-    TooltipUtil.SurfaceArgs(info)
     if info.hyperlink then
       local hyperlink = info.hyperlink
       -- Necessary as for recipes the crafted item is returned info.hyperlink,
