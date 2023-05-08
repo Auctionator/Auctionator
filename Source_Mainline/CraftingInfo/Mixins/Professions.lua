@@ -78,7 +78,11 @@ end
 function AuctionatorCraftingInfoProfessionsFrameMixin:UpdateTotal()
   local text, lines = Auctionator.CraftingInfo.GetInfoText(self:GetParent(), not self.doNotShowProfit)
   self.Total:SetText(text)
-  self:SetHeight(16 * lines)
+  if lines == 0 then
+    self:SetHeight(16)
+  else
+    self:SetHeight(16 * lines)
+  end
 end
 
 function AuctionatorCraftingInfoProfessionsFrameMixin:SearchButtonClicked()

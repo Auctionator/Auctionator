@@ -490,6 +490,9 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_CRAFTING_INFO_SHOW_COST"] = "Show reagent costs from auction house and vendors"
   L["CONFIG_CRAFTING_INFO_SHOW_COST_TOOLTIP_HEADER"] = "Crafting Info Show Cost"
   L["CONFIG_CRAFTING_INFO_SHOW_COST_TOOLTIP_TEXT"] = "Enable this option to see the cost of crafting a specific recipe when viewing it."
+  L["CONFIG_CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST"] = "Show reagent costs using the cheapest quality from auction house"
+  L["CONFIG_CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST_TOOLTIP_HEADER"] = "Crafting Info Show Cheapest Qualities Cost"
+  L["CONFIG_CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST_TOOLTIP_TEXT"] = "Enable this option to see the cost of crafting a specific recipe using the cheapest quality reagents when viewing it."
   L["CONFIG_CRAFTING_INFO_SHOW_PROFIT"] = "Show profit from crafting with auction house and vendor reagents"
   L["CONFIG_CRAFTING_INFO_SHOW_PROFIT_TOOLTIP_HEADER"] = "Crafting Info Show Profit"
   L["CONFIG_CRAFTING_INFO_SHOW_PROFIT_TOOLTIP_TEXT"] = "Enable this option to see the profit of crafting a specific recipe when viewing it."
@@ -586,6 +589,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["YOUR_HISTORY"] = "Your History"
   L["EXPORT_RESULTS"] = "Export Results"
   L["TO_CRAFT_COLON"] = "To Craft:"
+  L["CHEAPEST_QUALITY_COST_COLON"] = "Cheapest Quality Cost:"
   L["PROFIT_COLON"] = "Profit:"
   L["REAGENTS_VALUE_COLON"] = "Reagents Value:"
 

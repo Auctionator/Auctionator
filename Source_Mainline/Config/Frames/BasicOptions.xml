@@ -121,6 +121,17 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.ShowCraftingCost" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShowCraftingCheapestQualitiesCost">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShowCraftingProfit" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
    </Frames>
   </Frame>
 </Ui>

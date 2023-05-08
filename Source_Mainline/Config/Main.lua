@@ -13,6 +13,8 @@ Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT = "selling_cancel_shortcut"
 Auctionator.Config.Options.SELLING_BUY_SHORTCUT = "selling_buy_shortcut"
 Auctionator.Config.Options.SELLING_SPLIT_PANELS = "selling_split_panels"
 
+Auctionator.Config.Options.CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST = "crafting_info_show_cheapest_qualities_cost"
+
 Auctionator.Config.Options.AUCTION_DURATION = "auction_duration"
 Auctionator.Config.Options.AUCTION_SALES_PREFERENCE = "auction_sales_preference"
 Auctionator.Config.Options.UNDERCUT_PERCENTAGE = "undercut_percentage"
@@ -32,6 +34,7 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.UNDERCUT_SCAN_GEAR_MATCH_
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_CANCEL_SHORTCUT] = Auctionator.Config.Shortcuts.RIGHT_CLICK
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_BUY_SHORTCUT] = Auctionator.Config.Shortcuts.ALT_RIGHT_CLICK
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_SPLIT_PANELS] = false
+Auctionator.Config.Defaults[Auctionator.Config.Options.CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST] = false
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_DURATION] = 24
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE

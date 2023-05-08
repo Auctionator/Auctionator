@@ -83,6 +83,16 @@ local function GetSkillReagentsTotal(schematicForm)
   return Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
 end
 
+local function GetCheapestQualityTotal(schematicForm)
+  local recipeInfo = schematicForm:GetRecipeInfo()
+  local recipeID = recipeInfo.recipeID
+  local recipeLevel = schematicForm:GetCurrentRecipeLevel()
+  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
+  local transaction = CreateProfessionsRecipeTransaction(recipeSchematic)
+
+  return Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
+end
+
 local function CalculateProfitFromCosts(currentAH, toCraft, count)
   return math.floor(math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft) / 100) * 100
 end
@@ -176,6 +186,18 @@ local function CraftCostString(schematicForm)
   return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
 end
 
+local function CheapestQualityCostString(schematicForm)
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(GetCheapestQualityTotal(schematicForm), true))
+
+  return AUCTIONATOR_L_CHEAPEST_QUALITY_COST_COLON .. " " .. price
+end
+
+local function MinReagentValue(schematicForm)
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(GetSkillReagentsTotal(schematicForm), true))
+
+  return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
+end
+
 local function ProfitString(profit)
   local price
   if profit >= 0 then
@@ -210,5 +232,14 @@ function Auctionator.CraftingInfo.GetInfoText(schematicForm, showProfit)
       lines = lines + 1
     end
   end
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST) then
+    if lines > 0 then
+      result = result .. "\n"
+    end
+    result = result .. CheapestQualityCostString(schematicForm)
+    lines = lines + 1
+  end
+
   return result, lines
 end
