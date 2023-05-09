@@ -192,12 +192,6 @@ local function CheapestQualityCostString(schematicForm)
   return AUCTIONATOR_L_CHEAPEST_QUALITY_COST_COLON .. " " .. price
 end
 
-local function MinReagentValue(schematicForm)
-  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(GetSkillReagentsTotal(schematicForm), true))
-
-  return AUCTIONATOR_L_TO_CRAFT_COLON .. " " .. price
-end
-
 local function ProfitString(profit)
   local price
   if profit >= 0 then

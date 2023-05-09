@@ -18,6 +18,18 @@ local function CraftCostString(cost)
   return AUCTIONATOR_L_REAGENTS_VALUE_COLON .. " " .. price
 end
 
+local function GetCheapestQualityTotal(recipeSchematic)
+  local transaction = CreateProfessionsRecipeTransaction(recipeSchematic)
+
+  return Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
+end
+
+local function CheapestQualityCostString(recipeSchematic)
+  local price = WHITE_FONT_COLOR:WrapTextInColorCode(GetMoneyString(GetCheapestQualityTotal(recipeSchematic), true))
+
+  return AUCTIONATOR_L_CHEAPEST_QUALITY_COST_COLON .. " " .. price
+end
+
 function Auctionator.CraftingInfo.GetCustomerOrdersInfoText(customerOrdersForm)
   local transaction = customerOrdersForm.transaction
 
@@ -25,9 +37,29 @@ function Auctionator.CraftingInfo.GetCustomerOrdersInfoText(customerOrdersForm)
     return ""
   end
 
+  local result = ""
+  local lines = 0
+
   local recipeSchematic = transaction:GetRecipeSchematic()
 
-  local cost = Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
+  do
+    local cost = Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transaction)
 
-  return CraftCostString(cost)
+    if lines > 0 then
+      result = result .. "\n"
+    end
+
+    result = result .. CraftCostString(cost)
+    lines = lines + 1
+  end
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST) then
+    if lines > 0 then
+      result = result .. "\n"
+    end
+    result = result .. CheapestQualityCostString(recipeSchematic)
+    lines = lines + 1
+  end
+
+  return result, lines
 end
