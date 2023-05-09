@@ -7,6 +7,7 @@ function AuctionatorCraftingInfoFrameMixin:OnLoad()
   })
 
   self.originalFirstLine = TradeSkillDescription or TradeSkillReagentLabel
+  self.hasCustomDescriptionPoint = false
   self.originalDescriptionPoint = {self.originalFirstLine:GetPoint(1)}
 
   hooksecurefunc(_G, "TradeSkillFrame_SetSelection", function(ecipeID)
@@ -31,9 +32,16 @@ function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
   if self:IsVisible() then
     self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
 
+    if not self.hasCustomDescriptionPoint then
+      self.originalDescriptionPoint = {self.originalFirstLine:GetPoint(1)}
+    end
+    self.hasCustomDescriptionPoint = true
     self.originalFirstLine:SetPoint("TOPLEFT", self, "BOTTOMLEFT")
   else
-    self.originalFirstLine:SetPoint(unpack(self.originalDescriptionPoint))
+    if self.hasCustomDescriptionPoint then
+      self.hasCustomDescriptionPoint = false
+      self.originalFirstLine:SetPoint(unpack(self.originalDescriptionPoint))
+    end
   end
 end
 
