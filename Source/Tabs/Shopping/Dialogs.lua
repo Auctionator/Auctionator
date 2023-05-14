@@ -69,7 +69,7 @@ local function RenameList(self, newListName)
     currentList:Rename(newListName)
   end
 
-  if currentList.isTemporary then
+  if currentList:IsTemporary() then
     currentList:MakePermanent()
   end
 
