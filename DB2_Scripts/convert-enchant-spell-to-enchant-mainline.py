@@ -45,7 +45,14 @@ def array_str(array):
     result = result + "}"
     return result
 
+ordered_spells = []
+for spellID in enchants_to_items:
+    ordered_spells.append(spellID)
+ordered_spells.sort()
+    
+
 print("Auctionator.CraftingInfo.EnchantSpellsToItems = {")
-for spellID, itemIDs in enchants_to_items.items():
+for spellID in ordered_spells:
+    itemIDs = enchants_to_items[spellID]
     print("  [" + str(spellID) + "] = " + array_str(itemIDs) + ",")
 print("}")
