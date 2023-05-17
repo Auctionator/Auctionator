@@ -23,6 +23,7 @@ function AuctionatorUndercutScanMixin:OnLoad()
 
   self.undercutAuctions = {}
   self.seenAuctionResults = {}
+  self.seenItemMinPrice = {}
 
   self:SetCancel()
 end
@@ -42,6 +43,7 @@ function AuctionatorUndercutScanMixin:StartScan()
   self.currentAuction = nil
   self.undercutAuctions = {}
   self.seenAuctionResults = {}
+  self.seenItemMinPrice = {}
 
   Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.UndercutScanStart)
 
@@ -104,7 +106,8 @@ function AuctionatorUndercutScanMixin:NextStep()
 
     self:ProcessUndercutResult(
       self.currentAuction,
-      self.seenAuctionResults[itemKeyString]
+      self.seenAuctionResults[itemKeyString],
+      self.seenItemMinPrice[itemKeyString]
     )
 
     self:NextStep()
@@ -191,13 +194,21 @@ function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
       resultCount = C_AuctionHouse.GetNumItemSearchResults(self.expectedItemKey)
     end
 
+    local minPrice
+
     -- Identify all auctions which aren't undercut
     for index = 1, resultCount do
       local resultInfo
       if itemKeyInfo.isCommodity then
         resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(self.expectedItemKey.itemID, index)
+        if minPrice == nil then
+          minPrice = resultInfo.unitPrice
+        end
       else
         resultInfo = C_AuctionHouse.GetItemSearchResultInfo(self.expectedItemKey, index)
+        if minPrice == nil then
+          minPrice = resultInfo.buyoutAmount
+        end
       end
 
       if resultInfo.owners[1] ~= "player" then
@@ -211,13 +222,13 @@ function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
       return
     end
 
-    self:ProcessUndercutResult(auctionInfo, notUndercutIDs)
+    self:ProcessUndercutResult(auctionInfo, notUndercutIDs, minPrice)
 
     self:NextStep()
   end)
 end
 
-function AuctionatorUndercutScanMixin:ProcessUndercutResult(auctionInfo, notUndercutIDs)
+function AuctionatorUndercutScanMixin:ProcessUndercutResult(auctionInfo, notUndercutIDs, minPrice)
   local isUndercut = tIndexOf(notUndercutIDs, auctionInfo.auctionID) == nil
   if isUndercut then
     table.insert(self.undercutAuctions, auctionInfo)
@@ -225,12 +236,14 @@ function AuctionatorUndercutScanMixin:ProcessUndercutResult(auctionInfo, notUnde
 
   local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
   self.seenAuctionResults[itemKeyString] = notUndercutIDs
+  self.seenItemMinPrice[itemKeyString] = minPrice
 
   Auctionator.EventBus:Fire(
     self,
     Auctionator.Cancelling.Events.UndercutStatus,
     auctionInfo.auctionID,
-    isUndercut
+    isUndercut,
+    minPrice
   )
 end
 

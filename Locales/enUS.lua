@@ -424,6 +424,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["UPPER_UNIT_PRICE"] = "Upper Unit Price"
   L["TIME_LEFT"] = "Time Left"
   L["IS_UNDERCUT"] = "Undercut?"
+  L["UNDERCUT_PRICE"] = "Undercut Price"
   L["UNDERCUT_YES"] ="Yes"
   L["UNDERCUT_NO"] = "No"
   L["UNDERCUT_BID"] = "Bid"

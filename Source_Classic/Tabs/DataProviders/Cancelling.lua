@@ -63,6 +63,15 @@ local CANCELLING_TABLE_LAYOUT = {
     cellParameters = { "undercut" },
     width = 90,
   },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_UNDERCUT_PRICE,
+    headerParameters = { "undercutPrice" },
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "undercutPrice" },
+    width = 150,
+    defaultHide = true,
+  },
 }
 
 local DATA_EVENTS = {
@@ -112,6 +121,7 @@ local COMPARATORS = {
   quantity = Auctionator.Utilities.NumberComparator,
   timeLeft = Auctionator.Utilities.NumberComparator,
   undercut = Auctionator.Utilities.StringComparator,
+  undercutPrice = Auctionator.Utilities.NumberComparator,
 }
 
 function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
@@ -218,12 +228,14 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
 
         local cleanLink = Auctionator.Search.GetCleanItemLink(auction.itemLink)
         local undercutStatus
+        local undercutPrice
         if auction.bidAmount ~= 0 then
           undercutStatus = AUCTIONATOR_L_UNDERCUT_BID
         elseif self.undercutCutoff[cleanLink] == nil then
           undercutStatus = AUCTIONATOR_L_UNDERCUT_UNKNOWN
         elseif self.undercutCutoff[cleanLink] < auction.unitPrice then
           undercutStatus = AUCTIONATOR_L_UNDERCUT_YES
+          undercutPrice = self.undercutCutoff[cleanLink]
         else
           undercutStatus = AUCTIONATOR_L_UNDERCUT_NO
         end
@@ -240,6 +252,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions()
           timeLeft = auction.timeLeft,
           timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
           undercut = undercutStatus,
+          undercutPrice = undercutPrice,
         })
         Auctionator.Utilities.SetStacksText(results[#results])
       end

@@ -54,6 +54,15 @@ local CANCELLING_TABLE_LAYOUT = {
     cellParameters = { "undercut" },
     width = 90,
   },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerText = AUCTIONATOR_L_UNDERCUT_PRICE,
+    headerParameters = { "undercutPrice" },
+    cellTemplate = "AuctionatorPriceCellTemplate",
+    cellParameters = { "undercutPrice" },
+    width = 150,
+    defaultHide = true,
+  },
 }
 
 local DATA_EVENTS = {
@@ -140,6 +149,7 @@ local COMPARATORS = {
   quantity = Auctionator.Utilities.NumberComparator,
   timeLeft = Auctionator.Utilities.NumberComparator,
   undercut = Auctionator.Utilities.StringComparator,
+  undercutPrice = Auctionator.Utilities.NumberComparator,
 }
 
 function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
@@ -179,11 +189,11 @@ function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventDat
     self:NoQueryRefresh()
 
   elseif eventName == Auctionator.Cancelling.Events.UndercutStatus then
-    local isUndercut = ...
+    local isUndercut, minPrice = ...
     if isUndercut then
-      self.undercutInfo[eventData] = AUCTIONATOR_L_UNDERCUT_YES
+      self.undercutInfo[eventData] = {state = AUCTIONATOR_L_UNDERCUT_YES, minPrice = minPrice}
     else
-      self.undercutInfo[eventData] = AUCTIONATOR_L_UNDERCUT_NO
+      self.undercutInfo[eventData] = {state = AUCTIONATOR_L_UNDERCUT_NO, minPrice = nil}
     end
 
     self:NoQueryRefresh()
@@ -226,6 +236,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)
     if self:IsValidAuction(info) then
       totalOnSale = totalOnSale + price * info.quantity
       if self:FilterAuction(info) then
+        local undercutInfo = self.undercutInfo[info.auctionID]
         local entry = {
           id = info.auctionID,
           quantity = info.quantity,
@@ -237,7 +248,8 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)
           timeLeft = info.timeLeftSeconds,
           timeLeftPretty = Auctionator.Utilities.FormatTimeLeft(info.timeLeftSeconds),
           cancelled = (tIndexOf(self.waitingforCancellation, info.auctionID) ~= nil),
-          undercut = self.undercutInfo[info.auctionID] or AUCTIONATOR_L_UNDERCUT_UNKNOWN,
+          undercut = undercutInfo and undercutInfo.state or AUCTIONATOR_L_UNDERCUT_UNKNOWN,
+          undercutPrice = undercutInfo and undercutInfo.minPrice,
           searchName = info.searchName,
         }
         if info.bidder ~= nil then
