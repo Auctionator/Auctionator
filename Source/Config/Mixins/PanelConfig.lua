@@ -13,7 +13,7 @@ function AuctionatorPanelConfigMixin:SetupPanel()
   self.OnDefault = function() end
   self.OnRefresh = function() end
 
-  if Settings then
+  if Settings and SettingsPanel then
     if self.parent == nil then
       local category = Settings.RegisterCanvasLayoutCategory(self, self.name)
       category.ID = self.name
