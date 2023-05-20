@@ -417,6 +417,10 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
 
   self.priceThreshold = self:GetCommodityThreshold(itemID)
 
+  if result == nil then
+    return
+  end
+
   -- A few cases to process here:
   -- 1. If the entry containsOwnerItem=true, I should use this price as my
   -- calculated posting price (i.e. I do not want to undercut myself)
@@ -425,10 +429,7 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
   --    b. Undercut by static value
   local postingPrice = nil
 
-  if result == nil then
-    -- This commodity was not found in the AH, so use the last lowest price from DB
-    postingPrice = Auctionator.Database:GetFirstPrice(dbKeys)
-  elseif result ~= nil and result.containsOwnerItem and result.owners[1] == "player" then
+  if result.containsOwnerItem and result.owners[1] == "player" then
     -- No need to undercut myself
     postingPrice = result.unitPrice
   else
@@ -481,10 +482,10 @@ function AuctionatorSaleItemMixin:ProcessItemResults(itemKey)
   local postingPrice = nil
 
   if result == nil then
-    local dbKeys = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = itemKey })
-    -- This item was not found in the AH, so use the lowest price from the dbKey
-    postingPrice = Auctionator.Database:GetFirstPrice(dbKeys)
-  elseif result ~= nil and result.containsOwnerItem then
+    return
+  end
+
+  if result.containsOwnerItem then
     -- Posting an item I have alread posted, and that is the current lowest price, so just
     -- use this price
     postingPrice = result.buyoutAmount
