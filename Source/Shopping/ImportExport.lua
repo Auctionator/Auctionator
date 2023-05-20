@@ -72,8 +72,8 @@ function Auctionator.Shopping.Lists.OldBatchImportFromString(importString)
   for index, list in ipairs(lists) do
     local name, items = strsplit("\n", list, 2)
 
-    if Auctionator.Shopping.Lists.ListIndex(name) == nil then
-      Auctionator.Shopping.Lists.Create(name)
+    if Auctionator.Shopping.ListManager:GetIndexForName(name) == nil then
+      Auctionator.Shopping.ListManager:Create(name)
     end
 
     Auctionator.Shopping.Lists.OldOneImportFromString(name, items)
