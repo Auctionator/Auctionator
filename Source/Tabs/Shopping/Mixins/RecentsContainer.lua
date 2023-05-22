@@ -46,7 +46,9 @@ end
 
 function AuctionatorShoppingTabRecentsContainerMixin:SetupContent()
   local function OnClick(button)
-    self.onSearchRecent(button.elementData)
+    if self.onSearchRecent then
+      self.onSearchRecent(button.elementData)
+    end
   end
 
   local function OnEnter(button)
