@@ -295,7 +295,13 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
       if elementData.list:IsTemporary() then
         color = ORANGE_FONT_COLOR
       end
-      button.Text:SetText(color:WrapTextInColorCode(elementData.list:GetName()))
+      local icon = ""
+      if not self:IsListExpanded(elementData.list) then
+        icon = "|TInterface\\AddOns\\Auctionator\\Images\\Plus_Icon:8:8|t"
+      else
+        icon = "|TInterface\\AddOns\\Auctionator\\Images\\Minus_Icon:8:8|t"
+      end
+      button.Text:SetText(icon .. "  " .. color:WrapTextInColorCode(elementData.list:GetName()))
       button.options1.Icon:SetAtlas("common-search-magnifyingglass")
       button.options1:SetScript("OnClick", OnListSearchOptionClicked)
       button.options2.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Pen_Icon")
