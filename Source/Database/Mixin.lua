@@ -180,18 +180,12 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
  return results
 end
 
-function Auctionator.DatabaseMixin:GetPriceAge(dbKeys)
-  local bestDbKey
-  for _, dbKey in ipairs(dbKeys) do
-    if self.db[dbKey] then
-      bestDbKey = dbKey
-    end
-  end
-  if bestDbKey == nil then
-    return nil
-  end
+function Auctionator.DatabaseMixin:GetPriceAge(dbKey)
+  local itemData = self.db[dbKey]
 
-  local itemData = self.db[bestDbKey]
+  if itemData == nil then
+    return
+  end
 
   local days = Auctionator.Utilities.TableKeys(itemData.h)
 

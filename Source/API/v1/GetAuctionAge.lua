@@ -15,7 +15,7 @@ function Auctionator.API.v1.GetAuctionAgeByItemID(callerID, itemID)
     return nil
   end
 
-  return Auctionator.Database:GetPriceAge({tostring(itemID)})
+  return Auctionator.Database:GetPriceAge(tostring(itemID))
 end
 
 function Auctionator.API.v1.GetAuctionAgeByItemLink(callerID, itemLink)
@@ -40,10 +40,10 @@ function Auctionator.API.v1.GetAuctionAgeByItemLink(callerID, itemLink)
   end)
 
   if dbKeys then
-    return Auctionator.Database:GetPriceAge(dbKeys)
+    return Auctionator.Database:GetPriceAge(dbKeys[1])
   else
-    return Auctionator.Database:GetPriceAge({
+    return Auctionator.Database:GetPriceAge(
       Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
-    })
+    )
   end
 end
