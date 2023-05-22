@@ -34,48 +34,39 @@
     <Scripts>
       <OnLoad method="OnLoad"/>
     </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString parentKey="SearchLabel" inherits="GameFontNormal" text="AUCTIONATOR_L_SEARCH_TERM_COLON">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="80" y="-4" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
     <Frames>
-      <Frame parentKey="SearchContainer">
-        <Size y="30" />
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
+        <Size x="180" y="20"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="80"/>
-          <Anchor point="RIGHT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="TOPRIGHT" x="90" y="4" />
         </Anchors>
-        <Layers>
-          <Layer level="BACKGROUND">
-            <FontString parentKey="SearchLabel" inherits="GameFontNormal" text="AUCTIONATOR_L_SEARCH_TERM_COLON">
-              <Anchors>
-                <Anchor point="TOPLEFT" y="-4" />
-              </Anchors>
-            </FontString>
-          </Layer>
-        </Layers>
-        <Frames>
-          <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
-            <Size x="180" y="20"/>
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="TOPRIGHT" x="10" y="4" />
-            </Anchors>
-            <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
-            <Scripts>
-              <OnEnterPressed>self:GetParent():GetParent().SearchButton:Click();self:ClearFocus()</OnEnterPressed>
-              <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
-            </Scripts>
-          </EditBox>
+        <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
+        <Scripts>
+          <OnEnterPressed>self:GetParent().SearchButton:Click();self:ClearFocus()</OnEnterPressed>
+          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+        </Scripts>
+      </EditBox>
 
-          <Button parentKey="ResetSearchStringButton" inherits="AuctionatorResetButton">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT" x="3" y="-2"/>
-            </Anchors>
-            <Scripts>
-              <OnClick>self:GetParent().SearchString:SetText("")</OnClick>
-            </Scripts>
-          </Button>
-        </Frames>
-      </Frame>
+      <Button parentKey="ResetSearchStringButton" inherits="AuctionatorResetButton">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT" x="3" y="-2"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent().SearchString:SetText("")</OnClick>
+        </Scripts>
+      </Button>
       <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH">
         <Anchors>
-          <Anchor point="BOTTOMLEFT" relativeKey="$parent.SearchContainer.ResetSearchStringButton" relativePoint="BOTTOMRIGHT" x="5" y="-3"/>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ResetSearchStringButton" relativePoint="BOTTOMRIGHT" x="5" y="-3"/>
         </Anchors>
       </Button>
       <Button parentKey="MoreButton" inherits="UIPanelDynamicResizeButtonTemplate" text="More">

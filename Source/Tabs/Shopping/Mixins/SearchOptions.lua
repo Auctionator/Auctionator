@@ -28,7 +28,7 @@ function AuctionatorShoppingTabSearchOptionsMixin:OnLoad()
     Auctionator.Shopping.Tab.Events.SearchEnd,
   })
 
-  self.SearchContainer.SearchString:SetScript("OnTextChanged", function(self, isUserInput)
+  self.SearchString:SetScript("OnTextChanged", function(self, isUserInput)
     if isUserInput and not self:IsInIMECompositionMode() then
       local current = self:GetText():lower()
       if current == "" or (self.prevCurrent ~= nil and #self.prevCurrent >= #current) then
@@ -121,11 +121,11 @@ end
 
 function AuctionatorShoppingTabSearchOptionsMixin:SetSearchTerm(searchTerm)
   self.lastSearchTerm = searchTerm
-  self.SearchContainer.SearchString:SetText(GetAppropriateText(searchTerm))
+  self.SearchString:SetText(GetAppropriateText(searchTerm))
 end
 
 function AuctionatorShoppingTabSearchOptionsMixin:GetSearchTerm()
-  local text = self.SearchContainer.SearchString:GetText()
+  local text = self.SearchString:GetText()
 
   if text == AUCTIONATOR_L_EXTENDED_SEARCH_ACTIVE_TEXT then
     return self.lastSearchTerm
@@ -135,5 +135,5 @@ function AuctionatorShoppingTabSearchOptionsMixin:GetSearchTerm()
 end
 
 function AuctionatorShoppingTabSearchOptionsMixin:FocusSearchBox()
-  self.SearchContainer.SearchString:SetFocus()
+  self.SearchString:SetFocus()
 end
