@@ -1,31 +1,17 @@
 <!-- Tabs/Shopping/Mixins directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="Dropdown.lua" />
+  <Script file="ListsContainer.lua" />
+  <Script file="RecentsContainer.lua" />
+  <Script file="ContainerTabs.lua" />
 
-  <Script file="ListSearchButton.lua"/>
+  <Script file="SearchOptions.lua" />
 
-  <Script file="ScrollListLine.lua" />
-  <Script file="ScrollListLineShoppingList.lua" />
-  <Script file="ScrollListLineRecents.lua" />
-  <Script file="ScrollListLineButton.lua" />
-  <Script file="ScrollList.lua" />
-  <Script file="ScrollListShoppingList.lua" />
-  <Script file="ScrollListRecents.lua" />
+  <Script file="EscapeToClose.lua" />
+  <Script file="Item.lua" />
+  <Script file="ExportFrame.lua" />
+  <Script file="ExportTextFrame.lua" />
+  <Script file="ImportFrame.lua" />
+  <Script file="ItemHistory.lua" />
 
-  <Script file="EscapeToClose.lua"/>
-
-  <Script file="Item.lua"/>
-
-  <Script file="ExportTextFrame.lua"/>
-  <Script file="ExportFrame.lua"/>
-  <Script file="ImportFrame.lua"/>
-  <Script file="ItemHistory.lua"/>
-
-  <Script file="OneItemSearchEditBox.lua"/>
-  <Script file="OneItemSearch.lua"/>
-  <Script file="RecentsContainer.lua"/>
-
-  <Script file="SearchManager.lua"/>
-
-  <Script file="Main.lua"/>
+  <Script file="Main.lua" />
 </Ui>

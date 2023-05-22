@@ -1,11 +1,11 @@
 <Ui>
   <Frame
-    name="AuctionatorShoppingClassicTabFrameTemplate"
+    name="AuctionatorShoppingTabClassicFrameTemplate"
     virtual="true"
     inherits="AuctionatorShoppingTabFrameTemplate"
   >
     <Frames>
-      <Button parentKey="LoadAllPagesButton" inherits="AuctionatorLoadAllButton" text="AUCTIONATOR_L_LOAD_MORE_RESULTS" mixin="AuctionatorShoppingClassicLoadAllButtonMixin" hidden="true">
+      <Button parentKey="LoadAllPagesButton" inherits="AuctionatorLoadAllButton" text="AUCTIONATOR_L_LOAD_MORE_RESULTS" mixin="AuctionatorShoppingTabClassicLoadAllButtonMixin" hidden="true">
         <Anchors>
           <Anchor point="BOTTOMLEFT" relativeKey="$parent.ShoppingResultsInset"/>
           <Anchor point="TOPRIGHT" relativeKey="$parent.ShoppingResultsInset" relativePoint="BOTTOMRIGHT" y="20"/>

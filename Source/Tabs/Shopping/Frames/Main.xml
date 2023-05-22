@@ -1,102 +1,138 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
+<Ui>
   <Frame
-    name="AuctionatorShoppingTabFrameTemplate"
+    name="AuctionatorShoppingTabListsContainerTemplate"
     virtual="true"
-    parentKey="AuctionatorShoppingFrame"
-    mixin="AuctionatorShoppingTabMixin"
-    hidden="true"
-  >
+    parentKey="ListsContainer"
+    mixin="AuctionatorShoppingTabListsContainerMixin"
+    >
     <Scripts>
-      <OnLoad method="OnLoad" />
-      <OnShow method="OnShow" />
-      <OnEvent method="OnEvent" />
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
     </Scripts>
+  </Frame>
 
-    <Anchors>
-      <Anchor point="TOP"/>
-      <Anchor point="LEFT" x="4"/>
-      <Anchor point="BOTTOMRIGHT" x="-4" y="27" />
-    </Anchors>
+  <Frame
+    name="AuctionatorShoppingTabRecentsContainerTemplate"
+    virtual="true"
+    parentKey="RecentsContainer"
+    mixin="AuctionatorShoppingTabRecentsContainerMixin"
+    >
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
+  </Frame>
 
+  <Frame
+    name="AuctionatorShoppingTabSearchOptionsTemplate"
+    virtual="true"
+    parentKey="SearchOptions"
+    mixin="AuctionatorShoppingTabSearchOptionsMixin"
+    >
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
     <Frames>
-      <Frame parentKey="SearchManager" mixin="AuctionatorShoppingSearchManagerMixin">
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnHide method="OnHide" />
-        </Scripts>
-      </Frame>
-      <Frame parentKey="DataProvider" mixin="AuctionatorShoppingDataProviderMixin">
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnUpdate method="OnUpdate" />
-        </Scripts>
-      </Frame>
-
-      <Frame parentKey="OneItemSearch" mixin="AuctionatorShoppingOneItemSearchMixin">
-        <Size x="10" y="10"/>
+      <Frame parentKey="SearchContainer">
+        <Size y="30" />
         <Anchors>
-          <Anchor point="TOPLEFT" x="50" y="-48"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="80"/>
+          <Anchor point="RIGHT" />
         </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnShow method="OnShow" />
-        </Scripts>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <FontString parentKey="SearchLabel" inherits="GameFontNormal" text="AUCTIONATOR_L_SEARCH_TERM_COLON">
+              <Anchors>
+                <Anchor point="TOPLEFT" y="-4" />
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
         <Frames>
-          <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchBox" letters="100" mixin="AuctionatorShoppingOneItemSearchEditBoxMixin">
+          <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
             <Size x="180" y="20"/>
             <Anchors>
-              <Anchor point="TOPLEFT"/>
+              <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="TOPRIGHT" x="10" y="4" />
             </Anchors>
             <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
             <Scripts>
-              <OnEnterPressed>self:GetParent():SearchButtonClicked()</OnEnterPressed>
+              <OnEnterPressed>self:GetParent():GetParent().SearchButton:Click();self:ClearFocus()</OnEnterPressed>
               <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
-              <OnTextChanged method="OnTextChanged"/>
             </Scripts>
           </EditBox>
 
-          <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" parentKey="SearchButton">
+          <Button parentKey="ResetSearchStringButton" inherits="AuctionatorResetButton">
             <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.SearchBox" relativePoint="TOPRIGHT" y="1"/>
+              <Anchor point="TOPLEFT" relativeKey="$parent.SearchString" relativePoint="TOPRIGHT" x="3" y="-2"/>
             </Anchors>
             <Scripts>
-              <OnClick>
-                self:GetParent():SearchButtonClicked()
-              </OnClick>
-            </Scripts>
-          </Button>
-
-          <Button parentKey="ExtendedButton" inherits="UIPanelButtonTemplate">
-            <Size x="32" y="22"/>
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.SearchButton" relativePoint="TOPRIGHT"/>
-            </Anchors>
-            <Layers>
-              <Layer level="ARTWORK">
-                <Texture file="Interface\WorldMap\Gear_64">
-                  <TexCoords left="0.5" top="0" right="0" bottom="0.5"/>
-                  <Size x="19" y="19"/>
-                  <Anchors>
-                    <Anchor point="CENTER"/>
-                  </Anchors>
-                </Texture>
-              </Layer>
-            </Layers>
-            <Scripts>
-              <OnClick>self:GetParent():OpenExtendedOptions()</OnClick>
+              <OnClick>self:GetParent().SearchString:SetText("")</OnClick>
             </Scripts>
           </Button>
         </Frames>
       </Frame>
-
-      <!-- Shopping List item scroll frame -->
-      <Frame parentKey="ScrollListShoppingList" mixin="AuctionatorScrollListShoppingListMixin">
+      <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH">
         <Anchors>
-          <Anchor point="TOPLEFT" y="-106" />
-          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" y="35" />
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.SearchContainer.ResetSearchStringButton" relativePoint="BOTTOMRIGHT" x="5" y="-3"/>
         </Anchors>
+      </Button>
+      <Button parentKey="MoreButton" inherits="UIPanelDynamicResizeButtonTemplate" text="More">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.SearchButton" relativePoint="BOTTOMRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button parentKey="AddToListButton" inherits="UIPanelDynamicResizeButtonTemplate" text="Add To List">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.MoreButton" relativePoint="BOTTOMRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+    </Frames>
+  </Frame>
+
+  <Frame
+    name="AuctionatorShoppingTabFrameTemplate"
+    mixin="AuctionatorShoppingTabFrameMixin"
+    virtual="true"
+    parentKey="AuctionatorShoppingTabFrame"
+    hidden="true"
+    >
+    <Anchors>
+      <Anchor point="TOP" y="-40"/>
+      <Anchor point="LEFT"/>
+      <Anchor point="BOTTOMRIGHT" x="-4" y="27" />
+    </Anchors>
+    <Size x="800" y="500"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Frames>
+      <Frame inherits="AuctionatorShoppingTabSearchOptionsTemplate">
+        <Anchors>
+          <Anchor point="TOP"/>
+          <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" y="-150"/>
+          <Anchor point="RIGHT"/>
+        </Anchors>
+        <Size x="280"/>
+      </Frame>
+      <Frame inherits="AuctionatorShoppingTabListsContainerTemplate" hidden="true">
+        <Anchors>
+          <Anchor point="TOP" y="-50"/>
+          <Anchor point="BOTTOM" y="35"/>
+          <Anchor point="LEFT"/>
+        </Anchors>
+        <Size x="280"/>
         <Layers>
           <Layer level="OVERLAY">
+            <Texture parentKey="LoadingSpinner" atlas="auctionhouse-ui-loadingspinner" hidden="true">
+              <Size x="146" y="146"/>
+              <Anchors>
+                <Anchor point="CENTER" relativeKey="$parent.ListsContainer" x="-12" y="-13"/>
+              </Anchors>
+            </Texture>
             <FontString parentKey="ResultsText" inherits="GameFontNormal" hidden="true">
               <Anchors>
                 <Anchor point="TOP" relativeKey="$parent.LoadingSpinner" relativePoint="CENTER"/>
@@ -110,12 +146,6 @@
                 <Color r="0" g="0" b="0"/>
               </Shadow>
             </FontString>
-            <Texture parentKey="LoadingSpinner" atlas="auctionhouse-ui-loadingspinner" hidden="true">
-              <Size x="146" y="146"/>
-              <Anchors>
-                <Anchor point="CENTER" x="-12" y="-13"/>
-              </Anchors>
-            </Texture>
           </Layer>
         </Layers>
         <Animations>
@@ -123,140 +153,72 @@
             <Rotation childKey="LoadingSpinner" order="1" duration="1" degrees="-360"/>
           </AnimationGroup>
         </Animations>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnShow method="OnShow"/>
-        </Scripts>
-        <Frames>
-          <Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
-            <Anchors>
-              <Anchor point="TOPLEFT" y="-4"/>
-              <Anchor point="BOTTOMRIGHT" x="-25" y="4"/>
-            </Anchors>
-          </Frame>
-          <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
-              <Anchors>
-                  <Anchor point="TOPRIGHT"/>
-                  <Anchor point="BOTTOMRIGHT"/>
-              </Anchors>
-          </EventFrame>
-          <Frame parentKey="Inset" inherits="AuctionatorInsetTemplate">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
-              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeKey="$parent.ScrollBar" x="2"/>
-            </Anchors>
-          </Frame>
-        </Frames>
       </Frame>
-
-      <Frame parentKey="ScrollListRecents" mixin="AuctionatorScrollListRecentsMixin">
+      <Frame inherits="AuctionatorShoppingTabRecentsContainerTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" y="-106" />
-          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" x="300" />
+          <Anchor point="TOP" y="-50"/>
+          <Anchor point="BOTTOM" y="10"/>
+          <Anchor point="LEFT"/>
         </Anchors>
-        <Layers>
-          <Layer level="OVERLAY">
-            <Texture parentKey="LoadingSpinner" atlas="auctionhouse-ui-loadingspinner" hidden="true">
-              <Size x="146" y="146"/>
-              <Anchors>
-                <Anchor point="CENTER" x="-12" y="-13"/>
-              </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
-        <Animations>
-          <AnimationGroup parentKey="SpinnerAnim" looping="REPEAT">
-            <Rotation childKey="LoadingSpinner" order="1" duration="1" degrees="-360"/>
-          </AnimationGroup>
-        </Animations>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnShow method="OnShow"/>
-        </Scripts>
-        <Frames>
-          <Frame parentKey="ScrollBox" inherits="WowScrollBoxList">
-            <Anchors>
-              <Anchor point="TOPLEFT" y="-4"/>
-              <Anchor point="BOTTOMRIGHT" x="-25" y="4"/>
-            </Anchors>
-          </Frame>
-          <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">
-              <Anchors>
-                  <Anchor point="TOPRIGHT"/>
-                  <Anchor point="BOTTOMRIGHT"/>
-              </Anchors>
-          </EventFrame>
-          <Frame parentKey="Inset" inherits="AuctionatorInsetTemplate">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
-              <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMLEFT" relativeKey="$parent.ScrollBar" x="2"/>
-            </Anchors>
-          </Frame>
-        </Frames>
+        <Size x="280"/>
       </Frame>
-
-      <Frame parentKey="RecentsTabsContainer" mixin="AuctionatorShoppingTabRecentsContainerMixin">
+      <Button parentKey="NewListButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_NEW_LIST">
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" x="10"/>
-          <Anchor point="RIGHT" relativePoint="TOPRIGHT" y="15" relativeKey="$parent.ScrollListShoppingList"/>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" relativePoint="TOPLEFT" x="25"/>
+          <Anchor point="BOTTOMLEFT" y="10" x="10"/>
         </Anchors>
+      </Button>
+      <Button parentKey="ImportButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.NewListButton" relativePoint="BOTTOMRIGHT" x="20"/>
+        </Anchors>
+      </Button>
+      <Button parentKey="ExportButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ImportButton" relativePoint="BOTTOMRIGHT"/>
+        </Anchors>
+      </Button>
+    </Frames>
+    <Frames>
+      <Frame parentKey="ContainerTabs" mixin="AuctionatorShoppingTabContainerTabsMixin">
+        <Size x="10" y="10"/>
         <Scripts>
           <OnLoad method="OnLoad"/>
         </Scripts>
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ListsContainer" relativePoint="TOPLEFT" x="20"/>
+        </Anchors>
         <Frames>
-          <Button parentKey="ListTab" id="1" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_SHOPPING_LIST">
+          <Button inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_SHOPPING_LISTS" id="1" parentKey="ListsTab">
             <Anchors>
-              <Anchor point="TOPLEFT" />
+              <Anchor point="BOTTOMLEFT"/>
             </Anchors>
           </Button>
-          <Button parentKey="RecentsTab" id="2" inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_RECENT_SEARCHES">
+          <Button inherits="AuctionatorShoppingMiniTabButtonTemplate" text="AUCTIONATOR_L_RECENT_SEARCHES" id="2" parentKey="RecentsTab">
             <Anchors>
-              <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.ListTab"/>
+              <Anchor point="BOTTOMLEFT" relativeKey="$parent.ListsTab" relativePoint="BOTTOMRIGHT"/>
             </Anchors>
           </Button>
         </Frames>
       </Frame>
 
-      <!-- List Add Item Button -->
-      <Button
-        inherits="UIPanelDynamicResizeButtonTemplate"
-        text="AUCTIONATOR_L_ADD_ITEM"
-        parentKey="AddItem"
-      >
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" relativePoint="BOTTOMLEFT" x="4" y="-4" />
-        </Anchors>
-        <Scripts>
-          <OnClick>self:GetParent():AddItemClicked()</OnClick>
-        </Scripts>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH_ALL" mixin="AuctionatorListSearchButtonMixin" parentKey="ManualSearch">
-        <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.ScrollListShoppingList" relativePoint="BOTTOMRIGHT" x="-25" y="-4"/>
-        </Anchors>
+      <Frame parentKey="DataProvider" mixin="AuctionatorShoppingTabDataProviderMixin">
         <Scripts>
           <OnLoad method="OnLoad"/>
-          <OnClick method="OnClick"/>
+          <OnUpdate method="OnUpdate" />
         </Scripts>
-      </Button>
-      <Button
-        inherits="UIPanelDynamicResizeButtonTemplate"
-        text="AUCTIONATOR_L_SORT"
-        parentKey="SortItems"
+      </Frame>
+      <Frame
+        parentKey="SearchProvider"
+        inherits="AuctionatorDirectSearchProviderTemplate"
       >
-        <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.ManualSearch" relativePoint="TOPRIGHT" y="-28" />
-        </Anchors>
         <Scripts>
-          <OnClick>self:GetParent():SortItemsClicked()</OnClick>
+          <OnEvent method="OnEvent" />
         </Scripts>
-      </Button>
+      </Frame>
 
       <Frame inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ScrollListShoppingList" relativePoint="TOPRIGHT" x="5" y="27"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ListsContainer.ScrollBar" relativePoint="TOPRIGHT" x="5" y="27"/>
           <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOMRIGHT" x="-20"/>
         </Anchors>
       </Frame>
@@ -275,37 +237,6 @@
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():ExportCSVClicked()</OnClick>
-        </Scripts>
-      </Button>
-
-      <!-- Shopping List Dropdown -->
-      <Frame parentKey="ListDropdown" mixin="AuctionatorShoppingListDropdownMixin">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" y="35" x="50"/>
-        </Anchors>
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnShow method="OnShow"/>
-          <OnEvent method="OnEvent"/>
-        </Scripts>
-      </Frame>
-
-      <!-- List export/Import -->
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT" parentKey="Import">
-        <Anchors>
-          <Anchor point="TOPRIGHT" x="-5" y="-48"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>self:GetParent():ImportListsClicked()</OnClick>
-        </Scripts>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT" parentKey="Export">
-        <Anchors>
-          <Anchor point="TOPRIGHT" relativeKey="$parent.Import" relativePoint="TOPLEFT"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>self:GetParent():ExportListsClicked()</OnClick>
         </Scripts>
       </Button>
     </Frames>
