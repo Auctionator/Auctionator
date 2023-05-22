@@ -44,10 +44,6 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
   self.ExportButton:SetScript("OnClick", function() self.exportDialog:Show() end)
   self.ImportButton:SetScript("OnClick", function() self.importDialog:Show() end)
 
-  if Auctionator.Constants.IsClassic then
-    self.BuyFrame = CreateFrame("Frame", nil, self, "AuctionatorShoppingTabBuyFrameTemplate")
-  end
-
   self.SearchProvider:InitSearch(
     function(results)
       self.searchRunning = false

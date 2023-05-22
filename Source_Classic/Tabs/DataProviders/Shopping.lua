@@ -127,5 +127,5 @@ function AuctionatorShoppingTabDataProviderMixin:GetColumnHideStates()
 end
 
 function AuctionatorShoppingTabDataProviderMixin:GetRowTemplate()
-  return "AuctionatorShoppingTabResultsRowTemplate"
+  return "AuctionatorShoppingResultsRowTemplate"
 end
