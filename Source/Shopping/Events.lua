@@ -10,7 +10,6 @@ Auctionator.Shopping.Events = {
 }
 
 Auctionator.Shopping.Tab.Events = {
-  ShowBuy = "shopping tab show buy",
   SearchStart = "shopping tab search start",
   SearchEnd = "shopping tab search end",
   SearchIncrementalUpdate = "shopping tab search incremental update",

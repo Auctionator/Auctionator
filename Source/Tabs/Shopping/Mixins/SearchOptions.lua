@@ -28,6 +28,7 @@ function AuctionatorShoppingTabSearchOptionsMixin:OnLoad()
     Auctionator.Shopping.Tab.Events.SearchEnd,
   })
 
+  -- Autocompletion with recents and shopping list terms for the search box
   self.SearchString:SetScript("OnTextChanged", function(self, isUserInput)
     if isUserInput and not self:IsInIMECompositionMode() then
       local current = self:GetText():lower()
@@ -73,6 +74,8 @@ function AuctionatorShoppingTabSearchOptionsMixin:OnLoad()
 end
 
 function AuctionatorShoppingTabSearchOptionsMixin:ReceiveEvent(eventName, ...)
+  -- Change text to Cancel when a list search is ongoing and swap back to Search
+  -- when the search is over
   if eventName == Auctionator.Shopping.Tab.Events.SearchStart then
     self.SearchButton:SetText(AUCTIONATOR_L_CANCEL)
   elseif eventName == Auctionator.Shopping.Tab.Events.SearchEnd then
@@ -100,6 +103,7 @@ end
 function AuctionatorShoppingTabSearchOptionsMixin:SetOnMore(func)
   self.onMore = func
 end
+
 local function GetAppropriateText(searchTerm)
   local search = Auctionator.Search.SplitAdvancedSearch(searchTerm)
   local newSearch = search.searchString
