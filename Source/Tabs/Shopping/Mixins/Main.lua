@@ -3,6 +3,8 @@ AuctionatorShoppingTabFrameMixin = {}
 local EVENTBUS_EVENTS = {
   Auctionator.Shopping.Events.ListImportFinished,
   Auctionator.Shopping.Tab.Events.ListSearchRequested,
+  Auctionator.Shopping.Tab.Events.ShowHistoricalPrices,
+  Auctionator.Shopping.Tab.Events.UpdateSearchTerm,
 }
 
 function AuctionatorShoppingTabFrameMixin:DoSearch(terms, options)
@@ -43,6 +45,10 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
 
   self.ExportButton:SetScript("OnClick", function() self.exportDialog:Show() end)
   self.ImportButton:SetScript("OnClick", function() self.importDialog:Show() end)
+
+  self.itemHistoryDialog = CreateFrame("Frame", "AuctionatorItemHistoryFrame", self, "AuctionatorItemHistoryTemplate")
+  self.itemHistoryDialog:SetPoint("CENTER")
+  self.itemHistoryDialog:Init()
 
   self.SearchProvider:InitSearch(
     function(results)
@@ -180,11 +186,18 @@ end
 function AuctionatorShoppingTabFrameMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.Shopping.Events.ListImportFinished then
     self.ListsContainer:ExpandList(Auctionator.Shopping.ListManager:GetByName(eventData))
+
   elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchRequested then
     self.ListsContainer:ExpandList(eventData)
     if not Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
       self:DoSearch(eventData:GetAllItems())
     end
+
+  elseif eventName == Auctionator.Shopping.Tab.Events.ShowHistoricalPrices then
+    self.itemHistoryDialog:Show()
+
+  elseif eventName == Auctionator.Shopping.Tab.Events.UpdateSearchTerm then
+    self.SearchOptions:SetSearchTerm(eventData)
   end
 end
 

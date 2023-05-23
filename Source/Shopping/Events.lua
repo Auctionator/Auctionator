@@ -20,5 +20,6 @@ Auctionator.Shopping.Tab.Events = {
   DragItemStop = "shopping tab list drag item stop",
 
   ShowHistoricalPrices = "shopping show historical prices",
+  UpdateSearchTerm = "shopping update search term",
   ListSearchRequested = "shopping list search requested",
 }
