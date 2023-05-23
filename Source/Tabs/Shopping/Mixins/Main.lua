@@ -210,6 +210,7 @@ function AuctionatorShoppingTabFrameMixin:ReceiveEvent(eventName, eventData)
     self.ListsContainer:ExpandList(Auctionator.Shopping.ListManager:GetByName(eventData))
 
   elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchRequested then
+    self.ContainerTabs:SetView(Auctionator.Constants.ShoppingListViews.Lists)
     self.ListsContainer:ExpandList(eventData)
     if not Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
       self:DoSearch(eventData:GetAllItems())
