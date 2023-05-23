@@ -26,25 +26,45 @@ function AuctionatorShoppingTabFrameMixin:StopSearch()
   self.SearchProvider:AbortSearch()
 end
 
+function AuctionatorShoppingTabFrameMixin:CloseAnyDialogs()
+  for _, d in ipairs(self.dialogs) do
+    if d:IsShown() then
+      d:Hide()
+    end
+  end
+end
+
 function AuctionatorShoppingTabFrameMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorShoppingTabFrameMixin")
 
   self.ResultsListing:Init(self.DataProvider)
 
+  self.dialogs = {}
+
   self.itemDialog = CreateFrame("Frame", "AuctionatorShoppingTabItemFrame", self, "AuctionatorShoppingItemTemplate")
   self.itemDialog:SetPoint("CENTER")
+  table.insert(self.dialogs, self.itemDialog)
 
   self.exportDialog = CreateFrame("Frame", "AuctionatorExportListFrame", self, "AuctionatorExportListTemplate")
   self.exportDialog:SetPoint("CENTER")
+  table.insert(self.dialogs, self.exportDialog)
 
   self.importDialog = CreateFrame("Frame", "AuctionatorImportListFrame", self, "AuctionatorImportListTemplate")
   self.importDialog:SetPoint("CENTER")
+  table.insert(self.dialogs, self.importDialog)
 
   self.exportCSVDialog = CreateFrame("Frame", nil, self, "AuctionatorExportTextFrame")
   self.exportCSVDialog:SetPoint("CENTER")
+  table.insert(self.dialogs, self.exportCSVDialog)
 
-  self.ExportButton:SetScript("OnClick", function() self.exportDialog:Show() end)
-  self.ImportButton:SetScript("OnClick", function() self.importDialog:Show() end)
+  self.ExportButton:SetScript("OnClick", function()
+    self:CloseAnyDialogs()
+    self.exportDialog:Show()
+  end)
+  self.ImportButton:SetScript("OnClick", function()
+    self:CloseAnyDialogs()
+    self.importDialog:Show()
+  end)
 
   self.itemHistoryDialog = CreateFrame("Frame", "AuctionatorItemHistoryFrame", self, "AuctionatorItemHistoryTemplate")
   self.itemHistoryDialog:SetPoint("CENTER")
@@ -96,6 +116,7 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
     list:DeleteItem(index)
   end)
   self.ListsContainer:SetOnSearchTermEdit(function(list, searchTerm, index)
+    self:CloseAnyDialogs()
     self.itemDialog:Init(AUCTIONATOR_L_LIST_EDIT_ITEM_HEADER, AUCTIONATOR_L_EDIT_ITEM)
     self.itemDialog:SetOnFinishedClicked(function(newItemString)
       list:AlterItem(index, newItemString)
@@ -158,6 +179,7 @@ function AuctionatorShoppingTabFrameMixin:SetupTopSearch()
     end
   end)
   self.SearchOptions:SetOnMore(function(searchTerm)
+    self:CloseAnyDialogs()
     self.itemDialog:Init(AUCTIONATOR_L_LIST_EXTENDED_SEARCH_HEADER, AUCTIONATOR_L_SEARCH)
     self.itemDialog:SetOnFinishedClicked(function(searchTerm)
       self.SearchOptions:SetSearchTerm(searchTerm)
@@ -194,6 +216,7 @@ function AuctionatorShoppingTabFrameMixin:ReceiveEvent(eventName, eventData)
     end
 
   elseif eventName == Auctionator.Shopping.Tab.Events.ShowHistoricalPrices then
+    self:CloseAnyDialogs()
     self.itemHistoryDialog:Show()
 
   elseif eventName == Auctionator.Shopping.Tab.Events.UpdateSearchTerm then
@@ -216,6 +239,7 @@ function AuctionatorShoppingTabFrameMixin:OnHide()
 end
 
 function AuctionatorShoppingTabFrameMixin:ExportCSVClicked()
+  self:CloseAnyDialogs()
   self.DataProvider:GetCSV(function(result)
     self.exportCSVDialog:SetExportString(result)
     self.exportCSVDialog:Show()
