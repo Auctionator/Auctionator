@@ -298,7 +298,7 @@ function Auctionator.Tooltip.AddPetTip(
 
   local key = "p:" .. tostring(speciesID)
   local price = Auctionator.Database:GetPrice(key)
-  local auctionAge = Auctionator.Database:GetPriceAge({key})
+  local auctionAge = Auctionator.Database:GetPriceAge(key)
   BattlePetTooltip:AddLine(" ")
   if price ~= nil then
     BattlePetTooltip:AddLine(
