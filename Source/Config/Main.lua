@@ -50,6 +50,7 @@ Auctionator.Config.Options = {
   CRAFTING_INFO_SHOW_COST = "crafting_info_show_cost",
 
   SHOPPING_LIST_MISSING_TERMS = "shopping_list_missing_terms",
+  SHOPPING_LAST_CONTAINER_VIEW = "shopping_last_container_view",
 }
 
 Auctionator.Config.SalesTypes = {
@@ -118,6 +119,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST] = true,
 
   [Auctionator.Config.Options.SHOPPING_LIST_MISSING_TERMS] = false,
+  [Auctionator.Config.Options.SHOPPING_LAST_CONTAINER_VIEW] = Auctionator.Constants.ShoppingListViews.Lists,
 }
 
 function Auctionator.Config.IsValidOption(name)

@@ -16,6 +16,10 @@ function AuctionatorListExportFrameMixin:OnLoad()
   self.copyTextDialog = CreateFrame("Frame", nil, self:GetParent(), "AuctionatorExportTextFrame")
   self.copyTextDialog:SetPoint("CENTER")
 
+  if self:GetParent().dialogs then
+    table.insert(self:GetParent().dialogs, self.copyTextDialog)
+  end
+
   -- self.ExportOption:SetOnChange(function(selectedValue)
   --   if selectedValue == Auctionator.Constants.EXPORT_TYPES.WHISPER then
   --     self.Recipient:Show()

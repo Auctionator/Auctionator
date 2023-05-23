@@ -1,9 +1,10 @@
 <!-- Tabs/Shopping directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="Dialogs.lua"/>
+  <Script file="Templates.lua"/>
+  <Script file="ComposeSearchTermTooltip.lua"/>
 
   <Include file="Mixins\Manifest.xml"/>
 
-  <Include file="Templates.xml"/>
   <Include file="Frames\Manifest.xml"/>
 </Ui>

@@ -41,10 +41,10 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   }
 }
 
-AuctionatorShoppingDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemStringLoadingMixin)
+AuctionatorShoppingTabDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin, AuctionatorItemStringLoadingMixin)
 
-function AuctionatorShoppingDataProviderMixin:OnLoad()
-  Auctionator.Debug.Message("AuctionatorShoppingDataProviderMixin:OnLoad()")
+function AuctionatorShoppingTabDataProviderMixin:OnLoad()
+  Auctionator.Debug.Message("AuctionatorShoppingTabDataProviderMixin:OnLoad()")
 
   self:SetUpEvents()
 
@@ -52,28 +52,28 @@ function AuctionatorShoppingDataProviderMixin:OnLoad()
   AuctionatorItemStringLoadingMixin.OnLoad(self)
 end
 
-function AuctionatorShoppingDataProviderMixin:SetUpEvents()
+function AuctionatorShoppingTabDataProviderMixin:SetUpEvents()
   Auctionator.EventBus:RegisterSource(self, "Shopping List Data Provider")
 
   Auctionator.EventBus:Register( self, {
-    Auctionator.Shopping.Tab.Events.ListSearchStarted,
-    Auctionator.Shopping.Tab.Events.ListSearchEnded,
-    Auctionator.Shopping.Tab.Events.ListSearchIncrementalUpdate
+    Auctionator.Shopping.Tab.Events.SearchStart,
+    Auctionator.Shopping.Tab.Events.SearchEnd,
+    Auctionator.Shopping.Tab.Events.SearchIncrementalUpdate,
   })
 end
 
-function AuctionatorShoppingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
-  if eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
+function AuctionatorShoppingTabDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
+  if eventName == Auctionator.Shopping.Tab.Events.SearchStart then
     self:Reset()
     self.onSearchStarted()
-  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchEnded then
+  elseif eventName == Auctionator.Shopping.Tab.Events.SearchEnd then
     self:AppendEntries(self:AddDetails(eventData), true)
-  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchIncrementalUpdate then
+  elseif eventName == Auctionator.Shopping.Tab.Events.SearchIncrementalUpdate then
     self:AppendEntries(self:AddDetails(eventData))
   end
 end
 
-function AuctionatorShoppingDataProviderMixin:AddDetails(entries)
+function AuctionatorShoppingTabDataProviderMixin:AddDetails(entries)
   for _, entry in ipairs(entries) do
     if entry.containsOwnerItem then
       entry.isOwned = AUCTIONATOR_L_UNDERCUT_YES
@@ -97,7 +97,7 @@ function AuctionatorShoppingDataProviderMixin:AddDetails(entries)
   return entries
 end
 
-function AuctionatorShoppingDataProviderMixin:UniqueKey(entry)
+function AuctionatorShoppingTabDataProviderMixin:UniqueKey(entry)
   return entry.itemString
 end
 
@@ -108,7 +108,7 @@ local COMPARATORS = {
   totalQuantity = Auctionator.Utilities.NumberComparator
 }
 
-function AuctionatorShoppingDataProviderMixin:Sort(fieldName, sortDirection)
+function AuctionatorShoppingTabDataProviderMixin:Sort(fieldName, sortDirection)
   local comparator = COMPARATORS[fieldName](sortDirection, fieldName)
 
   table.sort(self.results, function(left, right)
@@ -118,14 +118,14 @@ function AuctionatorShoppingDataProviderMixin:Sort(fieldName, sortDirection)
   self:SetDirty()
 end
 
-function AuctionatorShoppingDataProviderMixin:GetTableLayout()
+function AuctionatorShoppingTabDataProviderMixin:GetTableLayout()
   return SHOPPING_LIST_TABLE_LAYOUT
 end
 
-function AuctionatorShoppingDataProviderMixin:GetColumnHideStates()
+function AuctionatorShoppingTabDataProviderMixin:GetColumnHideStates()
   return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_SHOPPING)
 end
 
-function AuctionatorShoppingDataProviderMixin:GetRowTemplate()
+function AuctionatorShoppingTabDataProviderMixin:GetRowTemplate()
   return "AuctionatorShoppingResultsRowTemplate"
 end

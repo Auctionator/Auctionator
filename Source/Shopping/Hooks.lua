@@ -23,12 +23,15 @@ local function SearchItem(text)
     name = text
   end
 
+  local searchTerm
   -- Non-exact with enchants as the name doesn't match exactly
   if text:match("enchant:") then
-    AuctionatorShoppingFrame.OneItemSearch:DoSearch(name)
+    searchTerm = name
   else
-    AuctionatorShoppingFrame.OneItemSearch:DoSearch("\"" .. name .. "\"")
+    searchTerm = "\"" .. name .. "\""
   end
+  AuctionatorShoppingFrame:DoSearch(searchTerm)
+  Auctionator.Shopping.Recents.Save(searchTerm)
 
   return true
 end

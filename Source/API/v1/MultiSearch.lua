@@ -46,7 +46,6 @@ local function StartSearch(callerID, cloned)
   end
 
   Auctionator.EventBus:RegisterSource(StartSearch, "API v1 Multi search start")
-    :Fire(StartSearch, Auctionator.Shopping.Tab.Events.ListCreated, list)
     :Fire(StartSearch, Auctionator.Shopping.Tab.Events.ListSearchRequested, list)
     :UnregisterSource(StartSearch)
 end
