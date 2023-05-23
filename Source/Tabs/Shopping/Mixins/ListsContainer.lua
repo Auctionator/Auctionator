@@ -300,7 +300,11 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
       button.options1:Show()
       button.options2.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Pen_Icon")
       button.options2:SetScript("OnClick", OnListEditOptionClicked)
-      button.options2.TooltipText = AUCTIONATOR_L_RENAME
+      if elementData.list:IsTemporary() then
+        button.options2.TooltipText = AUCTIONATOR_L_MAKE_PERMANENT
+      else
+        button.options2.TooltipText = AUCTIONATOR_L_RENAME
+      end
       button.options2:Show()
       button.options3.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Trash_Icon")
       button.options3:SetScript("OnClick", OnListDeleteOptionClicked)

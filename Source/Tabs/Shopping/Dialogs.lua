@@ -72,7 +72,7 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
 
 StaticPopupDialogs[Auctionator.Constants.DialogNames.MakePermanentShoppingList] = {
   text = "",
-  button1 = AUCTIONATOR_L_MAKE_PERMANENT,
+  button1 = ACCEPT,
   button2 = CANCEL,
   hasEditBox = 1,
   maxLetters = 32,
