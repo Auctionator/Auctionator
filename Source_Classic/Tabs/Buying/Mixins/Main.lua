@@ -32,7 +32,7 @@ function AuctionatorBuyFrameMixinForShopping:Init()
   AuctionatorBuyFrameMixin.Init(self)
   Auctionator.EventBus:Register(self, {
     Auctionator.Buying.Events.ShowForShopping,
-    Auctionator.Shopping.Tab.Events.ListSearchStarted,
+    Auctionator.Shopping.Tab.Events.SearchStart,
   })
 end
 
@@ -77,7 +77,7 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
       self.CurrentPrices.gotCompleteResults = eventData.complete
       self.CurrentPrices:UpdateButtons()
     end
-  elseif eventName == Auctionator.Shopping.Tab.Events.ListSearchStarted then
+  elseif eventName == Auctionator.Shopping.Tab.Events.SearchStart then
     self:Hide()
   end
 end

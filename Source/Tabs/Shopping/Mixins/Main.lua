@@ -13,9 +13,9 @@ function AuctionatorShoppingTabFrameMixin:DoSearch(terms, options)
   end
 
   self.searchRunning = true
+  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchStart, terms)
   self.SearchProvider:Search(terms, options or {})
   self:StartSpinner()
-  Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchStart, terms)
 end
 
 function AuctionatorShoppingTabFrameMixin:StopSearch()
@@ -112,7 +112,7 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
     self.SearchOptions:OnListExpanded()
   end)
   self.ListsContainer:SetOnListCollapsed(function()
-    self.SearchProvider:AbortSearch()
+    self:StopSearch()
     self.SearchOptions:OnListCollapsed()
   end)
   self.ListsContainer:SetOnSearchTermClicked(function(list, searchTerm, index)
