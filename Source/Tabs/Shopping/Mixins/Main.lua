@@ -92,7 +92,7 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
       StaticPopup_Show(Auctionator.Constants.DialogNames.CreateShoppingList, nil, nil, {view = self})
   end)
 
-  self.ContainerTabs:SetView(Auctionator.Constants.ShoppingListViews.Lists)
+  self.ContainerTabs:SetView(Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_LAST_CONTAINER_VIEW))
 end
 
 function AuctionatorShoppingTabFrameMixin:SetupListsContainer()

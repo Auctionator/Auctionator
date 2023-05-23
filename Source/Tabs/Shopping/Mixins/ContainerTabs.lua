@@ -7,6 +7,7 @@ end
 
 function AuctionatorShoppingTabContainerTabsMixin:SetView(viewIndex)
   PanelTemplates_SetTab(self, viewIndex)
+  Auctionator.Config.Set(Auctionator.Config.Options.SHOPPING_LAST_CONTAINER_VIEW, viewIndex)
 
   self:GetParent().NewListButton:Hide()
   self:GetParent().ImportButton:Hide()
