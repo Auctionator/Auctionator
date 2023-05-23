@@ -261,7 +261,7 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
     button:SetScript("OnEnter", OnEnter)
     button:SetScript("OnLeave", OnLeave)
     button:SetScript("OnClick", OnClick)
-    button:RegisterForClicks("LeftButtonDown", "RightButtonDown")
+    button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
     button.options1 = Auctionator.Shopping.Tab.CreateOptionButton(button, 0, buttonHeight + 5, buttonHeight)
     button.options2 = Auctionator.Shopping.Tab.CreateOptionButton(button, -buttonHeight - 5, buttonHeight + 5, buttonHeight)
