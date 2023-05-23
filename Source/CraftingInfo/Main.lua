@@ -20,3 +20,15 @@ function Auctionator.CraftingInfo.CacheVendorPrices()
     end
   end
 end
+
+function Auctionator.CraftingInfo.GetProfitWarning(profit, age, anyPrice, exact)
+  if not exact and anyPrice then
+    return " " .. AUCTIONATOR_L_PROFIT_WARNING_NOT_EXACT_ITEM
+  elseif age == nil then
+    return " " .. AUCTIONATOR_L_PROFIT_WARNING_MISSING
+  elseif age > 10 then
+    return " " .. AUCTIONATOR_L_PROFIT_WARNING_AGE
+  else
+    return ""
+  end
+end

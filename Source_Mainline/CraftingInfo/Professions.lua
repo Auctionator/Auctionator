@@ -140,13 +140,15 @@ local function GetEnchantProfit(schematicForm)
 
   if itemID ~= nil then
     local currentAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID) or 0
+    local age = Auctionator.API.v1.GetAuctionAgeByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID)
+    local exact = Auctionator.API.v1.IsAuctionDataExactByItemID(AUCTIONATOR_L_REAGENT_SEARCH, itemID)
 
     local vellumCost = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, Auctionator.Constants.EnchantingVellumID) or 0
     local toCraft = GetSkillReagentsTotal(schematicForm) + vellumCost
 
     local count = schematicForm.recipeSchematic.quantityMin
 
-    return CalculateProfitFromCosts(currentAH, toCraft, count)
+    return CalculateProfitFromCosts(currentAH, toCraft, count), age, currentAH ~= 0, exact
   else
     return nil
   end
@@ -168,12 +170,14 @@ local function GetAHProfit(schematicForm)
 
     if recipeLink ~= nil then
       local currentAH = Auctionator.API.v1.GetAuctionPriceByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink) or 0
+      local age = Auctionator.API.v1.GetAuctionAgeByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
+      local exact = Auctionator.API.v1.IsAuctionDataExactByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
 
       local toCraft = GetSkillReagentsTotal(schematicForm)
 
       local count = schematicForm.recipeSchematic.quantityMin
 
-      return CalculateProfitFromCosts(currentAH, toCraft, count)
+      return CalculateProfitFromCosts(currentAH, toCraft, count), age, currentAH ~= 0, exact
     else
       return nil
     end
@@ -216,13 +220,13 @@ function Auctionator.CraftingInfo.GetInfoText(schematicForm, showProfit)
   end
 
   if showProfit and Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_PROFIT) then
-    local profit = GetAHProfit(schematicForm)
+    local profit, age, anyPrice, exact = GetAHProfit(schematicForm)
 
     if profit ~= nil then
       if lines > 0 then
         result = result .. "\n"
       end
-      result = result .. ProfitString(profit)
+      result = result .. ProfitString(profit) .. Auctionator.CraftingInfo.GetProfitWarning(profit, age, anyPrice, exact)
       lines = lines + 1
     end
   end

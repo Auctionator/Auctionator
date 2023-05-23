@@ -2,6 +2,7 @@
   <Script file="MultiSearch.lua" />
   <Script file="GetAuctionPrice.lua" />
   <Script file="GetAuctionAge.lua" />
+  <Script file="IsAuctionDataExact.lua" />
   <Script file="GetVendorPrice.lua" />
   <Script file="GetDisenchantPrice.lua" />
 </Ui>
