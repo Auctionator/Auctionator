@@ -237,9 +237,17 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
     option.Icon:SetPoint("CENTER")
     option:SetScript("OnEnter", function()
       option.Icon:SetAlpha(0.5)
+      if option.TooltipText then
+        GameTooltip:SetOwner(option, "ANCHOR_RIGHT")
+        GameTooltip:SetText(option.TooltipText, 1, 1, 1)
+        GameTooltip:Show()
+      end
     end)
     option:SetScript("OnLeave", function()
       option.Icon:SetAlpha(1)
+      if option.TooltipText then
+        GameTooltip:Hide()
+      end
     end)
     option:SetScript("OnHide", function()
       option.Icon:SetAlpha(1)
@@ -249,33 +257,15 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
 
   local function SetupButton(button)
     button.setup = true
-    local fontString = button:CreateFontString(nil, nil, "GameFontHighlightSmall")
-    fontString:SetJustifyH("LEFT")
-    fontString:SetPoint("RIGHT", button, "RIGHT", -buttonSpacing, 0)
-    fontString:SetWordWrap(false)
-    button.Text = fontString
-    button.Bg = button:CreateTexture()
-    button.Bg:SetAtlas("auctionhouse-rowstripe-1")
-    button.Bg:SetBlendMode("ADD")
-    button.Bg:SetAllPoints()
-    button.Highlight = button:CreateTexture()
-    button.Highlight:SetAtlas("auctionhouse-ui-row-highlight")
-    button.Highlight:SetBlendMode("ADD")
-    button.Highlight:SetAllPoints()
-    button.Highlight:Hide()
-    button.Selected = button:CreateTexture()
-    button.Selected:SetAtlas("auctionhouse-ui-row-select")
-    button.Selected:SetBlendMode("ADD")
-    button.Selected:SetAllPoints()
-    button.Selected:Hide()
+    Auctionator.Shopping.Tab.SetupContainerRow(button, buttonHeight, buttonSpacing)
     button:SetScript("OnEnter", OnEnter)
     button:SetScript("OnLeave", OnLeave)
     button:SetScript("OnClick", OnClick)
     button:RegisterForClicks("LeftButtonDown", "RightButtonDown")
 
-    button.options1 = CreateOptionButton(button, 0, buttonHeight + 5)
-    button.options2 = CreateOptionButton(button, -buttonHeight - 5, buttonHeight + 5)
-    button.options3 = CreateOptionButton(button, - 2 * buttonHeight - 10, buttonHeight + 5)
+    button.options1 = Auctionator.Shopping.Tab.CreateOptionButton(button, 0, buttonHeight + 5, buttonHeight)
+    button.options2 = Auctionator.Shopping.Tab.CreateOptionButton(button, -buttonHeight - 5, buttonHeight + 5, buttonHeight)
+    button.options3 = Auctionator.Shopping.Tab.CreateOptionButton(button, - 2 * buttonHeight - 10, buttonHeight + 5, buttonHeight)
   end
 
   local function OnButtonAcquire(button, elementData)
@@ -284,6 +274,8 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
     end
 
     button:SetSize(self:GetWidth(), buttonHeight)
+    button.options1:Hide()
+    button.options2:Hide()
     button.options3:Hide()
 
     local text = ""
@@ -304,25 +296,30 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
       button.Text:SetText(icon .. "  " .. color:WrapTextInColorCode(elementData.list:GetName()))
       button.options1.Icon:SetAtlas("common-search-magnifyingglass")
       button.options1:SetScript("OnClick", OnListSearchOptionClicked)
+      button.options1.TooltipText = AUCTIONATOR_L_SEARCH_ALL
+      button.options1:Show()
       button.options2.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Pen_Icon")
       button.options2:SetScript("OnClick", OnListEditOptionClicked)
+      button.options2.TooltipText = AUCTIONATOR_L_RENAME
+      button.options2:Show()
       button.options3.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Trash_Icon")
       button.options3:SetScript("OnClick", OnListDeleteOptionClicked)
+      button.options3.TooltipText = AUCTIONATOR_L_DELETE
       button.options3:Show()
     elseif elementData.type == RowType.SearchTerm then
       xOffset = listEntryInset
       button.Text:SetText(elementData.text)
       button.options1.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Trash_Icon")
       button.options1:SetScript("OnClick", OnSearchTermDeleteOptionClicked)
+      button.options1.TooltipText = AUCTIONATOR_L_DELETE
+      button.options1:Show()
       button.options2.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Pen_Icon")
       button.options2:SetScript("OnClick", OnSearchTermEditOptionClicked)
+      button.options2.TooltipText = AUCTIONATOR_L_RENAME
+      button.options2:Show()
     else
       xOffset = listEntryInset
       button.Text:SetText(GRAY_FONT_COLOR:WrapTextInColorCode(EMPTY))
-      button.options1.Icon:SetTexture(nil)
-      button.options1:SetScript("OnClick", nil)
-      button.options2.Icon:SetTexture(nil)
-      button.options2:SetScript("OnClick", nil)
     end
 
     button.Text:SetPoint("LEFT", button, "LEFT", xOffset, 0)

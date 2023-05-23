@@ -68,25 +68,6 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetupContent()
     end
   end
 
-  local function CreateOptionButton(button, xOffset, xWidth)
-    local option = CreateFrame("Button", nil, button)
-    option:SetPoint("TOPRIGHT", xOffset, 0)
-    option:SetSize(xWidth, buttonHeight)
-    option.Icon = option:CreateTexture()
-    option.Icon:SetSize(buttonHeight - 5, buttonHeight - 5)
-    option.Icon:SetPoint("CENTER")
-    option:SetScript("OnEnter", function()
-      option.Icon:SetAlpha(0.5)
-    end)
-    option:SetScript("OnLeave", function()
-      option.Icon:SetAlpha(1)
-    end)
-    option:SetScript("OnHide", function()
-      option.Icon:SetAlpha(1)
-    end)
-    return option
-  end
-
   local function OnRecentDeleteOptionClicked(button)
     button = button:GetParent()
     if self.onDeleteRecent then
@@ -103,38 +84,23 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetupContent()
 
   local function SetupButton(button)
     button.setup = true
-    local fontString = button:CreateFontString(nil, nil, "GameFontHighlightSmall")
-    fontString:SetJustifyH("LEFT")
-    fontString:SetPoint("LEFT", listHeaderInset, 0)
-    fontString:SetPoint("RIGHT", button, "RIGHT", -buttonSpacing, 0)
-    fontString:SetWordWrap(false)
-    button.Text = fontString
-    button.Bg = button:CreateTexture()
-    button.Bg:SetAtlas("auctionhouse-rowstripe-1")
-    button.Bg:SetBlendMode("ADD")
-    button.Bg:SetAllPoints()
-    button.Highlight = button:CreateTexture()
-    button.Highlight:SetAtlas("auctionhouse-ui-row-highlight")
-    button.Highlight:SetBlendMode("ADD")
-    button.Highlight:SetAllPoints()
-    button.Highlight:Hide()
-    button.Selected = button:CreateTexture()
-    button.Selected:SetAtlas("auctionhouse-ui-row-select")
-    button.Selected:SetBlendMode("ADD")
-    button.Selected:SetAllPoints()
-    button.Selected:Hide()
+    Auctionator.Shopping.Tab.SetupContainerRow(button, buttonHeight, buttonSpacing)
+    button.Text:SetPoint("LEFT", listHeaderInset, 0)
+
     button:SetScript("OnEnter", OnEnter)
     button:SetScript("OnLeave", OnLeave)
     button:SetScript("OnClick", OnClick)
 
-    button.options1 = CreateOptionButton(button, 0, buttonHeight + 5)
-    button.options2 = CreateOptionButton(button, -buttonHeight - 5, buttonHeight + 5)
+    button.options1 = Auctionator.Shopping.Tab.CreateOptionButton(button, 0, buttonHeight + 5, buttonHeight)
+    button.options2 = Auctionator.Shopping.Tab.CreateOptionButton(button, -buttonHeight - 5, buttonHeight + 5, buttonHeight)
 
     button.options1.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Trash_Icon")
     button.options1:SetScript("OnClick", OnRecentDeleteOptionClicked)
+    button.options1.TooltipText = AUCTIONATOR_L_DELETE
 
     button.options2.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Copy_Icon")
     button.options2:SetScript("OnClick", OnRecentCopyOptionClicked)
+    button.options2.TooltipText = AUCTIONATOR_L_COPY_TO_LIST
   end
 
   self.Inset = CreateFrame("Frame", nil, self, "AuctionatorInsetTemplate")

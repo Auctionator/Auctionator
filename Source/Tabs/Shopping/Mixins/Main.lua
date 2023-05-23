@@ -14,16 +14,20 @@ function AuctionatorShoppingTabFrameMixin:DoSearch(terms, options)
 
   self.searchRunning = true
   self.SearchProvider:Search(terms, options or {})
-  self.ListsContainer.SpinnerAnim:Play()
-  self.ListsContainer.LoadingSpinner:Show()
-  self.ListsContainer.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self:GetAppropriateName()))
-  self.ListsContainer.ResultsText:Show()
+  self:StartSpinner()
   Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchStart, terms)
 end
 
 function AuctionatorShoppingTabFrameMixin:StopSearch()
   self.searchRunning = false
   self.SearchProvider:AbortSearch()
+end
+
+function AuctionatorShoppingTabFrameMixin:StartSpinner()
+  self.ListsContainer.SpinnerAnim:Play()
+  self.ListsContainer.LoadingSpinner:Show()
+  self.ListsContainer.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_START", self:GetAppropriateListSearchName()))
+  self.ListsContainer.ResultsText:Show()
 end
 
 function AuctionatorShoppingTabFrameMixin:CloseAnyDialogs()
@@ -70,19 +74,7 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
   self.itemHistoryDialog:SetPoint("CENTER")
   self.itemHistoryDialog:Init()
 
-  self.SearchProvider:InitSearch(
-    function(results)
-      self.searchRunning = false
-      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchEnd, results)
-      self.ListsContainer.SpinnerAnim:Stop()
-      self.ListsContainer.LoadingSpinner:Hide()
-      self.ListsContainer.ResultsText:Hide()
-    end,
-    function(current, total, partialResults)
-      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchIncrementalUpdate, partialResults, total, current)
-      self.ListsContainer.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self:GetAppropriateName()))
-    end
-  )
+  self:SetupSearchProvider()
 
   self:SetupListsContainer()
   self:SetupRecentsContainer()
@@ -93,6 +85,22 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
   end)
 
   self.ContainerTabs:SetView(Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_LAST_CONTAINER_VIEW))
+end
+
+function AuctionatorShoppingTabFrameMixin:SetupSearchProvider()
+  self.SearchProvider:InitSearch(
+    function(results)
+      self.searchRunning = false
+      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchEnd, results)
+      self.ListsContainer.SpinnerAnim:Stop()
+      self.ListsContainer.LoadingSpinner:Hide()
+      self.ListsContainer.ResultsText:Hide()
+    end,
+    function(current, total, partialResults)
+      Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchIncrementalUpdate, partialResults, total, current)
+      self.ListsContainer.ResultsText:SetText(Auctionator.Locales.Apply("LIST_SEARCH_STATUS", current, total, self:GetAppropriateListSearchName()))
+    end
+  )
 end
 
 function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
@@ -197,7 +205,7 @@ function AuctionatorShoppingTabFrameMixin:SetupTopSearch()
   end)
 end
 
-function AuctionatorShoppingTabFrameMixin:GetAppropriateName()
+function AuctionatorShoppingTabFrameMixin:GetAppropriateListSearchName()
   if self.singleSearch or not self.ListsContainer:GetExpandedList() then
     return AUCTIONATOR_L_NO_LIST
   else
