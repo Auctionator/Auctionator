@@ -191,6 +191,8 @@ end
 function AuctionatorShoppingTabFrameMixin:OnShow()
   self.SearchOptions:FocusSearchBox()
   Auctionator.EventBus:Register(self, EVENTBUS_EVENTS)
+
+  self:OpenDefaultList()
 end
 
 function AuctionatorShoppingTabFrameMixin:OnHide()
@@ -205,4 +207,18 @@ function AuctionatorShoppingTabFrameMixin:ExportCSVClicked()
     self.exportCSVDialog:SetExportString(result)
     self.exportCSVDialog:Show()
   end)
+end
+
+function AuctionatorShoppingTabFrameMixin:OpenDefaultList()
+  local listName = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST)
+
+  if listName == Auctionator.Constants.NO_LIST then
+    return
+  end
+
+  local listIndex = Auctionator.Shopping.ListManager:GetIndexForName(listName)
+
+  if listIndex ~= nil then
+    self.ListsContainer:ExpandList(Auctionator.Shopping.ListManager:GetByIndex(listIndex))
+  end
 end
