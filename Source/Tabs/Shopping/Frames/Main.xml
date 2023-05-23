@@ -47,7 +47,7 @@
       <EditBox autoFocus="false" inherits="InputBoxTemplate" parentKey="SearchString" letters="100">
         <Size x="180" y="20"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="TOPRIGHT" x="90" y="4" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.SearchLabel" relativePoint="TOPRIGHT" x="10" y="4" />
         </Anchors>
         <FontString inherits="ChatFontNormal" justifyH="LEFT"/>
         <Scripts>
