@@ -12,6 +12,8 @@ function AuctionatorShoppingTabFrameMixin:DoSearch(terms, options)
     return
   end
 
+  self:StopSearch()
+
   self.searchRunning = true
   Auctionator.EventBus:Fire(self, Auctionator.Shopping.Tab.Events.SearchStart, terms)
   self.SearchProvider:Search(terms, options or {})
