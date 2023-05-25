@@ -69,12 +69,12 @@
           <Anchor point="BOTTOMLEFT" relativeKey="$parent.ResetSearchStringButton" relativePoint="BOTTOMRIGHT" x="5" y="-3"/>
         </Anchors>
       </Button>
-      <Button parentKey="MoreButton" inherits="UIPanelDynamicResizeButtonTemplate" text="More">
+      <Button parentKey="MoreButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_MORE">
         <Anchors>
           <Anchor point="BOTTOMLEFT" relativeKey="$parent.SearchButton" relativePoint="BOTTOMRIGHT" x="5"/>
         </Anchors>
       </Button>
-      <Button parentKey="AddToListButton" inherits="UIPanelDynamicResizeButtonTemplate" text="Add To List">
+      <Button parentKey="AddToListButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_ADD_TO_LIST">
         <Anchors>
           <Anchor point="BOTTOMLEFT" relativeKey="$parent.MoreButton" relativePoint="BOTTOMRIGHT" x="5"/>
         </Anchors>
