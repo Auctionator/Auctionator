@@ -16,6 +16,12 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetOnCopyRecent(func)
   self.onCopyRecent = func
 end
 
+function AuctionatorShoppingTabRecentsContainerMixin:TemporarilySelectSearchTerm(searchTerm)
+  self.ScrollBox:ForEachFrame(function(frame)
+    frame.Selected:SetShown(frame.elementData == searchTerm)
+  end)
+end
+
 function AuctionatorShoppingTabRecentsContainerMixin:OnLoad()
   self:SetupContent()
 
@@ -53,19 +59,15 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetupContent()
 
   local function OnEnter(button)
     button.Highlight:Show()
-    if button.elementData and button.elementData.type == RowType.SearchTerm then
-      GameTooltip:SetOwner(button, "ANCHOR_NONE")
-      Auctionator.Shopping.Tab.ComposeSearchTermTooltip(button.elementData.searchTerm)
-      GameTooltip:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT")
-      GameTooltip:Show()
-    end
+    GameTooltip:SetOwner(button, "ANCHOR_NONE")
+    Auctionator.Shopping.Tab.ComposeSearchTermTooltip(button.elementData)
+    GameTooltip:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT")
+    GameTooltip:Show()
   end
 
   local function OnLeave(button)
     button.Highlight:Hide()
-    if button.elementData and button.elementData.type == RowType.SearchTerm then
-      GameTooltip:Hide()
-    end
+    GameTooltip:Hide()
   end
 
   local function OnRecentDeleteOptionClicked(button)
@@ -120,6 +122,7 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetupContent()
     end
     button.elementData = elementData
     button.Text:SetText(Auctionator.Search.PrettifySearchString(elementData))
+    button.Selected:Hide()
   end
 
   local view = CreateScrollBoxListLinearView(0, 0, 0, 0)

@@ -159,6 +159,7 @@ function AuctionatorShoppingTabFrameMixin:SetupRecentsContainer()
     self.singleSearch = true
     self:DoSearch({searchTerm})
     self.SearchOptions:SetSearchTerm(searchTerm)
+    self.RecentsContainer:TemporarilySelectSearchTerm(searchTerm)
   end)
   self.RecentsContainer:SetOnDeleteRecent(function(searchTerm)
     Auctionator.Shopping.Recents.DeleteEntry(searchTerm)

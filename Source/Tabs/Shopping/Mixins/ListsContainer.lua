@@ -81,7 +81,6 @@ function AuctionatorShoppingTabListsContainerMixin:CollapseList(list)
 end
 
 function AuctionatorShoppingTabListsContainerMixin:TemporarilySelectSearchTerm(index)
-  self.highlightIndex = index
   self.ScrollBox:ForEachFrame(function(frame)
     if frame.elementData.type == RowType.SearchTerm then
       frame.Selected:SetShown(frame.elementData.index == index)
