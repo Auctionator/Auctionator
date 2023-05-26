@@ -121,6 +121,7 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
     self.singleSearch = true
     self:DoSearch({searchTerm})
     self.SearchOptions:SetSearchTerm(searchTerm)
+    self.ListsContainer:TemporarilySelectSearchTerm(index)
   end)
   self.ListsContainer:SetOnSearchTermDelete(function(list, searchTerm, index)
     list:DeleteItem(index)

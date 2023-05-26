@@ -82,12 +82,11 @@ end
 
 function AuctionatorShoppingTabListsContainerMixin:TemporarilySelectSearchTerm(index)
   self.highlightIndex = index
-  local row = self.ScrollBox:FindFrameByPredicate(function(frame)
-    return frame.elementData.type == RowType.SearchTerm and frame.elementData.index == index
+  self.ScrollBox:ForEachFrame(function(frame)
+    if frame.elementData.type == RowType.SearchTerm then
+      frame.Selected:SetShown(frame.elementData.index == index)
+    end
   end)
-  if row then
-    row.Selected:Show()
-  end
 end
 
 function AuctionatorShoppingTabListsContainerMixin:ScrollToList(list)
