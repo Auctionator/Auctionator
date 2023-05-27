@@ -154,6 +154,7 @@ AUCTIONATOR_LOCALES.enUS = function()
 
   L["AUCTION"] = "Auction"
   L["AUCTION_AGE"] = "Auction Age"
+  L["AUCTION_MEAN"] = "Auction Mean"
   L["CANNOT_AUCTION"] = "Cannot Auction"
   L["X_DAYS"] = "%s days"
   L["UNKNOWN"] = "unknown"

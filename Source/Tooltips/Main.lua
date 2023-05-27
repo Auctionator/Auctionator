@@ -43,6 +43,13 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
       showAgeUnknown = Auctionator.Database:GetPrice(dbKeys[1]) ~= nil
     end
   end
+  local auctionMean
+  if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_MEAN_TOOLTIPS) then
+    auctionMean = Auctionator.Database:GetMeanPrice(dbKeys[1], Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_MEAN_DAYS_LIMIT))
+  end
+  if auctionMean ~= nil then
+    auctionMean = auctionMean * (showStackPrices and itemCount or 1)
+  end
 
   local vendorPrice, disenchantStatus, disenchantPrice
   local cannotAuction = 0;
@@ -93,6 +100,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
   end
   Auctionator.Tooltip.AddAuctionTip(tooltipFrame, auctionPrice, countString, cannotAuction)
+  Auctionator.Tooltip.AddAuctionMeanTip(tooltipFrame, auctionMean, countString, cannotAuction)
   Auctionator.Tooltip.AddAuctionAgeTip(tooltipFrame, auctionAge, auctionPrice, showAgeUnknown)
   if disenchantStatus ~= nil then
     Auctionator.Tooltip.AddDisenchantTip(tooltipFrame, disenchantPrice, countString, disenchantStatus)
@@ -198,6 +206,21 @@ function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countStr
         )
       )
     end
+  end
+end
+
+function Auctionator.Tooltip.AddAuctionMeanTip(tooltipFrame, auctionMean, countString, canAuction)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_MEAN_TOOLTIPS) then
+    return
+  end
+
+  if auctionMean ~= nil then
+    tooltipFrame:AddDoubleLine(
+      L("AUCTION_MEAN") .. countString,
+      WHITE_FONT_COLOR:WrapTextInColorCode(
+        Auctionator.Utilities.CreatePaddedMoneyString(auctionMean)
+      )
+    )
   end
 end
 
