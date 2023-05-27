@@ -6,6 +6,7 @@ end
 
 function AuctionatorItemKeyCellTemplateMixin:Populate(rowData, index)
   AuctionatorCellMixin.Populate(self, rowData, index)
+  self.UpdateTooltip = nil
 
   self.Text:SetText(rowData.itemName or "")
 
