@@ -74,7 +74,9 @@ end
 function AuctionatorShoppingTabListsContainerMixin:CollapseList(list)
   self.expandedList = nil
   self:Populate()
-  self:ScrollToList(list)
+  if list ~= nil then
+    self:ScrollToList(list)
+  end
   if self.onListCollapsed then
     self.onListCollapsed()
   end

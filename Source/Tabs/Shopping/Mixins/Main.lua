@@ -87,6 +87,9 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
   end)
 
   self.ContainerTabs:SetView(Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_LAST_CONTAINER_VIEW))
+
+  self.shouldDefaultOpenOnShow = true
+  self:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
 end
 
 function AuctionatorShoppingTabFrameMixin:SetupSearchProvider()
@@ -237,11 +240,23 @@ function AuctionatorShoppingTabFrameMixin:ReceiveEvent(eventName, eventData)
   end
 end
 
+function AuctionatorShoppingTabFrameMixin:OnEvent(eventName, ...)
+  if eventName == "PLAYER_INTERACTION_MANAGER_FRAME_HIDE" then
+    local showType = ...
+    if showType == Enum.PlayerInteractionType.Auctioneer then
+      self.shouldDefaultOpenOnShow = true
+    end
+  end
+end
+
 function AuctionatorShoppingTabFrameMixin:OnShow()
   self.SearchOptions:FocusSearchBox()
   Auctionator.EventBus:Register(self, EVENTBUS_EVENTS)
 
-  self:OpenDefaultList()
+  if self.shouldDefaultOpenOnShow then
+    self:OpenDefaultList()
+    self.shouldDefaultOpenOnShow = false
+  end
 end
 
 function AuctionatorShoppingTabFrameMixin:OnHide()
@@ -269,6 +284,8 @@ function AuctionatorShoppingTabFrameMixin:OpenDefaultList()
   local listIndex = Auctionator.Shopping.ListManager:GetIndexForName(listName)
 
   if listIndex ~= nil then
+    self.ListsContainer:CollapseList()
+    self.ContainerTabs:SetView(Auctionator.Constants.ShoppingListViews.Lists)
     self.ListsContainer:ExpandList(Auctionator.Shopping.ListManager:GetByIndex(listIndex))
   end
 end
