@@ -122,7 +122,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
     end)
     -- Handle case when no results on the first page after filters have been
     -- applied.
-    if #results == 0 and self.aborted then
+    if #results == 0 and self.aborted and Auctionator.Config.Get(Auctionator.Config.Options.SEARCH_NO_FILTERS_MATCHED_ENTRY) then
       table.insert(results, self:GetCurrentEmptyResult())
     end
     Auctionator.Search.GroupResultsForDB(self.individualResults)
