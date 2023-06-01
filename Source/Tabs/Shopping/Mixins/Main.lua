@@ -155,6 +155,12 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
     StaticPopupDialogs[Auctionator.Constants.DialogNames.DeleteShoppingList].text = AUCTIONATOR_L_DELETE_LIST_CONFIRM:format(list:GetName()):gsub("%%", "%%%%")
     StaticPopup_Show(Auctionator.Constants.DialogNames.DeleteShoppingList, nil, nil, {list = list, view = self})
   end)
+
+  self.ListsContainer:SetOnListItemDrag(function(list, oldIndex, newIndex)
+    local old = list:GetItemByIndex(oldIndex)
+    list:DeleteItem(oldIndex)
+    list:InsertItem(old, newIndex)
+  end)
 end
 
 function AuctionatorShoppingTabFrameMixin:SetupRecentsContainer()

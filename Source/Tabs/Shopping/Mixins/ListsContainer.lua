@@ -13,6 +13,7 @@ local listHeaderInset = 10
 local listEntryInset = 30
 local buttonSpacing = 60
 local buttonHeight = 20
+local draggingTermAlpha = 0.5
 
 -- Callbacks to add wanted behaviour, e.g. editing a list or searching for a
 -- search term
@@ -54,6 +55,11 @@ end
 -- When the search term is just clicked
 function AuctionatorShoppingTabListsContainerMixin:SetOnSearchTermClicked(func)
   self.onSearchTermClicked = func
+end
+
+-- When a search term is dragged to a different position
+function AuctionatorShoppingTabListsContainerMixin:SetOnListItemDrag(func)
+  self.onListItemDrag = func
 end
 
 function AuctionatorShoppingTabListsContainerMixin:ExpandList(list)
@@ -147,6 +153,22 @@ function AuctionatorShoppingTabListsContainerMixin:OnHide()
   })
 end
 
+function AuctionatorShoppingTabListsContainerMixin:OnDragUpdate()
+  if not self:IsMouseOver() or not IsMouseButtonDown("LeftButton") then
+    self.draggingIndex = nil
+    self:Populate()
+    self:SetScript("OnUpdate", nil)
+  elseif self.dragTargetIndex ~= nil then
+    local oldIndex = self.draggingIndex
+    local newIndex = self.dragTargetIndex
+    self.draggingIndex = self.dragTargetIndex
+    self.dragTargetIndex = nil
+    if self.onListItemDrag and oldIndex ~= newIndex then
+      self.onListItemDrag(self.expandedList, oldIndex, newIndex)
+    end
+  end
+end
+
 function AuctionatorShoppingTabListsContainerMixin:ReceiveEvent(eventName, eventData)
   if eventName == Auctionator.Shopping.Events.ListItemChange then
     if self.expandedList and self.expandedList:GetName() == eventData then
@@ -185,6 +207,9 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
       Auctionator.Shopping.Tab.ComposeSearchTermTooltip(button.elementData.searchTerm)
       GameTooltip:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT")
       GameTooltip:Show()
+      if self.draggingIndex ~= nil then
+        self.dragTargetIndex = button.elementData.index
+      end
     end
   end
 
@@ -192,6 +217,15 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
     button.Highlight:Hide()
     if button.elementData and button.elementData.type == RowType.SearchTerm then
       GameTooltip:Hide()
+    end
+  end
+
+  local function OnMouseDown(button, buttonClickedString)
+    if buttonClickedString == "LeftButton" and button.elementData and button.elementData.type == RowType.SearchTerm then
+      self.dragTargetIndex = nil
+      self.draggingIndex = button.elementData.index
+      button:SetAlpha(draggingTermAlpha)
+      self:SetScript("OnUpdate", self.OnDragUpdate)
     end
   end
 
@@ -261,6 +295,7 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
     button:SetScript("OnEnter", OnEnter)
     button:SetScript("OnLeave", OnLeave)
     button:SetScript("OnClick", OnClick)
+    button:SetScript("OnMouseDown", OnMouseDown)
     button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 
     button.options1 = Auctionator.Shopping.Tab.CreateOptionButton(button, 0, buttonHeight + 5, buttonHeight)
@@ -277,6 +312,7 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
     button.options1:Hide()
     button.options2:Hide()
     button.options3:Hide()
+    button:SetAlpha(1)
 
     local text = ""
     local xOffset
@@ -311,6 +347,9 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
       button.options3.TooltipText = AUCTIONATOR_L_DELETE
       button.options3:Show()
     elseif elementData.type == RowType.SearchTerm then
+      if elementData.index == self.draggingIndex then
+        button:SetAlpha(draggingTermAlpha)
+      end
       xOffset = listEntryInset
       button.Text:SetText(elementData.text)
       button.options1.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Trash_Icon")
