@@ -1,0 +1,32 @@
+<Ui>
+  <Frame name="AuctionatorConfirmationDialogTemplate" frameStrata="Dialog" mixin="AuctionatorBuyItemDialogMixin" virtual="true" enableMouse="true">
+    <KeyValues>
+      <KeyValue key="layoutType" value="Dialog" type="string"/>
+    </KeyValues>
+    <Anchors>
+      <Anchor point="CENTER"/>
+    </Anchors>
+    <Frames>
+      <Frame parentKey="Overlay" enableMouse="true" useParentLevel="true">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="-10" relativeKey="$parent.$parent"/>
+          <Anchor point="BOTTOMRIGHT" y="-22" relativeKey="$parent.$parent"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="Background">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="6" y="-8"/>
+            <Anchor point="BOTTOMRIGHT" x="-6" y="8"/>
+          </Anchors>
+          <Color r="0" g="0" b="0" a="0.8"/>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Frame parentKey="NineSlice" inherits="NineSlicePanelTemplate" useParentLevel="true" />
+    </Frames>
+  </Frame>
+</Ui>

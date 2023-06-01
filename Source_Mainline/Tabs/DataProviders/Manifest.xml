@@ -6,4 +6,6 @@
   <Script file="SellingPostingHistory.lua" />
   <Script file="SellingHistoricalPrice.lua" />
   <Script file="ShoppingHistoricalPrice.lua" />
+  <Script file="BuyItem.lua" />
+  <Script file="BuyCommodity.lua" />
 </Ui>

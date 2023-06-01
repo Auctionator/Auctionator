@@ -2,6 +2,8 @@ Auctionator.Constants.ShoppingSorts = {
   {sortOrder = Enum.AuctionHouseSortOrder.Name, reverseSort = false},
   {sortOrder = Enum.AuctionHouseSortOrder.Price, reverseSort = true}
 }
+Auctionator.Constants.CommodityResultsSorts = {sortOrder = 0, reverseSort = false}
+Auctionator.Constants.ItemResultsSorts = {sortOrder = 4, reverseSort = false}
 Auctionator.Constants.ValidItemClassIDs = {
   Enum.ItemClass.Weapon,
   Enum.ItemClass.Armor,

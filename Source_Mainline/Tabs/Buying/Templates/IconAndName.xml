@@ -1,0 +1,35 @@
+<Ui>
+  <Frame name="AuctionatorBuyIconNameTemplate" virtual="true" mixin="AuctionatorBuyIconNameTemplateMixin">
+    <Scripts>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
+    </Scripts>
+    <Layers>
+      <Layer textureSubLevel="1">
+        <Texture parentKey="Icon">
+          <Size x="40" y="40"/>
+          <Anchors>
+              <Anchor point="TOP" y="-10"/>
+              <Anchor point="LEFT" x="15"/>
+          </Anchors>
+        </Texture>
+        <FontString parentKey="Text" text="Item text" inherits="GameFontHighlight" justifyH="LEFT">
+          <Size x="400" y="50"/>
+          <Anchors>
+            <Anchor point="TOP" y="-5"/>
+            <Anchor point="LEFT" x="65"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+      <Layer textureSubLevel="2">
+        <Texture parentKey="QualityBorder" file="Interface\Common\WhiteIconFrame">
+          <Size x="40" y="40"/>
+          <Anchors>
+              <Anchor point="TOP" y="-10"/>
+              <Anchor point="LEFT" x="15"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

@@ -3,4 +3,5 @@
   <Include file="MoneyInputAlternate.xml" />
   <Include file="PanelBorder.xml" />
   <Include file="Inset.xml" />
+  <Include file="ConfirmationDialog.xml" />
 </Ui>

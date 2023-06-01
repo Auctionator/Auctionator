@@ -1,0 +1,274 @@
+<Ui>
+  <Frame
+    name="AuctionatorBuyCommodityWidePriceRangeWarningDialogTemplate"
+    virtual="true"
+    inherits="AuctionatorConfirmationDialogTemplate"
+    mixin="AuctionatorBuyCommodityWidePriceRangeWarningDialogMixin"
+    >
+    <Size x="400" y="180"/>
+    <Scripts>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Layers>
+      <Layer>
+        <FontString parentKey="PurchaseDetails" inherits="GameFontHighlightLarge" text="AUCTIONATOR_L_BUYING_X_FOR_X" justifyH="CENTER">
+          <Anchors>
+            <Anchor point="TOPLEFT" y="18" x="20"/>
+            <Anchor point="TOPRIGHT" y="18" x="-20"/>
+            <Anchor point="BOTTOM" y="40"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="CANCEL" parentKey="CancelButton">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Hide()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_CONTINUE" parentKey="ContinueButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():StartPurchase()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+
+  <Frame
+    name="AuctionatorBuyCommodityFinalConfirmationDialogTemplate"
+    virtual="true"
+    inherits="AuctionatorConfirmationDialogTemplate"
+    mixin="AuctionatorBuyCommodityFinalConfirmationDialogMixin"
+    >
+    <Size x="400" y="140"/>
+    <Scripts>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Layers>
+      <Layer>
+        <FontString parentKey="PurchaseDetails" inherits="GameFontHighlightMedium" text="AUCTIONATOR_L_BUYING_X_FOR_X" justifyH="CENTER">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="20"/>
+            <Anchor point="TOPRIGHT" x="-20"/>
+            <Anchor point="BOTTOM" y="35"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="CANCEL" parentKey="CancelButton">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Hide()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="ACCEPT" parentKey="AcceptButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ConfirmPurchase()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+
+  <Frame
+    name="AuctionatorBuyCommodityPriceChangeConfirmationDialogTemplate"
+    virtual="true"
+    inherits="AuctionatorConfirmationDialogTemplate"
+    mixin="AuctionatorBuyCommodityPriceChangeConfirmationDialogMixin"
+    >
+    <Size x="450" y="190"/>
+    <Scripts>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Layers>
+      <Layer>
+        <FontString parentKey="PurchaseDetails" inherits="GameFontHighlightMedium" justifyH="CENTER">
+          <Anchors>
+            <Anchor point="TOPLEFT" y="18" x="20"/>
+            <Anchor point="TOPRIGHT" y="18" x="-20"/>
+            <Anchor point="BOTTOM" y="40"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <EditBox parentKey="QuantityInput" autoFocus="false" inherits="AuctionatorRetailImportLargeInputBoxTemplate" letters="10">
+        <Size x="70" y="20" />
+        <Anchors>
+          <Anchor point="BOTTOM" y="60"/>
+        </Anchors>
+        <FontString inherits="ChatFontNormal" justifyH="CENTER" />
+        <Scripts>
+          <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+        </Scripts>
+      </EditBox>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="CANCEL" parentKey="CancelButton">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Hide()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="ACCEPT" parentKey="AcceptButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ConfirmPurchase()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+
+  <Frame
+    name="AuctionatorBuyCommodityFrameTemplate"
+    virtual="true"
+    hidden="true"
+    mixin="AuctionatorBuyCommodityFrameTemplateMixin"
+    >
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+      <OnEvent method="OnEvent"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing"/>
+      <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing"/>
+    </Anchors>
+    <Frames>
+      <Button parentKey="BackButton" inherits="UIPanelDynamicResizeButtonTemplate" text="BACK">
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-10" x="5"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Hide()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Frame inherits="AuctionatorBuyIconNameTemplate" parentKey="IconAndName">
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-40"/>
+          <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" y="-110"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="DataProvider" mixin="AuctionatorBuyCommodityDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+
+      <Frame parentKey="DetailsContainer">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconAndName" relativePoint="BOTTOMLEFT" y="-20" />
+          <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-270"/>
+        </Anchors>
+        <Layers>
+          <Layer>
+            <FontString parentKey="QuantityLabel" text="AUCTIONATOR_L_QUANTITY" inherits="GameFontNormal" justifyH="RIGHT">
+              <Anchors>
+                <Anchor point="TOPLEFT" y="-4"/>
+                <Anchor point="RIGHT" relativePoint="CENTER" x="-20"/>
+              </Anchors>
+            </FontString>
+            <FontString parentKey="UnitPriceLabel" text="AUCTIONATOR_L_UNIT_PRICE" inherits="GameFontNormal" justifyH="RIGHT">
+              <Anchors>
+                <Anchor point="TOPLEFT" y="-50"/>
+                <Anchor point="RIGHT" relativePoint="CENTER" x="-20"/>
+              </Anchors>
+            </FontString>
+            <FontString parentKey="UnitPriceText" text="1" inherits="GameFontHighlight" justifyH="LEFT">
+              <Anchors>
+                <Anchor point="TOPRIGHT" y="-50"/>
+                <Anchor point="LEFT" relativePoint="RIGHT" x="-110"/>
+              </Anchors>
+            </FontString>
+            <FontString parentKey="TotalPriceLabel" text="AUCTIONATOR_L_TOTAL_PRICE_PLAIN" inherits="GameFontNormal" justifyH="RIGHT">
+              <Anchors>
+                <Anchor point="TOPLEFT" y="-100"/>
+                <Anchor point="RIGHT" relativePoint="CENTER" x="-20"/>
+              </Anchors>
+            </FontString>
+            <FontString parentKey="TotalPriceText" text="1" inherits="GameFontHighlight" justifyH="LEFT">
+              <Anchors>
+                <Anchor point="TOPRIGHT" y="-100"/>
+                <Anchor point="LEFT" relativePoint="RIGHT" x="-110"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Frames>
+          <EditBox parentKey="Quantity" autoFocus="false" inherits="AuctionatorRetailImportLargeInputBoxTemplate" letters="10">
+            <Size x="70" y="20" />
+            <Anchors>
+              <Anchor point="TOPLEFT" relativePoint="TOP" x="-15"/>
+            </Anchors>
+            <FontString inherits="ChatFontNormal" justifyH="CENTER" />
+            <Scripts>
+              <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate" text="Buy Now">
+            <Scripts>
+              <OnClick>
+                self:GetParent():GetParent():BuyClicked()
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="TOPLEFT" y="-150" x="40"/>
+              <Anchor point="TOPRIGHT" y="-150" x="-40"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
+      <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconAndName" relativePoint="BOTTOMRIGHT" x="-250" y="10"/>
+          <Anchor point="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
+      <Frame parentKey="Inset" inherits="AuctionatorInsetDarkTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" x="-5" y="-24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" y="2"/>
+        </Anchors>
+      </Frame>
+      <Frame parentKey="WidePriceRangeWarningDialog" inherits="AuctionatorBuyCommodityWidePriceRangeWarningDialogTemplate" hidden="true">
+        <Anchors>
+          <Anchor point="RIGHT" relativeKey="$parent.ResultsListing" relativePoint="LEFT"/>
+        </Anchors>
+      </Frame>
+      <Frame parentKey="FinalConfirmationDialog" inherits="AuctionatorBuyCommodityFinalConfirmationDialogTemplate" hidden="true">
+      </Frame>
+      <Frame parentKey="PriceChangeConfirmationDialog" inherits="AuctionatorBuyCommodityPriceChangeConfirmationDialogTemplate" hidden="true">
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

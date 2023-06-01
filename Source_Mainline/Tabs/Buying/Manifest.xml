@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Templates\Manifest.xml" />
+  <Include file="Mixins\Manifest.xml" />
+
+  <Include file="Item\Manifest.xml" />
+  <Include file="Commodity\Manifest.xml" />
+</Ui>

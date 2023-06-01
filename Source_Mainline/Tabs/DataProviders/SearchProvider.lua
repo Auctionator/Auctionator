@@ -229,47 +229,10 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
   for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
     if Auctionator.Selling.DoesItemMatch(self.originalItemKey, self.originalItemLink, resultInfo.itemKey, resultInfo.itemLink) then
-      local entry = {
-        price = resultInfo.buyoutAmount,
-        bidPrice = resultInfo.bidAmount,
-        level = resultInfo.itemKey.itemLevel or 0,
-        levelPretty = "",
-        owners = resultInfo.owners,
-        totalNumberOfOwners = resultInfo.totalNumberOfOwners,
-        otherSellers = Auctionator.Utilities.StringJoin(resultInfo.owners, PLAYER_LIST_DELIMITER),
-        timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(resultInfo.timeLeft),
-        timeLeft = resultInfo.timeLeft, --Used in sorting and the vanilla AH tooltip code
-        quantity = resultInfo.quantity,
-        quantityFormatted = FormatLargeNumber(resultInfo.quantity),
-        itemLink = resultInfo.itemLink,
-        auctionID = resultInfo.auctionID,
-        itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
-        canBuy = resultInfo.buyoutAmount ~= nil and not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
-      }
-
-      if #entry.owners > 0 and #entry.owners < entry.totalNumberOfOwners then
-        entry.otherSellers = AUCTIONATOR_L_SELLERS_OVERFLOW_TEXT:format(entry.otherSellers, entry.totalNumberOfOwners - #entry.owners)
-      end
-
-      if resultInfo.itemKey.battlePetSpeciesID ~= 0 and entry.itemLink ~= nil then
-        entry.level = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
-        entry.levelPretty = tostring(entry.level)
-      end
-
-      local qualityColor = Auctionator.Utilities.GetQualityColorFromLink(entry.itemLink)
-      entry.levelPretty = "|c" .. qualityColor .. entry.level .. "|r"
-
-      if resultInfo.containsOwnerItem then
-        -- Test if the auction has been loaded for cancelling
-        if not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
-          anyOwnedNotLoaded = true
-        end
-
-        entry.otherSellers = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
-        entry.owned = AUCTIONATOR_L_UNDERCUT_YES
-
-      else
-        entry.owned = GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNDERCUT_NO)
+      local entry = Auctionator.Search.GetBuyItemResult(resultInfo)
+      -- Test if the auction has been loaded for cancelling
+      if resultInfo.containsOwnerItem and not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
+        anyOwnedNotLoaded = true
       end
 
       table.insert(entries, entry)

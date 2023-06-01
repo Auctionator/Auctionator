@@ -326,9 +326,9 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   local sortingOrder
 
   if itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
-    sortingOrder = {sortOrder = 0, reverseSort = false}
+    sortingOrder = Auctionator.Constants.CommodityResultsSorts
   else
-    sortingOrder = {sortOrder = 4, reverseSort = false}
+    sortingOrder = Auctionator.Constants.ItemResultsSorts
   end
 
   if IsEquipment(itemInfo) and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_MATCHING) ~= Auctionator.Config.ItemMatching.ITEM_NAME_AND_LEVEL then

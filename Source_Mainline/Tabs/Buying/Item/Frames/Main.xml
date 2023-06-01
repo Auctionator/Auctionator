@@ -1,0 +1,112 @@
+<Ui>
+  <Frame name="AuctionatorBuyItemDialogTemplate" inherits="AuctionatorConfirmationDialogTemplate" frameStrata="Dialog" mixin="AuctionatorBuyItemDialogMixin" virtual="true" enableMouse="true">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <KeyValues>
+      <KeyValue key="layoutType" value="Dialog" type="string"/>
+    </KeyValues>
+    <Anchors>
+      <Anchor point="CENTER"/>
+    </Anchors>
+    <Size x="400" y="150"/>
+    <Frames>
+      <Frame inherits="AuctionatorBuyIconNameTemplate" parentKey="IconAndName">
+        <Size x="300" y="60"/>
+        <Anchors>
+          <Anchor point="CENTER"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer>
+        <FontString parentKey="PurchaseDetails" inherits="GameFontHighlightLarge" text="AUCTIONATOR_L_BUYING_X_FOR_X">
+          <Anchors>
+            <Anchor point="CENTER" y="45"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="CANCEL" parentKey="Cancel">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativeKey="$parent" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Hide()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="ACCEPT" parentKey="Buy">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent" relativePoint="BOTTOM" y="20"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():BuyClicked()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+  <Frame
+    name="AuctionatorBuyItemFrameTemplate"
+    virtual="true"
+    hidden="true"
+    mixin="AuctionatorBuyItemFrameTemplateMixin"
+    >
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing"/>
+      <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing"/>
+    </Anchors>
+    <Frames>
+      <Button parentKey="BackButton" inherits="UIPanelDynamicResizeButtonTemplate" text="BACK">
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-10" x="5"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Hide()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Frame inherits="AuctionatorBuyIconNameTemplate" parentKey="IconAndName">
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-40"/>
+          <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" y="-110"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="DataProvider" mixin="AuctionatorBuyItemDataProviderMixin">
+        <Scripts>
+          <OnLoad method="OnLoad"/>
+          <OnShow method="OnShow"/>
+          <OnHide method="OnHide"/>
+          <OnEvent method="OnEvent"/>
+          <OnUpdate method="OnUpdate"/>
+        </Scripts>
+      </Frame>
+
+      <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconAndName" relativePoint="BOTTOMLEFT" y="10"/>
+          <Anchor point="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
+      <Frame parentKey="Inset" inherits="AuctionatorInsetDarkTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ResultsListing" x="-5" y="-24"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.ResultsListing" y="2"/>
+        </Anchors>
+      </Frame>
+      <Frame parentKey="BuyDialog" inherits="AuctionatorBuyItemDialogTemplate" hidden="true"/>
+    </Frames>
+  </Frame>
+</Ui>
