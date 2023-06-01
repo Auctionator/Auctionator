@@ -6,12 +6,12 @@ function AuctionatorHistoricalPriceRowMixin:OnClick(button, ...)
   if button == "LeftButton" then
     Auctionator.EventBus
       :RegisterSource(self, "HistoricalPriceRow")
-      :Fire(self, Auctionator.Selling.Events.PriceSelected, self.rowData.minSeen)
+      :Fire(self, Auctionator.Selling.Events.PriceSelected, {buyout = self.rowData.minSeen})
       :UnregisterSource(self)
   elseif button == "RightButton" then
     Auctionator.EventBus
       :RegisterSource(self, "HistoricalPriceRow")
-      :Fire(self, Auctionator.Selling.Events.PriceSelected, self.rowData.maxSeen)
+      :Fire(self, Auctionator.Selling.Events.PriceSelected, {buyout = self.rowData.maxSeen})
       :UnregisterSource(self)
   end
 end

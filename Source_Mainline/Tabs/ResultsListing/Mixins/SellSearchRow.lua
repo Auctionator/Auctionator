@@ -46,7 +46,7 @@ function AuctionatorSellSearchRowMixin:OnClick(button, ...)
   else
     Auctionator.EventBus
       :RegisterSource(self, "SellSearchRow")
-      :Fire(self, Auctionator.Selling.Events.PriceSelected, self.rowData.price or self.rowData.bidPrice, true)
+      :Fire(self, Auctionator.Selling.Events.PriceSelected, {buyout = self.rowData.price, bid = self.rowData.bidPrice}, true)
       :UnregisterSource(self)
   end
 end
