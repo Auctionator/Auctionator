@@ -66,6 +66,28 @@ local function InitializeSplashScreen()
   end
 end
 
+local function InitializeBuyItemFrame()
+  if Auctionator.State.BuyItemFrameRef == nil then
+    Auctionator.State.BuyItemFrameRef = CreateFrame(
+      "Frame",
+      "AuctionatorBuyItemFrame",
+      AuctionatorShoppingFrame,
+      "AuctionatorBuyItemFrameTemplate"
+    )
+  end
+end
+
+local function InitializeBuyCommodityFrame()
+  if Auctionator.State.BuyCommodityFrameRef == nil then
+    Auctionator.State.BuyCommodityFrameRef = CreateFrame(
+      "Frame",
+      "AuctionatorBuyCommodityFrame",
+      AuctionatorShoppingFrame,
+      "AuctionatorBuyCommodityFrameTemplate"
+    )
+  end
+end
+
 local setupSearchCategories = false
 local function InitializeSearchCategories()
   if setupSearchCategories then
@@ -103,6 +125,8 @@ function AuctionatorAHFrameMixin:OnShow()
 
   InitializeAuctionHouseTabs()
   InitializeSplashScreen()
+  InitializeBuyItemFrame()
+  InitializeBuyCommodityFrame()
 
   ShowDefaultTab()
 end

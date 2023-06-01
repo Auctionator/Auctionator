@@ -4,4 +4,6 @@
   <Script file="ShoppingResultsRow.lua" />
   <Script file="CancellingListResultsRow.lua" />
   <Script file="SellSearchRow.lua"/>
+  <Script file="BuyItemRow.lua"/>
+  <Script file="BuyCommodityRow.lua"/>
 </Ui>
