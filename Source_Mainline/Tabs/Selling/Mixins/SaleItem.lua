@@ -189,7 +189,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     end
 
     if Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE) then
-      self:UpdateSalesPrice(buyoutAmount, selectedPrices.bid)
+      self:UpdateSalesPrice(buyoutAmount, selectedPrices.bid, true)
     else
       self:UpdateSalesPrice(buyoutAmount)
     end
@@ -349,14 +349,16 @@ function AuctionatorSaleItemMixin:Reset()
   self:Update()
 end
 
-function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice, bidPrice)
+function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice, bidPrice, preserveBidPrice)
   if salesPrice == 0 then
     self.Price:SetAmount(0)
   else
     self.Price:SetAmount(NormalizePrice(salesPrice))
   end
   if bidPrice == nil then
-    self.BidPrice:Clear()
+    if not preserveBidPrice then
+      self.BidPrice:Clear()
+    end
   else
     self.BidPrice:SetAmount(bidPrice)
   end
