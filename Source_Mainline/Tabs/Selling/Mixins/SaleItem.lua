@@ -356,7 +356,9 @@ function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice, bidPrice, preserv
     self.Price:SetAmount(NormalizePrice(salesPrice))
   end
   if bidPrice == nil then
-    if not preserveBidPrice then
+    -- Carry over the bid price from a previously selected row unless its higher
+    -- than the unit price chosen
+    if not preserveBidPrice or self.BidPrice:GetAmount() > self.Price:GetAmount() then
       self.BidPrice:Clear()
     end
   else
