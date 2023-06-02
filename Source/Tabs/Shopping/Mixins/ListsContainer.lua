@@ -351,7 +351,7 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
         button:SetAlpha(draggingTermAlpha)
       end
       xOffset = listEntryInset
-      button.Text:SetText(elementData.text)
+      button.Text:SetText(Auctionator.Search.PrettifySearchString(elementData.searchTerm))
       button.options1.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Trash_Icon")
       button.options1:SetScript("OnClick", OnSearchTermDeleteOptionClicked)
       button.options1.TooltipText = AUCTIONATOR_L_DELETE
@@ -410,7 +410,7 @@ function AuctionatorShoppingTabListsContainerMixin:Populate()
           type = RowType.SearchTerm,
           searchTerm = item,
           index = index,
-          text = Auctionator.Search.PrettifySearchString(item),
+          text = nil,
         })
       end
       if list:GetItemCount() == 0 then
