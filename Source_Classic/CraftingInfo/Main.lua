@@ -54,16 +54,16 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
   GetOutputName(function(outputName)
     local items = {}
     if outputName then
-      table.insert(items, outputName)
+      table.insert(items, {searchString = outputName, isExact = true})
     end
     local recipeIndex = GetTradeSkillSelectionIndex()
 
     for reagentIndex = 1, GetTradeSkillNumReagents(recipeIndex) do
-      local reagentName = GetTradeSkillReagentInfo(recipeIndex, reagentIndex)
-      table.insert(items, reagentName)
+      local reagentName, _, count = GetTradeSkillReagentInfo(recipeIndex, reagentIndex)
+      table.insert(items, {searchString = reagentName, quantity = count, isExact = true})
     end
 
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, items)
+    Auctionator.API.v1.MultiSearchAdvanced(AUCTIONATOR_L_REAGENT_SEARCH, items)
   end)
 end
 

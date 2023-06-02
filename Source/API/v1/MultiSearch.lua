@@ -64,3 +64,37 @@ function Auctionator.API.v1.MultiSearchExact(callerID, searchTerms)
 
   StartSearch(callerID, cloned)
 end
+
+function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
+  for index, term in ipairs(searchTerms) do
+    if term.searchString == nil or type(term.searchString) ~= "string" then
+      Auctionator.API.ComposeError(
+        callerID, "Auctionator.API.v1.MultiSearchAdvanced search term " .. index .. " must have searchString key"
+      )
+    end
+  end
+  local cleanedTerms = {}
+  for index, term in ipairs(searchTerms) do
+    local newTerm = {}
+    for key, value in pairs(term) do
+      if type(key) == "string" and (type(value) == "number" or type(value) == "string" or type(value) == "boolean") then
+        newTerm[key] = value
+      else
+        Auctionator.API.ComposeError(
+          callerID, "Auctionator.API.v1.MultiSearchAdvanced Bad search term " .. index .. ", contains something invalid at '" ..tostring(key) .. "'"
+        )
+      end
+    end
+    if term.categoryKey == nil then
+      newTerm.categoryKey = ""
+    end
+    table.insert(cleanedTerms, newTerm)
+  end
+
+  local internalSearchTerms = {}
+  for _, term in ipairs(cleanedTerms) do
+    table.insert(internalSearchTerms, Auctionator.Search.ReconstituteAdvancedSearch(term))
+  end
+
+  StartSearch(callerID, internalSearchTerms)
+end

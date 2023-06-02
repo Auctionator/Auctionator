@@ -107,11 +107,11 @@ function AuctionatorShoppingItemMixin:OnLoad()
   InitializeTierDropDown(self.TierContainer.DropDown)
 
   if not Auctionator.Constants.IsClassic then
-    self:SetHeight(420)
+    self:SetHeight(470)
     self.TierContainer:Show()
     self.ExpansionContainer:Show()
   else
-    self:SetHeight(340)
+    self:SetHeight(390)
     self.TierContainer:Hide()
     self.ExpansionContainer:Hide()
   end
@@ -193,6 +193,7 @@ function AuctionatorShoppingItemMixin:GetItemString()
     expansion = tonumber(self.ExpansionContainer.DropDown:GetValue()),
     quality = tonumber(self.QualityContainer.DropDown:GetValue()),
     tier = tonumber(self.TierContainer.DropDown:GetValue()),
+    quantity = tonumber(self.PurchaseQuantity:GetNumber()),
   }
   
   return Auctionator.Search.ReconstituteAdvancedSearch(search)
@@ -225,6 +226,12 @@ function AuctionatorShoppingItemMixin:SetItemString(itemString)
     self.PriceRange:SetMax(search.maxPrice/10000)
   else
     self.PriceRange:SetMax(nil)
+  end
+
+  if search.quantity == nil then
+    self.PurchaseQuantity:SetNumber(0)
+  else
+    self.PurchaseQuantity:SetNumber(search.quantity)
   end
 
   if search.quality == nil then

@@ -60,6 +60,9 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term)
       exactSearch = (parsed.isExact and parsed.searchString) or nil,
       expansion = parsed.expansion,
       tier = parsed.tier,
+    },
+    resultMetadata = {
+      quantity = parsed.quantity,
     }
   }
 end
@@ -71,6 +74,7 @@ function AuctionatorDirectSearchProviderMixin:GetSearchProvider()
   return function(searchTerm)
     Auctionator.AH.SendBrowseQuery(searchTerm.query)
     self.currentFilter = searchTerm.extraFilters
+    self.resultMetadata = searchTerm.resultMetadata
     self.waiting = 0
   end
 end
@@ -123,6 +127,7 @@ function AuctionatorDirectSearchProviderMixin:ProcessSearchResults(addedResults)
       Auctionator.Search.Filters.FilterTrackerMixin,
       addedResults[index]
     )
+    addedResults[index].purchaseQuantity = self.resultMetadata.quantity
     local filters = Auctionator.Search.Filters.Create(addedResults[index], self.currentFilter, filterTracker)
 
     filterTracker:SetWaiting(#filters)
