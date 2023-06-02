@@ -89,7 +89,11 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
   self.ContainerTabs:SetView(Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_LAST_CONTAINER_VIEW))
 
   self.shouldDefaultOpenOnShow = true
-  self:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
+  if Auctionator.Constants.IsVanilla then
+    self:RegisterEvent("AUCTION_HOUSE_CLOSED")
+  else
+    self:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
+  end
 end
 
 function AuctionatorShoppingTabFrameMixin:SetupSearchProvider()
@@ -252,6 +256,8 @@ function AuctionatorShoppingTabFrameMixin:OnEvent(eventName, ...)
     if showType == Enum.PlayerInteractionType.Auctioneer then
       self.shouldDefaultOpenOnShow = true
     end
+  elseif eventName == "AUCTION_HOUSE_CLOSED" then
+    self.shouldDefaultOpenOnShow = true
   end
 end
 
