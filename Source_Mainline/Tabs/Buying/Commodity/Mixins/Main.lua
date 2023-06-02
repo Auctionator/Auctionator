@@ -103,6 +103,13 @@ function AuctionatorBuyCommodityFrameTemplateMixin:OnEvent(eventName, eventData,
 end
 
 function AuctionatorBuyCommodityFrameTemplateMixin:Search()
+  if self.itemKey == nil then
+    return
+  end
+  Auctionator.EventBus
+    :RegisterSource(self, "BuyCommodityFrame")
+    :Fire(self, Auctionator.Buying.Events.RefreshingCommodities)
+    :UnregisterSource(self)
   Auctionator.AH.SendSearchQueryByItemKey(self.itemKey, Auctionator.Constants.CommodityResultsSorts, false)
 end
 

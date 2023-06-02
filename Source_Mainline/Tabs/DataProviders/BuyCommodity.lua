@@ -34,13 +34,12 @@ function AuctionatorBuyCommodityDataProviderMixin:OnLoad()
   AuctionatorDataProviderMixin.OnLoad(self)
 
   Auctionator.EventBus:Register(self, {
-    Auctionator.Buying.Events.ShowCommodityBuy,
+    Auctionator.Buying.Events.RefreshingCommodities,
   })
 end
 
 function AuctionatorBuyCommodityDataProviderMixin:ReceiveEvent(eventName, ...)
-  if eventName == Auctionator.Buying.Events.ShowCommodityBuy then
-    local rowData, itemKeyInfo = ...
+  if eventName == Auctionator.Buying.Events.RefreshingCommodities then
     self:Reset()
     self.onSearchStarted()
   end

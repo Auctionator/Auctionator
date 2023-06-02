@@ -171,10 +171,22 @@
           </OnClick>
         </Scripts>
       </Button>
+
+      <Button inherits="RefreshButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPRIGHT" y="-55"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():Search()
+          </OnClick>
+        </Scripts>
+      </Button>
+
       <Frame inherits="AuctionatorBuyIconNameTemplate" parentKey="IconAndName">
         <Anchors>
           <Anchor point="TOPLEFT" y="-40"/>
-          <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" y="-110"/>
+          <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-40" y="-110"/>
         </Anchors>
       </Frame>
 

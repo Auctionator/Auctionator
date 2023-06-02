@@ -59,6 +59,7 @@ function AuctionatorBuyItemDataProviderMixin:OnLoad()
 
   Auctionator.EventBus:Register(self, {
     Auctionator.Buying.Events.ShowItemBuy,
+    Auctionator.Buying.Events.RefreshingItems,
   })
 end
 
@@ -73,10 +74,11 @@ end
 
 function AuctionatorBuyItemDataProviderMixin:ReceiveEvent(eventName, rowData, itemKeyInfo)
   if eventName == Auctionator.Buying.Events.ShowItemBuy then
-    self:Reset()
-    self.onSearchStarted()
     -- Used to prevent a sale causing the view to sometimes change to another item
     self.expectedItemKey = rowData.itemKey
+  elseif eventName == Auctionator.Buying.Events.RefreshingItems then
+    self:Reset()
+    self.onSearchStarted()
   end
 end
 

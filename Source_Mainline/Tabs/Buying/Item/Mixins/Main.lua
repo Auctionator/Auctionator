@@ -40,9 +40,22 @@ function AuctionatorBuyItemFrameTemplateMixin:ReceiveEvent(eventName, ...)
     end)
 
     local sortingOrder = Auctionator.Constants.ItemResultsSorts
-    local expectedItemKey = rowData.itemKey
-    Auctionator.AH.SendSearchQueryByItemKey(expectedItemKey, {sortingOrder}, true)
+    self.expectedItemKey = rowData.itemKey
+    self:Search()
   elseif eventName == Auctionator.Shopping.Tab.Events.SearchStart then
     self:Hide()
   end
+end
+
+function AuctionatorBuyItemFrameTemplateMixin:Search()
+  if not self.expectedItemKey then
+    return
+  end
+
+  Auctionator.EventBus
+    :RegisterSource(self, "BuyItemFrame")
+    :Fire(self, Auctionator.Buying.Events.RefreshingItems)
+    :UnregisterSource(self)
+  local sortingOrder = Auctionator.Constants.ItemResultsSorts
+  Auctionator.AH.SendSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
 end
