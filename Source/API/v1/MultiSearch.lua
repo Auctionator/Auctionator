@@ -78,7 +78,7 @@ function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
     local newTerm = {}
     for key, value in pairs(term) do
       if type(key) == "string" and (type(value) == "number" or type(value) == "string" or type(value) == "boolean") then
-        if type(value) == "string" and (string.match(value, "^%s*\".*\"%s*$") or string.match(value, "[^;]")) then
+        if type(value) == "string" and (string.match(value, "^\".*\"$") or string.match(value, "[;^]")) then
           Auctionator.API.ComposeError(
             callerID, "Search term " .. index .. " key " .. key .. " contains ; or ^ or is wrapped in \""
           )
