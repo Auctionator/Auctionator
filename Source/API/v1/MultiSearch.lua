@@ -10,9 +10,9 @@ local function ValidateState(callerID, searchTerms)
   end
 
   for _, term in ipairs(cloned) do
-    if string.match(term, "^%s*\".*\"%s*$") or string.match(term, ";") then
+    if string.match(term, "^%s*\".*\"%s*$") or string.match(term, ";^") then
       Auctionator.API.ComposeError(
-        callerID, "Search term contains ; or is wrapped in \""
+        callerID, "Search term contains ; or ^ or is wrapped in \""
       )
     end
   end
@@ -78,10 +78,15 @@ function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
     local newTerm = {}
     for key, value in pairs(term) do
       if type(key) == "string" and (type(value) == "number" or type(value) == "string" or type(value) == "boolean") then
+        if type(value) == "string" and (string.match(value, "^%s*\".*\"%s*$") or string.match(value, "[^;]")) then
+          Auctionator.API.ComposeError(
+            callerID, "Search term " .. index .. " key " .. key .. " contains ; or ^ or is wrapped in \""
+          )
+        end
         newTerm[key] = value
       else
         Auctionator.API.ComposeError(
-          callerID, "Auctionator.API.v1.MultiSearchAdvanced Bad search term " .. index .. ", contains something invalid at '" ..tostring(key) .. "'"
+          callerID, "Bad search term " .. index .. ", contains something invalid at '" ..tostring(key) .. "'"
         )
       end
     end
