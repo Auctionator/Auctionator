@@ -247,7 +247,7 @@
               <OnEscapePressed>self:ClearFocus()</OnEscapePressed>
             </Scripts>
           </EditBox>
-          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate" text="Buy Now">
+          <Button parentKey="BuyButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_BUY_NOW">
             <Scripts>
               <OnClick>
                 self:GetParent():GetParent():BuyClicked()

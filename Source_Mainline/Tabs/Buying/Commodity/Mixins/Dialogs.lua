@@ -34,9 +34,9 @@ end
 function AuctionatorBuyCommodityFinalConfirmationDialogMixin:SetDetails(details)
   self.itemID = details.itemID
   self.quantity = details.quantity
-  self.PurchaseDetails:SetText("Confirm purchase of " ..
-    Auctionator.Utilities.CreateCountString(details.quantity) .. " for " ..
-    GetMoneyString(details.total, true) .. "?" .. "\n\n" ..
+  self.PurchaseDetails:SetText(AUCTIONATOR_L_CONFIRM_PURCHASE_OF_X_FOR_X
+    :format(Auctionator.Utilities.CreateCountString(details.quantity),
+      GetMoneyString(details.total, true)) .. "\n\n" ..
     AUCTIONATOR_L_BRACKETS_X_EACH:format(GetMoneyString(details.unitPrice, true))
     )
   self.purchasePending = true
