@@ -65,7 +65,7 @@ function Auctionator.API.v1.MultiSearchExact(callerID, searchTerms)
   StartSearch(callerID, cloned)
 end
 
-function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
+local function ValidateExtendedSearchTerms(callerID, searchTerms)
   for index, term in ipairs(searchTerms) do
     if term.searchString == nil or type(term.searchString) ~= "string" then
       Auctionator.API.ComposeError(
@@ -73,7 +73,7 @@ function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
       )
     end
   end
-  local cleanedTerms = {}
+  local cleaned = {}
   for index, term in ipairs(searchTerms) do
     local newTerm = {}
     for key, value in pairs(term) do
@@ -93,8 +93,13 @@ function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
     if term.categoryKey == nil then
       newTerm.categoryKey = ""
     end
-    table.insert(cleanedTerms, newTerm)
+    table.insert(cleaned, newTerm)
   end
+  return cleaned
+end
+
+function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
+  local cleanedTerms = ValidateExtendedSearchTerms(calledID, searchTerms)
 
   local internalSearchTerms = {}
   for _, term in ipairs(cleanedTerms) do
