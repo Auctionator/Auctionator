@@ -657,7 +657,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SELLING_GREY_POST_BUTTON"] = "Grey (disable) the post button when a post may fail"
   L["CONFIG_SELLING_GREY_POST_BUTTON_TOOLTIP_HEADER"] = "Grey post button"
   L["CONFIG_SELLING_GREY_POST_BUTTON_TOOLTIP_TEXT"] = "When a post may fail the post button will be greyed out (disabled). Turn this option off to avoid waiting for the button to enable so you can attempt to post sooner."
-  L["PURCHASE_QUANTITY"] = "Purchase Quantity"
 
   return L
 end

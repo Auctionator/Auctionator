@@ -125,7 +125,7 @@
 
       <Frame inherits="AuctionatorConfigurationNumericInputAlternate" parentKey="PurchaseQuantity">
         <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_PURCHASE_QUANTITY" type="global"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_QUANTITY" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.PriceRange" relativePoint="BOTTOMLEFT" y="-25" x="30"/>
