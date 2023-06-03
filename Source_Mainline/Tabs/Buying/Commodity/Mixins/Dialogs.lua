@@ -69,6 +69,7 @@ function AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin:SetDetails(
   self.QuantityInput:SetText("")
   self.purchasePending = true
   self:Show()
+  self.QuantityInput:SetFocus()
 end
 
 function AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin:ConfirmPurchase()
