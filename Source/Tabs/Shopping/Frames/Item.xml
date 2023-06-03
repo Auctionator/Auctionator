@@ -123,10 +123,19 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationNumericInputAlternate" parentKey="PurchaseQuantity">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_QUANTITY" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PriceRange" relativePoint="BOTTOMLEFT" y="-22" x="30"/>
+        </Anchors>
+      </Frame>
+
       <Frame parentKey="QualityContainer">
         <Size x="50" y="20"/>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.PriceRange" x="26" y="-20" />
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.PurchaseQuantity" x="-4"/>
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">

@@ -11,6 +11,7 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
   local searchTerms = {}
 
   local possibleItems = {}
+  local quantities = {}
   local continuableContainer = ContinuableContainer:Create()
 
   local function ProcessRecipe(recipeID, isRecraft)
@@ -28,18 +29,25 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
     -- anyway just in case
     else
       local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID)
-      table.insert(searchTerms, recipeInfo.name)
+      table.insert(searchTerms, {searchString = recipeInfo.name})
     end
+    table.insert(quantities, 0)
 
     local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, isRecraft)
     -- Select all mandatory reagents
     for slotIndex, reagentSlotSchematic in ipairs(recipeSchematic.reagentSlotSchematics) do
       if reagentSlotSchematic.reagentType == Enum.CraftingReagentType.Basic and #reagentSlotSchematic.reagents > 0 then
         local itemID = reagentSlotSchematic.reagents[1].itemID
-        if itemID ~= nil and tIndexOf(possibleItems, itemID) == nil then
-          continuableContainer:AddContinuable(Item:CreateFromItemID(itemID))
+        if itemID ~= nil then
+          local index = tIndexOf(possibleItems, itemID)
+          if index == nil then
+            continuableContainer:AddContinuable(Item:CreateFromItemID(itemID))
 
-          table.insert(possibleItems, itemID)
+            table.insert(possibleItems, itemID)
+            table.insert(quantities, reagentSlotSchematic.quantityRequired)
+          else
+            quantities[index] = quantities[index] + reagentSlotSchematic.quantityRequired
+          end
         end
       end
     end
@@ -56,14 +64,14 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
   end
 
   local function OnItemInfoReady()
-    for _, itemInfo in ipairs(possibleItems) do
+    for index, itemInfo in ipairs(possibleItems) do
       local itemInfo = {GetItemInfo(itemInfo)}
       if not Auctionator.Utilities.IsBound(itemInfo) then
-        table.insert(searchTerms, itemInfo[1])
+        table.insert(searchTerms, {searchString = itemInfo[1], isExact = true, quantity = quantities[index]})
       end
     end
 
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
+    Auctionator.API.v1.MultiSearchAdvanced(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
   end
 
   continuableContainer:ContinueOnLoad(OnItemInfoReady)

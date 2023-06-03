@@ -26,11 +26,13 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
   local searchTerms = {}
 
   local possibleItems = {}
+  local quantities = {}
 
   local continuableContainer = ContinuableContainer:Create()
 
   local outputLink = Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, transaction:CreateOptionalCraftingReagentInfoTbl(), transaction:GetAllocationItemGUID())
 
+  table.insert(quantities, 0)
   if outputLink then
     table.insert(possibleItems, outputLink)
     continuableContainer:AddContinuable(Item:CreateFromItemLink(outputLink))
@@ -54,20 +56,21 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
         continuableContainer:AddContinuable(Item:CreateFromItemID(itemID))
 
         table.insert(possibleItems, itemID)
+        table.insert(quantities, reagentSlotSchematic.quantityRequired)
       end
     end
   end
 
   -- Go through the items one by one and get their names
   local function OnItemInfoReady()
-    for _, itemInfo in ipairs(possibleItems) do
+    for index, itemInfo in ipairs(possibleItems) do
       local itemInfo = {GetItemInfo(itemInfo)}
       if not Auctionator.Utilities.IsBound(itemInfo) then
-        table.insert(searchTerms, itemInfo[1])
+        table.insert(searchTerms, {searchString = itemInfo[1], isExact = true, quantity = quantities[index]})
       end
     end
 
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
+    Auctionator.API.v1.MultiSearchAdvanced(AUCTIONATOR_L_REAGENT_SEARCH, searchTerms)
   end
 
   continuableContainer:ContinueOnLoad(OnItemInfoReady)

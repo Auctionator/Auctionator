@@ -79,6 +79,9 @@ function AuctionatorDirectSearchProviderMixin:CreateSearchTerm(term, config)
       },
       quality = parsed.quality, -- Check the quality locally because the Blizzard search API ignores quality
     },
+    resultMetadata = {
+      quantity = parsed.quantity,
+    },
     -- Force searchAllPages when the config UI forces it
     searchAllPages = Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE) or config.searchAllPages or false,
   }
@@ -93,6 +96,7 @@ function AuctionatorDirectSearchProviderMixin:GetSearchProvider()
     self.aborted = false
     self.searchAllPages = searchTerm.searchAllPages
     self.currentFilter = searchTerm.extraFilters
+    self.resultMetadata = searchTerm.resultMetadata
     self.resultsByKey = {}
     self.individualResults = {}
 
@@ -139,6 +143,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
       isTopItem = GetIsTop(entries, minPrice),
       entries = entries,
       complete = not self.aborted,
+      purchaseQuantity = self.resultMetadata.quantity,
     }
     local item = Item:CreateFromItemID(GetItemInfoInstant(key))
     item:ContinueOnItemLoad(function()

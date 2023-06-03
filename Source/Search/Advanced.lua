@@ -3,7 +3,7 @@
 function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   local queryString, categoryKey, minItemLevel, maxItemLevel, minLevel, maxLevel,
     minCraftedLevel, maxCraftedLevel, minPrice, maxPrice, quality, tier,
-    expansion =
+    expansion, quantity =
     strsplit( Auctionator.Constants.AdvancedSearchDivider, searchParametersString )
 
   -- A nil queryString causes a disconnect if searched for, but an empty one
@@ -37,6 +37,8 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
   tier = tonumber( tier )
   expansion = tonumber( expansion )
 
+  quantity = tonumber( quantity )
+
   if minLevel == 0 then
     minLevel = nil
   end
@@ -69,6 +71,10 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
     maxPrice = nil
   end
 
+  if quantity == 0 then
+    quantity = nil
+  end
+
   return {
     searchString = searchString,
     isExact = isExact,
@@ -84,6 +90,7 @@ function Auctionator.Search.SplitAdvancedSearch(searchParametersString)
     quality = quality,
     tier = tier,
     expansion = expansion,
+    quantity = quantity,
   }
 end
 
@@ -112,6 +119,14 @@ local function TooltipRangeString(min, max)
     return "<= " .. tostring(max)
   else
     return AUCTIONATOR_L_ANY_LOWER
+  end
+end
+
+local function QuantityString(quantity)
+  if quantity ~= nil then
+    return LIGHTBLUE_FONT_COLOR:WrapTextInColorCode("x" .. quantity)
+  else
+    return ""
   end
 end
 
@@ -147,6 +162,10 @@ end
 
 local function Quality(splitSearch)
   return QualityString(splitSearch.quality) .. separator
+end
+
+local function Quantity(splitSearch)
+  return QuantityString(splitSearch.quantity) .. separator
 end
 
 local function Tier(splitSearch)
@@ -223,6 +242,7 @@ function Auctionator.Search.PrettifySearchString(searchString)
     .. PriceRange(splitSearch)
     .. LevelRange(splitSearch)
     .. ItemLevelRange(splitSearch)
+    .. Quantity(splitSearch)
     .. CraftedLevelRange(splitSearch)
     .. Expansion(splitSearch)
     .. Quality(splitSearch)
@@ -282,6 +302,19 @@ local function TooltipQuality(splitSearch)
   }
 end
 
+local function TooltipQuantity(splitSearch)
+  local key = splitSearch.quantity
+
+  if splitSearch.quantity == nil then
+    key = AUCTIONATOR_L_ANY_LOWER
+  end
+
+  return {
+    AUCTIONATOR_L_QUANTITY,
+    key
+  }
+end
+
 local function TooltipTier(splitSearch)
   local key
 
@@ -336,6 +369,7 @@ function Auctionator.Search.ComposeTooltip(searchString)
   table.insert(lines, TooltipPriceRange(splitSearch))
   table.insert(lines, TooltipLevelRange(splitSearch))
   table.insert(lines, TooltipItemLevelRange(splitSearch))
+  table.insert(lines, TooltipQuantity(splitSearch))
   table.insert(lines, TooltipCraftedLevelRange(splitSearch))
   table.insert(lines, TooltipQuality(splitSearch))
   if not Auctionator.Constants.IsClassic then
@@ -374,6 +408,7 @@ function Auctionator.Search.ReconstituteAdvancedSearch(search)
     tostring(((search.maxPrice and search.maxPrice / 10000) or "")),
     tostring(search.quality or ""),
     tostring(search.tier or "#"),
-    tostring(search.expansion or "")
+    tostring(search.expansion or ""),
+    tostring(search.quantity ~= 0 and search.quantity or "")
   )
 end

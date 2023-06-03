@@ -57,7 +57,7 @@ function AuctionatorBuyCommodityFrameTemplateMixin:ReceiveEvent(eventName, ...)
 
     self:Show()
     self.selectedRows = 1
-    self.selectedQuantity = 1
+    self.selectedQuantity = rowData.purchaseQuantity or 1
     local prettyName = AuctionHouseUtil.GetItemDisplayTextFromItemKey(
       rowData.itemKey,
       itemKeyInfo,
