@@ -496,6 +496,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["ENTER_QUANTITY_TO_CONFIRM_PURCHASE"] = "Enter the quantity of %s to confirm purchase:"
   L["BUY_NOW"] = "Buy Now"
   L["CONFIRM_PURCHASE_OF_X_FOR_X"] = "Confirm purchase of %s for %s?"
+  L["TOTAL_OF_X_FOR_UNIT_PRICE_OF_X"] = "Total of %s for unit price of %s"
 
   L["DEFAULT_TAB"] = "Default Tab"
   L["DEFAULT_TAB_TEXT"] = "shows as the default tab"

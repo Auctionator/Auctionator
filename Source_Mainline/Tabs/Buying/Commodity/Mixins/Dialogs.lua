@@ -49,23 +49,21 @@ function AuctionatorBuyCommodityFinalConfirmationDialogMixin:ConfirmPurchase()
   self:Hide()
 end
 
-AuctionatorBuyCommodityPriceChangeConfirmationDialogMixin = {}
+AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin = {}
 
-function AuctionatorBuyCommodityPriceChangeConfirmationDialogMixin:OnHide()
+function AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin:OnHide()
   self:Hide()
   if self.purchasePending then
     C_AuctionHouse.CancelCommoditiesPurchase()
   end
 end
 
-function AuctionatorBuyCommodityPriceChangeConfirmationDialogMixin:SetDetails(details)
+function AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin:SetDetails(details)
   self.itemID = details.itemID
   self.quantity = details.quantity
   self.PurchaseDetails:SetText(
-    RED_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_PRICE_INCREASED_X_X:format(
-      GetMoneyString(details.total, true),
-      GetMoneyString(details.unitPrice, true)
-    )) .. "\n\n" ..
+    details.message:format(GetMoneyString(details.total, true), GetMoneyString(details.unitPrice, true))
+    .. "\n\n" ..
     AUCTIONATOR_L_ENTER_QUANTITY_TO_CONFIRM_PURCHASE:format(self.quantity)
     )
   self.QuantityInput:SetText("")
@@ -73,7 +71,7 @@ function AuctionatorBuyCommodityPriceChangeConfirmationDialogMixin:SetDetails(de
   self:Show()
 end
 
-function AuctionatorBuyCommodityPriceChangeConfirmationDialogMixin:ConfirmPurchase()
+function AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin:ConfirmPurchase()
   if tonumber(self.QuantityInput:GetText()) == self.quantity then
     C_AuctionHouse.ConfirmCommoditiesPurchase(self.itemID, self.quantity)
     self.purchasePending = false

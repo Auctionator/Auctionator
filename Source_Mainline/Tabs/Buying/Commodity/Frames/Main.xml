@@ -90,10 +90,10 @@
   </Frame>
 
   <Frame
-    name="AuctionatorBuyCommodityPriceChangeConfirmationDialogTemplate"
+    name="AuctionatorBuyCommodityQuantityCheckConfirmationDialogTemplate"
     virtual="true"
     inherits="AuctionatorConfirmationDialogTemplate"
-    mixin="AuctionatorBuyCommodityPriceChangeConfirmationDialogMixin"
+    mixin="AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin"
     >
     <Size x="450" y="190"/>
     <Scripts>
@@ -279,7 +279,7 @@
       </Frame>
       <Frame parentKey="FinalConfirmationDialog" inherits="AuctionatorBuyCommodityFinalConfirmationDialogTemplate" hidden="true">
       </Frame>
-      <Frame parentKey="PriceChangeConfirmationDialog" inherits="AuctionatorBuyCommodityPriceChangeConfirmationDialogTemplate" hidden="true">
+      <Frame parentKey="QuantityCheckConfirmationDialog" inherits="AuctionatorBuyCommodityQuantityCheckConfirmationDialogTemplate" hidden="true">
       </Frame>
     </Frames>
   </Frame>
