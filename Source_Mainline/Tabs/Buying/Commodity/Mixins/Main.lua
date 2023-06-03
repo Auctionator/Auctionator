@@ -44,6 +44,7 @@ function AuctionatorBuyCommodityFrameTemplateMixin:OnHide()
   self:Hide()
   self.results = nil
   if self.waitingForPurchase then
+    FrameUtil.UnregisterFrameForEvents(self, PURCHASE_EVENTS)
     C_AuctionHouse.CancelCommoditiesPurchase()
     self.waitingForPurchase = false
   end
@@ -95,7 +96,7 @@ function AuctionatorBuyCommodityFrameTemplateMixin:OnEvent(eventName, eventData,
     self.results = self:ProcessCommodityResults(eventData)
     self.DataProvider:SetListing(self.results)
     self:UpdateView()
-  elseif eventName == "COMMODITY_PRICE_UPDATED" then
+  elseif eventName == "COMMODITY_PRICE_UPDATED" and self.results then
     self:CheckPurchase(eventData, ...)
   elseif eventName == "COMMODITY_PRICE_UNAVAILABLE" then
     self:Search()
@@ -154,7 +155,10 @@ function AuctionatorBuyCommodityFrameTemplateMixin:GetPrices()
       quantityLeft = quantityLeft - r.quantity
     end
   end
-  local unitPrice = math.ceil(math.ceil(total / self.selectedQuantity / 100) * 100)
+  local unitPrice = 0
+  if self.selectedQuantity > 0 then
+    unitPrice = math.ceil(math.ceil(total / self.selectedQuantity / 100) * 100)
+  end
 
   return unitPrice, total
 end
