@@ -117,24 +117,22 @@ function AuctionatorAHFrameMixin:OnLoad()
 end
 
 function AuctionatorAHFrameMixin:OnShow()
-  -- Workaround for TSM breaking the frame positioning when they "hide" the AH
-  -- window without actually making it a hidden frame.
-  -- This way we only initialize our frames, and all the button positions when
-  -- the UI is visible as expected.
-  if TSM_API then
-    if TSM_API.IsUIVisible("AUCTION") then
-      self:SetScript("OnUpdate", self.OnShow)
-      return
-    else
-      self:SetScript("OnUpdate", nil)
-    end
-  end
-
-  Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
-
   InitializeIncrementalScanFrame()
   InitializeFullScanFrame()
   InitializeSearchCategories()
+
+  -- Workaround for TSM breaking the frame positioning when they "hide" the AH
+  -- window by scaling it to be really small
+  -- This way we only initialize our frames, and all the button positions when
+  -- the UI is visible and positioned as expected.
+  if AuctionHouseFrame:GetScale() < 0.5 then
+    self:SetScript("OnUpdate", self.OnShow)
+    return
+  else
+    self:SetScript("OnUpdate", nil)
+  end
+
+  Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
   InitializeAuctionHouseTabs()
   InitializeSplashScreen()
