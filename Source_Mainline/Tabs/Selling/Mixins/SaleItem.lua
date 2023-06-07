@@ -358,7 +358,7 @@ function AuctionatorSaleItemMixin:UpdateSalesPrice(salesPrice, bidPrice, preserv
   if bidPrice == nil then
     -- Carry over the bid price from a previously selected row unless its higher
     -- than the unit price chosen
-    if not preserveBidPrice or self.BidPrice:GetAmount() > self.Price:GetAmount() then
+    if not preserveBidPrice or self.BidPrice:GetAmount() >= self.Price:GetAmount() then
       self.BidPrice:Clear()
     end
   else
@@ -536,7 +536,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
         self.Price:GetAmount() > 0 and
 
         -- Bid price is not bigger than buyout
-        self.BidPrice:GetAmount() <= self.Price:GetAmount()
+        self.BidPrice:GetAmount() < self.Price:GetAmount()
       ) or (
       -- Bid only with no buyout price
         Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE) and
