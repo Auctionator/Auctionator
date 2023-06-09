@@ -1,0 +1,21 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame
+    name="AuctionatorConfigShoppingAltFrameTemplate"
+    inherits="AuctionatorConfigShoppingFrameTemplate"
+    mixin="AuctionatorConfigShoppingAltFrameMixin"
+    virtual="true">
+
+    <Frames>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AlwaysConfirmQuantity">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ListMissingTerms" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+   </Frames>
+  </Frame>
+</Ui>

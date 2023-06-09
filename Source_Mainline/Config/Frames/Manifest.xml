@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Include file="BasicOptions.xml"/>
   <Include file="Tooltips.xml"/>
+  <Include file="ShoppingAlt.xml"/>
   <Include file="SellingAllItems.xml"/>
   <Include file="Selling.xml"/>
   <Include file="SellingShortcuts.xml"/>
