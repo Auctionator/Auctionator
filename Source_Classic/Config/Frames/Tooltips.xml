@@ -2,7 +2,6 @@
   <Frame
     name="AuctionatorConfigTooltipsFrameTemplate"
     mixin="AuctionatorConfigTooltipsFrameMixin"
-    parent="InterfaceOptionsFrame"
     virtual="true">
 
     <Scripts>

@@ -3,7 +3,6 @@
     name="AuctionatorConfigShoppingAltFrameTemplate"
     inherits="AuctionatorConfigShoppingFrameTemplate"
     mixin="AuctionatorConfigShoppingAltFrameMixin"
-    parent="InterfaceOptionsFrame"
     virtual="true">
 
     <Frames>

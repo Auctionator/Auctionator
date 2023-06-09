@@ -1,5 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Frame name="AuctionatorConfigSellingAllItemsFrameTemplate" mixin="AuctionatorConfigSellingAllItemsFrameMixin" parent="InterfaceOptionsFrame" hidden="true" virtual="true">
+  <Frame
+    name="AuctionatorConfigSellingAllItemsFrameTemplate"
+    mixin="AuctionatorConfigSellingAllItemsFrameMixin"
+    hidden="true"
+    virtual="true"
+    >
+
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>

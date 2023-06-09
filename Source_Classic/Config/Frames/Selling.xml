@@ -2,7 +2,6 @@
   <Frame
     name="AuctionatorConfigSellingFrameTemplate"
     mixin="AuctionatorConfigSellingFrameMixin"
-    parent="InterfaceOptionsFrame"
     virtual="true">
 
     <Scripts>
