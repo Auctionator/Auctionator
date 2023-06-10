@@ -62,8 +62,8 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
     return true
   end
 
+  Auctionator.Selling.ShowCannotSellReason(itemInfo.location)
   Auctionator.Debug.Message("AuctionatorBagItemSelected", "err")
-  UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
   return false
 end
 

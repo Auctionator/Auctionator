@@ -5,28 +5,16 @@ local function SelectOwnItem(self)
 
   if not C_Item.DoesItemExist(itemLocation) then
     return
-  else
-    local currentDurability, maxDurability
-    if C_Container then
-      currentDurability, maxDurability = C_Container.GetContainerItemDurability(self:GetParent():GetID(), self:GetID())
-    else
-      currentDurability, maxDurability = GetContainerItemDurability(self:GetParent():GetID(), self:GetID())
-    end
-    if currentDurability ~= maxDurability then
-      UIErrorsFrame:AddMessage(ERR_AUCTION_REPAIR_ITEM, 1.0, 0.1, 0.1, 1.0)
-      return
-    elseif not Auctionator.Utilities.IsAtMaxCharges(itemLocation) then
-      UIErrorsFrame:AddMessage(ERR_AUCTION_USED_CHARGES, 1.0, 0.1, 0.1, 1.0)
-      return
-    elseif C_Item.IsBound(itemLocation) then
-      UIErrorsFrame:AddMessage(ERR_AUCTION_BOUND_ITEM, 1.0, 0.1, 0.1, 1.0)
-      return
-    end
+  end
+
+  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
+
+  if not itemInfo.auctionable then
+    Auctionator.Selling.ShowCannotSellReason(itemLocation)
+    return
   end
 
   AuctionatorTabs_Selling:Click()
-
-  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
   itemInfo.count = Auctionator.Selling.GetItemCount(itemLocation)
 
   Auctionator.EventBus
