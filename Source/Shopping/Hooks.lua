@@ -30,7 +30,7 @@ local function SearchItem(text)
   else
     searchTerm = "\"" .. name .. "\""
   end
-  AuctionatorShoppingFrame:DoSearch({searchTerm})
+  AuctionatorShoppingFrame:DoSearch({searchTerm}, {})
   AuctionatorShoppingFrame.SearchOptions:SetSearchTerm(searchTerm)
   Auctionator.Shopping.Recents.Save(searchTerm)
 
