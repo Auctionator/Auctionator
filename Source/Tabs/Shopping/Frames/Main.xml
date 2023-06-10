@@ -69,7 +69,7 @@
           <Anchor point="BOTTOMLEFT" relativeKey="$parent.ResetSearchStringButton" relativePoint="BOTTOMRIGHT" x="5" y="-3"/>
         </Anchors>
       </Button>
-      <Button parentKey="MoreButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_MORE">
+      <Button parentKey="MoreButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH_OPTIONS">
         <Anchors>
           <Anchor point="BOTTOMLEFT" relativeKey="$parent.SearchButton" relativePoint="BOTTOMRIGHT" x="5"/>
         </Anchors>
