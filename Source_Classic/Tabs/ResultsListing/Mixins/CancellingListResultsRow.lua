@@ -36,7 +36,7 @@ function AuctionatorCancellingListResultsRowMixin:Populate(rowData, dataIndex)
   AuctionatorResultsRowTemplateMixin.Populate(self, rowData, dataIndex)
 
   self:ApplyFade()
-  self:ApplyHighlight()
+  self:ApplyUndercutHighlight()
 end
 
 function AuctionatorCancellingListResultsRowMixin:ApplyFade()
@@ -48,10 +48,10 @@ function AuctionatorCancellingListResultsRowMixin:ApplyFade()
   end
 end
 
-function AuctionatorCancellingListResultsRowMixin:ApplyHighlight()
-  if self.rowData.undercut == AUCTIONATOR_L_UNDERCUT_YES then
-    self.SelectedHighlight:Show()
-  else
-    self.SelectedHighlight:Hide()
-  end
+function AuctionatorCancellingListResultsRowMixin:ApplyUndercutHighlight()
+  self.SelectedHighlight:SetShown(self.rowData.undercut == AUCTIONATOR_L_UNDERCUT_YES)
+end
+
+function AuctionatorCancellingListResultsRowMixin:ApplyBidderHighlight()
+  self.BidderHighlight:SetShown(self.rowData.bidder ~= nil)
 end

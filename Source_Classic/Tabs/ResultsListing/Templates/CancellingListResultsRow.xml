@@ -14,6 +14,13 @@
             <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
           </Anchors>
         </Texture>
+        <Texture parentKey="BidderHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true">
+          <Color r="0" g="0.38" b="0" a="1"/>
+          <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+            <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
       </Layer>
     </Layers>
 
