@@ -229,7 +229,7 @@ end
 function AuctionatorBuyCommodityFrameTemplateMixin:CheckPurchase(newUnitPrice, newTotalPrice)
   local originalUnitPrice = self:GetPrices()
   
-  if originalUnitPrice < newUnitPrice then
+  if Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_CONFIRM_PRICE_CHANGE_COMMODITY_QUANTITY) and originalUnitPrice < newUnitPrice then
     self.QuantityCheckConfirmationDialog:SetDetails({
       message = RED_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_PRICE_INCREASED_X_X),
       itemID = self.expectedItemID,
