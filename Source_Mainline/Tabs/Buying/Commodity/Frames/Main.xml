@@ -103,8 +103,8 @@
       <Layer>
         <FontString parentKey="PurchaseDetails" inherits="GameFontHighlightMedium" justifyH="CENTER">
           <Anchors>
-            <Anchor point="TOPLEFT" y="18" x="20"/>
-            <Anchor point="TOPRIGHT" y="18" x="-20"/>
+            <Anchor point="TOPLEFT" y="25" x="20"/>
+            <Anchor point="TOPRIGHT" y="25" x="-20"/>
             <Anchor point="BOTTOM" y="40"/>
           </Anchors>
         </FontString>

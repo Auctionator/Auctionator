@@ -34,7 +34,7 @@ end
 function AuctionatorBuyCommodityFinalConfirmationDialogMixin:SetDetails(details)
   self.itemID = details.itemID
   self.quantity = details.quantity
-  self.PurchaseDetails:SetText(AUCTIONATOR_L_CONFIRM_PURCHASE_OF_X_FOR_X
+  self.PurchaseDetails:SetText(details.prefix .. AUCTIONATOR_L_CONFIRM_PURCHASE_OF_X_FOR_X
     :format(Auctionator.Utilities.CreateCountString(details.quantity),
       GetMoneyString(details.total, true)) .. "\n\n" ..
     AUCTIONATOR_L_BRACKETS_X_EACH:format(GetMoneyString(details.unitPrice, true))
@@ -62,6 +62,7 @@ function AuctionatorBuyCommodityQuantityCheckConfirmationDialogMixin:SetDetails(
   self.itemID = details.itemID
   self.quantity = details.quantity
   self.PurchaseDetails:SetText(
+    details.prefix ..
     details.message:format(GetMoneyString(details.total, true), GetMoneyString(details.unitPrice, true))
     .. "\n\n" ..
     AUCTIONATOR_L_ENTER_QUANTITY_TO_CONFIRM_PURCHASE:format(self.quantity)

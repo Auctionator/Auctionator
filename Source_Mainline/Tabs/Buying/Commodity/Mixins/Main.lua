@@ -228,17 +228,15 @@ end
 
 function AuctionatorBuyCommodityFrameTemplateMixin:CheckPurchase(newUnitPrice, newTotalPrice)
   local originalUnitPrice = self:GetPrices()
-  
-  if Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_CONFIRM_PRICE_CHANGE_COMMODITY_QUANTITY) and originalUnitPrice < newUnitPrice then
+
+  local prefix = ""
+  if originalUnitPrice < newUnitPrice then
+    prefix = RED_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_PRICE_INCREASED .. "\n\n")
+  end
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_ALWAYS_CONFIRM_COMMODITY_QUANTITY) then
     self.QuantityCheckConfirmationDialog:SetDetails({
-      message = RED_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_PRICE_INCREASED_X_X),
-      itemID = self.expectedItemID,
-      quantity = self.selectedQuantity,
-      total = newTotalPrice,
-      unitPrice = newUnitPrice,
-    })
-  elseif Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_ALWAYS_CONFIRM_COMMODITY_QUANTITY) then
-    self.QuantityCheckConfirmationDialog:SetDetails({
+      prefix = prefix,
       message = AUCTIONATOR_L_TOTAL_OF_X_FOR_UNIT_PRICE_OF_X,
       itemID = self.expectedItemID,
       quantity = self.selectedQuantity,
@@ -247,6 +245,7 @@ function AuctionatorBuyCommodityFrameTemplateMixin:CheckPurchase(newUnitPrice, n
     })
   else
     self.FinalConfirmationDialog:SetDetails({
+      prefix = prefix,
       itemID = self.expectedItemID,
       quantity = self.selectedQuantity,
       total = newTotalPrice,

@@ -15,7 +15,6 @@ Auctionator.Config.Options.SELLING_SPLIT_PANELS = "selling_split_panels"
 Auctionator.Config.Options.COLUMNS_SHOPPING_BUY_ITEM = "columns_shopping_buy_item"
 Auctionator.Config.Options.COLUMNS_SHOPPING_BUY_COMMODITY = "columns_shopping_buy_commodity"
 Auctionator.Config.Options.SHOPPING_ALWAYS_CONFIRM_COMMODITY_QUANTITY = "shopping_always_confirm_commodity_quantity"
-Auctionator.Config.Options.SHOPPING_CONFIRM_PRICE_CHANGE_COMMODITY_QUANTITY = "shopping_confirm_price_change_commodity_quantity"
 
 Auctionator.Config.Options.CRAFTING_INFO_SHOW_CHEAPEST_QUALITIES_COST = "crafting_info_show_cheapest_qualities_cost"
 
@@ -42,7 +41,6 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.CRAFTING_INFO_SHOW_CHEAPE
 Auctionator.Config.Defaults[Auctionator.Config.Options.COLUMNS_SHOPPING_BUY_ITEM] = {}
 Auctionator.Config.Defaults[Auctionator.Config.Options.COLUMNS_SHOPPING_BUY_COMMODITY] = {}
 Auctionator.Config.Defaults[Auctionator.Config.Options.SHOPPING_ALWAYS_CONFIRM_COMMODITY_QUANTITY] = false
-Auctionator.Config.Defaults[Auctionator.Config.Options.SHOPPING_CONFIRM_PRICE_CHANGE_COMMODITY_QUANTITY] = true
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_DURATION] = 24
 Auctionator.Config.Defaults[Auctionator.Config.Options.AUCTION_SALES_PREFERENCE] = Auctionator.Config.SalesTypes.PERCENTAGE
