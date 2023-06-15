@@ -67,7 +67,8 @@ local CANCELLING_TABLE_LAYOUT = {
 
 local DATA_EVENTS = {
   "OWNED_AUCTIONS_UPDATED",
-  "AUCTION_CANCELED"
+  "AUCTION_CANCELED",
+  "AUCTION_HOUSE_NEW_BID_RECEIVED",
 }
 
 local EVENT_BUS_EVENTS = {
@@ -176,6 +177,8 @@ function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ..
     DumpOwnedAuctions(function(auctions)
       self:PopulateAuctions(auctions)
     end)
+  elseif eventName == "AUCTION_HOUSE_NEW_BID_RECEIVED" then
+    self:QueryAuctions()
   end
 end
 
