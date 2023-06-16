@@ -10,7 +10,8 @@ end
 function AuctionatorBuyItemRowMixin:Populate(rowData, ...)
   AuctionatorResultsRowTemplateMixin.Populate(self, rowData, ...)
 
-  self.OwnedHighlight:SetShown(rowData.containsOwnerItem)
+  self.BidderHighlight:SetShown(rowData.bidder ~= nil and rowData.containsOwnerItem)
+  self.OwnedHighlight:SetShown(rowData.bidder == nil and rowData.containsOwnerItem)
 end
 
 function AuctionatorBuyItemRowMixin:OnLeave()
