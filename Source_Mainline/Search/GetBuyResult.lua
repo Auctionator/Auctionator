@@ -15,6 +15,7 @@ function Auctionator.Search.GetBuyItemResult(resultInfo)
     auctionID = resultInfo.auctionID,
     itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
     containsOwnerItem = resultInfo.containsOwnerItem,
+    bidder = resultInfo.bidder,
     canBuy = resultInfo.buyoutAmount ~= nil and not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
   }
 
