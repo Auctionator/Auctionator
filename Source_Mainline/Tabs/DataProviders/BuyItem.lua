@@ -50,6 +50,7 @@ local SEARCH_PROVIDER_LAYOUT = {
 
 local SEARCH_EVENTS = {
   "ITEM_SEARCH_RESULTS_UPDATED",
+  "AUCTION_HOUSE_NEW_BID_RECEIVED",
 }
 
 AuctionatorBuyItemDataProviderMixin = CreateFromMixins(AuctionatorDataProviderMixin)
@@ -121,6 +122,11 @@ function AuctionatorBuyItemDataProviderMixin:OnEvent(eventName, itemRef)
     self.onPreserveScroll()
     self:Reset()
     self:AppendEntries(self:ProcessItemResults(itemRef), true)
+  elseif eventName == "AUCTION_HOUSE_NEW_BID_RECEIVED" and self.expectedItemKey ~= nil then
+    local auctionInfo = C_AuctionHouse.GetAuctionInfoByID(itemRef)
+    if Auctionator.Utilities.ItemKeyString(self.expectedItemKey) == Auctionator.Utilities.ItemKeyString(auctionInfo.itemKey) then
+      self:GetParent():Search()
+    end
   end
 end
 
@@ -136,7 +142,9 @@ function AuctionatorBuyItemDataProviderMixin:ProcessItemResults(itemKey)
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
     local entry = Auctionator.Search.GetBuyItemResult(resultInfo)
     -- Test if the auction has been loaded for cancelling
-    if resultInfo.containsOwnerItem and not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) then
+    if resultInfo.containsOwnerItem and (
+        not C_AuctionHouse.CanCancelAuction(resultInfo.auctionID) or (entry.bidder and C_AuctionHouse.GetCancelCost(entry.auctionID) == 0)
+      ) then
       anyOwnedNotLoaded = true
     end
 
