@@ -105,10 +105,8 @@ local IMPORT_ERROR = "IMPORT ERROR"
 --Saves the result in a temporary list and fires a list creation event.
 function Auctionator.Shopping.Lists.TSMImportFromString(importString)
   -- Remove line breaks
-  importString = gsub(importString, "\n", "")
+  importString = gsub(importString, "%s", "")
 
-  local itemStrings = {strsplit(",", importString)}
-  local left = #itemStrings
   local items = {}
 
   local function OnFinish()
@@ -130,52 +128,73 @@ function Auctionator.Shopping.Lists.TSMImportFromString(importString)
       :UnregisterSource(Auctionator.Shopping.Lists.TSMImportFromString)
   end
 
-  for index, itemString in ipairs(itemStrings) do
-    --TSM uses the same format for normal items and pets, so we try to load an
-    --item with the ID first, if that doesn't work, then we try loading a pet.
-    local itemType, stringID = string.match(itemString, "^([ip]):(%d+)$")
+  local entries = {}
 
-    local id = tonumber(stringID) or tonumber(itemString)
+  for itemType, stringID in importString:gmatch("([ip]?):?(%d+)") do
+    table.insert(entries, {itemType = itemType, stringID = stringID})
+  end
 
-    local item = Item:CreateFromItemID(id)
+  local left = #entries
 
-    if itemType == "p" or item:IsItemEmpty() then
-      item = Item:CreateFromItemID(Auctionator.Constants.PET_CAGE_ID)
-    end
-    if item:IsItemEmpty() then
-      items[index] = IMPORT_ERROR
-    else
-      item:ContinueOnItemLoad(function()
-        items[index] = GetItemInfo(id)
-        if itemType == "p" or items[index] == nil then
-          items[index] = C_PetJournal.GetPetInfoBySpeciesID(id)
-          if type(items[index]) ~= "string" then
-            items[index] = nil
+  local function ImportBatch(start, size)
+    if start > #entries then
+      -- Check for case when item data is missing from the Blizzard item database so
+      -- that some kind of list is imported
+      C_Timer.After(2, function()
+        if left > 0 then
+          left = 0
+          for i = 1, #entries do
+            if items[i] == nil then
+              items[i] = IMPORT_ERROR
+            end
           end
-        end
-
-        if items[index] == nil then
-          items[index] = IMPORT_ERROR
-        end
-
-        left = left - 1
-        if left == 0 then
           OnFinish()
         end
       end)
+      return
     end
-  end
-  -- Check for case when item data is missing from the Blizzard item database so
-  -- that some kind of list is imported
-  C_Timer.After(2, function()
-    if left > 0 then
-      left = 0
-      for index in ipairs(itemStrings) do
-        if items[index] == nil then
-          items[index] = IMPORT_ERROR
-        end
+
+    for index = start, math.min(start+size, #entries) do
+      local entry = entries[index]
+
+      local id = tonumber(entry.stringID)
+
+      local item = Item:CreateFromItemID(id)
+
+      if entry.itemType == "p" or item:IsItemEmpty() then
+        item = Item:CreateFromItemID(Auctionator.Constants.PET_CAGE_ID)
       end
-      OnFinish()
+      if item:IsItemEmpty() then
+        items[index] = IMPORT_ERROR
+        left = left - 1
+      -- Work around API error where GetItemInfoInstant(itemID) sometimes
+      -- returns nil inside the callback mechanism
+      elseif item:GetItemID() ~= nil then
+        item:ContinueOnItemLoad(function()
+          items[index] = GetItemInfo(id)
+          if entry.itemType == "p" or items[index] == nil then
+            items[index] = C_PetJournal.GetPetInfoBySpeciesID(id)
+            if type(items[index]) ~= "string" then
+              items[index] = nil
+            end
+          end
+
+          if items[index] == nil then
+            items[index] = IMPORT_ERROR
+          end
+
+          left = left - 1
+          if left == 0 then
+            OnFinish()
+          end
+        end)
+      else
+        left = left - 1
+      end
     end
-  end)
+
+    C_Timer.After(0, function() ImportBatch(start+size, size) end)
+  end
+
+  ImportBatch(1, 250)
 end
