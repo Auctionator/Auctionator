@@ -56,6 +56,10 @@ function AuctionatorSellingBagFrameMixin:OnLoad()
   })
 end
 
+function AuctionatorSellingBagFrameMixin:OnHide()
+  self.highlightedKey = nil
+end
+
 function AuctionatorSellingBagFrameMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemClicked then
     local itemInfo = ...
