@@ -9,13 +9,20 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
     self.Icon:SetTexture(info.iconTexture)
     self.Icon:Show()
 
+    if info.selected then
+      self.Icon:SetAlpha(0.8)
+    else
+      self.Icon:SetAlpha(1)
+    end
+    self.IconSelectedHighlight:SetShown(info.selected)
+
     self.IconBorder:SetVertexColor(
       ITEM_QUALITY_COLORS[self.itemInfo.quality].r,
       ITEM_QUALITY_COLORS[self.itemInfo.quality].g,
       ITEM_QUALITY_COLORS[self.itemInfo.quality].b,
       1
     )
-    self.IconBorder:Show()
+    self.IconBorder:SetShown(not info.selected)
 
     self.Text:SetText(info.count)
 
@@ -25,6 +32,7 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
     self.IconBorder:Hide()
     self.Icon:Hide()
     self.Text:SetText("")
+    self:SetAlpha(1)
 
     self:HideQualityIcon()
   end

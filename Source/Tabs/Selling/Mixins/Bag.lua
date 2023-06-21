@@ -49,6 +49,19 @@ function AuctionatorSellingBagFrameMixin:OnLoad()
   local view = CreateScrollBoxLinearView()
   view:SetPanExtent(50)
   ScrollUtil.InitScrollBoxWithScrollBar(self.ScrollBox, self.ScrollBar, view);
+
+
+  Auctionator.EventBus:Register(self, {
+    Auctionator.Selling.Events.BagItemClicked
+  })
+end
+
+function AuctionatorSellingBagFrameMixin:ReceiveEvent(event, ...)
+  if event == Auctionator.Selling.Events.BagItemClicked then
+    local itemInfo = ...
+    self.highlightedKey = Auctionator.Selling.UniqueBagKey(itemInfo)
+    self:Update()
+  end
 end
 
 function AuctionatorSellingBagFrameMixin:Init(dataProvider)
@@ -141,6 +154,7 @@ function AuctionatorSellingBagFrameMixin:Update()
     for _, item in ipairs(items) do
       if item.auctionable then
         table.insert(classItems, item)
+        item.selected = self.highlightedKey == Auctionator.Selling.UniqueBagKey(item)
         if lastItem then
           lastItem.nextItem = item
         end

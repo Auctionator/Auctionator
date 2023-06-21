@@ -1,5 +1,12 @@
 AuctionatorBagItemSelectedMixin = CreateFromMixins(AuctionatorBagItemMixin)
 
+function AuctionatorBagItemSelectedMixin:SetItemInfo(...)
+  AuctionatorBagItemMixin.SetItemInfo(self, ...)
+  self.IconSelectedHighlight:Hide()
+  self.IconBorder:Show()
+  self.Icon:SetAlpha(1)
+end
+
 function AuctionatorBagItemSelectedMixin:OnClick(button)
   local wasCursorItem = C_Cursor.GetCursorItem()
   if not self:ProcessCursor() then
