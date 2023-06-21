@@ -134,7 +134,8 @@ function AuctionatorSellingBagFrameMixin:SetupFavourites()
       end
     end
   end
-  self.items[FAVOURITE][1].prevItem = nil
+
+  -- Consistent favourites order, ignoring order in which favourites were added
   table.sort(self.items[FAVOURITE], function(left, right)
     return Auctionator.Selling.UniqueBagKey(left) < Auctionator.Selling.UniqueBagKey(right)
   end)
@@ -160,6 +161,10 @@ function AuctionatorSellingBagFrameMixin:Update()
         if lastItem then
           lastItem.nextItem = item
           item.prevItem = lastItem
+        else
+          -- Necessary as sometimes favourites get copied around and may have a
+          -- prevItem field set
+          item.prevItem = nil
         end
         lastItem = item
       end
