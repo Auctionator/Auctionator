@@ -14,6 +14,7 @@ function AuctionatorConfigSellingShortcutsFrameMixin:OnShow()
 
   self.PostShortcut:SetShortcut(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_POST_SHORTCUT))
   self.SkipShortcut:SetShortcut(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SKIP_SHORTCUT))
+  self.PrevShortcut:SetShortcut(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_PREV_SHORTCUT))
 end
 
 function AuctionatorConfigSellingShortcutsFrameMixin:Save()
@@ -23,6 +24,7 @@ function AuctionatorConfigSellingShortcutsFrameMixin:Save()
 
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_POST_SHORTCUT, self.PostShortcut:GetShortcut())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_SKIP_SHORTCUT, self.SkipShortcut:GetShortcut())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_PREV_SHORTCUT, self.PrevShortcut:GetShortcut())
 end
 
 function AuctionatorConfigSellingShortcutsFrameMixin:UnhideAllClicked()

@@ -47,6 +47,16 @@
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CUSTOM_KEYBOARD_SHORTCUTS" type="global"/>
         </KeyValues>
       </Frame>
+      <Frame parentKey="PrevShortcut" inherits="AuctionatorKeyBindingConfigTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.SkipShortcut"/>
+        </Anchors>
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_PREV_SHORTCUT" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_POST_SHORTCUT_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CUSTOM_KEYBOARD_SHORTCUTS" type="global"/>
+        </KeyValues>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

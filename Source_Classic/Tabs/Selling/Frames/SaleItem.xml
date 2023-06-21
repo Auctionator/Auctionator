@@ -86,7 +86,6 @@
           <Anchor point="RIGHT" relativeKey="$parent.UnitPrice" relativePoint="RIGHT" x="200"/>
         </Anchors>
       </Frame>
-
       <Button parentKey="PostButton" name="AuctionatorPostButton" inherits="UIPanelButtonTemplate" text="AUCTIONATOR_L_POST">
         <Size x="184" y="22"/>
         <Anchors>
@@ -103,6 +102,15 @@
         </Anchors>
         <Scripts>
           <OnClick>self:GetParent():SkipItem()</OnClick>
+        </Scripts>
+      </Button>
+      <Button parentKey="PrevButton" name="AuctionatorPrevPostingButton" inherits="UIPanelButtonTemplate" text="AUCTIONATOR_L_PREVIOUS" hidden="true">
+        <Size x="80" y="22"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.PostButton" relativePoint="TOPLEFT"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():PrevItem()</OnClick>
         </Scripts>
       </Button>
 

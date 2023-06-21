@@ -121,25 +121,23 @@ function AuctionatorSellingBagFrameMixin:SetupFavourites()
     entry = self.dataProvider:GetEntryAt(index)
     if Auctionator.Selling.IsFavourite(entry) then
       seenKeys[Auctionator.Selling.UniqueBagKey(entry)] = true
-      table.insert(self.items[FAVOURITE], CopyTable(entry))
+      table.insert(self.items[FAVOURITE], CopyTable(entry, true))
     end
   end
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES) then
     local moreFavourites = Auctionator.Selling.GetAllFavourites()
 
-    --Make favourite order independent of the order that the favourites were
-    --added.
-    table.sort(moreFavourites, function(left, right)
-      return Auctionator.Selling.UniqueBagKey(left) < Auctionator.Selling.UniqueBagKey(right)
-    end)
-
     for _, fav in ipairs(moreFavourites) do
       if seenKeys[Auctionator.Selling.UniqueBagKey(fav)] == nil then
-        table.insert(self.items[FAVOURITE], CopyTable(fav))
+        table.insert(self.items[FAVOURITE], CopyTable(fav, true))
       end
     end
   end
+  self.items[FAVOURITE][1].prevItem = nil
+  table.sort(self.items[FAVOURITE], function(left, right)
+    return Auctionator.Selling.UniqueBagKey(left) < Auctionator.Selling.UniqueBagKey(right)
+  end)
 end
 
 function AuctionatorSellingBagFrameMixin:Update()
@@ -161,6 +159,7 @@ function AuctionatorSellingBagFrameMixin:Update()
         item.selected = self.highlightedKey == Auctionator.Selling.UniqueBagKey(item)
         if lastItem then
           lastItem.nextItem = item
+          item.prevItem = lastItem
         end
         lastItem = item
       end
