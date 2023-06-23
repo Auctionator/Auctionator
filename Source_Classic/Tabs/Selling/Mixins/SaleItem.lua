@@ -787,6 +787,14 @@ end
 
 function AuctionatorSaleItemMixin:PrevItem()
   if self.PrevButton:IsEnabled() then
+    local location = FindItemAgain(self.prevItem.itemLink)
+    if location then
+      self.prevItem.location = location
+      self.prevItem.count = Auctionator.Selling.GetItemCount(location)
+    else
+      self.prevItem.location = nil
+      self.prevItem.count = 0
+    end
     Auctionator.EventBus:Fire(
       self, Auctionator.Selling.Events.BagItemClicked, self.prevItem
     )
