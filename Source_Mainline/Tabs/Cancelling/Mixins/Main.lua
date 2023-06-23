@@ -35,6 +35,15 @@ StaticPopupDialogs[ConfirmBidPricePopup] = {
   hideOnEscape = 1
 }
 
+function AuctionatorCancellingFrameMixin:IsAuctionShown(auctionInfo)
+  local searchString = self.SearchFilter:GetText()
+  if searchString ~= "" then
+    return string.find(string.lower(auctionInfo.searchName), string.lower(searchString), 1, true)
+  else
+    return true
+  end
+end
+
 function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.Cancelling.Events.RequestCancel then
     local auctionID = ...

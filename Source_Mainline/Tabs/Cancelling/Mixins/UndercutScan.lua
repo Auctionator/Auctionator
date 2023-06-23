@@ -91,31 +91,37 @@ function AuctionatorUndercutScanMixin:NextStep()
   end
 
   self.currentAuction = C_AuctionHouse.GetOwnedAuctionInfo(self.scanIndex)
-  local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
+  Auctionator.AH.GetItemKeyInfo(self.currentAuction.itemKey, function(itemKeyInfo)
+    self.currentAuction.searchName = itemKeyInfo.itemName
 
-  if (self.currentAuction.status == 1 or
-      self.currentAuction.buyoutAmount == nil or
-      self.currentAuction.bidder ~= nil or
-      self.currentAuction.itemKey.itemID == Auctionator.Constants.WOW_TOKEN_ID or
-      not ShouldInclude(self.currentAuction.itemKey)) then
-    Auctionator.Debug.Message("undercut scan skip")
+    local itemKeyString = Auctionator.Utilities.ItemKeyString(self.currentAuction.itemKey)
 
-    self:NextStep()
-  elseif self.seenAuctionResults[itemKeyString] ~= nil then
-    Auctionator.Debug.Message("undercut scan already seen")
+    if (self.currentAuction.status == 1 or
+        self.currentAuction.buyoutAmount == nil or
+        self.currentAuction.bidder ~= nil or
+        self.currentAuction.itemKey.itemID == Auctionator.Constants.WOW_TOKEN_ID or
+        not ShouldInclude(self.currentAuction.itemKey) or
+        not self:GetParent():IsAuctionShown(self.currentAuction)
+      ) then
+      Auctionator.Debug.Message("undercut scan skip")
 
-    self:ProcessUndercutResult(
-      self.currentAuction,
-      self.seenAuctionResults[itemKeyString],
-      self.seenItemMinPrice[itemKeyString]
-    )
+      self:NextStep()
+    elseif self.seenAuctionResults[itemKeyString] ~= nil then
+      Auctionator.Debug.Message("undercut scan already seen")
 
-    self:NextStep()
-  else
-    Auctionator.Debug.Message("undercut scan searching for undercuts", self.currentAuction.auctionID)
+      self:ProcessUndercutResult(
+        self.currentAuction,
+        self.seenAuctionResults[itemKeyString],
+        self.seenItemMinPrice[itemKeyString]
+      )
 
-    self:SearchForUndercuts(self.currentAuction)
-  end
+      self:NextStep()
+    else
+      Auctionator.Debug.Message("undercut scan searching for undercuts", self.currentAuction.auctionID)
+
+      self:SearchForUndercuts(self.currentAuction)
+    end
+  end)
 end
 
 function AuctionatorUndercutScanMixin:OnEvent(eventName, ...)

@@ -218,12 +218,7 @@ function AuctionatorCancellingDataProviderMixin:IsSoldAuction(auctionInfo)
 end
 
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
-  local searchString = self:GetParent().SearchFilter:GetText()
-  if searchString ~= "" then
-    return string.find(string.lower(auctionInfo.searchName), string.lower(searchString), 1, true)
-  else
-    return true
-  end
+  return self:GetParent():IsAuctionShown(auctionInfo)
 end
 
 function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)

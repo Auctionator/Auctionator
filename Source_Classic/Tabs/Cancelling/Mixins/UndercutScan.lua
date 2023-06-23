@@ -96,7 +96,8 @@ function AuctionatorUndercutScanMixin:NextStep()
   local cleanLink = Auctionator.Search.GetCleanItemLink(self.currentAuction.itemLink)
 
   if (info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1 or
-      info[Auctionator.Constants.AuctionItemInfo.BidAmount] ~= 0) then
+      info[Auctionator.Constants.AuctionItemInfo.BidAmount] ~= 0 or
+      not self:GetParent():IsAuctionShown(self.currentAuction)) then
     Auctionator.Debug.Message("undercut scan skip", self.currentAuction.itemLink)
 
     self:NextStep()

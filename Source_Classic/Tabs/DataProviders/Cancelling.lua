@@ -167,13 +167,7 @@ end
 
 
 function AuctionatorCancellingDataProviderMixin:FilterAuction(auctionInfo)
-  local searchString = self:GetParent().SearchFilter:GetText()
-  if searchString ~= "" then
-    local name = Auctionator.Utilities.GetNameFromLink(auctionInfo.itemLink)
-    return string.find(string.lower(name), string.lower(searchString), 1, true)
-  else
-    return true
-  end
+  return self:GetParent():IsAuctionShown(auctionInfo)
 end
 
 local function ToUniqueKey(entry)
