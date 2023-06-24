@@ -18,9 +18,20 @@
         </KeyValues>
       </Frame>
 
-      <Frame parentKey="CancelUndercutShortcut" inherits="AuctionatorKeyBindingConfigTemplate">
+      <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="UndercutItemsAhead">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_ITEMS_AHEAD_CLASSIC" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_ITEMS_AHEAD_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_UNDERCUT_ITEMS_AHEAD_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="CancelUndercutShortcut" inherits="AuctionatorKeyBindingConfigTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.UndercutItemsAhead" relativePoint="BOTTOMLEFT"/>
         </Anchors>
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_CANCEL_UNDERCUT_SHORTCUT" type="global"/>

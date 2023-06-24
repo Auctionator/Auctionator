@@ -20,17 +20,27 @@ function AuctionatorUndercutScanMixin:OnLoad()
     Auctionator.Cancelling.Events.RequestCancelUndercut,
   })
 
-  self.seenPrices = {}
+  self.seenUndercutDetails = {}
 
   self:SetCancel()
+end
+
+local function UndercutCheck(unitPrice, positions, maxItemsAhead, minPrice)
+  local seenItemsAhead = Auctionator.Constants.MaxResultsPerPage + 1
+  for _, p in ipairs(positions) do
+    if p.unitPrice == unitPrice then
+      seenItemsAhead = p.itemsAhead
+      break
+    end
+  end
+  return seenItemsAhead > Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_ITEMS_AHEAD)
 end
 
 function AuctionatorUndercutScanMixin:AnyUndercutItems()
   local allAuctions = Auctionator.AH.DumpAuctions("owner")
   for _, auction in ipairs(allAuctions) do
-    local cutoffPrice = self.seenPrices[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
-    if cutoffPrice ~= nil and
-       Auctionator.Utilities.ToUnitPrice(auction) > cutoffPrice then
+    local details = self.seenUndercutDetails[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
+    if details ~= nil and UndercutCheck(Auctionator.Utilities.ToUnitPrice(auction), details.positions, details.maxItemsAhead, details.minPrice) then
       return true
     end
   end
@@ -53,9 +63,9 @@ end
 function AuctionatorUndercutScanMixin:StartScan()
   Auctionator.Debug.Message("AuctionatorUndercutScanMixin:OnUndercutScanButtonClick()")
 
-  self.seenPrices = {}
   self.allOwnedAuctions = Auctionator.AH.DumpAuctions("owner")
   self.scanIndex = 0
+  self.seenUndercutDetails = {}
 
   Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.UndercutScanStart)
 
@@ -101,7 +111,7 @@ function AuctionatorUndercutScanMixin:NextStep()
     Auctionator.Debug.Message("undercut scan skip", self.currentAuction.itemLink)
 
     self:NextStep()
-  elseif self.seenPrices[cleanLink] ~= nil then
+  elseif self.seenUndercutDetails[cleanLink] ~= nil then
     --The price has already been seen and reported by an event, so move on.
     self:NextStep()
   else
@@ -132,16 +142,35 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
   elseif eventName == Auctionator.AH.Events.ScanResultsUpdate then
     local cleanLink = Auctionator.Search.GetCleanItemLink(self.currentAuction.itemLink)
     local results, gotAllResults = ...
+    local positions = {}
+    local itemsAhead = 0
+    local minPrice
+    local playerName = UnitName("player")
+    local seenUnitPrices = {}
     for _, r in ipairs(results) do
       local resultCleanLink = Auctionator.Search.GetCleanItemLink(r.itemLink)
       local unitPrice = Auctionator.Utilities.ToUnitPrice(r)
+      -- Assumes that scan results are sorted by Blizzard column unitprice
       if cleanLink == resultCleanLink and unitPrice ~= 0 then
-        -- Assumes that scan results are sorted by Blizzard column unitprice
-        self.seenPrices[cleanLink] = unitPrice
-        break
+        if r.info[Auctionator.Constants.AuctionItemInfo.Owner] == playerName and seenUnitPrices[unitPrice] == nil then
+          seenUnitPrices[unitPrice] = true
+          table.insert(positions, {
+            unitPrice = unitPrice,
+            itemsAhead = itemsAhead,
+          })
+        end
+        if minPrice == nil then
+          minPrice = unitPrice
+        end
+        itemsAhead = itemsAhead + r.info[Auctionator.Constants.AuctionItemInfo.Quantity]
       end
     end
-    if self.seenPrices[cleanLink] ~= nil or gotAllResults then
+    if itemsAhead > 0 or gotAllResults then
+      self.seenUndercutDetails[cleanLink] = {
+        positions = positions,
+        minPrice = minPrice,
+        maxItemsAhead = itemsAhead,
+      }
       Auctionator.Debug.Message("undercut scan: next step", self.currentAuction and self.currentAuction.itemLink)
       if not gotAllResults then
         Auctionator.AH.AbortQuery()
@@ -149,7 +178,7 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
         Auctionator.EventBus:Unregister(self, QUERY_EVENTS)
       end
 
-      self:ProcessUndercutResult(cleanLink, self.seenPrices[cleanLink])
+      self:ProcessUndercutResult(cleanLink, positions, itemsAhead, minPrice)
       self:NextStep()
     end
 
@@ -172,8 +201,8 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auction)
   })
 end
 
-function AuctionatorUndercutScanMixin:ProcessUndercutResult(cleanLink, cutoffPrice)
-  Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.UndercutStatus, cleanLink, cutoffPrice)
+function AuctionatorUndercutScanMixin:ProcessUndercutResult(cleanLink, positions, itemsAhead, minPrice)
+  Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.UndercutStatus, cleanLink, positions, itemsAhead, minPrice)
 end
 
 function AuctionatorUndercutScanMixin:CancelNextAuction()
@@ -181,9 +210,9 @@ function AuctionatorUndercutScanMixin:CancelNextAuction()
 
   local allAuctions = Auctionator.AH.DumpAuctions("owner")
   for _, auction in ipairs(allAuctions) do
-    local cutoffPrice = self.seenPrices[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
-    if cutoffPrice ~= nil and
-       Auctionator.Utilities.ToUnitPrice(auction) > cutoffPrice then
+    local details = self.seenUndercutDetails[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
+    local undercut = details ~= nil and UndercutCheck(Auctionator.Utilities.ToUnitPrice(auction), details.positions, details.maxItemsAhead, details.minPrice)
+    if undercut then
       Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, {
         itemLink = auction.itemLink,
         unitPrice = Auctionator.Utilities.ToUnitPrice(auction),

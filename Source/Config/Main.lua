@@ -40,6 +40,7 @@ Auctionator.Config.Options = {
   HIDE_SPLASH_SCREEN = "hide_splash_screen",
 
   CANCEL_UNDERCUT_SHORTCUT = "cancel_undercut_shortcut",
+  UNDERCUT_ITEMS_AHEAD = "undercut_items_ahead",
 
   COLUMNS_SHOPPING = "columns_shopping",
   COLUMNS_SHOPPING_HISTORICAL_PRICES = "columns_shopping_historical_prices",
@@ -110,6 +111,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.HIDE_SPLASH_SCREEN] = false,
 
   [Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT] = "SPACE",
+  [Auctionator.Config.Options.UNDERCUT_ITEMS_AHEAD] = 0,
 
   [Auctionator.Config.Options.DEFAULT_TAB] = 0,
 

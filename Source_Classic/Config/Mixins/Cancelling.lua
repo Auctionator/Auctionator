@@ -10,11 +10,15 @@ function AuctionatorConfigCancellingFrameMixin:OnLoad()
 end
 
 function AuctionatorConfigCancellingFrameMixin:OnShow()
+  self.UndercutItemsAhead:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_ITEMS_AHEAD))
+
   self.CancelUndercutShortcut:SetShortcut(Auctionator.Config.Get(Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT))
 end
 
 function AuctionatorConfigCancellingFrameMixin:Save()
   Auctionator.Debug.Message("AuctionatorConfigCancellingFrameMixin:Save()")
+
+  Auctionator.Config.Set(Auctionator.Config.Options.UNDERCUT_ITEMS_AHEAD, math.min(self.UndercutItemsAhead:GetNumber(), 50))
 
   Auctionator.Config.Set(Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT, self.CancelUndercutShortcut:GetShortcut())
 end

@@ -81,6 +81,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_UNDERCUT_SCAN_MATCH_ILVL_VARIANTS"] = "For gear use item level and title when doing undercut checks"
   L["CONFIG_UNDERCUT_SCAN_MATCH_ILVL_VARIANTS_TOOLTIP_HEADER"] = "Gear Use Item Level and Title"
   L["CONFIG_UNDERCUT_SCAN_MATCH_ILVL_VARIANTS_TOOLTIP_TEXT"] = "Leave this on to match potential gear undercuts by item level and title, rather than by only item base type."
+  L["CONFIG_UNDERCUT_ITEMS_AHEAD_CLASSIC"] = "How many items can be ahead of your listings before they count as undercut (max 50)"
+  L["CONFIG_UNDERCUT_ITEMS_AHEAD"] = "How many items can be ahead of your listings before they count as undercut"
 
   L["UNDERCUT_PREFERENCE"] = "Undercut Preference"
   L["PERCENTAGE"] = "Percentage"
@@ -460,6 +462,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["TIME_LEFT"] = "Time Left"
   L["IS_UNDERCUT"] = "Undercut?"
   L["UNDERCUT_PRICE"] = "Undercut Price"
+  L["ITEMS_AHEAD"] = "Items Ahead"
   L["UNDERCUT_YES"] ="Yes"
   L["UNDERCUT_NO"] = "No"
   L["UNDERCUT_BID"] = "Bid"
