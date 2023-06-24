@@ -743,10 +743,10 @@ function AuctionatorSaleItemMixin:SuccessfulPost(details)
 end
 
 function AuctionatorSaleItemMixin:DoNextItem(details)
-  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and details.itemInfo.nextItem then
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and self.nextItem then
     -- Option to automatically select the next item in the bag view
     Auctionator.EventBus:Fire(
-      self, Auctionator.Selling.Events.BagItemClicked, details.itemInfo.nextItem
+      self, Auctionator.Selling.Events.BagItemClicked, self.nextItem
     )
   end
 end

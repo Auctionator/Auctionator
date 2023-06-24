@@ -694,11 +694,11 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
   self:Reset()
 
   if (Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT) and
-      IsValidItem(self.lastItemInfo.nextItem)
+      self.nextItem
      ) then
     -- Option to automatically select the next item in the bag view
     Auctionator.EventBus:Fire(
-      self, Auctionator.Selling.Events.BagItemClicked, self.lastItemInfo.nextItem
+      self, Auctionator.Selling.Events.BagItemClicked, self.nextItem
     )
 
   else
