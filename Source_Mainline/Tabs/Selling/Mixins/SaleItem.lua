@@ -715,8 +715,32 @@ function AuctionatorSaleItemMixin:SkipItem()
   end
 end
 
+local function FindItemAgain(prevItemInfo)
+  local key = Auctionator.Selling.UniqueBagKey(prevItemInfo)
+  for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
+    for slot = 1, C_Container.GetContainerNumSlots(bagID) do
+      local location = ItemLocation:CreateFromBagAndSlot(bagID, slot)
+      if C_Item.DoesItemExist(location) then
+        local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
+        if Auctionator.Selling.UniqueBagKey(itemInfo) == key then
+          return location
+        end
+      end
+    end
+  end
+  return nil
+end
+
 function AuctionatorSaleItemMixin:PrevItem()
   if self.PrevButton:IsEnabled() then
+    -- The item with the same ID to post again may be at a different location if
+    -- there was more than one stack, so locate the other stack
+    self.prevItem.location = FindItemAgain(self.prevItem)
+    if IsValidItem(self.prevItem) then
+      self.prevItem.count = C_AuctionHouse.GetAvailablePostCount(self.prevItem.location)
+    else
+      self.prevItem.count = 0
+    end
     Auctionator.EventBus:Fire(
       self, Auctionator.Selling.Events.BagItemClicked, self.prevItem
     )
