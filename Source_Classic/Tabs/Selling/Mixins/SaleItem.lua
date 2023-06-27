@@ -302,7 +302,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
       self.itemInfo = nil
 
       local item
-      if itemInfo.location ~= nil then
+      if IsValidItem(itemInfo) then
         item = Item:CreateFromItemLocation(itemInfo.location)
       else
         item = Item:CreateFromItemLink(itemInfo.itemLink)
