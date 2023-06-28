@@ -4,9 +4,7 @@ function AuctionatorBagItemContainerMixin:OnLoad()
   self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
 
   self.buttons = {}
-  self.buttonPool = CreateFramePool("Button", self, "AuctionatorBagItem", FramePool_HideAndClearAnchors, false, function(button)
-    button:SetSize(self.iconSize, self.iconSize)
-  end)
+  self.buttonPool = CreateFramePool("Button", self, "AuctionatorBagItem", FramePool_HideAndClearAnchors, false)
 end
 
 function AuctionatorBagItemContainerMixin:Reset()
@@ -37,6 +35,10 @@ function AuctionatorBagItemContainerMixin:AddItem(item)
   button:Show()
 
   button:SetItemInfo(item)
+
+  -- Note: We set the size here rather than in a frame pool initialization
+  -- function because the initialization function doesn't work on classic era
+  button:SetSize(self.iconSize, self.iconSize)
 
   table.insert(self.buttons, button)
 end
