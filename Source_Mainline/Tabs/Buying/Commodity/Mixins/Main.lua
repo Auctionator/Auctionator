@@ -148,7 +148,7 @@ function AuctionatorBuyCommodityFrameTemplateMixin:GetPrices()
     if quantityLeft == 0 then
       break
     elseif r.quantity > quantityLeft then
-      total = quantityLeft * r.price
+      total = total + quantityLeft * r.price
       quantityLeft = 0
     else
       total = total + r.price * r.quantity
