@@ -230,7 +230,7 @@
             </FontString>
             <FontString parentKey="TotalPriceText" text="1" inherits="GameFontHighlight" justifyH="LEFT">
               <Anchors>
-                <Anchor point="TOPRIGHT" y="-100"/>
+                <Anchor point="TOPRIGHT" y="-100" x="20"/>
                 <Anchor point="LEFT" relativePoint="RIGHT" x="-110"/>
               </Anchors>
             </FontString>
@@ -262,7 +262,7 @@
       </Frame>
       <Frame parentKey="ResultsListing" inherits="AuctionatorResultsListingTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.IconAndName" relativePoint="BOTTOMRIGHT" x="-250" y="10"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.IconAndName" relativePoint="BOTTOMRIGHT" x="-210" y="10"/>
           <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
