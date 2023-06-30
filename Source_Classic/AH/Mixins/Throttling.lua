@@ -137,6 +137,8 @@ function AuctionatorAHThrottlingFrameMixin:ResetWaiting()
   FrameUtil.UnregisterFrameForEvents(self, BID_PLACED_EVENTS)
   FrameUtil.UnregisterFrameForEvents(self, NEW_AUCTION_EVENTS)
   FrameUtil.UnregisterFrameForEvents(self, AUCTIONS_UPDATED_EVENTS)
+
+  Auctionator.EventBus:Fire(self, Auctionator.AH.Events.ThrottleAbort)
 end
 
 function AuctionatorAHThrottlingFrameMixin:AuctionsPosted()
