@@ -165,6 +165,9 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
         itemsAhead = itemsAhead + r.info[Auctionator.Constants.AuctionItemInfo.Quantity]
       end
     end
+    if minPrice == nil then
+      minPrice = 0
+    end
     if itemsAhead > 0 or gotAllResults then
       self.seenUndercutDetails[cleanLink] = {
         positions = positions,
