@@ -13,6 +13,11 @@ local THROTTLE_EVENTS = {
   Auctionator.AH.Events.Ready,
 }
 
+local function IsCancelPossible(info)
+  return info[Auctionator.Constants.AuctionItemInfo.SaleStatus] ~= 1 and
+      info[Auctionator.Constants.AuctionItemInfo.BidAmount] == 0
+end
+
 function AuctionatorUndercutScanMixin:OnLoad()
   Auctionator.EventBus:RegisterSource(self, "AuctionatorUndercutScanMixin")
   Auctionator.EventBus:Register(self, {
@@ -40,7 +45,7 @@ function AuctionatorUndercutScanMixin:AnyUndercutItems()
   local allAuctions = Auctionator.AH.DumpAuctions("owner")
   for _, auction in ipairs(allAuctions) do
     local details = self.seenUndercutDetails[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
-    if details ~= nil and UndercutCheck(Auctionator.Utilities.ToUnitPrice(auction), details.positions, details.maxItemsAhead, details.minPrice) then
+    if IsCancelPossible(auction.info) and details ~= nil and UndercutCheck(Auctionator.Utilities.ToUnitPrice(auction), details.positions, details.maxItemsAhead, details.minPrice) then
       return true
     end
   end
@@ -105,8 +110,7 @@ function AuctionatorUndercutScanMixin:NextStep()
   local info = self.currentAuction.info
   local cleanLink = Auctionator.Search.GetCleanItemLink(self.currentAuction.itemLink)
 
-  if (info[Auctionator.Constants.AuctionItemInfo.SaleStatus] == 1 or
-      info[Auctionator.Constants.AuctionItemInfo.BidAmount] ~= 0 or
+  if (not IsCancelPossible(info) or
       not self:GetParent():IsAuctionShown(self.currentAuction)) then
     Auctionator.Debug.Message("undercut scan skip", self.currentAuction.itemLink)
 
@@ -214,7 +218,7 @@ function AuctionatorUndercutScanMixin:CancelNextAuction()
   local allAuctions = Auctionator.AH.DumpAuctions("owner")
   for _, auction in ipairs(allAuctions) do
     local details = self.seenUndercutDetails[Auctionator.Search.GetCleanItemLink(auction.itemLink)]
-    local undercut = details ~= nil and UndercutCheck(Auctionator.Utilities.ToUnitPrice(auction), details.positions, details.maxItemsAhead, details.minPrice)
+    local undercut = IsCancelPossible(auction.info) and details ~= nil and UndercutCheck(Auctionator.Utilities.ToUnitPrice(auction), details.positions, details.maxItemsAhead, details.minPrice)
     if undercut then
       Auctionator.EventBus:Fire(self, Auctionator.Cancelling.Events.RequestCancel, {
         itemLink = auction.itemLink,
