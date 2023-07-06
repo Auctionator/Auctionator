@@ -130,6 +130,7 @@ local COMPARATORS = {
   timeLeft = Auctionator.Utilities.NumberComparator,
   undercut = Auctionator.Utilities.StringComparator,
   undercutPrice = Auctionator.Utilities.NumberComparator,
+  itemsAhead = Auctionator.Utilities.NumberComparator,
 }
 
 function AuctionatorCancellingDataProviderMixin:Sort(fieldName, sortDirection)
