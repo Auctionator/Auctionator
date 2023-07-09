@@ -38,6 +38,14 @@ local BUY_AUCTIONS_TABLE_LAYOUT = {
     cellTemplate = "AuctionatorStringCellTemplate",
     cellParameters = { "isOwnedText" },
   },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "timeLeft" },
+    headerText = AUCTIONATOR_L_TIME_LEFT,
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "timeLeftPretty" },
+    defaultHide = true,
+  },
 }
 
 local BUY_EVENTS = {
@@ -213,6 +221,8 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       notReady = true,
       query = auction.query,
       page = auction.page,
+      timeLeft = auction.timeLeft,
+      timeLeftPretty = Auctionator.Utilities.FormatTimeLeftBand(auction.timeLeft),
     }
     if newEntry.unitPrice == 0 then
       newEntry.unitPrice = nil
@@ -355,6 +365,7 @@ local COMPARATORS = {
   numStacks = Auctionator.Utilities.NumberComparator,
   otherSellers = Auctionator.Utilities.StringComparator,
   isOwnedText = Auctionator.Utilities.StringComparator,
+  timeLeft = Auctionator.Utilities.NumberComparator,
 }
 
 function AuctionatorBuyAuctionsDataProviderMixin:Sort(fieldName, sortDirection)
