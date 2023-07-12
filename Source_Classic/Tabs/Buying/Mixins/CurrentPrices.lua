@@ -153,8 +153,13 @@ function AuctionatorBuyCurrentPricesFrameMixin:LoadForCancelling()
   self:UpdateButtons()
 end
 
-function AuctionatorBuyCurrentPricesFrameMixin:DoRefresh()
+function AuctionatorBuyCurrentPricesFrameMixin:DoMinimalRefresh()
   self.SearchDataProvider:SetRequestAllResults(false)
+  self.SearchDataProvider:RefreshQuery()
+  self.loadAllPagesPending = false
+end
+
+function AuctionatorBuyCurrentPricesFrameMixin:DoRefresh()
   self.SearchDataProvider:RefreshQuery()
   self.loadAllPagesPending = false
 end

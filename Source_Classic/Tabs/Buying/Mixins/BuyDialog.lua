@@ -157,7 +157,7 @@ function AuctionatorBuyDialogMixin:ReceiveEvent(eventName, ...)
       self:FindAuctionOnCurrentPage()
       if self.buyInfo == nil then
         self:Hide()
-        self:GetParent():DoRefresh()
+        self:GetParent():DoMinimalRefresh()
       end
       self:UpdateButtons()
     end
