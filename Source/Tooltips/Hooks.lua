@@ -60,7 +60,14 @@ if GameTooltip.SetRecipeReagentItem then -- Dragonflight
   TooltipHandlers["SetRecipeReagentItem"] = function( tip, recipeID, slotID )
     local itemLink = C_TradeSkillUI.GetRecipeFixedReagentItemLink(recipeID, slotID)
 
-    local schematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, ProfessionsFrame.CraftingPage.SchematicForm:GetCurrentRecipeLevel())
+    local recipeLevel
+    if ProfessionsFrame and ProfessionsFrame.CraftingPage:IsVisible() then
+      recipeLevel = ProfessionsFrame.CraftingPage.SchematicForm:GetCurrentRecipeLevel()
+    elseif ProfessionsFrame and ProfessionsFrame.OrdersPage:IsVisible() then
+      recipeLevel =  ProfessionsFrame.OrdersPage.OrderView.OrderDetails.SchematicForm:GetCurrentRecipeLevel()
+    end
+
+    local schematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
 
     for _, reagentSlotSchematic in ipairs(schematic.reagentSlotSchematics) do
       if reagentSlotSchematic.dataSlotIndex == slotID then
