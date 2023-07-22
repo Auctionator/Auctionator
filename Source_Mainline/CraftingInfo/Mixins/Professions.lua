@@ -7,6 +7,8 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:OnLoad()
   })
   self:UpdateSearchButton()
 
+  self:SetupCustomQuantitySearch()
+
   local function Update()
     self:ShowIfRelevant()
     if self:IsVisible() then
@@ -26,6 +28,26 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:OnLoad()
       self:UpdateTotal()
     end
   end)
+end
+
+function AuctionatorCraftingInfoProfessionsFrameMixin:SetupCustomQuantitySearch()
+  ButtonFrameTemplate_HidePortrait(self.CustomQuantity)
+  ButtonFrameTemplate_HideButtonBar(self.CustomQuantity)
+  self.CustomQuantity.Inset:Hide()
+
+  self.CustomQuantity:SetTitle(AUCTIONATOR_L_SEARCH_FOR_QUANTITY)
+
+  self.CustomQuantity:SetScript("OnShow", function()
+    self.CustomQuantity.Quantity:SetFocus()
+    Auctionator.EventBus:Register(self.CustomQuantity, {Auctionator.Components.Events.EnterPressed})
+  end)
+  self.CustomQuantity:SetScript("OnHide", function()
+    Auctionator.EventBus:Unregister(self.CustomQuantity, {Auctionator.Components.Events.EnterPressed})
+  end)
+
+  self.CustomQuantity.ReceiveEvent = function(_, eventName, ...)
+    self.CustomQuantity.SearchButton:Click()
+  end
 end
 
 function AuctionatorCraftingInfoProfessionsFrameMixin:SetDoNotShowProfit()
@@ -62,6 +84,7 @@ end
 
 function AuctionatorCraftingInfoProfessionsFrameMixin:UpdateSearchButton()
   self.SearchButton:SetShown(AuctionHouseFrame and AuctionHouseFrame:IsShown())
+  self.CustomQuantity:Hide()
 end
 
 -- Checks for case when there are no regeants, for example a DK Runeforging
@@ -85,12 +108,21 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:UpdateTotal()
   end
 end
 
-function AuctionatorCraftingInfoProfessionsFrameMixin:SearchButtonClicked()
+function AuctionatorCraftingInfoProfessionsFrameMixin:SearchButtonClicked(button)
   if AuctionHouseFrame and AuctionHouseFrame:IsShown() then
-    Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(self:GetParent())
-  else
-    print("I would queue a search")
+    if button == "RightButton" then
+      self.CustomQuantity:Show()
+    else
+      Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(self:GetParent(), 1)
+    end
   end
+end
+
+function AuctionatorCraftingInfoProfessionsFrameMixin:QuantitySearchButtonClicked(quantity)
+  if AuctionHouseFrame and AuctionHouseFrame:IsShown() then
+    Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(self:GetParent(), math.max(quantity, 1))
+  end
+  self.CustomQuantity:Hide()
 end
 
 function AuctionatorCraftingInfoProfessionsFrameMixin:OnEvent(...)

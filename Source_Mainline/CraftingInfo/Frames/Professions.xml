@@ -15,16 +15,46 @@
       </Layer>
     </Layers>
     <Frames>
-      <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH">
+      <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH" registerForClicks="LeftButtonUp,RightButtonUp">
         <Scripts>
           <OnClick>
-            self:GetParent():SearchButtonClicked()
+            self:GetParent():SearchButtonClicked(button)
           </OnClick>
         </Scripts>
         <Anchors>
           <Anchor point="TOPRIGHT" y="6"/>
         </Anchors>
       </Button>
+
+      <Frame parentKey="CustomQuantity" inherits="ButtonFrameTemplate" hidden="true" frameLevel="530">
+        <Size x="300" y="80"/>
+        <Anchors>
+          <Anchor point="CENTER"/>
+        </Anchors>
+        <Frames>
+          <Frame parentKey="Quantity" inherits="AuctionatorConfigurationNumericInputAlternate">
+            <Size x="125" y="22"/>
+            <Anchors>
+              <Anchor point="LEFT" y="-15"/>
+              <Anchor point="RIGHT" relativePoint="CENTER"/>
+            </Anchors>
+
+            <KeyValues>
+              <KeyValue key="labelText" value="AUCTIONATOR_L_QUANTITY" type="global"/>
+            </KeyValues>
+          </Frame>
+          <Button parentKey="SearchButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SEARCH">
+            <Scripts>
+              <OnClick>
+                self:GetParent():GetParent():QuantitySearchButtonClicked(self:GetParent().Quantity:GetNumber())
+              </OnClick>
+            </Scripts>
+            <Anchors>
+              <Anchor point="RIGHT" x="-10" y="-13"/>
+            </Anchors>
+          </Button>
+        </Frames>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

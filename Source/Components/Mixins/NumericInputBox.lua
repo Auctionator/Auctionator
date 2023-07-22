@@ -10,6 +10,10 @@ function AuctionatorConfigNumericInputMixin:OnMouseUp()
   self.InputBox:SetFocus()
 end
 
+function AuctionatorConfigNumericInputMixin:SetFocus()
+  self.InputBox:SetFocus()
+end
+
 function AuctionatorConfigNumericInputMixin:SetNumber(value)
   self.InputBox:SetNumber(value)
   self.InputBox:SetCursorPosition(0)

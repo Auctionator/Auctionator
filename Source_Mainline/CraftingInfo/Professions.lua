@@ -14,7 +14,7 @@ function Auctionator.CraftingInfo.InitializeProfessionsFrame()
   end
 end
 
-function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
+function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm, quantity)
   local recipeInfo = schematicForm:GetRecipeInfo()
   local recipeID = recipeInfo.recipeID
   local recipeLevel = schematicForm:GetCurrentRecipeLevel()
@@ -66,7 +66,7 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm)
     for index, itemInfo in ipairs(possibleItems) do
       local itemInfo = {GetItemInfo(itemInfo)}
       if not Auctionator.Utilities.IsBound(itemInfo) then
-        table.insert(searchTerms, {searchString = itemInfo[1], isExact = true, quantity = quantities[index]})
+        table.insert(searchTerms, {searchString = itemInfo[1], isExact = true, quantity = quantities[index] * quantity})
       end
     end
 

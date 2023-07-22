@@ -647,6 +647,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["PROFIT_WARNING_AGE"] = "(price data at least 10 days old)"
   L["PROFIT_WARNING_MISSING"] = "(no price data)"
   L["PROFIT_WARNING_NOT_EXACT_ITEM"] = "(price data not exact match for item)"
+  L["SEARCH_FOR_QUANTITY"] = "Search For Quantity"
 
   L["SCANNING_PAGE_X"] = "Scanning page %s..."
   L["WAITING_AT_MOST_X_LONGER"] = "Waiting at most %ss longer..."
