@@ -11,7 +11,6 @@ end
 
 function AuctionatorConfigCancellingFrameMixin:OnShow()
   self.UndercutScanPetsGear:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO))
-  self.UndercutScanMatchIlvlVariants:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_GEAR_MATCH_ILVL_VARIANTS))
   self.UndercutItemsAhead:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_ITEMS_AHEAD))
   self.CancelUndercutShortcut:SetShortcut(Auctionator.Config.Get(Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT))
 end
@@ -20,7 +19,6 @@ function AuctionatorConfigCancellingFrameMixin:Save()
   Auctionator.Debug.Message("AuctionatorConfigCancellingFrameMixin:Save()")
 
   Auctionator.Config.Set(Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO, self.UndercutScanPetsGear:GetChecked())
-  Auctionator.Config.Set(Auctionator.Config.Options.UNDERCUT_SCAN_GEAR_MATCH_ILVL_VARIANTS, self.UndercutScanMatchIlvlVariants:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.UNDERCUT_ITEMS_AHEAD, self.UndercutItemsAhead:GetNumber())
   Auctionator.Config.Set(Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT, self.CancelUndercutShortcut:GetShortcut())
 end

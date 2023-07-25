@@ -178,7 +178,7 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auctionInfo)
       sortingOrder = {sortOrder = 4, reverseSort = false}
     end
 
-    if not Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_GEAR_MATCH_ILVL_VARIANTS) and
+    if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_MATCHING) ~= Auctionator.Config.ItemMatching.ITEM_NAME_AND_LEVEL and
        Auctionator.Utilities.IsEquipment(select(6, GetItemInfoInstant(auctionInfo.itemKey.itemID))) then
       self.expectedItemKey = {itemID = auctionInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
       Auctionator.AH.SendSellSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
@@ -214,20 +214,26 @@ function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
         end
       else
         resultInfo = C_AuctionHouse.GetItemSearchResultInfo(self.expectedItemKey, index)
-        if minPrice == nil then
-          minPrice = resultInfo.buyoutAmount
+        if Auctionator.Selling.DoesItemMatch(auctionInfo.itemKey, auctionInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
+          if minPrice == nil then
+            minPrice = resultInfo.buyoutAmount
+          end
+        else
+          resultInfo = nil
         end
       end
 
-      if onlyOwned and resultInfo.owners[1] == "player" then
-        ownedAuctionIDs[resultInfo.auctionID] = 0
-      elseif not onlyOwned and resultInfo.owners[1] == "player" then
-        ownedAuctionIDs[resultInfo.auctionID] = itemsAhead
-      else
-        onlyOwned = false
-      end
+      if resultInfo ~= nil then
+        if onlyOwned and resultInfo.owners[1] == "player" then
+          ownedAuctionIDs[resultInfo.auctionID] = 0
+        elseif not onlyOwned and resultInfo.owners[1] == "player" then
+          ownedAuctionIDs[resultInfo.auctionID] = itemsAhead
+        else
+          onlyOwned = false
+        end
 
-      itemsAhead = itemsAhead + resultInfo.quantity
+        itemsAhead = itemsAhead + resultInfo.quantity
+      end
     end
 
     if resultCount == 0 then

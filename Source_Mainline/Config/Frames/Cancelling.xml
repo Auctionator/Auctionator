@@ -29,17 +29,6 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="UndercutScanMatchIlvlVariants">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_SCAN_MATCH_ILVL_VARIANTS" type="global" />
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_SCAN_MATCH_ILVL_VARIANTS_TOOLTIP_HEADER" type="global" />
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_SCAN_MATCH_ILVL_VARIANTS_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.UndercutScanPetsGear" relativePoint="BOTTOMLEFT" />
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationNumericInput" parentKey="UndercutItemsAhead">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_UNDERCUT_ITEMS_AHEAD" type="global"/>
@@ -47,7 +36,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_UNDERCUT_ITEMS_AHEAD_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.UndercutScanMatchIlvlVariants" y="-7"/>
+          <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeKey="$parent.UndercutScanPetsGear" y="-7"/>
         </Anchors>
       </Frame>
 
