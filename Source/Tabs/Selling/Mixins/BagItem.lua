@@ -119,7 +119,11 @@ function AuctionatorBagItemStarMixin:SetItemInfo(info)
     self.Star:SetAlpha(1)
   else
     self.Star:SetVertexColor(1,0,0)
-    self.Star:SetAlpha(0)
+    if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_STAR_ICON) then
+      self.Star:SetAlpha(0)
+    else
+      self.Star:SetAlpha(1)
+    end
   end
 end
 
@@ -129,11 +133,19 @@ function AuctionatorBagItemStarMixin:OnClick()
 end
 
 function AuctionatorBagItemStarMixin:OnEnter()
-  self.Star:SetAlpha(1)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_STAR_ICON) then
+    self.Star:SetAlpha(1)
+  else
+    self.Star:SetAlpha(0.5)
+  end
 end
 
 function AuctionatorBagItemStarMixin:OnLeave()
-  if not self.isFavourite then
-    self.Star:SetAlpha(0)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_STAR_ICON) then
+    if not self.isFavourite then
+      self.Star:SetAlpha(0)
+    end
+  else
+    self.Star:SetAlpha(1)
   end
 end
