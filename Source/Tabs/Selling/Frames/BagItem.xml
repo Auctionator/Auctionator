@@ -64,5 +64,28 @@
         <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Icon" relativePoint="BOTTOMRIGHT"/>
       </Anchors>
     </HighlightTexture>
+    <Frames>
+      <Button parentKey="StarButton" mixin="AuctionatorBagItemStarMixin">
+        <Size x="15" y="15"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT"/>
+        </Anchors>
+        <Scripts>
+          <OnEnter method="OnEnter" />
+          <OnLeave method="OnLeave" />
+          <OnClick method="OnClick" />
+        </Scripts>
+        <Layers>
+          <Layer level="BACKGROUND" textureSubLevel="4">
+            <Texture parentKey="Star" file="Interface\AddOns\Auctionator\Images\Star_Icon">
+              <Anchors>
+                <Anchor point="TOPLEFT"/>
+                <Anchor point="BOTTOMRIGHT"/>
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+      </Button>
+    </Frames>
   </Button>
 </Ui>
