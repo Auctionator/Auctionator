@@ -8,8 +8,6 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
 
     self.Icon:SetTexture(info.iconTexture)
     self.Icon:Show()
-    self.StarButton:Show()
-    self.StarButton:SetItemInfo(info)
 
     if info.selected then
       self.Icon:SetAlpha(0.8)
@@ -35,7 +33,6 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
     self.Icon:Hide()
     self.Text:SetText("")
     self:SetAlpha(1)
-    self.StarButton:Hide()
 
     self:HideQualityIcon()
   end
@@ -107,45 +104,5 @@ end
 function AuctionatorBagItemMixin:HideQualityIcon()
   if self.ProfessionQualityOverlay then
     self.ProfessionQualityOverlay:Hide()
-  end
-end
-
-AuctionatorBagItemStarMixin = {}
-
-function AuctionatorBagItemStarMixin:SetItemInfo(info)
-  self.isFavourite = Auctionator.Selling.IsFavourite(info)
-  if self.isFavourite then
-    self.Star:SetVertexColor(0,1,0)
-    self.Star:SetAlpha(1)
-  else
-    self.Star:SetVertexColor(1,0,0)
-    if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_STAR_ICON) then
-      self.Star:SetAlpha(0)
-    else
-      self.Star:SetAlpha(1)
-    end
-  end
-end
-
-function AuctionatorBagItemStarMixin:OnClick()
-  Auctionator.Selling.ToggleFavouriteItem(self:GetParent().itemInfo)
-  self:SetItemInfo(self:GetParent().itemInfo)
-end
-
-function AuctionatorBagItemStarMixin:OnEnter()
-  if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_STAR_ICON) then
-    self.Star:SetAlpha(1)
-  else
-    self.Star:SetAlpha(0.5)
-  end
-end
-
-function AuctionatorBagItemStarMixin:OnLeave()
-  if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_STAR_ICON) then
-    if not self.isFavourite then
-      self.Star:SetAlpha(0)
-    end
-  else
-    self.Star:SetAlpha(1)
   end
 end

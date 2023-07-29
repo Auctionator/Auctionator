@@ -39,6 +39,42 @@ local function ToggleHidden(info)
   end
 end
 
+function Auctionator.Selling.GetAllFavourites()
+  local favourites = {}
+  for _, fav in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
+    table.insert(favourites, fav)
+  end
+
+  return favourites
+end
+
+function Auctionator.Selling.IsFavourite(data)
+  return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] ~= nil
+end
+
+local function ToggleFavouriteItem(data)
+  if Auctionator.Selling.IsFavourite(data) then
+    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] = nil
+  else
+    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] = {
+      itemKey = data.itemKey,
+      itemLink = data.itemLink,
+      count = 0,
+      iconTexture = data.iconTexture,
+      itemType = data.itemType,
+      location = nil,
+      quality = data.quality,
+      classId = data.classId,
+      auctionable = data.auctionable,
+    }
+  end
+
+  Auctionator.EventBus
+    :RegisterSource(ToggleFavouriteItem, "ToggleFavouriteItem")
+    :Fire(ToggleFavouriteItem, Auctionator.Selling.Events.BagRefresh)
+    :UnregisterSource(ToggleFavouriteItem)
+end
+
 local function UnhideAllItemKeys()
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORED_KEYS, {})
 
@@ -110,7 +146,7 @@ function AuctionatorItemIconDropDownMixin:Initialize()
 
   favouriteItemInfo.disabled = false
   favouriteItemInfo.func = function()
-    Auctionator.Selling.ToggleFavouriteItem(self.data)
+    ToggleFavouriteItem(self.data)
   end
 
   LibDD:UIDropDownMenu_AddButton(favouriteItemInfo)
