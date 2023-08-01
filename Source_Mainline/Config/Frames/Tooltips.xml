@@ -84,17 +84,6 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AltFullStackTooltips">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_FULL_STACK_TOOLTIP" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_FULL_STACK_TOOLTIP_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_FULL_STACK_TOOLTIP_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftStackTooltips" relativePoint="BOTTOMLEFT"/>
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionAgeTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUCTION_AGE_TOOLTIP" type="global"/>
@@ -102,7 +91,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_AUCTION_AGE_TOOLTIP_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AltFullStackTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftStackTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
     </Frames>

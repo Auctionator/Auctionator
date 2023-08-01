@@ -67,9 +67,6 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_STACK_TOOLTIP"] = "Show stack price when holding shift."
   L["STACK_TOOLTIP_TOOLTIP_HEADER"] = "Stack Prices"
   L["STACK_TOOLTIP_TOOLTIP_TEXT"] = "When selected, the shift key must be held to see stack prices. When not selected, stack prices show by default."
-  L["CONFIG_FULL_STACK_TOOLTIP"] = "Show full stack price when holding alt."
-  L["FULL_STACK_TOOLTIP_TOOLTIP_HEADER"] = "Full Stack Prices"
-  L["FULL_STACK_TOOLTIP_TOOLTIP_TEXT"] = "When selected, the alt key must be held to see full stack prices. When not selected, alt key does nothing."
 
   L["DEFAULT_AUCTION_DURATION"] = "Default Auction Duration"
   L["AUCTION_DURATION_12"] = "12 Hours"

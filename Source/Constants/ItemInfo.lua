@@ -2,7 +2,6 @@ Auctionator.Constants.ITEM_INFO = {
   NAME = 1,
   LINK = 2,
   RARITY = 3,
-  STACK_SIZE = 8,
   TEXTURE = 10,
   SELL_PRICE = 11,
   CLASS = 12,

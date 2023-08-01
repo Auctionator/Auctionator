@@ -3,7 +3,6 @@ local L = Auctionator.Locales.Apply
 local waitingForPricing = false
 -- Auctionator.Config.Options.VENDOR_TOOLTIPS: true if should show vendor tips
 -- Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS: true to show stack price when [shift] is down
--- Auctionator.Config.Options.ALT_FULL_STACK_TOOLTIPS: true to show full stack price when [alt] is down
 -- Auctionator.Config.Options.AUCTION_TOOLTIPS: true if should show auction tips
 function Auctionator.Tooltip.ShowTipWithPricing(tooltipFrame, itemLink, itemCount)
   if waitingForPricing or Auctionator.Database == nil then
@@ -25,32 +24,20 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   end
 
   local showStackPrices = IsShiftKeyDown();
-  local showFullStackPrices = IsAltKeyDown();
-  
-  if not Auctionator.Config.Get(Auctionator.Config.Options.ALT_FULL_STACK_TOOLTIPS) then
-    showFullStackPrices = false
-  end
-  
-  local itemInfo = { GetItemInfo(itemLink) };
-  if showFullStackPrices then
-    if (#itemInfo) ~= 0 then
-      itemCount = itemInfo[Auctionator.Constants.ITEM_INFO.STACK_SIZE]
-    end
-  end
 
   if not Auctionator.Config.Get(Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS) then
     showStackPrices = not IsShiftKeyDown();
   end
 
   local countString = ""
-  if (itemCount and showStackPrices) or (itemCount and showFullStackPrices) then
+  if itemCount and showStackPrices then
     countString = Auctionator.Utilities.CreateCountString(itemCount)
   end
 
   local auctionPrice = Auctionator.Database:GetFirstPrice(dbKeys)
   local auctionAge, showAgeUnknown = nil, false
   if auctionPrice ~= nil then
-    auctionPrice = auctionPrice * ((showStackPrices or showFullStackPrices) and itemCount or 1)
+    auctionPrice = auctionPrice * (showStackPrices and itemCount or 1)
     auctionAge = Auctionator.Database:GetPriceAge(dbKeys[1])
     if auctionAge == nil and auctionPrice ~= nil then
       showAgeUnknown = Auctionator.Database:GetPrice(dbKeys[1]) ~= nil
@@ -61,24 +48,25 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     auctionMean = Auctionator.Database:GetMeanPrice(dbKeys[1], Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_MEAN_DAYS_LIMIT))
   end
   if auctionMean ~= nil then
-    auctionMean = auctionMean * ((showStackPrices or showFullStackPrices) and itemCount or 1)
+    auctionMean = auctionMean * (showStackPrices and itemCount or 1)
   end
 
   local vendorPrice, disenchantStatus, disenchantPrice
   local cannotAuction = 0;
 
+  local itemInfo = { GetItemInfo(itemLink) };
   if (#itemInfo) ~= 0 then
     cannotAuction = Auctionator.Utilities.IsBound(itemInfo)
     local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
 
     if Auctionator.Utilities.IsVendorable(itemInfo) then
-      vendorPrice = sellPrice * ((showStackPrices or showFullStackPrices) and itemCount or 1);
+      vendorPrice = sellPrice * (showStackPrices and itemCount or 1);
     end
 
     disenchantStatus = Auctionator.Enchant.DisenchantStatus(itemInfo)
     local disenchantPriceForOne = Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
     if disenchantPriceForOne ~= nil then
-      disenchantPrice = disenchantPriceForOne * ((showStackPrices or showFullStackPrices) and itemCount or 1)
+      disenchantPrice = disenchantPriceForOne * (showStackPrices and itemCount or 1)
     end
   end
 
@@ -89,7 +77,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     prospectStatus = Auctionator.Prospect.IsProspectable(itemID)
     local prospectForOne = Auctionator.Prospect.GetProspectAuctionPrice(itemID)
     if prospectForOne ~= nil then
-      prospectValue = math.floor(prospectForOne * ((showStackPrices or showFullStackPrices) and itemCount or 1))
+      prospectValue = math.floor(prospectForOne * (showStackPrices and itemCount or 1))
     end
   end
 
@@ -100,7 +88,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
     millStatus = Auctionator.Mill.IsMillable(itemID)
     local millForOne = Auctionator.Mill.GetMillAuctionPrice(itemID)
     if millForOne ~= nil then
-      millValue = math.floor(millForOne * ((showStackPrices or showFullStackPrices) and itemCount or 1))
+      millValue = math.floor(millForOne * (showStackPrices and itemCount or 1))
     end
   end
 
