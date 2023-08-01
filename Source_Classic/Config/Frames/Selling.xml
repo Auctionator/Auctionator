@@ -103,7 +103,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_ICON_SIZE_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" y="-15"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagCollapsed" relativePoint="BOTTOMLEFT" y="-5"/>
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AutoSelectNext">
@@ -136,10 +136,20 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.AutoSelectStackRemainder" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="PossessedFavouritesFirst">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_POSSESSED_FAVOURITES_FIRST" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_POSSESSED_FAVOURITES_FIRST_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_POSSESSED_FAVOURITES_FIRST_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.MissingFavourites" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
 
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNHIDE_ALL_HIDDEN_ITEMS" parentKey="UnhideAll">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.MissingFavourites" relativePoint="BOTTOMLEFT" x="23"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PossessedFavouritesFirst" relativePoint="BOTTOMLEFT" x="23"/>
         </Anchors>
         <Scripts>
           <OnClick>

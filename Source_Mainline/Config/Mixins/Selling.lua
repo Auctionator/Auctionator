@@ -20,6 +20,7 @@ function AuctionatorConfigSellingFrameMixin:OnShow()
   self.BagCollapsed:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))
   self.AutoSelectNext:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT))
   self.MissingFavourites:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES))
+  self.PossessedFavouritesFirst:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITES_SORT_OWNED))
 
   self.UnhideAll:SetEnabled(#(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS)) ~= 0)
 end
@@ -37,6 +38,7 @@ function AuctionatorConfigSellingFrameMixin:Save()
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_COLLAPSED, self.BagCollapsed:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_AUTO_SELECT_NEXT, self.AutoSelectNext:GetChecked())
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES, self.MissingFavourites:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_FAVOURITES_SORT_OWNED, self.PossessedFavouritesFirst:GetChecked())
 end
 
 function AuctionatorConfigSellingFrameMixin:UnhideAllClicked()
