@@ -267,8 +267,10 @@ function AuctionatorSaleItemMixin:SetItemName()
 
   else
     Auctionator.AH.GetItemKeyInfo(self.itemInfo.itemKey, function(itemInfo)
+      local newInfo = CopyTable(itemInfo)
+      newInfo.quality = self.itemInfo.quality
       self.itemInfo.keyName = AuctionHouseUtil.GetItemDisplayTextFromItemKey(
-        self.itemInfo.itemKey, itemInfo, false
+        self.itemInfo.itemKey, newInfo, false
       )
 
       self.TitleArea.Text:SetText(self.itemInfo.keyName)
