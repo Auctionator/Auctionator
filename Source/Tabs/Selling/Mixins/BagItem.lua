@@ -14,6 +14,8 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
     else
       self.Icon:SetAlpha(1)
     end
+    local selectedColor = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR)
+    self.IconSelectedHighlight:SetVertexColor(selectedColor.r, selectedColor.g, selectedColor.b)
     self.IconSelectedHighlight:SetShown(info.selected)
 
     self.IconBorder:SetVertexColor(

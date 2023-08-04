@@ -34,7 +34,6 @@
           </Anchors>
         </Texture>
         <Texture parentKey="IconSelectedHighlight" atlas="bags-glow-artifact">
-         <Color a="1" r="0.977" g="0.592" b="0.086" />
           <Anchors>
             <Anchor point="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT"/>

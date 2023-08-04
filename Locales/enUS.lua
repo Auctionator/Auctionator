@@ -593,6 +593,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SAVE_LAST_DURATION_AS_DEFAULT_TOOLTIP_HEADER"] = "Overwrite default duration with last used"
   L["CONFIG_SAVE_LAST_DURATION_AS_DEFAULT_TOOLTIP_TEXT"] = "Overwrite default duration with last used"
   L["CONFIG_BAG"] = "Bag"
+  L["SET_BAG_ITEM_SELECTION_COLOR"] = "Set bag item selection color"
+  L["RESET_COLOR"] = "Reset color"
 
   L["HIDE"] = "Hide"
   L["UNHIDE"] = "Unhide"
