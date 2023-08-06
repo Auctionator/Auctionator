@@ -14,7 +14,7 @@ function AuctionatorCancellingFrameMixin:OnLoad()
     self.DataProvider:NoQueryRefresh()
   end)
 
-  self.SetScript("OnUpdate", self.OnUpdate)
+  self:SetScript("OnUpdate", self.OnUpdate)
 end
 
 function AuctionatorCancellingFrameMixin:OnUpdate()
