@@ -41,11 +41,8 @@ function AuctionatorAHScanFrameMixin:OnEvent(eventName, ...)
 end
 
 function AuctionatorAHScanFrameMixin:ReceiveEvent(eventName, ...)
-  if eventName == Auctionator.AH.Events.Ready then
+  if eventName == Auctionator.AH.Events.ThrottleAbort then
     if self.scanRunning and self.sentQuery then
-      Auctionator.EventBus:Unregister(self, {
-        Auctionator.AH.Events.Ready
-      })
       self.nextPage = self.nextPage - 1
       self:DoNextSearchQuery()
     end
@@ -83,10 +80,6 @@ function AuctionatorAHScanFrameMixin:DoNextSearchQuery()
     self.sentQuery = true
     SortAuctionSetSort("list", "unitprice")
     QueryAuctionItems(ParamsForBlizzardAPI(self.query, page))
-
-    Auctionator.EventBus:Register(self, {
-      Auctionator.AH.Events.Ready
-    })
   end
   Auctionator.AH.Queue:Enqueue(self.lastQueuedItem)
 
@@ -98,10 +91,6 @@ end
 
 function AuctionatorAHScanFrameMixin:ProcessSearchResults()
   Auctionator.Debug.Message("AuctionatorAHScanFrameMixin:ProcessSearchResults()")
-
-  Auctionator.EventBus:Unregister(self, {
-    Auctionator.AH.Events.Ready
-  })
 
   local results = self:GetCurrentPage()
 
@@ -126,12 +115,16 @@ end
 
 function AuctionatorAHScanFrameMixin:RegisterEvents()
   FrameUtil.RegisterFrameForEvents(self, SCAN_EVENTS)
+
+  Auctionator.EventBus:Register(self, {
+    Auctionator.AH.Events.ThrottleAbort
+  })
 end
 
 function AuctionatorAHScanFrameMixin:UnregisterEvents()
   FrameUtil.UnregisterFrameForEvents(self, SCAN_EVENTS)
 
   Auctionator.EventBus:Unregister(self, {
-    Auctionator.AH.Events.Ready
+    Auctionator.AH.Events.ThrottleAbort
   })
 end
