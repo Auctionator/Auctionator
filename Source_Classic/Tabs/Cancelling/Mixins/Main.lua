@@ -13,6 +13,12 @@ function AuctionatorCancellingFrameMixin:OnLoad()
   self.SearchFilter:HookScript("OnTextChanged", function()
     self.DataProvider:NoQueryRefresh()
   end)
+
+  self.SetScript("OnUpdate", self.OnUpdate)
+end
+
+function AuctionatorCancellingFrameMixin:OnUpdate()
+  GetOwnerAuctionItems(0)
 end
 
 local ConfirmBidPricePopup = "AuctionatorConfirmBidPricePopupDialog"

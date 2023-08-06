@@ -164,6 +164,7 @@ function AuctionatorSaleItemMixin:UpdatePrices()
 end
 
 function AuctionatorSaleItemMixin:OnUpdate()
+  GetOwnerAuctionItems(0)
   if self.itemInfo == nil then
     return
 
