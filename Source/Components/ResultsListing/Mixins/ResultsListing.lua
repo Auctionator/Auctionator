@@ -10,7 +10,7 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
   local view = CreateScrollBoxListLinearView()
   view:SetElementExtent(20)
 
-  if Auctionator.Constants.IsVanilla then
+  if Auctionator.Constants.ElementInitializerCompatibility then
     view:SetElementInitializer("Frame", dataProvider:GetRowTemplate(), function(frame, index)
       frame:Populate(self.dataProvider:GetEntryAt(index), index)
     end)

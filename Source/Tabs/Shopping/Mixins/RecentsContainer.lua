@@ -127,7 +127,7 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetupContent()
 
   local view = CreateScrollBoxListLinearView(0, 0, 0, 0)
   view:SetElementExtent(buttonHeight)
-  if Auctionator.Constants.IsVanilla then
+  if Auctionator.Constants.ElementInitializerCompatibility then
     view:SetElementInitializer("Button", nil, OnButtonAcquire)
   else
     view:SetElementInitializer("Button", OnButtonAcquire)
