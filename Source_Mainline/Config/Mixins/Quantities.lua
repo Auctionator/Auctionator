@@ -10,8 +10,8 @@ function AuctionatorConfigQuantitiesFrameMixin:OnLoad()
 
 end
 
-function AuctionatorConfigQuantitiesFrameMixin:OnShow()
-  Auctionator.Debug.Message("AuctionatorConfigQuantitiesFrameMixin:OnShow()")
+function AuctionatorConfigQuantitiesFrameMixin:ShowSettings()
+  Auctionator.Debug.Message("AuctionatorConfigQuantitiesFrameMixin:ShowSettings()")
 
   local settings = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_QUANTITIES)
   for _, quantityOption in ipairs(self.Quantities) do

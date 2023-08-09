@@ -9,7 +9,7 @@ function AuctionatorConfigBasicOptionsFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigBasicOptionsFrameMixin:OnShow()
+function AuctionatorConfigBasicOptionsFrameMixin:ShowSettings()
   self.DefaultTab:SetValue(tostring(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_TAB)))
   self.ShowCraftingInfo:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW))
   self.ShowCraftingCost:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW_COST))

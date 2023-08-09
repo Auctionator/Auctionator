@@ -16,7 +16,7 @@ function AuctionatorConfigSellingFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigSellingFrameMixin:OnShow()
+function AuctionatorConfigSellingFrameMixin:ShowSettings()
   self.ScrollBox.Content.AuctionChatLog:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG))
   self.ScrollBox.Content.ShowBidPrice:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE))
   self.ScrollBox.Content.BagCollapsed:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))

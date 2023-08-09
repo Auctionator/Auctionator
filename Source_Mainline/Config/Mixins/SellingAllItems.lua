@@ -13,7 +13,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:OnLoad()
   end)
 end
 
-function AuctionatorConfigSellingAllItemsFrameMixin:OnShow()
+function AuctionatorConfigSellingAllItemsFrameMixin:ShowSettings()
   self.currentItemDuration = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
   self.currentItemSalesPreference = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_SALES_PREFERENCE)
 

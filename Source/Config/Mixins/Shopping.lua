@@ -25,7 +25,7 @@ local function GetShoppingListNames()
   return names, values
 end
 
-function AuctionatorConfigShoppingFrameMixin:OnShow()
+function AuctionatorConfigShoppingFrameMixin:ShowSettings()
   self.AutoListSearch:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH))
 
   self.DefaultShoppingList:InitAgain(GetShoppingListNames())

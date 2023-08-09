@@ -9,7 +9,7 @@ function AuctionatorConfigBasicOptionsFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigBasicOptionsFrameMixin:OnShow()
+function AuctionatorConfigBasicOptionsFrameMixin:ShowSettings()
   self.Autoscan:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN))
   self.AutoscanInterval:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.AUTOSCAN_INTERVAL))
   self.SmallTabs:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SMALL_TABS))

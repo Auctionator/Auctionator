@@ -9,7 +9,7 @@ function AuctionatorConfigCancellingFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigCancellingFrameMixin:OnShow()
+function AuctionatorConfigCancellingFrameMixin:ShowSettings()
   self.UndercutScanPetsGear:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO))
   self.UndercutItemsAhead:SetNumber(Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_ITEMS_AHEAD))
   self.CancelUndercutShortcut:SetShortcut(Auctionator.Config.Get(Auctionator.Config.Options.CANCEL_UNDERCUT_SHORTCUT))

@@ -1,7 +1,7 @@
 AuctionatorConfigShoppingAltFrameMixin = CreateFromMixins(AuctionatorConfigShoppingFrameMixin)
 
-function AuctionatorConfigShoppingAltFrameMixin:OnShow()
-  AuctionatorConfigShoppingFrameMixin.OnShow(self)
+function AuctionatorConfigShoppingAltFrameMixin:ShowSettings()
+  AuctionatorConfigShoppingFrameMixin.ShowSettings(self)
 
   self.AlwaysLoadMore:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_ALWAYS_LOAD_MORE))
 end

@@ -9,7 +9,7 @@ function AuctionatorConfigSellingFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigSellingFrameMixin:OnShow()
+function AuctionatorConfigSellingFrameMixin:ShowSettings()
   self.AuctionChatLog:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG))
   self.ShowBidPrice:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE))
   self.ConfirmPostLowPrice:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE))

@@ -9,7 +9,7 @@ function AuctionatorConfigProfileFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigProfileFrameMixin:OnShow()
+function AuctionatorConfigProfileFrameMixin:ShowSettings()
   self.ProfileToggle:SetChecked(Auctionator.Config.IsCharacterConfig())
 end
 

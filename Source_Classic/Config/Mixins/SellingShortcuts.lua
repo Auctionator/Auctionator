@@ -9,7 +9,7 @@ function AuctionatorConfigSellingShortcutsFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigSellingShortcutsFrameMixin:OnShow()
+function AuctionatorConfigSellingShortcutsFrameMixin:ShowSettings()
   self.BagSelectShortcut:SetValue(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT))
 
   self.PostShortcut:SetShortcut(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_POST_SHORTCUT))

@@ -17,9 +17,9 @@ Auctionator.Config.Options = {
 
   AUCTION_CHAT_LOG = "auction_chat_log",
   SELLING_BAG_COLLAPSED = "selling_bag_collapsed",
-  SHOW_SELLING_BAG = "show_selling_bag",
+  SHOW_SELLING_BAG = "show_selling_bag_2",
   SELLING_BAG_SELECT_SHORTCUT = "selling_bag_select_shortcut",
-  SELLING_ICON_SIZE = "selling_icon_size",
+  SELLING_ICON_SIZE = "selling_icon_size_2",
   SELLING_IGNORED_KEYS = "selling_ignored_keys",
   SELLING_FAVOURITE_KEYS = "selling_favourite_keys_2",
   SELLING_AUTO_SELECT_NEXT = "selling_auto_select_next",

@@ -6,8 +6,12 @@ function AuctionatorPanelConfigMixin:SetupPanel()
   end
 
   self.okay = function()
-    self:Save()
+    if self.shownSettings then
+      self:Save()
+    end
   end
+
+  self.shownSettings =  false
 
   self.OnCommit = self.okay
   self.OnDefault = function() end
@@ -26,6 +30,11 @@ function AuctionatorPanelConfigMixin:SetupPanel()
   else
     InterfaceOptions_AddCategory(self, "Auctionator")
   end
+end
+
+function AuctionatorPanelConfigMixin:OnShow()
+  self:ShowSettings()
+  self.shownSettings = true
 end
 
 -- Derive

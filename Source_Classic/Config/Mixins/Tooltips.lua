@@ -9,7 +9,7 @@ function AuctionatorConfigTooltipsFrameMixin:OnLoad()
   self:SetupPanel()
 end
 
-function AuctionatorConfigTooltipsFrameMixin:OnShow()
+function AuctionatorConfigTooltipsFrameMixin:ShowSettings()
   self.MailboxTooltips:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.MAILBOX_TOOLTIPS))
   self.VendorTooltips:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.VENDOR_TOOLTIPS))
   self.AuctionTooltips:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS))
