@@ -99,6 +99,9 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeSplashScreen()
 
   ShowDefaultTab()
+  C_Timer.After(0, function()
+    ShowDefaultTab()
+  end)
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
