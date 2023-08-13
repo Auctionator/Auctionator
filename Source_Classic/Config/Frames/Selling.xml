@@ -149,6 +149,16 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.AutoSelectNext" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ReselectItem">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_RESELECT_ITEM" type="global" />
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONFIG_SELLING_RESELECT_ITEM_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_RESELECT_ITEM_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AutoSelectStackRemainder" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="MissingFavourites">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_MISSING_FAVOURITES" type="global" />
@@ -156,7 +166,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONFIG_SELLING_MISSING_FAVOURITES_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AutoSelectStackRemainder" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.ReselectItem" relativePoint="BOTTOMLEFT" />
         </Anchors>
       </Frame>
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="PossessedFavouritesFirst">

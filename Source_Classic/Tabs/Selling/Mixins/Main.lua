@@ -15,3 +15,7 @@ function AuctionatorSellingTabMixin:ApplyHiding()
     self.BuyFrame.HistoryButton:SetPoint("LEFT", AuctionFrameMoneyFrame, "RIGHT")
   end
 end
+
+function AuctionatorSellingTabMixin:OnHide()
+  self:Hide()
+end

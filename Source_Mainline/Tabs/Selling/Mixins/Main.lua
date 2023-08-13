@@ -43,3 +43,7 @@ function AuctionatorSellingTabMixin:ApplyHiding()
     self.CurrentPricesInset:SetPoint("BOTTOMRIGHT", self.CurrentPricesListing, 0, 2)
   end
 end
+
+function AuctionatorSellingTabMixin:OnHide()
+  self:Hide()
+end

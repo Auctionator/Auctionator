@@ -63,20 +63,31 @@ function AuctionatorSellingBagFrameMixin:OnLoad()
     Auctionator.Selling.Events.BagItemClicked,
     Auctionator.Selling.Events.BagItemRequest,
     Auctionator.Selling.Events.ClearBagItem,
+    Auctionator.Selling.Events.BagReady,
   })
 end
 
 function AuctionatorSellingBagFrameMixin:OnHide()
   self.highlightedKey = {}
+  self.isInitialViewReady = false
 end
 
 function AuctionatorSellingBagFrameMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemRequest then
     local key = ...
+
+    if not self.isInitialViewReady then
+      C_Timer.After(0, function()
+        Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemRequest, key)
+      end)
+      return
+    end
+
     local item = self.itemMap[key.classID][key.key]
 
     if item == nil then
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.ClearBagItem)
+      return
     end
 
     if item.location ~= nil and not C_Item.DoesItemExist(item.location) then
@@ -94,6 +105,9 @@ function AuctionatorSellingBagFrameMixin:ReceiveEvent(event, ...)
   elseif event == Auctionator.Selling.Events.ClearBagItem then
     self.highlightedKey = {}
     self:Update()
+
+  elseif event == Auctionator.Selling.Events.BagReady then
+    self.isInitialViewReady = true
   end
 end
 

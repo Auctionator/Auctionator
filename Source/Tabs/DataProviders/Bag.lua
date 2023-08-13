@@ -17,6 +17,10 @@ function AuctionatorBagDataProviderMixin:Reload()
   C_Timer.After(0.01, function()
     self:Reset()
     self:LoadBagData()
+    Auctionator.EventBus
+      :RegisterSource(self, "BagDataProviderMixin")
+      :Fire(self, Auctionator.Selling.Events.BagReady)
+      :UnregisterSource(self)
   end)
 end
 

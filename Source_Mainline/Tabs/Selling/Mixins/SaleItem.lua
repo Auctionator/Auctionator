@@ -64,6 +64,15 @@ function AuctionatorSaleItemMixin:OnShow()
 
   self:UpdateSkipButton()
   self:Reset()
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SHOULD_RESELECT_ITEM) then
+    local key = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_RESELECT_ITEM)
+    if key ~= nil then
+      Auctionator.EventBus:Fire(
+        self, Auctionator.Selling.Events.BagItemRequest, key
+      )
+    end
+  end
 end
 
 function AuctionatorSaleItemMixin:OnHide()
@@ -77,6 +86,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.RefreshSearch,
     Auctionator.Components.Events.EnterPressed,
   })
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_RESELECT_ITEM, self.lastKey)
   Auctionator.EventBus:UnregisterSource(self)
   self:UnlockItem()
   ClearOverrideBindings(self)
@@ -172,12 +182,14 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     self.itemInfo = ...
     self.nextItem = self.itemInfo and self.itemInfo.nextItem
     self.prevItem = self.itemInfo and self.itemInfo.prevItem
+    self.lastKey = self.itemInfo and self.itemInfo.key
     self:LockItem()
     self:Update()
 
   elseif event == Auctionator.Selling.Events.ClearBagItem then
     self.nextItem = nil
     self.prevItem = nil
+    self.lastKey = nil
     self:Reset()
 
   elseif event == Auctionator.AH.Events.ThrottleUpdate then
