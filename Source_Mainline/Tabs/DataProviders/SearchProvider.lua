@@ -68,6 +68,7 @@ function AuctionatorSearchDataProviderMixin:OnShow()
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.SellSearchStart,
     Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Selling.Events.ClearBagItem,
     Auctionator.Cancelling.Events.RequestCancel,
   })
 
@@ -79,6 +80,7 @@ function AuctionatorSearchDataProviderMixin:OnHide()
   Auctionator.EventBus:Unregister(self, {
     Auctionator.Selling.Events.SellSearchStart,
     Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Selling.Events.ClearBagItem,
     Auctionator.Cancelling.Events.RequestCancel,
   })
 end
@@ -93,6 +95,8 @@ function AuctionatorSearchDataProviderMixin:ReceiveEvent(eventName, itemKey, ori
     self.originalItemLink = originalItemLink
   elseif eventName == Auctionator.Selling.Events.BagItemClicked then
     self.onResetScroll()
+  elseif eventName == Auctionator.Selling.Events.ClearBagItem then
+    self:Reset()
   elseif eventName == Auctionator.Cancelling.Events.RequestCancel then
     self:RegisterEvent("AUCTION_CANCELED")
   end

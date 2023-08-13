@@ -5,6 +5,7 @@ function AuctionatorSellingHistoricalPriceProviderMixin:OnLoad()
 
   Auctionator.EventBus:Register( self, {
     Auctionator.Selling.Events.BagItemClicked,
+    Auctionator.Selling.Events.ClearBagItem,
     Auctionator.Selling.Events.RefreshHistory,
   })
 end
@@ -15,6 +16,10 @@ function AuctionatorSellingHistoricalPriceProviderMixin:ReceiveEvent(eventName, 
     self.lastDBKey = dbKey
 
     self:SetItem(dbKey)
+
+  elseif eventName == Auctionator.Selling.Events.ClearBagItem then
+    self.lastDBKey = nil
+    self:Reset()
 
   elseif eventName == Auctionator.Selling.Events.RefreshHistory and self.lastDBKey ~= nil then
     self:SetItem(self.lastDBKey)
