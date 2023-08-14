@@ -90,7 +90,9 @@ function AuctionatorSellingBagFrameMixin:ReceiveEvent(event, ...)
       return
     end
 
-    if item.location ~= nil and not C_Item.DoesItemExist(item.location) then
+    -- Items are left in the map even after they are removed from the bag so
+    -- that the previous/next links don't break
+    if item.location ~= nil and (not C_Item.DoesItemExist(item.location) or Auctionator.Selling.UniqueBagKey(Auctionator.Utilities.ItemInfoFromLocation(item.location)) ~= item.key.key) then
       item.location = nil
       item.count = 0
     end
