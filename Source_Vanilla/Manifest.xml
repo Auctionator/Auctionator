@@ -2,6 +2,7 @@
   <Script file="Objects.lua"/>
 
   <Include file="Constants\Manifest.xml"/>
+  <Include file="Utilities\Manifest.xml"/>
 
   <Include file="EnchantInfo\Manifest.xml"/>
   <Include file="Initialize\Manifest.xml"/>
