@@ -147,7 +147,7 @@ function AuctionatorShoppingTabListsContainerMixin:OnShow()
 end
 
 function AuctionatorShoppingTabListsContainerMixin:OnHide()
-  Auctionator.EventBus:Register(self, {
+  Auctionator.EventBus:Unregister(self, {
     Auctionator.Shopping.Events.ListMetaChange,
     Auctionator.Shopping.Events.ListItemChange,
   })
