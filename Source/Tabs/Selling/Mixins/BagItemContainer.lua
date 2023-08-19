@@ -21,7 +21,12 @@ function AuctionatorBagItemContainerMixin:GetRowWidth()
   return self:GetRowLength() * self.iconSize
 end
 
+function AuctionatorBagItemContainerMixin:GetSelectedButton()
+  return self.selectedButton
+end
+
 function AuctionatorBagItemContainerMixin:AddItems(itemList)
+  self.selectedButton = nil
   for _, item in ipairs(itemList) do
     self:AddItem(item)
   end
@@ -41,6 +46,10 @@ function AuctionatorBagItemContainerMixin:AddItem(item)
   button:SetSize(self.iconSize, self.iconSize)
 
   table.insert(self.buttons, button)
+
+  if item.selected then
+    self.selectedButton = button
+  end
 end
 
 function AuctionatorBagItemContainerMixin:DrawButtons()

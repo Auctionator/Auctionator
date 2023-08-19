@@ -36,6 +36,10 @@ function AuctionatorBagClassListingMixin:GetTitleHeight()
   return self.SectionTitle:GetHeight()
 end
 
+function AuctionatorBagClassListingMixin:GetSelectedButton()
+  return self.ItemContainer:GetSelectedButton()
+end
+
 function AuctionatorBagClassListingMixin:Reset()
   self.ItemContainer:Reset()
 end
@@ -90,6 +94,5 @@ function AuctionatorBagClassListingMixin:OnClick()
   self.collapsed = not self.collapsed
 
   self:UpdateForCollapsing()
-  self:GetParent():OnSettingDirty()
   self:GetParent():MarkDirty()
 end

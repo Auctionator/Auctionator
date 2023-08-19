@@ -40,17 +40,14 @@ function AuctionatorSellingBagFrameMixin:OnLoad()
 
   self:SetWidth(self.frameMap[FAVOURITE]:GetRowWidth())
 
-  -- Used to preserve scroll position relative to top when contents change
-  self.ScrollBox.ItemListingFrame.OnSettingDirty = function(listing)
-    listing.oldHeight = listing:GetHeight() -- Used to get absolute offset from top
-  end
-
   self.ScrollBox.ItemListingFrame.OnCleaned = function(listing)
-    local oldOffset = self.ScrollBox:GetDerivedScrollOffset()
-
     self.ScrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately);
 
-    self.ScrollBox:SetScrollTargetOffset(oldOffset)
+    -- If an item has just been selected make sure it scrolls into view
+    if self.selectedButton ~= nil then
+      self:ScrollButtonIntoView(self.selectedButton)
+      self.selectedButton = nil
+    end
   end
 
   local view = CreateScrollBoxLinearView()
@@ -104,6 +101,14 @@ function AuctionatorSellingBagFrameMixin:ReceiveEvent(event, ...)
     self.highlightedKey = itemInfo.key or {}
     self:Update()
 
+    self.selectedButton = nil
+    for _, container in pairs(self.frameMap) do
+      self.selectedButton = container:GetSelectedButton()
+      if self.selectedButton ~= nil then
+        break
+      end
+    end
+
   elseif event == Auctionator.Selling.Events.ClearBagItem then
     self.highlightedKey = {}
     self:Update()
@@ -155,6 +160,25 @@ function AuctionatorSellingBagFrameMixin:AggregateItemsByClass()
   end
 end
 
+function AuctionatorSellingBagFrameMixin:ScrollButtonIntoView(button)
+  local buttonTop = button:GetTop()
+  local buttonBottom = button:GetBottom()
+  local regionTop = self:GetTop()
+  local regionBottom = self:GetBottom()
+
+  local offset = self.ScrollBox:GetDerivedScrollOffset()
+
+  local scrollY = 0
+  if buttonBottom < regionBottom then
+    scrollY = buttonBottom - regionBottom
+  elseif buttonTop > regionTop then
+    scrollY = buttonTop - regionTop
+  end
+  local wantedOffset = offset - scrollY
+  local range = self.ScrollBox:GetDerivedScrollRange()
+  self.ScrollBox:SetScrollPercentage(wantedOffset/range)
+end
+
 function AuctionatorSellingBagFrameMixin:SetupFavourites()
   local bagItemCount = self.dataProvider:GetCount()
   local entry
@@ -203,7 +227,6 @@ end
 
 function AuctionatorSellingBagFrameMixin:Update()
   Auctionator.Debug.Message("AuctionatorSellingBagFrameMixin:Update()")
-  self.ScrollBox.ItemListingFrame.oldHeight = self.ScrollBox.ItemListingFrame:GetHeight()
 
   local lastItem = nil
   local lastClassID = nil
@@ -243,6 +266,5 @@ function AuctionatorSellingBagFrameMixin:Update()
     frame:AddItems(classItems)
   end
 
-  self.ScrollBox.ItemListingFrame:OnSettingDirty()
   self.ScrollBox.ItemListingFrame:MarkDirty()
 end
