@@ -5,5 +5,4 @@
   <Script file="ScanTooltip.lua"/>
   <Script file="ToUnitPrice.lua"/>
   <Script file="IsEquipment.lua"/>
-  <Script file="FormatTime.lua"/>
 </Ui>
