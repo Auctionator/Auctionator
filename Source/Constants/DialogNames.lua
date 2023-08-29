@@ -5,5 +5,6 @@ Auctionator.Constants.DialogNames = {
   MakePermanentShoppingList = "auctionator_make_permanent_shopping_list",
 
   SellingConfirmPost = "AUCTIONATOR_SELLING_CONFIRM_POST",
+  SellingConfirmPostSkip = "AUCTIONATOR_SELLING_CONFIRM_POST_SKIP",
   SellingConfirmUnhideAll = "AUCTIONATOR_SELLING_CONFIRM_UNHIDE_ALL",
 }

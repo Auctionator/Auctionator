@@ -6,6 +6,7 @@ Auctionator.Selling.Events = {
   BagRefresh = "bag_refresh",
   RequestPost = "selling_request_post",
   ConfirmPost = "selling_confirm_post",
+  SkipItem = "selling_skip_item",
   AuctionCreated = "selling_auction_created",
   ItemIconCallback = "selling_item_icon_callback",
 }

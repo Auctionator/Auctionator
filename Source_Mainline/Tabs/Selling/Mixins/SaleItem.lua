@@ -47,6 +47,7 @@ function AuctionatorSaleItemMixin:OnShow()
     Auctionator.Selling.Events.ClearBagItem,
     Auctionator.Selling.Events.RequestPost,
     Auctionator.Selling.Events.ConfirmPost,
+    Auctionator.Selling.Events.SkipItem,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
     Auctionator.Selling.Events.RefreshSearch,
@@ -81,6 +82,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.ClearBagItem,
     Auctionator.Selling.Events.RequestPost,
     Auctionator.Selling.Events.ConfirmPost,
+    Auctionator.Selling.Events.SkipPost,
     Auctionator.AH.Events.ThrottleUpdate,
     Auctionator.Selling.Events.PriceSelected,
     Auctionator.Selling.Events.RefreshSearch,
@@ -200,6 +202,9 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
 
   elseif event == Auctionator.Selling.Events.ConfirmPost then
     self:PostItem(true)
+
+  elseif event == Auctionator.Selling.Events.SkipItem then
+    self:SkipItem()
 
   elseif event == Auctionator.Components.Events.EnterPressed then
     self:PostItem()
@@ -635,8 +640,13 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     Auctionator.Debug.Message("Trying to post when we can't. Returning")
     return
   elseif not confirmed and self:RequiresConfirmationState() then
-    StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmPost].text = self:GetConfirmationMessage()
-    StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmPost)
+    if self.SkipButton:IsEnabled() then
+      StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmPostSkip].text = self:GetConfirmationMessage()
+      StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmPostSkip)
+    else
+      StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmPost].text = self:GetConfirmationMessage()
+      StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmPost)
+    end
     return
   end
 
