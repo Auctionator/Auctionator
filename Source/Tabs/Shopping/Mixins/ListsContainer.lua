@@ -155,8 +155,12 @@ end
 
 function AuctionatorShoppingTabListsContainerMixin:OnDragUpdate()
   if not self:IsMouseOver() or not IsMouseButtonDown("LeftButton") then
+    self.ScrollBox:ForEachFrame(function(frame)
+      if frame.elementData.type == RowType.SearchTerm and frame.elementData.index == self.draggingIndex then
+        frame:SetAlpha(1)
+      end
+    end)
     self.draggingIndex = nil
-    self:Populate()
     self:SetScript("OnUpdate", nil)
   elseif self.dragTargetIndex ~= nil then
     local oldIndex = self.draggingIndex

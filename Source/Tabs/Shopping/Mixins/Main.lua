@@ -165,9 +165,12 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
   end)
 
   self.ListsContainer:SetOnListItemDrag(function(list, oldIndex, newIndex)
-    local old = list:GetItemByIndex(oldIndex)
-    list:DeleteItem(oldIndex)
-    list:InsertItem(old, newIndex)
+    if oldIndex ~= newIndex then
+      local old = list:GetItemByIndex(oldIndex)
+      list:DeleteItem(oldIndex)
+      list:InsertItem(old, newIndex)
+    end
+  end
   end)
 end
 
