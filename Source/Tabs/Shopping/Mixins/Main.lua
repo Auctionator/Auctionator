@@ -170,7 +170,6 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
       list:DeleteItem(oldIndex)
       list:InsertItem(old, newIndex)
     end
-  end
   end)
 end
 
