@@ -13,9 +13,6 @@ Auctionator.Constants.ValidItemClassIDs = {
 
 Auctionator.Constants.IsVanilla = true
 
-local _, _, _, tocVersion = GetBuildInfo()
-Auctionator.Constants.ElementInitializerCompatibility = tocVersion <= 11403
-
 Auctionator.Constants.Durations = {
   Short = 2,
   Medium = 8,

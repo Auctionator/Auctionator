@@ -385,11 +385,7 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
 
   local view = CreateScrollBoxListLinearView(0, 0, 0, 0)
   view:SetElementExtent(buttonHeight)
-  if Auctionator.Constants.ElementInitializerCompatibility then
-    view:SetElementInitializer("Button", nil, OnButtonAcquire)
-  else
-    view:SetElementInitializer("Button", OnButtonAcquire)
-  end
+  view:SetElementInitializer("Button", OnButtonAcquire)
   view:SetPanExtent(50)
 
   ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollBox, self.ScrollBar, view)

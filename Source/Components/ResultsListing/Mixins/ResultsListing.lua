@@ -9,16 +9,9 @@ function AuctionatorResultsListingMixin:Init(dataProvider)
 
   local view = CreateScrollBoxListLinearView()
   view:SetElementExtent(20)
-
-  if Auctionator.Constants.ElementInitializerCompatibility then
-    view:SetElementInitializer("Frame", dataProvider:GetRowTemplate(), function(frame, index)
-      frame:Populate(self.dataProvider:GetEntryAt(index), index)
-    end)
-  else
-    view:SetElementInitializer(dataProvider:GetRowTemplate(), function(frame, index)
-      frame:Populate(self.dataProvider:GetEntryAt(index), index)
-    end)
-  end
+  view:SetElementInitializer(dataProvider:GetRowTemplate(), function(frame, index)
+    frame:Populate(self.dataProvider:GetEntryAt(index), index)
+  end)
 
   ScrollUtil.InitScrollBoxListWithScrollBar(self.ScrollArea.ScrollBox, self.ScrollArea.ScrollBar, view)
 
