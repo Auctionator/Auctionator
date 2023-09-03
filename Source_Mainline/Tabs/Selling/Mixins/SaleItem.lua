@@ -306,6 +306,8 @@ end
 function AuctionatorSaleItemMixin:UpdateForNewItem()
   self:SetDuration()
 
+  self.MaxButton:Disable() -- Disable needed for case quantity is 0
+
   self:SetQuantity()
 
   local price = Auctionator.Database:GetFirstPrice(
