@@ -10,11 +10,7 @@ function AuctionatorConfigFrameMixin:OnLoad()
 end
 
 function AuctionatorConfigFrameMixin:Show()
-  if InterfaceOptionsFrame then
-    InterfaceOptionsFrame_OpenToCategory(AuctionatorConfigBasicOptionsFrame)
-  end
-  -- For some reason OnShow doesn't fire?
-  AuctionatorConfigBasicOptionsFrame:OnShow()
+
 end
 
 function AuctionatorConfigFrameMixin:Save()
