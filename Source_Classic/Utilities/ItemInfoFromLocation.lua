@@ -5,14 +5,9 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
   local currentDurability, maxDurability
 
   if location:IsBagAndSlot() then
-    if C_Container and C_Container.GetContainerItemInfo then
-      local itemInfo = C_Container.GetContainerItemInfo(location:GetBagAndSlot())
-      icon, itemCount, quality, itemLink = itemInfo.iconFileID, itemInfo.stackCount, itemInfo.quality, itemInfo.hyperlink
-      currentDurability, maxDurability = C_Container.GetContainerItemDurability(location:GetBagAndSlot())
-    else
-      icon, itemCount, _, quality, _, _, itemLink = GetContainerItemInfo(location:GetBagAndSlot())
-      currentDurability, maxDurability = GetContainerItemDurability(location:GetBagAndSlot())
-    end
+    local itemInfo = C_Container.GetContainerItemInfo(location:GetBagAndSlot())
+    icon, itemCount, quality, itemLink = itemInfo.iconFileID, itemInfo.stackCount, itemInfo.quality, itemInfo.hyperlink
+    currentDurability, maxDurability = C_Container.GetContainerItemDurability(location:GetBagAndSlot())
   else
     local slot = location:GetEquipmentSlot()
     icon = GetInventoryItemTexture("player", slot)

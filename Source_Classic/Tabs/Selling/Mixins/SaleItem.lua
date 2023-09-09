@@ -22,18 +22,10 @@ local function GetAmountWithUndercut(amount)
   return math.max(0, amount - undercutAmount)
 end
 
-local function GetNumSlots(bag)
-  if C_Container and C_Container.GetContainerNumSlots then
-    return C_Container.GetContainerNumSlots(bag)
-  else
-    return GetContainerNumSlots(bag)
-  end
-end
-
 local function FindItemAgain(itemLink)
   local cleanItemLink = Auctionator.Search.GetCleanItemLink(itemLink)
   for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
-    for slot = 1, GetNumSlots(bagID) do
+    for slot = 1, C_Container.GetContainerNumSlots(bagID) do
       local location = ItemLocation:CreateFromBagAndSlot(bagID, slot)
       if C_Item.DoesItemExist(location) then
         local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
@@ -44,19 +36,6 @@ local function FindItemAgain(itemLink)
     end
   end
 end
-
-local function RegenerateCount(itemInfo)
-  local location = FindItemAgain(itemInfo.itemLink)
-  local count = 0
-  if location then
-    count = Auctionator.Selling.GetItemCount(location)
-  end
-  local newItemInfo = CopyTable(itemInfo, true)
-  newItemInfo.count = count
-  newItemInfo.location = location
-  return newItemInfo
-end
-
 
 AuctionatorSaleItemMixin = {}
 
