@@ -2,6 +2,8 @@ AuctionatorBuyCommodityFrameTemplateMixin = {}
 
 local SEARCH_EVENTS = {
   "COMMODITY_SEARCH_RESULTS_UPDATED",
+  "COMMODITY_PURCHASE_SUCCEEDED",
+  "COMMODITY_PURCHASE_FAILED",
 }
 
 local PURCHASE_EVENTS = {
@@ -96,9 +98,21 @@ function AuctionatorBuyCommodityFrameTemplateMixin:OnEvent(eventName, eventData,
     self.results = self:ProcessCommodityResults(eventData)
     self.DataProvider:SetListing(self.results)
     self:UpdateView()
+
   elseif eventName == "COMMODITY_PRICE_UPDATED" and self.results then
     self:CheckPurchase(eventData, ...)
+
+  -- Getting a price to purchase failed
   elseif eventName == "COMMODITY_PRICE_UNAVAILABLE" then
+    FrameUtil.UnregisterFrameForEvents(self, PURCHASE_EVENTS)
+    self.waitingForPurchase = false
+    C_AuctionHouse.CancelCommoditiesPurchase()
+
+    self:Search()
+
+  -- Refresh listing after purchase attempt
+  elseif eventName == "COMMODITY_PURCHASE_SUCCEEDED" or
+      eventName == "COMMODITY_PURCHASE_FAILED" then
     self:Search()
   end
 end
@@ -252,4 +266,7 @@ function AuctionatorBuyCommodityFrameTemplateMixin:CheckPurchase(newUnitPrice, n
       unitPrice = newUnitPrice,
     })
   end
+
+  FrameUtil.UnregisterFrameForEvents(self, PURCHASE_EVENTS)
+  self.waitingForPurchase = false -- Cancelling is done by dialog after this
 end
