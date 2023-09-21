@@ -160,14 +160,14 @@ end
 function AuctionatorSaleItemMixin:GetDeposit()
   local deposit = 0
 
-  if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+  if C_AuctionHouse.GetItemCommodityStatus(self.itemInfo.location) then
     deposit = C_AuctionHouse.CalculateCommodityDeposit(
-      self.itemInfo.itemKey.itemID,
+      self.itemInfo.itemID,
       self:GetDuration(),
       self.Quantity:GetNumber()
     ) or deposit
 
-  elseif self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
+  else
     deposit = C_AuctionHouse.CalculateItemDeposit(
       self.itemInfo.location,
       self:GetDuration(),
@@ -181,12 +181,16 @@ end
 function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
   if event == Auctionator.Selling.Events.BagItemClicked then
     self:UnlockItem()
-    self.itemInfo = ...
-    self.nextItem = self.itemInfo and self.itemInfo.nextItem
-    self.prevItem = self.itemInfo and self.itemInfo.prevItem
-    self.lastKey = self.itemInfo and self.itemInfo.key
-    self:LockItem()
-    self:Update()
+    local itemInfo = ...
+    Auctionator.AH.GetItemKeyInfo(C_AuctionHouse.MakeItemKey(itemInfo.itemID), function(itemKeyInfo)
+      self.itemInfo = itemInfo
+      self.itemInfo.isCommodity = itemKeyInfo.isCommodity
+      self.nextItem = self.itemInfo and self.itemInfo.nextItem
+      self.prevItem = self.itemInfo and self.itemInfo.prevItem
+      self.lastKey = self.itemInfo and self.itemInfo.key
+      self:LockItem()
+      self:Update()
+    end)
 
   elseif event == Auctionator.Selling.Events.ClearBagItem then
     self.nextItem = nil
@@ -243,7 +247,10 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
       return
     end
 
-    self:ProcessItemResults(...)
+    local item = Item:CreateFromItemID(itemKey.itemID)
+    item:ContinueOnItemLoad(function()
+      self:ProcessItemResults(itemKey)
+    end)
     Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
   end
 end
@@ -286,21 +293,15 @@ end
 -- The exact item name is only loaded when needed as it slows down loading the
 -- bag items too much to do in BagDataProvider.
 function AuctionatorSaleItemMixin:SetItemName()
-  if self.itemInfo.keyName ~= nil then
-    self.TitleArea.Text:SetText(self.itemInfo.keyName)
-
-  else
-    Auctionator.AH.GetItemKeyInfo(self.itemInfo.itemKey, function(itemInfo)
-      local newInfo = CopyTable(itemInfo)
-      newInfo.quality = self.itemInfo.quality
-      self.itemInfo.keyName = AuctionHouseUtil.GetItemDisplayTextFromItemKey(
-        self.itemInfo.itemKey, newInfo, false
-      )
-
-      self.TitleArea.Text:SetText(self.itemInfo.keyName)
-      self:UpdateVisuals()
-    end)
+  local reagentQuality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(self.itemInfo.itemID)
+  local itemName = self.itemInfo.itemName
+  if reagentQuality then
+    itemName = itemName .. " " .. C_Texture.GetCraftingReagentQualityChatIcon(reagentQuality)
+  elseif self.itemInfo.itemLevel then
+    itemName = AUCTIONATOR_L_ITEM_NAME_X_ITEM_LEVEL_X:format(itemName, self.itemInfo.itemLevel)
   end
+  itemName = ITEM_QUALITY_COLORS[self.itemInfo.quality].color:WrapTextInColorCode(itemName)
+  self.TitleArea.Text:SetText(itemName)
 end
 
 function AuctionatorSaleItemMixin:UpdateForNewItem()
@@ -310,17 +311,17 @@ function AuctionatorSaleItemMixin:UpdateForNewItem()
 
   self:SetQuantity()
 
-  local price = Auctionator.Database:GetFirstPrice(
-    Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = self.itemInfo.itemKey })
-  )
+  Auctionator.Utilities.DBKeyFromLink(self.itemInfo.itemLink, function(dbKeys)
+    local price = Auctionator.Database:GetFirstPrice(dbKeys)
 
-  if price ~= nil then
-    self:UpdateSalesPrice(price)
-  elseif IsEquipment(self.itemInfo) then
-    self:SetEquipmentMultiplier(self.itemInfo.itemLink)
-  else
-    self:UpdateSalesPrice(0)
-  end
+    if price ~= nil then
+      self:UpdateSalesPrice(price)
+    elseif IsEquipment(self.itemInfo) then
+      self:SetEquipmentMultiplier(self.itemInfo.itemLink)
+    else
+      self:UpdateSalesPrice(0)
+    end
+  end)
 
   self:DoSearch(self.itemInfo)
 end
@@ -359,19 +360,25 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
 
   local sortingOrder
 
-  if itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+  if itemInfo.isCommodity then
     sortingOrder = Auctionator.Constants.CommodityResultsSorts
   else
     sortingOrder = Auctionator.Constants.ItemResultsSorts
   end
 
-  if IsEquipment(itemInfo) and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_MATCHING) ~= Auctionator.Config.ItemMatching.ITEM_NAME_AND_LEVEL then
-    -- Bug with PTR C_AuctionHouse.MakeItemKey(...), it always sets the
-    -- itemLevel to a non-zero value, so we have to create the key directly
-    self.expectedItemKey = {itemID = itemInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
+  if IsEquipment(itemInfo) then
+    print("equipment")
+    self.expectedItemKey = {itemID = itemInfo.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
     Auctionator.AH.SendSellSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   else
-    self.expectedItemKey = itemInfo.itemKey
+    print("oterh")
+    local battlePetID = itemInfo.itemLink:match("battlepet:(%d+)")
+
+    if battlePetID then
+      self.expectedItemKey = C_AuctionHouse.MakeItemKey(itemInfo.itemID, nil, nil, tonumber(battlePetID))
+    else
+      self.expectedItemKey = C_AuctionHouse.MakeItemKey(itemInfo.itemID)
+    end
     Auctionator.AH.SendSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   end
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SellSearchStart, self.expectedItemKey, itemInfo.itemKey, itemInfo.itemLink)
@@ -497,7 +504,7 @@ function AuctionatorSaleItemMixin:GetItemResult(itemKey)
   local itemInfo = self.itemInfo or self.lastItemInfo
   for i = 1, C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) do
     local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, i)
-    if Auctionator.Selling.DoesItemMatch(itemInfo.itemKey, itemInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
+    if Auctionator.Selling.DoesItemMatch(nil, itemInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
       return resultInfo
     end
   end
@@ -660,7 +667,7 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
 
   self.MultisellProgress:SetDetails(self.itemInfo.iconTexture, quantity)
 
-  if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
+  if not self.itemInfo.isCommodity then
     local params = nil
     if startingBid ~= 0 then
       bidAmountReported = startingBid

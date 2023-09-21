@@ -522,6 +522,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["BUY_NOW"] = "Buy Now"
   L["CONFIRM_PURCHASE_OF_X_FOR_X"] = "Confirm purchase of %s for %s?"
   L["TOTAL_OF_X_FOR_UNIT_PRICE_OF_X"] = "Total of %s for unit price of %s"
+  L["ITEM_NAME_X_ITEM_LEVEL_X"] = "%s (%s)"
 
   L["DEFAULT_TAB"] = "Default Tab"
   L["DEFAULT_TAB_TEXT"] = "shows as the default tab"

@@ -14,12 +14,12 @@ function AuctionatorSellingPostingHistoryProviderMixin:GetColumnHideStates()
   return Auctionator.Config.Get(Auctionator.Config.Options.COLUMNS_POSTING_HISTORY)
 end
 
-function AuctionatorSellingPostingHistoryProviderMixin:ReceiveEvent(eventName, eventData)
+function AuctionatorSellingPostingHistoryProviderMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.Selling.Events.BagItemClicked then
-    local dbKey = Auctionator.Utilities.DBKeyFromBrowseResult({ itemKey = eventData.itemKey })[1]
-    self.lastDBKey = dbKey
-
-    self:SetItem(dbKey)
+    Auctionator.Utilities.DBKeyFromLink(eventData.itemLink, function(dbKeys)
+      local dbKey = dbKeys[1]
+      self:SetItem(dbKey)
+    end)
 
   elseif eventName == Auctionator.Selling.Events.ClearBagItem then
     self.lastDBKey = nil

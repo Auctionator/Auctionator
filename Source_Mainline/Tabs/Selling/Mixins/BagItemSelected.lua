@@ -19,9 +19,7 @@ function AuctionatorBagItemSelectedMixin:OnClick(button)
 end
 
 function AuctionatorBagItemSelectedMixin:SearchInShoppingTab()
-  Auctionator.AH.GetItemKeyInfo(self.itemInfo.itemKey, function(itemInfo)
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_SELLING_TAB, { itemInfo.itemName })
-  end)
+  Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_SELLING_TAB, { Auctionator.Utilities.GetNameFromLink(self.itemInfo.itemName)})
 end
 
 function AuctionatorBagItemSelectedMixin:OnReceiveDrag()
