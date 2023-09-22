@@ -9,13 +9,25 @@ local function SelectOwnItem(itemLocation)
 
   AuctionatorTabs_Selling:Click()
 
-  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
-  itemInfo.count = C_AuctionHouse.GetAvailablePostCount(itemLocation)
-
-  Auctionator.EventBus
-    :RegisterSource(SelectOwnItem, "ContainerFrameItemButton_OnModifiedClick hook")
-    :Fire(SelectOwnItem, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-    :UnregisterSource(SelectOwnItem)
+  local itemLink = C_Item.GetItemLink(itemLocation)
+  SB2BagCacheFrame:CacheLinkInfo(itemLink, function()
+    local itemInfo = SB2BagCacheFrame:GetByLinkInstant(itemLink)
+    Auctionator.EventBus:RegisterSource(SelectOwnItem, "SellingItemClickedHook")
+    ---XXX Remove this
+    Auctionator.EventBus:Fire(SelectOwnItem, Auctionator.Selling.Events.BagItemClicked, {
+      itemLink = itemInfo.itemLink,
+      itemID = itemInfo.itemID,
+      itemName = itemInfo.itemName,
+      itemLevel = itemInfo.itemLevel,
+      iconTexture = itemInfo.iconTexture,
+      quality = itemInfo.quality,
+      count = C_AuctionHouse.GetAvailablePostCount(itemLocation),
+      location = itemLocation,
+      classId = itemInfo.classID,
+      auctionable = true,
+      bagListing = true,
+    })
+  end)
 end
 
 local function AHShown()

@@ -367,11 +367,9 @@ function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   end
 
   if IsEquipment(itemInfo) then
-    print("equipment")
     self.expectedItemKey = {itemID = itemInfo.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
     Auctionator.AH.SendSellSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
   else
-    print("oterh")
     local battlePetID = itemInfo.itemLink:match("battlepet:(%d+)")
 
     if battlePetID then

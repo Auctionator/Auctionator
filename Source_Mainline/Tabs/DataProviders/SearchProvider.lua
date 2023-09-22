@@ -232,7 +232,6 @@ function AuctionatorSearchDataProviderMixin:ProcessItemResults(itemKey)
 
   local item = Item:CreateFromItemID(itemKey.itemID)
   item:ContinueOnItemLoad(function()
-    print("processing")
     for index = 1, C_AuctionHouse.GetNumItemSearchResults(itemKey) do
       local resultInfo = C_AuctionHouse.GetItemSearchResultInfo(itemKey, index)
       if Auctionator.Selling.DoesItemMatch(self.originalItemKey, self.originalItemLink, resultInfo.itemKey, resultInfo.itemLink) then
