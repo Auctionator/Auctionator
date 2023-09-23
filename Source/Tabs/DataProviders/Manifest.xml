@@ -1,6 +1,5 @@
 <!-- DataProviders directory manifest -->
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="Bag.lua"/>
   <Script file="HistoricalPrice.lua"/>
   <Script file="PostingHistory.lua"/>
 </Ui>

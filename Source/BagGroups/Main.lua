@@ -2,11 +2,12 @@ SB2.CallbackRegistry = CreateFromMixins(CallbackRegistryMixin)
 SB2.CallbackRegistry:OnLoad()
 SB2.CallbackRegistry:GenerateCallbackEvents(SB2.Constants.Events)
 
-EventUtil.ContinueOnAddOnLoaded("SellingBag2", function()
-  if SB2_BAG_SETUP == nil then
-    SB2_BAG_SETUP = {
+EventUtil.ContinueOnAddOnLoaded("Auctionator", function()
+  if AUCTIONATOR_SELLING_GROUPS == nil then
+    AUCTIONATOR_SELLING_GROUPS = {
       Version = 1,
       CustomSections = {},
+      HiddenItems = {},
     }
 
     SB2.AddSection("FAVOURITES")

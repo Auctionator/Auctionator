@@ -36,6 +36,10 @@ function Auctionator.SlashCmd.ToggleDebug()
   end
 end
 
+function Auctionator.SlashCmd.Groups()
+  SB2BagCustomiseFrame:SetShown(not SB2BagCustomiseFrame:IsShown())
+end
+
 function Auctionator.SlashCmd.ResetDatabase()
   if Auctionator.Debug.IsOn() then
     -- See Source/Variables/Main.lua for variable usage

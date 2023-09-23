@@ -9,11 +9,9 @@ function SB2BagUseMixin:OnLoad()
     Auctionator.Selling.Events.BagItemClicked,
   })
   self.View.rowWidth = math.ceil(5 * 42 / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
-  print(self.View.rowWidth)
 end
 
 function SB2BagUseMixin:OnShow()
-  print("show")
   SB2.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
   SB2.CallbackRegistry:TriggerEvent("BagCacheOn")
   self.View:Update(SB2BagCacheFrame)
@@ -33,10 +31,8 @@ function SB2BagUseMixin:ReceiveEvent(eventName, info, ...)
       button:Click()
     end
   elseif eventName == Auctionator.Selling.Events.BagItemClicked then
-    print(info.key)
     self.View:SetSelected(info.key)
   elseif eventName == Auctionator.Selling.Events.BagItemClear then
-    print("clear")
     self.View:SetSelected(nil)
   end
 end

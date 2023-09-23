@@ -33,7 +33,7 @@ function SB2BagViewMixin:OnHide()
 end
 
 function SB2BagViewMixin:UpdateCustomSections()
-  self.sectionDetails = CopyTable(SB2_BAG_SETUP.CustomSections)
+  self.sectionDetails = CopyTable(AUCTIONATOR_SELLING_GROUPS.CustomSections)
   for _, s in ipairs(SB2.Constants.DefaultSections) do
     table.insert(self.sectionDetails, s)
   end
@@ -129,7 +129,7 @@ function SB2BagViewMixin:UpdateFromExisting()
     section:SetPoint("LEFT", sectionInsetX, 0)
     section:SetPoint("RIGHT")
     section:Reset()
-    section:SetName(s.name, index <= #SB2_BAG_SETUP.CustomSections)
+    section:SetName(s.name, index <= #AUCTIONATOR_SELLING_GROUPS.CustomSections)
     if self.collapsing[index] then
       section:ToggleOpen()
     end

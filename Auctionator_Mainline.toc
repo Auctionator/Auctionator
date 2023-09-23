@@ -8,7 +8,7 @@
 ## Notes: A lightweight addon that makes it easy and fast to buy, sell and manage auctions
 ## Notes-esES: Un addon liviano que hace que comprar, vender y administrar subastas sea fácil y rápido
 ## Notes-esMX: Un addon liviano que hace que comprar, vender y administrar subastas sea fácil y rápido
-## SavedVariables: AUCTIONATOR_CONFIG, AUCTIONATOR_SAVEDVARS, AUCTIONATOR_SHOPPING_LISTS, AUCTIONATOR_PRICE_DATABASE, AUCTIONATOR_POSTING_HISTORY, AUCTIONATOR_VENDOR_PRICE_CACHE, AUCTIONATOR_RECENT_SEARCHES
+## SavedVariables: AUCTIONATOR_CONFIG, AUCTIONATOR_SAVEDVARS, AUCTIONATOR_SHOPPING_LISTS, AUCTIONATOR_PRICE_DATABASE, AUCTIONATOR_POSTING_HISTORY, AUCTIONATOR_VENDOR_PRICE_CACHE, AUCTIONATOR_RECENT_SEARCHES, AUCTIONATOR_SELLING_GROUPS
 ## SavedVariablesPerCharacter: AUCTIONATOR_CHARACTER_CONFIG
 ## OptionalDeps: LibAHTab
 ## IconTexture: Interface\AddOns\Auctionator\Images\Logo

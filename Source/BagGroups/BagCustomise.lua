@@ -95,7 +95,6 @@ end
 
 function SB2BagCustomiseMixin:ToggleCustomiseMode()
   self:Hide()
-  SB2BagUseFrame:Show()
 end
 
 function SB2BagCustomiseMixin:NewSection()
