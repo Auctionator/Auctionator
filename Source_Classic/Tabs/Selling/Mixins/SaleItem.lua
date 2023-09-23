@@ -531,7 +531,9 @@ end
 
 function AuctionatorSaleItemMixin:DisplayMaxNumStacks()
   local numStacks = math.floor(self.itemInfo.count / self:GetStackSize())
-  if numStacks == 0 or self:GetStackSize() == 0 then
+  if self:GetStackSize() == 0 then
+    numStacks = 0
+  elseif numStacks == 0 then
     numStacks = 1
   end
 
