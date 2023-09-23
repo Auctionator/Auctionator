@@ -1,0 +1,139 @@
+<Ui>
+  <Frame name="SB2BagCustomiseDividerTemplate" virtual="true">
+    <Size y="15"/>
+    <Scripts>
+      <OnLoad>
+        if not Auctionator.Constants.IsClassic then
+          self.Divider:SetAtlas("activities-divider", true)
+          self.Divider:SetHeight(8)
+        else
+          self.Divider:SetTexture("Interface\\Common\\UI-TooltipDivider")
+          self.Divider:ClearAllPoints()
+          self.Divider:SetHeight(20)
+          self.Divider:SetPoint("LEFT", 0, -8)
+          self.Divider:SetPoint("RIGHT")
+        end
+      </OnLoad>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="Divider">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT"/>
+            <Anchor point="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <Frame name="SB2BagCustomiseSectionTemplate" mixin="SB2BagCustomiseSectionMixin" inherits="SB2BagViewSectionTemplate" virtual="true" enableMouse="true">
+    <KeyValues>
+      <KeyValue key="rowWidth" value="12" type="number" />
+      <KeyValue key="collapsable" value="false" type="boolean" />
+      <KeyValue key="sectionTitleHeight" value="42" type="number" />
+      <KeyValue key="paddingTop" value="2" type="number" />
+      <KeyValue key="paddingBottom" value="13" type="number" />
+      <KeyValue key="itemTemplate" value="SB2BagCustomiseItemTemplate" type="string" />
+    </KeyValues>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnMouseUp method="OnMouseUp"/>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="FocussedBackground" setAllPoints="true" hidden="true">
+          <Color r="0.9886" g="0.8118" b="0.2980" a="0.5"/>
+        </Texture>
+        <Texture parentKey="FocussedHoverBackground" setAllPoints="true" hidden="true">
+          <Color r="0.9886" g="0.8118" b="0.2980" a="0.1"/>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button text="SELLING_BAG_2_L_FOCUS" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="FocusButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" y="-18" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_RENAME" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="RenameButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.FocusButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_DELETE" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="DeleteButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.RenameButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_HIDE" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="HideButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.DeleteButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="SELLING_BAG_2_L_SHIFT_UP" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftUpButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.HideButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="SELLING_BAG_2_L_SHIFT_DOWN" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftDownButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.ShiftUpButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Frame inherits="SB2BagCustomiseDividerTemplate">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT"/>
+          <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" />
+        </Anchors>
+      </Frame>
+    </Frames>
+  </Frame>
+
+  <Frame name="SB2BagCustomiseTemplate" virtual="true" mixin="SB2BagCustomiseMixin" topLevel="true" inherits="ButtonFrameTemplate" hidden="true" enableMouse="true">
+    <Size x="600" y="600"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+    </Scripts>
+    <Anchors>
+        <Anchor point="CENTER"/>
+    </Anchors>
+    <Frames>
+      <Frame inherits="SB2BagViewTemplate">
+        <KeyValues>
+          <KeyValue key="itemTemplate" value="SB2BagViewItemTemplate" type="string" />
+          <KeyValue key="sectionTemplate" value="SB2BagCustomiseSectionTemplate" type="string" />
+          <KeyValue key="forceShow" value="true" type="boolean" />
+        </KeyValues>
+        <Anchors>
+            <Anchor point="TOPLEFT" y="-52"/>
+            <Anchor point="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
+      <Button text="BACK" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600">
+        <Anchors>
+            <Anchor point="TOPRIGHT" y="-22"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ToggleCustomiseMode()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button text="SELLING_BAG_2_L_NEW_GROUP" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="597" parentKey="NewSectionButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" x="15" y="-28"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():NewSection()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

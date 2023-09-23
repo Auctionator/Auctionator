@@ -1,0 +1,23 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Locales.lua"/>
+
+  <Include file="Constants.lua"/>
+  <Include file="Main.lua"/>
+  <Include file="Utilities.lua"/>
+  <Include file="Sections.lua"/>
+
+  <Include file="BagCache.lua"/>
+  <Include file="BagViewItem.lua"/>
+  <Include file="BagViewSection.lua"/>
+  <Include file="BagView.lua"/>
+  <Include file="BagUse.lua"/>
+  <Include file="BagCustomise.lua"/>
+  <Include file="BagCustomiseDialogs.lua"/>
+
+  <Include file="BagCache.xml"/>
+  <Include file="BagViewItem.xml"/>
+  <Include file="BagViewSection.xml"/>
+  <Include file="BagView.xml"/>
+  <Include file="BagUse.xml"/>
+  <Include file="BagCustomise.xml"/>
+</Ui>
