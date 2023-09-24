@@ -57,5 +57,5 @@ function AuctionatorBagUseMixin:BagItemClicked(button)
 end
 
 function AuctionatorBagUseMixin:ToggleCustomiseMode()
-  AuctionatorBagCustomiseFrame:Show()
+  Auctionator.BagGroups.OpenCustomiseView()
 end

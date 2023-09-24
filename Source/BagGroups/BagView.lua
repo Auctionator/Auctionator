@@ -15,14 +15,14 @@ function AuctionatorBagViewMixin:OnLoad()
   self.rawItems = {}
 
   self.collapsing = {}
-
-  self:UpdateCustomSections()
 end
 
 function AuctionatorBagViewMixin:OnShow()
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheUpdated", self.Update, self)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagViewSectionToggled", self.UpdateSectionHeights, self)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.EditMade", self.UpdateCustomSections, self)
+
+  self:UpdateCustomSections()
   self:UpdateFromExisting()
 end
 

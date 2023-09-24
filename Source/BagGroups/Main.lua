@@ -2,7 +2,7 @@ Auctionator.BagGroups.CallbackRegistry = CreateFromMixins(CallbackRegistryMixin)
 Auctionator.BagGroups.CallbackRegistry:OnLoad()
 Auctionator.BagGroups.CallbackRegistry:GenerateCallbackEvents(Auctionator.BagGroups.Constants.Events)
 
-EventUtil.ContinueOnAddOnLoaded("Auctionator", function()
+function Auctionator.BagGroups.Initialize()
   if AUCTIONATOR_SELLING_GROUPS == nil then
     AUCTIONATOR_SELLING_GROUPS = {
       Version = 1,
@@ -17,11 +17,21 @@ EventUtil.ContinueOnAddOnLoaded("Auctionator", function()
       table.insert(list, data.itemLink)
     end
   end
+end
+local function AutoCreateCache()
+  if not AuctionatorBagCacheFrame then
+    CreateFrame("Frame", "AuctionatorBagCacheFrame", UIParent, "AuctionatorBagCacheTemplate")
+  end
+end
 
-  CreateFrame("Frame", "AuctionatorBagCacheFrame", UIParent, "AuctionatorBagCacheTemplate")
-  --CreateFrame("Frame", "AuctionatorBagUseFrame", UIParent, "AuctionatorBagUseTemplate")
-  CreateFrame("Frame", "AuctionatorBagCustomiseFrame", UIParent, "AuctionatorBagCustomiseTemplate")
-  --AuctionatorBagUseFrame:Show()
+function Auctionator.BagGroups.OnAHOpen()
+  AutoCreateCache()
+end
 
-  --AuctionatorBagUseFrame.View:Update(AuctionatorBagCacheFrame)
-end)
+function Auctionator.BagGroups.OpenCustomiseView()
+  AutoCreateCache()
+  if not AuctionatorBagCustomiseFrame then
+    CreateFrame("Frame", "AuctionatorBagCustomiseFrame", UIParent, "AuctionatorBagCustomiseTemplate")
+  end
+  AuctionatorBagCustomiseFrame:SetShown(not AuctionatorBagCustomiseFrame:IsShown())
+end

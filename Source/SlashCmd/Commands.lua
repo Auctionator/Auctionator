@@ -37,7 +37,7 @@ function Auctionator.SlashCmd.ToggleDebug()
 end
 
 function Auctionator.SlashCmd.Groups()
-  AuctionatorBagCustomiseFrame:SetShown(not AuctionatorBagCustomiseFrame:IsShown())
+  Auctionator.BagGroups.OpenCustomiseView()
 end
 
 function Auctionator.SlashCmd.ResetDatabase()
