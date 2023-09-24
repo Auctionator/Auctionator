@@ -9,6 +9,7 @@ function AuctionatorBagViewSectionMixin:Reset()
     self.rowWidth = math.ceil(6 * Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ICON_SIZE] / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
   end
   self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
+  self.SectionTitle:SetPoint("TOPLEFT", self.insetLeft, 0)
 end
 
 function AuctionatorBagViewSectionMixin:AddButton(button)

@@ -14,7 +14,6 @@
         <Size y="20" />
 
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPLEFT" x="2"/>
           <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
         </Anchors>
 

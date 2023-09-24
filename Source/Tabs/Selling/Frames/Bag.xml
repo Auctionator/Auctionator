@@ -19,7 +19,7 @@
         </Anchors>
       </Frame>
 
-      <Button text="AUCTIONATOR_L_CUSTOMISE" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600" hidden="true">
+      <Button text="AUCTIONATOR_L_CUSTOMISE" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600">
         <Anchors>
             <Anchor point="TOPRIGHT" x="-28"/>
         </Anchors>

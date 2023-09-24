@@ -7,17 +7,18 @@ function AuctionatorBagCacheMixin:OnLoad()
   self.loaders = {}
   self.contents = {}
 
-  self.cacheOn = false
+  self.cacheOn = 0
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheOn", function()
-    local oldState = self.cacheOn
-    self.cacheOn = true
-    if not oldState then
+    self.cacheOn = self.cacheOn + 1
+    if self.cacheOn > 0 then
       self:SetScript("OnUpdate", self.DoBagRefresh)
     end
   end)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheOff", function()
-    self.cacheOn = false
-    self:SetScript("OnUpdate", nil)
+    self.cacheOn = self.cacheOn - 1
+    if self.cacheOn <= 0 then
+      self:SetScript("OnUpdate", self.DoBagRefresh)
+    end
   end)
 end
 

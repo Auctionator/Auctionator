@@ -112,12 +112,6 @@ function AuctionatorBagViewMixin:Update(cache)
   self:UpdateFromExisting()
 end
 
--- Prevent edge of section overlapping the edge of the bag view
-local sectionInsetX = 0
-if not Auctionator.Constants.IsClassic then
-  sectionInsetX = 0
-end
-
 function AuctionatorBagViewMixin:UpdateFromExisting()
   self.buttonPool:ReleaseAll()
   self.sectionPool:ReleaseAll()
@@ -126,7 +120,7 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
   local sections = {}
   for index, s in ipairs(self.sectionDetails) do
     local section = self.sectionPool:Acquire()
-    section:SetPoint("LEFT", sectionInsetX, 0)
+    section:SetPoint("LEFT", self.sectionInsetX, 0)
     section:SetPoint("RIGHT")
     section:Reset()
     section:SetName(s.name, index <= #AUCTIONATOR_SELLING_GROUPS.CustomSections)
