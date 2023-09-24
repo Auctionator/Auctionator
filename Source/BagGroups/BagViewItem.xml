@@ -1,5 +1,5 @@
 <Ui>
-  <Button name="SB2BagViewItemTemplate" registerForClicks="LeftButtonUp, RightButtonUp" mixin="SB2BagViewItemMixin" virtual="true">
+  <Button name="AuctionatorBagViewItemTemplate" registerForClicks="LeftButtonUp, RightButtonUp" mixin="AuctionatorBagViewItemMixin" virtual="true">
     <KeyValues>
       <KeyValue key="clickEventName" value="BagItemClicked" type="string" />
       <KeyValue key="insetLeft" value="0" type="number" />

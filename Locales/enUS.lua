@@ -699,5 +699,16 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_HEADER"] = "Confirm quantity every time"
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_TEXT"] = "By default the quantity is confirmed just once, this makes it so you have to type it a second time to confirm the purchase."
 
+  L["CUSTOMISE"] = "Customise"
+  L["FOCUS"] = "Focus"
+  L["NEW_GROUP"] = "New Group"
+  L["NEW_GROUP_DIALOG"] = "Enter the name to be used for the new group"
+  L["GROUP_EXISTS_ALREADY"] = "That group name is already in use"
+  L["DELETE_GROUP_DIALOG"] = "Are you sure you want to delete group \"%s\"?"
+  L["RENAME_GROUP_DIALOG"] = "Choose a new name for \"%s\""
+  L["RENAME_GROUP_DIALOG"] = "Choose a new name for \"%s\""
+  L["SHIFT_UP"] = "Shift Up"
+  L["SHIFT_DOWN"] = "Shift Down"
+
   return L
 end

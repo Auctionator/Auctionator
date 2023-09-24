@@ -1,4 +1,4 @@
-StaticPopupDialogs[SB2.Constants.DialogNames.CreateSection] = {
+StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.CreateSection] = {
   text = SELLING_BAG_2_L_NEW_GROUP_DIALOG,
   button1 = ACCEPT,
   button2 = CANCEL,
@@ -10,9 +10,9 @@ StaticPopupDialogs[SB2.Constants.DialogNames.CreateSection] = {
   end,
   OnAccept = function(self)
     local newName = self.editBox:GetText()
-    if not SB2.DoesSectionExist(newName) then
-      SB2.AddSection(newName)
-      SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+    if not Auctionator.BagGroups.DoesSectionExist(newName) then
+      Auctionator.BagGroups.AddSection(newName)
+      Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
     else
       Auctionator.Utilities.Message(SELLING_BAG_2_L_GROUP_EXISTS_ALREADY)
     end
@@ -20,9 +20,9 @@ StaticPopupDialogs[SB2.Constants.DialogNames.CreateSection] = {
   end,
   EditBoxOnEnterPressed = function(self)
     local newName = self:GetText()
-    if not SB2.DoesSectionExist(newName) then
-      SB2.AddSection(newName)
-      SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+    if not Auctionator.BagGroups.DoesSectionExist(newName) then
+      Auctionator.BagGroups.AddSection(newName)
+      Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
     else
       Auctionator.Utilities.Message(SELLING_BAG_2_L_GROUP_EXISTS_ALREADY)
     end
@@ -34,7 +34,7 @@ StaticPopupDialogs[SB2.Constants.DialogNames.CreateSection] = {
   hideOnEscape = 1
 }
 
-StaticPopupDialogs[SB2.Constants.DialogNames.RenameSection] = {
+StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.RenameSection] = {
   text = "",
   button1 = ACCEPT,
   button2 = CANCEL,
@@ -46,9 +46,9 @@ StaticPopupDialogs[SB2.Constants.DialogNames.RenameSection] = {
   end,
   OnAccept = function(self)
     local newName = self.editBox:GetText()
-    if not SB2.DoesSectionExist(newName) then
-      SB2.RenameSection(self.data, newName)
-      SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+    if not Auctionator.BagGroups.DoesSectionExist(newName) then
+      Auctionator.BagGroups.RenameSection(self.data, newName)
+      Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
     else
       Auctionator.Utilities.Message(SELLING_BAG_2_L_GROUP_EXISTS_ALREADY)
     end
@@ -56,9 +56,9 @@ StaticPopupDialogs[SB2.Constants.DialogNames.RenameSection] = {
   end,
   EditBoxOnEnterPressed = function(self)
     local newName = self:GetText()
-    if not SB2.DoesSectionExist(newName) then
-      SB2.RenameSection(self:GetParent().data, newName)
-      SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+    if not Auctionator.BagGroups.DoesSectionExist(newName) then
+      Auctionator.BagGroups.RenameSection(self:GetParent().data, newName)
+      Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
     else
       Auctionator.Utilities.Message(SELLING_BAG_2_L_GROUP_EXISTS_ALREADY)
     end
@@ -70,13 +70,13 @@ StaticPopupDialogs[SB2.Constants.DialogNames.RenameSection] = {
   hideOnEscape = 1
 }
 
-StaticPopupDialogs[SB2.Constants.DialogNames.ConfirmDelete] = {
+StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.ConfirmDelete] = {
   text = "",
   button1 = ACCEPT,
   button2 = CANCEL,
   OnAccept = function(self)
-    SB2.DeleteSection(self.data)
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+    Auctionator.BagGroups.DeleteSection(self.data)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
   end,
   timeout = 0,
   exclusive = 1,

@@ -1,5 +1,5 @@
 <Ui>
-  <Frame name="SB2BagUseTemplate" virtual="true" topLevel="true" mixin="SB2BagUseMixin" inherits="ButtonFrameTemplate" hidden="true">
+  <Frame name="AuctionatorBagUseTemplate" virtual="true" topLevel="true" mixin="AuctionatorBagUseMixin" inherits="ButtonFrameTemplate" hidden="true">
     <Size x="290" y="500"/>
     <Anchors>
       <Anchor point="RIGHT" x="-200"/>
@@ -11,14 +11,14 @@
       <OnHide method="OnHide"/>
     </Scripts>
     <Frames>
-      <Frame inherits="SB2BagViewTemplate">
+      <Frame inherits="AuctionatorBagViewTemplate">
         <Anchors>
             <Anchor point="TOPLEFT" y="-22"/>
             <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
 
-      <Button text="SELLING_BAG_2_L_CUSTOMISE" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600">
+      <Button text="AUCTIONATOR_L_CUSTOMISE" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600">
         <Anchors>
             <Anchor point="TOPRIGHT" y="-22"/>
         </Anchors>

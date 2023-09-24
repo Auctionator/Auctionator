@@ -1,5 +1,5 @@
-SB2BagCacheMixin = {}
-function SB2BagCacheMixin:OnLoad()
+AuctionatorBagCacheMixin = {}
+function AuctionatorBagCacheMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, {
     "PLAYER_ENTERING_WORLD",
   })
@@ -8,20 +8,20 @@ function SB2BagCacheMixin:OnLoad()
   self.contents = {}
 
   self.cacheOn = false
-  SB2.CallbackRegistry:RegisterCallback("BagCacheOn", function()
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheOn", function()
     local oldState = self.cacheOn
     self.cacheOn = true
     if not oldState then
       self:SetScript("OnUpdate", self.DoBagRefresh)
     end
   end)
-  SB2.CallbackRegistry:RegisterCallback("BagCacheOff", function()
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheOff", function()
     self.cacheOn = false
     self:SetScript("OnUpdate", nil)
   end)
 end
 
-function SB2BagCacheMixin:OnEvent(eventName, ...)
+function AuctionatorBagCacheMixin:OnEvent(eventName, ...)
   if eventName == "PLAYER_ENTERING_WORLD" then
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("BAG_UPDATE")
@@ -96,7 +96,7 @@ local function GetItemKey(entry)
   end
 end
 
-function SB2BagCacheMixin:PostUpdate(bagContents)
+function AuctionatorBagCacheMixin:PostUpdate(bagContents)
   local byKey = {}
   for _, item in ipairs(bagContents) do
     if byKey[item.key] == nil then
@@ -110,11 +110,11 @@ function SB2BagCacheMixin:PostUpdate(bagContents)
     table.insert(existingEntry.entries, item)
   end
   self.contents = byKey
-  SB2.CallbackRegistry:TriggerEvent("BagCacheUpdated", self)
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheUpdated", self)
 end
 
 local linkInstantCache = {}
-function SB2BagCacheMixin:GetByLinkInstant(suppliedItemLink, auctionable)
+function AuctionatorBagCacheMixin:GetByLinkInstant(suppliedItemLink, auctionable)
   local entry = linkInstantCache[suppliedItemLink]
 
   if entry == nil then
@@ -151,7 +151,7 @@ function SB2BagCacheMixin:GetByLinkInstant(suppliedItemLink, auctionable)
   }
 end
 
-function SB2BagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
+function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
   local existingEntry = linkInstantCache[suppliedItemLink]
   if existingEntry then
     callback()
@@ -211,7 +211,7 @@ function SB2BagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
   end
 end
 
-function SB2BagCacheMixin:GetAllContents()
+function AuctionatorBagCacheMixin:GetAllContents()
   local result = {}
   for key, value in pairs(self.contents) do
     local entry = value.entries[1]
@@ -247,7 +247,7 @@ function SB2BagCacheMixin:GetAllContents()
   return result
 end
 
-function SB2BagCacheMixin:DoBagRefresh()
+function AuctionatorBagCacheMixin:DoBagRefresh()
   self:SetScript("OnUpdate", nil)
   if self.waiting then
     for _, l in pairs(self.loaders) do
@@ -263,7 +263,7 @@ function SB2BagCacheMixin:DoBagRefresh()
 
   local loopFinished = false
   local loaderIndex = 0
-  for _, bagID in ipairs(SB2.Constants.BagIDs) do
+  for _, bagID in ipairs(Auctionator.BagGroups.Constants.BagIDs) do
     for slotID = 1, C_Container.GetContainerNumSlots(bagID) do
       local location = ItemLocation:CreateFromBagAndSlot(bagID, slotID)
       local slotInfo = C_Container.GetContainerItemInfo(bagID, slotID)
@@ -288,7 +288,7 @@ function SB2BagCacheMixin:DoBagRefresh()
 
         -- Load item data to determine whether it can be auctioned, its quality,
         -- item level, etc.
-        if not SB2.Constants.IsRetail then
+        if not Auctionator.BagGroups.Constants.IsRetail then
           local classID = select(6, GetItemInfoInstant(slotInfo.itemID))
           local _, spellID = GetItemSpell(slotInfo.itemID)
           -- Classic: Special case to load spell data for item charge info for
@@ -330,7 +330,7 @@ end
 
 local detailsCache = {}
 
-function SB2BagCacheMixin:AddToCache(location, slotInfo)
+function AuctionatorBagCacheMixin:AddToCache(location, slotInfo)
   local entry = {}
 
   entry.itemID = slotInfo.itemID

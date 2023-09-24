@@ -1,7 +1,7 @@
-local SectionType = SB2.Constants.SectionType
+local SectionType = Auctionator.BagGroups.Constants.SectionType
 
-SB2BagViewMixin = {}
-function SB2BagViewMixin:OnLoad()
+AuctionatorBagViewMixin = {}
+function AuctionatorBagViewMixin:OnLoad()
   local view = CreateScrollBoxLinearView()
   view:SetPanExtent(50)
   ScrollUtil.InitScrollBoxWithScrollBar(self.ScrollBox, self.ScrollBar, view);
@@ -19,36 +19,36 @@ function SB2BagViewMixin:OnLoad()
   self:UpdateCustomSections()
 end
 
-function SB2BagViewMixin:OnShow()
-  SB2.CallbackRegistry:RegisterCallback("BagCacheUpdated", self.Update, self)
-  SB2.CallbackRegistry:RegisterCallback("BagViewSectionToggled", self.UpdateSectionHeights, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.EditMade", self.UpdateCustomSections, self)
+function AuctionatorBagViewMixin:OnShow()
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheUpdated", self.Update, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagViewSectionToggled", self.UpdateSectionHeights, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.EditMade", self.UpdateCustomSections, self)
   self:UpdateFromExisting()
 end
 
-function SB2BagViewMixin:OnHide()
-  SB2.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
-  SB2.CallbackRegistry:UnregisterCallback("BagViewSectionToggled", self)
-  SB2.CallbackRegistry:UnregisterCallback("BagCustomise.EditMade", self.UpdateCustomSections, self)
+function AuctionatorBagViewMixin:OnHide()
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagViewSectionToggled", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.EditMade", self.UpdateCustomSections, self)
 end
 
-function SB2BagViewMixin:UpdateCustomSections()
+function AuctionatorBagViewMixin:UpdateCustomSections()
   self.sectionDetails = CopyTable(AUCTIONATOR_SELLING_GROUPS.CustomSections)
-  for _, s in ipairs(SB2.Constants.DefaultSections) do
+  for _, s in ipairs(Auctionator.BagGroups.Constants.DefaultSections) do
     table.insert(self.sectionDetails, s)
   end
 
   self:CacheListLinks()
 end
 
-function SB2BagViewMixin:CacheListLinks()
+function AuctionatorBagViewMixin:CacheListLinks()
   self.listsCached = false
 
   local toCache = {}
   for _, s in ipairs(self.sectionDetails) do
     if s.type == SectionType.List then
       for _, link in ipairs(s.list) do
-        local info = SB2BagCacheFrame:GetByLinkInstant(link, true)
+        local info = AuctionatorBagCacheFrame:GetByLinkInstant(link, true)
         if info == nil then
           table.insert(toCache, link)
         end
@@ -64,7 +64,7 @@ function SB2BagViewMixin:CacheListLinks()
 
   local waiting = #toCache
   for _, itemLink in ipairs(toCache) do
-    SB2BagCacheFrame:CacheLinkInfo(itemLink, function()
+    AuctionatorBagCacheFrame:CacheLinkInfo(itemLink, function()
       waiting = waiting - 1
       if waiting <= 0 then
         self.listsCached = true
@@ -74,12 +74,12 @@ function SB2BagViewMixin:CacheListLinks()
   end
 end
 
-function SB2BagViewMixin:SetSelected(key)
+function AuctionatorBagViewMixin:SetSelected(key)
   self.selected = key
   self:UpdateFromExisting()
 end
 
-function SB2BagViewMixin:UpdateSectionHeights()
+function AuctionatorBagViewMixin:UpdateSectionHeights()
   local offset = 0
   for index, section in ipairs(self.sections) do
     if self.forceShow or (not self.sectionDetails[index].hidden and section:AnyButtons()) then
@@ -100,7 +100,7 @@ function SB2BagViewMixin:UpdateSectionHeights()
   self.ScrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately);
 end
 
-function SB2BagViewMixin:Update(cache)
+function AuctionatorBagViewMixin:Update(cache)
   self.rawItems = cache:GetAllContents()
   table.sort(self.rawItems, function(a, b)
     if a.itemName == b.itemName then
@@ -118,7 +118,7 @@ if not Auctionator.Constants.IsClassic then
   sectionInsetX = 0
 end
 
-function SB2BagViewMixin:UpdateFromExisting()
+function AuctionatorBagViewMixin:UpdateFromExisting()
   self.buttonPool:ReleaseAll()
   self.sectionPool:ReleaseAll()
   local iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
@@ -138,7 +138,7 @@ function SB2BagViewMixin:UpdateFromExisting()
     if self.listsCached and s.type == SectionType.List then
       local infos = {}
       for _, link in ipairs(s.list) do
-        local info = SB2BagCacheFrame:GetByLinkInstant(link, true)
+        local info = AuctionatorBagCacheFrame:GetByLinkInstant(link, true)
         if info ~= nil then
           table.insert(infos, info)
         end

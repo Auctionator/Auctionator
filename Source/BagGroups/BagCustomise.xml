@@ -1,5 +1,5 @@
 <Ui>
-  <Frame name="SB2BagCustomiseDividerTemplate" virtual="true">
+  <Frame name="AuctionatorBagCustomiseDividerTemplate" virtual="true">
     <Size y="15"/>
     <Scripts>
       <OnLoad>
@@ -27,14 +27,14 @@
     </Layers>
   </Frame>
 
-  <Frame name="SB2BagCustomiseSectionTemplate" mixin="SB2BagCustomiseSectionMixin" inherits="SB2BagViewSectionTemplate" virtual="true" enableMouse="true">
+  <Frame name="AuctionatorBagCustomiseSectionTemplate" mixin="AuctionatorBagCustomiseSectionMixin" inherits="AuctionatorBagViewSectionTemplate" virtual="true" enableMouse="true">
     <KeyValues>
       <KeyValue key="rowWidth" value="12" type="number" />
       <KeyValue key="collapsable" value="false" type="boolean" />
       <KeyValue key="sectionTitleHeight" value="42" type="number" />
       <KeyValue key="paddingTop" value="2" type="number" />
       <KeyValue key="paddingBottom" value="13" type="number" />
-      <KeyValue key="itemTemplate" value="SB2BagCustomiseItemTemplate" type="string" />
+      <KeyValue key="itemTemplate" value="AuctionatorBagCustomiseItemTemplate" type="string" />
     </KeyValues>
     <Scripts>
       <OnLoad method="OnLoad"/>
@@ -53,7 +53,7 @@
       </Layer>
     </Layers>
     <Frames>
-      <Button text="SELLING_BAG_2_L_FOCUS" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="FocusButton">
+      <Button text="AUCTIONATOR_L_FOCUS" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="FocusButton">
         <Anchors>
             <Anchor point="TOPLEFT" y="-18" x="5"/>
         </Anchors>
@@ -73,17 +73,17 @@
             <Anchor point="TOPLEFT" relativeKey="$parent.DeleteButton" relativePoint="TOPRIGHT" x="5"/>
         </Anchors>
       </Button>
-      <Button text="SELLING_BAG_2_L_SHIFT_UP" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftUpButton">
+      <Button text="AUCTIONATOR_L_SHIFT_UP" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftUpButton">
         <Anchors>
             <Anchor point="TOPLEFT" relativeKey="$parent.HideButton" relativePoint="TOPRIGHT" x="5"/>
         </Anchors>
       </Button>
-      <Button text="SELLING_BAG_2_L_SHIFT_DOWN" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftDownButton">
+      <Button text="AUCTIONATOR_L_SHIFT_DOWN" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftDownButton">
         <Anchors>
             <Anchor point="TOPLEFT" relativeKey="$parent.ShiftUpButton" relativePoint="TOPRIGHT" x="5"/>
         </Anchors>
       </Button>
-      <Frame inherits="SB2BagCustomiseDividerTemplate">
+      <Frame inherits="AuctionatorBagCustomiseDividerTemplate">
         <Anchors>
           <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT"/>
           <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" />
@@ -92,7 +92,7 @@
     </Frames>
   </Frame>
 
-  <Frame name="SB2BagCustomiseTemplate" virtual="true" mixin="SB2BagCustomiseMixin" topLevel="true" inherits="ButtonFrameTemplate" hidden="true" enableMouse="true">
+  <Frame name="AuctionatorBagCustomiseTemplate" virtual="true" mixin="AuctionatorBagCustomiseMixin" topLevel="true" inherits="ButtonFrameTemplate" hidden="true" enableMouse="true">
     <Size x="600" y="600"/>
     <Scripts>
       <OnLoad method="OnLoad"/>
@@ -103,10 +103,10 @@
         <Anchor point="CENTER"/>
     </Anchors>
     <Frames>
-      <Frame inherits="SB2BagViewTemplate">
+      <Frame inherits="AuctionatorBagViewTemplate">
         <KeyValues>
-          <KeyValue key="itemTemplate" value="SB2BagViewItemTemplate" type="string" />
-          <KeyValue key="sectionTemplate" value="SB2BagCustomiseSectionTemplate" type="string" />
+          <KeyValue key="itemTemplate" value="AuctionatorBagViewItemTemplate" type="string" />
+          <KeyValue key="sectionTemplate" value="AuctionatorBagCustomiseSectionTemplate" type="string" />
           <KeyValue key="forceShow" value="true" type="boolean" />
         </KeyValues>
         <Anchors>
@@ -124,7 +124,7 @@
           </OnClick>
         </Scripts>
       </Button>
-      <Button text="SELLING_BAG_2_L_NEW_GROUP" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="597" parentKey="NewSectionButton">
+      <Button text="AUCTIONATOR_L_NEW_GROUP" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="597" parentKey="NewSectionButton">
         <Anchors>
             <Anchor point="TOPLEFT" x="15" y="-28"/>
         </Anchors>

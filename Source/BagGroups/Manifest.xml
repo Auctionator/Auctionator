@@ -1,6 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Include file="Locales.lua"/>
-
   <Include file="Constants.lua"/>
   <Include file="Main.lua"/>
   <Include file="Utilities.lua"/>

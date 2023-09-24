@@ -1,6 +1,6 @@
-SB2BagViewSectionMixin = {}
+AuctionatorBagViewSectionMixin = {}
 
-function SB2BagViewSectionMixin:Reset()
+function AuctionatorBagViewSectionMixin:Reset()
   self.col = 0
   self.row = 0
   self.collapsed = false
@@ -11,7 +11,7 @@ function SB2BagViewSectionMixin:Reset()
   self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
 end
 
-function SB2BagViewSectionMixin:AddButton(button)
+function AuctionatorBagViewSectionMixin:AddButton(button)
   table.insert(self.buttons, button)
   button:SetPoint("TOPLEFT", self, self.insetLeft + self.col * self.iconSize, -self.sectionTitleHeight - (self.row * self.iconSize))
   button:SetShown(not self.collapsed)
@@ -23,11 +23,11 @@ function SB2BagViewSectionMixin:AddButton(button)
   end
 end
 
-function SB2BagViewSectionMixin:AnyButtons()
+function AuctionatorBagViewSectionMixin:AnyButtons()
   return self.col ~= 0 or self.row ~= 0
 end
 
-function SB2BagViewSectionMixin:ToggleOpen()
+function AuctionatorBagViewSectionMixin:ToggleOpen()
   if not self.collapsable then
     return
   end
@@ -36,10 +36,10 @@ function SB2BagViewSectionMixin:ToggleOpen()
   for _, button in ipairs(self.buttons) do
     button:SetShown(not self.collapsed)
   end
-  SB2.CallbackRegistry:TriggerEvent("BagViewSectionToggled")
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagViewSectionToggled")
 end
 
-function SB2BagViewSectionMixin:UpdateHeight()
+function AuctionatorBagViewSectionMixin:UpdateHeight()
   local newHeight
   if self.collapsed then
     newHeight = self.sectionTitleHeight
@@ -53,7 +53,7 @@ function SB2BagViewSectionMixin:UpdateHeight()
   self:SetHeight(newHeight + self.paddingBottom)
 end
 
-function SB2BagViewSectionMixin:SetName(name, isCustom)
+function AuctionatorBagViewSectionMixin:SetName(name, isCustom)
   self.SectionTitle:SetText(_G["AUCTIONATOR_L_" .. name] or name)
   self.name = name
   self.isCustom = isCustom

@@ -1,13 +1,13 @@
 <Ui>
-  <Frame name="SB2BagViewTemplate" virtual="true" parentKey="View" mixin="SB2BagViewMixin">
+  <Frame name="AuctionatorBagViewTemplate" virtual="true" parentKey="View" mixin="AuctionatorBagViewMixin">
     <Scripts>
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
       <OnHide method="OnHide"/>
     </Scripts>
     <KeyValues>
-      <KeyValue key="itemTemplate" value="SB2BagViewItemTemplate" type="string" />
-      <KeyValue key="sectionTemplate" value="SB2BagViewSectionTemplate" type="string" />
+      <KeyValue key="itemTemplate" value="AuctionatorBagViewItemTemplate" type="string" />
+      <KeyValue key="sectionTemplate" value="AuctionatorBagViewSectionTemplate" type="string" />
     </KeyValues>
     <Frames>
       <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">

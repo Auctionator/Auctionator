@@ -1,12 +1,10 @@
-SB2 = {}
-
-SB2.Constants = {
+Auctionator.BagGroups.Constants = {
   IsWrath = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC,
   IsEra = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC,
   IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE,
 }
 
-SB2.Constants.Events = {
+Auctionator.BagGroups.Constants.Events = {
   "TriggerBagRefresh",
   "BagCacheUpdated",
   "BagRefresh",
@@ -26,21 +24,21 @@ SB2.Constants.Events = {
   "BagCustomise.EditMade",
 }
 
-SB2.Constants.DialogNames = {
-  CreateSection = "SB2.CreateSectionDialog",
-  ConfirmDelete = "SB2.ConfirmDelete",
-  RenameSection = "SB2.RenameSection",
+Auctionator.BagGroups.Constants.DialogNames = {
+  CreateSection = "Auctionator.BagGroups.CreateSectionDialog",
+  ConfirmDelete = "Auctionator.BagGroups.ConfirmDelete",
+  RenameSection = "Auctionator.BagGroups.RenameSection",
 }
 
-if not SB2.Constants.IsRetail then
+if not Auctionator.BagGroups.Constants.IsRetail then
   -- Note that -2 is the keyring bag, which only exists in classic
-  SB2.Constants.BagIDs = {-2, 0, 1, 2, 3, 4}
-elseif SB2.Constants.IsRetail then
-  SB2.Constants.BagIDs = {0, 1, 2, 3, 4, 5}
+  Auctionator.BagGroups.Constants.BagIDs = {-2, 0, 1, 2, 3, 4}
+elseif Auctionator.BagGroups.Constants.IsRetail then
+  Auctionator.BagGroups.Constants.BagIDs = {0, 1, 2, 3, 4, 5}
 end
 
-if SB2.Constants.IsRetail then
-  SB2.Constants.ValidItemClassIDs = {
+if Auctionator.BagGroups.Constants.IsRetail then
+  Auctionator.BagGroups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,
     Enum.ItemClass.Container,
@@ -55,8 +53,8 @@ if SB2.Constants.IsRetail then
     Enum.ItemClass.Questitem,
     Enum.ItemClass.Miscellaneous,
   }
-elseif SB2.Constants.IsWrath then
-  SB2.Constants.ValidItemClassIDs = {
+elseif Auctionator.BagGroups.Constants.IsWrath then
+  Auctionator.BagGroups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,
     Enum.ItemClass.Container,
@@ -71,8 +69,8 @@ elseif SB2.Constants.IsWrath then
     Enum.ItemClass.Questitem,
     Enum.ItemClass.Key,
   }
-elseif SB2.Constants.IsVanilla then
-  SB2.Constants.ValidItemClassIDs = {
+elseif Auctionator.BagGroups.Constants.IsVanilla then
+  Auctionator.BagGroups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,
     Enum.ItemClass.Container,
@@ -86,20 +84,20 @@ elseif SB2.Constants.IsVanilla then
   }
 end
 
-SB2.Constants.SectionType = {
+Auctionator.BagGroups.Constants.SectionType = {
   List = 1,
   ClassID = 2,
 }
 
-SB2.Constants.DefaultSections = {
+Auctionator.BagGroups.Constants.DefaultSections = {
 }
 
-for _, classID in ipairs(SB2.Constants.ValidItemClassIDs) do
-  table.insert(SB2.Constants.DefaultSections, {
+for _, classID in ipairs(Auctionator.BagGroups.Constants.ValidItemClassIDs) do
+  table.insert(Auctionator.BagGroups.Constants.DefaultSections, {
     name = GetItemClassInfo(classID),
-    type = SB2.Constants.SectionType.ClassID,
+    type = Auctionator.BagGroups.Constants.SectionType.ClassID,
     classID = classID,
   })
 end
 
-SB2.Constants.ItemSize = 42
+Auctionator.BagGroups.Constants.ItemSize = 42

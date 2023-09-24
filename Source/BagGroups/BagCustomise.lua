@@ -1,5 +1,5 @@
-SB2BagCustomiseMixin = {}
-function SB2BagCustomiseMixin:OnLoad()
+AuctionatorBagCustomiseMixin = {}
+function AuctionatorBagCustomiseMixin:OnLoad()
   ButtonFrameTemplate_HidePortrait(self)
   ButtonFrameTemplate_HideButtonBar(self)
   self.Inset:Hide()
@@ -7,37 +7,37 @@ function SB2BagCustomiseMixin:OnLoad()
 
   self:SetTitle("Customise bag sections")
 
-  self.focussedSection = SB2.GetSectionNameByIndex(1)
+  self.focussedSection = Auctionator.BagGroups.GetSectionNameByIndex(1)
 
   hooksecurefunc(self.View, "UpdateFromExisting", function()
     self:UpdateSectionVisuals()
   end)
 end
 
-function SB2BagCustomiseMixin:OnShow()
-  SB2.CallbackRegistry:TriggerEvent("BagCacheOn")
+function AuctionatorBagCustomiseMixin:OnShow()
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
 
-  SB2.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.NewSection", self.NewSection, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.FocusSection", self.FocusSection, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.DeleteSection", self.DeleteSection, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.RenameSection", self.RenameSection, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.HideSection", self.HideSection, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.ShiftUpSection", self.ShiftUpSection, self)
-  SB2.CallbackRegistry:RegisterCallback("BagCustomise.ShiftDownSection", self.ShiftDownSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.NewSection", self.NewSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.FocusSection", self.FocusSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.DeleteSection", self.DeleteSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.RenameSection", self.RenameSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.HideSection", self.HideSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.ShiftUpSection", self.ShiftUpSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.ShiftDownSection", self.ShiftDownSection, self)
 end
 
-function SB2BagCustomiseMixin:OnHide()
-  SB2.CallbackRegistry:TriggerEvent("BagCacheOff")
+function AuctionatorBagCustomiseMixin:OnHide()
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
 
-  SB2.CallbackRegistry:UnregisterCallback("BagItemClicked", self)
-  SB2.CallbackRegistry:UnregisterCallback("BagCustomise.NewSection", self)
-  SB2.CallbackRegistry:UnregisterCallback("BagCustomise.FocusSection", self)
-  SB2.CallbackRegistry:UnregisterCallback("BagCustomise.DeleteSection", self)
-  SB2.CallbackRegistry:UnregisterCallback("BagCustomise.RenameSection", self)
-  SB2.CallbackRegistry:UnregisterCallback("BagCustomise.HideSection", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagItemClicked", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.NewSection", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.FocusSection", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.DeleteSection", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.RenameSection", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.HideSection", self)
 end
-function SB2BagCustomiseMixin:UpdateSectionVisuals()
+function AuctionatorBagCustomiseMixin:UpdateSectionVisuals()
   for section in self.View.sectionPool:EnumerateActive() do
     if section.name == self.focussedSection then
       -- Show background to indicate focus
@@ -66,15 +66,15 @@ function SB2BagCustomiseMixin:UpdateSectionVisuals()
   end
 end
 
-function SB2BagCustomiseMixin:BagItemClicked(buttonFrame, mouseButton)
+function AuctionatorBagCustomiseMixin:BagItemClicked(buttonFrame, mouseButton)
   local info = buttonFrame.itemInfo
 
   if mouseButton == "RightButton" then
     -- Delete item from group on right-click
-    if SB2.DoesSectionExist(info.section) then
-      local list = SB2.GetSectionList(info.section)
+    if Auctionator.BagGroups.DoesSectionExist(info.section) then
+      local list = Auctionator.BagGroups.GetSectionList(info.section)
       for index, itemLink in ipairs(list) do
-        local sortKey = SB2BagCacheFrame:GetByLinkInstant(itemLink, info.auctionable).sortKey
+        local sortKey = AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, info.auctionable).sortKey
         if sortKey == info.sortKey then
           table.remove(list, index)
           break
@@ -83,67 +83,67 @@ function SB2BagCustomiseMixin:BagItemClicked(buttonFrame, mouseButton)
     end
   else
     -- Add item to focussed group if it isn't already in it
-    local list = SB2.GetSectionList(self.focussedSection)
+    local list = Auctionator.BagGroups.GetSectionList(self.focussedSection)
     if self.View.itemMap[self.focussedSection][info.sortKey] then
       return
     else
       table.insert(list, buttonFrame.itemInfo.itemLink)
     end
   end
-  SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
 end
 
-function SB2BagCustomiseMixin:ToggleCustomiseMode()
+function AuctionatorBagCustomiseMixin:ToggleCustomiseMode()
   self:Hide()
 end
 
-function SB2BagCustomiseMixin:NewSection()
-  StaticPopup_Show(SB2.Constants.DialogNames.CreateSection)
+function AuctionatorBagCustomiseMixin:NewSection()
+  StaticPopup_Show(Auctionator.BagGroups.Constants.DialogNames.CreateSection)
 end
 
-function SB2BagCustomiseMixin:FocusSection(name)
+function AuctionatorBagCustomiseMixin:FocusSection(name)
   self.focussedSection = name
   self:UpdateSectionVisuals()
 end
 
-function SB2BagCustomiseMixin:RenameSection(name)
-  StaticPopupDialogs[SB2.Constants.DialogNames.RenameSection].text =  SELLING_BAG_2_L_RENAME_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
-  StaticPopup_Show(SB2.Constants.DialogNames.RenameSection, nil, nil, name)
+function AuctionatorBagCustomiseMixin:RenameSection(name)
+  StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.RenameSection].text =  SELLING_BAG_2_L_RENAME_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
+  StaticPopup_Show(Auctionator.BagGroups.Constants.DialogNames.RenameSection, nil, nil, name)
 
-  SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
 end
 
-function SB2BagCustomiseMixin:DeleteSection(name)
-  StaticPopupDialogs[SB2.Constants.DialogNames.ConfirmDelete].text = SELLING_BAG_2_L_DELETE_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
-  StaticPopup_Show(SB2.Constants.DialogNames.ConfirmDelete, nil, nil, name)
+function AuctionatorBagCustomiseMixin:DeleteSection(name)
+  StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.ConfirmDelete].text = SELLING_BAG_2_L_DELETE_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
+  StaticPopup_Show(Auctionator.BagGroups.Constants.DialogNames.ConfirmDelete, nil, nil, name)
 end
 
-function SB2BagCustomiseMixin:HideSection(name)
-  SB2.ToggleSectionHidden(name)
+function AuctionatorBagCustomiseMixin:HideSection(name)
+  Auctionator.BagGroups.ToggleSectionHidden(name)
 
-  SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
 end
 
 -- Move section closer to the start of the sections list
-function SB2BagCustomiseMixin:ShiftUpSection(name)
-  SB2.ShiftUpSection(name)
+function AuctionatorBagCustomiseMixin:ShiftUpSection(name)
+  Auctionator.BagGroups.ShiftUpSection(name)
 
-  SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
 end
 
 -- Move section away from the start of the sections list
-function SB2BagCustomiseMixin:ShiftDownSection(name)
-  SB2.ShiftDownSection(name)
+function AuctionatorBagCustomiseMixin:ShiftDownSection(name)
+  Auctionator.BagGroups.ShiftDownSection(name)
 
-  SB2.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
 end
 
-SB2BagCustomiseSectionMixin = CreateFromMixins(SB2BagViewSectionMixin)
+AuctionatorBagCustomiseSectionMixin = CreateFromMixins(AuctionatorBagViewSectionMixin)
 
-function SB2BagCustomiseSectionMixin:OnLoad()
+function AuctionatorBagCustomiseSectionMixin:OnLoad()
   self.SectionTitle:SetScript("OnClick", function()
     if self.isCustom then
-      SB2.CallbackRegistry:TriggerEvent("BagCustomise.FocusSection", self.name)
+      Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.FocusSection", self.name)
     end
   end)
   self.SectionTitle:SetScript("OnEnter", function()
@@ -154,45 +154,45 @@ function SB2BagCustomiseSectionMixin:OnLoad()
   end)
 
   self.FocusButton:SetScript("OnClick", function()
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.FocusSection", self.name)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.FocusSection", self.name)
   end)
   self.RenameButton:SetScript("OnClick", function()
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.RenameSection", self.name)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.RenameSection", self.name)
   end)
   self.DeleteButton:SetScript("OnClick", function()
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.DeleteSection", self.name)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.DeleteSection", self.name)
   end)
   self.HideButton:SetScript("OnClick", function()
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.HideSection", self.name)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.HideSection", self.name)
   end)
   self.ShiftUpButton:SetScript("OnClick", function()
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.ShiftUpSection", self.name)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.ShiftUpSection", self.name)
   end)
   self.ShiftDownButton:SetScript("OnClick", function()
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.ShiftDownSection", self.name)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.ShiftDownSection", self.name)
   end)
 end
 
-function SB2BagCustomiseSectionMixin:OnMouseUp()
+function AuctionatorBagCustomiseSectionMixin:OnMouseUp()
   if self.isCustom then
-    SB2.CallbackRegistry:TriggerEvent("BagCustomise.FocusSection", self.name)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.FocusSection", self.name)
   end
 end
 
-function SB2BagCustomiseSectionMixin:OnEnter()
+function AuctionatorBagCustomiseSectionMixin:OnEnter()
   if self.isCustom then
     self.FocussedHoverBackground:Show()
   end
 end
 
-function SB2BagCustomiseSectionMixin:OnLeave()
+function AuctionatorBagCustomiseSectionMixin:OnLeave()
   if self.isCustom then
     self.FocussedHoverBackground:Hide()
   end
 end
 
-function SB2BagCustomiseSectionMixin:SetName(name, isCustom)
-  SB2BagViewSectionMixin.SetName(self, name, isCustom)
+function AuctionatorBagCustomiseSectionMixin:SetName(name, isCustom)
+  AuctionatorBagViewSectionMixin.SetName(self, name, isCustom)
   self.FocussedHoverBackground:Hide()
 
   if isCustom then
@@ -206,10 +206,10 @@ function SB2BagCustomiseSectionMixin:SetName(name, isCustom)
   self.RenameButton:SetShown(isCustom)
 
   self.DeleteButton:SetShown(isCustom)
-  self.DeleteButton:SetEnabled(isCustom and SB2.GetSectionIndex(name) ~= 1)
+  self.DeleteButton:SetEnabled(isCustom and Auctionator.BagGroups.GetSectionIndex(name) ~= 1)
 
   self.HideButton:SetShown(isCustom)
-  self.HideButton:SetText(isCustom and SB2.IsSectionHidden(name) and "Unhide" or "Hide")
+  self.HideButton:SetText(isCustom and Auctionator.BagGroups.IsSectionHidden(name) and "Unhide" or "Hide")
 
   self.ShiftUpButton:SetShown(isCustom)
   self.ShiftDownButton:SetShown(isCustom)

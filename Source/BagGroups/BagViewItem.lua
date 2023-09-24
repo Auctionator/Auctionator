@@ -1,10 +1,10 @@
-SB2BagViewItemMixin = {}
+AuctionatorBagViewItemMixin = {}
 
-function SB2BagViewItemMixin:SetClickEvent(eventName)
+function AuctionatorBagViewItemMixin:SetClickEvent(eventName)
   self.clickEventName = eventName
 end
 
-function SB2BagViewItemMixin:SetItemInfo(info)
+function AuctionatorBagViewItemMixin:SetItemInfo(info)
   self.itemInfo = info
 
   if info ~= nil then
@@ -43,7 +43,7 @@ function SB2BagViewItemMixin:SetItemInfo(info)
   end
 end
 
-function SB2BagViewItemMixin:OnEnter()
+function AuctionatorBagViewItemMixin:OnEnter()
   if self.itemInfo ~= nil then
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
     if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
@@ -55,7 +55,7 @@ function SB2BagViewItemMixin:OnEnter()
   end
 end
 
-function SB2BagViewItemMixin:OnLeave()
+function AuctionatorBagViewItemMixin:OnLeave()
   if self.itemInfo ~= nil then
     if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
       BattlePetTooltip:Hide()
@@ -65,7 +65,7 @@ function SB2BagViewItemMixin:OnLeave()
   end
 end
 
-function SB2BagViewItemMixin:OnClick(button)
+function AuctionatorBagViewItemMixin:OnClick(button)
   if self.itemInfo ~= nil then
     if IsModifiedClick("DRESSUP") then
       DressUpLink(self.itemInfo.itemLink)
@@ -74,13 +74,13 @@ function SB2BagViewItemMixin:OnClick(button)
       ChatEdit_InsertLink(self.itemInfo.itemLink)
 
     else
-      SB2.CallbackRegistry:TriggerEvent(self.clickEventName, self, button)
+      Auctionator.BagGroups.CallbackRegistry:TriggerEvent(self.clickEventName, self, button)
     end
   end
 end
 
 -- Adds Dragonflight (10.0) crafting quality icon for reagents on retail only
-function SB2BagViewItemMixin:ApplyQualityIcon(itemLink)
+function AuctionatorBagViewItemMixin:ApplyQualityIcon(itemLink)
   if C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo then
     local quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(itemLink)
     if quality ~= nil then
@@ -99,7 +99,7 @@ function SB2BagViewItemMixin:ApplyQualityIcon(itemLink)
   end
 end
 
-function SB2BagViewItemMixin:HideQualityIcon()
+function AuctionatorBagViewItemMixin:HideQualityIcon()
   if self.ProfessionQualityOverlay then
     self.ProfessionQualityOverlay:Hide()
   end

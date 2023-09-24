@@ -1,6 +1,6 @@
-SB2.CallbackRegistry = CreateFromMixins(CallbackRegistryMixin)
-SB2.CallbackRegistry:OnLoad()
-SB2.CallbackRegistry:GenerateCallbackEvents(SB2.Constants.Events)
+Auctionator.BagGroups.CallbackRegistry = CreateFromMixins(CallbackRegistryMixin)
+Auctionator.BagGroups.CallbackRegistry:OnLoad()
+Auctionator.BagGroups.CallbackRegistry:GenerateCallbackEvents(Auctionator.BagGroups.Constants.Events)
 
 EventUtil.ContinueOnAddOnLoaded("Auctionator", function()
   if AUCTIONATOR_SELLING_GROUPS == nil then
@@ -10,18 +10,18 @@ EventUtil.ContinueOnAddOnLoaded("Auctionator", function()
       HiddenItems = {},
     }
 
-    SB2.AddSection("FAVOURITES")
-    local list = SB2.GetSectionList("FAVOURITES")
+    Auctionator.BagGroups.AddSection("FAVOURITES")
+    local list = Auctionator.BagGroups.GetSectionList("FAVOURITES")
 
     for _, data in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
       table.insert(list, data.itemLink)
     end
   end
 
-  CreateFrame("Frame", "SB2BagCacheFrame", UIParent, "SB2BagCacheTemplate")
-  --CreateFrame("Frame", "SB2BagUseFrame", UIParent, "SB2BagUseTemplate")
-  CreateFrame("Frame", "SB2BagCustomiseFrame", UIParent, "SB2BagCustomiseTemplate")
-  --SB2BagUseFrame:Show()
+  CreateFrame("Frame", "AuctionatorBagCacheFrame", UIParent, "AuctionatorBagCacheTemplate")
+  --CreateFrame("Frame", "AuctionatorBagUseFrame", UIParent, "AuctionatorBagUseTemplate")
+  CreateFrame("Frame", "AuctionatorBagCustomiseFrame", UIParent, "AuctionatorBagCustomiseTemplate")
+  --AuctionatorBagUseFrame:Show()
 
-  --SB2BagUseFrame.View:Update(SB2BagCacheFrame)
+  --AuctionatorBagUseFrame.View:Update(AuctionatorBagCacheFrame)
 end)
