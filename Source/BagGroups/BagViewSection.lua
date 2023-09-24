@@ -8,7 +8,7 @@ function SB2BagViewSectionMixin:Reset()
   if not self.rowWidth then
     self.rowWidth = math.ceil(6 * Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ICON_SIZE] / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
   end
-  self.iconSize = Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ICON_SIZE]
+  self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
 end
 
 function SB2BagViewSectionMixin:AddButton(button)
@@ -45,9 +45,9 @@ function SB2BagViewSectionMixin:UpdateHeight()
     newHeight = self.sectionTitleHeight
   else
     if self.col == 0 then
-      newHeight = self.row * SB2.Constants.ItemSize + self.sectionTitleHeight
+      newHeight = self.row * self.iconSize + self.sectionTitleHeight
     else
-      newHeight = (self.row + 1) * SB2.Constants.ItemSize + self.sectionTitleHeight
+      newHeight = (self.row + 1) * self.iconSize + self.sectionTitleHeight
     end
   end
   self:SetHeight(newHeight + self.paddingBottom)
