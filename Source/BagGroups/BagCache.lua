@@ -1,8 +1,5 @@
 AuctionatorBagCacheMixin = {}
 function AuctionatorBagCacheMixin:OnLoad()
-  FrameUtil.RegisterFrameForEvents(self, {
-    "PLAYER_ENTERING_WORLD",
-  })
   self.cache = {}
   self.loaders = {}
   self.contents = {}
@@ -20,16 +17,11 @@ function AuctionatorBagCacheMixin:OnLoad()
       self:SetScript("OnUpdate", self.DoBagRefresh)
     end
   end)
+  self:RegisterEvent("BAG_UPDATE")
 end
 
 function AuctionatorBagCacheMixin:OnEvent(eventName, ...)
-  if eventName == "PLAYER_ENTERING_WORLD" then
-    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
-    self:RegisterEvent("BAG_UPDATE")
-    if self.cacheOn then
-      self:SetScript("OnUpdate", self.DoBagRefresh)
-    end
-  elseif self.cacheOn and eventName == "BAG_UPDATE" then
+  if self.cacheOn > 0 and eventName == "BAG_UPDATE" then
     self:SetScript("OnUpdate", self.DoBagRefresh)
   end
 end
