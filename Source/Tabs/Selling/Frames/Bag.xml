@@ -3,7 +3,7 @@
     name="AuctionatorSellingBagFrame"
     virtual="true"
     parentKey="BagListing"
-    mixin="SB2BagUseMixin"
+    mixin="AuctionatorBagUseMixin"
   >
     <Scripts>
       <OnLoad method="OnLoad" />
@@ -12,14 +12,14 @@
     </Scripts>
 
     <Frames>
-      <Frame inherits="SB2BagViewTemplate">
+      <Frame inherits="AuctionatorBagViewTemplate">
         <Anchors>
             <Anchor point="TOPLEFT"/>
             <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
 
-      <Button text="SELLING_BAG_2_L_CUSTOMISE" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600" hidden="true">
+      <Button text="AUCTIONATOR_L_CUSTOMISE" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600" hidden="true">
         <Anchors>
             <Anchor point="TOPRIGHT" x="-28"/>
         </Anchors>

@@ -37,7 +37,7 @@ function Auctionator.SlashCmd.ToggleDebug()
 end
 
 function Auctionator.SlashCmd.Groups()
-  SB2BagCustomiseFrame:SetShown(not SB2BagCustomiseFrame:IsShown())
+  AuctionatorBagCustomiseFrame:SetShown(not AuctionatorBagCustomiseFrame:IsShown())
 end
 
 function Auctionator.SlashCmd.ResetDatabase()
