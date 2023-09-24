@@ -520,7 +520,9 @@ function AuctionatorSaleItemMixin:SetQuantity()
     numStacks = 1
   end
 
-  if defaultStacks.numStacks == 0 then
+  if self.itemInfo.count == 0 then
+    self.Stacks.NumStacks:SetNumber(0)
+  elseif defaultStacks.numStacks == 0 then
     self.Stacks.NumStacks:SetNumber(numStacks)
   else
     self.Stacks.NumStacks:SetNumber(math.min(numStacks, defaultStacks.numStacks))
