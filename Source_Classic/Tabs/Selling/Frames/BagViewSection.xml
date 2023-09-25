@@ -15,6 +15,9 @@
         </Anchors>
 
         <Scripts>>
+          <OnLoad>
+            self:GetFontString():SetPoint("LEFT", 12, 0)
+          </OnLoad>
           <OnClick>self:GetParent():ToggleOpen()</OnClick>
         </Scripts>
       </Button>
