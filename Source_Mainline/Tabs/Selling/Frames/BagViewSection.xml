@@ -19,8 +19,12 @@
         <Scripts>
           <OnLoad>
             AuctionFrameFilter_OnLoad(self)
-            self.HighlightTexture:SetAllPoints()
-            self.NormalTexture:SetSize(32)
+            self.NormalTexture:SetPoint("LEFT", -2)
+            self.NormalTexture:SetPoint("RIGHT", 2)
+            self.Text:SetPoint("LEFT", 12, 0)
+            self.HighlightTexture:SetHeight(self:GetHeight())
+            self.HighlightTexture:SetPoint("LEFT")
+            self.HighlightTexture:SetPoint("RIGHT", -2)
           </OnLoad>
           <OnClick>self:GetParent():ToggleOpen()</OnClick>
         </Scripts>

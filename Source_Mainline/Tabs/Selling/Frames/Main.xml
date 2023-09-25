@@ -32,10 +32,10 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="BagInset" inherits="AuctionatorInsetLeaveScrollSpaceTemplate">
+      <Frame parentKey="BagInset" inherits="AuctionatorInsetTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" x="-5" y="5"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" x="-22"/>
         </Anchors>
       </Frame>
 
