@@ -79,6 +79,22 @@ function AuctionatorBagViewMixin:SetSelected(key)
   self:UpdateFromExisting()
 end
 
+function AuctionatorBagViewMixin:ScrollToSelected()
+  for button in self.buttonPool:EnumerateActive() do
+    if button.itemInfo.selected then
+      local bottom = self.ScrollBox:GetBottom()
+      local top = self.ScrollBox:GetTop()
+      local diff = 0
+      if button:GetBottom() < bottom then
+        diff = bottom - button:GetBottom()
+      elseif button:GetTop() > top then
+        diff = top - button:GetTop() - 40
+      end
+      self.ScrollBox:ScrollToOffset(self.ScrollBox:GetDerivedScrollOffset() + diff, 0, 0)
+    end
+  end
+end
+
 function AuctionatorBagViewMixin:UpdateSectionHeights()
   local offset = 0
   for index, section in ipairs(self.sections) do
