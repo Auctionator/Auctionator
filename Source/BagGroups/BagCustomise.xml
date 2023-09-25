@@ -54,6 +54,18 @@
       </Layer>
     </Layers>
     <Frames>
+      <Button parentKey="SectionTitle">
+        <ButtonText inherits="GameFontHighlight" justifyH="LEFT"/>
+        <Size y="20" />
+
+        <Anchors>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+        </Anchors>
+
+        <Scripts>>
+          <OnClick>self:GetParent():ToggleOpen()</OnClick>
+        </Scripts>
+      </Button>
       <Button text="AUCTIONATOR_L_FOCUS" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="FocusButton">
         <Anchors>
             <Anchor point="TOPLEFT" y="-18" x="5"/>

@@ -55,7 +55,9 @@ function AuctionatorBagViewSectionMixin:UpdateHeight()
 end
 
 function AuctionatorBagViewSectionMixin:SetName(name, isCustom)
-  self.SectionTitle:SetText(_G["AUCTIONATOR_L_" .. name] or name)
+  if self.SectionTitle then
+    self.SectionTitle:SetText(_G["AUCTIONATOR_L_" .. name] or name)
+  end
   self.name = name
   self.isCustom = isCustom
 end

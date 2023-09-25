@@ -10,8 +10,8 @@ function Auctionator.BagGroups.Initialize()
       HiddenItems = {},
     }
 
-    Auctionator.BagGroups.AddSection("FAVOURITES")
-    local list = Auctionator.BagGroups.GetSectionList("FAVOURITES")
+    Auctionator.BagGroups.AddSection("FAVOURITES_GROUP")
+    local list = Auctionator.BagGroups.GetSectionList("FAVOURITES_GROUP")
 
     for _, data in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
       table.insert(list, data.itemLink)
