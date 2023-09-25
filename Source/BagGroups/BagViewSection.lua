@@ -28,16 +28,21 @@ function AuctionatorBagViewSectionMixin:AnyButtons()
   return self.col ~= 0 or self.row ~= 0
 end
 
-function AuctionatorBagViewSectionMixin:ToggleOpen()
+function AuctionatorBagViewSectionMixin:ToggleOpen(doNotNotify)
   if not self.collapsable then
     return
   end
 
   self.collapsed = not self.collapsed
+
   for _, button in ipairs(self.buttons) do
     button:SetShown(not self.collapsed)
   end
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagViewSectionToggled")
+
+  if not doNotNotify then
+    -- Need to update heights
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagViewSectionToggled")
+  end
 end
 
 function AuctionatorBagViewSectionMixin:UpdateHeight()

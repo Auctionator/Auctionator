@@ -15,6 +15,8 @@ function AuctionatorBagViewMixin:OnLoad()
   self.rawItems = {}
 
   self.collapsing = {}
+
+  self.originalOpen = true
 end
 
 function AuctionatorBagViewMixin:OnShow()
@@ -140,8 +142,8 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
     section:SetPoint("RIGHT")
     section:Reset()
     section:SetName(s.name, index <= #AUCTIONATOR_SELLING_GROUPS.CustomSections)
-    if self.collapsing[index] then
-      section:ToggleOpen()
+    if self.collapsing[index] or (self.originalOpen and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED)) then
+      section:ToggleOpen(true)
     end
     table.insert(sections, section)
 
@@ -206,5 +208,6 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
   end
 
   self.sections = sections
+  self.originalOpen = false
   self:UpdateSectionHeights()
 end

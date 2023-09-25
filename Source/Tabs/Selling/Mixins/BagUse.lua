@@ -3,11 +3,6 @@ function AuctionatorBagUseMixin:OnLoad()
   self:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
 
   Auctionator.EventBus:RegisterSource(self, "AuctionatorBagUseMixin")
-
-  Auctionator.EventBus:Register(self, {
-    Auctionator.Selling.Events.BagItemRequest,
-    Auctionator.Selling.Events.BagItemClicked,
-  })
   self.View.rowWidth = math.ceil(5 * 42 / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
 end
 
@@ -15,11 +10,21 @@ function AuctionatorBagUseMixin:OnShow()
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
   self.View:Update(AuctionatorBagCacheFrame)
+
+  Auctionator.EventBus:Register(self, {
+    Auctionator.Selling.Events.BagItemRequest,
+    Auctionator.Selling.Events.BagItemClicked,
+  })
 end
 
 function AuctionatorBagUseMixin:OnHide()
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagItemClicked", self)
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
+
+  Auctionator.EventBus:Unregister(self, {
+    Auctionator.Selling.Events.BagItemRequest,
+    Auctionator.Selling.Events.BagItemClicked,
+  })
 end
 
 function AuctionatorBagUseMixin:ReceiveEvent(eventName, info, ...)

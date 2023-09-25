@@ -107,14 +107,14 @@ function AuctionatorBagCustomiseMixin:FocusSection(name)
 end
 
 function AuctionatorBagCustomiseMixin:RenameSection(name)
-  StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.RenameSection].text =  SELLING_BAG_2_L_RENAME_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
+  StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.RenameSection].text = AUCTIONATOR_L_RENAME_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
   StaticPopup_Show(Auctionator.BagGroups.Constants.DialogNames.RenameSection, nil, nil, name)
 
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
 end
 
 function AuctionatorBagCustomiseMixin:DeleteSection(name)
-  StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.ConfirmDelete].text = SELLING_BAG_2_L_DELETE_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
+  StaticPopupDialogs[Auctionator.BagGroups.Constants.DialogNames.ConfirmDelete].text = AUCTIONATOR_L_DELETE_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
   StaticPopup_Show(Auctionator.BagGroups.Constants.DialogNames.ConfirmDelete, nil, nil, name)
 end
 

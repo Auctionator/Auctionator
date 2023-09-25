@@ -214,7 +214,7 @@ function AuctionatorUndercutScanMixin:ProcessSearchResults(auctionInfo, ...)
         end
       else
         resultInfo = C_AuctionHouse.GetItemSearchResultInfo(self.expectedItemKey, index)
-        if Auctionator.Selling.DoesItemMatch(auctionInfo.itemKey, auctionInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
+        if Auctionator.Selling.DoesItemMatchFromKey(auctionInfo.itemKey, auctionInfo.itemLink, resultInfo.itemKey, resultInfo.itemLink) then
           if minPrice == nil then
             minPrice = resultInfo.buyoutAmount
           end
