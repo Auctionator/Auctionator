@@ -5,7 +5,7 @@ function AuctionatorBagCustomiseMixin:OnLoad()
   self.Inset:Hide()
   table.insert(UISpecialFrames, self:GetName())
 
-  self:SetTitle("Customise bag sections")
+  self:SetTitle(AUCTIONATOR_L_CUSTOMISE_BAG_SECTIONS)
 
   self.focussedSection = Auctionator.BagGroups.GetSectionNameByIndex(1)
 
@@ -209,7 +209,7 @@ function AuctionatorBagCustomiseSectionMixin:SetName(name, isCustom)
   self.DeleteButton:SetEnabled(isCustom and Auctionator.BagGroups.GetSectionIndex(name) ~= 1)
 
   self.HideButton:SetShown(isCustom)
-  self.HideButton:SetText(isCustom and Auctionator.BagGroups.IsSectionHidden(name) and "Unhide" or "Hide")
+  self.HideButton:SetText(isCustom and Auctionator.BagGroups.IsSectionHidden(name) and AUCTIONATOR_L_UNHIDE or AUCTIONATOR_L_HIDE)
 
   self.ShiftUpButton:SetShown(isCustom)
   self.ShiftDownButton:SetShown(isCustom)

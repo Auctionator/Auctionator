@@ -710,6 +710,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["RENAME_GROUP_DIALOG"] = "Choose a new name for \"%s\""
   L["SHIFT_UP"] = "Shift Up"
   L["SHIFT_DOWN"] = "Shift Down"
+  L["CUSTOMISE_BAG_SECTIONS"] = "Customise Bag Sections"
 
   return L
 end
