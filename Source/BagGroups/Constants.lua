@@ -13,6 +13,7 @@ Auctionator.BagGroups.Constants.Events = {
   "BagCacheOff",
   "BagCacheOn",
 
+  "BagCustomise.BagItemClicked",
   "BagCustomise.NewSection",
   "BagCustomise.FocusSection",
   "BagCustomise.DeleteSection",

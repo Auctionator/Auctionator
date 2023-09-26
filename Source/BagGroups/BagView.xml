@@ -9,6 +9,7 @@
       <KeyValue key="itemTemplate" value="AuctionatorBagViewItemTemplate" type="string" />
       <KeyValue key="sectionTemplate" value="AuctionatorBagViewSectionTemplate" type="string" />
       <KeyValue key="sectionInsetX" value="0" type="number" />
+      <KeyValue key="clickEventName" value="BagItemClicked" type="string" />
     </KeyValues>
     <Frames>
       <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">

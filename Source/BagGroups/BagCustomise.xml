@@ -122,6 +122,7 @@
           <KeyValue key="sectionTemplate" value="AuctionatorBagCustomiseSectionTemplate" type="string" />
           <KeyValue key="forceShow" value="true" type="boolean" />
           <KeyValue key="sectionInsetX" value="7" type="number" />
+          <KeyValue key="clickEventName" value="BagCustomise.BagItemClicked" type="string" />
         </KeyValues>
         <Anchors>
             <Anchor point="TOPLEFT" y="-52"/>

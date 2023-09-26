@@ -158,6 +158,7 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
       table.sort(infos, function(a, b) return a.sortKey < b.sortKey end)
       for _, info in ipairs(infos) do
         local button = self.buttonPool:Acquire()
+        button:SetClickEvent(self.clickEventName)
         info.selected = self.selected and self.selected.name == self.sectionDetails[index].name and info.sortKey == self.selected.sortKey
         info.section = s.name
         button:SetSize(iconSize, iconSize)
@@ -179,6 +180,7 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
       local index = classIDMap[item.classID]
       if index ~= nil then
         local button = self.buttonPool:Acquire()
+        button:SetClickEvent(self.clickEventName)
         item.selected = self.selected and self.selected.name == self.sectionDetails[index].name and item.sortKey == self.selected.sortKey
         button:SetItemInfo(item)
         button:SetSize(iconSize, iconSize)

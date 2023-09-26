@@ -17,7 +17,7 @@ end
 function AuctionatorBagCustomiseMixin:OnShow()
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
 
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.BagItemClicked", self.BagItemClicked, self)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.NewSection", self.NewSection, self)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.FocusSection", self.FocusSection, self)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.DeleteSection", self.DeleteSection, self)
@@ -30,13 +30,14 @@ end
 function AuctionatorBagCustomiseMixin:OnHide()
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
 
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagItemClicked", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.BagItemClicked", self)
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.NewSection", self)
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.FocusSection", self)
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.DeleteSection", self)
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.RenameSection", self)
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.HideSection", self)
 end
+
 function AuctionatorBagCustomiseMixin:UpdateSectionVisuals()
   for section in self.View.sectionPool:EnumerateActive() do
     if section.name == self.focussedSection then
