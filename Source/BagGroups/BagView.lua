@@ -212,4 +212,5 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
   self.sections = sections
   self.originalOpen = false
   self:UpdateSectionHeights()
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent(self.completeEventName)
 end

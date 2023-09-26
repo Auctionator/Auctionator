@@ -5,11 +5,11 @@ Auctionator.BagGroups.Constants = {
 }
 
 Auctionator.BagGroups.Constants.Events = {
-  "TriggerBagRefresh",
   "BagCacheUpdated",
-  "BagRefresh",
   "BagItemClicked",
   "BagViewSectionToggled",
+  "BagViewComplete",
+
   "BagCacheOff",
   "BagCacheOn",
 

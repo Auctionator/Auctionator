@@ -4,12 +4,7 @@ function AuctionatorBagUseMixin:OnLoad()
 
   Auctionator.EventBus:RegisterSource(self, "AuctionatorBagUseMixin")
   self.View.rowWidth = math.ceil(5 * 42 / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
-end
-
-function AuctionatorBagUseMixin:OnShow()
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
-  self.View:Update(AuctionatorBagCacheFrame)
+  self.awaitingCompletion = true
 
   Auctionator.EventBus:Register(self, {
     Auctionator.Selling.Events.BagItemRequest,
@@ -17,23 +12,43 @@ function AuctionatorBagUseMixin:OnShow()
   })
 end
 
-function AuctionatorBagUseMixin:OnHide()
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagItemClicked", self)
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
+function AuctionatorBagUseMixin:OnShow()
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
 
-  Auctionator.EventBus:Unregister(self, {
-    Auctionator.Selling.Events.BagItemRequest,
-    Auctionator.Selling.Events.BagItemClicked,
-  })
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagViewComplete", function()
+    self.awaitingCompletion = false
+    if self.pendingKey then
+      self:ReturnItem(self.pendingKey)
+      self.pendingKey = nil
+    end
+  end, self)
+
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
+  self.View:Update(AuctionatorBagCacheFrame)
+end
+
+function AuctionatorBagUseMixin:OnHide()
+  self.awaitingCompletion = true
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagItemClicked", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagViewComplete", self)
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
+end
+
+function AuctionatorBagUseMixin:ReturnItem(info)
+  local button = (self.View.itemMap[info.name] and self.View.itemMap[info.name][info.sortKey])
+  if not button then
+    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.ClearBagItem)
+  else
+    button:Click()
+  end
 end
 
 function AuctionatorBagUseMixin:ReceiveEvent(eventName, info, ...)
   if eventName == Auctionator.Selling.Events.BagItemRequest then
-    local button = (self.View.itemMap[info.name] and self.View.itemMap[info.name][info.sortKey])
-    if not button then
-      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.ClearBagItem)
+    if self.awaitingCompletion then
+      self.pendingKey = info
     else
-      button:Click()
+      self:ReturnItem(info)
     end
   elseif eventName == Auctionator.Selling.Events.BagItemClicked then
     self.View:SetSelected(info.key)
