@@ -179,6 +179,15 @@
           <Anchor point="TOPLEFT" relativeKey="$parent.StartingPricePercentageHeading" relativePoint="BOTTOMLEFT" y="-15"/>
         </Anchors>
       </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IgnoreItemLevel">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_IGNORE_ITEM_LEVEL" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.StartingPricePercentage" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
     </Frames>
   </Frame>
 </Ui>

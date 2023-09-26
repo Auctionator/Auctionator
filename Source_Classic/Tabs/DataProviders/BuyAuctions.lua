@@ -63,6 +63,11 @@ function AuctionatorBuyAuctionsDataProviderMixin:OnLoad()
   self:SetUpEvents()
   self.gotAllResults = true
   self.requestAllResults = true
+  self.ignoreItemLevel = false
+end
+
+function AuctionatorBuyAuctionsDataProviderMixin:SetIgnoreItemLevel(state)
+  self.ignoreItemLevel = state
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetUpEvents()
@@ -167,11 +172,17 @@ function AuctionatorBuyAuctionsDataProviderMixin:EndAnyQuery()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results)
+  local itemIDWanted
+  if self.ignoreItemLevel then
+    itemIDWanted = GetItemInfoInstant(self.searchKey)
+  end
+
   local waiting = #results
   for _, entry in ipairs(results) do
     local itemID = entry.info[Auctionator.Constants.AuctionItemInfo.ItemID]
     local itemString = Auctionator.Search.GetCleanItemLink(entry.itemLink)
-    if self.searchKey == itemString then
+    if self.searchKey == itemString or
+      (itemIDWanted and itemID == itemIDWanted) then
       table.insert(self.allAuctions, entry)
     end
   end

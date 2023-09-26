@@ -630,6 +630,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_MATCHING_ITEM_ID"] = "Same item/pet id"
   L["CONFIG_MATCHING_ITEM_NAME_AND_LEVEL"] = "Same item/pet id, title and level"
   L["CONFIG_MATCHING_ITEM_NAME"] = "Same item/pet id and title (ignoring level)"
+  L["CONFIG_SELLING_IGNORE_ITEM_LEVEL"] = "Ignore item level when searching for matching auctions"
 
   L["DEFAULT_LIST_HEADER"] = "Default Shopping List"
 
