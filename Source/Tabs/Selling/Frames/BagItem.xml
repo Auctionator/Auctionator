@@ -1,5 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Button name="AuctionatorBagItem" registerForClicks="LeftButtonUp, RightButtonUp" inherits="AuctionatorBagViewItemTemplate" virtual="true">
-    <Size x="42" y="42"/>
-  </Button>
-</Ui>
