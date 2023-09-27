@@ -61,6 +61,7 @@ end
 function AuctionatorIncrementalScanFrameMixin:InitiateScan()
   if not self.doingFullScan then
     Auctionator.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_SUMMARY)
+    self.state.TimeOfLastBrowseScan = time()
     Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
     self.previousDatabaseCount = Auctionator.Database:GetItemCount()
     self.doingFullScan = true
@@ -141,7 +142,6 @@ function AuctionatorIncrementalScanFrameMixin:NextStep()
       Auctionator.Utilities.Message(AUCTIONATOR_L_FINISHED_PROCESSING:format(count))
       self.doingFullScan = false
 
-      self.state.TimeOfLastBrowseScan = time()
       Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.ScanComplete, rawScan)
     end
     Auctionator.EventBus:Fire(self, Auctionator.IncrementalScan.Events.PricesProcessed)
