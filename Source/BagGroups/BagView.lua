@@ -17,6 +17,7 @@ function AuctionatorBagViewMixin:OnLoad()
   self.collapsing = {}
 
   self.originalOpen = true
+  self.cachedUpdated = false
 end
 
 function AuctionatorBagViewMixin:OnShow()
@@ -119,6 +120,7 @@ function AuctionatorBagViewMixin:UpdateSectionHeights()
 end
 
 function AuctionatorBagViewMixin:Update(cache)
+  self.cacheUpdated = true
   self.rawItems = cache:GetAllContents()
   table.sort(self.rawItems, function(a, b)
     if a.itemName == b.itemName then
@@ -212,5 +214,7 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
   self.sections = sections
   self.originalOpen = false
   self:UpdateSectionHeights()
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent(self.completeEventName)
+  if self.cacheUpdated and self.listsCached then
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent(self.completeEventName)
+  end
 end

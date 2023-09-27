@@ -15,7 +15,7 @@ end
 function AuctionatorBagUseMixin:OnShow()
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
 
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagViewComplete", function()
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagViewComplete", function(_, listsCached)
     self.awaitingCompletion = false
     if self.pendingKey then
       self:ReturnItem(self.pendingKey)
@@ -24,7 +24,6 @@ function AuctionatorBagUseMixin:OnShow()
   end, self)
 
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
-  self.View:Update(AuctionatorBagCacheFrame)
 end
 
 function AuctionatorBagUseMixin:OnHide()
