@@ -408,8 +408,6 @@ function AuctionatorSaleItemMixin:UpdateVisuals()
   if self.itemInfo ~= nil then
     self:SetItemName()
 
-    self.Icon:HideCount()
-
   else
     -- No item, reset all the visuals
     self.TitleArea.Text:SetText("")

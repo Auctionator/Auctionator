@@ -58,22 +58,11 @@ function AuctionatorBagUseMixin:ReceiveEvent(eventName, info, ...)
 end
 
 function AuctionatorBagUseMixin:BagItemClicked(button)
-  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, {
-    itemLink = button.itemInfo.itemLink,
-    itemID = button.itemInfo.itemID,
-    itemName = button.itemInfo.itemName,
-    itemLevel = button.itemInfo.itemLevel,
-    iconTexture = button.itemInfo.iconTexture,
-    quality = button.itemInfo.quality,
-    count = button.itemInfo.itemCount,
-    location = button.itemInfo.locations[1],
-    classId = button.itemInfo.classID,
-    auctionable = true,
-    bagListing = true,
-    nextItem = button.nextItem,
-    prevItem = button.prevItem,
-    key = button.key,
-  })
+  local postingInfo = Auctionator.BagGroups.Utilities.ToPostingItem(button.itemInfo)
+  postingInfo.nextItem = button.nextItem
+  postingInfo.prevItem = button.prevItem
+  postingInfo.key = button.key
+  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
 end
 
 function AuctionatorBagUseMixin:ToggleCustomiseMode()

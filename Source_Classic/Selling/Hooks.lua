@@ -1,3 +1,4 @@
+local owner = {}
 local function SelectOwnItem(self)
   ClearCursor()
 
@@ -7,20 +8,24 @@ local function SelectOwnItem(self)
     return
   end
 
-  local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(itemLocation)
-
-  if not itemInfo.auctionable then
-    Auctionator.Selling.ShowCannotSellReason(itemLocation)
-    return
-  end
+  local itemLink = C_Item.GetItemLink(itemLocation)
 
   AuctionatorTabs_Selling:Click()
-  itemInfo.count = Auctionator.Selling.GetItemCount(itemLocation)
-
-  Auctionator.EventBus
-    :RegisterSource(self, "ContainerFrameItemButton_On.*Click hook")
-    :Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-    :UnregisterSource(self)
+  Auctionator.EventBus:RegisterSource(owner, "SellingTabBagHooks")
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheUpdated", function(_, cache)
+    Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", owner)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
+    cache:CacheLinkInfo(itemLink, function()
+      local info = Auctionator.BagGroups.Utilities.ToPostingItem(AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, true))
+      if info.location then
+        info.location = itemLocation
+        Auctionator.EventBus:Fire(owner, Auctionator.Selling.Events.BagItemClicked, info)
+      else
+        Auctionator.Selling.ShowCannotSellReason(itemLocation)
+      end
+    end)
+  end, owner)
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
 end
 
 local function AHShown()
