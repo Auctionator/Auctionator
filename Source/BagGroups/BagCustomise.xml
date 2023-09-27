@@ -111,6 +111,8 @@
       <OnLoad method="OnLoad"/>
       <OnShow method="OnShow"/>
       <OnHide method="OnHide"/>
+      <OnDragStart method="OnDragStart"/>
+      <OnDragStop method="OnDragStop"/>
     </Scripts>
     <Anchors>
         <Anchor point="CENTER"/>

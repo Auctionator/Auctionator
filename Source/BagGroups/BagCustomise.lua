@@ -5,13 +5,26 @@ function AuctionatorBagCustomiseMixin:OnLoad()
   self.Inset:Hide()
   table.insert(UISpecialFrames, self:GetName())
 
-  self:SetTitle(AUCTIONATOR_L_CUSTOMISE_BAG_SECTIONS)
+  self:SetTitle(AUCTIONATOR_L_CUSTOMISE_BAG_GROUPS)
 
   self.focussedSection = Auctionator.BagGroups.GetSectionNameByIndex(1)
 
   hooksecurefunc(self.View, "UpdateFromExisting", function()
     self:UpdateSectionVisuals()
   end)
+
+  self:RegisterForDrag("LeftButton")
+  self:SetMovable(true)
+end
+
+function AuctionatorBagCustomiseMixin:OnDragStart()
+  self:StartMoving()
+  self:SetUserPlaced(false)
+end
+
+function AuctionatorBagCustomiseMixin:OnDragStop()
+  self:StopMovingOrSizing()
+  self:SetUserPlaced(false)
 end
 
 function AuctionatorBagCustomiseMixin:OnShow()
