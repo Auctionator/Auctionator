@@ -275,15 +275,6 @@ function AuctionatorSaleItemMixin:UpdateVisuals()
   if self.itemInfo ~= nil then
     self:SetItemName()
 
-    self.Icon:HideCount()
-
-    -- Fade the (optionally visible) bid price if posting a commodity
-    if self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
-      self.BidPrice:SetAlpha(0.5)
-    else
-      self.BidPrice:SetAlpha(1)
-    end
-
   else
     -- No item, reset all the visuals
     self.TitleArea.Text:SetText("")
