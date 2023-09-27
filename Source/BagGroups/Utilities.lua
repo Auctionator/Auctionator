@@ -25,3 +25,7 @@ function Auctionator.BagGroups.Utilities.ToPostingItem(info)
     prevItem = nil,
   }
 end
+
+function Auctionator.BagGroups.Utilities.QueryItem(sortKey)
+  return AuctionatorBagCacheFrame:GetByKey(sortKey)
+end

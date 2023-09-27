@@ -144,6 +144,41 @@ function AuctionatorBagCacheMixin:GetByLinkInstant(suppliedItemLink, auctionable
   }
 end
 
+function AuctionatorBagCacheMixin:GetByKey(key)
+  local value = self.contents[key]
+  if value ~= nil then
+    local entry = value.entries[1]
+    local locations = {}
+    for _, e in ipairs(value.entries) do
+      table.insert(locations, e.location)
+    end
+
+    local itemLink = entry.itemLink
+    local cleanLink
+    if itemLink:match("battlepet") then
+      local pre, hyperlink, post = SplitLink(itemLink)
+      cleanLink = pre .. "|H" .. KeyPartsPetLink(entry.itemLink) .. "|h" .. post
+    else
+      local pre, h, post = SplitLink(itemLink)
+      cleanLink = pre .. "|H" .. KeyPartsItemLink(itemLink) .. "|h" .. post
+    end
+
+    return {
+      locations = locations,
+      itemCount = value.count,
+      itemName = entry.itemName,
+      itemID = entry.itemID,
+      itemLevel = entry.itemLevel,
+      auctionable = entry.auctionable,
+      itemLink = cleanLink,
+      quality = entry.quality,
+      iconTexture = entry.iconTexture,
+      classID = entry.classID,
+      sortKey = key,
+    }
+  end
+end
+
 function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
   local existingEntry = linkInstantCache[suppliedItemLink]
   if existingEntry then
@@ -206,36 +241,8 @@ end
 
 function AuctionatorBagCacheMixin:GetAllContents()
   local result = {}
-  for key, value in pairs(self.contents) do
-    local entry = value.entries[1]
-    local locations = {}
-    for _, e in ipairs(value.entries) do
-      table.insert(locations, e.location)
-    end
-
-    local itemLink = entry.itemLink
-    local cleanLink
-    if itemLink:match("battlepet") then
-      local pre, hyperlink, post = SplitLink(itemLink)
-      cleanLink = pre .. "|H" .. KeyPartsPetLink(entry.itemLink) .. "|h" .. post
-    else
-      local pre, h, post = SplitLink(itemLink)
-      cleanLink = pre .. "|H" .. KeyPartsItemLink(itemLink) .. "|h" .. post
-    end
-
-    table.insert(result, {
-      locations = locations,
-      itemCount = value.count,
-      itemName = entry.itemName,
-      itemID = entry.itemID,
-      itemLevel = entry.itemLevel,
-      auctionable = entry.auctionable,
-      itemLink = cleanLink,
-      quality = entry.quality,
-      iconTexture = entry.iconTexture,
-      classID = entry.classID,
-      sortKey = key,
-    })
+  for key in pairs(self.contents) do
+    table.insert(result, self:GetByKey(key))
   end
   return result
 end

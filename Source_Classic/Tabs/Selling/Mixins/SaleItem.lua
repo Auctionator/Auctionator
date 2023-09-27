@@ -22,21 +22,6 @@ local function GetAmountWithUndercut(amount)
   return math.max(0, amount - undercutAmount)
 end
 
-local function FindItemAgain(itemLink)
-  local cleanItemLink = Auctionator.Search.GetCleanItemLink(itemLink)
-  for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
-    for slot = 1, C_Container.GetContainerNumSlots(bagID) do
-      local location = ItemLocation:CreateFromBagAndSlot(bagID, slot)
-      if C_Item.DoesItemExist(location) then
-        local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
-        if Auctionator.Selling.UniqueBagKey(itemInfo) == cleanItemLink then
-          return location
-        end
-      end
-    end
-  end
-end
-
 AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnLoad()
@@ -178,9 +163,10 @@ function AuctionatorSaleItemMixin:OnUpdate()
     return
 
   elseif self.itemInfo.location ~= nil and not C_Item.DoesItemExist(self.itemInfo.location) then
-    self.itemInfo.location = FindItemAgain(self.itemInfo.itemLink)
+    local itemInfo = Auctionator.BagGroups.Utilities.QueryItem(self.itemInfo.key.sortKey)
+    self.itemInfo.location = itemInfo and itemInfo.locations[1]
     -- Bag position changes (race condition or posting reattempt)
-    if not C_Item.DoesItemExist(self.itemInfo.location) then
+    if not self.itemInfo.location then
       self.itemInfo = nil
       self:Reset()
       return
@@ -781,13 +767,14 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
   -- yet
   local count = details.itemInfo.count - details.stackSize * details.numStacksReached
   if count > 0 then
-    local location = FindItemAgain(details.itemInfo.itemLink)
-    if location ~= nil then
+    local itemInfo = Auctionator.BagGroups.Utilities.QueryItem(details.itemInfo.key.sortKey)
+    print("hit")
+    if itemInfo then
       Auctionator.Debug.Message("found again, trying")
       self:UnlockItem()
       self.retryingItem = true
       self.itemInfo = CopyTable(details.itemInfo, true)
-      self.itemInfo.location = location
+      self.itemInfo.location = itemInfo.locations[1]
       self.itemInfo.count = count
       self.clickedSellItem = false
       self.minPriceSeen = details.minPriceSeen
