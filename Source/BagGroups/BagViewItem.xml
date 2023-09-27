@@ -2,7 +2,6 @@
   <Button name="AuctionatorBagViewItemTemplate" registerForClicks="LeftButtonUp, RightButtonUp" mixin="AuctionatorBagViewItemMixin" virtual="true" motionScriptsWhileDisabled="true">
     <KeyValues>
       <KeyValue key="clickEventName" value="BagItemClicked" type="string" />
-      <KeyValue key="insetLeft" value="0" type="number" />
     </KeyValues>
     <Scripts>
       <OnEnter method="OnEnter" />

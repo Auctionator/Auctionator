@@ -100,5 +100,3 @@ for _, classID in ipairs(Auctionator.BagGroups.Constants.ValidItemClassIDs) do
     classID = classID,
   })
 end
-
-Auctionator.BagGroups.Constants.ItemSize = 42
