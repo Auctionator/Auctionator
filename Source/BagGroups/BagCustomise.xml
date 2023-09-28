@@ -29,7 +29,6 @@
 
   <Frame name="AuctionatorBagCustomiseSectionTemplate" mixin="AuctionatorBagCustomiseSectionMixin" inherits="AuctionatorBagViewSectionTemplate" virtual="true" enableMouse="true">
     <KeyValues>
-      <KeyValue key="rowWidth" value="12" type="number" />
       <KeyValue key="collapsable" value="false" type="boolean" />
       <KeyValue key="sectionTitleHeight" value="42" type="number" />
       <KeyValue key="paddingTop" value="2" type="number" />

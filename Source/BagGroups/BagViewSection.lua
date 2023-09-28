@@ -5,9 +5,7 @@ function AuctionatorBagViewSectionMixin:Reset()
   self.row = 0
   self.collapsed = false
   self.buttons = {}
-  if not self.rowWidth then
-    self.rowWidth = math.ceil(6 * Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ICON_SIZE] / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
-  end
+  self.rowWidth = math.floor(self:GetParent():GetWidth() / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
   self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
   self.SectionTitle:SetPoint("TOPLEFT", self.insetLeft, 0)
 end
