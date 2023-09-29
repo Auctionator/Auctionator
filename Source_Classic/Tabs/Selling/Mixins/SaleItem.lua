@@ -491,7 +491,9 @@ end
 
 function AuctionatorSaleItemMixin:SetQuantity()
   local defaultStacks = CopyTable(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS))
-  local useMemory = true
+
+  local preferredStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
+
   if self.itemInfo.groupName then
     local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
     if groupSettings then
@@ -501,8 +503,8 @@ function AuctionatorSaleItemMixin:SetQuantity()
         end
       end
     end
-    if groupSettings.stackSize then
-      useMemory = groupSettings.stackSize == 0
+    if groupSettings.stackSize ~= 0 then
+      preferredStackSize = groupSettings.stackSize
     end
   end
 
@@ -514,22 +516,15 @@ function AuctionatorSaleItemMixin:SetQuantity()
     self.normalStackSize = math.min(defaultStacks.stackSize, self.itemInfo.stackSize)
   end
 
-  local previousStackSize
-  if useMemory then
-    previousStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
-  else
-    previousStackSize = defaultStacks.numStacks
-  end
-
-  if previousStackSize ~= nil then
-    self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, previousStackSize))
+  if preferredStackSize ~= nil then
+    self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, preferredStackSize))
   else
     self.Stacks.StackSize:SetNumber(math.min(self.normalStackSize, self.itemInfo.count))
   end
 
   local numStacks = math.floor(self.itemInfo.count/self.Stacks.StackSize:GetNumber())
-  if previousStackSize ~= nil and previousStackSize ~= 0 then
-    numStacks = math.floor(self.itemInfo.count/previousStackSize)
+  if preferredStackSize ~= nil and preferredStackSize ~= 0 then
+    numStacks = math.floor(self.itemInfo.count/preferredStackSize)
   end
 
   if numStacks == 0 then
