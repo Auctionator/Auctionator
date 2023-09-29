@@ -140,7 +140,7 @@
         <Anchor point="CENTER"/>
     </Anchors>
     <Frames>
-      <Frame inherits="AuctionatorBagViewTemplate">
+      <Frame inherits="AuctionatorBagViewTemplate" hidden="true">
         <KeyValues>
           <KeyValue key="itemTemplate" value="AuctionatorBagViewItemTemplate" type="string" />
           <KeyValue key="sectionTemplate" value="AuctionatorBagCustomiseSectionTemplate" type="string" />

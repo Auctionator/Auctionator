@@ -28,6 +28,7 @@ function AuctionatorBagCustomiseMixin:OnDragStop()
 end
 
 function AuctionatorBagCustomiseMixin:OnShow()
+  self.View:Show()
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
 
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.BagItemClicked", self.BagItemClicked, self)
