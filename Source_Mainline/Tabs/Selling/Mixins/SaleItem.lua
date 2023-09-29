@@ -335,13 +335,27 @@ function AuctionatorSaleItemMixin:UpdateForNoItem()
 end
 
 function AuctionatorSaleItemMixin:SetDuration()
-  self.Duration:SetSelectedValue(
-    Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
-  )
+  local duration = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
+
+  if self.itemInfo.groupName then
+    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
+    if groupSettings and groupSettings.duration and groupSettings.duration ~= 0 then
+      duration = groupSettings.duration
+    end
+  end
+
+  self.Duration:SetSelectedValue(duration)
 end
 
 function AuctionatorSaleItemMixin:SetQuantity()
   local defaultQuantity = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_QUANTITIES)[self.itemInfo.classId]
+
+  if self.itemInfo.groupName then
+    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
+    if groupSettings and groupSettings.quantity and groupSettings.quantity ~= 0 then
+      defaultQuantity = groupSettings.quantity
+    end
+  end
 
   if self.itemInfo.count == 0 then
     self.Quantity:SetNumber(0)
