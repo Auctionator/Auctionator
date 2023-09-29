@@ -478,7 +478,7 @@ local groupDurationToRadioDuration = {
 function AuctionatorSaleItemMixin:SetDuration()
   if self.itemInfo.groupName then
     local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
-    if groupSettings.duration and groupSettings.duration ~= 0 then
+    if groupSettings and groupSettings.duration and groupSettings.duration ~= 0 then
       self.Duration:SetSelectedValue(groupDurationToRadioDuration[groupSettings.duration])
       return
     end
