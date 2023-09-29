@@ -493,8 +493,6 @@ function AuctionatorSaleItemMixin:SetQuantity()
   local defaultStacks = CopyTable(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS))
 
   local preferredStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
-  DevTools_Dump(defaultStacks)
-  print("pref", preferredStackSize)
 
   if self.itemInfo.groupName then
     local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
@@ -509,8 +507,6 @@ function AuctionatorSaleItemMixin:SetQuantity()
       preferredStackSize = groupSettings.stackSize
     end
   end
-  print("pref2", preferredStackSize)
-  DevTools_Dump(defaultStacks)
 
   -- Determine what the stack size would be without using stack size memory.
   -- This is used to clear stack size memory when the max/min is used
@@ -519,7 +515,6 @@ function AuctionatorSaleItemMixin:SetQuantity()
   else
     self.normalStackSize = math.min(defaultStacks.stackSize, self.itemInfo.stackSize)
   end
-  print("norm", self.normalStackSize)
 
   if preferredStackSize ~= nil then
     self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, preferredStackSize))
@@ -528,16 +523,13 @@ function AuctionatorSaleItemMixin:SetQuantity()
   end
 
   local numStacks = math.floor(self.itemInfo.count/self.Stacks.StackSize:GetNumber())
-  print("num", numStacks)
   if preferredStackSize ~= nil then
     numStacks = math.floor(self.itemInfo.count/preferredStackSize)
   end
-  print("num2", numStacks)
 
   if numStacks == 0 then
     numStacks = 1
   end
-  print("num3", numStacks)
 
   if self.itemInfo.count == 0 then
     self.Stacks.NumStacks:SetNumber(0)
@@ -803,7 +795,6 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
   local count = details.itemInfo.count - details.stackSize * details.numStacksReached
   if count > 0 then
     local itemInfo = Auctionator.BagGroups.Utilities.QueryItem(details.itemInfo.key.sortKey)
-    print("hit")
     if itemInfo then
       Auctionator.Debug.Message("found again, trying")
       self:UnlockItem()
