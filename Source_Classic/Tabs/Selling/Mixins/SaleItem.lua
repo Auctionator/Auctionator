@@ -470,14 +470,33 @@ function AuctionatorSaleItemMixin:UpdateForNoItem()
   self.TotalPrice:SetText(GetMoneyString(0))
 end
 
+local groupDurationToRadioDuration = {
+  [1] = 12,
+  [2] = 24,
+  [3] = 48,
+}
 function AuctionatorSaleItemMixin:SetDuration()
+  if self.itemInfo.groupName then
+    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
+    if groupSettings.duration and groupSettings.duration ~= 0 then
+      self.Duration:SetSelectedValue(groupDurationToRadioDuration[groupSettings.duration])
+      return
+    end
+  end
+
   self.Duration:SetSelectedValue(
     Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
   )
 end
 
 function AuctionatorSaleItemMixin:SetQuantity()
-  local defaultStacks = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS)
+  local defaultStacks = CopyTable(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS))
+  if self.itemInfo.groupName then
+    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
+    if groupSettings then
+      Mixin(defaultStacks, groupSettings)
+    end
+  end
 
   -- Determine what the stack size would be without using stack size memory.
   -- This is used to clear stack size memory when the max/min is used
@@ -492,7 +511,7 @@ function AuctionatorSaleItemMixin:SetQuantity()
   if previousStackSize ~= nil then
     self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, previousStackSize))
   else
-    self.Stacks.StackSize:SetNumber(self.normalStackSize)
+    self.Stacks.StackSize:SetNumber(math.min(self.normalStackSize, self.itemInfo.count))
   end
 
   local numStacks = math.floor(self.itemInfo.count/self.Stacks.StackSize:GetNumber())

@@ -101,7 +101,30 @@
           <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" />
         </Anchors>
       </Frame>
+
+      <Frame parentKey="Durations" inherits="AuctionatorBagCustomiseDurationTemplate">
+        <Anchors>
+          <Anchor point="TOPRIGHT" y="-40"/>
+          <Anchor point="RIGHT" x="-50"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Quantity" inherits="AuctionatorBagCustomiseQuantityTemplate">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Durations" relativePoint="TOPLEFT" x="-10"/>
+        </Anchors>
+      </Frame>
     </Frames>
+    <Layers>
+      <Layer level="ARTWORK">
+        <FontString parentKey="PostingSettingsText" inherits="GameFontHighlight" text="AUCTIONATOR_L_POSTING_SETTINGS_COLON">
+          <Size y="22"/>
+          <Anchors>
+            <Anchor point="TOPRIGHT" relativeKey="$parent.Quantity" relativePoint="TOPLEFT" x="-20"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
   </Frame>
 
   <Frame name="AuctionatorBagCustomiseTemplate" virtual="true" mixin="AuctionatorBagCustomiseMixin" topLevel="true" inherits="ButtonFrameTemplate" hidden="true" enableMouse="true">

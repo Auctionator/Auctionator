@@ -62,6 +62,7 @@ function AuctionatorBagUseMixin:BagItemClicked(button)
   postingInfo.nextItem = button.nextItem
   postingInfo.prevItem = button.prevItem
   postingInfo.key = button.key
+  postingInfo.groupName = button.itemInfo.section
   Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
 end
 

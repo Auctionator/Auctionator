@@ -23,6 +23,7 @@ Auctionator.BagGroups.Constants.Events = {
   "BagCustomise.ShiftDownSection",
 
   "BagCustomise.EditMade",
+  "BagCustomise.PostingSettingChanged",
 }
 
 Auctionator.BagGroups.Constants.DialogNames = {

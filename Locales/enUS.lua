@@ -711,6 +711,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["SHIFT_UP"] = "Shift Up"
   L["SHIFT_DOWN"] = "Shift Down"
   L["CUSTOMISE_BAG_GROUPS"] = "Customise Bag Groups"
+  L["DEFAULT"] = "default"
+  L["POSTING_SETTINGS_COLON"] = "Posting Settings:"
 
   return L
 end

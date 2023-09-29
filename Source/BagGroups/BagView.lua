@@ -143,7 +143,8 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
     section:SetPoint("LEFT", self.sectionInsetX, 0)
     section:SetPoint("RIGHT")
     section:Reset()
-    section:SetName(s.name, index <= #AUCTIONATOR_SELLING_GROUPS.CustomSections)
+    local isCustom = index <= #AUCTIONATOR_SELLING_GROUPS.CustomSections
+    section:SetName(s.name, isCustom)
     if self.collapsing[index] or (self.originalOpen and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED)) then
       section:ToggleOpen(true)
     end
@@ -163,6 +164,7 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
         button:SetClickEvent(self.clickEventName)
         info.selected = self.selected and self.selected.name == self.sectionDetails[index].name and info.sortKey == self.selected.sortKey
         info.section = s.name
+        info.isCustom = isCustom
         button:SetSize(iconSize, iconSize)
         button:SetItemInfo(info)
         section:AddButton(button)
@@ -184,6 +186,7 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
         local button = self.buttonPool:Acquire()
         button:SetClickEvent(self.clickEventName)
         item.selected = self.selected and self.selected.name == self.sectionDetails[index].name and item.sortKey == self.selected.sortKey
+        item.isCustom = false
         button:SetItemInfo(item)
         button:SetSize(iconSize, iconSize)
         sections[index]:AddButton(button)

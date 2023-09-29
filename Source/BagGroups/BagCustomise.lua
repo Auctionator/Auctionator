@@ -38,6 +38,7 @@ function AuctionatorBagCustomiseMixin:OnShow()
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.HideSection", self.HideSection, self)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.ShiftUpSection", self.ShiftUpSection, self)
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.ShiftDownSection", self.ShiftDownSection, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.PostingSettingChanged", self.PostingSettingChanged, self)
 end
 
 function AuctionatorBagCustomiseMixin:OnHide()
@@ -56,6 +57,7 @@ function AuctionatorBagCustomiseMixin:UpdateSectionVisuals()
     if section.name == self.focussedSection then
       -- Show background to indicate focus
       section.FocussedBackground:Show()
+      section.Durations:SetCheckedColor(1, 0, 0)
       -- Revert any fading for the currently focussed section
       for _, button in ipairs(section.buttons) do
         button:SetAlpha(1)
@@ -75,6 +77,7 @@ function AuctionatorBagCustomiseMixin:UpdateSectionVisuals()
           button:SetAlpha(1)
         end
       end
+      section.Durations:SetCheckedColor(1, 1, 1)
       section.FocusButton:Enable()
     end
   end
@@ -152,6 +155,14 @@ function AuctionatorBagCustomiseMixin:ShiftDownSection(name)
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
 end
 
+function AuctionatorBagCustomiseMixin:PostingSettingChanged(groupName, state)
+  local postingSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)
+  if not postingSettings[groupName] then
+    postingSettings[groupName] = {}
+  end
+  Mixin(postingSettings[groupName], state)
+end
+
 AuctionatorBagCustomiseSectionMixin = CreateFromMixins(AuctionatorBagViewSectionMixin)
 
 function AuctionatorBagCustomiseSectionMixin:OnLoad()
@@ -210,7 +221,7 @@ function AuctionatorBagCustomiseSectionMixin:SetName(name, isCustom)
   self.FocussedHoverBackground:Hide()
 
   if isCustom then
-    self.sectionTitleHeight = 42
+    self.sectionTitleHeight = 72
   else
     self.sectionTitleHeight = 22
   end
@@ -227,4 +238,13 @@ function AuctionatorBagCustomiseSectionMixin:SetName(name, isCustom)
 
   self.ShiftUpButton:SetShown(isCustom)
   self.ShiftDownButton:SetShown(isCustom)
+
+  local state = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[name] or {}
+  self.Durations:SetShown(isCustom)
+  self.Durations:SetGroup(name, isCustom)
+  self.Durations:ApplyState(state)
+  self.Quantity:SetShown(isCustom)
+  self.Quantity:SetGroup(name, isCustom)
+  self.Quantity:ApplyState(state)
+  self.PostingSettingsText:SetShown(isCustom)
 end
