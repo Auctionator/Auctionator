@@ -495,7 +495,11 @@ function AuctionatorSaleItemMixin:SetQuantity()
   if self.itemInfo.groupName then
     local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
     if groupSettings then
-      Mixin(defaultStacks, groupSettings)
+      for key, value in pairs(groupSettings) do
+        if value ~= 0 then
+          defaultStacks[key] = value
+        end
+      end
     end
     if groupSettings.stackSize then
       useMemory = groupSettings.stackSize == 0
@@ -513,6 +517,8 @@ function AuctionatorSaleItemMixin:SetQuantity()
   local previousStackSize
   if useMemory then
     previousStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
+  else
+    previousStackSize = defaultStacks.numStacks
   end
 
   if previousStackSize ~= nil then
