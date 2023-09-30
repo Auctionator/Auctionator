@@ -22,8 +22,9 @@ end
 
 function AuctionatorGroupsViewMixin:OnShow()
   Auctionator.Groups.CallbackRegistry:RegisterCallback("BagCacheUpdated", self.Update, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsViewGroupToggled", self.UpdateGroupHeights, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("ViewGroupToggled", self.UpdateGroupHeights, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.EditMade", self.UpdateCustomGroups, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.ItemHidden", self.UpdateCustomGroups, self)
 
   self:UpdateCustomGroups()
   self:UpdateFromExisting()
@@ -31,8 +32,8 @@ end
 
 function AuctionatorGroupsViewMixin:OnHide()
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsViewGroupToggled", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("ViewGroupToggled", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("Customise.EditMade", self.UpdateCustomGroups, self)
 end
 
 function AuctionatorGroupsViewMixin:UpdateCustomGroups()

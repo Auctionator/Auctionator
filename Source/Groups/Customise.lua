@@ -31,26 +31,26 @@ function AuctionatorGroupsCustomiseMixin:OnShow()
   self.View:Show()
   Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOn")
 
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.BagItemClicked", self.BagItemClicked, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.NewGroup", self.NewGroup, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.FocusGroup", self.FocusGroup, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.DeleteGroup", self.DeleteGroup, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.RenameGroup", self.RenameGroup, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.HideGroup", self.HideGroup, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.ShiftUpGroup", self.ShiftUpGroup, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.ShiftDownGroup", self.ShiftDownGroup, self)
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.PostingSettingChanged", self.PostingSettingChanged, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.BagItemClicked", self.BagItemClicked, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.NewGroup", self.NewGroup, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.FocusGroup", self.FocusGroup, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.DeleteGroup", self.DeleteGroup, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.RenameGroup", self.RenameGroup, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.HideGroup", self.HideGroup, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.ShiftUpGroup", self.ShiftUpGroup, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.ShiftDownGroup", self.ShiftDownGroup, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("Customise.PostingSettingChanged", self.PostingSettingChanged, self)
 end
 
 function AuctionatorGroupsCustomiseMixin:OnHide()
   Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOff")
 
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.BagItemClicked", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.NewGroup", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.FocusGroup", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.DeleteGroup", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.RenameGroup", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.HideGroup", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("Customise.BagItemClicked", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("Customise.NewGroup", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("Customise.FocusGroup", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("Customise.DeleteGroup", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("Customise.RenameGroup", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("Customise.HideGroup", self)
 end
 
 function AuctionatorGroupsCustomiseMixin:UpdateGroupVisuals()
@@ -112,7 +112,7 @@ function AuctionatorGroupsCustomiseMixin:BagItemClicked(buttonFrame, mouseButton
       table.insert(list, buttonFrame.itemInfo.itemLink)
     end
   end
-  Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
 end
 
 function AuctionatorGroupsCustomiseMixin:ToggleCustomiseMode()
@@ -132,7 +132,7 @@ function AuctionatorGroupsCustomiseMixin:RenameGroup(name)
   StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.RenameGroup].text = AUCTIONATOR_L_RENAME_GROUP_DIALOG:format(name):gsub("%%", "%%%%")
   StaticPopup_Show(Auctionator.Groups.Constants.DialogNames.RenameGroup, nil, nil, name)
 
-  Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
 end
 
 function AuctionatorGroupsCustomiseMixin:DeleteGroup(name)
@@ -143,21 +143,21 @@ end
 function AuctionatorGroupsCustomiseMixin:HideGroup(name)
   Auctionator.Groups.ToggleGroupHidden(name)
 
-  Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
 end
 
 -- Move group closer to the start of the groups list
 function AuctionatorGroupsCustomiseMixin:ShiftUpGroup(name)
   Auctionator.Groups.ShiftUpGroup(name)
 
-  Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
 end
 
 -- Move group away from the start of the groups list
 function AuctionatorGroupsCustomiseMixin:ShiftDownGroup(name)
   Auctionator.Groups.ShiftDownGroup(name)
 
-  Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
 end
 
 function AuctionatorGroupsCustomiseMixin:PostingSettingChanged(groupName, state)
@@ -173,7 +173,7 @@ AuctionatorGroupsCustomiseGroupMixin = CreateFromMixins(AuctionatorGroupsViewGro
 function AuctionatorGroupsCustomiseGroupMixin:OnLoad()
   self.GroupTitle:SetScript("OnClick", function()
     if self.isCustom then
-      Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.FocusGroup", self.name)
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.FocusGroup", self.name)
     end
   end)
   self.GroupTitle:SetScript("OnEnter", function()
@@ -184,28 +184,28 @@ function AuctionatorGroupsCustomiseGroupMixin:OnLoad()
   end)
 
   self.FocusButton:SetScript("OnClick", function()
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.FocusGroup", self.name)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.FocusGroup", self.name)
   end)
   self.RenameButton:SetScript("OnClick", function()
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.RenameGroup", self.name)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.RenameGroup", self.name)
   end)
   self.DeleteButton:SetScript("OnClick", function()
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.DeleteGroup", self.name)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.DeleteGroup", self.name)
   end)
   self.HideButton:SetScript("OnClick", function()
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.HideGroup", self.name)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.HideGroup", self.name)
   end)
   self.ShiftUpButton:SetScript("OnClick", function()
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.ShiftUpGroup", self.name)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.ShiftUpGroup", self.name)
   end)
   self.ShiftDownButton:SetScript("OnClick", function()
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.ShiftDownGroup", self.name)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.ShiftDownGroup", self.name)
   end)
 end
 
 function AuctionatorGroupsCustomiseGroupMixin:OnMouseUp()
   if self.isCustom then
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.FocusGroup", self.name)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.FocusGroup", self.name)
   end
 end
 

@@ -1,5 +1,5 @@
 local function ChangeEvent(widget)
-  Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.PostingSettingChanged", widget.group.name, widget:GetState())
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.PostingSettingChanged", widget.group.name, widget:GetState())
 end
 
 GroupsCustomiseDurationMixin = {}

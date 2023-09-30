@@ -146,7 +146,7 @@
           <KeyValue key="groupTemplate" value="AuctionatorGroupsCustomiseGroupTemplate" type="string" />
           <KeyValue key="forceShow" value="true" type="boolean" />
           <KeyValue key="groupInsetX" value="7" type="number" />
-          <KeyValue key="clickEventName" value="GroupsCustomise.BagItemClicked" type="string" />
+          <KeyValue key="clickEventName" value="Customise.BagItemClicked" type="string" />
         </KeyValues>
         <Anchors>
             <Anchor point="TOPLEFT" y="-52"/>

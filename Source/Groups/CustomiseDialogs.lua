@@ -12,7 +12,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.CreateGroup] = {
     local newName = self.editBox:GetText()
     if not Auctionator.Groups.DoesGroupExist(newName) then
       Auctionator.Groups.AddGroup(newName)
-      Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
     else
       Auctionator.Utilities.Message(AUCTIONATOR_L_GROUP_EXISTS_ALREADY)
     end
@@ -22,7 +22,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.CreateGroup] = {
     local newName = self:GetText()
     if not Auctionator.Groups.DoesGroupExist(newName) then
       Auctionator.Groups.AddGroup(newName)
-      Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
     else
       Auctionator.Utilities.Message(AUCTIONATOR_L_GROUP_EXISTS_ALREADY)
     end
@@ -48,7 +48,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.RenameGroup] = {
     local newName = self.editBox:GetText()
     if not Auctionator.Groups.DoesGroupExist(newName) then
       Auctionator.Groups.RenameGroup(self.data, newName)
-      Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
     else
       Auctionator.Utilities.Message(AUCTIONATOR_L_GROUP_EXISTS_ALREADY)
     end
@@ -58,7 +58,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.RenameGroup] = {
     local newName = self:GetText()
     if not Auctionator.Groups.DoesGroupExist(newName) then
       Auctionator.Groups.RenameGroup(self:GetParent().data, newName)
-      Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
     else
       Auctionator.Utilities.Message(AUCTIONATOR_L_GROUP_EXISTS_ALREADY)
     end
@@ -76,7 +76,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.ConfirmDelete] = {
   button2 = CANCEL,
   OnAccept = function(self)
     Auctionator.Groups.DeleteGroup(self.data)
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
   end,
   timeout = 0,
   exclusive = 1,

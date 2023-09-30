@@ -10,7 +10,7 @@
       <KeyValue key="groupTemplate" value="AuctionatorGroupsViewGroupTemplate" type="string" />
       <KeyValue key="groupInsetX" value="0" type="number" />
       <KeyValue key="clickEventName" value="BagItemClicked" type="string" />
-      <KeyValue key="completeEventName" value="GroupsViewComplete" type="string" />
+      <KeyValue key="completeEventName" value="ViewComplete" type="string" />
     </KeyValues>
     <Frames>
       <EventFrame parentKey="ScrollBar" inherits="WowTrimScrollBar">

@@ -39,7 +39,7 @@ function AuctionatorGroupsViewGroupMixin:ToggleOpen(doNotNotify)
 
   if not doNotNotify then
     -- Need to update heights
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsViewGroupToggled")
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("ViewGroupToggled")
   end
 end
 

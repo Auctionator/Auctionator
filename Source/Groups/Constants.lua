@@ -6,8 +6,8 @@ Auctionator.Groups.Constants = {
 
 Auctionator.Groups.Constants.Events = {
   "BagCacheUpdated",
-  "GroupsViewGroupToggled",
-  "GroupsViewComplete",
+  "ViewGroupToggled",
+  "ViewComplete",
 
   "BagCacheOff",
   "BagCacheOn",
@@ -15,17 +15,17 @@ Auctionator.Groups.Constants.Events = {
   "BagUse.BagItemClicked",
   "BagUse.AddToDefaultGroup",
 
-  "GroupsCustomise.BagItemClicked",
-  "GroupsCustomise.NewGroup",
-  "GroupsCustomise.FocusGroup",
-  "GroupsCustomise.DeleteGroup",
-  "GroupsCustomise.RenameGroup",
-  "GroupsCustomise.HideGroup",
-  "GroupsCustomise.ShiftUpGroup",
-  "GroupsCustomise.ShiftDownGroup",
+  "Customise.BagItemClicked",
+  "Customise.NewGroup",
+  "Customise.FocusGroup",
+  "Customise.DeleteGroup",
+  "Customise.RenameGroup",
+  "Customise.HideGroup",
+  "Customise.ShiftUpGroup",
+  "Customise.ShiftDownGroup",
 
-  "GroupsCustomise.EditMade",
-  "GroupsCustomise.PostingSettingChanged",
+  "Customise.EditMade",
+  "Customise.PostingSettingChanged",
 }
 
 Auctionator.Groups.Constants.DialogNames = {
