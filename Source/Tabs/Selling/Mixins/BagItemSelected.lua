@@ -25,7 +25,7 @@ function AuctionatorBagItemSelectedMixin:SearchInShoppingTab()
 end
 
 function AuctionatorBagItemSelectedMixin:OnReceiveDrag()
-  self:ProcessCursor()
+  self:ProcessCursor(function() end)
 end
 
 function AuctionatorBagItemSelectedMixin:ProcessCursor(callback)
