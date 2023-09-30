@@ -83,7 +83,7 @@ function AuctionatorSelectionPopoutMixin:Init(info)
     row:Show()
   end
 
-  local stride = 10 
+  local stride = 10
   if stride ~= self.lastStride then
     self.layout = AnchorUtil.CreateGridLayout(GridLayoutMixin.Direction.TopLeftToBottomRightVertical, stride);
     self.lastStride = stride;

@@ -13,6 +13,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.CreateGroup] = {
     if not Auctionator.Groups.DoesGroupExist(newName) then
       Auctionator.Groups.AddGroup(newName)
       Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.FocusGroup", newName)
     else
       Auctionator.Utilities.Message(AUCTIONATOR_L_GROUP_EXISTS_ALREADY)
     end
@@ -23,6 +24,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.CreateGroup] = {
     if not Auctionator.Groups.DoesGroupExist(newName) then
       Auctionator.Groups.AddGroup(newName)
       Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.FocusGroup", newName)
     else
       Auctionator.Utilities.Message(AUCTIONATOR_L_GROUP_EXISTS_ALREADY)
     end
