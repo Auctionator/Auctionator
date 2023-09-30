@@ -28,6 +28,8 @@ local SLASH_COMMANDS = {
   ["npd"] = Auctionator.SlashCmd.NoPriceDB,
   ["h"] = Auctionator.SlashCmd.Help,
   ["help"] = Auctionator.SlashCmd.Help,
+  ["groups"] = Auctionator.SlashCmd.Groups,
+  ["g"] = Auctionator.SlashCmd.Groups,
 }
 
 function Auctionator.SlashCmd.Handler(input)

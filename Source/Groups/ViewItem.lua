@@ -1,10 +1,13 @@
-AuctionatorBagItemMixin = {}
+AuctionatorGroupsViewItemMixin = {}
 
-function AuctionatorBagItemMixin:SetItemInfo(info)
+function AuctionatorGroupsViewItemMixin:SetClickEvent(eventName)
+  self.clickEventName = eventName
+end
+
+function AuctionatorGroupsViewItemMixin:SetItemInfo(info)
   self.itemInfo = info
 
   if info ~= nil then
-    Auctionator.EventBus:RegisterSource(self, "BagItemMixin")
 
     self.Icon:SetTexture(info.iconTexture)
     self.Icon:Show()
@@ -26,7 +29,7 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
     )
     self.IconBorder:SetShown(not info.selected)
 
-    self.Text:SetText(info.count)
+    self.Text:SetText(info.itemCount)
 
     self:ApplyQualityIcon(info.itemLink)
 
@@ -40,7 +43,7 @@ function AuctionatorBagItemMixin:SetItemInfo(info)
   end
 end
 
-function AuctionatorBagItemMixin:OnEnter()
+function AuctionatorGroupsViewItemMixin:OnEnter()
   if self.itemInfo ~= nil then
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
     if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
@@ -52,7 +55,7 @@ function AuctionatorBagItemMixin:OnEnter()
   end
 end
 
-function AuctionatorBagItemMixin:OnLeave()
+function AuctionatorGroupsViewItemMixin:OnLeave()
   if self.itemInfo ~= nil then
     if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
       BattlePetTooltip:Hide()
@@ -62,7 +65,7 @@ function AuctionatorBagItemMixin:OnLeave()
   end
 end
 
-function AuctionatorBagItemMixin:OnClick(button)
+function AuctionatorGroupsViewItemMixin:OnClick(button)
   if self.itemInfo ~= nil then
     if IsModifiedClick("DRESSUP") then
       DressUpLink(self.itemInfo.itemLink)
@@ -70,21 +73,14 @@ function AuctionatorBagItemMixin:OnClick(button)
     elseif IsModifiedClick("CHATLINK") then
       ChatEdit_InsertLink(self.itemInfo.itemLink)
 
-    elseif button == "LeftButton" then
-      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, self.itemInfo)
-
-    elseif button == "RightButton" then
-      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.ItemIconCallback, self.itemInfo)
+    else
+      Auctionator.Groups.CallbackRegistry:TriggerEvent(self.clickEventName, self, button)
     end
   end
 end
 
-function AuctionatorBagItemMixin:HideCount()
-  self.Text:Hide()
-end
-
 -- Adds Dragonflight (10.0) crafting quality icon for reagents on retail only
-function AuctionatorBagItemMixin:ApplyQualityIcon(itemLink)
+function AuctionatorGroupsViewItemMixin:ApplyQualityIcon(itemLink)
   if C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo then
     local quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(itemLink)
     if quality ~= nil then
@@ -103,7 +99,7 @@ function AuctionatorBagItemMixin:ApplyQualityIcon(itemLink)
   end
 end
 
-function AuctionatorBagItemMixin:HideQualityIcon()
+function AuctionatorGroupsViewItemMixin:HideQualityIcon()
   if self.ProfessionQualityOverlay then
     self.ProfessionQualityOverlay:Hide()
   end

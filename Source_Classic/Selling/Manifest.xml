@@ -3,8 +3,6 @@
   <Include file="Events.lua" />
   <Include file="Hooks.lua" />
 
-  <Script file="UniqueBagKey.lua"/>
-  <Script file="GetItemCount.lua"/>
   <Script file="ComposeAuctionPostedMessage.lua"/>
   <Script file="ShowCannotSellReason.lua"/>
 </Ui>

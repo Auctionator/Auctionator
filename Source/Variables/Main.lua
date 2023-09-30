@@ -16,6 +16,8 @@ function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializePostingHistory()
   Auctionator.Variables.InitializeVendorPriceCache()
 
+  Auctionator.Groups.Initialize()
+
   Auctionator.State.Loaded = true
 end
 

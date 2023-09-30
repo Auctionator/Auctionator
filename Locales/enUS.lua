@@ -522,6 +522,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["BUY_NOW"] = "Buy Now"
   L["CONFIRM_PURCHASE_OF_X_FOR_X"] = "Confirm purchase of %s for %s?"
   L["TOTAL_OF_X_FOR_UNIT_PRICE_OF_X"] = "Total of %s for unit price of %s"
+  L["ITEM_NAME_X_ITEM_LEVEL_X"] = "%s (%s)"
 
   L["DEFAULT_TAB"] = "Default Tab"
   L["DEFAULT_TAB_TEXT"] = "shows as the default tab"
@@ -606,6 +607,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["UNHIDE_ALL_HIDDEN_ITEMS"] = "Unhide all hidden items"
   L["FAVOURITES"] = "Favourites"
   L["ADD_FAVOURITE"] = "Add Favourite"
+  L["FAVOURITES_GROUP"] = "Favourites Group"
   L["REMOVE_FAVOURITE"] = "Remove Favourite"
 
   L["LEFT_CLICK"] = "Left Click"
@@ -697,6 +699,22 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY"] = "Always type quantity twice when purchasing commodities from the shopping tab"
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_HEADER"] = "Confirm quantity every time"
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_TEXT"] = "By default the quantity is confirmed just once, this makes it so you have to type it a second time to confirm the purchase."
+
+  L["CUSTOMISE"] = "Customise"
+  L["FOCUS"] = "Focus"
+  L["NEW_GROUP"] = "New Group"
+  L["NEW_GROUP_DIALOG"] = "Enter the name to be used for the new group"
+  L["GROUP_EXISTS_ALREADY"] = "That group name is already in use"
+  L["DELETE_GROUP_DIALOG"] = "Are you sure you want to delete group \"%s\"?"
+  L["RENAME_GROUP_DIALOG"] = "Choose a new name for \"%s\""
+  L["RENAME_GROUP_DIALOG"] = "Choose a new name for \"%s\""
+  L["SHIFT_UP"] = "Shift Up"
+  L["SHIFT_DOWN"] = "Shift Down"
+  L["CUSTOMISE_BAG_GROUPS"] = "Customise Bag Groups"
+  L["DEFAULT"] = "default"
+  L["POSTING_SETTINGS_COLON"] = "Posting Settings:"
+  L["ADD_TO_X"] = "Add to %s"
+  L["REMOVE_FROM_X"] = "Remove from %s"
 
   return L
 end

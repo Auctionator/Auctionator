@@ -25,7 +25,7 @@ Auctionator.Config.Options = {
   SELLING_AUTO_SELECT_NEXT = "selling_auto_select_next",
   SELLING_MISSING_FAVOURITES = "selling_missing_favourites",
   SELLING_FAVOURITES_SORT_OWNED = "selling_favourites_sort_owned",
-  SELLING_RESELECT_ITEM = "selling_reselect_item",
+  SELLING_RESELECT_ITEM = "selling_reselect_item_2",
   SELLING_SHOULD_RESELECT_ITEM = "selling_should_reselect_item",
   SELLING_POST_SHORTCUT = "selling_post_shortcut",
   SELLING_SKIP_SHORTCUT = "selling_skip_shortcut",
@@ -34,6 +34,7 @@ Auctionator.Config.Options = {
   SELLING_CONFIRM_LOW_PRICE = "selling_confirm_low_price",
   SAVE_LAST_DURATION_AS_DEFAULT = "save_last_duration_as_default",
   SELLING_BAG_SELECTION_COLOR = "selling_bag_selection_color",
+  SELLING_GROUPS_SETTINGS = "selling_groups_settings",
 
   GEAR_PRICE_MULTIPLIER = "gear_vendor_price_multiplier",
 
@@ -107,6 +108,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE] = true,
   [Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT] = false,
   [Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR] = {r=0.977, g=0.592, b=0.086},
+  [Auctionator.Config.Options.SELLING_GROUPS_SETTINGS] = {},
 
   [Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER] = 0,
 
