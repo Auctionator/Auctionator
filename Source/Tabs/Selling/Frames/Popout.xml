@@ -1,0 +1,67 @@
+<Ui>
+  <Frame name="AuctionatorSelectionPopoutTemplate" inherits="ResizeLayoutFrame" mixin="AuctionatorSelectionPopoutMixin" virtual="true" frameStrata="DIALOG">
+    <Size x="1" y="1"/>
+    <KeyValues>
+      <KeyValue key="widthPadding" value="6" type="number"/>
+      <KeyValue key="heightPadding" value="32" type="number"/>
+    </KeyValues>
+    <Frames>
+      <Frame parentKey="Border" useParentLevel="true" inherits="NineSlicePanelTemplate">
+        <KeyValues>
+          <KeyValue key="layoutType" value="CharacterCreateDropdown" type="string"/>
+        </KeyValues>
+      </Frame>
+    </Frames>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnEvent method="OnEvent"/>
+      <OnMouseWheel function="nop"/>
+    </Scripts>
+  </Frame>
+  <Button name="AuctionatorSelectionPopoutEntryTemplate" virtual="true" mixin="AuctionatorSelectionPopoutEntryMixin">
+    <Size x="100" y="20"/>
+    <Frames>
+      <Frame parentKey="HighlightBGTex" alpha="0" setAllPoints="true">
+        <KeyValues>
+          <KeyValue key="ignoreInLayout" value="true" type="boolean"/>
+        </KeyValues>
+        <Layers>
+          <Layer level="BACKGROUND">
+            <Texture parentKey="Left" atlas="charactercreate-customize-dropdown-linemouseover-side" useAtlasSize="true">
+              <Anchors>
+                <Anchor point="TOPLEFT"/>
+              </Anchors>
+            </Texture>
+            <Texture parentKey="Right" atlas="charactercreate-customize-dropdown-linemouseover-side" useAtlasSize="true">
+              <TexCoords left="1" right="0" top="0" bottom="1"/>
+              <Anchors>
+                <Anchor point="BOTTOMRIGHT"/>
+              </Anchors>
+            </Texture>
+            <Texture parentKey="Middle" atlas="charactercreate-customize-dropdown-linemouseover-middle" useAtlasSize="true">
+              <Anchors>
+                <Anchor point="TOPLEFT" relativeKey="$parent.Left" relativePoint="TOPRIGHT"/>
+                <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Right" relativePoint="BOTTOMLEFT"/>
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer level="OVERLAY" textureSubLevel="1">
+        <FontString parentKey="SelectionName" font="GameFontNormal" justifyH="LEFT" maxLines="1">
+          <Anchors>
+            <Anchor point="LEFT" x="10"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <!--<OnClick method="OnClick"/>-->
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
+    </Scripts>
+  </Button>
+</Ui>

@@ -16,10 +16,11 @@
         <KeyValues>
           <KeyValue key="itemTemplate" value="AuctionatorBagViewItemTemplate" type="string" />
           <KeyValue key="sectionTemplate" value="AuctionatorSellingBagViewSectionTemplate" type="string" />
+          <KeyValue key="clickEventName" value="BagUse.BagItemClicked" type="string" />
         </KeyValues>
         <Anchors>
-            <Anchor point="TOPLEFT"/>
-            <Anchor point="BOTTOMRIGHT"/>
+          <Anchor point="TOPLEFT"/>
+          <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
 

@@ -13,7 +13,8 @@ function AuctionatorBagUseMixin:OnLoad()
 end
 
 function AuctionatorBagUseMixin:OnShow()
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagItemClicked", self.BagItemClicked, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagUse.BagItemClicked", self.BagItemClicked, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagUse.AddToDefaultGroup", self.AddToDefaultGroup, self)
 
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagViewComplete", function(_, listsCached)
     self.awaitingCompletion = false
@@ -28,7 +29,9 @@ end
 
 function AuctionatorBagUseMixin:OnHide()
   self.awaitingCompletion = true
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagItemClicked", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagUse.BagItemClicked", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagUse.AddToDefaultGroup", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagUse.RemoveFromDefaultGroup", self)
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagViewComplete", self)
   Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
 end
@@ -57,13 +60,53 @@ function AuctionatorBagUseMixin:ReceiveEvent(eventName, info, ...)
   end
 end
 
-function AuctionatorBagUseMixin:BagItemClicked(button)
-  local postingInfo = Auctionator.BagGroups.Utilities.ToPostingItem(button.itemInfo)
-  postingInfo.nextItem = button.nextItem
-  postingInfo.prevItem = button.prevItem
-  postingInfo.key = button.key
-  postingInfo.groupName = button.itemInfo.section
-  Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
+function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
+  if mouseButton == "LeftButton" then
+    if IsModifiedClick("CHATLINK") then
+      ChatEdit_InsertLink(button.itemInfo.itemLink)
+    else
+      local postingInfo = Auctionator.BagGroups.Utilities.ToPostingItem(button.itemInfo)
+      postingInfo.nextItem = button.nextItem
+      postingInfo.prevItem = button.prevItem
+      postingInfo.key = button.key
+      postingInfo.groupName = button.itemInfo.section
+      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
+    end
+  elseif mouseButton == "RightButton" then
+    local defaultName = Auctionator.BagGroups.GetSectionNameByIndex(1)
+    local isInDefaultGroup = self.View.itemMap[defaultName][button.itemInfo.sortKey] ~= nil
+    local options = {}
+    local defaultPrintName = _G["AUCTIONATOR_L_" .. defaultName] or defaultName
+    if isInDefaultGroup then
+      table.insert(options, { label = AUCTIONATOR_L_REMOVE_FROM_X:format(defaultPrintName), callback = function() self:RemoveFromDefaultGroup(button) end})
+    else
+      table.insert(options, { label = AUCTIONATOR_L_ADD_TO_X:format(defaultPrintName), callback = function() self:AddToDefaultGroup(button) end})
+    end
+    Auctionator.Selling.ShowPopup(options)
+  end
+end
+
+function AuctionatorBagUseMixin:AddToDefaultGroup(button)
+  local defaultName = Auctionator.BagGroups.GetSectionNameByIndex(1)
+  local defaultList = Auctionator.BagGroups.GetSectionList(defaultName)
+  if self.View.itemMap[defaultName][button.itemInfo.sortKey] == nil then
+    table.insert(defaultList, button.itemInfo.itemLink)
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+  end
+end
+
+function AuctionatorBagUseMixin:RemoveFromDefaultGroup(button)
+  local defaultName = Auctionator.BagGroups.GetSectionNameByIndex(1)
+  local defaultList = Auctionator.BagGroups.GetSectionList(defaultName)
+  local info = self.View.itemMap[defaultName][button.itemInfo.sortKey].itemInfo
+  for index, itemLink in ipairs(defaultList) do
+    local sortKey = AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, info.auctionable).sortKey
+    if sortKey == info.sortKey then
+      table.remove(defaultList, index)
+      Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+      break
+    end
+  end
 end
 
 function AuctionatorBagUseMixin:ToggleCustomiseMode()

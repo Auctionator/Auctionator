@@ -6,12 +6,14 @@ Auctionator.BagGroups.Constants = {
 
 Auctionator.BagGroups.Constants.Events = {
   "BagCacheUpdated",
-  "BagItemClicked",
   "BagViewSectionToggled",
   "BagViewComplete",
 
   "BagCacheOff",
   "BagCacheOn",
+
+  "BagUse.BagItemClicked",
+  "BagUse.AddToDefaultGroup",
 
   "BagCustomise.BagItemClicked",
   "BagCustomise.NewSection",

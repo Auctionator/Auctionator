@@ -2,92 +2,6 @@ AuctionatorItemIconDropDownMixin = {}
 
 local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
 
-local function HideItem(info)
-  table.insert(
-    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS),
-    Auctionator.Selling.UniqueBagKey(info)
-  )
-
-  Auctionator.EventBus
-    :RegisterSource(HideItem, "HideItem")
-    :Fire(HideItem, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(HideItem)
-end
-
-local function UnhideItem(info)
-  local ignored = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS)
-  local index = tIndexOf(ignored, Auctionator.Selling.UniqueBagKey(info))
-
-  if index ~= nil then
-    table.remove(ignored, index)
-  end
-
-  Auctionator.EventBus
-    :RegisterSource(UnhideItem, "UnhideItem")
-    :Fire(UnhideItem, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(UnhideItem)
-end
-
-local function IsHidden(info)
-  return tIndexOf(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS), Auctionator.Selling.UniqueBagKey(info)) ~= nil
-end
-local function ToggleHidden(info)
-  if IsHidden(info) then
-    UnhideItem(info)
-  else
-    HideItem(info)
-  end
-end
-
-function Auctionator.Selling.GetAllFavourites()
-  local favourites = {}
-  for _, fav in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
-    table.insert(favourites, fav)
-  end
-
-  return favourites
-end
-
-function Auctionator.Selling.IsFavourite(data)
-  return Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] ~= nil
-end
-
-local function ToggleFavouriteItem(data)
-  if Auctionator.Selling.IsFavourite(data) then
-    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] = nil
-  else
-    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)[Auctionator.Selling.UniqueBagKey(data)] = {
-      itemKey = data.itemKey,
-      itemLink = data.itemLink,
-      count = 0,
-      iconTexture = data.iconTexture,
-      itemType = data.itemType,
-      location = nil,
-      quality = data.quality,
-      classId = data.classId,
-      auctionable = data.auctionable,
-    }
-  end
-
-  Auctionator.EventBus
-    :RegisterSource(ToggleFavouriteItem, "ToggleFavouriteItem")
-    :Fire(ToggleFavouriteItem, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(ToggleFavouriteItem)
-end
-
-local function UnhideAllItemKeys()
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORED_KEYS, {})
-
-  Auctionator.EventBus
-    :RegisterSource(UnhideAllItemKeys, "UnhideAllItemKeys")
-    :Fire(UnhideAllItemKeys, Auctionator.Selling.Events.BagRefresh)
-    :UnregisterSource(UnhideAllItemKeys)
-end
-
-local function NoItemKeysHidden()
-  return #Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS) == 0
-end
-
 function AuctionatorItemIconDropDownMixin:OnLoad()
   LibDD:Create_UIDropDownMenu(self)
 
@@ -110,7 +24,7 @@ function AuctionatorItemIconDropDownMixin:Initialize()
     return
   end
 
-  local hideInfo = LibDD:UIDropDownMenu_CreateInfo()
+  --[[local hideInfo = LibDD:UIDropDownMenu_CreateInfo()
   hideInfo.notCheckable = 1
   if IsHidden(self.data) then
     hideInfo.text = AUCTIONATOR_L_UNHIDE
@@ -135,6 +49,7 @@ function AuctionatorItemIconDropDownMixin:Initialize()
   end
 
   LibDD:UIDropDownMenu_AddButton(unhideAllAllInfo)
+  ]]
 
   local favouriteItemInfo = LibDD:UIDropDownMenu_CreateInfo()
   favouriteItemInfo.notCheckable = 1

@@ -713,6 +713,8 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CUSTOMISE_BAG_GROUPS"] = "Customise Bag Groups"
   L["DEFAULT"] = "default"
   L["POSTING_SETTINGS_COLON"] = "Posting Settings:"
+  L["ADD_TO_X"] = "Add to %s"
+  L["REMOVE_FROM_X"] = "Remove from %s"
 
   return L
 end

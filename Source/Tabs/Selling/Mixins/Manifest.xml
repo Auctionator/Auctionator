@@ -3,4 +3,5 @@
   <Script file="BagUse.lua" />
   <Script file="BagItemSelected.lua" />
   <Script file="ItemIconDropDown.lua" />
+  <Script file="Popout.lua" />
 </Ui>

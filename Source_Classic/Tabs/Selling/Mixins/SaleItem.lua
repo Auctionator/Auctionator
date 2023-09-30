@@ -502,9 +502,9 @@ function AuctionatorSaleItemMixin:SetQuantity()
           defaultStacks[key] = value
         end
       end
-    end
-    if groupSettings.stackSize ~= 0 then
-      preferredStackSize = groupSettings.stackSize
+      if groupSettings.stackSize ~= 0 then
+        preferredStackSize = groupSettings.stackSize
+      end
     end
   end
 

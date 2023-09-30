@@ -199,18 +199,20 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
   self.itemMap = {}
   for index, section in ipairs(sections) do
     local sectionInfo = self.sectionDetails[index]
-    self.itemMap[sectionInfo.name] = {}
-    for _, button in ipairs(section.buttons) do
-      if prevButton then
-        button.prevItem = {name = prevSection, sortKey = prevButton.itemInfo.sortKey}
-        prevButton.nextItem = {name = sectionInfo.name, sortKey = button.itemInfo.sortKey}
-      else
-        button.prevItem = nil
+    if section.isCustom then
+      self.itemMap[sectionInfo.name] = {}
+      for _, button in ipairs(section.buttons) do
+        if prevButton then
+          button.prevItem = {name = prevSection, sortKey = prevButton.itemInfo.sortKey}
+          prevButton.nextItem = {name = sectionInfo.name, sortKey = button.itemInfo.sortKey}
+        else
+          button.prevItem = nil
+        end
+        button.key = {name = sectionInfo.name, sortKey = button.itemInfo.sortKey}
+        self.itemMap[sectionInfo.name][button.itemInfo.sortKey] = button
+        prevSection = sectionInfo.name
+        prevButton = button
       end
-      button.key = {name = sectionInfo.name, sortKey = button.itemInfo.sortKey}
-      self.itemMap[sectionInfo.name][button.itemInfo.sortKey] = button
-      prevSection = sectionInfo.name
-      prevButton = button
     end
   end
 
