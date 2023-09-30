@@ -35,6 +35,7 @@ end
 function AuctionatorUndercutScanMixin:OnHide()
   ClearOverrideBindings(self)
   FrameUtil.UnregisterFrameForEvents(self, CANCELLING_EVENTS)
+  self:EndScan()
 end
 
 function AuctionatorUndercutScanMixin:StartScan()
