@@ -16,7 +16,7 @@ function AuctionatorBagUseMixin:OnShow()
   Auctionator.Groups.CallbackRegistry:RegisterCallback("BagUse.BagItemClicked", self.BagItemClicked, self)
   Auctionator.Groups.CallbackRegistry:RegisterCallback("BagUse.AddToDefaultGroup", self.AddToDefaultGroup, self)
 
-  Auctionator.Groups.CallbackRegistry:RegisterCallback("BagViewComplete", function(_, listsCached)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsViewComplete", function(_, listsCached)
     self.awaitingCompletion = false
     if self.pendingKey then
       self:ReturnItem(self.pendingKey)
@@ -32,7 +32,7 @@ function AuctionatorBagUseMixin:OnHide()
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.BagItemClicked", self)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.AddToDefaultGroup", self)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.RemoveFromDefaultGroup", self)
-  Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagViewComplete", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsViewComplete", self)
   Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOff")
 end
 
@@ -91,7 +91,7 @@ function AuctionatorBagUseMixin:AddToDefaultGroup(button)
   local defaultList = Auctionator.Groups.GetGroupList(defaultName)
   if self.View.itemMap[defaultName][button.itemInfo.sortKey] == nil then
     table.insert(defaultList, button.itemInfo.itemLink)
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
   end
 end
 
@@ -103,7 +103,7 @@ function AuctionatorBagUseMixin:RemoveFromDefaultGroup(button)
     local sortKey = AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, info.auctionable).sortKey
     if sortKey == info.sortKey then
       table.remove(defaultList, index)
-      Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
+      Auctionator.Groups.CallbackRegistry:TriggerEvent("GroupsCustomise.EditMade")
       break
     end
   end
