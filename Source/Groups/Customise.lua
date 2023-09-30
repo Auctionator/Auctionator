@@ -62,7 +62,7 @@ function AuctionatorGroupsCustomiseMixin:UpdateGroupVisuals()
   end
 
   for group in self.View.groupPool:EnumerateActive() do
-    if group.name == self.focussedGroup then
+    if group.name == self.focussedGroup and group.isCustom then
       -- Show background to indicate focus
       group.FocussedBackground:Show()
       group.Durations:SetCheckedColor(1, 0, 0)
