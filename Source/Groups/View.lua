@@ -178,22 +178,27 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
   self.groups = {}
   local iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
 
+  -- Used to ensure no key naming clashes between custom groups and raw groups
+  local function GetKeyName(groupName, isCustom)
+    return (isCustom and groupName) or "k_" .. groupName
+  end
+
   local groups = {}
-  for index, s in ipairs(self.groupDetails) do
+  for index, groupDetails in ipairs(self.groupDetails) do
     local group = self.groupPool:Acquire()
     group:SetPoint("LEFT", self.groupInsetX, 0)
     group:SetPoint("RIGHT")
     group:Reset()
     local isCustom = index <= #AUCTIONATOR_SELLING_GROUPS.CustomGroups
-    group:SetName(s.name, isCustom)
+    group:SetName(groupDetails.name, isCustom)
     if self.collapsing[index] or (self.originalOpen and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED)) then
       group:ToggleOpen(true)
     end
     table.insert(groups, group)
 
-    if self.listsCached and s.type == GroupType.List then
+    if self.listsCached and groupDetails.type == GroupType.List then
       local infos = {}
-      for _, link in ipairs(s.list) do
+      for _, link in ipairs(groupDetails.list) do
         local info = AuctionatorBagCacheFrame:GetByLinkInstant(link, true)
         if info ~= nil then
           table.insert(infos, info)
@@ -204,11 +209,12 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
       else
         table.sort(infos, function(a, b) return a.sortKey < b.sortKey end)
       end
+      local keyName = GetKeyName(groupDetails.name, isCustom)
       for _, info in ipairs(infos) do
         local button = self.buttonPool:Acquire()
         button:SetClickEvent(self.clickEventName)
-        info.selected = self.selected and self.selected.name == self.groupDetails[index].name and info.sortKey == self.selected.sortKey
-        info.group = s.name
+        info.selected = self.selected and self.selected.keyName == keyName and info.sortKey == self.selected.sortKey
+        info.group = groupDetails.name
         info.isCustom = isCustom
         button:SetSize(iconSize, iconSize)
         button:SetItemInfo(info)
@@ -232,7 +238,7 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
       if index ~= nil then
         local button = self.buttonPool:Acquire()
         button:SetClickEvent(self.clickEventName)
-        item.selected = self.selected and self.selected.name == self.groupDetails[index].name and item.sortKey == self.selected.sortKey
+        item.selected = self.selected and self.selected.keyName == GetKeyName(self.groupDetails[index].name, false) and item.sortKey == self.selected.sortKey
         item.isCustom = false
         button:SetItemInfo(item)
         button:SetSize(iconSize, iconSize)
@@ -246,20 +252,21 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
   self.itemMap = {}
   for index, group in ipairs(groups) do
     local groupInfo = self.groupDetails[index]
-    if self.itemMap[groupInfo.name] == nil then
-      self.itemMap[groupInfo.name] = {}
-      for _, button in ipairs(group.buttons) do
+    local keyName = GetKeyName(groupInfo.name, group.isCustom)
+    self.itemMap[keyName] = {}
+    for _, button in ipairs(group.buttons) do
+      if not groupInfo.hidden then
         if prevButton then
-          button.prevItem = {name = prevGroup, sortKey = prevButton.itemInfo.sortKey}
-          prevButton.nextItem = {name = groupInfo.name, sortKey = button.itemInfo.sortKey}
+          button.prevItem = {keyName = prevGroup, sortKey = prevButton.itemInfo.sortKey}
+          prevButton.nextItem = {keyName = keyName, sortKey = button.itemInfo.sortKey}
         else
           button.prevItem = nil
         end
-        button.key = {name = groupInfo.name, sortKey = button.itemInfo.sortKey}
-        self.itemMap[groupInfo.name][button.itemInfo.sortKey] = button
-        prevGroup = groupInfo.name
+        prevGroup = keyName
         prevButton = button
       end
+      button.key = {keyName = keyName, sortKey = button.itemInfo.sortKey}
+      self.itemMap[keyName][button.itemInfo.sortKey] = button
     end
   end
 

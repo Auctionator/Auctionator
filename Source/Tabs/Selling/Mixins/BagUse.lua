@@ -36,8 +36,8 @@ function AuctionatorBagUseMixin:OnHide()
   Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOff")
 end
 
-function AuctionatorBagUseMixin:ReturnItem(info)
-  local button = (self.View.itemMap[info.name] and self.View.itemMap[info.name][info.sortKey])
+function AuctionatorBagUseMixin:ReturnItem(key)
+  local button = (self.View.itemMap[key.keyName] and self.View.itemMap[key.keyName][key.sortKey])
   if not button then
     Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.ClearBagItem)
   else
@@ -62,16 +62,12 @@ end
 
 function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
   if mouseButton == "LeftButton" then
-    if IsModifiedClick("CHATLINK") then
-      ChatEdit_InsertLink(button.itemInfo.itemLink)
-    else
-      local postingInfo = Auctionator.Groups.Utilities.ToPostingItem(button.itemInfo)
-      postingInfo.nextItem = button.nextItem
-      postingInfo.prevItem = button.prevItem
-      postingInfo.key = button.key
-      postingInfo.groupName = button.itemInfo.group
-      Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
-    end
+    local postingInfo = Auctionator.Groups.Utilities.ToPostingItem(button.itemInfo)
+    postingInfo.nextItem = button.nextItem
+    postingInfo.prevItem = button.prevItem
+    postingInfo.key = button.key
+    postingInfo.groupName = button.itemInfo.group
+    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
   elseif mouseButton == "RightButton" then
     local defaultName = Auctionator.Groups.GetGroupNameByIndex(1)
     local isInDefaultGroup = self.View.itemMap[defaultName][button.itemInfo.sortKey] ~= nil
