@@ -19,9 +19,7 @@ function AuctionatorBagItemSelectedMixin:OnClick(button)
 end
 
 function AuctionatorBagItemSelectedMixin:SearchInShoppingTab()
-  Auctionator.AH.GetItemKeyInfo(self.itemInfo.itemKey, function(itemInfo)
-    Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_SELLING_TAB, { itemInfo.itemName })
-  end)
+  Auctionator.API.v1.MultiSearchExact(AUCTIONATOR_L_SELLING_TAB, { Auctionator.Utilities.GetNameFromLink(self.itemInfo.itemName)})
 end
 
 function AuctionatorBagItemSelectedMixin:OnReceiveDrag()
@@ -32,16 +30,23 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor()
   local location = C_Cursor.GetCursorItem()
   ClearCursor()
 
-  if location and C_AuctionHouse.IsSellItemValid(location, true) then
-    local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
-    itemInfo.count = C_AuctionHouse.GetAvailablePostCount(location)
+  local itemLink = C_Item.GetItemLink(location)
 
-    if not Auctionator.EventBus:IsSourceRegistered(self) then
-      Auctionator.EventBus:RegisterSource(self, "AuctionatorBagItemSelectedMixin")
-    end
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, itemInfo)
-
-    return true
-  end
-  return false
+  Auctionator.EventBus:RegisterSource(self, "BagItemSelected")
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("BagCacheUpdated", function(_, cache)
+    Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOff")
+    cache:CacheLinkInfo(itemLink, function()
+      local info = Auctionator.Groups.Utilities.ToPostingItem(AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, true))
+      if info.location then
+        callback(true)
+        info.location = location
+        Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, info)
+      else
+        Auctionator.Selling.ShowCannotSellReason(location)
+        callback(false)
+      end
+    end)
+  end, self)
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOn")
 end

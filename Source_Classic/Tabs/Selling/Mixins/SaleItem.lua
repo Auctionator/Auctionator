@@ -22,21 +22,6 @@ local function GetAmountWithUndercut(amount)
   return math.max(0, amount - undercutAmount)
 end
 
-local function FindItemAgain(itemLink)
-  local cleanItemLink = Auctionator.Search.GetCleanItemLink(itemLink)
-  for _, bagID in ipairs(Auctionator.Constants.BagIDs) do
-    for slot = 1, C_Container.GetContainerNumSlots(bagID) do
-      local location = ItemLocation:CreateFromBagAndSlot(bagID, slot)
-      if C_Item.DoesItemExist(location) then
-        local itemInfo = Auctionator.Utilities.ItemInfoFromLocation(location)
-        if Auctionator.Selling.UniqueBagKey(itemInfo) == cleanItemLink then
-          return location
-        end
-      end
-    end
-  end
-end
-
 AuctionatorSaleItemMixin = {}
 
 function AuctionatorSaleItemMixin:OnLoad()
@@ -178,9 +163,10 @@ function AuctionatorSaleItemMixin:OnUpdate()
     return
 
   elseif self.itemInfo.location ~= nil and not C_Item.DoesItemExist(self.itemInfo.location) then
-    self.itemInfo.location = FindItemAgain(self.itemInfo.itemLink)
+    local itemInfo = Auctionator.Groups.Utilities.QueryItem(self.itemInfo.key.sortKey)
+    self.itemInfo.location = itemInfo and itemInfo.locations[1]
     -- Bag position changes (race condition or posting reattempt)
-    if not C_Item.DoesItemExist(self.itemInfo.location) then
+    if not self.itemInfo.location then
       self.itemInfo = nil
       self:Reset()
       return
@@ -408,8 +394,6 @@ function AuctionatorSaleItemMixin:UpdateVisuals()
   if self.itemInfo ~= nil then
     self:SetItemName()
 
-    self.Icon:HideCount()
-
   else
     -- No item, reset all the visuals
     self.TitleArea.Text:SetText("")
@@ -486,14 +470,43 @@ function AuctionatorSaleItemMixin:UpdateForNoItem()
   self.TotalPrice:SetText(GetMoneyString(0))
 end
 
+local groupDurationToRadioDuration = {
+  [1] = 12,
+  [2] = 24,
+  [3] = 48,
+}
 function AuctionatorSaleItemMixin:SetDuration()
+  if self.itemInfo.groupName then
+    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
+    if groupSettings and groupSettings.duration and groupSettings.duration ~= 0 then
+      self.Duration:SetSelectedValue(groupDurationToRadioDuration[groupSettings.duration])
+      return
+    end
+  end
+
   self.Duration:SetSelectedValue(
     Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
   )
 end
 
 function AuctionatorSaleItemMixin:SetQuantity()
-  local defaultStacks = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS)
+  local defaultStacks = CopyTable(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS))
+
+  local preferredStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
+
+  if self.itemInfo.groupName then
+    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
+    if groupSettings then
+      for key, value in pairs(groupSettings) do
+        if value ~= 0 then
+          defaultStacks[key] = value
+        end
+      end
+      if groupSettings.stackSize ~= 0 then
+        preferredStackSize = groupSettings.stackSize
+      end
+    end
+  end
 
   -- Determine what the stack size would be without using stack size memory.
   -- This is used to clear stack size memory when the max/min is used
@@ -503,17 +516,15 @@ function AuctionatorSaleItemMixin:SetQuantity()
     self.normalStackSize = math.min(defaultStacks.stackSize, self.itemInfo.stackSize)
   end
 
-  local previousStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
-
-  if previousStackSize ~= nil then
-    self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, previousStackSize))
+  if preferredStackSize ~= nil then
+    self.Stacks.StackSize:SetNumber(math.min(self.itemInfo.count, preferredStackSize))
   else
-    self.Stacks.StackSize:SetNumber(self.normalStackSize)
+    self.Stacks.StackSize:SetNumber(math.min(self.normalStackSize, self.itemInfo.count))
   end
 
   local numStacks = math.floor(self.itemInfo.count/self.Stacks.StackSize:GetNumber())
-  if previousStackSize ~= nil and previousStackSize ~= 0 then
-    numStacks = math.floor(self.itemInfo.count/previousStackSize)
+  if preferredStackSize ~= nil then
+    numStacks = math.floor(self.itemInfo.count/preferredStackSize)
   end
 
   if numStacks == 0 then
@@ -783,13 +794,13 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
   -- yet
   local count = details.itemInfo.count - details.stackSize * details.numStacksReached
   if count > 0 then
-    local location = FindItemAgain(details.itemInfo.itemLink)
-    if location ~= nil then
+    local itemInfo = Auctionator.Groups.Utilities.QueryItem(details.itemInfo.key.sortKey)
+    if itemInfo then
       Auctionator.Debug.Message("found again, trying")
       self:UnlockItem()
       self.retryingItem = true
       self.itemInfo = CopyTable(details.itemInfo, true)
-      self.itemInfo.location = location
+      self.itemInfo.location = itemInfo.locations[1]
       self.itemInfo.count = count
       self.clickedSellItem = false
       self.minPriceSeen = details.minPriceSeen

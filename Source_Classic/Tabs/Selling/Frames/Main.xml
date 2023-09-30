@@ -18,16 +18,6 @@
     </Anchors>
 
     <Frames>
-      <Frame parentKey="BagDataProvider" mixin="AuctionatorBagDataProviderMixin">
-        <Scripts>
-          <OnLoad method="OnLoad"/>
-          <OnEvent method="OnEvent"/>
-          <OnUpdate method="OnUpdate"/>
-          <OnShow method="OnShow"/>
-          <OnHide method="OnHide"/>
-        </Scripts>
-      </Frame>
-
       <Frame parentKey="SaleItemFrame" inherits="AuctionatorSaleItemFrameTemplate">
         <Anchors>
           <Anchor point="TOP" relativePoint="TOP" y="-38" />
@@ -42,16 +32,16 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="BagInset" inherits="AuctionatorInsetLeaveScrollSpaceTemplate">
+      <Frame parentKey="BagInset" inherits="AuctionatorInsetTemplate">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" x="-5" y="5"/>
-          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" y="-3" x="30"/>
+          <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BagListing" y="-3"/>
         </Anchors>
       </Frame>
 
       <Frame parentKey="BuyFrame" inherits="AuctionatorBuyFrameTemplateForSelling">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" relativePoint="TOPRIGHT" y="10" x="40"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.BagListing" relativePoint="TOPRIGHT" y="10" x="10"/>
           <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>

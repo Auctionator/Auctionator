@@ -1,7 +1,8 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Button name="AuctionatorBagItem" registerForClicks="LeftButtonUp, RightButtonUp" mixin="AuctionatorBagItemMixin" virtual="true">
-    <Size x="42" y="42"/>
-
+<Ui>
+  <Button name="AuctionatorGroupsViewItemTemplate" registerForClicks="LeftButtonUp, RightButtonUp" mixin="AuctionatorGroupsViewItemMixin" virtual="true" motionScriptsWhileDisabled="true">
+    <KeyValues>
+      <KeyValue key="clickEventName" value="BagItemClicked" type="string" />
+    </KeyValues>
     <Scripts>
       <OnEnter method="OnEnter" />
       <OnLeave method="OnLeave" />

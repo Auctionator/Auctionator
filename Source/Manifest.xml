@@ -23,6 +23,7 @@
   <Include file="Config\Manifest.xml" />
   <Include file="Selling\Manifest.xml"/>
   <Include file="PostingHistory\Manifest.xml"/>
+  <Include file="Groups\Manifest.xml"/>
 
   <Include file="Cancelling\Manifest.xml"/>
   <Include file="CraftingInfo\Manifest.xml" />

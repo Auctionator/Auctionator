@@ -41,7 +41,7 @@
         </Scripts>
       </Frame>
 
-      <Button parentKey="Icon" inherits="AuctionatorBagItem" mixin="AuctionatorBagItemSelectedMixin">
+      <Button parentKey="Icon" inherits="AuctionatorGroupsViewItemTemplate" mixin="AuctionatorBagItemSelectedMixin">
         <Size x="60" y="60" />
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT" y="-5" x="-20"/>
