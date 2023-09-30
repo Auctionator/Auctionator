@@ -246,7 +246,7 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
   self.itemMap = {}
   for index, group in ipairs(groups) do
     local groupInfo = self.groupDetails[index]
-    if group.isCustom then
+    if self.itemMap[groupInfo.name] == nil then
       self.itemMap[groupInfo.name] = {}
       for _, button in ipairs(group.buttons) do
         if prevButton then
