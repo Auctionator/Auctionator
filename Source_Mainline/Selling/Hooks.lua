@@ -13,6 +13,7 @@ local function SelectOwnItem(itemLocation)
   AuctionatorBagCacheFrame:CacheLinkInfo(itemLink, function()
     local info = Auctionator.Groups.Utilities.ToPostingItem(AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, true))
     info.location = itemLocation
+    info.count = C_AuctionHouse.GetAvailablePostCount(itemLocation)
     Auctionator.EventBus:RegisterSource(SelectOwnItem, "SellingItemClickedHook")
     Auctionator.EventBus:Fire(SelectOwnItem, Auctionator.Selling.Events.BagItemClicked, info)
   end)
