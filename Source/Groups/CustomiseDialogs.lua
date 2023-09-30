@@ -43,7 +43,7 @@ StaticPopupDialogs[Auctionator.Groups.Constants.DialogNames.RenameGroup] = {
   hasEditBox = 1,
   maxLetters = 32,
   OnShow = function(self)
-    self.editBox:SetText("")
+    self.editBox:SetText(self.data)
     self.editBox:SetFocus()
   end,
   OnAccept = function(self)
