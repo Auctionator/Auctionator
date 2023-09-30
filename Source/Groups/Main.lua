@@ -6,16 +6,20 @@ function Auctionator.BagGroups.Initialize()
   if AUCTIONATOR_SELLING_GROUPS == nil then
     AUCTIONATOR_SELLING_GROUPS = {
       Version = 1,
-      CustomSections = {},
+      CustomGroups = {},
       HiddenItems = {},
     }
 
-    Auctionator.BagGroups.AddSection("FAVOURITES_GROUP")
-    local list = Auctionator.BagGroups.GetSectionList("FAVOURITES_GROUP")
+    Auctionator.BagGroups.AddGroup("FAVOURITES_GROUP")
+    local list = Auctionator.BagGroups.GetGroupList("FAVOURITES_GROUP")
 
     for _, data in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
       table.insert(list, data.itemLink)
     end
+  end
+  if AUCTIONATOR_SELLING_GROUPS.CustomSections then
+    AUCTIONATOR_SELLING_GROUPS.CustomGroups = AUCTIONATOR_SELLING_GROUPS.CustomSections
+    AUCTIONATOR_SELLING_GROUPS.CustomSections = nil
   end
 end
 local function AutoCreateCache()
@@ -30,8 +34,8 @@ end
 
 function Auctionator.BagGroups.OpenCustomiseView()
   AutoCreateCache()
-  if not AuctionatorBagCustomiseFrame then
-    CreateFrame("Frame", "AuctionatorBagCustomiseFrame", UIParent, "AuctionatorBagCustomiseTemplate")
+  if not AuctionatorGroupsCustomiseFrame then
+    CreateFrame("Frame", "AuctionatorGroupsCustomiseFrame", UIParent, "AuctionatorGroupsCustomiseTemplate")
   end
-  AuctionatorBagCustomiseFrame:SetShown(not AuctionatorBagCustomiseFrame:IsShown())
+  AuctionatorGroupsCustomiseFrame:SetShown(not AuctionatorGroupsCustomiseFrame:IsShown())
 end

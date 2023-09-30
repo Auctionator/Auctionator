@@ -1,13 +1,13 @@
-local SectionType = Auctionator.BagGroups.Constants.SectionType
+local GroupType = Auctionator.BagGroups.Constants.GroupType
 
-AuctionatorBagViewMixin = {}
-function AuctionatorBagViewMixin:OnLoad()
+AuctionatorGroupsViewMixin = {}
+function AuctionatorGroupsViewMixin:OnLoad()
   local view = CreateScrollBoxLinearView()
   view:SetPanExtent(50)
   ScrollUtil.InitScrollBoxWithScrollBar(self.ScrollBox, self.ScrollBar, view);
 
   self.buttonPool = CreateFramePool("Button", self.ScrollBox.ItemListingFrame, self.itemTemplate)
-  self.sectionPool = CreateFramePool("Frame", self.ScrollBox.ItemListingFrame, self.sectionTemplate, function(pool, obj)
+  self.groupPool = CreateFramePool("Frame", self.ScrollBox.ItemListingFrame, self.groupTemplate, function(pool, obj)
     FramePool_HideAndClearAnchors(pool, obj)
     obj.buttons = {}
   end)
@@ -20,41 +20,50 @@ function AuctionatorBagViewMixin:OnLoad()
   self.cachedUpdated = false
 end
 
-function AuctionatorBagViewMixin:OnShow()
+function AuctionatorGroupsViewMixin:OnShow()
   Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheUpdated", self.Update, self)
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagViewSectionToggled", self.UpdateSectionHeights, self)
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCustomise.EditMade", self.UpdateCustomSections, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("GroupsViewGroupToggled", self.UpdateGroupHeights, self)
+  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
 
-  self:UpdateCustomSections()
+  self:UpdateCustomGroups()
   self:UpdateFromExisting()
 end
 
-function AuctionatorBagViewMixin:OnHide()
+function AuctionatorGroupsViewMixin:OnHide()
   Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagViewSectionToggled", self)
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCustomise.EditMade", self.UpdateCustomSections, self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("GroupsViewGroupToggled", self)
+  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
 end
 
-function AuctionatorBagViewMixin:UpdateCustomSections()
-  self.sectionDetails = CopyTable(AUCTIONATOR_SELLING_GROUPS.CustomSections)
-  for _, s in ipairs(Auctionator.BagGroups.Constants.DefaultSections) do
-    table.insert(self.sectionDetails, s)
+function AuctionatorGroupsViewMixin:UpdateCustomGroups()
+  self.groupDetails = CopyTable(AUCTIONATOR_SELLING_GROUPS.CustomGroups)
+  for _, s in ipairs(Auctionator.BagGroups.Constants.DefaultGroups) do
+    table.insert(self.groupDetails, s)
   end
 
   self:CacheListLinks()
 end
 
-function AuctionatorBagViewMixin:CacheListLinks()
+function AuctionatorGroupsViewMixin:CacheListLinks()
   self.listsCached = false
 
   local toCache = {}
-  for _, s in ipairs(self.sectionDetails) do
-    if s.type == SectionType.List then
+  for _, s in ipairs(self.groupDetails) do
+    if s.type == GroupType.List then
       for _, link in ipairs(s.list) do
         local info = AuctionatorBagCacheFrame:GetByLinkInstant(link, true)
         if info == nil then
           table.insert(toCache, link)
         end
+      end
+    end
+  end
+
+  if self.applyHidingRawItems then
+    for _, link in ipairs(AUCTIONATOR_SELLING_GROUPS.HiddenItems) do
+      local info = AuctionatorBagCacheFrame:GetByLinkInstant(link, true)
+      if info == nil then
+        table.insert(toCache, link)
       end
     end
   end
@@ -77,12 +86,12 @@ function AuctionatorBagViewMixin:CacheListLinks()
   end
 end
 
-function AuctionatorBagViewMixin:SetSelected(key)
+function AuctionatorGroupsViewMixin:SetSelected(key)
   self.selected = key
   self:UpdateFromExisting()
 end
 
-function AuctionatorBagViewMixin:ScrollToSelected()
+function AuctionatorGroupsViewMixin:ScrollToSelected()
   for button in self.buttonPool:EnumerateActive() do
     if button.itemInfo.selected then
       local bottom = self.ScrollBox:GetBottom()
@@ -98,28 +107,28 @@ function AuctionatorBagViewMixin:ScrollToSelected()
   end
 end
 
-function AuctionatorBagViewMixin:UpdateSectionHeights()
+function AuctionatorGroupsViewMixin:UpdateGroupHeights()
   local offset = 0
-  for index, section in ipairs(self.sections) do
-    if self.forceShow or (not self.sectionDetails[index].hidden and section:AnyButtons()) then
-      section:Show()
-      section:SetPoint("TOP", 0, -offset)
-      section:UpdateHeight()
-      offset = offset + section:GetHeight()
+  for index, group in ipairs(self.groups) do
+    if self.forceShow or (not self.groupDetails[index].hidden and group:AnyButtons()) then
+      group:Show()
+      group:SetPoint("TOP", 0, -offset)
+      group:UpdateHeight()
+      offset = offset + group:GetHeight()
     else
-      section:Hide()
-      for _, b in ipairs(section.buttons) do
+      group:Hide()
+      for _, b in ipairs(group.buttons) do
         b:Hide()
       end
     end
-    self.collapsing[index] = section.collapsed
+    self.collapsing[index] = group.collapsed
   end
 
   self.ScrollBox.ItemListingFrame:SetHeight(offset)
   self.ScrollBox:FullUpdate(ScrollBoxConstants.UpdateImmediately);
 end
 
-function AuctionatorBagViewMixin:Update(cache)
+function AuctionatorGroupsViewMixin:Update(cache)
   self.cacheUpdated = true
   self.rawItems = cache:GetAllContents()
   table.sort(self.rawItems, function(a, b)
@@ -132,25 +141,25 @@ function AuctionatorBagViewMixin:Update(cache)
   self:UpdateFromExisting()
 end
 
-function AuctionatorBagViewMixin:UpdateFromExisting()
+function AuctionatorGroupsViewMixin:UpdateFromExisting()
   self.buttonPool:ReleaseAll()
-  self.sectionPool:ReleaseAll()
+  self.groupPool:ReleaseAll()
   local iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
 
-  local sections = {}
-  for index, s in ipairs(self.sectionDetails) do
-    local section = self.sectionPool:Acquire()
-    section:SetPoint("LEFT", self.sectionInsetX, 0)
-    section:SetPoint("RIGHT")
-    section:Reset()
-    local isCustom = index <= #AUCTIONATOR_SELLING_GROUPS.CustomSections
-    section:SetName(s.name, isCustom)
+  local groups = {}
+  for index, s in ipairs(self.groupDetails) do
+    local group = self.groupPool:Acquire()
+    group:SetPoint("LEFT", self.groupInsetX, 0)
+    group:SetPoint("RIGHT")
+    group:Reset()
+    local isCustom = index <= #AUCTIONATOR_SELLING_GROUPS.CustomGroups
+    group:SetName(s.name, isCustom)
     if self.collapsing[index] or (self.originalOpen and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED)) then
-      section:ToggleOpen(true)
+      group:ToggleOpen(true)
     end
-    table.insert(sections, section)
+    table.insert(groups, group)
 
-    if self.listsCached and s.type == SectionType.List then
+    if self.listsCached and s.type == GroupType.List then
       local infos = {}
       for _, link in ipairs(s.list) do
         local info = AuctionatorBagCacheFrame:GetByLinkInstant(link, true)
@@ -162,19 +171,19 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
       for _, info in ipairs(infos) do
         local button = self.buttonPool:Acquire()
         button:SetClickEvent(self.clickEventName)
-        info.selected = self.selected and self.selected.name == self.sectionDetails[index].name and info.sortKey == self.selected.sortKey
-        info.section = s.name
+        info.selected = self.selected and self.selected.name == self.groupDetails[index].name and info.sortKey == self.selected.sortKey
+        info.group = s.name
         info.isCustom = isCustom
         button:SetSize(iconSize, iconSize)
         button:SetItemInfo(info)
-        section:AddButton(button)
+        group:AddButton(button)
       end
     end
   end
 
   local classIDMap = {}
-  for index, s in ipairs(self.sectionDetails) do
-    if s.type == SectionType.ClassID then
+  for index, s in ipairs(self.groupDetails) do
+    if s.type == GroupType.ClassID then
       classIDMap[s.classID] = index
     end
   end
@@ -185,40 +194,40 @@ function AuctionatorBagViewMixin:UpdateFromExisting()
       if index ~= nil then
         local button = self.buttonPool:Acquire()
         button:SetClickEvent(self.clickEventName)
-        item.selected = self.selected and self.selected.name == self.sectionDetails[index].name and item.sortKey == self.selected.sortKey
+        item.selected = self.selected and self.selected.name == self.groupDetails[index].name and item.sortKey == self.selected.sortKey
         item.isCustom = false
         button:SetItemInfo(item)
         button:SetSize(iconSize, iconSize)
-        sections[index]:AddButton(button)
+        groups[index]:AddButton(button)
       end
     end
   end
 
   local prevButton
-  local prevSection
+  local prevGroup
   self.itemMap = {}
-  for index, section in ipairs(sections) do
-    local sectionInfo = self.sectionDetails[index]
-    if section.isCustom then
-      self.itemMap[sectionInfo.name] = {}
-      for _, button in ipairs(section.buttons) do
+  for index, group in ipairs(groups) do
+    local groupInfo = self.groupDetails[index]
+    if group.isCustom then
+      self.itemMap[groupInfo.name] = {}
+      for _, button in ipairs(group.buttons) do
         if prevButton then
-          button.prevItem = {name = prevSection, sortKey = prevButton.itemInfo.sortKey}
-          prevButton.nextItem = {name = sectionInfo.name, sortKey = button.itemInfo.sortKey}
+          button.prevItem = {name = prevGroup, sortKey = prevButton.itemInfo.sortKey}
+          prevButton.nextItem = {name = groupInfo.name, sortKey = button.itemInfo.sortKey}
         else
           button.prevItem = nil
         end
-        button.key = {name = sectionInfo.name, sortKey = button.itemInfo.sortKey}
-        self.itemMap[sectionInfo.name][button.itemInfo.sortKey] = button
-        prevSection = sectionInfo.name
+        button.key = {name = groupInfo.name, sortKey = button.itemInfo.sortKey}
+        self.itemMap[groupInfo.name][button.itemInfo.sortKey] = button
+        prevGroup = groupInfo.name
         prevButton = button
       end
     end
   end
 
-  self.sections = sections
+  self.groups = groups
   self.originalOpen = false
-  self:UpdateSectionHeights()
+  self:UpdateGroupHeights()
   if self.cacheUpdated and self.listsCached then
     Auctionator.BagGroups.CallbackRegistry:TriggerEvent(self.completeEventName)
   end

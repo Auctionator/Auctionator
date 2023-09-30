@@ -12,10 +12,10 @@
     </Scripts>
 
     <Frames>
-      <Frame inherits="AuctionatorBagViewTemplate">
+      <Frame inherits="AuctionatorGroupsViewTemplate">
         <KeyValues>
-          <KeyValue key="itemTemplate" value="AuctionatorBagViewItemTemplate" type="string" />
-          <KeyValue key="sectionTemplate" value="AuctionatorSellingBagViewSectionTemplate" type="string" />
+          <KeyValue key="itemTemplate" value="AuctionatorGroupsViewItemTemplate" type="string" />
+          <KeyValue key="groupTemplate" value="AuctionatorSellingViewGroupTemplate" type="string" />
           <KeyValue key="clickEventName" value="BagUse.BagItemClicked" type="string" />
         </KeyValues>
         <Anchors>

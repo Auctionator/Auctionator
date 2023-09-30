@@ -1,10 +1,10 @@
-AuctionatorBagViewItemMixin = {}
+AuctionatorGroupsViewItemMixin = {}
 
-function AuctionatorBagViewItemMixin:SetClickEvent(eventName)
+function AuctionatorGroupsViewItemMixin:SetClickEvent(eventName)
   self.clickEventName = eventName
 end
 
-function AuctionatorBagViewItemMixin:SetItemInfo(info)
+function AuctionatorGroupsViewItemMixin:SetItemInfo(info)
   self.itemInfo = info
 
   if info ~= nil then
@@ -43,7 +43,7 @@ function AuctionatorBagViewItemMixin:SetItemInfo(info)
   end
 end
 
-function AuctionatorBagViewItemMixin:OnEnter()
+function AuctionatorGroupsViewItemMixin:OnEnter()
   if self.itemInfo ~= nil then
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
     if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
@@ -55,7 +55,7 @@ function AuctionatorBagViewItemMixin:OnEnter()
   end
 end
 
-function AuctionatorBagViewItemMixin:OnLeave()
+function AuctionatorGroupsViewItemMixin:OnLeave()
   if self.itemInfo ~= nil then
     if Auctionator.Utilities.IsPetLink(self.itemInfo.itemLink) then
       BattlePetTooltip:Hide()
@@ -65,7 +65,7 @@ function AuctionatorBagViewItemMixin:OnLeave()
   end
 end
 
-function AuctionatorBagViewItemMixin:OnClick(button)
+function AuctionatorGroupsViewItemMixin:OnClick(button)
   if self.itemInfo ~= nil then
     if IsModifiedClick("DRESSUP") then
       DressUpLink(self.itemInfo.itemLink)
@@ -80,7 +80,7 @@ function AuctionatorBagViewItemMixin:OnClick(button)
 end
 
 -- Adds Dragonflight (10.0) crafting quality icon for reagents on retail only
-function AuctionatorBagViewItemMixin:ApplyQualityIcon(itemLink)
+function AuctionatorGroupsViewItemMixin:ApplyQualityIcon(itemLink)
   if C_TradeSkillUI and C_TradeSkillUI.GetItemReagentQualityByItemInfo then
     local quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(itemLink)
     if quality ~= nil then
@@ -99,7 +99,7 @@ function AuctionatorBagViewItemMixin:ApplyQualityIcon(itemLink)
   end
 end
 
-function AuctionatorBagViewItemMixin:HideQualityIcon()
+function AuctionatorGroupsViewItemMixin:HideQualityIcon()
   if self.ProfessionQualityOverlay then
     self.ProfessionQualityOverlay:Hide()
   end

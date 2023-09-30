@@ -1,18 +1,18 @@
-AuctionatorBagViewSectionMixin = {}
+AuctionatorGroupsViewGroupMixin = {}
 
-function AuctionatorBagViewSectionMixin:Reset()
+function AuctionatorGroupsViewGroupMixin:Reset()
   self.col = 0
   self.row = 0
   self.collapsed = false
   self.buttons = {}
   self.rowWidth = math.floor(self:GetParent():GetWidth() / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
   self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
-  self.SectionTitle:SetPoint("TOPLEFT", self.insetLeft, 0)
+  self.GroupTitle:SetPoint("TOPLEFT", self.insetLeft, 0)
 end
 
-function AuctionatorBagViewSectionMixin:AddButton(button)
+function AuctionatorGroupsViewGroupMixin:AddButton(button)
   table.insert(self.buttons, button)
-  button:SetPoint("TOPLEFT", self, self.insetLeft + self.col * self.iconSize, -self.sectionTitleHeight - (self.row * self.iconSize))
+  button:SetPoint("TOPLEFT", self, self.insetLeft + self.col * self.iconSize, -self.groupTitleHeight - (self.row * self.iconSize))
   button:SetShown(not self.collapsed)
   self.col = self.col + 1
 
@@ -22,11 +22,11 @@ function AuctionatorBagViewSectionMixin:AddButton(button)
   end
 end
 
-function AuctionatorBagViewSectionMixin:AnyButtons()
+function AuctionatorGroupsViewGroupMixin:AnyButtons()
   return self.col ~= 0 or self.row ~= 0
 end
 
-function AuctionatorBagViewSectionMixin:ToggleOpen(doNotNotify)
+function AuctionatorGroupsViewGroupMixin:ToggleOpen(doNotNotify)
   if not self.collapsable then
     return
   end
@@ -39,27 +39,27 @@ function AuctionatorBagViewSectionMixin:ToggleOpen(doNotNotify)
 
   if not doNotNotify then
     -- Need to update heights
-    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagViewSectionToggled")
+    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("GroupsViewGroupToggled")
   end
 end
 
-function AuctionatorBagViewSectionMixin:UpdateHeight()
+function AuctionatorGroupsViewGroupMixin:UpdateHeight()
   local newHeight
   if self.collapsed then
-    newHeight = self.sectionTitleHeight
+    newHeight = self.groupTitleHeight
   else
     if self.col == 0 then
-      newHeight = self.row * self.iconSize + self.sectionTitleHeight
+      newHeight = self.row * self.iconSize + self.groupTitleHeight
     else
-      newHeight = (self.row + 1) * self.iconSize + self.sectionTitleHeight
+      newHeight = (self.row + 1) * self.iconSize + self.groupTitleHeight
     end
   end
   self:SetHeight(newHeight + self.paddingBottom)
 end
 
-function AuctionatorBagViewSectionMixin:SetName(name, isCustom)
-  if self.SectionTitle then
-    self.SectionTitle:SetText(_G["AUCTIONATOR_L_" .. name] or name)
+function AuctionatorGroupsViewGroupMixin:SetName(name, isCustom)
+  if self.GroupTitle then
+    self.GroupTitle:SetText(_G["AUCTIONATOR_L_" .. name] or name)
   end
   self.name = name
   self.isCustom = isCustom

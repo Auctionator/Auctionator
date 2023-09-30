@@ -69,11 +69,11 @@ function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
       postingInfo.nextItem = button.nextItem
       postingInfo.prevItem = button.prevItem
       postingInfo.key = button.key
-      postingInfo.groupName = button.itemInfo.section
+      postingInfo.groupName = button.itemInfo.group
       Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
     end
   elseif mouseButton == "RightButton" then
-    local defaultName = Auctionator.BagGroups.GetSectionNameByIndex(1)
+    local defaultName = Auctionator.BagGroups.GetGroupNameByIndex(1)
     local isInDefaultGroup = self.View.itemMap[defaultName][button.itemInfo.sortKey] ~= nil
     local options = {}
     local defaultPrintName = _G["AUCTIONATOR_L_" .. defaultName] or defaultName
@@ -87,8 +87,8 @@ function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
 end
 
 function AuctionatorBagUseMixin:AddToDefaultGroup(button)
-  local defaultName = Auctionator.BagGroups.GetSectionNameByIndex(1)
-  local defaultList = Auctionator.BagGroups.GetSectionList(defaultName)
+  local defaultName = Auctionator.BagGroups.GetGroupNameByIndex(1)
+  local defaultList = Auctionator.BagGroups.GetGroupList(defaultName)
   if self.View.itemMap[defaultName][button.itemInfo.sortKey] == nil then
     table.insert(defaultList, button.itemInfo.itemLink)
     Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.EditMade")
@@ -96,8 +96,8 @@ function AuctionatorBagUseMixin:AddToDefaultGroup(button)
 end
 
 function AuctionatorBagUseMixin:RemoveFromDefaultGroup(button)
-  local defaultName = Auctionator.BagGroups.GetSectionNameByIndex(1)
-  local defaultList = Auctionator.BagGroups.GetSectionList(defaultName)
+  local defaultName = Auctionator.BagGroups.GetGroupNameByIndex(1)
+  local defaultList = Auctionator.BagGroups.GetGroupList(defaultName)
   local info = self.View.itemMap[defaultName][button.itemInfo.sortKey].itemInfo
   for index, itemLink in ipairs(defaultList) do
     local sortKey = AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, info.auctionable).sortKey

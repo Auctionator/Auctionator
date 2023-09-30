@@ -1,7 +1,7 @@
-AuctionatorBagItemSelectedMixin = CreateFromMixins(AuctionatorBagViewItemMixin)
+AuctionatorBagItemSelectedMixin = CreateFromMixins(AuctionatorGroupsViewItemMixin)
 
 function AuctionatorBagItemSelectedMixin:SetItemInfo(info, ...)
-  AuctionatorBagViewItemMixin.SetItemInfo(self, info, ...)
+  AuctionatorGroupsViewItemMixin.SetItemInfo(self, info, ...)
   self.IconSelectedHighlight:Hide()
   self.IconBorder:SetShown(info ~= nil)
   self.Icon:SetAlpha(1)

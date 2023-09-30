@@ -1,15 +1,15 @@
 <Ui>
-  <Frame name="AuctionatorSellingBagViewSectionTemplate" mixin="AuctionatorBagViewSectionMixin" virtual="true">
+  <Frame name="AuctionatorSellingViewGroupTemplate" mixin="AuctionatorGroupsViewGroupMixin" virtual="true">
     <KeyValues>
       <!--<KeyValue key="rowWidth" value="6" type="number" />-->
       <KeyValue key="collapsable" value="true" type="boolean" />
       <KeyValue key="insetLeft" value="0" type="number" />
-      <KeyValue key="sectionTitleHeight" value="22" type="number" />
+      <KeyValue key="groupTitleHeight" value="22" type="number" />
       <KeyValue key="paddingBottom" value="0" type="number" />
     </KeyValues>
     <Size y="20"/>
     <Frames>
-      <Button parentKey="SectionTitle" inherits="AuctionCategoryButtonTemplate">
+      <Button parentKey="GroupTitle" inherits="AuctionCategoryButtonTemplate">
         <Size y="20"/>
         <Anchors>
           <Anchor point="RIGHT" />

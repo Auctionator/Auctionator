@@ -6,8 +6,8 @@ Auctionator.BagGroups.Constants = {
 
 Auctionator.BagGroups.Constants.Events = {
   "BagCacheUpdated",
-  "BagViewSectionToggled",
-  "BagViewComplete",
+  "GroupsViewGroupToggled",
+  "GroupsViewComplete",
 
   "BagCacheOff",
   "BagCacheOn",
@@ -15,23 +15,23 @@ Auctionator.BagGroups.Constants.Events = {
   "BagUse.BagItemClicked",
   "BagUse.AddToDefaultGroup",
 
-  "BagCustomise.BagItemClicked",
-  "BagCustomise.NewSection",
-  "BagCustomise.FocusSection",
-  "BagCustomise.DeleteSection",
-  "BagCustomise.RenameSection",
-  "BagCustomise.HideSection",
-  "BagCustomise.ShiftUpSection",
-  "BagCustomise.ShiftDownSection",
+  "GroupsCustomise.BagItemClicked",
+  "GroupsCustomise.NewGroup",
+  "GroupsCustomise.FocusGroup",
+  "GroupsCustomise.DeleteGroup",
+  "GroupsCustomise.RenameGroup",
+  "GroupsCustomise.HideGroup",
+  "GroupsCustomise.ShiftUpGroup",
+  "GroupsCustomise.ShiftDownGroup",
 
-  "BagCustomise.EditMade",
-  "BagCustomise.PostingSettingChanged",
+  "GroupsCustomise.EditMade",
+  "GroupsCustomise.PostingSettingChanged",
 }
 
 Auctionator.BagGroups.Constants.DialogNames = {
-  CreateSection = "Auctionator.BagGroups.CreateSectionDialog",
+  CreateGroup = "Auctionator.BagGroups.CreateGroupDialog",
   ConfirmDelete = "Auctionator.BagGroups.ConfirmDelete",
-  RenameSection = "Auctionator.BagGroups.RenameSection",
+  RenameGroup = "Auctionator.BagGroups.RenameGroup",
 }
 
 if not Auctionator.BagGroups.Constants.IsRetail then
@@ -88,18 +88,18 @@ elseif Auctionator.BagGroups.Constants.IsVanilla then
   }
 end
 
-Auctionator.BagGroups.Constants.SectionType = {
+Auctionator.BagGroups.Constants.GroupType = {
   List = 1,
   ClassID = 2,
 }
 
-Auctionator.BagGroups.Constants.DefaultSections = {
+Auctionator.BagGroups.Constants.DefaultGroups = {
 }
 
 for _, classID in ipairs(Auctionator.BagGroups.Constants.ValidItemClassIDs) do
-  table.insert(Auctionator.BagGroups.Constants.DefaultSections, {
+  table.insert(Auctionator.BagGroups.Constants.DefaultGroups, {
     name = GetItemClassInfo(classID),
-    type = Auctionator.BagGroups.Constants.SectionType.ClassID,
+    type = Auctionator.BagGroups.Constants.GroupType.ClassID,
     classID = classID,
   })
 end

@@ -1,10 +1,10 @@
 local function ChangeEvent(widget)
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCustomise.PostingSettingChanged", widget.group.name, widget:GetState())
+  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("GroupsCustomise.PostingSettingChanged", widget.group.name, widget:GetState())
 end
 
-BagCustomiseDurationMixin = {}
+GroupsCustomiseDurationMixin = {}
 
-function BagCustomiseDurationMixin:OnLoad()
+function GroupsCustomiseDurationMixin:OnLoad()
   self.Short:SetText(Auctionator.Constants.Durations.Short)
   self.Medium:SetText(Auctionator.Constants.Durations.Medium)
   self.Long:SetText(Auctionator.Constants.Durations.Long)
@@ -19,36 +19,36 @@ function BagCustomiseDurationMixin:OnLoad()
   self:SetValue(0)
 end
 
-function BagCustomiseDurationMixin:SetCheckedColor(r, g, b)
+function GroupsCustomiseDurationMixin:SetCheckedColor(r, g, b)
   for _, option in ipairs(self.Options) do
     option:GetCheckedTexture():SetVertexColor(r, g, b)
   end
 end
 
-function BagCustomiseDurationMixin:SetValue(value)
+function GroupsCustomiseDurationMixin:SetValue(value)
   self.value = value
   for _, option in ipairs(self.Options) do
     option:SetChecked(option:GetID() == self.value)
   end
 end
 
-function BagCustomiseDurationMixin:SetGroup(name, isCustom)
+function GroupsCustomiseDurationMixin:SetGroup(name, isCustom)
   self.group = {name = name, isCustom = isCustom}
 end
 
-function BagCustomiseDurationMixin:GetState()
+function GroupsCustomiseDurationMixin:GetState()
   return {
     duration = self.value
   }
 end
 
-function BagCustomiseDurationMixin:ApplyState(state)
+function GroupsCustomiseDurationMixin:ApplyState(state)
   self:SetValue(state.duration or 0)
 end
 
-BagCustomiseQuantityMixin = {}
+GroupsCustomiseQuantityMixin = {}
 
-function BagCustomiseQuantityMixin:OnLoad()
+function GroupsCustomiseQuantityMixin:OnLoad()
   if Auctionator.Constants.IsClassic then
     self:SetHeight(22)
     self.NumStacks = CreateFrame("EditBox", nil, self, "InputBoxTemplate")
@@ -113,6 +113,6 @@ function BagCustomiseQuantityMixin:OnLoad()
   end
 end
 
-function BagCustomiseQuantityMixin:SetGroup(name, isCustom)
+function GroupsCustomiseQuantityMixin:SetGroup(name, isCustom)
   self.group = {name = name, isCustom = isCustom}
 end

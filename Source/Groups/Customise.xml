@@ -1,5 +1,5 @@
 <Ui>
-  <Frame name="AuctionatorBagCustomiseDividerTemplate" virtual="true">
+  <Frame name="AuctionatorGroupsCustomiseDividerTemplate" virtual="true">
     <Size y="15"/>
     <Scripts>
       <OnLoad>
@@ -27,14 +27,14 @@
     </Layers>
   </Frame>
 
-  <Frame name="AuctionatorBagCustomiseSectionTemplate" mixin="AuctionatorBagCustomiseSectionMixin" inherits="AuctionatorBagViewSectionTemplate" virtual="true" enableMouse="true">
+  <Frame name="AuctionatorGroupsCustomiseGroupTemplate" mixin="AuctionatorGroupsCustomiseGroupMixin" inherits="AuctionatorGroupsViewGroupTemplate" virtual="true" enableMouse="true">
     <KeyValues>
       <KeyValue key="collapsable" value="false" type="boolean" />
-      <KeyValue key="sectionTitleHeight" value="42" type="number" />
+      <KeyValue key="groupTitleHeight" value="42" type="number" />
       <KeyValue key="paddingTop" value="2" type="number" />
       <KeyValue key="paddingBottom" value="13" type="number" />
       <KeyValue key="insetLeft" value="6" type="number" />
-      <KeyValue key="itemTemplate" value="AuctionatorBagCustomiseItemTemplate" type="string" />
+      <KeyValue key="itemTemplate" value="AuctionatorGroupsCustomiseItemTemplate" type="string" />
     </KeyValues>
     <Scripts>
       <OnLoad method="OnLoad"/>
@@ -53,7 +53,7 @@
       </Layer>
     </Layers>
     <Frames>
-      <Button parentKey="SectionTitle">
+      <Button parentKey="GroupTitle">
         <ButtonText inherits="GameFontHighlight" justifyH="LEFT"/>
         <Size y="20" />
 
@@ -95,21 +95,21 @@
             <Anchor point="TOPLEFT" relativeKey="$parent.ShiftUpButton" relativePoint="TOPRIGHT" x="5"/>
         </Anchors>
       </Button>
-      <Frame inherits="AuctionatorBagCustomiseDividerTemplate">
+      <Frame inherits="AuctionatorGroupsCustomiseDividerTemplate">
         <Anchors>
           <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT"/>
           <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" />
         </Anchors>
       </Frame>
 
-      <Frame parentKey="Durations" inherits="AuctionatorBagCustomiseDurationTemplate">
+      <Frame parentKey="Durations" inherits="AuctionatorGroupsCustomiseDurationTemplate">
         <Anchors>
           <Anchor point="TOPRIGHT" y="-40"/>
           <Anchor point="RIGHT" x="-50"/>
         </Anchors>
       </Frame>
 
-      <Frame parentKey="Quantity" inherits="AuctionatorBagCustomiseQuantityTemplate">
+      <Frame parentKey="Quantity" inherits="AuctionatorGroupsCustomiseQuantityTemplate">
         <Anchors>
           <Anchor point="TOPRIGHT" relativeKey="$parent.Durations" relativePoint="TOPLEFT" x="-10"/>
         </Anchors>
@@ -127,7 +127,7 @@
     </Layers>
   </Frame>
 
-  <Frame name="AuctionatorBagCustomiseTemplate" virtual="true" mixin="AuctionatorBagCustomiseMixin" topLevel="true" inherits="ButtonFrameTemplate" hidden="true" enableMouse="true">
+  <Frame name="AuctionatorGroupsCustomiseTemplate" virtual="true" mixin="AuctionatorGroupsCustomiseMixin" topLevel="true" inherits="ButtonFrameTemplate" hidden="true" enableMouse="true">
     <Size x="600" y="600"/>
     <Scripts>
       <OnLoad method="OnLoad"/>
@@ -140,13 +140,13 @@
         <Anchor point="CENTER"/>
     </Anchors>
     <Frames>
-      <Frame inherits="AuctionatorBagViewTemplate" hidden="true">
+      <Frame inherits="AuctionatorGroupsViewTemplate" hidden="true">
         <KeyValues>
-          <KeyValue key="itemTemplate" value="AuctionatorBagViewItemTemplate" type="string" />
-          <KeyValue key="sectionTemplate" value="AuctionatorBagCustomiseSectionTemplate" type="string" />
+          <KeyValue key="itemTemplate" value="AuctionatorGroupsViewItemTemplate" type="string" />
+          <KeyValue key="groupTemplate" value="AuctionatorGroupsCustomiseGroupTemplate" type="string" />
           <KeyValue key="forceShow" value="true" type="boolean" />
-          <KeyValue key="sectionInsetX" value="7" type="number" />
-          <KeyValue key="clickEventName" value="BagCustomise.BagItemClicked" type="string" />
+          <KeyValue key="groupInsetX" value="7" type="number" />
+          <KeyValue key="clickEventName" value="GroupsCustomise.BagItemClicked" type="string" />
         </KeyValues>
         <Anchors>
             <Anchor point="TOPLEFT" y="-52"/>
@@ -163,13 +163,13 @@
           </OnClick>
         </Scripts>
       </Button>
-      <Button text="AUCTIONATOR_L_NEW_GROUP" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="597" parentKey="NewSectionButton">
+      <Button text="AUCTIONATOR_L_NEW_GROUP" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="597" parentKey="NewGroupButton">
         <Anchors>
             <Anchor point="TOPLEFT" x="15" y="-28"/>
         </Anchors>
         <Scripts>
           <OnClick>
-            self:GetParent():NewSection()
+            self:GetParent():NewGroup()
           </OnClick>
         </Scripts>
       </Button>

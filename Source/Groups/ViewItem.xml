@@ -1,5 +1,5 @@
 <Ui>
-  <Button name="AuctionatorBagViewItemTemplate" registerForClicks="LeftButtonUp, RightButtonUp" mixin="AuctionatorBagViewItemMixin" virtual="true" motionScriptsWhileDisabled="true">
+  <Button name="AuctionatorGroupsViewItemTemplate" registerForClicks="LeftButtonUp, RightButtonUp" mixin="AuctionatorGroupsViewItemMixin" virtual="true" motionScriptsWhileDisabled="true">
     <KeyValues>
       <KeyValue key="clickEventName" value="BagItemClicked" type="string" />
     </KeyValues>
