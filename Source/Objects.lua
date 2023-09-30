@@ -28,7 +28,7 @@ Auctionator = {
   IncrementalScan = {},
   FullScan = {},
   PostingHistory = {},
-  BagGroups = {},
+  Groups = {},
 
   Tabs = {
     State = {

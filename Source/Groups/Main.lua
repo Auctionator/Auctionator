@@ -1,8 +1,8 @@
-Auctionator.BagGroups.CallbackRegistry = CreateFromMixins(CallbackRegistryMixin)
-Auctionator.BagGroups.CallbackRegistry:OnLoad()
-Auctionator.BagGroups.CallbackRegistry:GenerateCallbackEvents(Auctionator.BagGroups.Constants.Events)
+Auctionator.Groups.CallbackRegistry = CreateFromMixins(CallbackRegistryMixin)
+Auctionator.Groups.CallbackRegistry:OnLoad()
+Auctionator.Groups.CallbackRegistry:GenerateCallbackEvents(Auctionator.Groups.Constants.Events)
 
-function Auctionator.BagGroups.Initialize()
+function Auctionator.Groups.Initialize()
   if AUCTIONATOR_SELLING_GROUPS == nil then
     AUCTIONATOR_SELLING_GROUPS = {
       Version = 1,
@@ -10,8 +10,8 @@ function Auctionator.BagGroups.Initialize()
       HiddenItems = {},
     }
 
-    Auctionator.BagGroups.AddGroup("FAVOURITES_GROUP")
-    local list = Auctionator.BagGroups.GetGroupList("FAVOURITES_GROUP")
+    Auctionator.Groups.AddGroup("FAVOURITES_GROUP")
+    local list = Auctionator.Groups.GetGroupList("FAVOURITES_GROUP")
 
     for _, data in pairs(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITE_KEYS)) do
       table.insert(list, data.itemLink)
@@ -28,11 +28,11 @@ local function AutoCreateCache()
   end
 end
 
-function Auctionator.BagGroups.OnAHOpen()
+function Auctionator.Groups.OnAHOpen()
   AutoCreateCache()
 end
 
-function Auctionator.BagGroups.OpenCustomiseView()
+function Auctionator.Groups.OpenCustomiseView()
   AutoCreateCache()
   if not AuctionatorGroupsCustomiseFrame then
     CreateFrame("Frame", "AuctionatorGroupsCustomiseFrame", UIParent, "AuctionatorGroupsCustomiseTemplate")

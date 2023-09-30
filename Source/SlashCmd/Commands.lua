@@ -37,7 +37,7 @@ function Auctionator.SlashCmd.ToggleDebug()
 end
 
 function Auctionator.SlashCmd.Groups()
-  Auctionator.BagGroups.OpenCustomiseView()
+  Auctionator.Groups.OpenCustomiseView()
 end
 
 function Auctionator.SlashCmd.ResetDatabase()

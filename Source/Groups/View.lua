@@ -1,4 +1,4 @@
-local GroupType = Auctionator.BagGroups.Constants.GroupType
+local GroupType = Auctionator.Groups.Constants.GroupType
 
 AuctionatorGroupsViewMixin = {}
 function AuctionatorGroupsViewMixin:OnLoad()
@@ -21,23 +21,23 @@ function AuctionatorGroupsViewMixin:OnLoad()
 end
 
 function AuctionatorGroupsViewMixin:OnShow()
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheUpdated", self.Update, self)
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("GroupsViewGroupToggled", self.UpdateGroupHeights, self)
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("BagCacheUpdated", self.Update, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsViewGroupToggled", self.UpdateGroupHeights, self)
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
 
   self:UpdateCustomGroups()
   self:UpdateFromExisting()
 end
 
 function AuctionatorGroupsViewMixin:OnHide()
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("GroupsViewGroupToggled", self)
-  Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsViewGroupToggled", self)
+  Auctionator.Groups.CallbackRegistry:UnregisterCallback("GroupsCustomise.EditMade", self.UpdateCustomGroups, self)
 end
 
 function AuctionatorGroupsViewMixin:UpdateCustomGroups()
   self.groupDetails = CopyTable(AUCTIONATOR_SELLING_GROUPS.CustomGroups)
-  for _, s in ipairs(Auctionator.BagGroups.Constants.DefaultGroups) do
+  for _, s in ipairs(Auctionator.Groups.Constants.DefaultGroups) do
     table.insert(self.groupDetails, s)
   end
 
@@ -229,6 +229,6 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
   self.originalOpen = false
   self:UpdateGroupHeights()
   if self.cacheUpdated and self.listsCached then
-    Auctionator.BagGroups.CallbackRegistry:TriggerEvent(self.completeEventName)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent(self.completeEventName)
   end
 end

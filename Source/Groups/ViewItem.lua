@@ -74,7 +74,7 @@ function AuctionatorGroupsViewItemMixin:OnClick(button)
       ChatEdit_InsertLink(self.itemInfo.itemLink)
 
     else
-      Auctionator.BagGroups.CallbackRegistry:TriggerEvent(self.clickEventName, self, button)
+      Auctionator.Groups.CallbackRegistry:TriggerEvent(self.clickEventName, self, button)
     end
   end
 end

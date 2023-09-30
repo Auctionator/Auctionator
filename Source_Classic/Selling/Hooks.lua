@@ -12,11 +12,11 @@ local function SelectOwnItem(self)
 
   AuctionatorTabs_Selling:Click()
   Auctionator.EventBus:RegisterSource(owner, "SellingTabBagHooks")
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheUpdated", function(_, cache)
-    Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", owner)
-    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("BagCacheUpdated", function(_, cache)
+    Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", owner)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOff")
     cache:CacheLinkInfo(itemLink, function()
-      local info = Auctionator.BagGroups.Utilities.ToPostingItem(AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, true))
+      local info = Auctionator.Groups.Utilities.ToPostingItem(AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, true))
       if info.location then
         info.location = itemLocation
         Auctionator.EventBus:Fire(owner, Auctionator.Selling.Events.BagItemClicked, info)
@@ -25,7 +25,7 @@ local function SelectOwnItem(self)
       end
     end)
   end, owner)
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOn")
 end
 
 local function AHShown()

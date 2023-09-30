@@ -1,10 +1,10 @@
-Auctionator.BagGroups.Constants = {
+Auctionator.Groups.Constants = {
   IsWrath = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC,
   IsVanilla = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC,
   IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE,
 }
 
-Auctionator.BagGroups.Constants.Events = {
+Auctionator.Groups.Constants.Events = {
   "BagCacheUpdated",
   "GroupsViewGroupToggled",
   "GroupsViewComplete",
@@ -28,21 +28,21 @@ Auctionator.BagGroups.Constants.Events = {
   "GroupsCustomise.PostingSettingChanged",
 }
 
-Auctionator.BagGroups.Constants.DialogNames = {
-  CreateGroup = "Auctionator.BagGroups.CreateGroupDialog",
-  ConfirmDelete = "Auctionator.BagGroups.ConfirmDelete",
-  RenameGroup = "Auctionator.BagGroups.RenameGroup",
+Auctionator.Groups.Constants.DialogNames = {
+  CreateGroup = "Auctionator.Groups.CreateGroupDialog",
+  ConfirmDelete = "Auctionator.Groups.ConfirmDelete",
+  RenameGroup = "Auctionator.Groups.RenameGroup",
 }
 
-if not Auctionator.BagGroups.Constants.IsRetail then
+if not Auctionator.Groups.Constants.IsRetail then
   -- Note that -2 is the keyring bag, which only exists in classic
-  Auctionator.BagGroups.Constants.BagIDs = {-2, 0, 1, 2, 3, 4}
-elseif Auctionator.BagGroups.Constants.IsRetail then
-  Auctionator.BagGroups.Constants.BagIDs = {0, 1, 2, 3, 4, 5}
+  Auctionator.Groups.Constants.BagIDs = {-2, 0, 1, 2, 3, 4}
+elseif Auctionator.Groups.Constants.IsRetail then
+  Auctionator.Groups.Constants.BagIDs = {0, 1, 2, 3, 4, 5}
 end
 
-if Auctionator.BagGroups.Constants.IsRetail then
-  Auctionator.BagGroups.Constants.ValidItemClassIDs = {
+if Auctionator.Groups.Constants.IsRetail then
+  Auctionator.Groups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,
     Enum.ItemClass.Container,
@@ -57,8 +57,8 @@ if Auctionator.BagGroups.Constants.IsRetail then
     Enum.ItemClass.Questitem,
     Enum.ItemClass.Miscellaneous,
   }
-elseif Auctionator.BagGroups.Constants.IsWrath then
-  Auctionator.BagGroups.Constants.ValidItemClassIDs = {
+elseif Auctionator.Groups.Constants.IsWrath then
+  Auctionator.Groups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,
     Enum.ItemClass.Container,
@@ -73,8 +73,8 @@ elseif Auctionator.BagGroups.Constants.IsWrath then
     Enum.ItemClass.Questitem,
     Enum.ItemClass.Key,
   }
-elseif Auctionator.BagGroups.Constants.IsVanilla then
-  Auctionator.BagGroups.Constants.ValidItemClassIDs = {
+elseif Auctionator.Groups.Constants.IsVanilla then
+  Auctionator.Groups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,
     Enum.ItemClass.Container,
@@ -88,18 +88,18 @@ elseif Auctionator.BagGroups.Constants.IsVanilla then
   }
 end
 
-Auctionator.BagGroups.Constants.GroupType = {
+Auctionator.Groups.Constants.GroupType = {
   List = 1,
   ClassID = 2,
 }
 
-Auctionator.BagGroups.Constants.DefaultGroups = {
+Auctionator.Groups.Constants.DefaultGroups = {
 }
 
-for _, classID in ipairs(Auctionator.BagGroups.Constants.ValidItemClassIDs) do
-  table.insert(Auctionator.BagGroups.Constants.DefaultGroups, {
+for _, classID in ipairs(Auctionator.Groups.Constants.ValidItemClassIDs) do
+  table.insert(Auctionator.Groups.Constants.DefaultGroups, {
     name = GetItemClassInfo(classID),
-    type = Auctionator.BagGroups.Constants.GroupType.ClassID,
+    type = Auctionator.Groups.Constants.GroupType.ClassID,
     classID = classID,
   })
 end

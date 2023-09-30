@@ -58,11 +58,11 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor(callback)
   local itemLink = C_Item.GetItemLink(location)
 
   Auctionator.EventBus:RegisterSource(self, "BagItemSelected")
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheUpdated", function(_, cache)
-    Auctionator.BagGroups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
-    Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOff")
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("BagCacheUpdated", function(_, cache)
+    Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagCacheUpdated", self)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOff")
     cache:CacheLinkInfo(itemLink, function()
-      local info = Auctionator.BagGroups.Utilities.ToPostingItem(AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, true))
+      local info = Auctionator.Groups.Utilities.ToPostingItem(AuctionatorBagCacheFrame:GetByLinkInstant(itemLink, true))
       if info.location then
         callback(true)
         info.location = location
@@ -73,7 +73,7 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor(callback)
       end
     end)
   end, self)
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheOn")
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOn")
 end
 
 local function HookForPickup(bag, slot)

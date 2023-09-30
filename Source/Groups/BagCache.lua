@@ -5,13 +5,13 @@ function AuctionatorBagCacheMixin:OnLoad()
   self.contents = {}
 
   self.cacheOn = 0
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheOn", function()
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("BagCacheOn", function()
     self.cacheOn = self.cacheOn + 1
     if self.cacheOn > 0 then
       self:SetScript("OnUpdate", self.DoBagRefresh)
     end
   end)
-  Auctionator.BagGroups.CallbackRegistry:RegisterCallback("BagCacheOff", function()
+  Auctionator.Groups.CallbackRegistry:RegisterCallback("BagCacheOff", function()
     self.cacheOn = self.cacheOn - 1
     if self.cacheOn <= 0 then
       self:SetScript("OnUpdate", self.DoBagRefresh)
@@ -103,7 +103,7 @@ function AuctionatorBagCacheMixin:PostUpdate(bagContents)
     table.insert(existingEntry.entries, item)
   end
   self.contents = byKey
-  Auctionator.BagGroups.CallbackRegistry:TriggerEvent("BagCacheUpdated", self)
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheUpdated", self)
 end
 
 local linkInstantCache = {}
@@ -263,7 +263,7 @@ function AuctionatorBagCacheMixin:DoBagRefresh()
 
   local loopFinished = false
   local loaderIndex = 0
-  for _, bagID in ipairs(Auctionator.BagGroups.Constants.BagIDs) do
+  for _, bagID in ipairs(Auctionator.Groups.Constants.BagIDs) do
     for slotID = 1, C_Container.GetContainerNumSlots(bagID) do
       local location = ItemLocation:CreateFromBagAndSlot(bagID, slotID)
       local slotInfo = C_Container.GetContainerItemInfo(bagID, slotID)
@@ -288,7 +288,7 @@ function AuctionatorBagCacheMixin:DoBagRefresh()
 
         -- Load item data to determine whether it can be auctioned, its quality,
         -- item level, etc.
-        if not Auctionator.BagGroups.Constants.IsRetail then
+        if not Auctionator.Groups.Constants.IsRetail then
           local classID = select(6, GetItemInfoInstant(slotInfo.itemID))
           local _, spellID = GetItemSpell(slotInfo.itemID)
           -- Classic: Special case to load spell data for item charge info for
