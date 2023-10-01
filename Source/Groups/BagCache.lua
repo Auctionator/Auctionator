@@ -80,7 +80,7 @@ local function GetItemKey(entry)
   if entry.classID == Enum.ItemClass.Battlepet then
     return "p:" .. KeyPartsPetLink(entry.itemLink)
   -- Equipment
-  elseif IsEquipment(entry.itemLink) then
+  elseif IsEquipment(entry) then
     local cleanLink = KeyPartsItemLink(entry.itemLink)
     return "g:" .. strjoin("_", cleanLink, tostring(entry.auctionable))
   -- Everything else
