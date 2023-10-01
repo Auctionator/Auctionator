@@ -106,18 +106,19 @@ function AuctionatorGroupsViewMixin:SetSelected(key)
 end
 
 function AuctionatorGroupsViewMixin:ScrollToSelected()
-  for button in self.buttonPool:EnumerateActive() do
-    -- nil check in case layout hasn't finished and the button is unpositioned
-    if button.itemInfo.selected and button:GetRect() ~= nil then
-      local bottom = self.ScrollBox:GetBottom()
-      local top = self.ScrollBox:GetTop()
-      local diff = 0
-      if button:GetBottom() < bottom then
-        diff = bottom - button:GetBottom()
-      elseif button:GetTop() > top then
-        diff = top - button:GetTop() - 40
+  for _, group in ipairs(self.groups) do
+    for _, button in ipairs(group.buttons) do
+      if button.itemInfo.selected then
+        local offset = math.abs(button.yOffset + group.yOffset)
+        local scrollOffset = self.ScrollBox:GetDerivedScrollOffset()
+        local newOffset = scrollOffset
+        if offset + button:GetHeight() > scrollOffset + self.ScrollBox:GetHeight() then
+          newOffset = offset + button:GetHeight() - self.ScrollBox:GetHeight()
+        elseif offset < scrollOffset then
+          newOffset = offset - 40
+        end
+        self.ScrollBox:ScrollToOffset(newOffset, 0, 0)
       end
-      self.ScrollBox:ScrollToOffset(self.ScrollBox:GetDerivedScrollOffset() + diff, 0, 0)
     end
   end
 end
@@ -125,18 +126,15 @@ end
 function AuctionatorGroupsViewMixin:ScrollToGroup(index)
   local group = self.groups[index]
 
-  local bottom = self.ScrollBox:GetBottom()
-  local top = self.ScrollBox:GetTop()
-  local diff = 0
-  if group:GetBottom() < bottom then
-    diff = bottom - group:GetBottom()
-    if group:GetTop() + diff > top then
-      diff = top - group:GetTop() - 40
-    end
-  elseif group:GetTop() > top then
-    diff = top - group:GetTop() - 40
+  local scrollOffset = self.ScrollBox:GetDerivedScrollOffset()
+  local offset = math.abs(group.yOffset)
+  local newOffset = scrollOffset
+  if offset + group:GetHeight() > scrollOffset + self.ScrollBox:GetHeight() then
+    newOffset = offset - 40
+  elseif offset < scrollOffset then
+    newOffset = offset - 40
   end
-  self.ScrollBox:ScrollToOffset(self.ScrollBox:GetDerivedScrollOffset() + diff, 0, 0)
+  self.ScrollBox:ScrollToOffset(newOffset, 0, 0)
 end
 
 function AuctionatorGroupsViewMixin:UpdateGroupHeights()
@@ -145,6 +143,7 @@ function AuctionatorGroupsViewMixin:UpdateGroupHeights()
     if self.forceShow or (not self.groupDetails[index].hidden and group:AnyButtons()) then
       group:Show()
       group:SetPoint("TOP", 0, -offset)
+      group.yOffset = -offset
       group:UpdateHeight()
       offset = offset + group:GetHeight()
     else

@@ -5,14 +5,16 @@ function AuctionatorGroupsViewGroupMixin:Reset()
   self.row = 0
   self.collapsed = false
   self.buttons = {}
-  self.rowWidth = math.floor(self:GetParent():GetWidth() / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
+  self.rowWidth = math.floor(self:GetParent():GetParent():GetWidth() / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
   self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
   self.GroupTitle:SetPoint("TOPLEFT", self.insetLeft, 0)
 end
 
 function AuctionatorGroupsViewGroupMixin:AddButton(button)
   table.insert(self.buttons, button)
-  button:SetPoint("TOPLEFT", self, self.insetLeft + self.col * self.iconSize, -self.groupTitleHeight - (self.row * self.iconSize))
+  local yOffset = -self.groupTitleHeight - (self.row * self.iconSize)
+  button:SetPoint("TOPLEFT", self, self.insetLeft + self.col * self.iconSize, yOffset)
+  button.yOffset = yOffset
   button:SetShown(not self.collapsed)
   self.col = self.col + 1
 
