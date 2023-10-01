@@ -30,10 +30,6 @@ local function SplitLink(linkString)
   return linkString:match("^(.*)|H(.-)|h(.*)$")
 end
 
-local function IsEquipment(entry)
-  return entry.classID == Enum.ItemClass.Armor or entry.classID == Enum.ItemClass.Weapon or (C_AuctionHouse and entry.classID == Enum.ItemClass.Profession)
-end
-
 -- Assumes itemLink is in the format found at
 -- https://wowpedia.fandom.com/wiki/ItemLink
 -- itemID : enchantID : gemID1 : gemID2 : gemID3 : gemID4
@@ -80,7 +76,7 @@ local function GetItemKey(entry)
   if entry.classID == Enum.ItemClass.Battlepet then
     return "p:" .. KeyPartsPetLink(entry.itemLink)
   -- Equipment
-  elseif IsEquipment(entry) then
+  elseif Auctionator.Utilities.IsEquipment(entry.classID) then
     local cleanLink = KeyPartsItemLink(entry.itemLink)
     return "g:" .. strjoin("_", cleanLink, tostring(entry.auctionable))
   -- Everything else
@@ -229,7 +225,7 @@ function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
         classID = select(6, GetItemInfoInstant(itemLink)),
         quality = item:GetItemQuality(),
       }
-      if IsEquipment(entry) then
+      if Auctionator.Utilities.IsEquipment(entry.classID) then
         entry.itemStats = GetItemStats(entry.itemLink)
         entry.itemLevel = GetDetailedItemLevelInfo(entry.itemLink)
       end
@@ -361,7 +357,7 @@ function AuctionatorBagCacheMixin:AddToCache(location, slotInfo)
       entry.stackCount = stackCount
       entry.quality = quality
     end
-    if IsEquipment(entry) then
+    if Auctionator.Utilities.IsEquipment(entry.classID) then
       entry.itemLevel = GetDetailedItemLevelInfo(entry.itemLink)
     end
     detailsCache[entry.itemLink] = entry
