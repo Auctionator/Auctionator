@@ -55,7 +55,7 @@ local function KeyPartsItemLink(itemLink)
   local numBonusIDs = tonumber(parts[14] or "") or 0
 
   for i = 14 + numBonusIDs + 1, #parts do
-    parts[i] = ""
+    parts[i] = nil
   end
 
   return Auctionator.Utilities.StringJoin(parts, ":")
