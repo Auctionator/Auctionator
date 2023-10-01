@@ -255,6 +255,8 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
     local keyName = GetKeyName(groupInfo.name, group.isCustom)
     self.itemMap[keyName] = {}
     for _, button in ipairs(group.buttons) do
+      button.prevItem = nil
+      button.nextItem = nil
       if not groupInfo.hidden then
         if prevButton then
           button.prevItem = {keyName = prevGroup, sortKey = prevButton.itemInfo.sortKey}
