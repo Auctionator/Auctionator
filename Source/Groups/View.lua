@@ -234,7 +234,7 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
   end
 
   for _, item in ipairs(self.rawItems) do
-    if item.auctionable and not self.hiddenItems[item.sortKey] then
+    if item.auctionable and not self.hiddenItems[item.sortKey] and (item.quality ~= Enum.ItemQuality.Poor or Auctionator.Utilities.IsEquipment(item.classID))  then
       local index = classIDMap[item.classID]
       if index ~= nil then
         local button = self.buttonPool:Acquire()
