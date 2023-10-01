@@ -54,8 +54,8 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmUnhideAll] = 
     Auctionator.EventBus:UnregisterSource(self)
   end,
   OnAccept = function(self)
-    Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORED_KEYS, {})
-    Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagRefresh)
+    Auctionator.Groups.UnhideAll()
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
   end,
   timeout = 0,
   exclusive = 1,

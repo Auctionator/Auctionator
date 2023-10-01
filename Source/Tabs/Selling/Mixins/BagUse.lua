@@ -118,8 +118,7 @@ function AuctionatorBagUseMixin:HideItem(button)
 end
 
 function AuctionatorBagUseMixin:UnhideAll()
-  Auctionator.Groups.UnhideAll()
-  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
+  StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmUnhideAll)
 end
 
 function AuctionatorBagUseMixin:ToggleCustomiseMode()
