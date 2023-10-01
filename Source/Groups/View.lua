@@ -107,7 +107,8 @@ end
 
 function AuctionatorGroupsViewMixin:ScrollToSelected()
   for button in self.buttonPool:EnumerateActive() do
-    if button.itemInfo.selected then
+    -- nil check in case layout hasn't finished and the button is unpositioned
+    if button.itemInfo.selected and button:GetRect() ~= nil then
       local bottom = self.ScrollBox:GetBottom()
       local top = self.ScrollBox:GetTop()
       local diff = 0
