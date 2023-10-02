@@ -66,7 +66,7 @@ local function KeyPartsPetLink(itemLink)
 
   local parts = { strsplit(":", hyperlink) }
 
-  local wantedBits = Auctionator.Utilities.Slice(parts, 1, 5)
+  local wantedBits = Auctionator.Utilities.Slice(parts, 1, 7)
 
   return Auctionator.Utilities.StringJoin(wantedBits, ":")
 end
