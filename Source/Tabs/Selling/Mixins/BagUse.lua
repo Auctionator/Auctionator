@@ -53,8 +53,10 @@ function AuctionatorBagUseMixin:ReceiveEvent(eventName, info, ...)
       self:ReturnItem(info)
     end
   elseif eventName == Auctionator.Selling.Events.BagItemClicked then
-    self.View:SetSelected(info.key)
-    self.View:ScrollToSelected()
+    if self:IsVisible() then
+      self.View:SetSelected(info.key)
+      self.View:ScrollToSelected()
+    end
   elseif eventName == Auctionator.Selling.Events.BagItemClear then
     self.View:SetSelected(nil)
   end
