@@ -110,7 +110,7 @@ end
 function AuctionatorBuyDialogMixin:LoadForPurchasing()
   if self.auctionData.numStacks < 1 then
     self:UpdateButtons()
-    if Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS) and self.auctionData.nextEntry ~= nil then
+    if Auctionator.Config.Get(Auctionator.Config.Options.CHAIN_BUY_STACKS) and self.auctionData.nextEntry ~= nil and not self.auctionData.nextEntry.isOwned then
       local nextEntry = self.auctionData.nextEntry
 
       -- Show warning if the price increases a lot
