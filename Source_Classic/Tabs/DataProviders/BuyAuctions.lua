@@ -136,6 +136,9 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventDa
 
   elseif eventName == Auctionator.AH.Events.ScanAborted then
     Auctionator.EventBus:Unregister(self, BUY_EVENTS)
+    if self.currentResults then
+      self:SetSelectedIndex(1)
+    end
     self.onSearchEnded()
   elseif eventName == Auctionator.Buying.Events.AuctionFocussed and self:IsShown() then
     for _, entry in ipairs(self.results) do
