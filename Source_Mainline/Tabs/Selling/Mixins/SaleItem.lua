@@ -160,7 +160,7 @@ end
 function AuctionatorSaleItemMixin:GetDeposit()
   local deposit = 0
 
-  if C_AuctionHouse.GetItemCommodityStatus(self.itemInfo.location) then
+  if self.itemInfo.isCommodity then
     deposit = C_AuctionHouse.CalculateCommodityDeposit(
       self.itemInfo.itemID,
       self:GetDuration(),
