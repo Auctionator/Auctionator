@@ -153,7 +153,7 @@
             <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
-      <Button text="BACK" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600">
+      <Button parentKey="BackButton" text="BACK" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600">
         <Anchors>
             <Anchor point="TOPRIGHT" y="-22"/>
         </Anchors>
