@@ -1,5 +1,5 @@
 <Ui>
-  <Frame name="AuctionatorGroupsCustomiseDividerTemplate" virtual="true">
+  <Frame name="AuctionatorGroupsCustomiseDividerTemplate" parentKey="DividerContainer" virtual="true">
     <Size y="15"/>
     <Scripts>
       <OnLoad>
