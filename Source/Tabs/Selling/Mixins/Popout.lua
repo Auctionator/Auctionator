@@ -23,6 +23,7 @@ function AuctionatorSelectionPopoutEntryMixin:Init(label, isSelected, isDisabled
     end
     self.SelectionName:SetTextColor(fontColor:GetRGB());
   end
+  self:SetEnabled(not isDisabled)
 
   local maxNameWidth = 200;
   if self.SelectionName:GetWidth() > maxNameWidth then
@@ -105,7 +106,7 @@ local popup
 
 function Auctionator.Selling.ShowPopup(options)
   if not popup then
-    popup = CreateFrame("Frame", nil, UIParent, "AuctionatorSelectionPopoutTemplate")
+    popup = CreateFrame("Frame", "AuctionatorSellingPopupFrame", UIParent, "AuctionatorSelectionPopoutTemplate")
   end
   local cursorX, cursorY = GetCursorPosition()
   local scale = UIParent:GetScale()
@@ -136,6 +137,3 @@ function Auctionator.Selling.ShowPopup(options)
 
   popup:Init(options)
 end
-
-C_Timer.After(0, function()
-end)
