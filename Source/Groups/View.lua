@@ -205,7 +205,15 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
         end
       end
       if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITES_SORT_OWNED) then
-        table.sort(infos, function(a, b) return (#a.locations > 0 and #b.locations == 0) or a.sortKey < b.sortKey end)
+        table.sort(infos, function(a, b)
+          if #a.locations > 0 and #b.locations == 0 then
+            return true
+          elseif #b.locations > 0 and #a.locations == 0 then
+            return false
+          else
+            return a.sortKey < b.sortKey
+          end
+        end)
       else
         table.sort(infos, function(a, b) return a.sortKey < b.sortKey end)
       end
