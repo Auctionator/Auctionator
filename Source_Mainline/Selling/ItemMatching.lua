@@ -6,7 +6,7 @@ function Auctionator.Selling.DoesItemMatchFromKey(originalItemKey, originalItemL
     if originalItemLink:find("battlepet:", nil, true) ~= nil then
       return Auctionator.Utilities.GetPetLevelFromLink(originalItemLink) == Auctionator.Utilities.GetPetLevelFromLink(targetItemLink)
     else
-      return originalItemKey.itemLevel == targetItemKey.itemLevel and originalItemKey.itemSuffix == targetItemLink.itemSuffix
+      return originalItemKey.itemLevel == targetItemKey.itemLevel and originalItemKey.itemSuffix == targetItemKey.itemSuffix
     end
 
   elseif matchType == Auctionator.Config.ItemMatching.ITEM_ID then
