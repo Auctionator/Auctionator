@@ -52,11 +52,38 @@ local function KeyPartsItemLink(itemLink)
     parts[i] = ""
   end
 
+  local bonusIDStart = 14
   local numBonusIDs = tonumber(parts[14] or "") or 0
+  local modStart = bonusIDStart + numBonusIDs + 1
 
-  local numMods = tonumber(parts[14 + numBonusIDs + 1] or "") or 0
-  for i = 14 + numBonusIDs + 1 + numMods * 2 + 1 , #parts do
-    parts[i] = nil
+  local numMods = tonumber(parts[modStart] or "") or 0
+  -- complicated way to only keep the modifiers that affect item level and scrap
+  -- any tmog/crafting details
+  -- Details of modifiers at https://warcraft.wiki.gg/wiki/ItemLink#Modifier_Types
+  if numMods > 0 then
+    local wantedMods = {}
+    for i = 1, numMods do
+      local id = tonumber(parts[modStart + 1 + i * 2 - 1])
+      -- timewalker level, artifact tier, pvp rating, content tuning ID
+      if id == 9 or id == 24 or id == 26 or id == 28 then
+        table.insert(wantedMods, id)
+        table.insert(wantedMods, parts[modStart + 1 + i * 2])
+      end
+    end
+    numMods = #wantedMods / 2
+    parts[modStart] = tostring(numMods)
+    for i = 1, #wantedMods do
+      parts[modStart + i] = tostring(wantedMods[i])
+    end
+  end
+  if numMods > 0 then
+    for i = modStart + numMods * 2 + 1, #parts do
+      parts[i] = nil
+    end
+  else
+    for i = modStart, #parts do
+      parts[i] = nil
+    end
   end
 
   return Auctionator.Utilities.StringJoin(parts, ":")
