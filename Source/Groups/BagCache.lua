@@ -63,11 +63,11 @@ local function KeyPartsItemLink(itemLink)
   if numMods > 0 then
     local wantedMods = {}
     for i = 1, numMods do
-      local id = tonumber(parts[modStart + 1 + i * 2 - 1])
+      local id = tonumber(parts[modStart + i * 2 - 1])
       -- timewalker level, artifact tier, pvp rating, content tuning ID
       if id == 9 or id == 24 or id == 26 or id == 28 then
         table.insert(wantedMods, id)
-        table.insert(wantedMods, parts[modStart + 1 + i * 2])
+        table.insert(wantedMods, parts[modStart + i * 2])
       end
     end
     numMods = #wantedMods / 2
