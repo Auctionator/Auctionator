@@ -334,13 +334,18 @@ function AuctionatorSaleItemMixin:UpdateForNoItem()
   self.TotalPrice:SetText(GetMoneyString(100, true))
 end
 
+local DURATIONS_TO_TIME = {
+  [1] = 12,
+  [2] = 24,
+  [3] = 48,
+}
 function AuctionatorSaleItemMixin:SetDuration()
   local duration = Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
 
   if self.itemInfo.groupName then
     local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
     if groupSettings and groupSettings.duration and groupSettings.duration ~= 0 then
-      duration = groupSettings.duration
+      duration = DURATIONS_TO_TIME[groupSettings.duration]
     end
   end
 
