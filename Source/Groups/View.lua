@@ -217,6 +217,9 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
       else
         table.sort(infos, function(a, b) return a.sortKey < b.sortKey end)
       end
+      if not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES) then
+        infos = tFilter(infos, function(a) return #a.locations > 0 end, true)
+      end
       local keyName = GetKeyName(groupDetails.name, isCustom)
       for _, info in ipairs(infos) do
         local button = self.buttonPool:Acquire()
