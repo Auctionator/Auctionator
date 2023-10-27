@@ -65,7 +65,7 @@ local function KeyPartsItemLink(itemLink)
     for i = 1, numMods do
       local id = tonumber(parts[modStart + i * 2 - 1])
       -- timewalker level, artifact tier, pvp rating, dragonflight quality id
-      if id == 9 or id == 24 or id == 26 or id == 38 then
+      if id == 9 or id == 24 or id == 26 or id == 29 or id == 30 or id == 38 then
         table.insert(wantedMods, id)
         table.insert(wantedMods, parts[modStart + i * 2])
       end
