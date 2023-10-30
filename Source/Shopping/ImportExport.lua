@@ -46,9 +46,11 @@ function Auctionator.Shopping.Lists.OneImportFromString(listName, importString)
 
   local list = Auctionator.Shopping.ListManager:GetByName(listName)
 
+  local items = {}
   for _, item in ipairs({strsplit("^", importString)}) do
-    list:InsertItem(item)
+    table.insert(items, item)
   end
+  list:AppendItems(items)
 end
 
 --Import multiple instances of lists in the format
