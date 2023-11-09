@@ -19,6 +19,10 @@ function AuctionatorItemKeyLoadingMixin:ProcessItemKey(rowEntry, itemKeyInfo)
     itemKeyInfo,
     false
   )
+  local icon = AuctionHouseUtil.GetItemDisplayCraftingQualityIconFromItemKey(rowEntry.itemKey)
+  if icon then
+    text = text .. " " .. icon
+  end
 
   rowEntry.itemName = text
   rowEntry.plainItemName = itemKeyInfo.itemName
