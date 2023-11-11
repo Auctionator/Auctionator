@@ -184,7 +184,7 @@ TooltipHandlers["SetInboxItem"] = function(tip, index, attachIndex)
   end
 end
 
-
+-- This removed the price from the tooltip if the option is disabled
 local originalGameTooltipOnTooltipSetItem = GameTooltip_OnTooltipAddMoney;
 GameTooltip_OnTooltipAddMoney = function(...)
   local sellPriceEnabled = Auctionator.Config.Get(Auctionator.Config.Options.SELL_PRICE_TOOLTIPS)
