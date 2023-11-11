@@ -40,6 +40,17 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="SellPriceTooltips">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELL_PRICE_TOOLTIP" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_SELL_PRICE_TOOLTIP_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_SELL_PRICE_TOOLTIP_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PetTooltips" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="VendorTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_VENDOR_TOOLTIP" type="global"/>
@@ -47,7 +58,7 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_VENDOR_TOOLTIP_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.PetTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.SellPriceTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
