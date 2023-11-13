@@ -6,4 +6,5 @@
   <Script file="ItemPrice.lua"/>
   <Script file="ComposeAuctionPostedMessage.lua"/>
   <Script file="ItemMatching.lua"/>
+  <Script file="ShowCannotSellReason.lua"/>
 </Ui>

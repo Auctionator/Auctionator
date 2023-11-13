@@ -38,8 +38,9 @@ function AuctionatorBagItemSelectedMixin:ProcessCursor(callback)
     return
   end
 
-  -- Case when picking up a key from your keyring, WoW doesn't always give a
-  -- valid item location for the cursor, causing an error unless we either:
+  -- Case when picking up a key from your keyring in classic, WoW doesn't always
+  -- give a valid item location for the cursor, causing an error unless we
+  -- either:
   --  1. Ignore it
   --  2. Replace the location with one that is valid based on a hook on bag
   --  clicks.
@@ -81,8 +82,8 @@ local function HookForPickup(bag, slot)
   seenSlot = slot
 end
 
--- Record clicks on bag items so that we can make keyring items being picked up
--- and placed in the Selling tab work.
+-- For classic record clicks on bag items so that we can make keyring items
+-- being picked up and placed in the Selling tab work.
 if C_Container and C_Container.PickupContainerItem then
   hooksecurefunc(C_Container, "PickupContainerItem", HookForPickup)
 end
