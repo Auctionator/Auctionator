@@ -163,11 +163,7 @@ function AuctionatorGroupsViewMixin:Update(cache)
   self.cacheUpdated = true
   self.rawItems = cache:GetAllContents()
   table.sort(self.rawItems, function(a, b)
-    if a.itemName == b.itemName then
-      return a.sortKey < b.sortKey
-    else
-      return a.itemName < b.itemName
-    end
+    return a.sortKey < b.sortKey
   end)
   self:UpdateFromExisting()
 end
