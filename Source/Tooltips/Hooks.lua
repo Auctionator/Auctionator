@@ -296,6 +296,12 @@ if TooltipDataProcessor then
       end
     end
   end)
+
+  TooltipDataProcessor.AddLinePreCall(Enum.TooltipDataLineType.SellPrice, function(tooltip, lineData)
+    if tooltip == GameTooltip or tooltip == ItemRefTooltip then
+        return Auctionator.Config.Get(Auctionator.Config.Options.VENDOR_TOOLTIPS)
+    end
+  end)
 else
   -- This occurs when clicking on an item link (i.e. in chat)
   hooksecurefunc(ItemRefTooltip, "SetHyperlink", TooltipHandlers["SetHyperlink"])
