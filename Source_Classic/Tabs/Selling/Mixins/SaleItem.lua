@@ -604,7 +604,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     self.StackPrice:GetAmount() <= MAXIMUM_BID_PRICE and
 
     -- Sufficient money to cover deposit
-    GetMoney() > self:GetDeposit() and
+    GetMoney() >= self:GetDeposit() and
 
     -- Valid quantity
     self.Stacks.NumStacks:GetNumber() > 0 and

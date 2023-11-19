@@ -580,7 +580,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
     C_Item.DoesItemExist(self.itemInfo.location) and
 
     -- Sufficient money to cover deposit
-    GetMoney() > self:GetDeposit() and
+    GetMoney() >= self:GetDeposit() and
 
     -- Valid quantity
     self.Quantity:GetNumber() > 0 and
