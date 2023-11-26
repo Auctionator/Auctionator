@@ -38,7 +38,13 @@ StaticPopupDialogs[ConfirmBidPricePopup] = {
 function AuctionatorCancellingFrameMixin:IsAuctionShown(auctionInfo)
   local searchString = self.SearchFilter:GetText()
   if searchString ~= "" then
-    return string.find(string.lower(auctionInfo.searchName), string.lower(searchString), 1, true)
+    local exact = searchString:match("^\"(.*)\"$")
+    local name = string.lower(auctionInfo.searchName)
+    if exact then
+      return name == exact
+    else
+      return string.find(name, string.lower(searchString), 1, true)
+    end
   else
     return true
   end
