@@ -45,7 +45,7 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm, quan
   -- Probably doesn't have a specific item output, but include the recipe name
   -- anyway just in case
   else
-    table.insert(searchTerms, recipeInfo.name)
+    table.insert(searchTerms, {searchString = recipeInfo.name})
   end
 
   -- Select all mandatory reagents

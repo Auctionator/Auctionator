@@ -97,7 +97,7 @@ local function ValidateExtendedSearchTerms(callerID, searchTerms)
 end
 
 function Auctionator.API.v1.MultiSearchAdvanced(callerID, searchTerms)
-  local cleanedTerms = ValidateExtendedSearchTerms(calledID, searchTerms)
+  local cleanedTerms = ValidateExtendedSearchTerms(callerID, searchTerms)
 
   local internalSearchTerms = {}
   for _, term in ipairs(cleanedTerms) do
