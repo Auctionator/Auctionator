@@ -330,10 +330,12 @@ function Auctionator.Tooltip.AddPetTip(
         Auctionator.Utilities.CreatePaddedMoneyString(price)
       )
     )
-    if auctionAge ~= nil then
-      BattlePetTooltip:AddLine(AUCTIONATOR_L_AUCTION_AGE .. PET_TOOLTIP_SPACING .. WHITE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_X_DAYS:format(tostring(auctionAge))))
-    elseif auctionPrice ~= nil then
-      BattlePetTooltip:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. PET_TOOLTIP_SPACING .. AUCTIONATOR_L_UNKNOWN)
+    if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_AGE_TOOLTIPS) then
+      if auctionAge ~= nil then
+        BattlePetTooltip:AddLine(AUCTIONATOR_L_AUCTION_AGE .. PET_TOOLTIP_SPACING .. WHITE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_X_DAYS:format(tostring(auctionAge))))
+      elseif price ~= nil then
+        BattlePetTooltip:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. PET_TOOLTIP_SPACING .. AUCTIONATOR_L_UNKNOWN)
+      end
     end
   else
     BattlePetTooltip:AddLine(
