@@ -19,10 +19,13 @@ jobs:
         include:
           - type: retail
             toc: Auctionator_Mainline.toc
+            pkgmeta: .pkgmeta.toc
           - type: wrath
             toc: Auctionator_Wrath.toc
+            pkgmeta: .pkgmeta_wrath.toc
           - type: classic
             toc: Auctionator_Vanilla.toc
+            pkgmeta: .pkgmeta_vanilla.toc
 
     runs-on: ubuntu-latest
 
@@ -35,7 +38,7 @@ jobs:
       run: cp ${{matrix.toc}} Auctionator.toc
     - uses: BigWigsMods/packager@v2
       with:
-        args: -p 6124 -a kRNL70Go -g ${{matrix.type}}
+        args: -p 6124 -a kRNL70Go -g ${{matrix.type}} -m ${{matrix.pkgmeta}}
       env:
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
         WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
