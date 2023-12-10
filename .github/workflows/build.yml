@@ -19,13 +19,13 @@ jobs:
         include:
           - type: retail
             toc: Auctionator_Mainline.toc
-            pkgmeta: .pkgmeta.toc
+            pkgmeta: .pkgmeta
           - type: wrath
             toc: Auctionator_Wrath.toc
-            pkgmeta: .pkgmeta_wrath.toc
+            pkgmeta: .pkgmeta_wrath
           - type: classic
             toc: Auctionator_Vanilla.toc
-            pkgmeta: .pkgmeta_vanilla.toc
+            pkgmeta: .pkgmeta_vanilla
 
     runs-on: ubuntu-latest
 
