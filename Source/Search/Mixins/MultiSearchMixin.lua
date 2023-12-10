@@ -104,6 +104,7 @@ function AuctionatorMultiSearchMixin:NextSearch()
         totalResult.itemString = totalResult.itemString.."total"
         totalResult.itemName = Auctionator.Locales.Apply("LIST_TOTAL_ENTRY", self.config.sourceName)
         totalResult.name = "List Total"
+        totalResult.minPrice = totalPrice
         table.insert(self.fullResults, totalResult)
       end
     end
