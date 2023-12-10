@@ -12,17 +12,17 @@ on:
     - ".github/**"
 
 jobs:
-  strategy:
-    matrix:
-      type: [retail, wrath, classic]
-      include:
-        - type: retail
-          toc: Auctionator_Mainline.toc
-        - type: wrath
-          toc: Auctionator_Wrath.toc
-        - type: classic
-          toc: Auctionator_Vanilla.toc
   build:
+    strategy:
+      matrix:
+        type: [retail, wrath, classic]
+        include:
+          - type: retail
+            toc: Auctionator_Mainline.toc
+          - type: wrath
+            toc: Auctionator_Wrath.toc
+          - type: classic
+            toc: Auctionator_Vanilla.toc
 
     runs-on: ubuntu-latest
 
