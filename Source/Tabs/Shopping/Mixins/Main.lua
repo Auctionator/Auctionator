@@ -120,7 +120,8 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
   self.ListsContainer:SetOnListExpanded(function()
     if Auctionator.Config.Get(Auctionator.Config.Options.AUTO_LIST_SEARCH) then
       self.singleSearch = false
-      self:DoSearch(self.ListsContainer:GetExpandedList():GetAllItems())
+      local list = self.ListsContainer:GetExpandedList()
+      self:DoSearch(list:GetAllItems(), { sourceName = list:GetName(), sourceType = Auctionator.Constants.SEARCH_SOURCES.LIST })
     end
     self.SearchOptions:OnListExpanded()
   end)
@@ -148,7 +149,7 @@ function AuctionatorShoppingTabFrameMixin:SetupListsContainer()
   end)
   self.ListsContainer:SetOnListSearch(function(list)
     self.singleSearch = false
-    self:DoSearch(list:GetAllItems())
+    self:DoSearch(list:GetAllItems(), { sourceName = list:GetName(), sourceType = Auctionator.Constants.SEARCH_SOURCES.LIST })
   end)
   self.ListsContainer:SetOnListEdit(function(list)
     if list:IsTemporary() then

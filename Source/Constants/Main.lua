@@ -51,4 +51,8 @@ Auctionator.Constants = {
 
   AfterAHCut = 0.95,
   IsClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE,
+
+  SEARCH_SOURCES = {
+    LIST = 0
+  }
 }

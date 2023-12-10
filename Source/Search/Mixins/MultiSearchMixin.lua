@@ -88,6 +88,26 @@ function AuctionatorMultiSearchMixin:NextSearch()
     self:UnregisterProviderEvents()
 
     self.complete = true
+
+    if Auctionator.Config.Get(Auctionator.Config.Options.SHOPPING_COMPUTE_LIST_TOTAL) and self.config.sourceType == Auctionator.Constants.SEARCH_SOURCES.LIST then
+      local totalPrice = 0
+      for index = 1, #self.fullResults do
+        if self.fullResults[index].purchaseQuantity then
+          local entryPrice = self.fullResults[index].minPrice * self.fullResults[index].purchaseQuantity
+          totalPrice = totalPrice + entryPrice
+        end
+      end
+      Auctionator.Debug.Message("AuctionatorMultiSearchMixin:NextSearch() - Total Price " .. totalPrice)
+
+      if totalPrice > 0 then
+        local totalResult = self:GetCurrentEmptyResult()
+        totalResult.itemString = totalResult.itemString.."total"
+        totalResult.itemName = Auctionator.Locales.Apply("LIST_TOTAL_ENTRY", self.config.sourceName)
+        totalResult.name = "List Total"
+        table.insert(self.fullResults, totalResult)
+      end
+    end
+
     self.onSearchComplete(self.fullResults)
   end
 end

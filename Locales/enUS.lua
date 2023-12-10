@@ -170,6 +170,7 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["MAKE_PERMANENT_CONFIRM"] = "To make '%s' permanent choose a new name for it:"
   L["ADD_TERM_TO_LIST_DIALOG"] = "Enter the search term to add:"
   L["MAKE_PERMANENT"] = "Make Permanent"
+  L["LIST_TOTAL_ENTRY"] = "%s List Total"
 
   L["RENAME"] = "Rename"
   L["SAVE_AS"] = "Save As"
@@ -699,6 +700,10 @@ AUCTIONATOR_LOCALES.enUS = function()
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY"] = "Always type quantity twice when purchasing commodities from the shopping tab"
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_HEADER"] = "Confirm quantity every time"
   L["CONFIG_SHOPPING_ALWAYS_CONFIRM_QUANTITY_TOOLTIP_TEXT"] = "By default the quantity is confirmed just once, this makes it so you have to type it a second time to confirm the purchase."
+
+  L["CONFIG_SHOPPING_COMPUTE_LIST_TOTAL"] = "Add a row to list searches for the total price based on each entry's quantity"
+  L["CONFIG_SHOPPING_COMPUTE_LIST_TOTAL_TOOLTIP_HEADER"] = "Compute list total"
+  L["CONFIG_SHOPPING_COMPUTE_LIST_TOTAL_TOOLTIP_TEXT"] = "Adds a final row to search results showing the total cost of all entries in the list based on configured quantity. Entries without a quantity are skipped"
 
   L["FOCUS"] = "Focus"
   L["NEW_GROUP"] = "New Group"

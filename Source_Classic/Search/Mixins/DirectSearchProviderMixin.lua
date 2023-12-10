@@ -137,7 +137,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
     local minPrice = GetMinPrice(entries)
     local possibleResult = {
       itemString = key,
-      minPrice = GetMinPrice(entries),
+      minPrice = minPrice,
       totalQuantity = GetQuantity(entries),
       containsOwnerItem = GetOwned(entries),
       isTopItem = GetIsTop(entries, minPrice),
@@ -145,6 +145,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
       complete = not self.aborted,
       purchaseQuantity = self.resultMetadata.quantity,
     }
+
     local item = Item:CreateFromItemID(GetItemInfoInstant(key))
     item:ContinueOnItemLoad(function()
       waiting = waiting - 1
