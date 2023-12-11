@@ -5,4 +5,5 @@
   <Script file="IsAuctionDataExact.lua" />
   <Script file="GetVendorPrice.lua" />
   <Script file="GetDisenchantPrice.lua" />
+  <Script file="ShoppingLists.lua" />
 </Ui>
