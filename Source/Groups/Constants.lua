@@ -85,6 +85,7 @@ elseif Auctionator.Groups.Constants.IsVanilla then
     Enum.ItemClass.Recipe,
     Enum.ItemClass.Reagent,
     Enum.ItemClass.Miscellaneous,
+    Enum.ItemClass.Questitem,
   }
 end
 
