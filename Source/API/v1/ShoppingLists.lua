@@ -27,7 +27,7 @@ function Auctionator.API.v1.ConvertToSearchString(term)
   return Auctionator.Search.ReconstituteAdvancedSearch(term)
 end
 
-function Auctionator.API.v1.ConverFromSearchString(searchString)
+function Auctionator.API.v1.ConvertFromSearchString(searchString)
   if not searchString or type(searchString) ~= "string" then
     Auctionator.API.ComposeError(
       callerID,
