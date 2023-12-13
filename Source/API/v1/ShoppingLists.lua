@@ -1,6 +1,6 @@
 ---@class Auctionator.Search.SearchTerm
 ---@field searchString string
----@field categoryKey string
+---@field categoryKey string?
 ---@field isExact boolean?
 ---@field minLevel number?
 ---@field maxLevel number?
@@ -16,8 +16,10 @@
 ---@field quantity number?
 
 
----@return Auctionator.Search.SearchTerm term
-function Auctionator.API.v1.ConvertToSearchString(term)
+---@param callerID string
+---@param term Auctionator.Search.SearchTerm
+---@return string searchString
+function Auctionator.API.v1.ConvertToSearchString(callerID, term)
   if not term or not term.searchString or type(term.searchString) ~= "string" then
     Auctionator.API.ComposeError(
       callerID,
@@ -27,7 +29,10 @@ function Auctionator.API.v1.ConvertToSearchString(term)
   return Auctionator.Search.ReconstituteAdvancedSearch(term)
 end
 
-function Auctionator.API.v1.ConvertFromSearchString(searchString)
+---@param callerID string
+---@param searchString string
+---@return Auctionator.Search.SearchTerm searchTerm
+function Auctionator.API.v1.ConvertFromSearchString(callerID, searchString)
   if not searchString or type(searchString) ~= "string" then
     Auctionator.API.ComposeError(
       callerID,
@@ -67,14 +72,14 @@ end
 --- Creates an Auctionator Shopping List and if at the AH, starts searching immediately. If a shopping list with the given name already exists it will be replaced
 ---@param callerID string
 ---@param name string
----@param terms string[]
+---@param searchStrings string[]
 function Auctionator.API.v1.CreateShoppingList(callerID, name, searchStrings)
   Auctionator.API.InternalVerifyID(callerID)
 
   if type(name) ~= "string" or type(searchStrings) ~= "table" then
     Auctionator.API.ComposeError(
       callerID,
-      "Usage Auctionator.API.v1.CreateShoppingList(string, string, Auctionator.Search.SearchTerm[])"
+      "Usage Auctionator.API.v1.CreateShoppingList(string, string, string[])"
     )
   end
 
@@ -94,7 +99,7 @@ end
 
 ---@param callerID string
 ---@param shoppingListName string
----@param itemTerm Auctionator.Search.SearchTerm
+---@param itemSearchString string
 function Auctionator.API.v1.DeleteShoppingListItem(callerID, shoppingListName, itemSearchString)
   Auctionator.API.InternalVerifyID(callerID)
 
@@ -178,7 +183,7 @@ function Auctionator.API.v1.ShoppingListAPITests()
   }
   local searchStrings = {}
   for _, term in ipairs(creationTerms) do
-    table.insert(searchStrings, Auctionator.API.v1.ConvertToSearchString(term))
+    table.insert(searchStrings, Auctionator.API.v1.ConvertToSearchString(callerID, term))
   end
 
   local s1, e1 = pcall(Auctionator.API.v1.CreateShoppingList, callerID, shoppingListName, searchStrings)
@@ -200,16 +205,14 @@ function Auctionator.API.v1.ShoppingListAPITests()
   assert(#items < 2, "DeleteShoppingListItem failed")
 
   local s4, e4 = pcall(Auctionator.API.v1.AlterShoppingListItem, callerID, shoppingListName, 
-  Auctionator.API.v1.ConvertToSearchString({
+  Auctionator.API.v1.ConvertToSearchString(callerID, {
         searchString="Serevite Ore",
         isExact=true,
-        categoryKey="",
         tier=3,
         quantity=10,
-  }), Auctionator.API.v1.ConvertToSearchString({
+  }), Auctionator.API.v1.ConvertToSearchString(callerID, {
         searchString="Draconium Ore",
         isExact=true,
-        categoryKey="",
         tier=2,
         quantity=5,      
   }))
