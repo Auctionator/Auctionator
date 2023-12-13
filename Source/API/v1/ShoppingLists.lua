@@ -1,6 +1,45 @@
+---@class Auctionator.Search.SearchTerm
+---@field searchString string
+---@field categoryKey string
+---@field isExact boolean?
+---@field minLevel number?
+---@field maxLevel number?
+---@field minPrice number?
+---@field maxPrice number?
+---@field minItemLevel number?
+---@field maxItemLevel number?
+---@field minCraftedLevel number?
+---@field maxCraftedLevel number?
+---@field quality number?
+---@field tier number? -- dragonflight crafted reagent quality ([1,5])
+---@field expansion string?
+---@field quantity number?
+
+
+---@return Auctionator.Search.SearchTerm term
+function Auctionator.API.v1.ConvertToSearchString(term)
+  if not term or not term.searchString or type(term.searchString) ~= "string" then
+    Auctionator.API.ComposeError(
+      callerID,
+      "Usage Auctionator.API.v1.ConvertToSearchString(table)"
+    )
+  end
+  return Auctionator.Search.ReconstituteAdvancedSearch(term)
+end
+
+function Auctionator.API.v1.ConverFromSearchString(searchString)
+  if not searchString or type(searchString) ~= "string" then
+    Auctionator.API.ComposeError(
+      callerID,
+      "Usage Auctionator.API.v1.ConvertFromSearchString(string)"
+    )
+  end
+  return Auctionator.Search.SplitAdvancedSearch(searchString)
+end
+
 ---@param callerID string
 ---@param shoppingListName string
----@return table<number, string> shoppingListItems
+---@return string[]
 function Auctionator.API.v1.GetShoppingListItems(callerID, shoppingListName)
   Auctionator.API.InternalVerifyID(callerID)
 
@@ -20,35 +59,19 @@ function Auctionator.API.v1.GetShoppingListItems(callerID, shoppingListName)
     )
   end
 
-  local shoppingList =  Auctionator.Shopping.ListManager:GetByIndex(listIndex)
+  local shoppingList = Auctionator.Shopping.ListManager:GetByIndex(listIndex)
+
   return shoppingList:GetAllItems()
 end
-
----@class Auctionator.Search.SearchTerm
----@field searchString string
----@field categoryKey string
----@field isExact boolean?
----@field minLevel number?
----@field maxLevel number?
----@field minPrice number?
----@field maxPrice number?
----@field minItemLevel number?
----@field maxItemLevel number?
----@field minCraftedLevel number?
----@field maxCraftedLevel number?
----@field quality number?
----@field tier number? -- dragonflight crafted reagent quality ([1,5])
----@field expansion string?
----@field quantity number?
 
 --- Creates an Auctionator Shopping List and if at the AH, starts searching immediately. If a shopping list with the given name already exists it will be replaced
 ---@param callerID string
 ---@param name string
----@param terms Auctionator.Search.SearchTerm[]
-function Auctionator.API.v1.CreateShoppingList(callerID, name, terms)
+---@param terms string[]
+function Auctionator.API.v1.CreateShoppingList(callerID, name, searchStrings)
   Auctionator.API.InternalVerifyID(callerID)
 
-  if type(name) ~= "string" or type(terms) ~= "table" then
+  if type(name) ~= "string" or type(searchStrings) ~= "table" then
     Auctionator.API.ComposeError(
       callerID,
       "Usage Auctionator.API.v1.CreateShoppingList(string, string, Auctionator.Search.SearchTerm[])"
@@ -60,40 +83,25 @@ function Auctionator.API.v1.CreateShoppingList(callerID, name, terms)
       Auctionator.Shopping.ListManager:Delete(name)
   end
 
-  local importString = name
-  for _, searchTerm in pairs(terms) do
-    if (searchTerm.quantity and searchTerm.quantity > 0) or not searchTerm.quantity then
-      local success, itemString = pcall(Auctionator.Search.ReconstituteAdvancedSearch, searchTerm)
-      if success then
-        importString = importString .. "^" .. tostring(itemString)
-      else
-        Auctionator.API.ComposeError(
-        callerID,
-        "Error in Auctionator.Search.ReconstituteAdvancedSearch(Auctionator.Search.SearchTerm):\n" .. tostring(itemString)
-        )
-      end
-    end
-  end
+  Auctionator.Shopping.ListManager:Create(name)
+  local list = Auctionator.Shopping.ListManager:GetByName(name)
+  list:AppendItems(searchStrings)
 
-  local success, error = pcall(Auctionator.Shopping.Lists.BatchImportFromString, importString)
-  if not success then
-    Auctionator.API.ComposeError(
-      callerID,
-      "Error in Auctionator.API.v1.CreateShoppingList/Auctionator.Shopping.Lists.BatchImportFromString(shoppingListString):\n" .. tostring(error)
-    )
-  end
+  Auctionator.EventBus
+    :RegisterSource(Auctionator.API.v1.CreateShoppingList, "Auctionator.API.v1.CreateShoppingList")
+    :Fire(Auctionator.API.v1.CreateShoppingList, Auctionator.Shopping.Events.ListImportFinished, name)
 end
 
 ---@param callerID string
 ---@param shoppingListName string
 ---@param itemTerm Auctionator.Search.SearchTerm
-function Auctionator.API.v1.DeleteShoppingListItem(callerID, shoppingListName, itemTerm)
+function Auctionator.API.v1.DeleteShoppingListItem(callerID, shoppingListName, itemSearchString)
   Auctionator.API.InternalVerifyID(callerID)
 
-  if type(shoppingListName) ~= "string" or type(itemTerm) ~= "table" then
+  if type(shoppingListName) ~= "string" or type(itemSearchString) ~= "string" then
     Auctionator.API.ComposeError(
       callerID,
-      "Usage Auctionator.API.v1.RemoveItemFromShoppingList(string, string, Auctionator.Search.SearchTerm)"
+      "Usage Auctionator.API.v1.DeleteShoppingListItem(string, string, string)"
     )
   end
 
@@ -101,19 +109,11 @@ function Auctionator.API.v1.DeleteShoppingListItem(callerID, shoppingListName, i
   if not listIndex then
     Auctionator.API.ComposeError(
       callerID,
-      "Auctionator.API.v1.RemoveItemFromShoppingList ShoppingList does not exist: " .. tostring(shoppingListName)
+      "Auctionator.API.v1.DeleteShoppingListItem ShoppingList does not exist: " .. tostring(shoppingListName)
     )
   end
 
   local shoppingList = Auctionator.Shopping.ListManager:GetByIndex(listIndex)
-
-  local success, itemSearchString = pcall(Auctionator.Search.ReconstituteAdvancedSearch, itemTerm)
-  if not success then
-    Auctionator.API.ComposeError(
-        callerID,
-        "Error in Auctionator.API.v1.DeleteShoppingListItem/Auctionator.Search.ReconstituteAdvancedSearch(Auctionator.Search.SearchTerm):\n" .. tostring(itemSearchString)
-        )
-  end
 
   local itemIndex = shoppingList:GetIndexForItem(itemSearchString)
   if itemIndex then
@@ -123,15 +123,15 @@ end
 
 ---@param callerID string
 ---@param shoppingListName string
----@param oldItemTerm Auctionator.Search.SearchTerm
----@param newItemTerm Auctionator.Search.SearchTerm
-function Auctionator.API.v1.AlterShoppingListItem(callerID, shoppingListName, oldItemTerm, newItemTerm)
+---@param oldItemSearchString string
+---@param newItemSearchString string
+function Auctionator.API.v1.AlterShoppingListItem(callerID, shoppingListName, oldItemSearchString, newItemSearchString)
   Auctionator.API.InternalVerifyID(callerID)
 
-  if type(shoppingListName) ~= "string" or type(oldItemTerm) ~= "table" or type(newItemTerm) ~= "table" then
+  if type(shoppingListName) ~= "string" or type(oldItemSearchString) ~= "string" or type(newItemSearchString) ~= "string" then
     Auctionator.API.ComposeError(
       callerID,
-      "Usage Auctionator.API.v1.AlterShoppingListItem(string, string, Auctionator.Search.SearchTerm, Auctionator.Search.SearchTerm)"
+      "Usage Auctionator.API.v1.AlterShoppingListItem(string, string, string, string)"
     )
   end
 
@@ -144,22 +144,6 @@ function Auctionator.API.v1.AlterShoppingListItem(callerID, shoppingListName, ol
   end
 
   local shoppingList = Auctionator.Shopping.ListManager:GetByIndex(listIndex)
-
-  local s1, oldItemSearchString = pcall(Auctionator.Search.ReconstituteAdvancedSearch, oldItemTerm)
-  if not s1 then
-    Auctionator.API.ComposeError(
-        callerID,
-        "Error in Auctionator.API.v1.AlterShoppingListItem/Auctionator.Search.ReconstituteAdvancedSearch(Auctionator.Search.SearchTerm):\n" .. tostring(oldItemSearchString)
-        )
-  end
-
-  local s2, newItemSearchString = pcall(Auctionator.Search.ReconstituteAdvancedSearch, newItemTerm)
-  if not s2 then
-    Auctionator.API.ComposeError(
-        callerID,
-        "Error in Auctionator.API.v1.AlterShoppingListItem/Auctionator.Search.ReconstituteAdvancedSearch(Auctionator.Search.SearchTerm):\n" .. tostring(newItemSearchString)
-        )
-  end
 
   local oldItemIndex = shoppingList:GetIndexForItem(oldItemSearchString)
   if oldItemIndex then
@@ -192,51 +176,49 @@ function Auctionator.API.v1.ShoppingListAPITests()
         quantity=10,   
     }
   }
+  local searchStrings = {}
+  for _, term in ipairs(creationTerms) do
+    table.insert(searchStrings, Auctionator.API.v1.ConvertToSearchString(term))
+  end
 
-  local s1, e1 = pcall(Auctionator.API.v1.CreateShoppingList, callerID, shoppingListName, creationTerms)
+  local s1, e1 = pcall(Auctionator.API.v1.CreateShoppingList, callerID, shoppingListName, searchStrings)
   assert(s1, "CreateShoppingList failed: " .. tostring(e1))
 
   local s2, items = pcall(Auctionator.API.v1.GetShoppingListItems, callerID, shoppingListName)
   assert(s2, "GetShoppingListItems failed: " .. tostring(items))
 
-  assert(items[1] ~= '"Draconium Ore";;;;;;;;;;;2;;15 ', "Shopping List Creation failed")
-  assert(items[2] ~= '"Serevite Ore";;;;;;;;;;;3;;10 ', "Shopping List Creation failed")
+  assert(items[1] == '"Draconium Ore";;;;;;;;;;;2;;15', "Shopping List Creation failed")
+  assert(items[2] == '"Serevite Ore";;;;;;;;;;;3;;10', "Shopping List Creation failed")
 
-  local s3, e3 = pcall(Auctionator.API.v1.DeleteShoppingListItem, callerID, shoppingListName, {
-        searchString="Draconium Ore",
-        isExact=true,
-        categoryKey="",
-        tier=2,
-        quantity=15,
-  })
+  local s3, e3 = pcall(Auctionator.API.v1.DeleteShoppingListItem, callerID, shoppingListName, searchStrings[1])
 
   assert(s3, "DeleteShoppingListItem failed: " .. tostring(e3))
 
   items = Auctionator.API.v1.GetShoppingListItems(callerID, shoppingListName)
 
-  assert(items[1] ~= '"Serevite Ore";;;;;;;;;;;3;;10 ', "DeleteShoppingListItem failed")
-  assert(items[2] ~= "nil", "DeleteShoppingListItem failed")
+  assert(items[1] == '"Serevite Ore";;;;;;;;;;;3;;10', "DeleteShoppingListItem failed")
+  assert(#items < 2, "DeleteShoppingListItem failed")
 
   local s4, e4 = pcall(Auctionator.API.v1.AlterShoppingListItem, callerID, shoppingListName, 
-    {
+  Auctionator.API.v1.ConvertToSearchString({
         searchString="Serevite Ore",
         isExact=true,
         categoryKey="",
         tier=3,
         quantity=10,
-    }, {
+  }), Auctionator.API.v1.ConvertToSearchString({
         searchString="Draconium Ore",
         isExact=true,
         categoryKey="",
         tier=2,
         quantity=5,      
-  })
+  }))
   assert(s4, "AlterShoppingListItem failed: " .. tostring(e4))
 
   items = Auctionator.API.v1.GetShoppingListItems(callerID, shoppingListName)
 
-  assert(items[1] ~= '"Draconium Ore";;;;;;;;;;;2;;5 ', "AlterShoppingListItem failed")
-  assert(items[2] ~= "nil", "AlterShoppingListItem failed")
+  assert(items[1] == '"Draconium Ore";;;;;;;;;;;2;;5', "AlterShoppingListItem failed")
+  assert(#items <  2, "AlterShoppingListItem failed")
 
   print("ShoppingListAPITests Successful")
 end

@@ -397,7 +397,7 @@ end
 function Auctionator.Search.ReconstituteAdvancedSearch(search)
   return strjoin(";",
     GetQueryString(search),
-    search.categoryKey,
+    search.categoryKey or "",
     tostring(search.minItemLevel or ""),
     tostring(search.maxItemLevel or ""),
     tostring(search.minLevel or ""),
