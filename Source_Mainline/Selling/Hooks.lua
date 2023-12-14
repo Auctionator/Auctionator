@@ -20,7 +20,7 @@ local function SelectOwnItem(itemLocation)
 end
 
 local function AHShown()
-  return AuctionHouseFrame and AuctionHouseFrame:IsShown()
+  return AuctionHouseFrame and AuctionHouseFrame:IsShown() and AuctionatorTabs_Selling
 end
 
 hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
