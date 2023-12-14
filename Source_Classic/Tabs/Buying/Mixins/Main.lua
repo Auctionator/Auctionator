@@ -102,6 +102,7 @@ function AuctionatorBuyFrameMixinForSelling:Reset()
   AuctionatorBuyFrameMixin.Reset(self)
 
   self.CurrentPrices.SearchDataProvider:SetIgnoreItemLevel(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_LEVEL))
+  self.CurrentPrices.SearchDataProvider:SetItemLevelMatchOnly(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_LEVEL_MATCH_ONLY))
   self.waitingOnNewAuction = false
 end
 

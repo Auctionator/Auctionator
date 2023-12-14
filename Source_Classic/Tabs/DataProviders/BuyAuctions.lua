@@ -64,10 +64,15 @@ function AuctionatorBuyAuctionsDataProviderMixin:OnLoad()
   self.gotAllResults = true
   self.requestAllResults = true
   self.ignoreItemLevel = false
+  self.itemLevelMatch = false
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetIgnoreItemLevel(state)
   self.ignoreItemLevel = state
+end
+
+function AuctionatorBuyAuctionsDataProviderMixin:SetItemLevelMatchOnly(state)
+  self.itemLevelMatch = state
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetUpEvents()
@@ -80,10 +85,14 @@ function AuctionatorBuyAuctionsDataProviderMixin:SetUpEvents()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetAuctions(entries)
-  self.allAuctions = {}
-  self:ImportAdditionalResults(entries)
-  self:PopulateAuctions()
-  self:SetSelectedIndex(1)
+  local itemID = GetItemInfoInstant(self.searchKey)
+  local item = Item:CreateFromItemID(itemID)
+  item:ContinueOnItemLoad(function()
+    self.allAuctions = {}
+    self:ImportAdditionalResults(entries)
+    self:PopulateAuctions()
+    self:SetSelectedIndex(1)
+  end)
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetQuery(itemLink)
@@ -117,22 +126,25 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventDa
     if self.gotAllResults then
       Auctionator.EventBus:Unregister(self, BUY_EVENTS)
     end
+    local itemID = GetItemInfoInstant(self.searchKey)
+    local item = Item:CreateFromItemID(itemID)
+    item:ContinueOnItemLoad(function()
+      self:ImportAdditionalResults(eventData)
 
-    self:ImportAdditionalResults(eventData)
+      if not self.requestAllResults and #self.allAuctions > 0 then
+        Auctionator.AH.AbortQuery()
+        self.gotAllResults = true
+      end
 
-    if not self.requestAllResults and #self.allAuctions > 0 then
-      Auctionator.AH.AbortQuery()
-      self.gotAllResults = true
-    end
+      self:PopulateAuctions()
 
-    self:PopulateAuctions()
+      if self.gotAllResults then
+        self:ReportNewMinPrice()
+        self:SetSelectedIndex(1)
 
-    if self.gotAllResults then
-      self:ReportNewMinPrice()
-      self:SetSelectedIndex(1)
-
-      Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.ViewSetup, result)
-    end
+        Auctionator.EventBus:Fire(self, Auctionator.Buying.Events.ViewSetup, result)
+      end
+    end)
 
   elseif eventName == Auctionator.AH.Events.ScanAborted then
     Auctionator.EventBus:Unregister(self, BUY_EVENTS)
@@ -175,17 +187,16 @@ function AuctionatorBuyAuctionsDataProviderMixin:EndAnyQuery()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results)
-  local itemIDWanted
-  if self.ignoreItemLevel then
-    itemIDWanted = GetItemInfoInstant(self.searchKey)
-  end
+  local itemIDWanted = GetItemInfoInstant(self.searchKey)
+  local itemLevelWanted = GetDetailedItemLevelInfo(self.searchKey)
 
   local waiting = #results
   for _, entry in ipairs(results) do
     local itemID = entry.info[Auctionator.Constants.AuctionItemInfo.ItemID]
     local itemString = Auctionator.Search.GetCleanItemLink(entry.itemLink)
     if self.searchKey == itemString or
-      (itemIDWanted and itemID == itemIDWanted) then
+      (self.ignoreItemLevel and itemID == itemIDWanted) or
+      (self.itemLevelMatch and itemID == itemIDWanted and itemLevelWanted == GetDetailedItemLevelInfo(entry.itemLink)) then
       table.insert(self.allAuctions, entry)
     end
   end
@@ -294,28 +305,32 @@ end
 
 function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ownedAuctions)
   if self.query ~= nil then
-    self.onPreserveScroll()
-    local prevSelectedIndex = self:GetSelectedIndex()
+    local itemID = GetItemInfoInstant(self.searchKey)
+    local item = Item:CreateFromItemID(itemID)
+      item:ContinueOnItemLoad(function()
+      self.onPreserveScroll()
+      local prevSelectedIndex = self:GetSelectedIndex()
 
-    local newAllAuctions = {}
-    for _, entry in ipairs(self.allAuctions) do
-      if ToOwner(entry) ~= (GetUnitName("player")) then
-        table.insert(newAllAuctions, entry)
+      local newAllAuctions = {}
+      for _, entry in ipairs(self.allAuctions) do
+        if ToOwner(entry) ~= (GetUnitName("player")) then
+          table.insert(newAllAuctions, entry)
+        end
       end
-    end
 
-    self.allAuctions = newAllAuctions
+      self.allAuctions = newAllAuctions
 
-    for _, entry in ipairs(ownedAuctions) do
-      entry.page = 0
-      entry.query = self.query
-    end
+      for _, entry in ipairs(ownedAuctions) do
+        entry.page = 0
+        entry.query = self.query
+      end
 
-    self:ImportAdditionalResults(ownedAuctions)
-    self:PopulateAuctions()
+      self:ImportAdditionalResults(ownedAuctions)
+      self:PopulateAuctions()
 
-    self:SetSelectedIndex(prevSelectedIndex or 1)
-    self:SetDirty()
+      self:SetSelectedIndex(prevSelectedIndex or 1)
+      self:SetDirty()
+    end)
   end
 end
 

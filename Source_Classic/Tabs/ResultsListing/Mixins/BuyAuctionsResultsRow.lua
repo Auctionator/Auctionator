@@ -11,12 +11,18 @@ function AuctionatorBuyAuctionsResultsRowMixin:OnEnter()
   if not self.rowData.notReady then
     AuctionatorResultsRowTemplateMixin.OnEnter(self)
   end
+  if Auctionator.Utilities.IsEquipment(select(6, GetItemInfoInstant(self.rowData.itemLink))) then
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    GameTooltip:SetHyperlink(self.rowData.itemLink)
+    GameTooltip:Show()
+  end
 end
 
 function AuctionatorBuyAuctionsResultsRowMixin:OnLeave()
   if not self.rowData.notReady then
     AuctionatorResultsRowTemplateMixin.OnLeave(self)
   end
+  GameTooltip:Hide()
 end
 
 function AuctionatorBuyAuctionsResultsRowMixin:OnClick(button, ...)
