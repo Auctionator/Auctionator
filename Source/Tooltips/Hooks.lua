@@ -184,6 +184,15 @@ TooltipHandlers["SetInboxItem"] = function(tip, index, attachIndex)
   end
 end
 
+-- This removed the price from the tooltip if the option is disabled
+local originalGameTooltipOnTooltipSetItem = GameTooltip_OnTooltipAddMoney;
+GameTooltip_OnTooltipAddMoney = function(...)
+  local sellPriceEnabled = Auctionator.Config.Get(Auctionator.Config.Options.SELL_PRICE_TOOLTIPS)
+  if sellPriceEnabled then
+    originalGameTooltipOnTooltipSetItem(...)
+  end
+end
+
 -- This occurs when mousing over an item in the Inbox frame
 hooksecurefunc("InboxFrameItem_OnEnter",
   function(self)
