@@ -5,6 +5,8 @@ function AuctionatorBagItemSelectedMixin:SetItemInfo(info, ...)
   self.IconSelectedHighlight:Hide()
   self.IconBorder:SetShown(info ~= nil)
   self.Icon:SetAlpha(1)
+
+  self.clickEventName = "BagUse.BagItemClicked"
 end
 
 local seenBag, seenSlot
@@ -15,6 +17,8 @@ function AuctionatorBagItemSelectedMixin:OnClick(button)
     if not check then
       if button == "LeftButton" and not wasCursorItem and self.itemInfo ~= nil then
         self:SearchInShoppingTab()
+      else
+        AuctionatorGroupsViewItemMixin.OnClick(self, button)
       end
     end
   end)

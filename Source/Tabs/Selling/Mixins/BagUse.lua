@@ -68,6 +68,7 @@ function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
     postingInfo.nextItem = button.nextItem
     postingInfo.prevItem = button.prevItem
     postingInfo.key = button.key
+    postingInfo.sortKey = button.itemInfo.sortKey
     postingInfo.groupName = button.itemInfo.group
     Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
   elseif mouseButton == "RightButton" then
@@ -81,7 +82,11 @@ function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
       table.insert(options, { label = AUCTIONATOR_L_ADD_TO_X:format(defaultPrintName), callback = function() self:AddToDefaultGroup(button) end})
     end
     if not button.itemInfo.isCustom then
-      table.insert(options, { label = AUCTIONATOR_L_HIDE, callback = function() self:HideItem(button) end })
+      if not self.View.hiddenItems[button.itemInfo.sortKey] then
+        table.insert(options, { label = AUCTIONATOR_L_HIDE, callback = function() self:HideItem(button) end })
+      else
+        table.insert(options, { label = AUCTIONATOR_L_UNHIDE, callback = function() self:UnhideItem(button) end })
+      end
       table.insert(options, { label = AUCTIONATOR_L_UNHIDE_ALL, callback = function() self:UnhideAll() end, isDisabled = next(self.View.hiddenItems) == nil })
     end
     Auctionator.Selling.ShowPopup(options)
@@ -115,6 +120,14 @@ function AuctionatorBagUseMixin:HideItem(button)
   if not self.View.hiddenItems[button.itemInfo.sortKey] then
     local itemLink = button.itemInfo.itemLink
     Auctionator.Groups.HideItemLink(itemLink)
+    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
+  end
+end
+
+function AuctionatorBagUseMixin:UnhideItem(button)
+  local hiddenLink = self.View.hiddenItems[button.itemInfo.sortKey]
+  if hiddenLink then
+    Auctionator.Groups.UnhideItemLink(hiddenLink)
     Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
   end
 end

@@ -95,7 +95,7 @@ function AuctionatorGroupsViewMixin:RefreshHiddenItems()
   if self.hideHiddenItems then
     for _, link in ipairs(AUCTIONATOR_SELLING_GROUPS.HiddenItems) do
       local info = AuctionatorBagCacheFrame:GetByLinkInstant(link, true)
-      self.hiddenItems[info.sortKey] = true
+      self.hiddenItems[info.sortKey] = link
     end
   end
 end
