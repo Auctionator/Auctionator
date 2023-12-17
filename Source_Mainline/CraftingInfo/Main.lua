@@ -67,23 +67,8 @@ function Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transactio
   return total
 end
 
--- Work around Blizzard APIs returning the wrong item ID for crafted reagents in
--- the C_TradeSKillUI.GetRecipeOutputItemData function with Dragonflight
 function Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reagents, allocations)
-  local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
-
   local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
-
-  -- Use the operation and recipe info to override the expected output of a
-  -- craftable reagent
-  -- Check that the recipe probably has an operation
-  if recipeSchematic ~= nil and recipeSchematic.hasCraftingOperationInfo then
-    local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocations)
-
-    if operationInfo ~= nil then
-      outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations, operationInfo.guaranteedCraftingQualityID)
-    end
-  end
 
   if outputInfo == nil then
     return nil
