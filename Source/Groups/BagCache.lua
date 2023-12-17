@@ -101,8 +101,13 @@ end
 
 local function GetItemKey(entry)
   if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUP_BY_ITEM_KEY) then
-    return entry.itemID .. "_" ..  entry.itemName .. "_" .. (entry.itemLevel or 0) .. "_" .. tostring(entry.auctionable)
+    local itemLevel = entry.itemLevel or 0
+    if entry.classID == Enum.ItemClass.Battlepet then
+      itemLevel = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
+    end
+    return entry.itemID .. "_" ..  entry.itemName .. "_" .. itemLevel .. "_" .. tostring(entry.auctionable)
   end
+
   -- Battle pets
   if entry.classID == Enum.ItemClass.Battlepet then
     return "p:" .. KeyPartsPetLink(entry.itemLink)
