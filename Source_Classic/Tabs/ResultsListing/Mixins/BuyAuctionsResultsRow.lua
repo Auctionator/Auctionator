@@ -8,6 +8,10 @@ function AuctionatorBuyAuctionsResultsRowMixin:Populate(...)
 end
 
 function AuctionatorBuyAuctionsResultsRowMixin:OnEnter()
+  if not self.rowData.itemLink then
+    return
+  end
+
   if not self.rowData.notReady then
     AuctionatorResultsRowTemplateMixin.OnEnter(self)
   end
