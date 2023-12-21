@@ -40,7 +40,11 @@ function Auctionator.API.v1.GetAuctionAgeByItemLink(callerID, itemLink)
   end)
 
   if dbKeys then
-    return Auctionator.Database:GetPriceAge(dbKeys[1])
+    if #dbKeys > 2 then
+      return Auctionator.Database:GetPriceAge(dbKeys[1]) or Auctionator.Database:GetPriceAge(dbKeys[2])
+    else
+      return Auctionator.Database:GetPriceAge(dbKeys[1])
+    end
   else
     return Auctionator.Database:GetPriceAge(
       Auctionator.Utilities.BasicDBKeyFromLink(itemLink)

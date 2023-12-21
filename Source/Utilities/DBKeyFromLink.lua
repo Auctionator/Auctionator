@@ -38,9 +38,10 @@ function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
 
     item:ContinueOnItemLoad(function()
       local itemLevel = GetDetailedItemLevelInfo(itemLink) or 0
+      local name = item:GetItemName()
 
       if itemLevel >= Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
-        callback({"g:" .. basicKey .. ":" .. itemLevel, basicKey})
+        callback({"gn:" .. basicKey .. ":" .. name .. ":" .. itemLevel, "g:" .. basicKey .. ":" .. itemLevel, basicKey})
       else
         callback({basicKey})
       end

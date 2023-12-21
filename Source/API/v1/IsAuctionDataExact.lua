@@ -37,7 +37,11 @@ function Auctionator.API.v1.IsAuctionDataExactByItemLink(callerID, itemLink)
   end)
 
   if dbKeys then
-    return Auctionator.Database:GetPrice(dbKeys[1]) ~= nil
+    if #dbKeys > 2 then
+      return Auctionator.Database:GetPrice(dbKeys[1]) ~= nil or Auctionator.Database:GetPrice(dbKeys[2]) ~= nil
+    else
+      return Auctionator.Database:GetPrice(dbKeys[1]) ~= nil
+    end
   else
     return Auctionator.Database:GetPrice(
       Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
