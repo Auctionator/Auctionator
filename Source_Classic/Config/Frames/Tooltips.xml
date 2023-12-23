@@ -18,47 +18,39 @@
         </KeyValues>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="MailboxTooltips">
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionTooltips">
         <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_MAIL_TOOLTIP" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_MAIL_TOOLTIP_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_MAIL_TOOLTIP_TOOLTIP_TEXT" type="global"/>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUCTION_TOOLTIP" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.TitleArea" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="MailboxTooltips">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_MAIL_TOOLTIP" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionTooltips" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="VendorTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_VENDOR_TOOLTIP" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_VENDOR_TOOLTIP_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_VENDOR_TOOLTIP_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.MailboxTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionTooltips">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUCTION_TOOLTIP" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_AUCTION_TOOLTIP_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_AUCTION_TOOLTIP_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.VendorTooltips" relativePoint="BOTTOMLEFT"/>
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="EnchantTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_ENCHANT_GENERIC_TOOLTIP" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_ENCHANT_TOOLTIP_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_ENCHANT_TOOLTIP_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.VendorTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
 
@@ -84,17 +76,6 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftStackTooltips">
-        <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_STACK_TOOLTIP" type="global"/>
-          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_STACK_TOOLTIP_TOOLTIP_HEADER" type="global"/>
-          <KeyValue key="tooltipText" value="AUCTIONATOR_L_STACK_TOOLTIP_TOOLTIP_TEXT" type="global"/>
-        </KeyValues>
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.MillTooltips" relativePoint="BOTTOMLEFT"/>
-        </Anchors>
-      </Frame>
-
       <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="AuctionAgeTooltips">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_AUCTION_AGE_TOOLTIP" type="global"/>
@@ -102,7 +83,18 @@
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_AUCTION_AGE_TOOLTIP_TOOLTIP_TEXT" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.ShiftStackTooltips" relativePoint="BOTTOMLEFT"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.MillTooltips" relativePoint="BOTTOMLEFT"/>
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="ShiftStackTooltips">
+        <KeyValues>
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_STACK_TOOLTIP" type="global"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_STACK_TOOLTIP_TOOLTIP_HEADER" type="global"/>
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_STACK_TOOLTIP_TOOLTIP_TEXT" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.AuctionAgeTooltips" relativePoint="BOTTOMLEFT"/>
         </Anchors>
       </Frame>
     </Frames>
