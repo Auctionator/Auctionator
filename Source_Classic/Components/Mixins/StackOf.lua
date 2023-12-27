@@ -36,5 +36,9 @@ function AuctionatorStackOfInputMixin:MaxNumStacksClicked()
 end
 
 function AuctionatorStackOfInputMixin:MaxStackSizeClicked()
-  self.StackSize:SetNumber(self.maxStackSize)
+  if IsShiftKeyDown() then
+    self.StackSize:SetNumber(1)
+  else
+    self.StackSize:SetNumber(self.maxStackSize)
+  end
 end
