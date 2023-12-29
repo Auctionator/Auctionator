@@ -96,7 +96,7 @@ local COMPARATORS = {
   minPrice = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   totalQuantity = Auctionator.Utilities.NumberComparator,
-  itemLevel = Auctionator.Utilities.StringComparator,
+  itemLevel = Auctionator.Utilities.NumberComparator,
   isOwned = Auctionator.Utilities.StringComparator,
 }
 
