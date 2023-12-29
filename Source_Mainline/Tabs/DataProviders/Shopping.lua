@@ -15,6 +15,15 @@ local SHOPPING_LIST_TABLE_LAYOUT = {
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",
+    headerParameters = { "itemLevel" },
+    headerText = AUCTIONATOR_L_ITEM_LEVEL,
+    cellTemplate = "AuctionatorStringCellTemplate",
+    cellParameters = { "itemLevel" },
+    defaultHide = true,
+    width = 70,
+  },
+  {
+    headerTemplate = "AuctionatorStringColumnHeaderTemplate",
     headerParameters = { "isOwned" },
     headerText = AUCTIONATOR_L_OWNED_COLUMN,
     cellTemplate = "AuctionatorStringCellTemplate",
@@ -72,6 +81,7 @@ function AuctionatorShoppingTabDataProviderMixin:PrettifyData(entries)
       entry.isOwned = ""
     end
     entry.available = FormatLargeNumber(entry.totalQuantity)
+    entry.itemLevel = entry.itemKey.itemLevel
   end
 
   return entries
@@ -86,7 +96,8 @@ local COMPARATORS = {
   minPrice = Auctionator.Utilities.NumberComparator,
   name = Auctionator.Utilities.StringComparator,
   totalQuantity = Auctionator.Utilities.NumberComparator,
-  isOwned = Auctionator.Utilities.StringComparator
+  itemLevel = Auctionator.Utilities.StringComparator,
+  isOwned = Auctionator.Utilities.StringComparator,
 }
 
 function AuctionatorShoppingTabDataProviderMixin:Sort(fieldName, sortDirection)
