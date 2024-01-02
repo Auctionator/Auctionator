@@ -5,6 +5,7 @@ tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
 --  tooltipSet: Function to set the item on a tooltip ready for scanning
 --  tooltipCheck: Function to test each string of text on the tooltip with
 function Auctionator.Utilities.ScanTooltip(tooltipSet, tooltipCheck)
+  tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
   tooltipSet(tooltip)
   for _, region in ipairs({tooltip:GetRegions()}) do
     if region and region:GetObjectType() == "FontString" then
