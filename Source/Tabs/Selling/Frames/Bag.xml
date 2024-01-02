@@ -18,6 +18,7 @@
           <KeyValue key="groupTemplate" value="AuctionatorSellingViewGroupTemplate" type="string" />
           <KeyValue key="clickEventName" value="BagUse.BagItemClicked" type="string" />
           <KeyValue key="hideHiddenItems" value="true" type="boolean" />
+          <KeyValue key="applyVisibility" value="true" type="boolean" />
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT"/>
