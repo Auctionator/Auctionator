@@ -18,13 +18,10 @@ jobs:
         type: [retail, wrath, classic]
         include:
           - type: retail
-            toc: Auctionator_Mainline.toc
             pkgmeta: .pkgmeta
           - type: wrath
-            toc: Auctionator_Wrath.toc
             pkgmeta: .pkgmeta_wrath
           - type: classic
-            toc: Auctionator_Vanilla.toc
             pkgmeta: .pkgmeta_vanilla
 
     runs-on: ubuntu-latest
@@ -34,8 +31,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Setup toc
-      run: cp ${{matrix.toc}} Auctionator.toc
     - uses: BigWigsMods/packager@v2
       with:
         args: -p 6124 -a kRNL70Go -g ${{matrix.type}} -m ${{matrix.pkgmeta}}

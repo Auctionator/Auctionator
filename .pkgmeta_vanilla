@@ -1,3 +1,4 @@
+package-as: Auctionator
 ignore:
   - README.md
   - test-data
