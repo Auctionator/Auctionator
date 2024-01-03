@@ -1,4 +1,5 @@
 local VERSION_8_3 = 6
+local VERSION_SERIALIZED = 7
 local POSTING_HISTORY_DB_VERSION = 1
 local VENDOR_PRICE_CACHE_DB_VERSION = 1
 
@@ -19,6 +20,10 @@ function Auctionator.Variables.Initialize()
   Auctionator.Groups.Initialize()
 
   Auctionator.State.Loaded = true
+end
+
+function Auctionator.Variables.Commit()
+  Auctionator.Variables.CommitDatabase()
 end
 
 function Auctionator.Variables.InitializeSavedState()
@@ -67,6 +72,10 @@ local function ImportFromNotNormalizedName(target)
   return false
 end
 
+-- Deserialize current realm when not already deserialized in the saved
+-- variables and serialize any other realms.
+-- We keep the current realm deserialized in the saved variables to speed up
+-- /reloads and logging in/out when only using one realm.
 function Auctionator.Variables.InitializeDatabase()
   Auctionator.Debug.Message("Auctionator.Database.Initialize()")
   -- Auctionator.Utilities.TablePrint(AUCTIONATOR_PRICE_DATABASE, "AUCTIONATOR_PRICE_DATABASE")
@@ -78,20 +87,46 @@ function Auctionator.Variables.InitializeDatabase()
     }
   end
 
+  local LibSerialize = LibStub("LibSerialize")
+
+  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] == VERSION_8_3 then
+    AUCTIONATOR_PRICE_DATABASE["__dbversion"] = VERSION_SERIALIZED
+  end
+
   -- If we changed how we record item info we need to reset the DB
-  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] ~= VERSION_8_3 then
+  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] ~= VERSION_SERIALIZED then
     AUCTIONATOR_PRICE_DATABASE = {
-      ["__dbversion"] = VERSION_8_3
+      ["__dbversion"] = VERSION_SERIALIZED
     }
   end
 
   local realm = Auctionator.Variables.GetConnectedRealmRoot()
+  Auctionator.State.CurrentRealm = realm
 
   -- Check for current realm and initialize if not present
   if AUCTIONATOR_PRICE_DATABASE[realm] == nil then
     if not ImportFromNotNormalizedName(realm) and not ImportFromConnectedRealm(realm) then
       AUCTIONATOR_PRICE_DATABASE[realm] = {}
     end
+  end
+
+  -- Serialize and other unserialized realms so their data doesn't contribute to
+  -- a constant overflow when the client parses the saved variables.
+  for key, data in pairs(AUCTIONATOR_PRICE_DATABASE) do
+    -- Convert one realm at a time, no need to hold up a login indefinitely
+    if key ~= "__dbversion" and key ~= realm and type(data) == "table" then
+      AUCTIONATOR_PRICE_DATABASE[key] = LibSerialize:Serialize(data)
+      break
+    end
+  end
+
+  -- Only deserialize the current realm and save the deserialization in the
+  -- saved variables to speed up reloads or changing character on the same
+  -- realm.
+  local raw = AUCTIONATOR_PRICE_DATABASE[realm]
+  if type(raw) == "string" then
+    local success, data = LibSerialize:Deserialize(raw)
+    AUCTIONATOR_PRICE_DATABASE[realm] = data
   end
 
   Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
