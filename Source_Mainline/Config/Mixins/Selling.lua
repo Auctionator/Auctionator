@@ -60,13 +60,19 @@ function AuctionatorConfigSellingFrameMixin:ResetSelectionColorClicked()
 end
 
 function AuctionatorConfigSellingFrameMixin:SetSelectionColorClicked()
-  ShowUIPanel(ColorPickerFrame)
   local color = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR)
-  ColorPickerFrame:SetColorRGB(color.r, color.g, color.b)
-  ColorPickerFrame.func = function()
-    local r, g, b = ColorPickerFrame:GetColorRGB()
-    Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR, {r = r, g = g, b = b})
-    self:UpdateSellingSelectionColor()
+  local info = {
+    swatchFunc = function()
+      local r, g, b = ColorPickerFrame:GetColorRGB()
+      Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR, {r = r, g = g, b = b})
+      self:UpdateSellingSelectionColor()
+    end,
+    r = color.r, g = color.g, b = color.b, opacity = 1,
+  }
+  if ColorPickerFrame.SetupColorPickerAndShow then
+    ColorPickerFrame:SetupColorPickerAndShow(info)
+  else
+    OpenColorPicker(info)
   end
 end
 
