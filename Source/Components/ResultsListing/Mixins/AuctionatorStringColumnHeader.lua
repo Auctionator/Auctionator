@@ -9,6 +9,10 @@ function AuctionatorStringColumnHeaderTemplateMixin:Init(name, customiseFunction
   self.sortDirection = nil
 
   self:SetText(name)
+  local fontString = self:GetFontString()
+  fontString:SetPoint("RIGHT")
+  fontString:SetJustifyH("LEFT")
+  fontString:SetMaxLines(1)
 end
 
 function AuctionatorStringColumnHeaderTemplateMixin:DoSort()
