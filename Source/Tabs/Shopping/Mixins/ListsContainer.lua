@@ -362,7 +362,7 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
       button.options1:Show()
       button.options2.Icon:SetTexture("Interface\\AddOns\\Auctionator\\Images\\Pen_Icon")
       button.options2:SetScript("OnClick", OnSearchTermEditOptionClicked)
-      button.options2.TooltipText = AUCTIONATOR_L_RENAME
+      button.options2.TooltipText = AUCTIONATOR_L_EDIT_ITEM
       button.options2:Show()
     else
       xOffset = listEntryInset
