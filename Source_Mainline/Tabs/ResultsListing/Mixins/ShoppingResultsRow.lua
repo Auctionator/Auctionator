@@ -33,6 +33,10 @@ function AuctionatorShoppingResultsRowMixin:OnClick(button, ...)
           :Fire(self, Auctionator.Buying.Events.ShowItemBuy, self.rowData, itemKeyInfo)
           :UnregisterSource(self)
       end
+      Auctionator.EventBus
+        :RegisterSource(self, "ShoppingResultsRowMixin")
+        :Fire(self, Auctionator.Shopping.Tab.Events.BuyScreenShown)
+        :UnregisterSource(self)
     end
   end
 end

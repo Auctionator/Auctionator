@@ -5,6 +5,7 @@ local EVENTBUS_EVENTS = {
   Auctionator.Shopping.Tab.Events.ListSearchRequested,
   Auctionator.Shopping.Tab.Events.ShowHistoricalPrices,
   Auctionator.Shopping.Tab.Events.UpdateSearchTerm,
+  Auctionator.Shopping.Tab.Events.BuyScreenShown,
 }
 
 function AuctionatorShoppingTabFrameMixin:DoSearch(terms, options)
@@ -254,6 +255,9 @@ function AuctionatorShoppingTabFrameMixin:ReceiveEvent(eventName, eventData)
 
   elseif eventName == Auctionator.Shopping.Tab.Events.UpdateSearchTerm then
     self.SearchOptions:SetSearchTerm(eventData)
+
+  elseif eventName == Auctionator.Shopping.Tab.Events.BuyScreenShown then
+    self:StopSearch()
   end
 end
 

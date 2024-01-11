@@ -24,6 +24,7 @@ function AuctionatorShoppingResultsRowMixin:OnClick(button, ...)
     Auctionator.EventBus
       :RegisterSource(self, "ShoppingResultsRowMixin")
       :Fire(self, Auctionator.Buying.Events.ShowForShopping, self.rowData)
+      :Fire(self, Auctionator.Shopping.Tab.Events.BuyScreenShown)
       :UnregisterSource(self)
   end
 end
