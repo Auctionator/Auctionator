@@ -21,4 +21,7 @@ Auctionator.Shopping.Tab.Events = {
   ShowHistoricalPrices = "shopping show historical prices",
   UpdateSearchTerm = "shopping update search term",
   ListSearchRequested = "shopping list search requested",
+
+  -- For classic compatability
+  ShowBuyForShopping = "buying_show_for_shopping"
 }
