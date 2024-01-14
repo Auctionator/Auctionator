@@ -491,6 +491,12 @@ end
 
 function AuctionatorSaleItemMixin:SetQuantity()
   local defaultStacks = CopyTable(Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_SELLING_STACKS))
+  -- Setting to prevent global item settings restricting quantity
+  local applyGlobal = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALLOW_GLOBAL_QUANTITY_OVERRIDE)
+  if not applyGlobal then
+    defaultStacks.numStacks = 0
+    defaultStacks.stackSize = 0
+  end
 
   local preferredStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
 

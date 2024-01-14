@@ -357,7 +357,11 @@ function AuctionatorSaleItemMixin:SetQuantity()
 
   if self.itemInfo.groupName then
     local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
-    if groupSettings and groupSettings.quantity and groupSettings.quantity ~= 0 then
+    -- Setting to prevent global item settings restricting quantity
+    local applyGlobal = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALLOW_GLOBAL_QUANTITY_OVERRIDE)
+    if groupSettings and not applyGlobal and (not groupSettings.quantity or groupSettings.quantity == 0) then
+      defaultQuantity = 0
+    elseif groupSettings and groupSettings.quantity and groupSettings.quantity ~= 0 then
       defaultQuantity = groupSettings.quantity
     end
   end

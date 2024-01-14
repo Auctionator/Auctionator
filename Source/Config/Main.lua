@@ -36,6 +36,7 @@ Auctionator.Config.Options = {
   SELLING_BAG_SELECTION_COLOR = "selling_bag_selection_color",
   SELLING_GROUPS_SETTINGS = "selling_groups_settings",
   SELLING_GROUP_BY_ITEM_KEY = "selling_group_by_item_key",
+  SELLING_ALLOW_GLOBAL_QUANTITY_OVERRIDE = "selling_allow_global_quantity_override",
 
   GEAR_PRICE_MULTIPLIER = "gear_vendor_price_multiplier",
 
@@ -111,6 +112,7 @@ Auctionator.Config.Defaults = {
   [Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR] = {r=0.977, g=0.592, b=0.086},
   [Auctionator.Config.Options.SELLING_GROUPS_SETTINGS] = {},
   [Auctionator.Config.Options.SELLING_GROUP_BY_ITEM_KEY] = true,
+  [Auctionator.Config.Options.SELLING_ALLOW_GLOBAL_QUANTITY_OVERRIDE] = true,
 
   [Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER] = 0,
 
