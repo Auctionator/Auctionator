@@ -384,12 +384,13 @@ function AuctionatorBagCacheMixin:AddToCache(location, slotInfo)
       entry.itemName = C_PetJournal.GetPetInfoBySpeciesID(tonumber(entry.itemLink:match("battlepet:(%d+)")))
       entry.stackCount = 1
     else
-      local itemName, _, quality, _, _, _, _, stackCount, _, _, _, classID, _ = GetItemInfo(entry.itemLink)
+      local itemName, itemLink, quality, _, _, _, _, stackCount, _, _, _, classID, _ = GetItemInfo(entry.itemLink)
       if itemName == nil then --mythic keystones don't have a normal item link
         return nil
       end
-      entry.classID = select(6, GetItemInfoInstant(slotInfo.itemID))
+      entry.classID = classID
       entry.itemName = itemName
+      entry.itemLink = itemLink
       entry.stackCount = stackCount
       entry.quality = quality
     end
