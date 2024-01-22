@@ -42,10 +42,7 @@ end
 
 function AuctionatorAHScanFrameMixin:ReceiveEvent(eventName, ...)
   if eventName == Auctionator.AH.Events.ThrottleAbort then
-    if self.scanRunning and self.sentQuery then
-      self.nextPage = self.nextPage - 1
-      self:DoNextSearchQuery()
-    end
+    self:AbortQuery()
   end
 end
 
