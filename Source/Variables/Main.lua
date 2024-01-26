@@ -110,6 +110,7 @@ function Auctionator.Variables.InitializeDatabase()
     end
   end
 
+  --[[
   -- Serialize and other unserialized realms so their data doesn't contribute to
   -- a constant overflow when the client parses the saved variables.
   for key, data in pairs(AUCTIONATOR_PRICE_DATABASE) do
@@ -123,6 +124,9 @@ function Auctionator.Variables.InitializeDatabase()
   -- Only deserialize the current realm and save the deserialization in the
   -- saved variables to speed up reloads or changing character on the same
   -- realm.
+  --]]
+  -- Deserialize the current realm if it was left serialized by a previous
+  -- version of Auctionator
   local raw = AUCTIONATOR_PRICE_DATABASE[realm]
   if type(raw) == "string" then
     local success, data = LibSerialize:Deserialize(raw)
