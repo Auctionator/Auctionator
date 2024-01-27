@@ -183,15 +183,11 @@ function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString
 end
 
 function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countString, cannotAuction)
+  if cannotAuction then
+    return
+  end
   if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) then
-    if cannotAuction then
-      tooltipFrame:AddDoubleLine(
-        L("AUCTION") .. countString,
-        WHITE_FONT_COLOR:WrapTextInColorCode(
-          L("CANNOT_AUCTION") .. "  "
-        )
-      )
-    elseif (auctionPrice ~= nil) then
+    if (auctionPrice ~= nil) then
       tooltipFrame:AddDoubleLine(
         L("AUCTION") .. countString,
         WHITE_FONT_COLOR:WrapTextInColorCode(
