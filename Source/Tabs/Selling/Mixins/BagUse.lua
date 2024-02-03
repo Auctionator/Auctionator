@@ -135,7 +135,3 @@ end
 function AuctionatorBagUseMixin:UnhideAll()
   StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmUnhideAll)
 end
-
-function AuctionatorBagUseMixin:ToggleCustomiseMode()
-  Auctionator.Groups.OpenCustomiseView()
-end

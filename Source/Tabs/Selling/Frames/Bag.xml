@@ -25,36 +25,6 @@
           <Anchor point="BOTTOMRIGHT"/>
         </Anchors>
       </Frame>
-
-      <Button parentKey="CustomiseButton" inherits="UIPanelButtonTemplate">
-        <Size x="32" y="25"/>
-        <Layers>
-          <Layer level="ARTWORK">
-            <Texture file="Interface\AddOns\Auctionator\Images\Pen_Icon">
-              <Size x="13" y="13"/>
-              <Anchors>
-                <Anchor point="CENTER"/>
-              </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
-        <Scripts>
-          <OnClick>
-            self:GetParent():ToggleCustomiseMode()
-          </OnClick>
-          <OnEnter>
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:SetText(AUCTIONATOR_L_CUSTOMISE_BAG_GROUPS)
-            GameTooltip:Show()
-          </OnEnter>
-          <OnLeave>
-            GameTooltip:Hide()
-          </OnLeave>
-        </Scripts>
-        <Anchors>
-            <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="0" y="5"/>
-        </Anchors>
-      </Button>
     </Frames>
   </Frame>
 </Ui>
