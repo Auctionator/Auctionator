@@ -38,7 +38,7 @@ function AuctionatorGroupsViewMixin:OnHide()
 end
 
 function AuctionatorGroupsViewMixin:UpdateCustomGroups()
-  self.groupDetails = CopyTable(AUCTIONATOR_SELLING_GROUPS.CustomGroups)
+  self.groupDetails = CopyTable({AUCTIONATOR_SELLING_GROUPS.CustomGroups[1]})
   for _, s in ipairs(Auctionator.Groups.Constants.DefaultGroups) do
     table.insert(self.groupDetails, s)
   end

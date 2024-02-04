@@ -8,14 +8,9 @@
   <Include file="ViewItem.lua"/>
   <Include file="ViewGroup.lua"/>
   <Include file="View.lua"/>
-  <Include file="Customise.lua"/>
-  <Include file="CustomiseWidgets.lua"/>
-  <Include file="CustomiseDialogs.lua"/>
 
   <Include file="BagCache.xml"/>
   <Include file="ViewItem.xml"/>
   <Include file="ViewGroup.xml"/>
   <Include file="View.xml"/>
-  <Include file="CustomiseWidgets.xml"/>
-  <Include file="Customise.xml"/>
 </Ui>

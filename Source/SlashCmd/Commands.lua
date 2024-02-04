@@ -36,10 +36,6 @@ function Auctionator.SlashCmd.ToggleDebug()
   end
 end
 
-function Auctionator.SlashCmd.Groups()
-  Auctionator.Groups.OpenCustomiseView()
-end
-
 function Auctionator.SlashCmd.ResetDatabase()
   if Auctionator.Debug.IsOn() then
     -- See Source/Variables/Main.lua for variable usage
