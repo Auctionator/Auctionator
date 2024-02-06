@@ -1,0 +1,60 @@
+<Ui>
+  <Frame name="AuctionatorGroupsCustomiseDurationTemplate" virtual="true" mixin="GroupsCustomiseDurationMixin">
+    <Size x="210" y="22"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+    <Frames>
+      <CheckButton parentKey="Short" inherits="UIRadioButtonTemplate" text="12" parentArray="Options" id="1">
+        <HitRectInsets right="-25"/>
+        <ButtonText inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="RIGHT" x="2"/>
+          </Anchors>
+        </ButtonText>
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-4"/>
+        </Anchors>
+      </CheckButton>
+      <CheckButton parentKey="Medium" inherits="UIRadioButtonTemplate" text="24" parentArray="Options" id="2">
+        <HitRectInsets right="-25"/>
+        <ButtonText inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="RIGHT" x="2"/>
+          </Anchors>
+        </ButtonText>
+        <Anchors>
+          <Anchor point="TOPLEFT" x="40" y="-4"/>
+        </Anchors>
+      </CheckButton>
+      <CheckButton parentKey="Long" inherits="UIRadioButtonTemplate" text="48" parentArray="Options" id="3">
+        <HitRectInsets right="-25"/>
+        <ButtonText inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="RIGHT" x="2"/>
+          </Anchors>
+        </ButtonText>
+        <Anchors>
+          <Anchor point="TOPLEFT" x="80" y="-4"/>
+        </Anchors>
+      </CheckButton>
+      <CheckButton parentKey="Default" inherits="UIRadioButtonTemplate" text="AUCTIONATOR_L_DEFAULT" parentArray="Options" id="0">
+        <HitRectInsets right="-45"/>
+        <ButtonText inherits="GameFontHighlight">
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="RIGHT" x="2"/>
+          </Anchors>
+        </ButtonText>
+        <Anchors>
+          <Anchor point="TOPLEFT" x="120" y="-4"/>
+        </Anchors>
+      </CheckButton>
+    </Frames>
+  </Frame>
+
+  <Frame name="AuctionatorGroupsCustomiseQuantityTemplate" virtual="true" mixin="GroupsCustomiseQuantityMixin">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+  </Frame>
+</Ui>

@@ -1,0 +1,178 @@
+<Ui>
+  <Frame name="AuctionatorGroupsCustomiseDividerTemplate" parentKey="DividerContainer" virtual="true">
+    <Size y="15"/>
+    <Scripts>
+      <OnLoad>
+        if not Auctionator.Constants.IsClassic then
+          self.Divider:SetAtlas("activities-divider", true)
+          self.Divider:SetHeight(8)
+        else
+          self.Divider:SetTexture("Interface\\Common\\UI-TooltipDivider")
+          self.Divider:ClearAllPoints()
+          self.Divider:SetHeight(20)
+          self.Divider:SetPoint("LEFT", 0, -8)
+          self.Divider:SetPoint("RIGHT")
+        end
+      </OnLoad>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="Divider">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT"/>
+            <Anchor point="BOTTOMRIGHT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <Frame name="AuctionatorGroupsCustomiseGroupTemplate" mixin="AuctionatorGroupsCustomiseGroupMixin" inherits="AuctionatorGroupsViewGroupTemplate" virtual="true" enableMouse="true">
+    <KeyValues>
+      <KeyValue key="collapsable" value="false" type="boolean" />
+      <KeyValue key="groupTitleHeight" value="42" type="number" />
+      <KeyValue key="paddingTop" value="2" type="number" />
+      <KeyValue key="paddingBottom" value="13" type="number" />
+      <KeyValue key="insetLeft" value="6" type="number" />
+      <KeyValue key="itemTemplate" value="AuctionatorGroupsCustomiseItemTemplate" type="string" />
+    </KeyValues>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnMouseUp method="OnMouseUp"/>
+      <OnEnter method="OnEnter"/>
+      <OnLeave method="OnLeave"/>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture parentKey="FocussedBackground" setAllPoints="true" hidden="true">
+          <Color r="0.9886" g="0.8118" b="0.2980" a="0.5"/>
+        </Texture>
+        <Texture parentKey="FocussedHoverBackground" setAllPoints="true" hidden="true">
+          <Color r="0.9886" g="0.8118" b="0.2980" a="0.1"/>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button parentKey="GroupTitle">
+        <ButtonText inherits="GameFontHighlight" justifyH="LEFT"/>
+        <Size y="20" />
+
+        <Anchors>
+          <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT" />
+        </Anchors>
+
+        <Scripts>>
+          <OnClick>self:GetParent():ToggleOpen()</OnClick>
+        </Scripts>
+      </Button>
+      <Button text="AUCTIONATOR_L_FOCUS" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="FocusButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" y="-18" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_RENAME" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="RenameButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.FocusButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_DELETE" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="DeleteButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.RenameButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_HIDE" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="HideButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.DeleteButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_SHIFT_UP" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftUpButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.HideButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Button text="AUCTIONATOR_L_SHIFT_DOWN" inherits="UIPanelDynamicResizeButtonTemplate" parentKey="ShiftDownButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeKey="$parent.ShiftUpButton" relativePoint="TOPRIGHT" x="5"/>
+        </Anchors>
+      </Button>
+      <Frame inherits="AuctionatorGroupsCustomiseDividerTemplate">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT"/>
+          <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" />
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Durations" inherits="AuctionatorGroupsCustomiseDurationTemplate">
+        <Anchors>
+          <Anchor point="TOPRIGHT" y="-40"/>
+          <Anchor point="RIGHT" x="-50"/>
+        </Anchors>
+      </Frame>
+
+      <Frame parentKey="Quantity" inherits="AuctionatorGroupsCustomiseQuantityTemplate">
+        <Anchors>
+          <Anchor point="TOPRIGHT" relativeKey="$parent.Durations" relativePoint="TOPLEFT" x="-10"/>
+        </Anchors>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer level="ARTWORK">
+        <FontString parentKey="PostingSettingsText" inherits="GameFontHighlight" text="AUCTIONATOR_L_POSTING_SETTINGS_COLON">
+          <Size y="22"/>
+          <Anchors>
+            <Anchor point="TOPRIGHT" relativeKey="$parent.Quantity" relativePoint="TOPLEFT" x="-20"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+
+  <Frame name="AuctionatorGroupsCustomiseTemplate" virtual="true" mixin="AuctionatorGroupsCustomiseMixin" topLevel="true" inherits="ButtonFrameTemplate" hidden="true" enableMouse="true">
+    <Size x="600" y="600"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnShow method="OnShow"/>
+      <OnHide method="OnHide"/>
+      <OnDragStart method="OnDragStart"/>
+      <OnDragStop method="OnDragStop"/>
+    </Scripts>
+    <Anchors>
+        <Anchor point="CENTER"/>
+    </Anchors>
+    <Frames>
+      <Frame inherits="AuctionatorGroupsViewTemplate" hidden="true">
+        <KeyValues>
+          <KeyValue key="itemTemplate" value="AuctionatorGroupsViewItemTemplate" type="string" />
+          <KeyValue key="groupTemplate" value="AuctionatorGroupsCustomiseGroupTemplate" type="string" />
+          <KeyValue key="forceShow" value="true" type="boolean" />
+          <KeyValue key="groupInsetX" value="7" type="number" />
+          <KeyValue key="clickEventName" value="Customise.BagItemClicked" type="string" />
+        </KeyValues>
+        <Anchors>
+            <Anchor point="TOPLEFT" y="-52"/>
+            <Anchor point="BOTTOMRIGHT"/>
+        </Anchors>
+      </Frame>
+      <Button parentKey="BackButton" text="BACK" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="600">
+        <Anchors>
+            <Anchor point="TOPRIGHT" y="-22"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():ToggleCustomiseMode()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button text="AUCTIONATOR_L_NEW_GROUP" inherits="UIPanelDynamicResizeButtonTemplate" frameLevel="597" parentKey="NewGroupButton">
+        <Anchors>
+            <Anchor point="TOPLEFT" x="15" y="-28"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            self:GetParent():NewGroup()
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

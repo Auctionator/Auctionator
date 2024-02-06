@@ -100,11 +100,25 @@ local function KeyPartsPetLink(itemLink)
 end
 
 local function GetItemKey(entry)
-  local itemLevel = entry.itemLevel or 0
-  if entry.classID == Enum.ItemClass.Battlepet then
-    itemLevel = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUP_BY_ITEM_KEY) then
+    local itemLevel = entry.itemLevel or 0
+    if entry.classID == Enum.ItemClass.Battlepet then
+      itemLevel = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
+    end
+    return entry.itemID .. "_" ..  entry.itemName .. "_" .. itemLevel .. "_" .. tostring(entry.auctionable)
   end
-  return entry.itemID .. "_" ..  entry.itemName .. "_" .. itemLevel .. "_" .. tostring(entry.auctionable)
+
+  -- Battle pets
+  if entry.classID == Enum.ItemClass.Battlepet then
+    return "p:" .. KeyPartsPetLink(entry.itemLink)
+  -- Equipment
+  elseif Auctionator.Utilities.IsEquipment(entry.classID) then
+    local cleanLink = KeyPartsItemLink(entry.itemLink)
+    return "g:" .. strjoin("_", cleanLink, tostring(entry.auctionable))
+  -- Everything else
+  else
+    return "i:" .. strjoin("_", tostring(entry.itemID), tostring(entry.auctionable))
+  end
 end
 
 function AuctionatorBagCacheMixin:PostUpdate(bagContents)
