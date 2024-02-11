@@ -29,6 +29,7 @@ end
 
 function AuctionatorBagUseMixin:OnHide()
   self.awaitingCompletion = true
+  self.View:SetSelected(nil)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.BagItemClicked", self)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.AddToDefaultGroup", self)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.RemoveFromDefaultGroup", self)
@@ -69,7 +70,6 @@ function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
     postingInfo.prevItem = button.prevItem
     postingInfo.key = button.key
     postingInfo.sortKey = button.itemInfo.sortKey
-    postingInfo.groupName = button.itemInfo.group
     Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.BagItemClicked, postingInfo)
   elseif mouseButton == "RightButton" then
     local defaultName = Auctionator.Groups.GetGroupNameByIndex(1)
@@ -134,8 +134,4 @@ end
 
 function AuctionatorBagUseMixin:UnhideAll()
   StaticPopup_Show(Auctionator.Constants.DialogNames.SellingConfirmUnhideAll)
-end
-
-function AuctionatorBagUseMixin:ToggleCustomiseMode()
-  Auctionator.Groups.OpenCustomiseView()
 end

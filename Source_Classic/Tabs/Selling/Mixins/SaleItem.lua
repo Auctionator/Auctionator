@@ -476,14 +476,6 @@ local groupDurationToRadioDuration = {
   [3] = 48,
 }
 function AuctionatorSaleItemMixin:SetDuration()
-  if self.itemInfo.groupName then
-    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
-    if groupSettings and groupSettings.duration and groupSettings.duration ~= 0 then
-      self.Duration:SetSelectedValue(groupDurationToRadioDuration[groupSettings.duration])
-      return
-    end
-  end
-
   self.Duration:SetSelectedValue(
     Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_DURATION)
   )
@@ -499,20 +491,6 @@ function AuctionatorSaleItemMixin:SetQuantity()
   end
 
   local preferredStackSize = Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)[Auctionator.Utilities.BasicDBKeyFromLink(self.itemInfo.itemLink)]
-
-  if self.itemInfo.groupName then
-    local groupSettings = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_GROUPS_SETTINGS)[self.itemInfo.groupName]
-    if groupSettings then
-      for key, value in pairs(groupSettings) do
-        if value ~= 0 then
-          defaultStacks[key] = value
-        end
-      end
-      if groupSettings.stackSize ~= 0 then
-        preferredStackSize = groupSettings.stackSize
-      end
-    end
-  end
 
   -- Determine what the stack size would be without using stack size memory.
   -- This is used to clear stack size memory when the max/min is used

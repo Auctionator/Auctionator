@@ -15,23 +15,7 @@ Auctionator.Groups.Constants.Events = {
   "BagUse.BagItemClicked",
   "BagUse.AddToDefaultGroup",
 
-  "Customise.BagItemClicked",
-  "Customise.NewGroup",
-  "Customise.FocusGroup",
-  "Customise.DeleteGroup",
-  "Customise.RenameGroup",
-  "Customise.HideGroup",
-  "Customise.ShiftUpGroup",
-  "Customise.ShiftDownGroup",
-
   "Customise.EditMade",
-  "Customise.PostingSettingChanged",
-}
-
-Auctionator.Groups.Constants.DialogNames = {
-  CreateGroup = "Auctionator.Groups.CreateGroupDialog",
-  ConfirmDelete = "Auctionator.Groups.ConfirmDelete",
-  RenameGroup = "Auctionator.Groups.RenameGroup",
 }
 
 if not Auctionator.Groups.Constants.IsRetail then

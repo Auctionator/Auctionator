@@ -24,7 +24,6 @@ function AuctionatorConfigSellingFrameMixin:ShowSettings()
   self.PossessedFavouritesFirst:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITES_SORT_OWNED))
 
   self.UnhideAll:SetEnabled(#(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS)) ~= 0)
-  self:UpdateSellingSelectionColor()
 end
 
 function AuctionatorConfigSellingFrameMixin:Save()
@@ -47,33 +46,6 @@ end
 function AuctionatorConfigSellingFrameMixin:UnhideAllClicked()
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORED_KEYS, {})
   self.UnhideAll:Disable()
-end
-
-function AuctionatorConfigSellingFrameMixin:UpdateSellingSelectionColor()
-  local color = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR)
-  self.SetSelectionColor.Color:SetColorTexture(color.r, color.g, color.b)
-end
-
-function AuctionatorConfigSellingFrameMixin:ResetSelectionColorClicked()
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR, Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR])
-  self:UpdateSellingSelectionColor()
-end
-
-function AuctionatorConfigSellingFrameMixin:SetSelectionColorClicked()
-  local color = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR)
-  local info = {
-    swatchFunc = function()
-      local r, g, b = ColorPickerFrame:GetColorRGB()
-      Auctionator.Config.Set(Auctionator.Config.Options.SELLING_BAG_SELECTION_COLOR, {r = r, g = g, b = b})
-      self:UpdateSellingSelectionColor()
-    end,
-    r = color.r, g = color.g, b = color.b, opacity = 1,
-  }
-  if ColorPickerFrame.SetupColorPickerAndShow then
-    ColorPickerFrame:SetupColorPickerAndShow(info)
-  else
-    OpenColorPicker(info)
-  end
 end
 
 function AuctionatorConfigSellingFrameMixin:Cancel()

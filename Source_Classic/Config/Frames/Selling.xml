@@ -180,41 +180,9 @@
         </Anchors>
       </Frame>
 
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_SET_BAG_ITEM_SELECTION_COLOR" parentKey="SetSelectionColor">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.PossessedFavouritesFirst" relativePoint="BOTTOMLEFT" x="53"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>
-            self:GetParent():GetParent():GetParent():GetParent():SetSelectionColorClicked()
-          </OnClick>
-        </Scripts>
-        <Layers>
-          <Layer>
-            <Texture parentKey="Color">
-              <Size x="22" y="22"/>
-              <Anchors>
-                <Anchor point="TOPRIGHT" relativePoint="TOPLEFT" x="-5"/>
-              </Anchors>
-            </Texture>
-          </Layer>
-        </Layers>
-      </Button>
-
-      <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_RESET_COLOR" parentKey="ResetSelectionColor">
-        <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.SetSelectionColor" relativePoint="TOPRIGHT" x="10"/>
-        </Anchors>
-        <Scripts>
-          <OnClick>
-            self:GetParent():GetParent():GetParent():GetParent():ResetSelectionColorClicked()
-          </OnClick>
-        </Scripts>
-      </Button>
-
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNHIDE_ALL_HIDDEN_ITEMS" parentKey="UnhideAll">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.SetSelectionColor" relativePoint="BOTTOMLEFT" x="-37" y="-10"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PossessedFavouritesFirst" relativePoint="BOTTOMLEFT" x="-37" y="-10"/>
         </Anchors>
         <Scripts>
           <OnClick>
