@@ -30,8 +30,10 @@ function AuctionatorInitializeVanillaMixin:CraftShown()
         return
       end
 
-      AuctionatorShoppingFrame.OneItemSearchBox:SetText(name)
-      AuctionatorShoppingFrame.OneItemSearchButton:Click()
+      local searchTerm = "\"" .. name .. "\""
+      AuctionatorShoppingFrame:DoSearch({searchTerm}, {})
+      AuctionatorShoppingFrame.SearchOptions:SetSearchTerm(searchTerm)
+      Auctionator.Shopping.Recents.Save(searchTerm)
     end
   end
   CraftReagent1:HookScript("OnClick", reagentHook)
