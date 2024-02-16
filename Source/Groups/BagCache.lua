@@ -26,79 +26,6 @@ function AuctionatorBagCacheMixin:OnEvent(eventName, ...)
   end
 end
 
-local function SplitLink(linkString)
-  return linkString:match("^(.*)|H(.-)|h(.*)$")
-end
-
--- Assumes itemLink is in the format found at
--- https://wowpedia.fandom.com/wiki/ItemLink
--- itemID : enchantID : gemID1 : gemID2 : gemID3 : gemID4
--- : suffixID : uniqueID : linkLevel : specializationID : modifiersMask : itemContext
--- : numBonusIDs[:bonusID1:bonusID2:...] : numModifiers[:modifierType1:modifierValue1:...]
--- : relic1NumBonusIDs[:relicBonusID1:relicBonusID2:...] : relic2NumBonusIDs[...] : relic3NumBonusIDs[...]
--- : crafterGUID : extraEnchantID
-local function KeyPartsItemLink(itemLink)
-  local pre, hyperlink, post = SplitLink(itemLink)
-
-  local parts = { strsplit(":", hyperlink) }
-
-  -- offset by 1 because the first item in "item", not the id
-  for i = 3, 7 do
-    parts[i] = ""
-  end
-
-  -- Remove uniqueID, linkLevel, specializationID, modifiersMask and itemContext
-  for i = 9, 13 do
-    parts[i] = ""
-  end
-
-  local bonusIDStart = 14
-  local numBonusIDs = tonumber(parts[14] or "") or 0
-  local modStart = bonusIDStart + numBonusIDs + 1
-
-  local numMods = tonumber(parts[modStart] or "") or 0
-  -- complicated way to only keep the modifiers that affect item level and scrap
-  -- any tmog/crafting details
-  -- Details of modifiers at https://warcraft.wiki.gg/wiki/ItemLink#Modifier_Types
-  if numMods > 0 then
-    local wantedMods = {}
-    for i = 1, numMods do
-      local id = tonumber(parts[modStart + i * 2 - 1])
-      -- timewalker level, artifact tier, pvp rating, dragonflight quality id
-      if id == 9 or id == 24 or id == 26 or id == 29 or id == 30 or id == 38 then
-        table.insert(wantedMods, id)
-        table.insert(wantedMods, parts[modStart + i * 2])
-      end
-    end
-    numMods = #wantedMods / 2
-    parts[modStart] = tostring(numMods)
-    for i = 1, #wantedMods do
-      parts[modStart + i] = tostring(wantedMods[i])
-    end
-  end
-  if numMods > 0 then
-    for i = modStart + numMods * 2 + 1, #parts do
-      parts[i] = nil
-    end
-  else
-    for i = modStart, #parts do
-      parts[i] = nil
-    end
-  end
-
-  return Auctionator.Utilities.StringJoin(parts, ":")
-end
-
-local function KeyPartsPetLink(itemLink)
-  local pre, hyperlink, post = SplitLink(itemLink)
-
-  local parts = { strsplit(":", hyperlink) }
-
-  local wantedBits = Auctionator.Utilities.Slice(parts, 1, 7)
-
-  return Auctionator.Utilities.StringJoin(wantedBits, ":")
-end
-
 local function GetItemKey(entry)
   local itemLevel = entry.itemLevel or 0
   if entry.classID == Enum.ItemClass.Battlepet then
@@ -136,6 +63,7 @@ function AuctionatorBagCacheMixin:GetByLinkInstant(suppliedItemLink, auctionable
 
   local key = GetItemKey(entry)
   local realEntry = self.contents[key]
+  local itemLink = entry.itemLink
 
   local itemCount = 0
   local locations = {}
@@ -145,6 +73,7 @@ function AuctionatorBagCacheMixin:GetByLinkInstant(suppliedItemLink, auctionable
       table.insert(locations, e.location)
     end
     itemCount = realEntry.count
+    itemLink = realEntry.entries[1].itemLink
   end
 
   return {
@@ -152,7 +81,7 @@ function AuctionatorBagCacheMixin:GetByLinkInstant(suppliedItemLink, auctionable
     itemCount = itemCount,
     auctionable = auctionable,
     itemName = entry.itemName,
-    itemLink = entry.itemLink,
+    itemLink = itemLink,
     itemID = entry.itemID,
     itemLevel = entry.itemLevel,
     quality = entry.quality,
@@ -171,16 +100,6 @@ function AuctionatorBagCacheMixin:GetByKey(key)
       table.insert(locations, e.location)
     end
 
-    local itemLink = entry.itemLink
-    local cleanLink
-    if itemLink:match("battlepet") then
-      local pre, hyperlink, post = SplitLink(itemLink)
-      cleanLink = pre .. "|H" .. KeyPartsPetLink(entry.itemLink) .. "|h" .. post
-    else
-      local pre, h, post = SplitLink(itemLink)
-      cleanLink = pre .. "|H" .. KeyPartsItemLink(itemLink) .. "|h" .. post
-    end
-
     return {
       locations = locations,
       itemCount = value.count,
@@ -188,7 +107,7 @@ function AuctionatorBagCacheMixin:GetByKey(key)
       itemID = entry.itemID,
       itemLevel = entry.itemLevel,
       auctionable = entry.auctionable,
-      itemLink = cleanLink,
+      itemLink = entry.itemLink,
       quality = entry.quality,
       iconTexture = entry.iconTexture,
       classID = entry.classID,
@@ -210,10 +129,9 @@ function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
 
   if suppliedItemLink:match("battlepet") then
     local itemName, iconTexture = C_PetJournal.GetPetInfoBySpeciesID(tonumber(suppliedItemLink:match("battlepet:(%d+)")))
-    local pre, hyperlink, post = SplitLink(suppliedItemLink)
 
     local entry = {
-      itemLink = pre .. "|H" .. KeyPartsPetLink(suppliedItemLink) .. "|h" .. post,
+      itemLink = suppliedItemLink,
       itemID = Auctionator.Constants.PET_CAGE_ID,
       itemName = itemName,
       iconTexture = iconTexture,
@@ -236,9 +154,8 @@ function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
     item:ContinueOnItemLoad(function()
       local itemName, itemLink = GetItemInfo(suppliedItemLink)
 
-      local pre, h, post = SplitLink(itemLink)
       local entry = {
-        itemLink = pre .. "|H" .. KeyPartsItemLink(itemLink) .. "|h" .. post,
+        itemLink = suppliedItemLink,
         iconTexture = item:GetItemIcon(),
         itemName = itemName,
         itemID = itemID,
