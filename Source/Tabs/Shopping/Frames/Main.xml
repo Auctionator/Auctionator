@@ -159,14 +159,15 @@
           <Anchor point="BOTTOMLEFT" y="10" x="10"/>
         </Anchors>
       </Button>
-      <Button parentKey="ImportButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT">
-        <Anchors>
-          <Anchor point="BOTTOMLEFT" relativeKey="$parent.NewListButton" relativePoint="BOTTOMRIGHT" x="20"/>
-        </Anchors>
-      </Button>
       <Button parentKey="ExportButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT">
         <Anchors>
-          <Anchor point="BOTTOMLEFT" relativeKey="$parent.ImportButton" relativePoint="BOTTOMRIGHT"/>
+          <Anchor point="RIGHT" relativeKey="$parent.RecentsContainer" relativePoint="RIGHT" x="15"/>
+          <Anchor point="BOTTOM" y="10"/>
+        </Anchors>
+      </Button>
+      <Button parentKey="ImportButton" inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_IMPORT">
+        <Anchors>
+          <Anchor point="RIGHT" relativeKey="$parent.ExportButton" relativePoint="LEFT"/>
         </Anchors>
       </Button>
     </Frames>
