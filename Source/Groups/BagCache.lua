@@ -31,7 +31,7 @@ local function GetItemKey(entry)
   if entry.classID == Enum.ItemClass.Battlepet then
     itemLevel = Auctionator.Utilities.GetPetLevelFromLink(entry.itemLink)
   end
-  return entry.itemID .. "_" ..  entry.itemName .. "_" .. itemLevel .. "_" .. tostring(entry.auctionable)
+  return entry.itemID .. "_" ..  entry.itemName .. "_" .. itemLevel .. "_" .. entry.quality .. "_" ..  tostring(entry.auctionable)
 end
 
 function AuctionatorBagCacheMixin:PostUpdate(bagContents)
