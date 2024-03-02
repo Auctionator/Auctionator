@@ -23,18 +23,17 @@ function AuctionatorBagUseMixin:OnShow()
       self.pendingKey = nil
     end
   end, self)
-
   Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOn")
 end
 
 function AuctionatorBagUseMixin:OnHide()
-  self.awaitingCompletion = true
   self.View:SetSelected(nil)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.BagItemClicked", self)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.AddToDefaultGroup", self)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("BagUse.RemoveFromDefaultGroup", self)
   Auctionator.Groups.CallbackRegistry:UnregisterCallback("ViewComplete", self)
   Auctionator.Groups.CallbackRegistry:TriggerEvent("BagCacheOff")
+  self.awaitingCompletion = true
 end
 
 function AuctionatorBagUseMixin:ReturnItem(key)

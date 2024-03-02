@@ -185,7 +185,7 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
     group:SetPoint("LEFT", self.groupInsetX, 0)
     group:SetPoint("RIGHT")
     group:Reset()
-    local isCustom = index <= #AUCTIONATOR_SELLING_GROUPS.CustomGroups
+    local isCustom = index == 1 -- Only the first group is custom FAVOURITES now
     group:SetName(groupDetails.name, isCustom)
     if self.applyVisibility and (self.collapsing[index] or (self.originalOpen and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))) then
       group:ToggleOpen(true)

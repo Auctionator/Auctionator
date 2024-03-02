@@ -24,7 +24,6 @@ function Auctionator.Groups.Utilities.ToPostingItem(info)
     nextItem = nil,
     prevItem = nil,
     sortKey = info.sortKey,
-    key = info.key,
   }
 end
 
