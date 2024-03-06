@@ -182,7 +182,7 @@
 
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_UNHIDE_ALL_HIDDEN_ITEMS" parentKey="UnhideAll">
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.PossessedFavouritesFirst" relativePoint="BOTTOMLEFT" x="-37" y="-10"/>
+          <Anchor point="TOPLEFT" relativeKey="$parent.PossessedFavouritesFirst" relativePoint="BOTTOMLEFT" x="23" y="-10"/>
         </Anchors>
         <Scripts>
           <OnClick>
