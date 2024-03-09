@@ -237,7 +237,7 @@
           </Layer>
         </Layers>
         <Frames>
-          <EditBox parentKey="Quantity" autoFocus="false" inherits="AuctionatorRetailImportLargeInputBoxTemplate" letters="10">
+          <EditBox parentKey="Quantity" autoFocus="false" inherits="AuctionatorRetailImportLargeInputBoxTemplate" letters="10" numeric="true">
             <Size x="70" y="20" />
             <Anchors>
               <Anchor point="TOPLEFT" relativePoint="TOP" x="-15"/>
