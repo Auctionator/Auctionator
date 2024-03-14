@@ -1,0 +1,13 @@
+package-as: Auctionator
+ignore:
+  - README.md
+  - test-data
+  - scripts
+  - DB2_Scripts
+  - *Mainline*
+  - *Vanilla*
+  - Auctionator_TBC.toc
+plain-copy:
+  - Imports_Classic
+  - Source
+  - Source_Classic

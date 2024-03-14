@@ -21,6 +21,8 @@ jobs:
             pkgmeta: .pkgmeta
           - type: wrath
             pkgmeta: .pkgmeta_wrath
+          - type: cata
+            pkgmeta: .pkgmeta_cata
           - type: classic
             pkgmeta: .pkgmeta_vanilla
 
