@@ -33,7 +33,7 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: BigWigsMods/packager
+    - uses: BigWigsMods/packager@master
       with:
         args: -p 6124 -a kRNL70Go -g ${{matrix.type}} -m ${{matrix.pkgmeta}}
       env:
