@@ -6,7 +6,7 @@ ignore:
   - DB2_Scripts
   - *Mainline*
   - *Vanilla*
-  - Auctionator_TBC.toc
+  - *TBC*
 plain-copy:
   - Imports_Classic
   - Source

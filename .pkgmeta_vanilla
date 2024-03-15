@@ -5,8 +5,9 @@ ignore:
   - scripts
   - DB2_Scripts
   - *Mainline*
-  - Auctionator_TBC.toc
-  - Auctionator_Wrath.toc
+  - *TBC*
+  - *Wrath*
+  - *Cata*
 plain-copy:
   - Imports_Classic
   - Source
