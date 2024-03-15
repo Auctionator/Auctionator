@@ -15,7 +15,7 @@ jobs:
   build:
     strategy:
       matrix:
-        type: [retail, wrath, classic]
+        type: [retail, wrath, classic, cata]
         include:
           - type: retail
             pkgmeta: .pkgmeta
@@ -31,7 +31,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: 100
 
     - uses: BigWigsMods/packager@master
       with:
