@@ -284,8 +284,11 @@ end
 -- Magic to update the tooltip with the prices when it is cleared and still
 -- retain stack size information
 if TooltipDataProcessor then
+  local function ValidateTooltip(tooltip)
+    return tooltip == GameTooltip or tooltip == GameTooltipTooltip or tooltip == ItemRefTooltip or tooltip == GarrisonShipyardMapMissionTooltipTooltip or (not tooltip:IsForbidden() and (tooltip:GetName() or ""):match("^NotGameTooltip"))
+  end
   TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, data)
-    if tooltip == GameTooltip or tooltip == ItemRefTooltip then
+    if ValidateTooltip(tooltip) then
       local info = tooltip.info or tooltip.processingInfo
       if not info or not info.getterName or info.excludeLines then
         return
