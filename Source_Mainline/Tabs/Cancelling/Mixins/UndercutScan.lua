@@ -80,7 +80,7 @@ local function ShouldInclude(itemKey)
   if Auctionator.Config.Get(Auctionator.Config.Options.UNDERCUT_SCAN_NOT_LIFO) then
     return true
   else
-    local classID = select(6, GetItemInfoInstant(itemKey.itemID))
+    local classID = select(6, C_Item.GetItemInfoInstant(itemKey.itemID))
 
     return classID ~= Enum.ItemClass.Weapon and classID ~= Enum.ItemClass.Armor and
           itemKey.battlePetSpeciesID == 0
@@ -184,7 +184,7 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auctionInfo)
     end
 
     if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_MATCHING) ~= Auctionator.Config.ItemMatching.ITEM_NAME_AND_LEVEL and
-       Auctionator.Utilities.IsEquipment(select(6, GetItemInfoInstant(auctionInfo.itemKey.itemID))) then
+       Auctionator.Utilities.IsEquipment(select(6, C_Item.GetItemInfoInstant(auctionInfo.itemKey.itemID))) then
       self.expectedItemKey = {itemID = auctionInfo.itemKey.itemID, itemLevel = 0, itemSuffix = 0, battlePetSpeciesID = 0}
       Auctionator.AH.SendSellSearchQueryByItemKey(self.expectedItemKey, {sortingOrder}, true)
     else

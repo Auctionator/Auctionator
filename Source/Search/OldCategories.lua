@@ -47,7 +47,7 @@ end
 local function GenerateArmorInventorySlots(parentKey, parentCategory)
   local inventorySlots = {}
   for index = 1, #INVENTORY_TYPE_IDS do
-    local name = GetItemInventorySlotInfo(INVENTORY_TYPE_IDS[index])
+    local name = C_Item.GetItemInventorySlotInfo(INVENTORY_TYPE_IDS[index])
 
     local category = {
       classID = parentCategory.classID,
@@ -73,7 +73,7 @@ local function GenerateSubClasses( classID, parentKey )
 
   for index = 1, #subClassesTable do
     local subClassID = subClassesTable[ index ]
-    local name = GetItemSubClassInfo( classID, subClassID )
+    local name = C_Item.GetItemSubClassInfo( classID, subClassID )
 
     local category = { classID = classID, subClassID = subClassID }
     local subClass = Auctionator.Search.OldCategory:new({
@@ -100,7 +100,7 @@ end
 
 function Auctionator.Search.InitializeOldCategories()
   for _, classID in ipairs( Auctionator.Constants.ValidItemClassIDs ) do
-    local key = GetItemClassInfo( classID )
+    local key = C_Item.GetItemClassInfo( classID )
     local subClasses = GenerateSubClasses( classID, key )
     local category = {classID = classID}
 

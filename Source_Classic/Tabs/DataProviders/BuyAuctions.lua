@@ -85,7 +85,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:SetUpEvents()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:SetAuctions(entries)
-  local itemID = GetItemInfoInstant(self.searchKey)
+  local itemID = C_Item.GetItemInfoInstant(self.searchKey)
   local item = Item:CreateFromItemID(itemID)
   item:ContinueOnItemLoad(function()
     self.allAuctions = {}
@@ -126,7 +126,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:ReceiveEvent(eventName, eventDa
     if self.gotAllResults then
       Auctionator.EventBus:Unregister(self, BUY_EVENTS)
     end
-    local itemID = GetItemInfoInstant(self.searchKey)
+    local itemID = C_Item.GetItemInfoInstant(self.searchKey)
     local item = Item:CreateFromItemID(itemID)
     item:ContinueOnItemLoad(function()
       self:ImportAdditionalResults(eventData)
@@ -187,7 +187,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:EndAnyQuery()
 end
 
 function AuctionatorBuyAuctionsDataProviderMixin:ImportAdditionalResults(results)
-  local itemIDWanted = GetItemInfoInstant(self.searchKey)
+  local itemIDWanted = C_Item.GetItemInfoInstant(self.searchKey)
   local itemLevelWanted = GetDetailedItemLevelInfo(self.searchKey)
 
   local waiting = #results
@@ -305,7 +305,7 @@ end
 
 function AuctionatorBuyAuctionsDataProviderMixin:PurgeAndReplaceOwnedAuctions(ownedAuctions)
   if self.query ~= nil then
-    local itemID = GetItemInfoInstant(self.searchKey)
+    local itemID = C_Item.GetItemInfoInstant(self.searchKey)
     local item = Item:CreateFromItemID(itemID)
       item:ContinueOnItemLoad(function()
       self.onPreserveScroll()

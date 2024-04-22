@@ -8,7 +8,7 @@ function Auctionator.API.v1.GetDisenchantPriceByItemID(callerID, itemID)
     )
   end
 
-  local itemInfo = { GetItemInfo(itemID) }
+  local itemInfo = { C_Item.GetItemInfo(itemID) }
   local itemLink = itemInfo[2]
 
   if itemLink ~= nil then
@@ -28,7 +28,7 @@ function Auctionator.API.v1.GetDisenchantPriceByItemLink(callerID, itemLink)
     )
   end
 
-  local itemInfo = { GetItemInfo(itemLink) }
+  local itemInfo = { C_Item.GetItemInfo(itemLink) }
 
   if #itemInfo > 0 then
     return Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)

@@ -2,12 +2,12 @@ AuctionatorItemStringLoadingMixin = {}
 
 function AuctionatorItemStringLoadingMixin:OnLoad()
   self:SetOnEntryProcessedCallback(function(entry)
-    local item = Item:CreateFromItemID((GetItemInfoInstant(entry.itemString)))
+    local item = Item:CreateFromItemID((C_Item.GetItemInfoInstant(entry.itemString)))
     local complete = false
     item:ContinueOnItemLoad(function()
       -- Check to avoid overwriting name on empty results
       if entry.itemName == nil then
-        self:ProcessItemString(entry, { GetItemInfo(entry.itemString) })
+        self:ProcessItemString(entry, { C_Item.GetItemInfo(entry.itemString) })
       end
       complete = true
     end)

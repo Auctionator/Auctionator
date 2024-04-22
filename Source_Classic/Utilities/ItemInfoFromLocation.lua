@@ -19,7 +19,7 @@ function Auctionator.Utilities.ItemInfoFromLocation(location)
 
   local auctionable = not C_Item.IsBound(location) and currentDurability == maxDurability
 
-  local _, _, _, _, _, classID, _ = GetItemInfoInstant(itemLink)
+  local _, _, _, _, _, classID, _ = C_Item.GetItemInfoInstant(itemLink)
 
   if auctionable and classID == Enum.ItemClass.Consumable and location:IsBagAndSlot() then
     auctionable = Auctionator.Utilities.IsAtMaxCharges(location)

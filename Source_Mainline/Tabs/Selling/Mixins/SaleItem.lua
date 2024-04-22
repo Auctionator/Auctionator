@@ -417,7 +417,7 @@ function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
   local item = Item:CreateFromItemLink(itemLink)
   item:ContinueOnItemLoad(function()
     local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
-    local vendorPrice = select(Auctionator.Constants.ITEM_INFO.SELL_PRICE, GetItemInfo(itemLink))
+    local vendorPrice = select(Auctionator.Constants.ITEM_INFO.SELL_PRICE, C_Item.GetItemInfo(itemLink))
     if multiplier ~= 0 and vendorPrice ~= 0 then
       -- Check for a vendor price multiplier being set (and a vendor price)
       self:UpdateSalesPrice(
@@ -610,7 +610,7 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
 
   -- Determine if the item is worth more to sell to a vendor than to post on the
   -- AH.
-  local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
+  local itemInfo = { C_Item.GetItemInfo(self.itemInfo.itemLink) }
   local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
   if Auctionator.Utilities.IsVendorable(itemInfo) and
      vendorPrice * self.Quantity:GetNumber()

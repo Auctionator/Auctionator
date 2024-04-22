@@ -54,7 +54,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   local vendorPrice, disenchantStatus, disenchantPrice
   local cannotAuction = 0;
 
-  local itemInfo = { GetItemInfo(itemLink) };
+  local itemInfo = { C_Item.GetItemInfo(itemLink) };
   if (#itemInfo) ~= 0 then
     cannotAuction = Auctionator.Utilities.IsBound(itemInfo)
     local sellPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
@@ -73,7 +73,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   local prospectStatus = false
   local prospectValue
   if Auctionator.Prospect then
-    local itemID = GetItemInfoInstant(itemLink)
+    local itemID = C_Item.GetItemInfoInstant(itemLink)
     prospectStatus = Auctionator.Prospect.IsProspectable(itemID)
     local prospectForOne = Auctionator.Prospect.GetProspectAuctionPrice(itemID)
     if prospectForOne ~= nil then
@@ -84,7 +84,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   local millStatus = false
   local millValue
   if Auctionator.Mill then
-    local itemID = GetItemInfoInstant(itemLink)
+    local itemID = C_Item.GetItemInfoInstant(itemLink)
     millStatus = Auctionator.Mill.IsMillable(itemID)
     local millForOne = Auctionator.Mill.GetMillAuctionPrice(itemID)
     if millForOne ~= nil then

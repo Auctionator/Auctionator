@@ -257,8 +257,8 @@ if GameTooltip.SetItemKey then
       local hyperlink = info.hyperlink
       -- Necessary as for recipes the crafted item is returned info.hyperlink,
       -- so we check we actually got the recipe item
-      if GetItemInfoInstant(info.hyperlink) ~= itemID then
-        hyperlink = select(2, GetItemInfo(itemID))
+      if C_Item.GetItemInfoInstant(info.hyperlink) ~= itemID then
+        hyperlink = select(2, C_Item.GetItemInfo(itemID))
       end
       Auctionator.Tooltip.ShowTipWithPricing(tip, hyperlink, 1)
     end
@@ -271,7 +271,7 @@ TooltipHandlers["SetItemByID"] = function (tip, itemID)
     return
   end
 
-  local itemLink = select(2, GetItemInfo(itemID))
+  local itemLink = select(2, C_Item.GetItemInfo(itemID))
 
   Auctionator.Tooltip.ShowTipWithPricing(tip, itemLink, 1)
 end

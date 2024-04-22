@@ -303,7 +303,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
       end
 
       item:ContinueOnItemLoad(function()
-        itemInfo.stackSize = select(8, GetItemInfo(itemInfo.itemLink))
+        itemInfo.stackSize = select(8, C_Item.GetItemInfo(itemInfo.itemLink))
         self.itemInfo = itemInfo
 
         self:Update()
@@ -560,7 +560,7 @@ function AuctionatorSaleItemMixin:SetEquipmentMultiplier(itemLink)
   local item = Item:CreateFromItemLink(itemLink)
   item:ContinueOnItemLoad(function()
     local multiplier = Auctionator.Config.Get(Auctionator.Config.Options.GEAR_PRICE_MULTIPLIER)
-    local vendorPrice = select(11, GetItemInfo(itemLink))
+    local vendorPrice = select(11, C_Item.GetItemInfo(itemLink))
     if multiplier ~= 0 and vendorPrice ~= 0 then
       -- Check for a vendor price multiplier being set (and a vendor price)
       self:SetUnitPrice(
@@ -635,7 +635,7 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
 
   -- Determine if the item is worth more to sell to a vendor than to post on the
   -- AH.
-  local itemInfo = { GetItemInfo(self.itemInfo.itemLink) }
+  local itemInfo = { C_Item.GetItemInfo(self.itemInfo.itemLink) }
   local vendorPrice = itemInfo[Auctionator.Constants.ITEM_INFO.SELL_PRICE]
   if Auctionator.Utilities.IsVendorable(itemInfo) and
      vendorPrice * self:GetStackSize() * self:GetNumStacks()

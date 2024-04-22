@@ -17,7 +17,7 @@ function Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
 end
 
 local function IsGear(itemLink)
-  local classType = select(6, GetItemInfoInstant(itemLink))
+  local classType = select(6, C_Item.GetItemInfoInstant(itemLink))
   return classType ~= nil and Auctionator.Utilities.IsEquipment(classType)
 end
 
@@ -37,7 +37,7 @@ function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
     end
 
     item:ContinueOnItemLoad(function()
-      local itemLevel = GetDetailedItemLevelInfo(itemLink) or 0
+      local itemLevel = C_Item.GetDetailedItemLevelInfo(itemLink) or 0
       local name = item:GetItemName()
 
       if Auctionator.Constants.IsClassic and itemLevel >= Auctionator.Constants.ITEM_LEVEL_THRESHOLD then

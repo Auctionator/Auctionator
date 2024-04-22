@@ -27,7 +27,7 @@ function Auctionator.Search.Filters.CraftedLevelMixin:TryComplete()
 
     local itemKey = self.browseResult.itemKey
 
-    local itemInfo = {GetItemInfo(itemKey.itemID)}
+    local itemInfo = {C_Item.GetItemInfo(itemKey.itemID)}
 
     if #itemInfo == 0 then
       return

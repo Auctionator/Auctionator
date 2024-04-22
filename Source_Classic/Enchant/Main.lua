@@ -1,5 +1,5 @@
 local function Atr_GetDEitemName( itemID )
-  local itemName = GetItemInfo( itemID )
+  local itemName = C_Item.GetItemInfo( itemID )
 
   return itemName or Auctionator.Constants.DisenchantingItemName[ itemID ]
 end

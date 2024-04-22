@@ -65,7 +65,7 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
 
   local function OnItemInfoReady()
     for index, itemInfo in ipairs(possibleItems) do
-      local itemInfo = {GetItemInfo(itemInfo)}
+      local itemInfo = {C_Item.GetItemInfo(itemInfo)}
       if not Auctionator.Utilities.IsBound(itemInfo) then
         table.insert(searchTerms, {searchString = itemInfo[1], isExact = true, quantity = quantities[index]})
       end

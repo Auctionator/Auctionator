@@ -13,7 +13,7 @@ function Auctionator.Selling.DoesItemMatchFromKey(originalItemKey, originalItemL
     return true
 
   elseif matchType == Auctionator.Config.ItemMatching.ITEM_NAME_ONLY then
-    return GetItemInfo(originalItemLink) == GetItemInfo(targetItemLink)
+    return C_Item.GetItemInfo(originalItemLink) == C_Item.GetItemInfo(targetItemLink)
 
   elseif matchType == Auctionator.Config.ItemMatching.ITEM_ID_AND_LEVEL then
     if originalItemLink:find("battlepet:", nil, true) ~= nil then
@@ -33,14 +33,14 @@ function Auctionator.Selling.DoesItemMatchFromLink(originalItemLink, targetItemK
     if originalItemLink:find("battlepet:", nil, true) ~= nil then
       return Auctionator.Utilities.GetPetLevelFromLink(originalItemLink) == Auctionator.Utilities.GetPetLevelFromLink(targetItemLink)
     else
-      return GetDetailedItemLevelInfo(originalItemLink) == targetItemKey.itemLevel and GetItemInfo(originalItemLink) == GetItemInfo(targetItemLink)
+      return GetDetailedItemLevelInfo(originalItemLink) == targetItemKey.itemLevel and C_Item.GetItemInfo(originalItemLink) == C_Item.GetItemInfo(targetItemLink)
     end
 
   elseif matchType == Auctionator.Config.ItemMatching.ITEM_ID then
     return true
 
   elseif matchType == Auctionator.Config.ItemMatching.ITEM_NAME_ONLY then
-    return GetItemInfo(originalItemLink) == GetItemInfo(targetItemLink)
+    return C_Item.GetItemInfo(originalItemLink) == C_Item.GetItemInfo(targetItemLink)
 
   elseif matchType == Auctionator.Config.ItemMatching.ITEM_ID_AND_LEVEL then
     if originalItemLink:find("battlepet:", nil, true) ~= nil then

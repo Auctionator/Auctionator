@@ -14,7 +14,7 @@ local function SearchItem(text)
     local petName = strmatch(text, "%[(.+)%]");
     name = petName;
   elseif ( strfind(text, "item:", 1, true) ) then
-    name = GetItemInfo(text);
+    name = C_Item.GetItemInfo(text);
   elseif ( strfind(text, "enchant:", 1, true) ) then
     name = Auctionator.Utilities.GetNameFromLink(text)
   end

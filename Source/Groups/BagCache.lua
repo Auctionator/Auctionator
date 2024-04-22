@@ -116,6 +116,8 @@ function AuctionatorBagCacheMixin:GetByKey(key)
   end
 end
 
+local GetItemStats = C_Item and C_Item.GetItemStats or GetItemStats
+
 function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
   local existingEntry = linkInstantCache[suppliedItemLink]
   if existingEntry then
@@ -145,14 +147,14 @@ function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
     callback()
   else
     -- Ignore mythic keystones, etc.
-    local itemID = GetItemInfoInstant(suppliedItemLink)
+    local itemID = C_Item.GetItemInfoInstant(suppliedItemLink)
     if itemID == nil then
       return
     end
 
     local item = Item:CreateFromItemLink(suppliedItemLink)
     item:ContinueOnItemLoad(function()
-      local itemName, itemLink = GetItemInfo(suppliedItemLink)
+      local itemName, itemLink = C_Item.GetItemInfo(suppliedItemLink)
 
       local entry = {
         itemLink = suppliedItemLink,
@@ -161,12 +163,12 @@ function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
         itemID = itemID,
         itemLink = itemLink,
         itemCount = 0,
-        classID = select(6, GetItemInfoInstant(itemLink)),
+        classID = select(6, C_Item.GetItemInfoInstant(itemLink)),
         quality = item:GetItemQuality(),
       }
       if Auctionator.Utilities.IsEquipment(entry.classID) then
         entry.itemStats = GetItemStats(entry.itemLink)
-        entry.itemLevel = GetDetailedItemLevelInfo(entry.itemLink)
+        entry.itemLevel = C_Item.GetDetailedItemLevelInfo(entry.itemLink)
       end
       linkInstantCache[suppliedItemLink] = entry
       callback()
@@ -224,8 +226,8 @@ function AuctionatorBagCacheMixin:DoBagRefresh()
         -- Load item data to determine whether it can be auctioned, its quality,
         -- item level, etc.
         if not Auctionator.Groups.Constants.IsRetail then
-          local classID = select(6, GetItemInfoInstant(slotInfo.itemID))
-          local _, spellID = GetItemSpell(slotInfo.itemID)
+          local classID = select(6, C_Item.GetItemInfoInstant(slotInfo.itemID))
+          local _, spellID = C_Item.GetItemSpell(slotInfo.itemID)
           -- Classic: Special case to load spell data for item charge info for
           -- auctionable check
           if classID == Enum.ItemClass.Consumable and spellID then
@@ -287,7 +289,7 @@ function AuctionatorBagCacheMixin:AddToCache(location, slotInfo)
       entry.itemName = C_PetJournal.GetPetInfoBySpeciesID(tonumber(entry.itemLink:match("battlepet:(%d+)")))
       entry.stackCount = 1
     else
-      local itemName, itemLink, quality, _, _, _, _, stackCount, _, _, _, classID, _ = GetItemInfo(entry.itemLink)
+      local itemName, itemLink, quality, _, _, _, _, stackCount, _, _, _, classID, _ = C_Item.GetItemInfo(entry.itemLink)
       if itemName == nil then --mythic keystones don't have a normal item link
         return nil
       end
@@ -298,7 +300,7 @@ function AuctionatorBagCacheMixin:AddToCache(location, slotInfo)
       entry.quality = quality
     end
     if Auctionator.Utilities.IsEquipment(entry.classID) then
-      entry.itemLevel = GetDetailedItemLevelInfo(entry.itemLink)
+      entry.itemLevel = C_Item.GetDetailedItemLevelInfo(entry.itemLink)
     end
     detailsCache[entry.itemLink] = entry
   end

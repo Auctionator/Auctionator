@@ -25,7 +25,7 @@ local function GetOutputName(callback)
   local itemID
 
   if outputLink then
-    itemID = GetItemInfoInstant(outputLink)
+    itemID = C_Item.GetItemInfoInstant(outputLink)
   else -- Probably an enchant
     local data = EnchantLinkToData(GetTradeSkillRecipeLink(recipeIndex))
     if data == nil then

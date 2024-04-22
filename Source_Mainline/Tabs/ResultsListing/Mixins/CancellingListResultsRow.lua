@@ -18,7 +18,7 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(button, ...)
       :Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.rowData.id)
       :UnregisterSource(self)
   elseif button == "RightButton" then
-    if Auctionator.Utilities.IsEquipment(select(6, GetItemInfoInstant(self.rowData.itemKey.itemID))) and
+    if Auctionator.Utilities.IsEquipment(select(6, C_Item.GetItemInfoInstant(self.rowData.itemKey.itemID))) and
        self.rowData.itemKey.itemLevel < Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
       local item = Item:CreateFromItemID(self.rowData.itemKey.itemID)
       item:ContinueOnItemLoad(function()

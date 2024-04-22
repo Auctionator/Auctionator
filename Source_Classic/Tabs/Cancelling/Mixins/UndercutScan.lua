@@ -145,7 +145,7 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
 
   elseif eventName == Auctionator.AH.Events.ScanResultsUpdate then
     local results, gotAllResults = ...
-    local itemID = GetItemInfoInstant(self.currentAuction.itemLink)
+    local itemID = C_Item.GetItemInfoInstant(self.currentAuction.itemLink)
     local item = Item:CreateFromItemID(itemID)
     item:ContinueOnItemLoad(function()
       self:ProcessScanResult(results, gotAllResults)
@@ -173,7 +173,7 @@ end
 function AuctionatorUndercutScanMixin:ProcessScanResult(results, gotAllResults)
   local cleanLink = Auctionator.Search.GetCleanItemLink(self.currentAuction.itemLink)
 
-  local itemIDWanted = GetItemInfoInstant(self.currentAuction.itemLink)
+  local itemIDWanted = C_Item.GetItemInfoInstant(self.currentAuction.itemLink)
   local itemLevelWanted = GetDetailedItemLevelInfo(self.currentAuction.itemLink)
 
   local ignoreItemLevel = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_LEVEL)
@@ -187,7 +187,7 @@ function AuctionatorUndercutScanMixin:ProcessScanResult(results, gotAllResults)
   for _, r in ipairs(results) do
     local resultCleanLink = Auctionator.Search.GetCleanItemLink(r.itemLink)
     local unitPrice = Auctionator.Utilities.ToUnitPrice(r)
-    local itemID = GetItemInfoInstant(resultCleanLink)
+    local itemID = C_Item.GetItemInfoInstant(resultCleanLink)
     -- Assumes that scan results are sorted by Blizzard column unitprice
     if unitPrice ~= 0 and (
         cleanLink == resultCleanLink or

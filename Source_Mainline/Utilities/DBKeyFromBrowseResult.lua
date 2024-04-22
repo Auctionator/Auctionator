@@ -1,5 +1,5 @@
 local function IsGear(itemID)
-  local classType = select(6, GetItemInfoInstant(itemID))
+  local classType = select(6, C_Item.GetItemInfoInstant(itemID))
   return Auctionator.Utilities.IsEquipment(classType)
 end
 
