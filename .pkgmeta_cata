@@ -7,7 +7,6 @@ ignore:
   - *Mainline*
   - *Vanilla*
   - *TBC*
-  - *Wrath*
 plain-copy:
   - Imports_Classic
   - Source
