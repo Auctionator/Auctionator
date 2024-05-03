@@ -116,8 +116,6 @@ function AuctionatorBagCacheMixin:GetByKey(key)
   end
 end
 
-local GetItemStats = C_Item and C_Item.GetItemStats or GetItemStats
-
 function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
   local existingEntry = linkInstantCache[suppliedItemLink]
   if existingEntry then
@@ -167,7 +165,6 @@ function AuctionatorBagCacheMixin:CacheLinkInfo(suppliedItemLink, callback)
         quality = item:GetItemQuality(),
       }
       if Auctionator.Utilities.IsEquipment(entry.classID) then
-        entry.itemStats = GetItemStats(entry.itemLink)
         entry.itemLevel = C_Item.GetDetailedItemLevelInfo(entry.itemLink)
       end
       linkInstantCache[suppliedItemLink] = entry
