@@ -56,11 +56,20 @@ end
 function AuctionatorFullScanFrameMixin:RegisterForEvents()
   Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:RegisterForEvents()")
 
+  self.otherFramesForEvent = { GetFramesRegisteredForEvent("AUCTION_ITEM_LIST_UPDATE") }
+  for _, f in ipairs(self.otherFramesForEvent) do
+    f:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE")
+  end
+
   FrameUtil.RegisterFrameForEvents(self, FULL_SCAN_EVENTS)
 end
 
 function AuctionatorFullScanFrameMixin:UnregisterForEvents()
   Auctionator.Debug.Message("AuctionatorFullScanFrameMixin:UnregisterForEvents()")
+
+  for _, f in ipairs(self.otherFramesForEvent) do
+    f:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
+  end
 
   FrameUtil.UnregisterFrameForEvents(self, FULL_SCAN_EVENTS)
 end
