@@ -83,7 +83,7 @@ function AuctionatorBuyCurrentPricesFrameMixin:UpdateButtons()
   self.BuyButton:SetEnabled(self.selectedAuctionData ~= nil and not self.selectedAuctionData.isOwned and self.selectedAuctionData.stackPrice ~= nil and GetMoney() >= self.selectedAuctionData.stackPrice)
 
   self.LoadAllPagesButton:SetShown(not self.SearchDataProvider:GetRequestAllResults() and not self.gotCompleteResults and self.SearchResultsListing:IsShown())
-  self.StopLoadingNowButton:SetShown(self.loadAllPagesPending and not self.SearchDataProvider:HasAllQueriedResults() and self.SearchResultsListing:IsShown())
+  self.StopLoadingNowButton:SetShown(not self.LoadAllPagesButton:IsShown() and not self.SearchDataProvider:HasAllQueriedResults() and self.SearchResultsListing:IsShown())
 end
 
 function AuctionatorBuyCurrentPricesFrameMixin:ReceiveEvent(eventName, eventData, ...)
