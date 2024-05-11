@@ -1,8 +1,14 @@
 function Auctionator.CraftingInfo.InitializeObjectiveTrackerFrame()
+  local header
+  if ObjectiveTrackerBlocksFrame then -- Dragonflight (10+)
+    header = ObjectiveTrackerBlocksFrame.ProfessionHeader
+  else -- The War Within (11.0)
+    header = ProfessionsRecipeTracker.Header
+  end
   local trackedRecipeSearchContainer = CreateFrame(
     "Frame",
     "AuctionatorCraftingInfoObjectiveTrackerFrame",
-    ObjectiveTrackerBlocksFrame.ProfessionHeader,
+    header,
     "AuctionatorCraftingInfoObjectiveTrackerFrameTemplate"
   )
 end
