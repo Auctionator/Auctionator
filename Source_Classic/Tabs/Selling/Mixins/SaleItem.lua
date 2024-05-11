@@ -609,7 +609,9 @@ function AuctionatorSaleItemMixin:GetStackableWarningThreshold()
 
   -- Identifies when an auction is skewing the current price down and is
   -- probably not meant to be so low.
-  local watchPoint = self:GetParent().BuyFrame.CurrentPrices.SearchDataProvider.allAuctions[5] or self:GetParent().BuyFrame.CurrentPrices.SearchDataProvider.allAuctions[1]
+  local allAuctions = self:GetParent().BuyFrame.CurrentPrices.SearchDataProvider.allAuctions
+  local midPoint = math.min(5, math.ceil(#allAuctions / 2))
+  local watchPoint = allAuctions[midPoint]
   if watchPoint ~= nil then
     local watchPointPrice = Auctionator.Utilities.ToUnitPrice(watchPoint) or 0
     return Auctionator.Utilities.PriceWarningThreshold(watchPointPrice)
