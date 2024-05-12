@@ -29,6 +29,9 @@ StaticPopupDialogs[ConfirmBidPricePopup] = {
   button2 = CANCEL,
   OnAccept = function(self)
     Auctionator.AH.CancelAuction(self.data)
+    Auctionator.EventBus:RegisterSource(self, "CancellingFramePopupDialog")
+      :Fire(self, Auctionator.Cancelling.Events.CancelConfirmed, self.data)
+      :UnregisterSource(self)
   end,
   hasMoneyFrame = 1,
   showAlert = 1,
@@ -67,6 +70,8 @@ function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, ...)
       end
     else
       Auctionator.AH.CancelAuction(auctionData)
+      Auctionator.EventBus:RegisterSource(self, "CancellingFrame")
+        :Fire(self, Auctionator.Cancelling.Events.CancelConfirmed, auctionData)
     end
 
     PlaySound(SOUNDKIT.IG_MAINMENU_OPEN)

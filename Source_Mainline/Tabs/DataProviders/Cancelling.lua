@@ -80,7 +80,7 @@ local DATA_EVENTS = {
 }
 
 local EVENT_BUS_EVENTS = {
-  Auctionator.Cancelling.Events.RequestCancel,
+  Auctionator.Cancelling.Events.CancelConfirmed,
   Auctionator.Cancelling.Events.UndercutStatus,
   Auctionator.Cancelling.Events.UndercutScanStart,
 }
@@ -192,7 +192,7 @@ function AuctionatorCancellingDataProviderMixin:OnEvent(eventName, auctionID, ..
 end
 
 function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
-  if eventName == Auctionator.Cancelling.Events.RequestCancel then
+  if eventName == Auctionator.Cancelling.Events.CancelConfirmed then
     table.insert(self.waitingforCancellation, eventData)
 
   elseif eventName == Auctionator.Cancelling.Events.UndercutScanStart then
