@@ -10,9 +10,6 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(button, ...)
     ChatEdit_InsertLink(self.rowData.itemLink)
 
   elseif button == "LeftButton" then
-    self.rowData.cancelled = true
-    self:ApplyFade()
-
     Auctionator.EventBus
       :RegisterSource(self, "CancellingListResultRow")
       :Fire(self, Auctionator.Cancelling.Events.RequestCancel, self.rowData.id)

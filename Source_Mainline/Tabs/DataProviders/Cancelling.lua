@@ -194,6 +194,7 @@ end
 function AuctionatorCancellingDataProviderMixin:ReceiveEvent(eventName, eventData, ...)
   if eventName == Auctionator.Cancelling.Events.CancelConfirmed then
     table.insert(self.waitingforCancellation, eventData)
+    self:NoQueryRefresh()
 
   elseif eventName == Auctionator.Cancelling.Events.UndercutScanStart then
     self.undercutInfo = {}
