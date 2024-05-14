@@ -51,7 +51,6 @@ function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
         if itemLevel >= Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
           callback({"g:" .. basicKey .. ":" .. itemLevel, basicKey})
         else
-          print("basic")
           callback({basicKey})
         end
       end)
