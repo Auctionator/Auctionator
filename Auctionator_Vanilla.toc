@@ -24,3 +24,4 @@ Locales\Manifest.xml
 Source\Manifest.xml
 Source_Classic\Manifest.xml
 Source_Vanilla\Manifest.xml
+Data_Vanilla\Suffixes.lua

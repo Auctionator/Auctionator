@@ -30,24 +30,31 @@ function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
   end
 
   if IsGear(itemLink) then
-    local item = Item:CreateFromItemLink(itemLink)
-    if item:IsItemEmpty() then
-      callback({})
-      return
-    end
-
-    item:ContinueOnItemLoad(function()
-      local itemLevel = C_Item.GetDetailedItemLevelInfo(itemLink) or 0
-      local name = item:GetItemName()
-
-      if Auctionator.Constants.IsClassic and itemLevel >= Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
-        callback({"gn:" .. basicKey .. ":" .. name .. ":" .. itemLevel, "g:" .. basicKey .. ":" .. itemLevel, basicKey})
-      elseif not Auctionator.Constants.IsClassic and itemLevel >= Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
-        callback({"g:" .. basicKey .. ":" .. itemLevel, basicKey})
+    if Auctionator.Constants.IsClassic then
+      local suffix = tonumber((itemLink:match("item:.-:.-:.-:.-:.-:.-:(.-):")))
+      local suffixStringID = Auctionator.Utilities.SuffixIDToSuffixStringID[suffix]
+      local suffixString = Auctionator.Utilities.SuffixStringIDTOSuffixString[suffixStringID]
+      if suffixString then
+        callback({"gr:" .. basicKey .. ":" .. suffixString, basicKey})
       else
         callback({basicKey})
       end
-    end)
+    else
+      local item = Item:CreateFromItemLink(itemLink)
+      if item:IsItemEmpty() then
+        callback({})
+        return
+      end
+
+      item:ContinueOnItemLoad(function()
+        if itemLevel >= Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
+          local itemLevel = C_Item.GetDetailedItemLevelInfo(itemLink) or 0
+          callback({"g:" .. basicKey .. ":" .. itemLevel, basicKey})
+        else
+          callback({basicKey})
+        end
+      end)
+    end
   else
     callback({basicKey})
   end
