@@ -163,7 +163,7 @@ function AuctionatorSaleItemMixin:OnUpdate()
     return
 
   elseif self.itemInfo.location ~= nil and not C_Item.DoesItemExist(self.itemInfo.location) then
-    local itemInfo = Auctionator.Groups.Utilities.QueryItem(self.itemInfo.key.sortKey)
+    local itemInfo = Auctionator.Groups.Utilities.QueryItem(self.itemInfo.sortKey)
     self.itemInfo.location = itemInfo and itemInfo.locations[1]
     -- Bag position changes (race condition or posting reattempt)
     if not self.itemInfo.location then
@@ -774,7 +774,7 @@ function AuctionatorSaleItemMixin:ReselectItem(details)
   -- yet
   local count = details.itemInfo.count - details.stackSize * details.numStacksReached
   if count > 0 then
-    local itemInfo = Auctionator.Groups.Utilities.QueryItem(details.itemInfo.key.sortKey)
+    local itemInfo = Auctionator.Groups.Utilities.QueryItem(details.itemInfo.sortKey)
     if itemInfo then
       Auctionator.Debug.Message("found again, trying")
       self:UnlockItem()
