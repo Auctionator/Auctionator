@@ -52,6 +52,7 @@ elseif Auctionator.Groups.Constants.IsCata then
     Enum.ItemClass.Glyph,
     Enum.ItemClass.Tradegoods,
     Enum.ItemClass.Projectile,
+    Enum.ItemClass.Reagent,
     Enum.ItemClass.Quiver,
     Enum.ItemClass.Recipe,
     Enum.ItemClass.Gem,
