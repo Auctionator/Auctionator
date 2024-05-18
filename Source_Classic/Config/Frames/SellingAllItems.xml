@@ -180,9 +180,9 @@
         </Anchors>
       </Frame>
 
-      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IgnoreItemLevel">
+      <Frame inherits="AuctionatorConfigurationCheckbox" parentKey="IgnoreItemSuffix">
         <KeyValues>
-          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_IGNORE_ITEM_LEVEL" type="global" />
+          <KeyValue key="labelText" value="AUCTIONATOR_L_CONFIG_SELLING_IGNORE_ITEM_SUFFIX" type="global" />
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.StartingPricePercentage" relativePoint="BOTTOMLEFT" />

@@ -60,11 +60,12 @@ function AuctionatorBuyFrameMixinForShopping:ReceiveEvent(eventName, eventData, 
     self:Reset()
 
     if #eventData.entries > 0 then
-      self.CurrentPrices.SearchDataProvider:SetQuery(eventData.entries[1].itemLink)
-      self.HistoryPrices.RealmHistoryDataProvider:SetItemLink(eventData.entries[1].itemLink)
-      self.HistoryPrices.PostingHistoryDataProvider:SetItemLink(eventData.entries[1].itemLink)
+      self.CurrentPrices.SearchDataProvider:SetQuery(eventData.entries[1].itemLink, function() 
+        self.HistoryPrices.RealmHistoryDataProvider:SetItemLink(eventData.entries[1].itemLink)
+        self.HistoryPrices.PostingHistoryDataProvider:SetItemLink(eventData.entries[1].itemLink)
+      end)
     else
-      self.CurrentPrices.SearchDataProvider:SetQuery(nil)
+      self.CurrentPrices.SearchDataProvider:SetQuery(nil, function() end)
       self.HistoryPrices.RealmHistoryDataProvider:SetItemLink(nil)
       self.HistoryPrices.PostingHistoryDataProvider:SetItemLink(nil)
     end
@@ -101,8 +102,7 @@ end
 function AuctionatorBuyFrameMixinForSelling:Reset()
   AuctionatorBuyFrameMixin.Reset(self)
 
-  self.CurrentPrices.SearchDataProvider:SetIgnoreItemLevel(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_LEVEL))
-  self.CurrentPrices.SearchDataProvider:SetItemLevelMatchOnly(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ITEM_LEVEL_MATCH_ONLY))
+  self.CurrentPrices.SearchDataProvider:SetIgnoreItemSuffix(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_SUFFIX))
   self.waitingOnNewAuction = false
 end
 
@@ -121,9 +121,10 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
 
     self.HistoryPrices.RealmHistoryDataProvider:SetItemLink(eventData.itemLink)
     self.HistoryPrices.PostingHistoryDataProvider:SetItemLink(eventData.itemLink)
-    self.CurrentPrices.SearchDataProvider:SetQuery(eventData.itemLink)
-    self.CurrentPrices.SearchDataProvider:SetRequestAllResults(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_LOAD_MORE))
-    self.CurrentPrices.SearchDataProvider:RefreshQuery()
+    self.CurrentPrices.SearchDataProvider:SetQuery(eventData.itemLink, function()
+      self.CurrentPrices.SearchDataProvider:SetRequestAllResults(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ALWAYS_LOAD_MORE))
+      self.CurrentPrices.SearchDataProvider:RefreshQuery()
+    end)
 
     self.CurrentPrices.RefreshButton:Enable()
     self.HistoryButton:Enable()
@@ -135,7 +136,7 @@ function AuctionatorBuyFrameMixinForSelling:ReceiveEvent(eventName, eventData, .
     -- be sent yet.
     self.HistoryPrices.RealmHistoryDataProvider:SetItemLink(eventData.itemLink)
     self.HistoryPrices.PostingHistoryDataProvider:SetItemLink(eventData.itemLink)
-    self.CurrentPrices.SearchDataProvider:SetQuery(eventData.itemLink)
+    self.CurrentPrices.SearchDataProvider:SetQuery(eventData.itemLink, function() end)
     self.CurrentPrices.SearchDataProvider.onSearchStarted()
   elseif eventName == Auctionator.Selling.Events.StopFakeBuyLoading then
     self.CurrentPrices.SearchDataProvider.onSearchEnded()

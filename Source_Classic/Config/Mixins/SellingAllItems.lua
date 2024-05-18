@@ -41,7 +41,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:ShowSettings()
 
   self.ResetStackSizeMemory:SetEnabled(next(Auctionator.Config.Get(Auctionator.Config.Options.STACK_SIZE_MEMORY)) ~= nil)
 
-  self.IgnoreItemLevel:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_LEVEL))
+  self.IgnoreItemSuffix:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_SUFFIX))
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:OnSalesPreferenceChange(selectedValue)
@@ -88,7 +88,7 @@ function AuctionatorConfigSellingAllItemsFrameMixin:Save()
     numStacks = self.DefaultStacks.NumStacks:GetNumber()
   }
   Auctionator.Config.Set(Auctionator.Config.Options.DEFAULT_SELLING_STACKS, defaultStacks)
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORE_ITEM_LEVEL, self.IgnoreItemLevel:GetChecked())
+  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORE_ITEM_SUFFIX, self.IgnoreItemSuffix:GetChecked())
 end
 
 function AuctionatorConfigSellingAllItemsFrameMixin:ResetStackSizeMemoryClicked()

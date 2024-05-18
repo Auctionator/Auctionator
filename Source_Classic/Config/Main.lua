@@ -17,8 +17,7 @@ Auctionator.Config.Options.SEARCH_NO_FILTERS_MATCHED_ENTRY = "search_no_filters_
 Auctionator.Config.Options.SELLING_ALWAYS_LOAD_MORE = "selling_always_load_more"
 Auctionator.Config.Options.SELLING_GREY_POST_BUTTON = "selling_grey_post_button"
 Auctionator.Config.Options.SELLING_POST_STACK_REMAINDER = "selling_post_stack_remainder"
-Auctionator.Config.Options.SELLING_IGNORE_ITEM_LEVEL = "selling_ignore_item_level"
-Auctionator.Config.Options.SELLING_ITEM_LEVEL_MATCH_ONLY = "selling_item_level_match_only"
+Auctionator.Config.Options.SELLING_IGNORE_ITEM_SUFFIX = "selling_ignore_item_suffix"
 
 Auctionator.Config.Defaults[Auctionator.Config.Options.PROSPECT_TOOLTIPS] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.MILL_TOOLTIPS] = false
@@ -41,5 +40,4 @@ Auctionator.Config.Defaults[Auctionator.Config.Options.SEARCH_NO_FILTERS_MATCHED
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ALWAYS_LOAD_MORE] = false
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_GREY_POST_BUTTON] = true
 Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_POST_STACK_REMAINDER] = false
-Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_IGNORE_ITEM_LEVEL] = false
-Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ITEM_LEVEL_MATCH_ONLY] = true
+Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_IGNORE_ITEM_SUFFIX] = false
