@@ -120,7 +120,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="ptBR">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\ptBR"/>
-          <KeyValue key="translators" type="string" value="Magnuss_lm, Dagnet"/>
+          <KeyValue key="translators" type="string" value="maylisdalan, Magnuss_lm"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_BRAZIL_PORTUGUEUSE" type="global"/>
         </KeyValues>
 			  <Anchors>
@@ -153,7 +153,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="esES">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\esES"/>
-          <KeyValue key="translators" type="string" value="sugymaylis, Franxavis"/>
+          <KeyValue key="translators" type="string" value="sugymaylis, NuluT, Franxavis"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_SPANISH" type="global"/>
         </KeyValues>
 			  <Anchors>
@@ -164,7 +164,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="esMX">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\esMX"/>
-          <KeyValue key="translators" type="string" value="sugymaylis, ftg3"/>
+          <KeyValue key="translators" type="string" value="sugymaylis, NuluT, ftg3"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_LATIN_SPANISH" type="global"/>
         </KeyValues>
 			  <Anchors>
@@ -175,7 +175,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="frFR">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\frFR"/>
-          <KeyValue key="translators" type="string" value="Prissti, Krazertoc"/>
+          <KeyValue key="translators" type="string" value="Prissti, Tulsow, Korthen"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_FRENCH" type="global"/>
         </KeyValues>
 			  <Anchors>
@@ -197,7 +197,7 @@
       <Frame inherits="AuctionatorTranslatorTemplate" parentKey="koKR">
         <KeyValues>
           <KeyValue key="textureLocation" type="string" value="Interface\AddOns\Auctionator\Images\koKR"/>
-          <KeyValue key="translators" type="string" value="Vee"/>
+          <KeyValue key="translators" type="string" value="Vee, netaras"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_TRANSLATORS_KOREAN" type="global"/>
         </KeyValues>
 			  <Anchors>
