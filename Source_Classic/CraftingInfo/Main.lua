@@ -99,32 +99,8 @@ local function GetEnchantProfit()
     return nil
   end
 
-  -- Determine which vellum for the item class of the enchanted item
-  local vellumForClass = Auctionator.CraftingInfo.EnchantVellums[data.itemClass]
-  if vellumForClass == nil then
-    return nil
-  end
-
   -- Find the cheapest vellum that will work
-  local vellumCost
-  local anyMatch = false
-  for vellumItemID, vellumLevel in pairs(vellumForClass) do
-    if data.level <= vellumLevel then
-      anyMatch = true
-      local optionOnAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, vellumItemID)
-      if vellumCost == nil or (optionOnAH ~= nil and optionOnAH <= vellumCost) then
-        Auctionator.Debug.Message("CraftingInfo: Selecting vellum for enchant", vellumItemID)
-        vellumCost = optionOnAH
-      end
-    end
-  end
-
-  -- Couldn't find a vellum for the level (so presumably not in the enchant data)
-  if not anyMatch then
-    return nil
-  end
-
-  vellumCost = vellumCost or 0
+  local vellumCost = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, Auctionator.Constants.EnchantingVellumID) or 0
 
   local currentAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, data.itemID)
   if currentAH == nil then

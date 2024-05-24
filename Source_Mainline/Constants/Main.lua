@@ -30,4 +30,3 @@ Auctionator.Constants.QualityIDs = {
   Enum.ItemQuality.Artifact,
 }
 Auctionator.Constants.SummaryBatchSize = 500
-Auctionator.Constants.EnchantingVellumID = 38682
