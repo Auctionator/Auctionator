@@ -38,11 +38,12 @@ data_format = """\
 
 print("Auctionator.CraftingInfo.EnchantSpellsToItemData = {")
 for item_id in enchants_only:
-    spell_id = item_to_spell[item_id]
-    spell_level = 0
-    if spell_id in spell_to_level:
-        spell_level = spell_to_level[spell_id]
-    if spell_id in spell_to_item_class:
-        spell_class = spell_to_item_class[spell_id]
-        print(data_format.format(spell_id, item_id, spell_level, spell_class))
+    if item_id in item_to_spell:
+        spell_id = item_to_spell[item_id]
+        spell_level = 0
+        if spell_id in spell_to_level:
+            spell_level = spell_to_level[spell_id]
+        if spell_id in spell_to_item_class:
+            spell_class = spell_to_item_class[spell_id]
+            print(data_format.format(spell_id, item_id, spell_level, spell_class))
 print("}")
