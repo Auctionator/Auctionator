@@ -19,7 +19,7 @@ Auctionator.Groups.Constants.Events = {
   "Customise.EditMade",
 }
 
-if Auctionator.Groups.Constants.IsEra then
+if Auctionator.Groups.Constants.IsVanilla then
   -- Note that -2 is the keyring bag, which only exists in classic era
 elseif not Auctionator.Groups.Constants.IsRetail then
   Auctionator.Groups.Constants.BagIDs = {0, 1, 2, 3, 4}
