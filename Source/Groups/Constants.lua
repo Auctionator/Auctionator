@@ -21,6 +21,7 @@ Auctionator.Groups.Constants.Events = {
 
 if Auctionator.Groups.Constants.IsVanilla then
   -- Note that -2 is the keyring bag, which only exists in classic era
+  Auctionator.Groups.Constants.BagIDs = {-2, 0, 1, 2, 3, 4}
 elseif not Auctionator.Groups.Constants.IsRetail then
   Auctionator.Groups.Constants.BagIDs = {0, 1, 2, 3, 4}
 elseif Auctionator.Groups.Constants.IsRetail then
