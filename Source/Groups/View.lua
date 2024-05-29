@@ -8,7 +8,7 @@ function AuctionatorGroupsViewMixin:OnLoad()
 
   self.buttonPool = CreateFramePool("Button", self.ScrollBox.ItemListingFrame, self.itemTemplate)
   self.groupPool = CreateFramePool("Frame", self.ScrollBox.ItemListingFrame, self.groupTemplate, function(pool, obj)
-    FramePool_HideAndClearAnchors(pool, obj)
+    (FramePool_HideAndClearAnchors or Pool_HideAndClearAnchors)(pool, obj)
     obj.buttons = {}
   end)
   self.groups = {}
