@@ -160,6 +160,7 @@ function AuctionatorUndercutScanMixin:ReceiveEvent(eventName, ...)
         break
       end
     end
+    self:SetCancel()
   elseif eventName == Auctionator.Cancelling.Events.RequestCancelUndercut then
     if self.CancelNextButton:IsEnabled() then
       self:CancelNextAuction()
