@@ -17,7 +17,7 @@ function AuctionatorShoppingResultsRowMixin:OnClick(button, ...)
   elseif IsShiftKeyDown() then
     Auctionator.EventBus
       :RegisterSource(self, "ShoppingResultsRowMixin")
-      :Fire(self, Auctionator.Shopping.Tab.Events.UpdateSearchTerm, self.rowData.name)
+      :Fire(self, Auctionator.Shopping.Tab.Events.UpdateSearchTerm, Auctionator.Utilities.GetNameFromLink(self.rowData.itemLink))
       :UnregisterSource(self)
   else
 
