@@ -1,5 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="LibStub\LibStub.lua" />
   <Include file="LibUIDropDownMenu\LibUIDropDownMenu.xml"/>
-  <Include file="LibSerialize\lib.xml"/>
+  <Include file="LibCBOR\LibCBOR.lua"/>
 </Ui>

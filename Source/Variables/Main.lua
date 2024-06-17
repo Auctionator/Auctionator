@@ -87,7 +87,7 @@ function Auctionator.Variables.InitializeDatabase()
     }
   end
 
-  local LibSerialize = LibStub("LibSerialize")
+  local LibCBOR = LibStub("LibCBOR-1.0")
 
   if AUCTIONATOR_PRICE_DATABASE["__dbversion"] == VERSION_8_3 then
     AUCTIONATOR_PRICE_DATABASE["__dbversion"] = VERSION_SERIALIZED
@@ -110,16 +110,17 @@ function Auctionator.Variables.InitializeDatabase()
     end
   end
 
-  --[[
-  -- Serialize and other unserialized realms so their data doesn't contribute to
-  -- a constant overflow when the client parses the saved variables.
-  for key, data in pairs(AUCTIONATOR_PRICE_DATABASE) do
-    -- Convert one realm at a time, no need to hold up a login indefinitely
-    if key ~= "__dbversion" and key ~= realm and type(data) == "table" then
-      AUCTIONATOR_PRICE_DATABASE[key] = LibSerialize:Serialize(data)
-      break
+  C_Timer.After(0, function()
+    -- Serialize and other unserialized realms so their data doesn't contribute to
+    -- a constant overflow when the client parses the saved variables.
+    for key, data in pairs(AUCTIONATOR_PRICE_DATABASE) do
+      -- Convert one realm at a time, no need to hold up a login indefinitely
+      if key ~= "__dbversion" and key ~= realm and type(data) == "table" then
+        AUCTIONATOR_PRICE_DATABASE[key] = LibCBOR:Serialize(data)
+        break
+      end
     end
-  end
+  end)
 
   -- Only deserialize the current realm and save the deserialization in the
   -- saved variables to speed up reloads or changing character on the same
@@ -129,7 +130,10 @@ function Auctionator.Variables.InitializeDatabase()
   -- version of Auctionator
   local raw = AUCTIONATOR_PRICE_DATABASE[realm]
   if type(raw) == "string" then
-    local success, data = LibSerialize:Deserialize(raw)
+    local data = LibCBOR:Deserialize(raw)
+    if not success then
+      AUCTIONATOR_PRICE_DATABASE[realm] = {}
+    end
     AUCTIONATOR_PRICE_DATABASE[realm] = data
   end
 
