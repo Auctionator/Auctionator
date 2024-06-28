@@ -130,11 +130,12 @@ function Auctionator.Variables.InitializeDatabase()
   -- version of Auctionator
   local raw = AUCTIONATOR_PRICE_DATABASE[realm]
   if type(raw) == "string" then
-    local data = LibCBOR:Deserialize(raw)
+    local success, data = pcall(LibCBOR.Deserialize, LibCBOR, raw)
     if not success then
       AUCTIONATOR_PRICE_DATABASE[realm] = {}
+    else
+      AUCTIONATOR_PRICE_DATABASE[realm] = data
     end
-    AUCTIONATOR_PRICE_DATABASE[realm] = data
   end
 
   Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
