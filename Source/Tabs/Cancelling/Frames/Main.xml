@@ -48,7 +48,7 @@
         </Anchors>
       </Frame>
 
-      <Frame mixin="AuctionatorUndercutScanMixin">
+      <Frame mixin="AuctionatorUndercutScanMixin" parentKey="UndercutScanContainer">
         <Scripts>
           <OnLoad method="OnLoad"/>
           <OnShow method="OnShow" />
