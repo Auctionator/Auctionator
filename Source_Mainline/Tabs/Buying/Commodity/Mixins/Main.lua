@@ -139,6 +139,9 @@ function AuctionatorBuyCommodityFrameTemplateMixin:ProcessCommodityResults(itemI
 
   for index = 1, C_AuctionHouse.GetNumCommoditySearchResults(itemID) do
     local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
+    if resultInfo.owners[1] == "player" then
+      resultInfo.owners[1] = GREEN_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_SELLER_YOU)
+    end
     local entry = {
       price = resultInfo.unitPrice,
       owners = resultInfo.owners,

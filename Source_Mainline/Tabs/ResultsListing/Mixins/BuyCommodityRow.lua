@@ -9,7 +9,7 @@ function AuctionatorBuyCommodityRowMixin:OnEnter()
   AuctionatorResultsRowTemplateMixin.OnEnter(self)
   GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
   if self.rowData.otherSellers ~= "" then
-    GameTooltip:SetText(self.rowData.otherSellers, 1, 1, 1)
+    GameTooltip:SetText(NORMAL_FONT_COLOR:WrapTextInColorCode(AUCTION_HOUSE_TOOLTIP_MULTIPLE_SELLERS_FORMAT:format(self.rowData.otherSellers)))
     GameTooltip:Show()
   end
 end
