@@ -164,9 +164,9 @@ function AuctionatorUndercutScanMixin:SearchForUndercuts(auction)
 
   Auctionator.EventBus:Register(self, QUERY_EVENTS)
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_SUFFIX) and Auctionator.Utilities.IsEquipment(select(6, GetItemInfoInstant(self.currentAuction.itemLink))) then
+  if Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORE_ITEM_SUFFIX) and Auctionator.Utilities.IsEquipment(select(6, C_Item.GetItemInfoInstant(self.currentAuction.itemLink))) then
     Auctionator.AH.QueryAuctionItems({
-      searchString = C_Item.GetItemNameByID((GetItemInfoInstant(self.currentAuction.itemLink))),
+      searchString = C_Item.GetItemNameByID((C_Item.GetItemInfoInstant(self.currentAuction.itemLink))),
       isExact = false,
     })
   else

@@ -29,7 +29,7 @@ function ALL_FILTERS.price(resultWithKey, limits)
 end
 
 function ALL_FILTERS.quality(resultWithKey, quality)
-  return (select(Auctionator.Constants.ITEM_INFO.RARITY, GetItemInfo(resultWithKey.entries[1].itemLink))) == quality
+  return (select(Auctionator.Constants.ITEM_INFO.RARITY, C_Item.GetItemInfo(resultWithKey.entries[1].itemLink))) == quality
 end
 
 function Auctionator.Search.CheckFilters(resultWithKey, filters)

@@ -145,7 +145,7 @@ function AuctionatorDirectSearchProviderMixin:AddFinalResults()
       complete = not self.aborted,
       purchaseQuantity = self.resultMetadata.quantity,
     }
-    local item = Item:CreateFromItemID(GetItemInfoInstant(key))
+    local item = Item:CreateFromItemID(C_Item.GetItemInfoInstant(key))
     item:ContinueOnItemLoad(function()
       waiting = waiting - 1
       if Auctionator.Search.CheckFilters(possibleResult, self.currentFilter) then

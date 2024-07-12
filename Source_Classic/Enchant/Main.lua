@@ -103,7 +103,7 @@ function Auctionator.Enchant.GetDisenchantBreakdown(itemLink, itemInfo)
 end
 
 function Auctionator.Enchant.GetDisenchantAuctionPrice(itemLink, itemInfo)
-  local itemID = GetItemInfoInstant(itemLink)
+  local itemID = C_Item.GetItemInfoInstant(itemLink)
   local itemLevel = GetDetailedItemLevelInfo(itemLink)
   return Atr_CalcDisenchantPrice(itemInfo[12], itemInfo[3], itemLevel)
 end

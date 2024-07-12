@@ -19,5 +19,5 @@ function Auctionator.Search.Filters.ExpansionMixin:FilterCheck(itemKey)
 end
 
 function Auctionator.Search.Filters.ExpansionMixin:ExpansionCheck(itemKey)
-  return (select(Auctionator.Constants.ITEM_INFO.XPAC, GetItemInfo(itemKey.itemID))) == self.expansion
+  return (select(Auctionator.Constants.ITEM_INFO.XPAC, C_Item.GetItemInfo(itemKey.itemID))) == self.expansion
 end
