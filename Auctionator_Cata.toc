@@ -12,7 +12,6 @@
 ## SavedVariablesPerCharacter: AUCTIONATOR_CHARACTER_CONFIG
 ## IconTexture: Interface\AddOns\Auctionator\Images\Logo
 
-
 Patches\TaintLess.xml
 Libs\Manifest.xml
 
