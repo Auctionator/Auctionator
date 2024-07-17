@@ -138,6 +138,13 @@ function Auctionator.Variables.InitializeDatabase()
     end
   end
 
+  -- Fix conversion error from old code
+  if type(AUCTIONATOR_PRICE_DATABASE[realm]) ~= "table" then
+    AUCTIONATOR_PRICE_DATABASE[realm] = {}
+  end
+
+  assert(AUCTIONATOR_PRICE_DATABASE[realm], "Realm data missing somehow")
+
   Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
   Auctionator.Database:Prune()
 end
