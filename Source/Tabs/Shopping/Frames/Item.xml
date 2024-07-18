@@ -263,7 +263,7 @@
       <Layer>
         <FontString text="" inherits="GameFontHighlight" parentKey="DialogTitle">
           <Anchors>
-            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
+            <Anchor point="TOP" relativePoint="TOP" y="-10"/>
           </Anchors>
         </FontString>
       </Layer>

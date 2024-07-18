@@ -121,7 +121,7 @@
       <Layer>
         <FontString text="AUCTIONATOR_L_LIST_EXPORT_HEADER" inherits="GameFontHighlight">
           <Anchors>
-            <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP" y="-10"/>
+            <Anchor point="TOP" relativePoint="TOP" y="-10"/>
           </Anchors>
         </FontString>
       </Layer>
