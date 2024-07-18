@@ -48,10 +48,7 @@
               <Anchors>
                 <Anchor point="CENTER" />
               </Anchors>
-              <Shadow>
-                <Offset>
-                  <AbsDimension x="1" y="-1"/>
-                </Offset>
+              <Shadow x="1" y="-1">
                 <Color r="0" g="0" b="0"/>
               </Shadow>
             </FontString>
@@ -61,10 +58,7 @@
                 <Anchor point="LEFT" x="45"/>
                 <Anchor point="RIGHT" x="-67"/>
               </Anchors>
-              <Shadow>
-                <Offset>
-                  <AbsDimension x="1" y="-1"/>
-                </Offset>
+              <Shadow x="1" y="-1">
                 <Color r="0" g="0" b="0"/>
               </Shadow>
             </FontString>
