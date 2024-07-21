@@ -91,6 +91,7 @@ elseif Auctionator.Groups.Constants.IsVanilla then
     Enum.ItemClass.Reagent,
     Enum.ItemClass.Miscellaneous,
     Enum.ItemClass.Questitem,
+    Enum.ItemClass.Key,
   }
 end
 
