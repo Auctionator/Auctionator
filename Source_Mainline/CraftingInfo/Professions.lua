@@ -118,7 +118,7 @@ local function GetEnchantProfit(schematicForm)
   local recipeID = schematicForm.recipeSchematic.recipeID
   local reagents = schematicForm:GetTransaction():CreateCraftingReagentInfoTbl()
   local allocationGUID = schematicForm:GetTransaction():GetAllocationItemGUID()
-
+  local applyConcentration = schematicForm:GetTransaction():IsApplyingConcentration()
 
   local recipeLevel = schematicForm:GetCurrentRecipeLevel()
   local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID, recipeLevel)
@@ -130,7 +130,7 @@ local function GetEnchantProfit(schematicForm)
   -- from the list of possible results.
   local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)
   if recipeSchematic ~= nil and recipeSchematic.hasCraftingOperationInfo then
-    local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID)
+    local operationInfo = C_TradeSkillUI.GetCraftingOperationInfo(recipeID, reagents, allocationGUID, applyConcentration)
     if operationInfo ~= nil then
       itemID = GetItemIDByReagentQuality(possibleOutputItemIDs, operationInfo.guaranteedCraftingQualityID)
     end
