@@ -1,5 +1,6 @@
 local VERSION_8_3 = 6
 local VERSION_SERIALIZED = 7
+local VERSION_KEY_SERIALIZED = 8
 local POSTING_HISTORY_DB_VERSION = 1
 local VENDOR_PRICE_CACHE_DB_VERSION = 1
 
@@ -92,11 +93,14 @@ function Auctionator.Variables.InitializeDatabase()
   if AUCTIONATOR_PRICE_DATABASE["__dbversion"] == VERSION_8_3 then
     AUCTIONATOR_PRICE_DATABASE["__dbversion"] = VERSION_SERIALIZED
   end
+  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] == VERSION_SERIALIZED then
+    AUCTIONATOR_PRICE_DATABASE["__dbversion"] = VERSION_KEY_SERIALIZED
+  end
 
   -- If we changed how we record item info we need to reset the DB
-  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] ~= VERSION_SERIALIZED then
+  if AUCTIONATOR_PRICE_DATABASE["__dbversion"] ~= VERSION_KEY_SERIALIZED then
     AUCTIONATOR_PRICE_DATABASE = {
-      ["__dbversion"] = VERSION_SERIALIZED
+      ["__dbversion"] = VERSION_KEY_SERIALIZED
     }
   end
 
@@ -145,8 +149,31 @@ function Auctionator.Variables.InitializeDatabase()
 
   assert(AUCTIONATOR_PRICE_DATABASE[realm], "Realm data missing somehow")
 
-  Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
-  Auctionator.Database:Prune()
+  -- Convert to CBOR per-item format
+  for realm, realmData in pairs(AUCTIONATOR_PRICE_DATABASE) do
+    if type(realmData) == "table" then
+      for key, itemData in pairs(realmData) do
+        if type(itemData) == "table" then
+          for _, field in ipairs({"a", "h", "l"}) do
+            local new = {}
+            for day, data in pairs(itemData[field] or {}) do
+              new[tostring(day)] = data
+            end
+            itemData[field] = new
+          end
+          realmData[key] = LibCBOR:Serialize(itemData)
+        else
+          break
+        end
+      end
+    end
+  end
+
+  if Auctionator.Config.Get(Auctionator.Config.Options.NO_PRICE_DATABASE) then
+    Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, {})
+  else
+    Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
+  end
 end
 
 function Auctionator.Variables.InitializePostingHistory()
