@@ -166,7 +166,7 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
 end
 
 function Auctionator.DatabaseMixin:GetPriceAge(dbKey)
-  local itemData = LibCBOR:Deserialize(self.db[dbKey])
+  local itemData = self.db[dbKey] and LibCBOR:Deserialize(self.db[dbKey])
 
   if itemData == nil then
     return
@@ -188,7 +188,7 @@ function Auctionator.DatabaseMixin:GetPriceAge(dbKey)
 end
 
 function Auctionator.DatabaseMixin:GetMeanPrice(dbKey, days)
-  local _, entry = LibCBOR:Deserialize(self.db[dbKey])
+  local entry = self.db[dbKey] and LibCBOR:Deserialize(self.db[dbKey])
 
   if entry == nil or days < 0 then
     return nil
