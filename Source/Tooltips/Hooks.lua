@@ -81,7 +81,8 @@ end
 
 if GameTooltip.SetRecipeResultItem then -- Dragonflight
   TooltipHandlers["SetRecipeResultItem"] = function(tip, recipeID, reagents, allocations, recipeLevel, qualityID)
-    local outputLink = Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reagents or {}, allocations)
+    local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations, qualityID)
+    local outputLink = outputInfo and outputInfo.hyperlink
 
     if outputLink then
       local recipeSchematic = C_TradeSkillUI.GetRecipeSchematic(recipeID, false, recipeLevel)

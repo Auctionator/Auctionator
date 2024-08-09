@@ -66,13 +66,3 @@ function Auctionator.CraftingInfo.CalculateCraftCost(recipeSchematic, transactio
 
   return total
 end
-
-function Auctionator.CraftingInfo.GetOutputItemLink(recipeID, recipeLevel, reagents, allocations)
-  local outputInfo = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, reagents, allocations)
-
-  if outputInfo == nil then
-    return nil
-  end
-
-  return outputInfo.hyperlink
-end

@@ -21,7 +21,8 @@ function Auctionator.CraftingInfo.DoTrackedRecipesSearch()
   local continuableContainer = ContinuableContainer:Create()
 
   local function ProcessRecipe(recipeID, isRecraft)
-    local outputLink = Auctionator.CraftingInfo.GetOutputItemLink(recipeID, nil, {})
+    local outputData = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, {})
+    local outputLink = outputData and outputData.hyperlink
     if outputLink then
       table.insert(possibleItems, outputLink)
       continuableContainer:AddContinuable(Item:CreateFromItemLink(outputLink))

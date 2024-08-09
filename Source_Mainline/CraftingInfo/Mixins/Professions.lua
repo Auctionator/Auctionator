@@ -22,6 +22,7 @@ function AuctionatorCraftingInfoProfessionsFrameMixin:OnLoad()
 
   self:GetParent():RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.AllocationsModified, Update)
   self:GetParent():RegisterCallback(ProfessionsRecipeSchematicFormMixin.Event.UseBestQualityModified, Update)
+  hooksecurefunc(self:GetParent(), "statsChangedHandler", Update)
 
   Auctionator.API.v1.RegisterForDBUpdate(AUCTIONATOR_L_REAGENT_SEARCH, function()
     if self:IsVisible() then
