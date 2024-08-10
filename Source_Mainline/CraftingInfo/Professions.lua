@@ -30,7 +30,7 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch(schematicForm, quan
 
   local continuableContainer = ContinuableContainer:Create()
 
-  local outputLink = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, transaction:CreateOptionalCraftingReagentInfoTbl(), transaction:GetAllocationItemGUID())
+  local outputLink = C_TradeSkillUI.GetRecipeOutputItemData(recipeID, transaction:CreateOptionalCraftingReagentInfoTbl(), transaction:GetAllocationItemGUID()).hyperlink
 
   table.insert(quantities, 0)
   if outputLink then
