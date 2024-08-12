@@ -1,13 +1,56 @@
+local LibCBOR = LibStub("LibCBOR-1.0")
+
+local function GetScanDay()
+  return (math.floor ((time() - Auctionator.Constants.SCAN_DAY_0) / (86400)));
+end
+
 Auctionator.DatabaseMixin = {}
 function Auctionator.DatabaseMixin:Init(db)
   self.db = db
+  self.cutoffDay = GetScanDay() - Auctionator.Config.Get(Auctionator.Config.Options.PRICE_HISTORY_DAYS)
+
+  self.processor = CreateFrame("Frame")
+  self.processor.queue = {}
+  self.processor.running = false
+  self.processor.index = 1
 end
 
-function Auctionator.DatabaseMixin:SetPrice(dbKey, newMinPrice, available)
-  if Auctionator.Config.Get(Auctionator.Config.Options.NO_PRICE_DATABASE) then
-    return
+function Auctionator.DatabaseMixin:_Queue(dbKey)
+  table.insert(self.processor.queue, dbKey)
+  if not self.processor.running then
+    self.processor.running = true
+    self.processor:SetScript("OnUpdate", function()
+      local count = 50
+      while count > 0 and self.processor.index <= #self.processor.queue do
+        count = count - 1
+        local dbKey = self.processor.queue[self.processor.index]
+        if type(self.db[dbKey]) ~= "string" then
+          self.db[dbKey] = LibCBOR:Serialize(self.db[dbKey])
+        end
+        self.processor.index = self.processor.index + 1
+      end
+      if self.processor.index > #self.processor.queue then
+        self.processor.index = 1
+        self.processor:SetScript("OnUpdate", nil)
+        self.processor.running = false
+        self.processor.queue = {}
+        return
+      end
+    end)
   end
+end
 
+local daysSinceZero = tostring(GetScanDay())
+
+local function get(data)
+  if type(data) == "string" then
+    return LibCBOR:Deserialize(data)
+  else
+    return data
+  end
+end
+
+function Auctionator.DatabaseMixin:SetPrice(dbKey, buyoutPrice, available)
   if not self.db[dbKey] then
     self.db[dbKey] = {
       l={}, -- Lowest low price on a given day
@@ -17,14 +60,69 @@ function Auctionator.DatabaseMixin:SetPrice(dbKey, newMinPrice, available)
     }
   end
 
-  self.db[dbKey].m = newMinPrice
+  local priceData = get(self.db[dbKey])
+  priceData.m = newMinPrice
 
-  self:InternalUpdateHistory(dbKey, newMinPrice, available)
+  -- Record price history
+  local lowestLow  = priceData.l[daysSinceZero]
+  local highestLow = priceData.h[daysSinceZero]
+
+  if highestLow == nil or buyoutPrice > highestLow then
+    priceData.h[daysSinceZero] = buyoutPrice
+    highestLow = buyoutPrice
+  end
+
+  -- save memory by only saving lowestLow when different from highestLow
+  if buyoutPrice < highestLow and (lowestLow == nil or buyoutPrice < lowestLow) then
+    priceData.l[daysSinceZero] = buyoutPrice
+  end
+
+  if available ~= nil then
+    -- Compatibility for databases without "Available" information in them, all
+    -- databases prior to December 2020 would not have the "a" field in them
+    if priceData.a == nil then
+      priceData.a = {}
+    end
+
+    local prevAvailable = priceData.a[daysSinceZero]
+    if prevAvailable ~= nil then
+      priceData.a[daysSinceZero] = math.max(prevAvailable, available)
+    else
+      priceData.a[daysSinceZero] = available
+    end
+  end
+
+  -- Prune old days
+  for day, _ in pairs(priceData.h) do
+    day = tonumber(day)
+    if day <= self.cutoffDay then
+      priceData.h[day] = nil
+    end
+  end
+
+  for day, _ in pairs(priceData.l) do
+    day = tonumber(day)
+    if day <= self.cutoffDay then
+      priceData.l[day] = nil
+    end
+  end
+
+  if priceData.a ~= nil then
+    for day, _ in pairs(priceData.a) do
+      day = tonumber(day)
+      if day <= self.cutoffDay then
+        priceData.a[day] = nil
+      end
+    end
+  end
+
+  self.db[dbKey] = priceData
+  self:_Queue(dbKey)
 end
 
 function Auctionator.DatabaseMixin:GetPrice(dbKey)
   if self.db[dbKey] ~= nil then
-    return self.db[dbKey].m
+    return get(self.db[dbKey]).m
   else
     return nil
   end
@@ -48,6 +146,7 @@ function Auctionator.DatabaseMixin:ProcessScan(itemIndexes)
 
   local count = 0
 
+  local summarised = {}
   for dbKey, info in pairs(itemIndexes) do
     count = count + 1
 
@@ -64,46 +163,8 @@ function Auctionator.DatabaseMixin:ProcessScan(itemIndexes)
     self:SetPrice(dbKey, minPrice, available)
   end
 
-  Auctionator.Debug.Message("Processing time: " .. tostring(debugprofilestop() - startTime))
+  Auctionator.Debug.Message("Auctionator.DatabaseMixin: Processing time: " .. tostring(debugprofilestop() - startTime))
   return count
-end
-
-local function GetScanDay()
-  return (math.floor ((time() - Auctionator.Constants.SCAN_DAY_0) / (86400)));
-end
-
-function Auctionator.DatabaseMixin:InternalUpdateHistory(dbKey, buyoutPrice, available)
-  local daysSinceZero = GetScanDay()
-
-  local lowestLow  = self.db[dbKey].l[daysSinceZero]
-  local highestLow = self.db[dbKey].h[daysSinceZero]
-
-  if highestLow == nil or buyoutPrice > highestLow then
-    self.db[dbKey].h[daysSinceZero] = buyoutPrice
-    highestLow = buyoutPrice
-  end
-
-  -- save memory by only saving lowestLow when different from highestLow
-  if buyoutPrice < highestLow and (lowestLow == nil or buyoutPrice < lowestLow) then
-    self.db[dbKey].l[daysSinceZero] = buyoutPrice
-  end
-
-  if available == nil then
-    return
-  end
-
-  -- Compatibility for databases without "Available" information in them, all
-  -- databases prior to December 2020 would not have the "a" field in them
-  if self.db[dbKey].a == nil then
-    self.db[dbKey].a = {}
-  end
-
-  local prevAvailable = self.db[dbKey].a[daysSinceZero]
-  if prevAvailable ~= nil then
-    self.db[dbKey].a[daysSinceZero] = math.max(prevAvailable, available)
-  else
-    self.db[dbKey].a[daysSinceZero] = available
-  end
 end
 
 function Auctionator.DatabaseMixin:GetItemCount()
@@ -115,49 +176,12 @@ function Auctionator.DatabaseMixin:GetItemCount()
   return count
 end
 
-function Auctionator.DatabaseMixin:Prune()
-  local cutoffDay = GetScanDay() - Auctionator.Config.Get(Auctionator.Config.Options.PRICE_HISTORY_DAYS)
-
-  local entriesPruned = 0
-
-  for _, priceData in pairs(self.db) do
-
-    for day, _ in pairs(priceData.h) do
-      if day <= cutoffDay then
-        priceData.h[day] = nil
-
-        entriesPruned = entriesPruned +1
-      end
-    end
-
-    for day, _ in pairs(priceData.l) do
-      if day <= cutoffDay then
-        priceData.l[day] = nil
-
-        entriesPruned = entriesPruned +1
-      end
-    end
-
-    if priceData.a ~= nil then
-      for day, _ in pairs(priceData.a) do
-        if day <= cutoffDay then
-          priceData.a[day] = nil
-
-          entriesPruned = entriesPruned +1
-        end
-      end
-    end
-  end
-
-  Auctionator.Debug.Message("Auctionator.DatabaseMixin:Prune Pruned " .. tostring(entriesPruned) .. " entries")
-end
-
 function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
   if self.db[dbKey] == nil then
     return {}
   end
 
-  local itemData = self.db[dbKey]
+  local itemData = get(self.db[dbKey])
 
   local results = {}
 
@@ -167,7 +191,7 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
   for _, day in ipairs(sortedDays) do
     table.insert(results, {
      date = Auctionator.Utilities.PrettyDate(
-        day * 86400 + Auctionator.Constants.SCAN_DAY_0
+        tonumber(day) * 86400 + Auctionator.Constants.SCAN_DAY_0
      ),
      rawDay = day,
      minSeen = itemData.l[day] or itemData.h[day],
@@ -181,7 +205,7 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
 end
 
 function Auctionator.DatabaseMixin:GetPriceAge(dbKey)
-  local itemData = self.db[dbKey]
+  local itemData = self.db[dbKey] and get(self.db[dbKey])
 
   if itemData == nil then
     return
@@ -193,13 +217,17 @@ function Auctionator.DatabaseMixin:GetPriceAge(dbKey)
     return nil
   end
 
+  for index, day in ipairs(days) do
+    days[index] = tonumber(day)
+  end
+
   table.sort(days)
 
   return GetScanDay()-days[#days]
 end
 
 function Auctionator.DatabaseMixin:GetMeanPrice(dbKey, days)
-  local entry = self.db[dbKey]
+  local entry = self.db[dbKey] and get(self.db[dbKey])
 
   if entry == nil or days < 0 then
     return nil
@@ -210,10 +238,10 @@ function Auctionator.DatabaseMixin:GetMeanPrice(dbKey, days)
   local count = days
 
   for i = GetScanDay() - days + 1, today do
-    if entry.l[i] then
-      total = total + entry.l[i]
+    if entry.l[tostring(i)] then
+      total = total + entry.l[tostring(i)]
     elseif entry.h[i] then
-      total = total + entry.h[i]
+      total = total + entry.h[tostring(i)]
     else
       count = count - 1
     end
