@@ -61,7 +61,7 @@ function Auctionator.DatabaseMixin:SetPrice(dbKey, buyoutPrice, available)
   end
 
   local priceData = get(self.db[dbKey])
-  priceData.m = newMinPrice
+  priceData.m = buyoutPrice
 
   -- Record price history
   local lowestLow  = priceData.l[daysSinceZero]
