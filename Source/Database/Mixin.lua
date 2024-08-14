@@ -25,8 +25,9 @@ end
 
 function Auctionator.DatabaseMixin:_Get(dbKey)
   if type(self.db[dbKey]) == "table" and self.db[dbKey].pending then
+    local data = self.db[dbKey]
     self.db[dbKey] = self.db[dbKey].old
-    self:_SetPrice(dbKey, self.db[dbKey].buyoutPrice, self.db[dbKey].available)
+    self:_SetPrice(dbKey, data.buyoutPrice, data.available)
   end
 
   local data = self.db[dbKey]
@@ -65,7 +66,7 @@ function Auctionator.DatabaseMixin:_Queue(dbKey)
 end
 
 function Auctionator.DatabaseMixin:SetPrice(dbKey, buyoutPrice, available)
-  if type(self.db[dbKey]) ~= "string" then
+  if type(self.db[dbKey]) ~= "string" and self.db[dbKey] then
     if self.db[dbKey] and self.db[dbKey].pending then
       self.db[dbKey].buyoutPrice = buyoutPrice
       self.db[dbKey].available = available
@@ -80,7 +81,7 @@ function Auctionator.DatabaseMixin:SetPrice(dbKey, buyoutPrice, available)
 end
 
 function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
-  if not self.db[dbKey] then
+  if not self.db[dbKey] or not self.db[dbKey].old then
     self.db[dbKey] = {
       l={}, -- Lowest low price on a given day
       h={}, -- Highest low price on a given day
@@ -89,7 +90,10 @@ function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
     }
   end
 
-  local priceData = self:_Get(dbKey)
+  local priceData = self.db[dbKey]
+  if type(priceData) == "string" then
+    priceData = LibCBOR:Deserialize(priceData)
+  end
   priceData.m = buyoutPrice
 
   -- Record price history
