@@ -153,7 +153,7 @@ function Auctionator.Variables.InitializeDatabase()
   for realm, realmData in pairs(AUCTIONATOR_PRICE_DATABASE) do
     if type(realmData) == "table" then
       for key, itemData in pairs(realmData) do
-        if type(itemData) == "table" then
+        if type(itemData) == "table" and not itemData.pending then
           for _, field in ipairs({"a", "h", "l"}) do
             local new = {}
             for day, data in pairs(itemData[field] or {}) do
