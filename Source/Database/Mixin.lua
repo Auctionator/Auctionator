@@ -33,9 +33,7 @@ function Auctionator.DatabaseMixin:Init(db)
       self.processor.running = false
       self.processor.queue = {}
     else
-      C_Timer.After(0, function()
-        self.processor:SetScript("OnUpdate", self.processor.UpdateScript)
-      end)
+      self.processor:SetScript("OnUpdate", self.processor.UpdateScript)
     end
   end
 
