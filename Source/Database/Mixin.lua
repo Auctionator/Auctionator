@@ -81,7 +81,7 @@ function Auctionator.DatabaseMixin:SetPrice(dbKey, buyoutPrice, available)
 end
 
 function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
-  if not self.db[dbKey] or not self.db[dbKey].old then
+  if not self.db[dbKey] then
     self.db[dbKey] = {
       l={}, -- Lowest low price on a given day
       h={}, -- Highest low price on a given day
