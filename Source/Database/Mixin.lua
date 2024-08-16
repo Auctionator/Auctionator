@@ -15,6 +15,27 @@ function Auctionator.DatabaseMixin:Init(db)
   self.processor.queue = {}
   self.processor.running = false
   self.processor.index = 1
+  self.processor.UpdateScript = function()
+    self.processor:SetScript("OnUpdate", nil)
+    local count = 50
+    while count > 0 and self.processor.index <= #self.processor.queue do
+      count = count - 1
+      local dbKey = self.processor.queue[self.processor.index]
+      local data = self.db[dbKey]
+      if data.pending then
+        self.db[dbKey] = data.old
+        self:_SetPrice(dbKey, data.buyoutPrice, data.available)
+      end
+      self.processor.index = self.processor.index + 1
+    end
+    if self.processor.index > #self.processor.queue then
+      self.processor.index = 1
+      self.processor.running = false
+      self.processor.queue = {}
+    else
+      self.processor:SetScript("OnUpdate", self.processor.UpdateScript)
+    end
+  end
 
   for dbKey, data in pairs(self.db) do
     if type(data) == "table" and data.pending then
@@ -42,26 +63,7 @@ function Auctionator.DatabaseMixin:_Queue(dbKey)
   table.insert(self.processor.queue, dbKey)
   if not self.processor.running then
     self.processor.running = true
-    self.processor:SetScript("OnUpdate", function()
-      local count = 50
-      while count > 0 and self.processor.index <= #self.processor.queue do
-        count = count - 1
-        local dbKey = self.processor.queue[self.processor.index]
-        local data = self.db[dbKey]
-        if data.pending then
-          self.db[dbKey] = data.old
-          self:_SetPrice(dbKey, data.buyoutPrice, data.available)
-        end
-        self.processor.index = self.processor.index + 1
-      end
-      if self.processor.index > #self.processor.queue then
-        self.processor.index = 1
-        self.processor:SetScript("OnUpdate", nil)
-        self.processor.running = false
-        self.processor.queue = {}
-        return
-      end
-    end)
+    self.processor:SetScript("OnUpdate", self.processor.UpdateScript)
   end
 end
 
