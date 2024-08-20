@@ -1,0 +1,35 @@
+name: Feature Request
+description: See something that useful that could be added?
+labels: ["enhancement"]
+body:
+- type: dropdown
+  id: flavour
+  attributes:
+    label: What version(s) of WoW are you using?
+    multiple: true
+    options:
+      - Retail
+      - Classic
+      - Classic Era
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: What problem are you experiencing that led to you asking for this feature?
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: What solution would you like?
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Any alternatives you can think of?
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Anything else?
+  validations:
+    required: false

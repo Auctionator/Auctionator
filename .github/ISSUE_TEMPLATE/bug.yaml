@@ -1,0 +1,38 @@
+name: Bug/Error
+description: Something broken?
+labels: ["bug"]
+body:
+- type: dropdown
+  id: flavour
+  attributes:
+    label: What version(s) of WoW are you using?
+    multiple: true
+    options:
+      - Retail
+      - Classic
+      - Classic Era
+  validations:
+    required: true
+  validations:
+    required: true
+- type: input
+  attributes:
+    label: What version of Auctionator?
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: What isn't working? What was supposed to happen?
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: Are you experiencing any lua errors
+    description: These appear when using the BugSack+BugGrabber addons, or enabling script errors with `/console scriptErrors 1`
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Anything else?
+  validations:
+    required: false
