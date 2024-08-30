@@ -95,6 +95,7 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.RefreshSearch,
     Auctionator.Components.Events.EnterPressed,
   })
+  Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_RESELECT_ITEM, self.lastKey)
   Auctionator.EventBus:UnregisterSource(self)
   self:UnlockItem()
