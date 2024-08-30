@@ -55,9 +55,16 @@ function AuctionatorSaleItemMixin:OnShow()
   })
   Auctionator.EventBus:RegisterSource(self, "AuctionatorSaleItemMixin")
 
-  SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_POST_SHORTCUT), "CLICK AuctionatorPostButton:LeftButton")
-  SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SKIP_SHORTCUT), "CLICK AuctionatorSkipPostingButton:LeftButton")
-  SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_PREV_SHORTCUT), "CLICK AuctionatorPrevPostingButton:LeftButton")
+  local function SetupBindings()
+    SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_POST_SHORTCUT), "CLICK AuctionatorPostButton:LeftButton")
+    SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_SKIP_SHORTCUT), "CLICK AuctionatorSkipPostingButton:LeftButton")
+    SetOverrideBinding(self, false, Auctionator.Config.Get(Auctionator.Config.Options.SELLING_PREV_SHORTCUT), "CLICK AuctionatorPrevPostingButton:LeftButton")
+  end
+  if InCombatLockdown() then
+    EventUtil.ContinueAfterAllEvents(SetupBindings, "PLAYER_REGEN_ENABLED")
+  else
+    SetupBindings()
+  end
 
   self.lastItemInfo = nil
   self.nextItem = nil
@@ -91,7 +98,12 @@ function AuctionatorSaleItemMixin:OnHide()
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_RESELECT_ITEM, self.lastKey)
   Auctionator.EventBus:UnregisterSource(self)
   self:UnlockItem()
-  ClearOverrideBindings(self)
+
+  if InCombatLockdown() then
+    EventUtil.ContinueAfterAllEvents(function() ClearOverrideBindings(self) end, "PLAYER_REGEN_ENABLED")
+  else
+    ClearOverrideBindings(self)
+  end
 end
 
 function AuctionatorSaleItemMixin:UpdateSkipButton()
