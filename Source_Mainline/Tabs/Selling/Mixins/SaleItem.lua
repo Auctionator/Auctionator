@@ -97,7 +97,9 @@ function AuctionatorSaleItemMixin:OnHide()
     Auctionator.Selling.Events.RefreshSearch,
     Auctionator.Components.Events.EnterPressed,
   })
-  Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
+  if self.saleItemEventsRegistered then
+    Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
+  end
   Auctionator.Config.Set(Auctionator.Config.Options.SELLING_RESELECT_ITEM, self.lastKey)
   Auctionator.EventBus:UnregisterSource(self)
   self:UnlockItem()
@@ -253,6 +255,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     end
 
     self:ProcessCommodityResults(...)
+    self.saleItemEventsRegistered = false
     Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
 
   elseif event == Auctionator.AH.Events.ItemSearchResultsReady then
@@ -266,6 +269,7 @@ function AuctionatorSaleItemMixin:ReceiveEvent(event, ...)
     item:ContinueOnItemLoad(function()
       self:ProcessItemResults(itemKey)
     end)
+    self.saleItemEventsRegistered = false
     Auctionator.EventBus:Unregister(self, SALE_ITEM_EVENTS)
   end
 end
@@ -378,6 +382,7 @@ end
 
 function AuctionatorSaleItemMixin:DoSearch(itemInfo, ...)
   Auctionator.EventBus:Register(self, SALE_ITEM_EVENTS)
+  self.saleItemEventsRegistered = true
 
   local sortingOrder
 
