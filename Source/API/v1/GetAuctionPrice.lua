@@ -1,4 +1,4 @@
-function Auctionator.API.v1.GetAuctionPriceByItemID(callerID, itemID)
+function Auctionator.API.v1.GetAuctionPriceByItemID(callerID, itemID, itemLevel)
   Auctionator.API.InternalVerifyID(callerID)
 
   if type(itemID) ~= "number" then
@@ -8,11 +8,24 @@ function Auctionator.API.v1.GetAuctionPriceByItemID(callerID, itemID)
     )
   end
 
+  if itemLevel ~= nil and type(itemLevel) ~= "number" then
+    Auctionator.API.ComposeError(
+      callerID,
+      "Usage Auctionator.API.v1.GetAuctionPriceByItemID(string, number, number)"
+    )
+  end
+
   if Auctionator.Database == nil then
     return nil
   end
 
-  return Auctionator.Database:GetPrice(tostring(itemID))
+  local dbKey = tostring(itemID)
+
+  if itemLevel ~= nil then
+    dbKey = 'g:' .. itemID .. ':' .. itemLevel
+  end
+
+  return Auctionator.Database:GetPrice(dbKey)
 end
 
 function Auctionator.API.v1.GetAuctionPriceByItemLink(callerID, itemLink)
