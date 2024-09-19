@@ -53,10 +53,18 @@ function Auctionator.DatabaseMixin:_Get(dbKey)
 
   local data = self.db[dbKey]
   if type(data) == "string" then
-    return LibCBOR:Deserialize(data)
-  else
-    return data
+    data = LibCBOR:Deserialize(data)
+    if data == nil then
+      data = {
+        l={}, -- Lowest low price on a given day
+        h={}, -- Highest low price on a given day
+        a={}, -- Highest quantity seen on a given day
+        m=0   -- Last seen minimum price
+      }
+    end
   end
+  
+  return data
 end
 
 function Auctionator.DatabaseMixin:_Queue(dbKey)
@@ -93,9 +101,19 @@ function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
   end
 
   local priceData = self.db[dbKey]
+  
   if type(priceData) == "string" then
     priceData = LibCBOR:Deserialize(priceData)
-  end
+    if priceData == nil then
+      priceData = {
+        l={}, -- Lowest low price on a given day
+        h={}, -- Highest low price on a given day
+        a={}, -- Highest quantity seen on a given day
+        m=0   -- Last seen minimum price
+      }
+    end
+  end  
+
   priceData.m = buyoutPrice
 
   -- Record price history
