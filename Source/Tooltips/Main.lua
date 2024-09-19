@@ -176,7 +176,7 @@ function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString
     tooltipFrame:AddDoubleLine(
       L("VENDOR") .. countString,
       WHITE_FONT_COLOR:WrapTextInColorCode(
-        Auctionator.Utilities.CreatePaddedMoneyString(vendorPrice)
+        Auctionator.Utilities.CreatePaddedMoneyString(vendorPrice, false, false)
       )
     )
   end
@@ -191,7 +191,7 @@ function Auctionator.Tooltip.AddAuctionTip (tooltipFrame, auctionPrice, countStr
       tooltipFrame:AddDoubleLine(
         L("AUCTION") .. countString,
         WHITE_FONT_COLOR:WrapTextInColorCode(
-          Auctionator.Utilities.CreatePaddedMoneyString(auctionPrice)
+          Auctionator.Utilities.CreatePaddedMoneyString(auctionPrice, false, false)
         )
       )
     else
