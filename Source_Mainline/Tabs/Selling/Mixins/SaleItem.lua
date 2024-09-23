@@ -521,6 +521,37 @@ function AuctionatorSaleItemMixin:ProcessCommodityResults(itemID, ...)
     return
   end
 
+  if self.itemInfo then
+    local qtresults = C_AuctionHouse.GetNumCommoditySearchResults(itemID)
+    if qtresults > 15 then qtresults = 15 end
+
+    local biggestStack = 0
+    local biggestStackPrice = 0
+
+    for index = 1, qtresults do
+      local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
+      if resultInfo.quantity > biggestStack then
+        biggestStack = resultInfo.quantity
+        biggestStackPrice = resultInfo.unitPrice
+      end
+    end
+
+    local dsbigstack = Auctionator.Utilities.CreatePaddedMoneyString(biggestStackPrice, true, false)
+
+    local minGoodPrice = biggestStackPrice * 0.95
+
+    for index = 1, qtresults do
+      local resultInfo = C_AuctionHouse.GetCommoditySearchResultInfo(itemID, index)
+      if resultInfo.unitPrice >= minGoodPrice then
+        local prOff = (biggestStackPrice - resultInfo.unitPrice) / biggestStackPrice * 100
+        local dsoff = string.format('%.0f', prOff)..'%'
+        -- print(self.itemInfo.itemLink, dsbigstack, '...', dsoff, '...', '#'..index, '...', Auctionator.Utilities.CreatePaddedMoneyString(resultInfo.unitPrice, true, false))
+        self:UpdateSalesPrice(resultInfo.unitPrice)
+        return
+      end
+    end
+  end
+  
   self:UpdateSalesPrice(postingPrice)
 end
 
