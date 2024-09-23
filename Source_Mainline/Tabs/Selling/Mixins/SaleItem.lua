@@ -668,6 +668,36 @@ function AuctionatorSaleItemMixin:GetDuration()
   return AUCTION_DURATIONS[self.Duration:GetValue()]
 end
 
+function AuctionatorSaleItemMixin:PostAllItems()
+  local duration = 1
+  local quantity = 1
+  
+  for bagId = BACKPACK_CONTAINER, NUM_TOTAL_EQUIPPED_BAG_SLOTS do
+    for slotId = 1, C_Container.GetContainerNumSlots(bagId) do
+      local itemLink = C_Container.GetContainerItemLink(bagId, slotId)
+      if itemLink then
+        local itemID = C_Item.GetItemIDForItemInfo(itemLink)
+        local itemName, itemLink, itemRarity, itemLevel = GetItemInfo(itemLink)
+        local craftData = CraftInfoAnywhere.API.GetData(itemID, itemLevel) 
+        
+        if craftData and craftData.auctionPrice then        
+          local location = ItemLocation:CreateFromBagAndSlot(bagId, slotId)  
+          local buyout = craftData.auctionPrice                    
+          local action = '?'
+
+          C_AuctionHouse.PostItem(location, duration, quantity, nil, buyout)
+          
+          local dsbuyout = Auctionator.Utilities.CreatePaddedMoneyString(buyout, false, false)
+          local dsprofit = Auctionator.Utilities.CreatePaddedMoneyString(craftData.profit, false, false)
+
+          print('[Posted]', itemLink, 'for', dsbuyout, ' -> profit: ', dsprofit)
+          return
+        end
+      end
+    end
+  end
+end
+
 function AuctionatorSaleItemMixin:PostItem(confirmed)
   if not self:GetPostButtonState() then
     Auctionator.Debug.Message("Trying to post when we can't. Returning")

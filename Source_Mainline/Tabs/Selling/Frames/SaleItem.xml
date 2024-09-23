@@ -101,6 +101,17 @@
           <OnClick>self:GetParent():PostItem()</OnClick>
         </Scripts>
       </Button>
+      
+      <Button parentKey="PostAllButton" name="AuctionatorPostButton" inherits="UIPanelButtonTemplate" text="AUCTIONATOR_L_POST">
+        <Size x="194" y="22"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Duration" relativePoint="BOTTOMLEFT" x="20" y="70"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>self:GetParent():PostAllItems()</OnClick>
+        </Scripts>
+      </Button>
+
       <Button parentKey="SkipButton" name="AuctionatorSkipPostingButton" inherits="UIPanelButtonTemplate" text="AUCTIONATOR_L_SKIP" hidden="true">
         <Size x="80" y="22"/>
         <Anchors>
