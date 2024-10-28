@@ -2,6 +2,7 @@
 -- The button will be hidden when the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
+local MIXOLOGY_BONUS = 2.1
 function Auctionator.CraftingInfo.Initialize()
   if addedFunctionality then
     return
@@ -134,7 +135,7 @@ local function GetAHProfit()
   local exact = Auctionator.API.v1.IsAuctionDataExactByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
   local toCraft = GetSkillReagentsTotal()
 
-  return math.floor(currentAH * count * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
+  return math.floor(currentAH * count * MIXOLOGY_BONUS * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
 end
 
 local function CraftCostString()
