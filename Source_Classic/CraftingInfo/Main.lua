@@ -3,6 +3,16 @@
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
 local MIXOLOGY_BONUS = 2.1
+local mixology_enabled = false
+
+local function EventHandler(_, event, ...)
+  if event == "QUEST_QUERY_COMPLETE" then
+    table = { GetQuestsCompleted() }
+    if table[82090] == "TRUE" then
+        mixology_enabled = true
+    end
+  end
+end
 
 function Auctionator.CraftingInfo.Initialize()
   if addedFunctionality then
@@ -11,9 +21,15 @@ function Auctionator.CraftingInfo.Initialize()
 
   if TradeSkillFrame then
     addedFunctionality = true
-    CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
+    local frame CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
+    frame:RegisterEvent("QUEST_QUERY_COMPLETE")
+    frame:SetScript("OnEvent", EventHandler)
+    QueryQuestsCompleted();
   end
 end
+
+
+
 
 -- Get the associated item, spell level and spell equipped item class for an
 -- enchant
@@ -136,7 +152,12 @@ local function GetAHProfit()
   local exact = Auctionator.API.v1.IsAuctionDataExactByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
   local toCraft = GetSkillReagentsTotal()
 
-  return math.floor(currentAH * count * MIXOLOGY_BONUS * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
+  local mixologyBonus = 1
+  if mixology_enabled then
+    mixologyBonus = MIXOLOGY_BONUS
+  end
+
+  return math.floor(currentAH * count * mixologyBonus * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
 end
 
 local function CraftCostString()
