@@ -3,6 +3,7 @@
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
 local MIXOLOGY_BONUS = 2.1
+
 function Auctionator.CraftingInfo.Initialize()
   if addedFunctionality then
     return
