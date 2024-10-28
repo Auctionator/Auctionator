@@ -12,7 +12,9 @@ on:
     - ".github/**"
 
 jobs:
-  build:
+  release:
+    env:
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       matrix:
         type: [retail, classic, cata]
@@ -34,6 +36,4 @@ jobs:
     - uses: BigWigsMods/packager@master
       with:
         args: -p 6124 -a kRNL70Go -g ${{matrix.type}} -m ${{matrix.pkgmeta}}
-      env:
-        CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
-        WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}
+
