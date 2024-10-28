@@ -6,10 +6,13 @@ local MIXOLOGY_BONUS = 2.1
 local mixology_enabled = false
 
 local function EventHandler(_, event, ...)
+  Auctionator.Debug.Message("Received event in CraftinInfo: " , event)
+
   if event == "QUEST_QUERY_COMPLETE" then
     table = { GetQuestsCompleted() }
     if table[82090] == "TRUE" then
-        mixology_enabled = true
+      mixology_enabled = true
+      Auctionator.Debug.Message("Mixology is enabled")
     end
   end
 end
@@ -155,6 +158,7 @@ local function GetAHProfit()
   local mixologyBonus = 1
   if mixology_enabled then
     mixologyBonus = MIXOLOGY_BONUS
+    Auctionator.Debug.Message("Mixology bonus applied")
   end
 
   return math.floor(currentAH * count * mixologyBonus * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
