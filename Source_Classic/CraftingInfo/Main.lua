@@ -7,8 +7,8 @@ local mixology_enabled = false
 
 local function CheckIfMixologyIsEnabled()
     questsCompleted = GetQuestsCompleted()
-    Auctionator.Debug.Message("Recived questsCompleted")
-    if questsCompleted[82090] == "TRUE" then
+    Auctionator.Debug.Message("Recived questsCompleted",questsCompleted)
+    if questsCompleted[82090] == true then
       mixology_enabled = true
       Auctionator.Debug.Message("Mixology is enabled")
     end
