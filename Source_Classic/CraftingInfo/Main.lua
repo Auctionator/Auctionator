@@ -7,6 +7,7 @@ local mixology_enabled = false
 
 local function CheckIfMixologyIsEnabled()
     questsCompleted = GetQuestsCompleted()
+    Auctionator.Debug.Message("Recived questsCompleted")
     if questsCompleted[82090] == "TRUE" then
       mixology_enabled = true
       Auctionator.Debug.Message("Mixology is enabled")
@@ -24,9 +25,6 @@ function Auctionator.CraftingInfo.Initialize()
     CheckIfMixologyIsEnabled()
   end
 end
-
-
-
 
 -- Get the associated item, spell level and spell equipped item class for an
 -- enchant
