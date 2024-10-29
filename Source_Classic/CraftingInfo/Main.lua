@@ -2,19 +2,15 @@
 -- The button will be hidden when the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
-local MIXOLOGY_BONUS = 2.1
+local MIXOLOGY_BONUS = 2.08
 local mixology_enabled = false
 
-local function EventHandler(_, event, ...)
-  Auctionator.Debug.Message("Received event in CraftinInfo: " , event)
-
-  if event == "QUEST_QUERY_COMPLETE" then
-    table = { GetQuestsCompleted() }
-    if table[82090] == "TRUE" then
+local function CheckIfMixologyIsEnabled()
+    questsCompleted = GetQuestsCompleted()
+    if questsCompleted[82090] == "TRUE" then
       mixology_enabled = true
       Auctionator.Debug.Message("Mixology is enabled")
     end
-  end
 end
 
 function Auctionator.CraftingInfo.Initialize()
@@ -24,10 +20,8 @@ function Auctionator.CraftingInfo.Initialize()
 
   if TradeSkillFrame then
     addedFunctionality = true
-    local frame = CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
-    frame:RegisterEvent("QUEST_QUERY_COMPLETE")
-    frame:SetScript("OnEvent", EventHandler)
-    QueryQuestsCompleted();
+    CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
+    CheckIfMixologyIsEnabled()
   end
 end
 
