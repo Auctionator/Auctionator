@@ -24,7 +24,7 @@ function Auctionator.CraftingInfo.Initialize()
 
   if TradeSkillFrame then
     addedFunctionality = true
-    local frame CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
+    local frame = CreateFrame("Frame", "AuctionatorCraftingInfo", TradeSkillFrame, "AuctionatorCraftingInfoFrameTemplate");
     frame:RegisterEvent("QUEST_QUERY_COMPLETE")
     frame:SetScript("OnEvent", EventHandler)
     QueryQuestsCompleted();
