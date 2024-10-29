@@ -124,13 +124,14 @@ local function GetEnchantProfit()
 end
 
 local function IsMixologable(itemLink)
+  local _, _, _, _, _, _, _, _, _, _, _, classID, subclassID = C_Item.GetItemInfo(itemLink)
 
-  local itemInfo = C_Item.GetItemInfo(itemLink)
-    Auctionator.Debug.Message("craftingInfo item", itemInfo)
+  Auctionator.Debug.Message("craftingInfo classID", classID)
+  Auctionator.Debug.Message("craftingInfo subclassID", subclassID)
 
-  local isConsumable = itemInfo.classID == Enum.ItemClass.Consumable
-  local isPotion = itemInfo.subClassID == Enum.ItemConsumableSubclass.Potion
-  local isElixir = itemInfo.subClassID == Enum.ItemConsumableSubclass.Elixir
+  local isConsumable = classID == Enum.ItemClass.Consumable
+  local isPotion = subclassID == Enum.ItemConsumableSubclass.Potion
+  local isElixir = subclassID == Enum.ItemConsumableSubclass.Elixir
 
   return isConsumable and (isPotion or isElixir)
 end
