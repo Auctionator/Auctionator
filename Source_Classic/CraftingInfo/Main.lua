@@ -124,18 +124,12 @@ local function GetEnchantProfit()
 end
 
 local function IsMixologable(itemLink)
-  Auctionator.Debug.Message("craftingInfo itemLink", itemLink)
 
-  local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subclassID = C_Item.GetItemInfoInstant(itemLink)
+  local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(itemLink)
 
-  Auctionator.Debug.Message("craftingInfo classID", classID)
-  Auctionator.Debug.Message("craftingInfo subclassID", subclassID)
-
-  local isConsumable = classID == Enum.ItemClass.Consumable
-  local isPotion = subclassID == Enum.ItemConsumableSubclass.Potion
-  local isElixir = subclassID == Enum.ItemConsumableSubclass.Elixir
-
-  return isConsumable and (isPotion or isElixir)
+  -- Thers a bug in the API where subclassID is 0 for consumables
+  -- https://github.com/Stanzilla/WoWUIBugs/issues/218
+  return classID == Enum.ItemClass.Consumable and subclassID == 0
 end
 
 local function GetAHProfit()
@@ -147,12 +141,6 @@ local function GetAHProfit()
 
   local recipeLink =  GetTradeSkillItemLink(recipeIndex)
   local count = GetTradeSkillNumMade(recipeIndex)
-
-  local mixologyBonus = 1
-  if mixology_enabled and IsMixologable(recipeLink) then
-    mixologyBonus = MIXOLOGY_BONUS
-    Auctionator.Debug.Message("Mixology bonus applied")
-  end
 
   if recipeLink == nil or recipeLink:match("enchant:") then
     return nil
@@ -166,7 +154,11 @@ local function GetAHProfit()
   local exact = Auctionator.API.v1.IsAuctionDataExactByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
   local toCraft = GetSkillReagentsTotal()
 
-
+  local mixologyBonus = 1
+  if mixology_enabled and IsMixologable(recipeLink) then
+    mixologyBonus = MIXOLOGY_BONUS
+    Auctionator.Debug.Message("Mixology bonus applied")
+  end
 
   return math.floor(currentAH * count * mixologyBonus * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
 end
