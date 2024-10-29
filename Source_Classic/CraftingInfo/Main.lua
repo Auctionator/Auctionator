@@ -124,7 +124,9 @@ local function GetEnchantProfit()
 end
 
 local function IsMixologable(itemLink)
-  local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subclassID = GetItemInfoInstant(itemLink)
+  Auctionator.Debug.Message("craftingInfo itemLink", itemLink)
+
+  local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subclassID = C_Item.GetItemInfoInstant(itemLink)
 
   Auctionator.Debug.Message("craftingInfo classID", classID)
   Auctionator.Debug.Message("craftingInfo subclassID", subclassID)
@@ -146,6 +148,12 @@ local function GetAHProfit()
   local recipeLink =  GetTradeSkillItemLink(recipeIndex)
   local count = GetTradeSkillNumMade(recipeIndex)
 
+  local mixologyBonus = 1
+  if mixology_enabled and IsMixologable(recipeLink) then
+    mixologyBonus = MIXOLOGY_BONUS
+    Auctionator.Debug.Message("Mixology bonus applied")
+  end
+
   if recipeLink == nil or recipeLink:match("enchant:") then
     return nil
   end
@@ -158,11 +166,7 @@ local function GetAHProfit()
   local exact = Auctionator.API.v1.IsAuctionDataExactByItemLink(AUCTIONATOR_L_REAGENT_SEARCH, recipeLink)
   local toCraft = GetSkillReagentsTotal()
 
-  local mixologyBonus = 1
-  if mixology_enabled and IsMixologable(recipeLink) then
-    mixologyBonus = MIXOLOGY_BONUS
-    Auctionator.Debug.Message("Mixology bonus applied")
-  end
+
 
   return math.floor(currentAH * count * mixologyBonus * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
 end
