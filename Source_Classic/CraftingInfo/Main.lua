@@ -126,6 +126,7 @@ end
 local function IsMixologable(itemLink)
 
   local itemInfo = C_Item.GetItemInfo(itemLink)
+    Auctionator.Debug.Message("craftingInfo item", itemInfo)
 
   local isConsumable = itemInfo.classID == Enum.ItemClass.Consumable
   local isPotion = itemInfo.subClassID == Enum.ItemConsumableSubclass.Potion
