@@ -124,7 +124,7 @@ local function GetEnchantProfit()
 end
 
 local function IsMixologable(itemLink)
-  local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subclassID = C_Item.GetItemInfoInstant(itemLink)
+  local itemID, itemType, itemSubType, itemEquipLoc, icon, classID, subclassID = GetItemInfoInstant(itemLink)
 
   Auctionator.Debug.Message("craftingInfo classID", classID)
   Auctionator.Debug.Message("craftingInfo subclassID", subclassID)
