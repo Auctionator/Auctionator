@@ -7,10 +7,8 @@ local mixology_enabled = false
 
 local function CheckIfMixologyIsEnabled()
     questsCompleted = GetQuestsCompleted()
-    Auctionator.Debug.Message("Recived questsCompleted",questsCompleted)
     if questsCompleted[82090] == true then
       mixology_enabled = true
-      Auctionator.Debug.Message("Mixology is enabled")
     end
 end
 
@@ -125,6 +123,17 @@ local function GetEnchantProfit()
   return math.floor(currentAH * Auctionator.Constants.AfterAHCut - vellumCost - toCraft), age, currentAH ~= 0, exact
 end
 
+local function IsMixologable(itemLink)
+
+  local itemInfo = C_Item.GetItemInfo(itemLink)
+
+  local isConsumable = itemInfo.classID == Enum.ItemClass.Consumable
+  local isPotion = itemInfo.subClassID == Enum.ItemConsumableSubclass.Potion
+  local isElixir = itemInfo.subClassID == Enum.ItemConsumableSubclass.Elixir
+
+  return isConsumable and (isPotion or isElixir)
+end
+
 local function GetAHProfit()
   local recipeIndex = GetTradeSkillSelectionIndex()
 
@@ -148,7 +157,7 @@ local function GetAHProfit()
   local toCraft = GetSkillReagentsTotal()
 
   local mixologyBonus = 1
-  if mixology_enabled then
+  if mixology_enabled and IsMixologable(recipeLink) then
     mixologyBonus = MIXOLOGY_BONUS
     Auctionator.Debug.Message("Mixology bonus applied")
   end
