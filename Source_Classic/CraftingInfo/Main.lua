@@ -2,7 +2,7 @@
 -- The button will be hidden when the AH is closed.
 -- The total price is shown in a FontString next to the button
 local addedFunctionality = false
-local MIXOLOGY_BONUS = 2.08
+local MIXOLOGY_BONUS = 2.1
 local mixology_enabled = false
 
 local function CheckIfMixologyIsEnabled()
