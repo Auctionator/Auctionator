@@ -125,7 +125,7 @@ local function GetEnchantProfit()
 end
 
 local banList = {
-  [3824] = false, -- Shadow Oil
+  [3824] = true, -- Shadow Oil
 }
 
 local function IsMixologable(itemLink)
@@ -133,7 +133,7 @@ local function IsMixologable(itemLink)
 
   -- Thers a bug in the API where subclassID is 0 for consumables
   -- https://github.com/Stanzilla/WoWUIBugs/issues/218
-  return classID == Enum.ItemClass.Consumable and subclassID == 0 and banList[itemID]
+  return classID == Enum.ItemClass.Consumable and subclassID == 0 and not banList[itemID]
 end
 
 local function GetAHProfit()
