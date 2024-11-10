@@ -6,10 +6,10 @@ local MIXOLOGY_BONUS = 2.1
 local mixology_enabled = false
 
 local function CheckIfMixologyIsEnabled()
-    questsCompleted = GetQuestsCompleted()
-    if questsCompleted[82090] == true then
-      mixology_enabled = true
-    end
+  questsCompleted = GetQuestsCompleted()
+  if questsCompleted[82090] == true then
+    mixology_enabled = true
+  end
 end
 
 function Auctionator.CraftingInfo.Initialize()
@@ -65,13 +65,13 @@ function Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
   GetOutputName(function(outputName)
     local items = {}
     if outputName then
-      table.insert(items, {searchString = outputName, isExact = true})
+      table.insert(items, { searchString = outputName, isExact = true })
     end
     local recipeIndex = GetTradeSkillSelectionIndex()
 
     for reagentIndex = 1, GetTradeSkillNumReagents(recipeIndex) do
       local reagentName, _, count = GetTradeSkillReagentInfo(recipeIndex, reagentIndex)
-      table.insert(items, {searchString = reagentName, quantity = count, isExact = true})
+      table.insert(items, { searchString = reagentName, quantity = count, isExact = true })
     end
 
     Auctionator.API.v1.MultiSearchAdvanced(AUCTIONATOR_L_REAGENT_SEARCH, items)
@@ -111,7 +111,8 @@ local function GetEnchantProfit()
   end
 
   -- Find the cheapest vellum that will work
-  local vellumCost = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, Auctionator.Constants.EnchantingVellumID) or 0
+  local vellumCost = Auctionator.API.v1.GetVendorPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH,
+    Auctionator.Constants.EnchantingVellumID) or 0
 
   local currentAH = Auctionator.API.v1.GetAuctionPriceByItemID(AUCTIONATOR_L_REAGENT_SEARCH, data.itemID)
   if currentAH == nil then
@@ -123,13 +124,16 @@ local function GetEnchantProfit()
   return math.floor(currentAH * Auctionator.Constants.AfterAHCut - vellumCost - toCraft), age, currentAH ~= 0, exact
 end
 
-local function IsMixologable(itemLink)
+local banList = {
+  [3824] = false, -- Shadow Oil
+}
 
-  local _, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(itemLink)
+local function IsMixologable(itemLink)
+  local itemID, _, _, _, _, classID, subclassID = C_Item.GetItemInfoInstant(itemLink)
 
   -- Thers a bug in the API where subclassID is 0 for consumables
   -- https://github.com/Stanzilla/WoWUIBugs/issues/218
-  return classID == Enum.ItemClass.Consumable and subclassID == 0
+  return classID == Enum.ItemClass.Consumable and subclassID == 0 and banList[itemID]
 end
 
 local function GetAHProfit()
@@ -139,7 +143,7 @@ local function GetAHProfit()
     return GetEnchantProfit()
   end
 
-  local recipeLink =  GetTradeSkillItemLink(recipeIndex)
+  local recipeLink = GetTradeSkillItemLink(recipeIndex)
   local count = GetTradeSkillNumMade(recipeIndex)
 
   if recipeLink == nil or recipeLink:match("enchant:") then
@@ -160,7 +164,8 @@ local function GetAHProfit()
     Auctionator.Debug.Message("Mixology bonus applied")
   end
 
-  return math.floor(currentAH * count * mixologyBonus * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0, exact
+  return math.floor(currentAH * count * mixologyBonus * Auctionator.Constants.AfterAHCut - toCraft), age, currentAH ~= 0,
+      exact
 end
 
 local function CraftCostString()
@@ -178,7 +183,6 @@ local function ProfitString(profit)
   end
 
   return AUCTIONATOR_L_PROFIT_COLON .. " " .. price
-
 end
 
 function Auctionator.CraftingInfo.GetInfoText()
