@@ -12,7 +12,6 @@
     <Size y="7"/>
     <Scripts>
       <OnLoad method="OnLoad"/>
-      <OnFocusGained method="OnFocusGained"/>
     </Scripts>
     <Anchors>
       <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
