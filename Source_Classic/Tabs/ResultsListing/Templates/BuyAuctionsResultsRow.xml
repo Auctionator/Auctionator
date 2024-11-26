@@ -6,6 +6,5 @@
     virtual="true"
     enableMouse="true"
   >
-    <Texture parentKey="SelectedHighlight" atlas="auctionhouse-ui-row-select" alphaMode="ADD" hidden="true"/>
   </Frame>
 </Ui>

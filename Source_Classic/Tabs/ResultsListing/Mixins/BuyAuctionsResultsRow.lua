@@ -23,7 +23,7 @@ function AuctionatorBuyAuctionsResultsRowMixin:OnEnter()
 end
 
 function AuctionatorBuyAuctionsResultsRowMixin:OnLeave()
-  if not self.rowData.notReady then
+  if not self.rowData or not self.rowData.notReady then
     AuctionatorResultsRowTemplateMixin.OnLeave(self)
   end
   GameTooltip:Hide()

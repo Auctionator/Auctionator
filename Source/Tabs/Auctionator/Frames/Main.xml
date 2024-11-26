@@ -64,12 +64,33 @@
         </Anchors>
       </Frame>
 
+      <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="ContributeHeading">
+        <KeyValues>
+          <KeyValue key="headingText" value="AUCTIONATOR_L_CONTRIBUTE_HEADER" type="global"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.Author" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
+      <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="ContributeLink">
+        <KeyValues>
+          <KeyValue key="labelText" value="BuyMeACoffee" type="string"/>
+          <KeyValue key="copyText" value="https://buymeacoffee.com/auctionator" type="string"/>
+          <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_CONTRIBUTE_TOOLTIP_HEADER" type="global" />
+          <KeyValue key="tooltipText" value="AUCTIONATOR_L_CONTRIBUTE_TOOLTIP_TEXT" type="global" />
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent.ContributeHeading" relativePoint="BOTTOMLEFT" />
+        </Anchors>
+      </Frame>
+
       <Frame inherits="AuctionatorConfigurationHeadingFrame" parentKey="EngageHeading">
         <KeyValues>
           <KeyValue key="headingText" value="AUCTIONATOR_L_ENGAGE_HEADER" type="global"/>
         </KeyValues>
         <Anchors>
-          <Anchor point="TOPLEFT" relativeKey="$parent.Author" relativePoint="BOTTOMLEFT" />
+          <Anchor point="TOPLEFT" relativeKey="$parent.ContributeLink" relativePoint="BOTTOMLEFT" y="15"/>
         </Anchors>
       </Frame>
 

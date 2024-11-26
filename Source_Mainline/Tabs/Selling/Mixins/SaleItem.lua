@@ -22,7 +22,8 @@ local function NormalizePrice(price)
 end
 
 local function IsEquipment(itemInfo)
-  return Auctionator.Utilities.IsEquipment(itemInfo.classId)
+  -- Commodity check because some items like Secret Sauce are set to the wrong item class
+  return not itemInfo.isCommodity and Auctionator.Utilities.IsEquipment(itemInfo.classId)
 end
 
 local function IsValidItem(item)
