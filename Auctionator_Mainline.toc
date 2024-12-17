@@ -1,4 +1,4 @@
-## Interface: 110005
+## Interface: 110005, 110007
 ## Title: Auctionator
 ## Version: @project-version@
 ## Author: Borjamacare, plusmouse
