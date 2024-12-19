@@ -126,7 +126,7 @@ end
 
 local banList = {
   [3824] = true, -- Shadow Oil
-  [3454] = true, -- Frost Oil
+  [3829] = true, -- Frost Oil
 }
 
 local function IsMixologable(itemLink)
