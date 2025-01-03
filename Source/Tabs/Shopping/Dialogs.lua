@@ -1,3 +1,17 @@
+local function EditBoxAccept(which)
+  return function(editbox)
+    local dialog = editbox:GetParent()
+    StaticPopupDialogs[which].OnAccept(dialog)
+    dialog:Hide()
+  end
+end
+
+local function EditBoxEscape()
+  return function(editbox)
+    editbox:GetParent():Hide()
+  end
+end
+
 StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList] = {
   text = AUCTIONATOR_L_CREATE_LIST_DIALOG,
   button1 = ACCEPT,
@@ -14,13 +28,8 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.CreateShoppingList] = {
     Auctionator.Shopping.ListManager:Create(name)
     data.view.ListsContainer:ExpandList(Auctionator.Shopping.ListManager:GetByName(name))
   end,
-  EditBoxOnEnterPressed = function(self)
-    local data = self:GetParent().data
-    local name = Auctionator.Shopping.ListManager:GetUnusedName(self:GetText())
-    Auctionator.Shopping.ListManager:Create(name)
-    data.view.ListsContainer:ExpandList(Auctionator.Shopping.ListManager:GetByName(name))
-    self:GetParent():Hide()
-  end,
+  EditBoxOnEnterPressed = EditBoxAccept(Auctionator.Constants.DialogNames.CreateShoppingList),
+  EditBoxOnEscapePressed = EditBoxEscape(),
   timeout = 0,
   exclusive = 1,
   whileDead = 1,
@@ -48,7 +57,8 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
   hasEditBox = 1,
   maxLetters = 32,
   OnShow = function(self)
-    self.editBox:SetText("")
+    self.editBox:SetText(self.data.list:GetName() or "")
+    self.editBox:HighlightText()
     self.editBox:SetFocus()
   end,
   OnAccept = function(self)
@@ -57,13 +67,8 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.RenameShoppingList] = {
     Auctionator.Shopping.ListManager:Sort()
     data.view.ListsContainer:ScrollToList(data.list)
   end,
-  EditBoxOnEnterPressed = function(self)
-    local data = self:GetParent().data
-    data.list:Rename(self:GetText())
-    Auctionator.Shopping.ListManager:Sort()
-    data.view.ListsContainer:ScrollToList(data.list)
-    self:GetParent():Hide()
-  end,
+  EditBoxOnEnterPressed = EditBoxAccept(Auctionator.Constants.DialogNames.RenameShoppingList),
+  EditBoxOnEscapePressed = EditBoxEscape(),
   timeout = 0,
   exclusive = 1,
   whileDead = 1,
@@ -85,15 +90,10 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.MakePermanentShoppingList] 
     data.list:Rename(self.editBox:GetText())
     data.list:MakePermanent()
     Auctionator.Shopping.ListManager:Sort()
-  end,
-  EditBoxOnEnterPressed = function(self)
-    local data = self:GetParent().data
-    data.list:Rename(self:GetText())
-    data.list:MakePermanent()
-    Auctionator.Shopping.ListManager:Sort()
     data.view.ListsContainer:ScrollToList(data.list)
-    self:GetParent():Hide()
   end,
+  EditBoxOnEnterPressed = EditBoxAccept(Auctionator.Constants.DialogNames.MakePermanentShoppingList),
+  EditBoxOnEscapePressed = EditBoxEscape(),
   timeout = 0,
   exclusive = 1,
   whileDead = 1,
