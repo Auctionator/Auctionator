@@ -24,5 +24,3 @@ Locales\Manifest.xml
 Source\Manifest.xml
 Source_Classic\Manifest.xml
 Data_Cata\Suffixes.lua
-
-Embeds\json.lua

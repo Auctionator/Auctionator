@@ -23,5 +23,3 @@ Assets_Mainline.xml
 
 Source\Manifest.xml
 Source_Mainline\Manifest.xml
-
-Embeds\json.lua
