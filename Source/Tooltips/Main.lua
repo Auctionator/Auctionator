@@ -343,8 +343,8 @@ function Auctionator.Tooltip.AddPetTip(
   end
 end
 
-function Auctionator.Tooltip.AddQualityReagentsTip(tooltipFrame, allQualities)
-  Auctionator.Debug.Message("Auctionator.Tooltip.AddQualityReagentsTip", speciesID)
+function Auctionator.Tooltip.AddReagentsAuctionTip(tooltipFrame, allReagents)
+  Auctionator.Debug.Message("Auctionator.Tooltip.AddReagentsAuctionTip", speciesID)
   if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) then
     return
   end
@@ -355,35 +355,34 @@ function Auctionator.Tooltip.AddQualityReagentsTip(tooltipFrame, allQualities)
     showStackPrices = not IsShiftKeyDown();
   end
 
-  for _, reagent in ipairs(allQualities) do
-    local key = tostring(reagent.itemID)
-    local auctionPrice = Auctionator.Database:GetPrice(key)
-    local auctionAge = Auctionator.Database:GetPriceAge(key)
-    local qualitySuffix = " " .. C_Texture.GetCraftingReagentQualityChatIcon(reagent.quality)
-    local countString = ""
-    if showStackPrices then
-      countString = Auctionator.Utilities.CreateCountString(reagent.itemCount)
-    end
-    if auctionPrice ~= nil then
-      auctionPrice = auctionPrice * (showStackPrices and math.max(1, reagent.itemCount) or 1)
-      tooltipFrame:AddDoubleLine(
-        L("AUCTION") .. countString .. qualitySuffix,
-        WHITE_FONT_COLOR:WrapTextInColorCode(
-          Auctionator.Utilities.CreatePaddedMoneyString(auctionPrice)
-        )
-      )
-      if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_AGE_TOOLTIPS) then
-        if auctionAge ~= nil then
-          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. qualitySuffix, WHITE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_X_DAYS:format(tostring(auctionAge))))
-        elseif auctionPrice ~= nil then
-          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. qualitySuffix, AUCTIONATOR_L_UNKNOWN)
-        end
+  for _, reagent in ipairs(allReagents) do
+    local itemInfo = { C_Item.GetItemInfo(reagent.itemID) };
+    if not Auctionator.Utilities.IsBound(itemInfo) then
+      local key = tostring(reagent.itemID)
+      local auctionPrice = Auctionator.Database:GetPrice(key)
+      local auctionAge = Auctionator.Database:GetPriceAge(key)
+      local qualitySuffix = ""
+      if reagent.quality then
+        qualitySuffix = " " .. C_Texture.GetCraftingReagentQualityChatIcon(reagent.quality)
       end
-    else
-      tooltipFrame:AddDoubleLine(
-        L("AUCTION") .. countString .. qualitySuffix,
-        WHITE_FONT_COLOR:WrapTextInColorCode(L("UNKNOWN"))
-      )
+      local countString = ""
+      if showStackPrices then
+        countString = Auctionator.Utilities.CreateCountString(reagent.itemCount)
+      end
+      if auctionPrice ~= nil then
+        auctionPrice = auctionPrice * (showStackPrices and math.max(1, reagent.itemCount) or 1)
+        tooltipFrame:AddDoubleLine(
+          L("AUCTION") .. countString .. qualitySuffix,
+          WHITE_FONT_COLOR:WrapTextInColorCode(
+            Auctionator.Utilities.CreatePaddedMoneyString(auctionPrice)
+          )
+        )
+      else
+        tooltipFrame:AddDoubleLine(
+          L("AUCTION") .. countString .. qualitySuffix,
+          WHITE_FONT_COLOR:WrapTextInColorCode(L("UNKNOWN"))
+        )
+      end
     end
   end
 end

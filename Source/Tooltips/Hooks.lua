@@ -334,6 +334,9 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_ProfessionsTemplates", function()
       return a.quality < b.quality
     end)
 
-    Auctionator.Tooltip.AddQualityReagentsTip(GameTooltip, display)
+    Auctionator.Tooltip.AddReagentsAuctionTip(GameTooltip, display)
+  end)
+  hooksecurefunc(Professions, "AddCommonOptionalTooltipInfo", function(item)
+    Auctionator.Tooltip.AddReagentsAuctionTip(GameTooltip, {{itemID = item:GetItemID(), itemCount = 1}})
   end)
 end)
