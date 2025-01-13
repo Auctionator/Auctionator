@@ -322,10 +322,12 @@ end
 EventUtil.ContinueOnAddOnLoaded("Blizzard_ProfessionsTemplates", function()
   hooksecurefunc(Professions, "SetupQualityReagentTooltip", function(slot, transaction, noInstruction)
     local display = {}
-    for _, reagentDetails in ipairs(slot:GetReagentSlotSchematic().reagents) do
+    local quantities = Professions.GetQuantitiesAllocated(transaction, slot:GetReagentSlotSchematic())
+    for index, reagentDetails in ipairs(slot:GetReagentSlotSchematic().reagents) do
       table.insert(display, {
         itemID = reagentDetails.itemID,
         quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(reagentDetails.itemID),
+        itemCount = quantities[index],
       })
     end
     table.sort(display, function(a, b)

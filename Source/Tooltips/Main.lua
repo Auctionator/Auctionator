@@ -349,28 +349,39 @@ function Auctionator.Tooltip.AddQualityReagentsTip(tooltipFrame, allQualities)
     return
   end
 
+  local showStackPrices = IsShiftKeyDown();
+
+  if not Auctionator.Config.Get(Auctionator.Config.Options.SHIFT_STACK_TOOLTIPS) then
+    showStackPrices = not IsShiftKeyDown();
+  end
+
   for _, reagent in ipairs(allQualities) do
     local key = tostring(reagent.itemID)
-    local price = Auctionator.Database:GetPrice(key)
+    local auctionPrice = Auctionator.Database:GetPrice(key)
     local auctionAge = Auctionator.Database:GetPriceAge(key)
-    local suffix = " " .. C_Texture.GetCraftingReagentQualityChatIcon(reagent.quality)
-    if price ~= nil then
+    local qualitySuffix = " " .. C_Texture.GetCraftingReagentQualityChatIcon(reagent.quality)
+    local countString = ""
+    if showStackPrices then
+      countString = Auctionator.Utilities.CreateCountString(reagent.itemCount)
+    end
+    if auctionPrice ~= nil then
+      auctionPrice = auctionPrice * (showStackPrices and math.max(1, reagent.itemCount) or 1)
       tooltipFrame:AddDoubleLine(
-        L("AUCTION") .. suffix,
+        L("AUCTION") .. countString .. qualitySuffix,
         WHITE_FONT_COLOR:WrapTextInColorCode(
-          Auctionator.Utilities.CreatePaddedMoneyString(price)
+          Auctionator.Utilities.CreatePaddedMoneyString(auctionPrice)
         )
       )
       if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_AGE_TOOLTIPS) then
         if auctionAge ~= nil then
-          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. suffix, WHITE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_X_DAYS:format(tostring(auctionAge))))
-        elseif price ~= nil then
-          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. suffix, AUCTIONATOR_L_UNKNOWN)
+          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. qualitySuffix, WHITE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_X_DAYS:format(tostring(auctionAge))))
+        elseif auctionPrice ~= nil then
+          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. qualitySuffix, AUCTIONATOR_L_UNKNOWN)
         end
       end
     else
       tooltipFrame:AddDoubleLine(
-        L("AUCTION") .. suffix,
+        L("AUCTION") .. countString .. qualitySuffix,
         WHITE_FONT_COLOR:WrapTextInColorCode(L("UNKNOWN"))
       )
     end
