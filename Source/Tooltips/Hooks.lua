@@ -318,3 +318,20 @@ else
     hooksecurefunc(GameTooltip, func, handler)
   end
 end
+
+EventUtil.ContinueOnAddOnLoaded("Blizzard_ProfessionsTemplates", function()
+  hooksecurefunc(Professions, "SetupQualityReagentTooltip", function(slot, transaction, noInstruction)
+    local display = {}
+    for _, reagentDetails in ipairs(slot:GetReagentSlotSchematic().reagents) do
+      table.insert(display, {
+        itemID = reagentDetails.itemID,
+        quality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(reagentDetails.itemID),
+      })
+    end
+    table.sort(display, function(a, b)
+      return a.quality < b.quality
+    end)
+
+    Auctionator.Tooltip.AddQualityReagentsTip(GameTooltip, display)
+  end)
+end)

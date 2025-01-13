@@ -342,3 +342,37 @@ function Auctionator.Tooltip.AddPetTip(
     )
   end
 end
+
+function Auctionator.Tooltip.AddQualityReagentsTip(tooltipFrame, allQualities)
+  Auctionator.Debug.Message("Auctionator.Tooltip.AddQualityReagentsTip", speciesID)
+  if not Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_TOOLTIPS) then
+    return
+  end
+
+  for _, reagent in ipairs(allQualities) do
+    local key = tostring(reagent.itemID)
+    local price = Auctionator.Database:GetPrice(key)
+    local auctionAge = Auctionator.Database:GetPriceAge(key)
+    local suffix = " " .. C_Texture.GetCraftingReagentQualityChatIcon(reagent.quality)
+    if price ~= nil then
+      tooltipFrame:AddDoubleLine(
+        L("AUCTION") .. suffix,
+        WHITE_FONT_COLOR:WrapTextInColorCode(
+          Auctionator.Utilities.CreatePaddedMoneyString(price)
+        )
+      )
+      if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_AGE_TOOLTIPS) then
+        if auctionAge ~= nil then
+          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. suffix, WHITE_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_X_DAYS:format(tostring(auctionAge))))
+        elseif price ~= nil then
+          tooltipFrame:AddDoubleLine(AUCTIONATOR_L_AUCTION_AGE .. suffix, AUCTIONATOR_L_UNKNOWN)
+        end
+      end
+    else
+      tooltipFrame:AddDoubleLine(
+        L("AUCTION") .. suffix,
+        WHITE_FONT_COLOR:WrapTextInColorCode(L("UNKNOWN"))
+      )
+    end
+  end
+end
