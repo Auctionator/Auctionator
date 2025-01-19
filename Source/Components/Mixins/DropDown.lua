@@ -32,6 +32,7 @@ function AuctionatorDropDownMixin:InitAgain(labels, values)
   for index = 1, #labels do
     table.insert(entries, {labels[index], values[index]})
   end
+  self.value = values[1]
   MenuUtil.CreateRadioMenu(self.DropDown, function(value)
     return value == self.value
   end, function(value)
