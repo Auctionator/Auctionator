@@ -9,7 +9,5 @@
 
   <Include file="AuctionatorResultsRow.xml"/>
 
-  <Include file="CustomiseColumnsDropDown.xml"/>
-
   <Include file="ResultsListing.xml"/>
 </Ui>

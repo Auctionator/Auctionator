@@ -1,7 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-    <Frame name="AuctionatorCustomiseColumnsDropDownTemplate" mixin="AuctionatorCustomiseColumnsDropDownMixin" virtual="true">
-        <Scripts>
-            <OnLoad method="OnLoad"/>
-        </Scripts>
-    </Frame>
-</Ui>
