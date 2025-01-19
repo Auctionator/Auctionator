@@ -20,6 +20,7 @@ function AuctionatorDropDownMixin:OnLoad()
       splitStrArray(self.valuesString)
     )
   end
+  self.DropDown:SetWidth(180)
 
   if self.labelText ~= nil then
     self.Label:SetText(self.labelText)

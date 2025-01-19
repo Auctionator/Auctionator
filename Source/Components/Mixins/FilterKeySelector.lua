@@ -1,23 +1,19 @@
 AuctionatorFilterKeySelectorMixin = {}
 
-local LibDD = LibStub:GetLibrary("LibUIDropDownMenu-4.0")
-
 function AuctionatorFilterKeySelectorMixin:OnLoad()
   self.displayText = ""
+  self.selectedCategory = {}
   self.onEntrySelected = function() end
   self.ResetButton:SetClickCallback(function()
     self:Reset()
   end)
 
-  LibDD:Create_UIDropDownMenu(self)
-  LibDD:UIDropDownMenu_SetWidth(self, 180)
+  self.DropDown = CreateFrame("DropdownButton", nil, self, "WowStyle1DropdownTemplate")
+  self.DropDown:SetPoint("TOPLEFT", 20, 0)
+  self.DropDown:SetWidth(280)
 
-  LibDD:UIDropDownMenu_SetInitializeFunction(self, function(_, level, menuList)
-    if level == 1 then
-      self:InitializeLevels(level, AuctionCategories, true)
-    elseif menuList ~= nil then
-      self:InitializeLevels(level, menuList.subCategories, menuList.rootChecked, menuList.prefix)
-    end
+  self.DropDown:SetupMenu(function(dropdown, rootDescription)
+    self:InitializeLevels(rootDescription, 1, AuctionCategories)
   end)
 end
 
@@ -33,13 +29,13 @@ function AuctionatorFilterKeySelectorMixin:SetValue(value)
   self.displayText = value
   self.onEntrySelected(value)
   self.selectedCategory = {strsplit("/", value)}
-  LibDD:UIDropDownMenu_SetText(self, value)
+  self.DropDown:GenerateMenu()
 end
 
 function AuctionatorFilterKeySelectorMixin:Reset()
   self.displayText = ""
   self.selectedCategory = {}
-  LibDD:UIDropDownMenu_SetText(self, "")
+  self.DropDown:GenerateMenu()
 end
 
 function AuctionatorFilterKeySelectorMixin:SetOnEntrySelected(callback)
@@ -48,37 +44,35 @@ end
 
 function AuctionatorFilterKeySelectorMixin:EntrySelected(displayText)
   self:SetValue(displayText)
-  LibDD:CloseDropDownMenus()
+  self.DropDown:CloseMenu()
 end
 
-function AuctionatorFilterKeySelectorMixin:InitializeLevels(level, allCategories, rootChecked, prefix)
+function AuctionatorFilterKeySelectorMixin:InitializeLevels(rootDescription, level, allCategories, prefix)
   if allCategories == nil then
     return
   end
 
-  local name
-  local info = LibDD:UIDropDownMenu_CreateInfo()
   prefix = prefix or ""
-
-  info.hasArrow = true
-  info.func = function(_, displayText)
-    self:EntrySelected(displayText)
-  end
 
   for _, category in ipairs(allCategories) do 
     if not category:HasFlag("WOW_TOKEN_FLAG") and not category.implicitFilter then
-      info.hasArrow = category.subCategories ~= nil
+      local key = prefix .. category.name
+      local desc = rootDescription:CreateRadio(category.name, function()
+        local terms = {strsplit("/", key)}
+        for i = 1, level do
+          if terms[i] ~= self.selectedCategory[i] then
+            return false
+          end
+        end
+        return true
+      end, function()
+        self:EntrySelected(key)
+      end)
 
-      info.text = category.name
-      info.arg1 = prefix .. category.name
-      info.checked = rootChecked and info.text == self.selectedCategory[level]
-
-      info.menuList = {
-        prefix = info.arg1 .. "/",
-        subCategories = category.subCategories,
-        rootChecked = info.checked
-      }
-      LibDD:UIDropDownMenu_AddButton(info, level)
+      if category.subCategories ~= nil then
+        local newPrefix = key .. "/"
+        self:InitializeLevels(desc, level + 1, category.subCategories, newPrefix)
+      end
     end
   end
 end
