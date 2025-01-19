@@ -75,20 +75,25 @@ function AuctionatorBagUseMixin:BagItemClicked(button, mouseButton)
     local isInDefaultGroup = self.View.itemMap[defaultName][button.itemInfo.sortKey] ~= nil
     local options = {}
     local defaultPrintName = _G["AUCTIONATOR_L_" .. defaultName] or defaultName
-    if isInDefaultGroup then
-      table.insert(options, { label = AUCTIONATOR_L_REMOVE_FROM_X:format(defaultPrintName), callback = function() self:RemoveFromDefaultGroup(button) end})
-    else
-      table.insert(options, { label = AUCTIONATOR_L_ADD_TO_X:format(defaultPrintName), callback = function() self:AddToDefaultGroup(button) end})
-    end
-    if not button.itemInfo.isCustom then
-      if not self.View.hiddenItems[button.itemInfo.sortKey] then
-        table.insert(options, { label = AUCTIONATOR_L_HIDE, callback = function() self:HideItem(button) end })
+    MenuUtil.CreateContextMenu(self, function(_, rootDescription)
+      if isInDefaultGroup then
+        rootDescription:CreateButton(AUCTIONATOR_L_REMOVE_FROM_X:format(defaultPrintName), function() self:RemoveFromDefaultGroup(button) end)
       else
-        table.insert(options, { label = AUCTIONATOR_L_UNHIDE, callback = function() self:UnhideItem(button) end })
+        rootDescription:CreateButton(AUCTIONATOR_L_ADD_TO_X:format(defaultPrintName), function() self:AddToDefaultGroup(button) end)
       end
-      table.insert(options, { label = AUCTIONATOR_L_UNHIDE_ALL, callback = function() self:UnhideAll() end, isDisabled = next(self.View.hiddenItems) == nil })
-    end
-    Auctionator.Selling.ShowPopup(options)
+      if not button.itemInfo.isCustom then
+        if not self.View.hiddenItems[button.itemInfo.sortKey] then
+          rootDescription:CreateButton(AUCTIONATOR_L_HIDE, function() self:HideItem(button) end)
+        else
+          rootDescription:CreateButton(AUCTIONATOR_L_UNHIDE, function() self:UnhideItem(button) end)
+        end
+        if next(self.View.hiddenItems) == nil then
+          rootDescription:CreateTitle(GRAY_FONT_COLOR:WrapTextInColorCode(AUCTIONATOR_L_UNHIDE_ALL))
+        else
+          rootDescription:CreateButton(AUCTIONATOR_L_UNHIDE_ALL, function() self:UnhideAll() end)
+        end
+      end
+    end)
   end
 end
 
