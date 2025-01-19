@@ -31,7 +31,7 @@ function AuctionatorDropDownMixin:InitAgain(labels, values)
   for index = 1, #labels do
     table.insert(entries, {labels[index], values[index]})
   end
-  MenuUtil.CreateRadioMenu(self.Dropdown, function(value)
+  MenuUtil.CreateRadioMenu(self.DropDown, function(value)
     return value == self.value
   end, function(value)
     self.value = value
@@ -40,7 +40,7 @@ end
 
 function AuctionatorDropDownMixin:SetValue(...)
   self.value = ...
-  self.Dropdown:GenerateMenu()
+  self.DropDown:GenerateMenu()
 end
 
 function AuctionatorDropDownMixin:GetValue(...)
