@@ -19,9 +19,6 @@
         </Anchors>
       </Frame>
 
-      <Frame parentKey="CustomiseDropDown" inherits="AuctionatorCustomiseColumnsDropDownTemplate" hidden="true"/>
-
-
       <Frame parentKey="ScrollArea">
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent.HeaderContainer" relativePoint="BOTTOMLEFT" y="-3" x="15"/>
