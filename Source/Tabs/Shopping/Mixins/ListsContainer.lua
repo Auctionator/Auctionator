@@ -209,7 +209,7 @@ function AuctionatorShoppingTabListsContainerMixin:SetupContent()
     if button.elementData and button.elementData.type == RowType.SearchTerm then
       GameTooltip:SetOwner(button, "ANCHOR_NONE")
       Auctionator.Shopping.Tab.ComposeSearchTermTooltip(button.elementData.searchTerm)
-      GameTooltip:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT")
+      GameTooltip:SetPoint("BOTTOMRIGHT", button, "TOPRIGHT")
       GameTooltip:Show()
       if self.draggingIndex ~= nil then
         self.dragTargetIndex = button.elementData.index
