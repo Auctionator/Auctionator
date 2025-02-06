@@ -13,7 +13,7 @@ function AuctionatorShoppingTabFrameMixin:DoSearch(terms, options)
     return
   end
 
-  if options == nil and Auctionator.Constants.IsClassic and IsShiftKeyDown() then
+  if options == nil and Auctionator.Constants.IsLegacyAH and IsShiftKeyDown() then
     options = { searchAllPages = true }
   end
 

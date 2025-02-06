@@ -1,4 +1,4 @@
-local lib = LibStub:NewLibrary("LibAHTab-1-0", 2)
+local lib = LibStub:NewLibrary("LibAHTab-1-0", 3)
 
 if not lib or lib.internalState then return end
 
@@ -43,7 +43,7 @@ function lib:CreateTab(tabID, attachedFrame, displayText, tabHeader)
     error("The tab id already exists")
   end
 
-  local newTab = CreateFrame("Button", nil, lib.internalState.rootFrame, "AuctionHouseFrameDisplayModeTabTemplate")
+  local newTab = CreateFrame("Button", "LibAHFrame-1.0-" .. tabID, lib.internalState.rootFrame, "AuctionHouseFrameDisplayModeTabTemplate")
   table.insert(lib.internalState.Tabs, newTab)
 
   newTab:SetText(displayText)
@@ -55,7 +55,7 @@ function lib:CreateTab(tabID, attachedFrame, displayText, tabHeader)
   if #lib.internalState.Tabs > 1 then
     newTab:SetPoint("TOPLEFT", lib.internalState.Tabs[#lib.internalState.Tabs - 1], "TOPRIGHT", 3, 0)
   else
-    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT", 3, 0)
+    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT", 0, 0)
   end
 
   PanelTemplates_DeselectTab(newTab)
