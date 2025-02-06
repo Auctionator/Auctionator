@@ -55,7 +55,7 @@ function lib:CreateTab(tabID, attachedFrame, displayText, tabHeader)
   if #lib.internalState.Tabs > 1 then
     newTab:SetPoint("TOPLEFT", lib.internalState.Tabs[#lib.internalState.Tabs - 1], "TOPRIGHT", 3, 0)
   else
-    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT", 0, 0)
+    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT", 3, 0)
   end
 
   PanelTemplates_DeselectTab(newTab)
