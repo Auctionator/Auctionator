@@ -15,7 +15,7 @@ function Auctionator.PostingHistoryMixin:AddEntry(key, price, quantity, bidPrice
 
   -- Remove bid price because the wrong value is reported for multiple stacks
   -- posted
-  if Auctionator.Constants.IsClassic then
+  if Auctionator.Constants.IsLegacyAH then
     bidPrice = nil
   end
 

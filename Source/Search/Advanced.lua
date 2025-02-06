@@ -139,7 +139,7 @@ local function QualityString(quality)
 end
 
 local function TierString(tier)
-  if not Auctionator.Constants.IsClassic and tier ~= nil then
+  if Auctionator.Constants.IsRetail and tier ~= nil then
     return C_Texture.GetCraftingReagentQualityChatIcon(tier)
   else
     return ""

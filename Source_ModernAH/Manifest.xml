@@ -1,0 +1,18 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Include file="Utilities\Manifest.xml" />
+  <Include file="AH\Manifest.xml" />
+  <Include file="Components\Manifest.xml" />
+  <Include file="Variables\Manifest.xml" />
+  <Include file="Core\Manifest.xml" />
+  <Include file="Constants\Manifest.xml" />
+  <Include file="IncrementalScan\Manifest.xml"/>
+  <Include file="FullScan\Manifest.xml"/>
+  <Include file="API\Manifest.xml"/>
+  <Include file="Selling\Manifest.xml"/>
+  <Script file="Buying\Events.lua"/>
+
+  <Include file="Search\Manifest.xml" />
+  <Include file="Tabs\Manifest.xml" />
+
+  <Include file="Config\Manifest.xml"/>
+</Ui>

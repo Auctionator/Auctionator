@@ -19,14 +19,4 @@ Auctionator.Constants.ValidItemClassIDs = {
   Enum.ItemClass.Questitem,
   Enum.ItemClass.Miscellaneous,
 }
-Auctionator.Constants.BagIDs = {0, 1, 2, 3, 4, 5}
-Auctionator.Constants.QualityIDs = {
-  Enum.ItemQuality.Poor,
-  Enum.ItemQuality.Common,
-  Enum.ItemQuality.Uncommon,
-  Enum.ItemQuality.Rare,
-  Enum.ItemQuality.Epic,
-  Enum.ItemQuality.Legendary,
-  Enum.ItemQuality.Artifact,
-}
 Auctionator.Constants.SummaryBatchSize = 500

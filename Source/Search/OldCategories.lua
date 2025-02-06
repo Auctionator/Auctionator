@@ -99,7 +99,7 @@ local function GenerateSubClasses( classID, parentKey )
 end
 
 function Auctionator.Search.InitializeOldCategories()
-  for _, classID in ipairs( Auctionator.Constants.ValidItemClassIDs ) do
+  for _, classID in ipairs( Auctionator.Groups.Constants.ValidItemClassIDs ) do
     local key = C_Item.GetItemClassInfo( classID )
     local subClasses = GenerateSubClasses( classID, key )
     local category = {classID = classID}

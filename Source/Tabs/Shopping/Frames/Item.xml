@@ -2,7 +2,7 @@
   <Frame
     name="AuctionatorShoppingItemTemplate"
     mixin="AuctionatorShoppingItemMixin"
-    inherits="AuctionatorPanelTemplate"
+    inherits="ButtonFrameTemplate"
     frameStrata="Dialog"
     enableMouse="true"
     virtual="true"
@@ -258,15 +258,5 @@
         </Scripts>
       </Button>
     </Frames>
-
-    <Layers>
-      <Layer>
-        <FontString text="" inherits="GameFontHighlight" parentKey="DialogTitle">
-          <Anchors>
-            <Anchor point="TOP" relativePoint="TOP" y="-10"/>
-          </Anchors>
-        </FontString>
-      </Layer>
-    </Layers>
   </Frame>
 </Ui>
