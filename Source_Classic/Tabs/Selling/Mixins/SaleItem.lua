@@ -728,7 +728,11 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     minPriceSeen = self.minPriceSeen,
   })
 
-  Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
+  if StaticPopupDialogs["AUCTION_HOUSE_POST_WARNING"] then
+    Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks, true)
+  else
+    Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
+  end
 
   if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
     Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
