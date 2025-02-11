@@ -26,13 +26,12 @@
 ## IconTexture: Interface\AddOns\Auctionator\Images\Logo
 
 Libs\Manifest.xml
-Libs_ModernAH\Manifest.xml
+Libs_Mainline\Manifest.xml
 
 Locales\Manifest.xml
 
-Imports_ModernAH\Manifest.xml
-Assets_ModernAH.xml
+Imports_Mainline\Manifest.xml
+Assets_Mainline.xml
 
 Source\Manifest.xml
 Source_Mainline\Manifest.xml
-Source_ModernAH\Manifest.xml

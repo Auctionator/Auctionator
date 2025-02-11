@@ -12,7 +12,7 @@ local POSTING_HISTORY_PROVIDER_LAYOUT ={
     headerParameters = { "bidPrice" },
     cellTemplate = "AuctionatorPriceCellTemplate",
     cellParameters = { "bidPrice" },
-    defaultHide = Auctionator.Constants.IsLegacyAH,
+    defaultHide = Auctionator.Constants.IsClassic,
   },
   {
     headerTemplate = "AuctionatorStringColumnHeaderTemplate",

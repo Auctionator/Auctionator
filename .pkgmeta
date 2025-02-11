@@ -9,7 +9,6 @@ ignore:
   - *Cata*
   - *TBC*
   - *Wrath*
-  - *LegacyAH*
   - Patches
 plain-copy:
   - Imports_Mainline

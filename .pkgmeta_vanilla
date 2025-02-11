@@ -8,10 +8,8 @@ ignore:
   - *TBC*
   - *Wrath*
   - *Cata*
-  - *ModernAH*
 plain-copy:
   - Imports_Classic
   - Source
   - Source_Classic
   - Source_Vanilla
-  - Source_LegacyAH

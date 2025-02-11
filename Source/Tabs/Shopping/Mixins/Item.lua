@@ -24,7 +24,7 @@ local function InitializeTierDropDown(dropDown)
   table.insert(tierStrings, AUCTIONATOR_L_ANY_UPPER)
   table.insert(tierIDs, NO_QUALITY)
 
-  if Auctionator.Constants.IsRetail then
+  if not Auctionator.Constants.IsClassic then
     for tier = 1, 3 do
       table.insert(tierStrings, C_Texture.GetCraftingReagentQualityChatIcon(tier))
       table.insert(tierIDs, tostring(tier))
@@ -52,9 +52,6 @@ local function InitializeExpansionDropDown(dropDown)
 end
 
 function AuctionatorShoppingItemMixin:OnLoad()
-  ButtonFrameTemplate_HidePortrait(self)
-  local _, rt, rp, ox, oy = self.Inset:GetPointByName("TOPLEFT")
-  self.Inset:SetPoint("TOPLEFT", rt, rp, ox, -25)
   self.onFinishedClicked = function() end
 
   self.SearchContainer.ResetSearchStringButton:SetClickCallback(function()
@@ -109,7 +106,7 @@ function AuctionatorShoppingItemMixin:OnLoad()
   InitializeQualityDropDown(self.QualityContainer.DropDown)
   InitializeTierDropDown(self.TierContainer.DropDown)
 
-  if Auctionator.Constants.IsRetail then
+  if not Auctionator.Constants.IsClassic then
     self:SetHeight(470)
     self.TierContainer:Show()
     self.ExpansionContainer:Show()
@@ -126,7 +123,7 @@ function AuctionatorShoppingItemMixin:OnLoad()
 end
 
 function AuctionatorShoppingItemMixin:Init(title, finishedButtonText)
-  self:SetTitle(title)
+  self.DialogTitle:SetText(title)
   self.Finished:SetText(finishedButtonText)
   DynamicResizeButton_Resize(self.Finished)
 end
@@ -243,13 +240,13 @@ function AuctionatorShoppingItemMixin:SetItemString(itemString)
     self.QualityContainer.DropDown:SetValue(tostring(search.quality))
   end
 
-  if not Auctionator.Constants.IsRetail or search.tier == nil then
+  if Auctionator.Constants.IsClassic or search.tier == nil then
     self.TierContainer.DropDown:SetValue(NO_QUALITY)
   else
     self.TierContainer.DropDown:SetValue(tostring(search.tier))
   end
 
-  if not Auctionator.Constants.IsRetail or search.expansion == nil then
+  if Auctionator.Constants.IsClassic or search.expansion == nil then
     self.ExpansionContainer.DropDown:SetValue(NO_QUALITY)
   else
     self.ExpansionContainer.DropDown:SetValue(tostring(search.expansion))
@@ -268,7 +265,6 @@ function AuctionatorShoppingItemMixin:ResetAll()
   self.LevelRange:Reset()
   self.PriceRange:Reset()
   self.CraftedLevelRange:Reset()
-  self.QualityContainer.DropDown:SetValue(NO_QUALITY)
 end
 
 function AuctionatorShoppingItemMixin:ReceiveEvent(eventName)

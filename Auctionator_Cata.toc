@@ -13,16 +13,15 @@
 ## SavedVariablesPerCharacter: AUCTIONATOR_CHARACTER_CONFIG
 ## IconTexture: Interface\AddOns\Auctionator\Images\Logo
 
-Libs\Manifest.xml
-Libs_ModernAH\Manifest.xml
-
 Patches\TaintLess.xml
+Libs\Manifest.xml
 
-Imports_ModernAH\Manifest.xml
-Assets_ModernAH.xml
+Assets_Classic.xml
+
+Imports_Classic\Manifest.xml
 
 Locales\Manifest.xml
 
 Source\Manifest.xml
 Source_Classic\Manifest.xml
-Source_ModernAH\Manifest.xml
+Data_Cata\Suffixes.lua

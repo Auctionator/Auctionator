@@ -312,10 +312,7 @@ end
 -- The exact item name is only loaded when needed as it slows down loading the
 -- bag items too much to do in BagDataProvider.
 function AuctionatorSaleItemMixin:SetItemName()
-  local reagentQuality
-  if Auctionator.Constants.IsRetail then
-    reagentQuality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(self.itemInfo.itemID)
-  end
+  local reagentQuality = C_TradeSkillUI.GetItemReagentQualityByItemInfo(self.itemInfo.itemID)
   local itemName = self.itemInfo.itemName
   if reagentQuality then
     itemName = itemName .. " " .. C_Texture.GetCraftingReagentQualityChatIcon(reagentQuality)
