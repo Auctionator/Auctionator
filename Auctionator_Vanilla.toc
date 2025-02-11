@@ -16,9 +16,9 @@
 Patches\TaintLess.xml
 Libs\Manifest.xml
 
-Assets_Classic.xml
+Assets_LegacyAH.xml
 
-Imports_Classic\Manifest.xml
+Imports_LegacyAH\Manifest.xml
 
 Locales\Manifest.xml
 
@@ -26,3 +26,4 @@ Source\Manifest.xml
 Source_Classic\Manifest.xml
 Source_Vanilla\Manifest.xml
 Data_Vanilla\Suffixes.lua
+Source_LegacyAH\Manifest.xml
