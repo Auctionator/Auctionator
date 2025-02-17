@@ -158,7 +158,7 @@
 
           <Button parentKey="ResetQualityButton" inherits="AuctionatorResetButton">
             <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="-10" y="-5"/>
+              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="5" y="-5"/>
             </Anchors>
           </Button>
         </Frames>
@@ -190,7 +190,7 @@
 
           <Button parentKey="ResetExpansionButton" inherits="AuctionatorResetButton">
             <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="-10" y="-5"/>
+              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="5" y="-5"/>
             </Anchors>
           </Button>
         </Frames>
@@ -222,7 +222,7 @@
 
           <Button parentKey="ResetTierButton" inherits="AuctionatorResetButton">
             <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="-10" y="-5"/>
+              <Anchor point="TOPLEFT" relativeKey="$parent.DropDown.DropDown" relativePoint="TOPRIGHT" x="5" y="-5"/>
             </Anchors>
           </Button>
         </Frames>

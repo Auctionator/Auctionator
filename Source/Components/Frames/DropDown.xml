@@ -13,17 +13,17 @@
     <Size y="40"/>
 
     <Frames>
-      <Frame mixin="AuctionatorDropDownInternalMixin" parentKey="DropDown">
+      <DropdownButton parentKey="DropDown" inherits="WowStyle1DropdownTemplate">
         <Anchors>
-          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="7"/>
+          <Anchor point="TOPLEFT" relativePoint="TOPLEFT" relativeKey="$parent" x="20" y="-3"/>
         </Anchors>
-      </Frame>
+      </DropdownButton>
     </Frames>
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontHighlight" parentKey="Label">
           <Anchors>
-            <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.DropDown"/>
+            <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.DropDown" x="15"/>
             <Anchor point="TOP" relativePoint="TOP" relativeKey="$parent" y="-8"/>
           </Anchors>
         </FontString>

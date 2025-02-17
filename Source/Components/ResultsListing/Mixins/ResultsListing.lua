@@ -136,13 +136,34 @@ end
 
 function AuctionatorResultsListingMixin:CustomiseColumns()
   if self.dataProvider:GetColumnHideStates() ~= nil then
-    self.CustomiseDropDown:Callback(
-      self.columnSpecification,
-      self.dataProvider:GetColumnHideStates(),
-      function()
-        self:UpdateDimensionsForHiding()
-        self:ApplyHiding()
-    end)
+    local hideStates = self.dataProvider:GetColumnHideStates()
+    local listing = {}
+    for _, column in ipairs(self.columnSpecification) do
+      table.insert(listing, {column.headerText, column.headerText})
+    end
+
+    local function MoreThanOneVisible()
+      local count = 0
+      for _, column in ipairs(self.columnSpecification) do
+        if not hideStates[column.headerText] then
+          count = count + 1
+        end
+      end
+
+      return count >= 2
+    end
+
+    local _, menu
+    menu = MenuUtil.CreateCheckboxContextMenu(self, function(headerText)
+      return not hideStates[headerText]
+    end, function(headerText)
+      hideStates[headerText] = MoreThanOneVisible() and not hideStates[headerText]
+      menu:Close()
+
+      -- End context menu stuff
+      self:UpdateDimensionsForHiding()
+      self:ApplyHiding()
+    end, unpack(listing))
   end
 end
 

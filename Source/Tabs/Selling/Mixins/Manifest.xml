@@ -2,5 +2,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
   <Script file="BagUse.lua" />
   <Script file="BagItemSelected.lua" />
-  <Script file="Popout.lua" />
 </Ui>

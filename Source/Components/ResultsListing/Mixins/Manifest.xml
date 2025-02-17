@@ -10,7 +10,5 @@
 
   <Script file="AuctionatorResultsRow.lua"/>
 
-  <Script file="CustomiseColumnsDropDown.lua"/>
-
   <Script file="ResultsListing.lua"/>
 </Ui>

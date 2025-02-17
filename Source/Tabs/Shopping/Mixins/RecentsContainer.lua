@@ -61,7 +61,7 @@ function AuctionatorShoppingTabRecentsContainerMixin:SetupContent()
     button.Highlight:Show()
     GameTooltip:SetOwner(button, "ANCHOR_NONE")
     Auctionator.Shopping.Tab.ComposeSearchTermTooltip(button.elementData)
-    GameTooltip:SetPoint("BOTTOMLEFT", button, "BOTTOMRIGHT")
+    GameTooltip:SetPoint("BOTTOMRIGHT", button, "TOPRIGHT")
     GameTooltip:Show()
   end
 
