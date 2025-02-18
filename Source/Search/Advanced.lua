@@ -139,7 +139,7 @@ local function QualityString(quality)
 end
 
 local function TierString(tier)
-  if not Auctionator.Constants.IsClassic and tier ~= nil then
+  if Auctionator.Constants.IsRetail and tier ~= nil then
     return C_Texture.GetCraftingReagentQualityChatIcon(tier)
   else
     return ""
@@ -318,7 +318,7 @@ end
 local function TooltipTier(splitSearch)
   local key
 
-  if Auctionator.Constants.IsClassic or splitSearch.tier == nil then
+  if not Auctionator.Constants.IsRetail or splitSearch.tier == nil then
     key = AUCTIONATOR_L_ANY_LOWER
   else
     key = C_Texture.GetCraftingReagentQualityChatIcon(splitSearch.tier)
@@ -372,7 +372,7 @@ function Auctionator.Search.ComposeTooltip(searchString)
   table.insert(lines, TooltipQuantity(splitSearch))
   table.insert(lines, TooltipCraftedLevelRange(splitSearch))
   table.insert(lines, TooltipQuality(splitSearch))
-  if not Auctionator.Constants.IsClassic then
+  if Auctionator.Constants.IsRetail then
     table.insert(lines, TooltipExpansion(splitSearch))
     table.insert(lines, TooltipTier(splitSearch))
   end

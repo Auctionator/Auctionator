@@ -1,23 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="Objects.lua" />
-
-  <Include file="Components\Manifest.xml" />
-  <Include file="AH\Manifest.xml"/>
-  <Include file="Utilities\Manifest.xml"/>
-  <Include file="Constants\Manifest.xml"/>
-  <Include file="Config\Manifest.xml"/>
-  <Include file="Enchant\Manifest.xml"/>
-  <Include file="Prospect\Manifest.xml"/>
-  <Include file="Mill\Manifest.xml"/>
-  <Include file="Search\Manifest.xml" />
-  <Include file="Variables\Manifest.xml" />
-  <Include file="Core\Manifest.xml" />
-  <Include file="Buying\Manifest.xml" />
-  <Include file="Tabs\Manifest.xml" />
-  <Include file="API\Manifest.xml"/>
-  <Include file="FullScan\Manifest.xml"/>
-  <Include file="Selling\Manifest.xml"/>
   <Include file="CraftingInfo\Manifest.xml"/>
+  <Include file="Enchant\Manifest.xml"/>
+  <Include file="Mill\Manifest.xml"/>
+  <Include file="Prospect\Manifest.xml"/>
 
   <Include file="Initialize\Manifest.xml"/>
 </Ui>

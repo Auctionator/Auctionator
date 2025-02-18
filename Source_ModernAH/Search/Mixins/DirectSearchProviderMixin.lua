@@ -13,13 +13,13 @@ local INTERNAL_SEARCH_EVENTS = {
 }
 
 local QUALITY_TO_FILTER = {
-  [Enum.ItemQuality.Poor] = Enum.AuctionHouseFilter.PoorQuality,
-  [Enum.ItemQuality.Common] = Enum.AuctionHouseFilter.CommonQuality,
-  [Enum.ItemQuality.Uncommon] = Enum.AuctionHouseFilter.UncommonQuality,
-  [Enum.ItemQuality.Rare] = Enum.AuctionHouseFilter.RareQuality,
-  [Enum.ItemQuality.Epic] = Enum.AuctionHouseFilter.EpicQuality,
-  [Enum.ItemQuality.Legendary] = Enum.AuctionHouseFilter.LegendaryQuality,
-  [Enum.ItemQuality.Artifact] = Enum.AuctionHouseFilter.ArtifactQuality,
+  [0] = Enum.AuctionHouseFilter.PoorQuality,
+  [1] = Enum.AuctionHouseFilter.CommonQuality,
+  [2] = Enum.AuctionHouseFilter.UncommonQuality,
+  [3] = Enum.AuctionHouseFilter.RareQuality,
+  [4] = Enum.AuctionHouseFilter.EpicQuality,
+  [5] = Enum.AuctionHouseFilter.LegendaryQuality,
+  [6] = Enum.AuctionHouseFilter.ArtifactQuality,
 }
 
 local function GetQualityFilters(quality)

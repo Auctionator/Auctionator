@@ -1,6 +1,7 @@
 local AUCTIONATOR_EVENTS = {
   -- AH Window Initialization Events
   "AUCTION_HOUSE_SHOW",
+  "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
   -- Trade Window Initialization Events
   "TRADE_SKILL_SHOW",
   -- Cache vendor prices event
@@ -14,7 +15,7 @@ function AuctionatorInitializeClassicMixin:OnLoad()
 end
 
 function AuctionatorInitializeClassicMixin:OnEvent(event, ...)
-  if event == "AUCTION_HOUSE_SHOW" then
+  if event == "AUCTION_HOUSE_SHOW" or (event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" and (...) == Enum.PlayerInteractionType.Auctioneer) then
     self:AuctionHouseShown()
   elseif event == "TRADE_SKILL_SHOW" then
     Auctionator.CraftingInfo.Initialize()
@@ -27,7 +28,7 @@ function AuctionatorInitializeClassicMixin:AuctionHouseShown()
   Auctionator.Debug.Message("AuctionatorInitializeClassicMixin:AuctionHouseShown()")
 
   -- Prevents a lot of errors if loaded in retail
-  if AuctionFrame == nil then
+  if (Auctionator.Constants.IsLegacyAH and AuctionFrame == nil) or (not Auctionator.Constants.IsLegacyAH and AuctionHouseFrame == nil) then
     return
   end
 

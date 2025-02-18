@@ -105,17 +105,17 @@
           <OnLoad method="OnLoad"/>
         </Scripts>
         <Frames>
-          <Button parentKey="CurrentPricesTab" id="1" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_CURRENT_PRICES">
+          <Button parentKey="CurrentPricesTab" id="1" name="$parentPricesTab1" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_CURRENT_PRICES">
             <Anchors>
               <Anchor point="TOPLEFT" />
             </Anchors>
           </Button>
-          <Button parentKey="PriceHistoryTab" id="2" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_PRICE_HISTORY">
+          <Button parentKey="PriceHistoryTab" id="2" name="$parentPricesTab2" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_PRICE_HISTORY">
             <Anchors>
               <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.CurrentPricesTab"/>
             </Anchors>
           </Button>
-          <Button parentKey="YourHistoryTab" id="3" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_YOUR_HISTORY">
+          <Button parentKey="YourHistoryTab" id="3" name="$parentPricesTab3" inherits="AuctionatorSellingMiniTabButtonTemplate" text="AUCTIONATOR_L_YOUR_HISTORY">
             <Anchors>
               <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" relativeKey="$parent.PriceHistoryTab"/>
             </Anchors>
