@@ -27,7 +27,7 @@ end
 hooksecurefunc(_G, "ContainerFrameItemButton_OnClick", function(self, button)
   if AHShown() and
       Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
-    local itemLocation = ItemLocation:CreateFromBagAndSlot(self:GetBagID(), self:GetID());
+    local itemLocation = ItemLocation:CreateFromBagAndSlot(self.GetBagID and self:GetBagID() or self:GetParent():GetID(), self:GetID());
     SelectOwnItem(itemLocation)
   end
 end)
@@ -38,3 +38,13 @@ hooksecurefunc(_G, "HandleModifiedItemClick", function(itemLink, itemLocation)
     SelectOwnItem(itemLocation)
   end
 end)
+
+if ContainerFrameItemButton_OnModifiedClick then
+  hooksecurefunc(_G, "ContainerFrameItemButton_OnModifiedClick", function(self, button)
+    if AHShown() and
+        Auctionator.Utilities.IsShortcutActive(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_SELECT_SHORTCUT), button) then
+      local itemLocation = ItemLocation:CreateFromBagAndSlot(self.GetBagID and self:GetBagID() or self:GetParent():GetID(), self:GetID());
+      SelectOwnItem(itemLocation)
+    end
+  end)
+end
