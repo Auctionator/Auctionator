@@ -5,11 +5,20 @@ function AuctionatorConfigMoneyInputMixin:OnLoad()
     self.Label:SetText(self.labelText)
   end
 
+  if not self.MoneyInput.hideCopper then
+    self.MoneyInput:SetWidth(190)
+  end
+
+  self.MoneyInput.CopperBox:SetScript("OnEnter", function() self:OnEnter() end)
+  self.MoneyInput.CopperBox:SetScript("OnLeave", function() self:OnLeave() end)
   self.MoneyInput.SilverBox:SetScript("OnEnter", function() self:OnEnter() end)
   self.MoneyInput.SilverBox:SetScript("OnLeave", function() self:OnLeave() end)
   self.MoneyInput.GoldBox:SetScript("OnEnter", function() self:OnEnter() end)
   self.MoneyInput.GoldBox:SetScript("OnLeave", function() self:OnLeave() end)
 
+  self.MoneyInput.CopperBox:SetScript("OnEnterPressed", function()
+    Auctionator.Components.ReportEnterPressed()
+  end)
   self.MoneyInput.SilverBox:SetScript("OnEnterPressed", function()
     Auctionator.Components.ReportEnterPressed()
   end)

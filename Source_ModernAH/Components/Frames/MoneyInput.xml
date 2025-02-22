@@ -22,12 +22,18 @@
       <Frame inherits="LargeMoneyInputFrameTemplate" parentKey="MoneyInput">
         <Size x="150" y="20"/>
         <KeyValues>
-          <KeyValue key="hideCopper" value="true" type="boolean" />
+          <KeyValue key="useAuctionHouseCopperValue" value="true" type="boolean"/>
         </KeyValues>
         <Anchors>
           <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="25"/>
         </Anchors>
         <Scripts>
+          <OnLoad>
+            if Auctionator.Constants.IsRetail then
+              self.hideCopper = true
+            end
+            self:OnLoad()
+          </OnLoad>
           <OnEnter>self:GetParent():OnEnter()</OnEnter>
           <OnLeave>self:GetParent():OnLeave()</OnLeave>
         </Scripts>
