@@ -82,6 +82,43 @@ function AuctionatorFullScanFrameMixin:CacheScanData()
   )
 end
 
+-- LoadItemData copied from Baganator code
+local pendingItems = {}
+local itemFrame = CreateFrame("Frame")
+itemFrame.elapsed = 0
+itemFrame:SetScript("OnEvent", function(_, _, itemID)
+  if pendingItems[itemID] ~= nil then
+    local forItemID = pendingItems[itemID]
+    pendingItems[itemID] = nil
+    for _, callback in ipairs(forItemID) do
+      callback()
+    end
+  end
+end)
+itemFrame.OnUpdate = function(self, elapsed)
+  itemFrame.elapsed = itemFrame.elapsed + elapsed
+  if itemFrame.elapsed > 0.4 then
+    for itemID in pairs(pendingItems) do
+      C_Item.RequestLoadItemDataByID(itemID)
+    end
+    itemFrame.elapsed = 0
+  end
+
+  if next(pendingItems) == nil then
+    itemFrame.elapsed = 0
+    self:SetScript("OnUpdate", nil)
+    self:UnregisterEvent("ITEM_DATA_LOAD_RESULT")
+  end
+end
+
+local function LoadItemData(itemID, callback)
+  pendingItems[itemID] = pendingItems[itemID] or {}
+  table.insert(pendingItems[itemID], callback)
+  itemFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+  itemFrame:SetScript("OnUpdate", itemFrame.OnUpdate)
+  C_Item.RequestLoadItemDataByID(itemID)
+end
+
 function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
   if startIndex >= limit then
     C_Timer.After(2, function()
@@ -117,7 +154,7 @@ function AuctionatorFullScanFrameMixin:ProcessBatch(startIndex, stepSize, limit)
         self:EndProcessing()
       end
     elseif not info[18] then
-      ItemEventListener:AddCallback(info[17], function()
+      LoadItemData(info[17], function()
         local link = C_AuctionHouse.GetReplicateItemLink(index)
 
         Auctionator.Utilities.DBKeyFromLink(link, function(dbKeys)
