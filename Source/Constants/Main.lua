@@ -50,7 +50,30 @@ Auctionator.Constants = {
   },
 
   AfterAHCut = 0.95,
-  IsClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE,
+  IsLegacyAH = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or IsUsingLegacyAuctionClient ~= nil and IsUsingLegacyAuctionClient(),
+  IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE,
+  IsVanilla = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC,
+
 
   EnchantingVellumID = 38682,
 }
+
+if Auctionator.Constants.IsRetail then
+  Auctionator.Constants.QualityIDs = {
+    Enum.ItemQuality.Poor,
+    Enum.ItemQuality.Common,
+    Enum.ItemQuality.Uncommon,
+    Enum.ItemQuality.Rare,
+    Enum.ItemQuality.Epic,
+    Enum.ItemQuality.Legendary,
+    Enum.ItemQuality.Artifact,
+  }
+else
+  Auctionator.Constants.QualityIDs = {
+    Enum.ItemQuality.Poor,
+    Enum.ItemQuality.Standard,
+    Enum.ItemQuality.Good,
+    Enum.ItemQuality.Rare,
+    Enum.ItemQuality.Epic,
+  }
+end

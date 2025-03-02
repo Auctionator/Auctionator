@@ -1,9 +1,15 @@
 AuctionatorCraftingInfoFrameMixin = {}
 
+local function IsAuctionFrameVisible()
+  return (AuctionFrame ~= nil and AuctionFrame:IsShown()) or (AuctionHouseFrame ~= nil and AuctionHouseFrame:IsShown())
+end
+
 function AuctionatorCraftingInfoFrameMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, {
     "AUCTION_HOUSE_SHOW",
     "AUCTION_HOUSE_CLOSED",
+    "PLAYER_INTERACTION_MANAGER_FRAME_SHOW",
+    "PLAYER_INTERACTION_MANAGER_FRAME_HIDE",
   })
 
   self.originalFirstLine = TradeSkillDescription or TradeSkillReagentLabel
@@ -30,7 +36,7 @@ end
 function AuctionatorCraftingInfoFrameMixin:ShowIfRelevant()
   self:SetShown(Auctionator.Config.Get(Auctionator.Config.Options.CRAFTING_INFO_SHOW) and GetTradeSkillSelectionIndex() ~= 0 and self:IsAnyReagents())
   if self:IsVisible() then
-    self.SearchButton:SetShown(AuctionFrame ~= nil and AuctionFrame:IsShown())
+    self.SearchButton:SetShown(IsAuctionFrameVisible())
 
     if not self.hasCustomDescriptionPoint then
       self.originalDescriptionPoint = {self.originalFirstLine:GetPoint(1)}
@@ -77,12 +83,13 @@ function AuctionatorCraftingInfoFrameMixin:UpdateTotal()
 end
 
 function AuctionatorCraftingInfoFrameMixin:SearchButtonClicked()
-  if AuctionFrame and AuctionFrame:IsShown() then
+  if IsAuctionFrameVisible() then
     Auctionator.CraftingInfo.DoTradeSkillReagentsSearch()
   end
 end
 
 function AuctionatorCraftingInfoFrameMixin:OnEvent(...)
+  self:ShowIfRelevant()
   if self:IsVisible() then
     self:UpdateTotal()
   end

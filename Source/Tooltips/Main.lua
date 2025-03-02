@@ -105,7 +105,7 @@ function Auctionator.Tooltip.ShowTipWithPricingDBKey(tooltipFrame, dbKeys, itemL
   if disenchantStatus ~= nil then
     Auctionator.Tooltip.AddDisenchantTip(tooltipFrame, disenchantPrice, countString, disenchantStatus)
 
-    if Auctionator.Constants.IsClassic and IsShiftKeyDown() and Auctionator.Config.Get(Auctionator.Config.Options.ENCHANT_TOOLTIPS) then
+    if not Auctionator.Constants.IsRetail and IsShiftKeyDown() and Auctionator.Config.Get(Auctionator.Config.Options.ENCHANT_TOOLTIPS) then
       for _, line in ipairs(Auctionator.Enchant.GetDisenchantBreakdown(itemLink, itemInfo)) do
         tooltipFrame:AddLine(line)
       end
@@ -169,7 +169,7 @@ end
 
 function Auctionator.Tooltip.AddVendorTip(tooltipFrame, vendorPrice, countString)
   if Auctionator.Config.Get(Auctionator.Config.Options.VENDOR_TOOLTIPS) and vendorPrice > 0 then
-    if Auctionator.Constants.IsClassic then
+    if not Auctionator.Constants.IsRetail then
       GameTooltip_ClearMoney(tooltipFrame) -- Remove default price
     end
 

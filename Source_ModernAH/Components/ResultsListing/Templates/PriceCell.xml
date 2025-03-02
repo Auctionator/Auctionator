@@ -1,0 +1,33 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Button
+    name="AuctionatorPriceCellTemplate"
+    mixin="AuctionatorPriceCellTemplateMixin"
+    inherits="AuctionatorCell"
+    virtual="true"
+  >
+    <Frames>
+      <Frame parentKey="MoneyDisplay" inherits="AuctionatorRetailImportMoneyDisplayFrameTemplate">
+        <Anchors>
+          <Anchor point="LEFT"/>
+          <Anchor point="RIGHT" x="-20"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+            if Auctionator.Constants.IsRetail then
+              self.hideCopper = true
+            else
+              self:SetPoint("RIGHT", -15, 0)
+            end
+            self:OnLoad()
+          </OnLoad>
+        </Scripts>
+
+        <KeyValues>
+          <KeyValue key="useAuctionHouseCopperValue" value="true" type="boolean"/>
+          <KeyValue key="useAuctionHouseIcons" value="true" type="boolean"/>
+          <KeyValue key="resizeToFit" value="false" type="boolean"/>
+        </KeyValues>
+      </Frame>
+    </Frames>
+  </Button>
+</Ui>

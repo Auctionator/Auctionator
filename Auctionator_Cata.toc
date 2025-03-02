@@ -1,4 +1,4 @@
-## Interface: 40401
+## Interface: 40402
 ## Title: Auctionator
 ## Version: @project-version@
 ## Author: Borjamacare, plusmouse
@@ -13,15 +13,16 @@
 ## SavedVariablesPerCharacter: AUCTIONATOR_CHARACTER_CONFIG
 ## IconTexture: Interface\AddOns\Auctionator\Images\Logo
 
-Patches\TaintLess.xml
 Libs\Manifest.xml
+Libs_ModernAH\Manifest.xml
 
-Assets_Classic.xml
+Patches\TaintLess.xml
 
-Imports_Classic\Manifest.xml
+Imports_ModernAH\Manifest.xml
+Assets_ModernAH.xml
 
 Locales\Manifest.xml
 
 Source\Manifest.xml
 Source_Classic\Manifest.xml
-Data_Cata\Suffixes.lua
+Source_ModernAH\Manifest.xml

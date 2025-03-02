@@ -1,0 +1,52 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <!-- Template for money input with label -->
+  <Frame name="AuctionatorConfigurationMoneyInput" mixin="AuctionatorConfigMoneyInputMixin" inherits="AuctionatorConfigurationTooltip" virtual="true">
+    <!--
+      <KeyValues>
+        Number is in copper, but will round to next lowest silver since copper not used in AH
+        <KeyValue key="value" value="0" type="number"/>
+        <KeyValue key="labelText" value="" type="string"/>
+        <KeyValue key="tooltipTitleText" value="" type="string"/>
+        <KeyValue key="tooltipText" value="" type="string"/>
+      </KeyValues>
+    -->
+    <Size y="7"/>
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+    </Scripts>
+    <Anchors>
+      <Anchor point="LEFT" relativeKey="$parent" relativePoint="LEFT"/>
+      <Anchor point="RIGHT" relativeKey="$parent" relativePoint="RIGHT"/>
+    </Anchors>
+    <Frames>
+      <Frame inherits="LargeMoneyInputFrameTemplate" parentKey="MoneyInput">
+        <Size x="150" y="20"/>
+        <KeyValues>
+          <KeyValue key="useAuctionHouseCopperValue" value="true" type="boolean"/>
+        </KeyValues>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="BOTTOMLEFT" x="25"/>
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+            if Auctionator.Constants.IsRetail then
+              self.hideCopper = true
+            end
+            self:OnLoad()
+          </OnLoad>
+          <OnEnter>self:GetParent():OnEnter()</OnEnter>
+          <OnLeave>self:GetParent():OnLeave()</OnLeave>
+        </Scripts>
+      </Frame>
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" parentKey="Label">
+          <Anchors>
+            <Anchor point="LEFT" relativePoint="RIGHT" relativeKey="$parent.MoneyInput" x="5" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

@@ -30,7 +30,7 @@ function Auctionator.Utilities.DBKeyFromLink(itemLink, callback)
   end
 
   if IsGear(itemLink) then
-    if Auctionator.Constants.IsClassic then
+    if Auctionator.Constants.IsLegacyAH then
       local suffix = tonumber((itemLink:match("item:.-:.-:.-:.-:.-:.-:(.-):")))
       local suffixStringID = Auctionator.Utilities.SuffixIDToSuffixStringID[suffix]
       local suffixString = Auctionator.Utilities.SuffixStringIDTOSuffixString[suffixStringID]
