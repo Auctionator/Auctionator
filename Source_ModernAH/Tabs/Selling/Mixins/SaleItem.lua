@@ -8,14 +8,18 @@ local SALE_ITEM_EVENTS = {
 local function NormalizePrice(price)
   local normalizedPrice = price
 
-  -- Round up
-  if normalizedPrice % 100 ~= 0 then
-    normalizedPrice = normalizedPrice + (100 - normalizedPrice % 100)
-  end
+  if Auctionator.Constants.IsRetail then
+    -- Round up
+    if normalizedPrice % 100 ~= 0 then
+      normalizedPrice = normalizedPrice + (100 - normalizedPrice % 100)
+    end
 
-  -- Need to have a price of at least one silver
-  if normalizedPrice < 100 then
-    normalizedPrice = 100
+    -- Need to have a price of at least one silver (retail) or one copper (cata)
+    if normalizedPrice < 100 then
+      normalizedPrice = 100
+    end
+  elseif normalizedPrice < 1 then
+    normalizedPrice = 1
   end
 
   return normalizedPrice

@@ -28,8 +28,10 @@ function Auctionator.Selling.CalculateItemPriceFromPrice(basePrice)
   end
 
   --Ensure the value is at least 1s
-  if value < 100 then
+  if value < 100 and Auctionator.Constants.IsRetail then
     value = 100
+  elseif value < 1 then
+    value = 1
   end
 
   return value
