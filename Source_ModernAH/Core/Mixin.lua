@@ -140,6 +140,8 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializeBuyCommodityFrame()
 
   ShowDefaultTab()
+
+  C_Timer.After(0, ShowDefaultTab)
 end
 
 function AuctionatorAHFrameMixin:OnEvent(eventName, ...)
