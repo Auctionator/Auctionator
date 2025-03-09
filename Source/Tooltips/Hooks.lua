@@ -266,6 +266,7 @@ if GameTooltip.SetItemKey then
       if info == nil then
         return
       end
+      itemLink = info.hyperlink
     else
       itemLink = select(2, tip:GetItem())
     end
