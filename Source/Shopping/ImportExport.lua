@@ -50,6 +50,7 @@ function Auctionator.Shopping.Lists.OneImportFromString(listName, importString)
   for _, item in ipairs({strsplit("^", importString)}) do
     table.insert(items, item)
   end
+  list:ClearItems()
   list:AppendItems(items)
 end
 
@@ -92,6 +93,7 @@ function Auctionator.Shopping.Lists.OldOneImportFromString(listName, importStrin
 
   importString = gsub(importString, "\n$", "")
 
+  list:ClearItems()
   for _, item in ipairs({strsplit("\n", importString)}) do
     list:InsertItem(item)
   end
@@ -120,6 +122,7 @@ function Auctionator.Shopping.Lists.TSMImportFromString(importString)
 
     local list = Auctionator.Shopping.ListManager:GetByName(TSMImportName)
 
+    list:ClearItems()
     for _, i in ipairs(items) do
       list:InsertItem(i)
     end

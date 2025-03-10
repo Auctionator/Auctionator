@@ -72,6 +72,10 @@ function AuctionatorShoppingListMixin:InsertItem(newItem, index)
   self.manager:FireItemChangeEvent(self:GetName())
 end
 
+function AuctionatorShoppingListMixin:ClearItems()
+  self.data.items = {}
+end
+
 function AuctionatorShoppingListMixin:AppendItems(newItems)
   for _, i in ipairs(newItems) do
     assert(type(i) == "string")
