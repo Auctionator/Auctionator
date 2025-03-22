@@ -139,7 +139,7 @@
         </Anchors>
         <Layers>
           <Layer level="BACKGROUND">
-            <FontString inherits="GameFontHighlight" parentKey="Label" text="QUALITY">
+            <FontString inherits="GameFontHighlight" parentKey="Label" text="RARITY">
               <Anchors>
                 <Anchor point="TOPLEFT"/>
               </Anchors>
