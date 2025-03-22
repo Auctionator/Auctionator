@@ -5,10 +5,11 @@ ignore:
   - scripts
   - DB2_Scripts
   - *Mainline*
-  - *Vanilla*
   - *TBC*
-  - *Cata*
+  - *Vanilla*
+  - *ModernAH*
 plain-copy:
   - Imports_Classic
   - Source
   - Source_Classic
+  - Source_LegacyAH
