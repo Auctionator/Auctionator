@@ -32,7 +32,7 @@ function AuctionatorConfigSellingFrameMixin:ShowSettings()
   self.ScrollBox.Content.MissingFavourites:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES))
   self.ScrollBox.Content.PossessedFavouritesFirst:SetChecked(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITES_SORT_OWNED))
 
-  self.ScrollBox.Content.UnhideAll:SetEnabled(#(Auctionator.Config.Get(Auctionator.Config.Options.SELLING_IGNORED_KEYS)) ~= 0)
+  self.ScrollBox.Content.UnhideAll:SetEnabled(#AUCTIONATOR_SELLING_GROUPS.HiddenItems ~= 0)
 end
 
 function AuctionatorConfigSellingFrameMixin:Save()
@@ -55,7 +55,8 @@ function AuctionatorConfigSellingFrameMixin:Save()
 end
 
 function AuctionatorConfigSellingFrameMixin:UnhideAllClicked()
-  Auctionator.Config.Set(Auctionator.Config.Options.SELLING_IGNORED_KEYS, {})
+  Auctionator.Groups.UnhideAll()
+  Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
   self.ScrollBox.Content.UnhideAll:Disable()
 end
 
