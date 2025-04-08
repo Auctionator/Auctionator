@@ -1,9 +1,13 @@
-local lib = LibStub:NewLibrary("LibAHTab-1-0", 3)
+local lib = LibStub:NewLibrary("LibAHTab-1-0", 4)
 
 if not lib or lib.internalState then return end
 
 local MIN_TAB_WIDTH = 70
 local TAB_PADDING = 20
+local OFFSET_X = 3
+if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
+  OFFSET_X = -14
+end
 
 local tabIDErrorMessage = "tabID should be a string"
 
@@ -53,10 +57,11 @@ function lib:CreateTab(tabID, attachedFrame, displayText, tabHeader)
   PanelTemplates_TabResize(newTab, TAB_PADDING, nil, MIN_TAB_WIDTH)
 
   if #lib.internalState.Tabs > 1 then
-    newTab:SetPoint("TOPLEFT", lib.internalState.Tabs[#lib.internalState.Tabs - 1], "TOPRIGHT", 3, 0)
+    newTab:SetPoint("TOPLEFT", lib.internalState.Tabs[#lib.internalState.Tabs - 1], "TOPRIGHT", OFFSET_X, 0)
   else
-    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT", 3, 0)
+    newTab:SetPoint("TOPLEFT", lib.internalState.rootFrame, "TOPLEFT", OFFSET_X, 0)
   end
+  newTab:SetHitRectInsets((math.abs(OFFSET_X) - 3) / 2, (math.abs(OFFSET_X) - 3) / 2, 0, 0)
 
   PanelTemplates_DeselectTab(newTab)
 
