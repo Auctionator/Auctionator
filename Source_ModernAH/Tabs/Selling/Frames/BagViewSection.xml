@@ -14,17 +14,21 @@
         <Anchors>
           <Anchor point="RIGHT" />
         </Anchors>
-
-
         <Scripts>
           <OnLoad>
             AuctionFrameFilter_OnLoad(self)
-            self.NormalTexture:SetPoint("LEFT", -2)
-            self.NormalTexture:SetPoint("RIGHT", 2)
+            if not Auctionator.Constants.IsRetail then -- Get the tex coords set properly
+              AuctionHouseFilterButton_SetUp(self, {type = "category"})
+              self.NormalTexture:ClearAllPoints()
+              self.NormalTexture:SetHeight(self:GetHeight())
+            end
+            self.NormalTexture:SetPoint("LEFT")
+            self.NormalTexture:SetPoint("RIGHT")
             self.Text:SetPoint("LEFT", 12, 0)
+            self.HighlightTexture:ClearAllPoints()
             self.HighlightTexture:SetHeight(self:GetHeight())
             self.HighlightTexture:SetPoint("LEFT")
-            self.HighlightTexture:SetPoint("RIGHT", -2)
+            self.HighlightTexture:SetPoint("RIGHT")
           </OnLoad>
           <OnClick>self:GetParent():ToggleOpen()</OnClick>
         </Scripts>
