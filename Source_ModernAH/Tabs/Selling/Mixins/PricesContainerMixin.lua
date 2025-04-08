@@ -10,6 +10,11 @@ function AuctionatorSellingTabPricesContainerMixin:OnLoad()
     for _, tabTexture in ipairs(tab.TabTextures) do
       tabTexture:SetHeight(tabTexture:GetHeight() * 0.8)
     end
+    if not Auctionator.Constants.IsRetail then -- Fix for buggy Blizz classic code using wrong names
+      tab.LeftDisabled = tab.LeftActive
+      tab.MiddleDisabled = tab.MiddleActive
+      tab.RightDisabled = tab.RightActive
+    end
   end
 
   self:SetView(1)
