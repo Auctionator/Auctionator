@@ -1,6 +1,6 @@
 function Auctionator.Utilities.BasicDBKeyFromLink(itemLink)
   if itemLink ~= nil then
-    local _, _, itemString = string.find(itemLink, "^|c%x+|H(.+)|h%[.*%]")
+    local _, _, itemString = string.find(itemLink, "^|c%w+:?|H(.+)|h%[.*%]")
     if itemString == nil and string.find(itemLink, "^item") then
       itemString = itemLink
     end
