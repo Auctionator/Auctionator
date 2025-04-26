@@ -1,4 +1,5 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Script file="Config\Main.lua"/>
   <Include file="CraftingInfo\Manifest.xml"/>
   <Include file="Enchant\Manifest.xml"/>
   <Include file="Mill\Manifest.xml"/>
