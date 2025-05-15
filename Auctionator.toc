@@ -1,4 +1,7 @@
-## Interface: 110100, 110105
+## Interface-Mainline: 110105
+## Interface-Mists: 50500
+## Interface-Cata: 40402
+## Interface-Wrath: 30404
 ## Title: Auctionator
 ## Version: @project-version@
 ## Author: Borjamacare, plusmouse
@@ -34,5 +37,6 @@ Imports_ModernAH\Manifest.xml
 Assets_ModernAH.xml
 
 Source\Manifest.xml
-Source_Mainline\Manifest.xml
+Source_Mainline\Manifest.xml [AllowLoadGameType mainline]
+Source_Classic\Manifest.xml [AllowLoadGameType classic]
 Source_ModernAH\Manifest.xml

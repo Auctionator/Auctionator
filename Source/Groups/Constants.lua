@@ -1,5 +1,6 @@
 Auctionator.Groups.Constants = {
   IsWrath = WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC,
+  IsMists = WOW_PROJECT_ID == WOW_PROJECT_MISTS_CLASSIC,
   IsCata = WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC,
   IsVanilla = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC,
   IsRetail = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE,
@@ -44,7 +45,7 @@ if Auctionator.Groups.Constants.IsRetail then
     Enum.ItemClass.Questitem,
     Enum.ItemClass.Miscellaneous,
   }
-elseif Auctionator.Groups.Constants.IsCata then
+elseif Auctionator.Groups.Constants.IsCata or Auctionator.Groups.Constants.IsMists then
   Auctionator.Groups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,

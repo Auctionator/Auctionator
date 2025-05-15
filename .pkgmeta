@@ -4,14 +4,13 @@ ignore:
   - test-data
   - scripts
   - DB2_Scripts
-  - *Classic*
-  - *Vanilla*
-  - *Cata*
-  - *TBC*
-  - *Wrath*
-  - *LegacyAH*
-  - Patches
+  - annotations.lua
 plain-copy:
   - Imports_Mainline
   - Source
-  - Source_Mainline
+  - *Mainline
+  - *Classic
+  - *Vanilla
+  - *ModernAH
+  - *LegacyAH
+enable-toc-creation: yes
