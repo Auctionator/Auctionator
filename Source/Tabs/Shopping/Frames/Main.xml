@@ -220,6 +220,15 @@
         </Anchors>
       </Frame>
 
+      <Button parentKey="ExportScannedDataButton" inherits="UIPanelDynamicResizeButtonTemplate" text="Export Scanned Data">
+        <Anchors>
+          <Anchor point="RIGHT" relativeKey="$parent.ExportCSV" relativePoint="LEFT" x="-5" y="0"/>
+        </Anchors>
+        <Scripts>
+          <!-- <OnClick>self:GetParent():ExportScannedDataClicked()</OnClick> -->
+        </Scripts>
+      </Button>
+
       <Button inherits="UIPanelDynamicResizeButtonTemplate" text="AUCTIONATOR_L_EXPORT_RESULTS" parentKey="ExportCSV">
         <Anchors>
           <Anchor point="TOP" relativeKey="$parent.ResultsListing" relativePoint="BOTTOM"/>

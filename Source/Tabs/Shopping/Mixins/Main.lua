@@ -68,6 +68,10 @@ function AuctionatorShoppingTabFrameMixin:OnLoad()
   self.exportCSVDialog:SetPoint("CENTER")
   table.insert(self.dialogs, self.exportCSVDialog)
 
+  self.exportScannedDataDialog = CreateFrame("Frame", nil, self, "AuctionatorExportTextFrame")
+  self.exportScannedDataDialog:SetPoint("CENTER")
+  table.insert(self.dialogs, self.exportScannedDataDialog)
+
   self.ExportButton:SetScript("OnClick", function()
     self:CloseAnyDialogs()
     self.exportDialog:Show()
@@ -280,6 +284,67 @@ function AuctionatorShoppingTabFrameMixin:OnShow()
     self:OpenDefaultList()
     self.shouldDefaultOpenOnShow = false
   end
+
+  -- OnClick handler for ExportScannedDataButton
+  self.ExportScannedDataButton:SetScript("OnClick", function()
+    self:CloseAnyDialogs()
+
+    local eventBusRegistered = false
+    local scanCompleteEvent = Auctionator.FullScan and Auctionator.FullScan.Events and Auctionator.FullScan.Events.ScanComplete
+
+    local function ProcessScanData(scannedData)
+      if not scannedData then
+        Auctionator.Utilities.Message(AUCTIONATOR_L_ERROR_NO_SCAN_DATA_AVAILABLE, "error")
+        return
+      end
+
+      local exportString = Auctionator.Shopping.ExportScannedData(scannedData)
+      self.exportScannedDataDialog:SetExportString(exportString)
+      self.exportScannedDataDialog:Show()
+
+      if scanCompleteEvent and eventBusRegistered then
+        Auctionator.EventBus:Unregister(scanCompleteEvent, self)
+        eventBusRegistered = false
+      end
+    end
+
+    -- Check for existing scan data (e.g. from a very recent scan or cached event)
+    -- This is a simplified check; real implementation might need a more robust way
+    -- to get last scan results if the event isn't sticky or fired immediately.
+    local lastScanData = Auctionator.FullScan and Auctionator.FullScan.GetLastScanData and Auctionator.FullScan.GetLastScanData()
+
+    if lastScanData and #lastScanData > 0 then
+      -- Assuming GetLastScanData returns data in the expected format and is recent enough
+      -- The definition of "recent enough" would need to be defined (e.g. timestamp based)
+      -- For this implementation, any existing data is used.
+      ProcessScanData(lastScanData)
+    else
+      if scanCompleteEvent then
+        Auctionator.EventBus:Register(scanCompleteEvent, ProcessScanData, self, true) -- true for one-time registration
+        eventBusRegistered = true
+      else
+        Auctionator.Utilities.Message(AUCTIONATOR_L_ERROR_SCAN_EVENT_NOT_FOUND, "error")
+        -- Optionally, try to proceed without event registration if direct scan is possible
+      end
+
+      if Auctionator.FullScanFrame and Auctionator.FullScanFrame.InitiateScan then
+        Auctionator.FullScanFrame:InitiateScan()
+        Auctionator.Utilities.Message(AUCTIONATOR_L_SCAN_INITIATED_WAIT)
+      else
+        Auctionator.Utilities.Message(AUCTIONATOR_L_ERROR_SCAN_FRAME_NOT_FOUND, "error")
+        -- If scan frame is not found, and we registered an event, it might never fire.
+        -- So, if we couldn't initiate a scan, and didn't have initial data, unregister.
+        if scanCompleteEvent and eventBusRegistered and not lastScanData then
+           Auctionator.EventBus:Unregister(scanCompleteEvent, self)
+           eventBusRegistered = false
+        end
+        -- Show an error or a message that data cannot be fetched if both fail.
+        if not lastScanData then
+            ProcessScanData(nil) -- Call with nil to show "no data" message
+        end
+      end
+    end
+  end)
 end
 
 function AuctionatorShoppingTabFrameMixin:OnHide()

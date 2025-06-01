@@ -203,3 +203,17 @@ function Auctionator.Shopping.Lists.TSMImportFromString(importString)
 
   ImportBatch(1, 250)
 end
+
+function Auctionator.Shopping.ExportScannedData(scannedData)
+  local result = ""
+  for _, data in ipairs(scannedData) do
+    local itemName = Auctionator.Utilities.GetNameFromLink(data.itemLink)
+    local quantity = data.replicateInfo[3]
+    local price = data.replicateInfo[10]
+    if result ~= "" then
+      result = result .. "\n"
+    end
+    result = result .. itemName .. " - Quantity: " .. quantity .. " - Price: " .. price
+  end
+  return result
+end
