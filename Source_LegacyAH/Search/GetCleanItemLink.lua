@@ -1,4 +1,8 @@
 function Auctionator.Search.GetCleanItemLink(itemLink)
+  if not itemLink then
+    return ""
+  end
+
   local _, pre, hyperlink, post = ExtractHyperlinkString(itemLink)
 
   local parts = { strsplit(":", hyperlink) }
