@@ -120,7 +120,11 @@ function Auctionator.Variables.InitializeDatabase()
     for key, data in pairs(AUCTIONATOR_PRICE_DATABASE) do
       -- Convert one realm at a time, no need to hold up a login indefinitely
       if key ~= "__dbversion" and key ~= realm and type(data) == "table" then
-        AUCTIONATOR_PRICE_DATABASE[key] = LibCBOR:Serialize(data)
+        if C_EncodingUtil then
+          AUCTIONATOR_PRICE_DATABASE[key] = C_EncodingUtil.SerializeCBOR(data)
+        else
+          AUCTIONATOR_PRICE_DATABASE[key] = LibCBOR:Serialize(data)
+        end
         break
       end
     end
@@ -134,7 +138,12 @@ function Auctionator.Variables.InitializeDatabase()
   -- version of Auctionator
   local raw = AUCTIONATOR_PRICE_DATABASE[realm]
   if type(raw) == "string" then
-    local success, data = pcall(LibCBOR.Deserialize, LibCBOR, raw)
+    local success, data
+    if C_EncodingUtil then
+      success, data = pcall(C_EncodingUtil.DeserializeCBOR, raw)
+    else
+      success, data = pcall(LibCBOR.Deserialize, LibCBOR, raw)
+    end
     if not success then
       AUCTIONATOR_PRICE_DATABASE[realm] = {}
     else
@@ -162,6 +171,11 @@ function Auctionator.Variables.InitializeDatabase()
             itemData[field] = new
           end
           realmData[key] = LibCBOR:Serialize(itemData)
+          if C_EncodingUtil then
+            realmData[key] = C_EncodingUtil.SerializeCBOR(itemData)
+          else
+            realmData[key] = LibCBOR:Serialize(itemData)
+          end
         else
           break
         end

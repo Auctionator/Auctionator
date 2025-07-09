@@ -1,5 +1,21 @@
 local LibCBOR = LibStub("LibCBOR-1.0")
 
+local function Deserialize(data)
+  if C_EncodingUtil then
+    return C_EncodingUtil.DeserializeCBOR(data)
+  else
+    return LibCBOR:Deserialize(data)
+  end
+end
+
+local function Serialize(data)
+  if C_EncodingUtil then
+    return C_EncodingUtil.SerializeCBOR(data)
+  else
+    return LibCBOR:Serialize(data)
+  end
+end
+
 local function GetScanDay()
   return (math.floor ((time() - Auctionator.Constants.SCAN_DAY_0) / (86400)));
 end
@@ -17,7 +33,7 @@ function Auctionator.DatabaseMixin:Init(db)
   self.processor.index = 1
   self.processor.UpdateScript = function()
     self.processor:SetScript("OnUpdate", nil)
-    local count = 50
+    local count = C_EncodingUtil and 1000 or 50
     while count > 0 and self.processor.index <= #self.processor.queue do
       count = count - 1
       local dbKey = self.processor.queue[self.processor.index]
@@ -53,7 +69,7 @@ function Auctionator.DatabaseMixin:_Get(dbKey)
 
   local data = self.db[dbKey]
   if type(data) == "string" then
-    return LibCBOR:Deserialize(data)
+    return Deserialize(data)
   else
     return data
   end
@@ -151,7 +167,7 @@ function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
     end
   end
 
-  self.db[dbKey] = LibCBOR:Serialize(priceData)
+  self.db[dbKey] = Serialize(priceData)
 end
 
 function Auctionator.DatabaseMixin:GetPrice(dbKey)
