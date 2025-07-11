@@ -45,7 +45,26 @@ if Auctionator.Groups.Constants.IsRetail then
     Enum.ItemClass.Questitem,
     Enum.ItemClass.Miscellaneous,
   }
-elseif Auctionator.Groups.Constants.IsCata or Auctionator.Groups.Constants.IsMists then
+elseif Auctionator.Groups.Constants.IsMists then
+  Auctionator.Groups.Constants.ValidItemClassIDs = {
+    Enum.ItemClass.Weapon,
+    Enum.ItemClass.Armor,
+    Enum.ItemClass.Container,
+    Enum.ItemClass.ItemEnhancement,
+    Enum.ItemClass.Consumable,
+    Enum.ItemClass.Glyph,
+    Enum.ItemClass.Tradegoods,
+    Enum.ItemClass.Projectile,
+    Enum.ItemClass.Reagent,
+    Enum.ItemClass.Quiver,
+    Enum.ItemClass.Recipe,
+    Enum.ItemClass.Gem,
+    Enum.ItemClass.Miscellaneous,
+    Enum.ItemClass.Battlepet,
+    Enum.ItemClass.Questitem,
+    Enum.ItemClass.Key,
+  }
+elseif Auctionator.Groups.Constants.IsCata then
   Auctionator.Groups.Constants.ValidItemClassIDs = {
     Enum.ItemClass.Weapon,
     Enum.ItemClass.Armor,
