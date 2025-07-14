@@ -18,6 +18,15 @@ function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializePostingHistory()
   Auctionator.Variables.InitializeVendorPriceCache()
 
+  if C_EncodingUtil then
+    local frame = CreateFrame("Frame")
+    frame:RegisterEvent("PLAYER_LOGOUT")
+    frame:SetScript("OnEvent", function()
+      local raw = AUCTIONATOR_PRICE_DATABASE[realm]
+      AUCTIONATOR_PRICE_DATABASE[realm] = C_EncodingUtil.SerializeCBOR(raw)
+    end)
+  end
+
   Auctionator.Groups.Initialize()
 
   Auctionator.State.Loaded = true
@@ -158,28 +167,31 @@ function Auctionator.Variables.InitializeDatabase()
 
   assert(AUCTIONATOR_PRICE_DATABASE[realm], "Realm data missing somehow")
 
-  -- Convert to CBOR per-item format
   for realm, realmData in pairs(AUCTIONATOR_PRICE_DATABASE) do
-    if type(realmData) == "table" then
+    if type(realmData) == "table" and realmData.version ~= 1 then
       for key, itemData in pairs(realmData) do
-        if type(itemData) == "table" and not itemData.pending then
+        if type(itemData) == "table" and itemData.pending then
           for _, field in ipairs({"a", "h", "l"}) do
             local new = {}
+            -- Make it valid JSON (legacy)
             for day, data in pairs(itemData[field] or {}) do
               new[tostring(day)] = data
             end
             itemData[field] = new
           end
-          realmData[key] = LibCBOR:Serialize(itemData)
+        elseif type(itemData) == "table" and itemData.pending then
+          itemData = itemData.old
+        end
+        -- Reverse per-item CBOR format
+        if type(itemData) == "string" then
           if C_EncodingUtil then
-            realmData[key] = C_EncodingUtil.SerializeCBOR(itemData)
+            realmData[key] = C_EncodingUtil.DeserializeCBOR(itemData)
           else
-            realmData[key] = LibCBOR:Serialize(itemData)
+            realmData[key] = LibCBOR:Deserialize(itemData)
           end
-        else
-          break
         end
       end
+      realmData.version = 1
     end
   end
 

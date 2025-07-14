@@ -1,21 +1,5 @@
 local LibCBOR = LibStub("LibCBOR-1.0")
 
-local function Deserialize(data)
-  if C_EncodingUtil then
-    return C_EncodingUtil.DeserializeCBOR(data)
-  else
-    return LibCBOR:Deserialize(data)
-  end
-end
-
-local function Serialize(data)
-  if C_EncodingUtil then
-    return C_EncodingUtil.SerializeCBOR(data)
-  else
-    return LibCBOR:Serialize(data)
-  end
-end
-
 local function GetScanDay()
   return (math.floor ((time() - Auctionator.Constants.SCAN_DAY_0) / (86400)));
 end
@@ -26,79 +10,9 @@ Auctionator.DatabaseMixin = {}
 function Auctionator.DatabaseMixin:Init(db)
   self.db = db
   self.cutoffDay = GetScanDay() - Auctionator.Config.Get(Auctionator.Config.Options.PRICE_HISTORY_DAYS)
-
-  self.processor = CreateFrame("Frame")
-  self.processor.queue = {}
-  self.processor.running = false
-  self.processor.index = 1
-  self.processor.UpdateScript = function()
-    self.processor:SetScript("OnUpdate", nil)
-    local count = C_EncodingUtil and 1000 or 50
-    while count > 0 and self.processor.index <= #self.processor.queue do
-      count = count - 1
-      local dbKey = self.processor.queue[self.processor.index]
-      local data = self.db[dbKey]
-      if data.pending then
-        self.db[dbKey] = data.old
-        self:_SetPrice(dbKey, data.buyoutPrice, data.available)
-      end
-      self.processor.index = self.processor.index + 1
-    end
-    if self.processor.index > #self.processor.queue then
-      self.processor.index = 1
-      self.processor.running = false
-      self.processor.queue = {}
-    else
-      self.processor:SetScript("OnUpdate", self.processor.UpdateScript)
-    end
-  end
-
-  for dbKey, data in pairs(self.db) do
-    if type(data) == "table" and data.pending then
-      self:_Queue(dbKey)
-    end
-  end
-end
-
-function Auctionator.DatabaseMixin:_Get(dbKey)
-  if type(self.db[dbKey]) == "table" and self.db[dbKey].pending then
-    local data = self.db[dbKey]
-    self.db[dbKey] = self.db[dbKey].old
-    self:_SetPrice(dbKey, data.buyoutPrice, data.available)
-  end
-
-  local data = self.db[dbKey]
-  if type(data) == "string" then
-    return Deserialize(data)
-  else
-    return data
-  end
-end
-
-function Auctionator.DatabaseMixin:_Queue(dbKey)
-  table.insert(self.processor.queue, dbKey)
-  if not self.processor.running then
-    self.processor.running = true
-    self.processor:SetScript("OnUpdate", self.processor.UpdateScript)
-  end
 end
 
 function Auctionator.DatabaseMixin:SetPrice(dbKey, buyoutPrice, available)
-  if type(self.db[dbKey]) ~= "string" and self.db[dbKey] then
-    if self.db[dbKey] and self.db[dbKey].pending then
-      self.db[dbKey].buyoutPrice = buyoutPrice
-      self.db[dbKey].available = available
-    else
-      self:_SetPrice(dbKey, buyoutPrice, available)
-    end
-  else
-    local old = self.db[dbKey]
-    self.db[dbKey] = { pending = true, old = old, buyoutPrice = buyoutPrice, available = available }
-    self:_Queue(dbKey)
-  end
-end
-
-function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
   if not self.db[dbKey] then
     self.db[dbKey] = {
       l={}, -- Lowest low price on a given day
@@ -109,9 +23,6 @@ function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
   end
 
   local priceData = self.db[dbKey]
-  if type(priceData) == "string" then
-    priceData = LibCBOR:Deserialize(priceData)
-  end
   priceData.m = buyoutPrice
 
   -- Record price history
@@ -166,13 +77,11 @@ function Auctionator.DatabaseMixin:_SetPrice(dbKey, buyoutPrice, available)
       end
     end
   end
-
-  self.db[dbKey] = Serialize(priceData)
 end
 
 function Auctionator.DatabaseMixin:GetPrice(dbKey)
   if self.db[dbKey] ~= nil then
-    return self:_Get(dbKey).m
+    return self.db[dbKey].m
   else
     return nil
   end
@@ -231,7 +140,7 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
     return {}
   end
 
-  local itemData = self:_Get(dbKey)
+  local itemData = self.db[dbKey]
 
   local results = {}
 
@@ -255,7 +164,7 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
 end
 
 function Auctionator.DatabaseMixin:GetPriceAge(dbKey)
-  local itemData = self.db[dbKey] and self:_Get(dbKey)
+  local itemData = self.db[dbKey] and self.db[dbKey]
 
   if itemData == nil then
     return
@@ -277,7 +186,7 @@ function Auctionator.DatabaseMixin:GetPriceAge(dbKey)
 end
 
 function Auctionator.DatabaseMixin:GetMeanPrice(dbKey, days)
-  local entry = self.db[dbKey] and self:_Get(dbKey)
+  local entry = self.db[dbKey] and self.db[dbKey]
 
   if entry == nil or days < 0 then
     return nil
