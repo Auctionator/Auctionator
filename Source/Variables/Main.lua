@@ -18,15 +18,6 @@ function Auctionator.Variables.Initialize()
   Auctionator.Variables.InitializePostingHistory()
   Auctionator.Variables.InitializeVendorPriceCache()
 
-  if C_EncodingUtil then
-    local frame = CreateFrame("Frame")
-    frame:RegisterEvent("PLAYER_LOGOUT")
-    frame:SetScript("OnEvent", function()
-      local raw = AUCTIONATOR_PRICE_DATABASE[realm]
-      AUCTIONATOR_PRICE_DATABASE[realm] = C_EncodingUtil.SerializeCBOR(raw)
-    end)
-  end
-
   Auctionator.Groups.Initialize()
 
   Auctionator.State.Loaded = true
@@ -115,6 +106,15 @@ function Auctionator.Variables.InitializeDatabase()
 
   local realm = Auctionator.Variables.GetConnectedRealmRoot()
   Auctionator.State.CurrentRealm = realm
+
+  if C_EncodingUtil then
+    local frame = CreateFrame("Frame")
+    frame:RegisterEvent("PLAYER_LOGOUT")
+    frame:SetScript("OnEvent", function()
+      local raw = AUCTIONATOR_PRICE_DATABASE[realm]
+      AUCTIONATOR_PRICE_DATABASE[realm] = C_EncodingUtil.SerializeCBOR(raw)
+    end)
+  end
 
   -- Check for current realm and initialize if not present
   if AUCTIONATOR_PRICE_DATABASE[realm] == nil then
