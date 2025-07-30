@@ -168,7 +168,7 @@ function Auctionator.Variables.InitializeDatabase()
   assert(AUCTIONATOR_PRICE_DATABASE[realm], "Realm data missing somehow")
 
   for realm, realmData in pairs(AUCTIONATOR_PRICE_DATABASE) do
-    if type(realmData) == "table" and realmData.version ~= 1 then
+    if type(realmData) == "table" and realmData.version ~= 2 then
       for key, itemData in pairs(realmData) do
         if type(itemData) == "table" and itemData.pending then
           for _, field in ipairs({"a", "h", "l"}) do
@@ -191,7 +191,7 @@ function Auctionator.Variables.InitializeDatabase()
           end
         end
       end
-      realmData.version = 1
+      realmData.version = 2
     end
   end
 
