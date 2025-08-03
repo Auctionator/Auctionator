@@ -1,4 +1,4 @@
-## Interface-Mainline: 110105, 110107
+## Interface-Mainline: 110200, 110107
 ## Interface-Mists: 50500
 ## Title: Auctionator
 ## Version: @project-version@
