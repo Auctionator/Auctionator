@@ -41,24 +41,3 @@ StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmPostSkip] = {
   whileDead = 1,
   hideOnEscape = 1
 }
-
-
-StaticPopupDialogs[Auctionator.Constants.DialogNames.SellingConfirmUnhideAll] = {
-  text = AUCTIONATOR_L_CONFIRM_UNHIDE_ALL,
-  button1 = ACCEPT,
-  button2 = CANCEL,
-  OnShow = function(self)
-    Auctionator.EventBus:RegisterSource(self, "Selling Confirm Unhide All Dialog")
-  end,
-  OnHide = function(self)
-    Auctionator.EventBus:UnregisterSource(self)
-  end,
-  OnAccept = function(self)
-    Auctionator.Groups.UnhideAll()
-    Auctionator.Groups.CallbackRegistry:TriggerEvent("Customise.EditMade")
-  end,
-  timeout = 0,
-  exclusive = 1,
-  whileDead = 1,
-  hideOnEscape = 1
-}

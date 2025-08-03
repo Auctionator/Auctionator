@@ -19,25 +19,6 @@ function AuctionatorCancellingFrameMixin:RefreshButtonClicked()
   self.DataProvider:QueryAuctions()
 end
 
-local ConfirmBidPricePopup = "AuctionatorConfirmBidPricePopupDialog"
-
-StaticPopupDialogs[ConfirmBidPricePopup] = {
-  text = AUCTIONATOR_L_BID_EXISTING_ON_OWNED_AUCTION,
-  button1 = ACCEPT,
-  button2 = CANCEL,
-  OnAccept = function(self)
-    Auctionator.AH.CancelAuction(self.data)
-    Auctionator.EventBus:RegisterSource(self, "CancellingFramePopupDialog")
-      :Fire(self, Auctionator.Cancelling.Events.CancelConfirmed, self.data)
-      :UnregisterSource(self)
-  end,
-  hasMoneyFrame = 1,
-  showAlert = 1,
-  timeout = 0,
-  exclusive = 1,
-  hideOnEscape = 1
-}
-
 function AuctionatorCancellingFrameMixin:IsAuctionShown(auctionInfo)
   local searchString = self.SearchFilter:GetText()
   if searchString ~= "" then
@@ -60,11 +41,12 @@ function AuctionatorCancellingFrameMixin:ReceiveEvent(eventName, ...)
 
     local cancelCost = C_AuctionHouse.GetCancelCost(auctionID)
     if cancelCost > 0 then
-      local dialog = StaticPopup_Show(ConfirmBidPricePopup)
-      if dialog then
-        dialog.data = auctionID
-        MoneyFrame_Update(dialog.moneyFrame, cancelCost);
-      end
+      Auctionator.Dialogs.ShowMoney(AUCTIONATOR_L_BID_EXISTING_ON_OWNED_AUCTION, cancelCost, ACCEPT, CANCEL, function()
+        Auctionator.AH.CancelAuction(auctionID)
+        Auctionator.EventBus:RegisterSource(self, "CancellingFramePopupDialog")
+          :Fire(self, Auctionator.Cancelling.Events.CancelConfirmed, auctionID)
+          :UnregisterSource(self)
+      end)
     else
       Auctionator.AH.CancelAuction(auctionID)
       Auctionator.EventBus:RegisterSource(self, "CancellingFrame")

@@ -29,6 +29,7 @@ Auctionator = {
   FullScan = {},
   PostingHistory = {},
   Groups = {},
+  Dialogs = {},
 
   Tabs = {
     State = {
