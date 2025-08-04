@@ -682,7 +682,7 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     return
   elseif not confirmed and self:RequiresConfirmationState() then
     if self.SkipButton:IsEnabled() then
-      Auctionator.Dialogs.ShowConfirmAlt(ACCEPT, AUCTIONATOR_L_SKIP, CANCEL, function()
+      Auctionator.Dialogs.ShowConfirmAlt(self:GetConfirmationMessage(), ACCEPT, AUCTIONATOR_L_SKIP, CANCEL, function()
         Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.ConfirmPost)
       end, function()
         Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.SkipItem)

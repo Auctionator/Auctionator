@@ -1,9 +1,9 @@
 local counter = 0
 local function GenerateDialog()
   counter = counter + 1
-  local dialog = CreateFrame("Frame", "BaganatorDialog" .. counter, UIParent)
+  local dialog = CreateFrame("Frame", "AuctionatorDialog" .. counter, UIParent)
   dialog:SetToplevel(true)
-  table.insert(UISpecialFrames, "BaganatorDialog" .. counter)
+  table.insert(UISpecialFrames, "AuctionatorDialog" .. counter)
   dialog:SetPoint("TOP", 0, -135)
   dialog:EnableMouse(true)
   dialog:SetFrameStrata("DIALOG")
@@ -127,7 +127,7 @@ function Auctionator.Dialogs.ShowConfirmAlt(text, yesText, altText, noText, conf
   dialog.text:SetText(text)
   dialog.acceptButton:SetText(yesText)
   DynamicResizeButton_Resize(dialog.acceptButton)
-  dialog.altButton:SetText(noText)
+  dialog.altButton:SetText(altText)
   DynamicResizeButton_Resize(dialog.altButton)
   dialog.cancelButton:SetText(noText)
   DynamicResizeButton_Resize(dialog.cancelButton)
