@@ -238,7 +238,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)
   local totalOnSale = 0
   local totalPending = 0
 
-  for _, info in ipairs(auctions) do
+  for index, info in ipairs(auctions) do
     local price = info.buyoutAmount or info.bidAmount
     --Only display unsold and uncancelled (yet) auctions
     if self:IsValidAuction(info) then
@@ -261,6 +261,7 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)
           itemsAhead = undercutInfo and undercutInfo.itemsAhead,
           itemsAheadPretty = undercutInfo and FormatLargeNumber(undercutInfo.itemsAhead),
           searchName = info.searchName,
+          index = index,
         }
         if info.bidder ~= nil then
           entry.undercut = AUCTIONATOR_L_UNDERCUT_BID
@@ -272,6 +273,17 @@ function AuctionatorCancellingDataProviderMixin:PopulateAuctions(auctions)
       totalPending = totalPending + price
     end
   end
+  table.sort(results, function(a, b)
+    if a.bidder and a.bidPrice and (not b.bidder or not b.bidPrice) then
+      return true
+    elseif b.bidder and b.bidPrice and (not a.bidPrice or not a.bidder) then
+      return false
+    elseif a.bidPrice and a.bidder and b.bidPrice and b.bidder then
+      return a.bidPrice > b.bidPrice
+    else
+      return a.index < b.index
+    end
+  end)
   self:AppendEntries(results, true)
 
   Auctionator.EventBus:RegisterSource(self, "CancellingDataProvider")
