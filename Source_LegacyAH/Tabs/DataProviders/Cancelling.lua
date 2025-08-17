@@ -188,7 +188,7 @@ local function GroupAuctions(allAuctions)
   local seenDetails = {}
 
   local results = {}
-  for _, auction in ipairs(allAuctions) do
+  for index, auction in ipairs(allAuctions) do
     local newEntry = {
       itemLink = auction.itemLink,
       unitPrice = Auctionator.Utilities.ToUnitPrice(auction),
@@ -201,6 +201,7 @@ local function GroupAuctions(allAuctions)
       minBid = auction.info[Auctionator.Constants.AuctionItemInfo.MinBid],
       bidder = auction.info[Auctionator.Constants.AuctionItemInfo.Bidder],
       timeLeft = auction.timeLeft,
+      index = index,
     }
     if newEntry.itemLink ~= nil then
       local key = ToUniqueKey(newEntry)
@@ -212,6 +213,18 @@ local function GroupAuctions(allAuctions)
       end
     end
   end
+
+  table.sort(results, function(a, b)
+    if a.bidAmount > 0 and b.bidAmount == 0 then
+      return true
+    elseif b.bidAmount > 0 and a.bidAmount == 0 then
+      return false
+    elseif a.bidAmount > 0 and b.bidAmount > 0 then
+      return a.bidAmount > b.bidAmount
+    else
+      return a.index < b.index
+    end
+  end)
 
   return results
 end
