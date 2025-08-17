@@ -42,5 +42,8 @@ end
 -- selection dialog (to replicate, when ChatEdit_InsertLink is manually
 -- replaced, hold down "c" while pressing [Enter] with the stack dialog open)
 hooksecurefunc(_G, "ChatEdit_InsertLink", function(text)
-  SearchItem(text)
+  -- Prevent searching when the user is attempting to link the item in chat
+  if GetCurrentKeyBoardFocus() == nil or GetCurrentKeyBoardFocus():GetName() == nil then
+    SearchItem(text)
+  end
 end)
