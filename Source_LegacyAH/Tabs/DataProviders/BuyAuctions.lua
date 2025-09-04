@@ -253,7 +253,6 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       numStacks = 1,
       isOwned = ToOwner(auction) == (GetUnitName("player")),
       otherSellers = ToOwner(auction),
-      bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
       isSelected = false, --Used by rows to determine highlight
       notReady = true,
       query = auction.query,
@@ -281,8 +280,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       if prevResult.unitPrice == newEntry.unitPrice and
          prevResult.stackSize == newEntry.stackSize and
          prevResult.itemLink == newEntry.itemLink and
-         prevResult.otherSellers == newEntry.otherSellers and
-         (prevResult.bidAmount == newEntry.bidAmount or prevResult.unitPrice == nil) then
+         prevResult.otherSellers == newEntry.otherSellers then
         prevResult.numStacks = prevResult.numStacks + 1
         Auctionator.Utilities.SetStacksText(prevResult)
       else
@@ -302,7 +300,6 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       numStacks = 0,
       isOwned = false,
       otherSellers = "",
-      bidAmount = 0,
       isSelected = false,
       notReady = true,
       query = self.query,
