@@ -253,6 +253,7 @@ function AuctionatorBuyAuctionsDataProviderMixin:PopulateAuctions()
       numStacks = 1,
       isOwned = ToOwner(auction) == (GetUnitName("player")),
       otherSellers = ToOwner(auction),
+      bidAmount = auction.info[Auctionator.Constants.AuctionItemInfo.BidAmount],
       isSelected = false, --Used by rows to determine highlight
       notReady = true,
       query = auction.query,
