@@ -97,7 +97,7 @@
       <Frame inherits="AuctionatorConfigurationCopyAndPasteFrame" parentKey="DiscordLink">
         <KeyValues>
           <KeyValue key="labelText" value="AUCTIONATOR_L_DISCORD" type="global"/>
-          <KeyValue key="copyText" value="https://discord.com/invite/xgz75Pp" type="string"/>
+          <KeyValue key="copyText" value="https://discord.gg/JabzHmzjWF" type="string"/>
           <KeyValue key="tooltipTitleText" value="AUCTIONATOR_L_DISCORD_TOOLTIP_HEADER" type="global" />
           <KeyValue key="tooltipText" value="AUCTIONATOR_L_DISCORD_TOOLTIP_TEXT" type="global" />
         </KeyValues>
