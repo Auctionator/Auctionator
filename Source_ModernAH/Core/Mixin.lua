@@ -55,17 +55,6 @@ local function InitializeAuctionHouseTabs()
   end
 end
 
-local function InitializeSplashScreen()
-  if Auctionator.State.SplashScreenRef == nil then
-    Auctionator.State.SplashScreenRef = CreateFrame(
-      "Frame",
-      "AuctionatorSplashScreen",
-      UIParent,
-      "AuctionatorSplashScreenTemplate"
-    )
-  end
-end
-
 local function InitializeBuyItemFrame()
   if Auctionator.State.BuyItemFrameRef == nil then
     Auctionator.State.BuyItemFrameRef = CreateFrame(
@@ -135,7 +124,6 @@ function AuctionatorAHFrameMixin:OnShow()
   Auctionator.Debug.Message("AuctionatorAHFrameMixin:OnShow()")
 
   InitializeAuctionHouseTabs()
-  InitializeSplashScreen()
   InitializeBuyItemFrame()
   InitializeBuyCommodityFrame()
 

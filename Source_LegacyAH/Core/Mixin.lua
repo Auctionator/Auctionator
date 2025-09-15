@@ -54,17 +54,6 @@ local function ShowDefaultTab()
   end
 end
 
-local function InitializeSplashScreen()
-  if Auctionator.State.SplashScreenRef == nil then
-    Auctionator.State.SplashScreenRef = CreateFrame(
-      "Frame",
-      "AuctionatorSplashScreen",
-      UIParent,
-      "AuctionatorSplashScreenTemplate"
-    )
-  end
-end
-
 local function InitializeFullScanFrame()
   if Auctionator.State.FullScanFrameRef == nil then
     Auctionator.State.FullScanFrameRef = CreateFrame(
@@ -96,7 +85,6 @@ function AuctionatorAHFrameMixin:OnShow()
   InitializePageStatusDialog()
   InitializeThrottlingTimeoutDialog()
   InitializeFullScanFrame()
-  InitializeSplashScreen()
 
   ShowDefaultTab()
   C_Timer.After(0, function()
