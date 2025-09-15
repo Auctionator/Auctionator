@@ -172,7 +172,7 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
   self.buttonPool:ReleaseAll()
   self.groupPool:ReleaseAll()
   self.groups = {}
-  local iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
+  local iconSize = Auctionator.Constants.SellingBagIconSize
 
   -- Used to ensure no key naming clashes between custom groups and raw groups
   local function GetKeyName(groupName, isCustom)
@@ -187,7 +187,7 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
     group:Reset()
     local isCustom = index == 1 -- Only the first group is custom FAVOURITES now
     group:SetName(groupDetails.name, isCustom)
-    if self.applyVisibility and (self.collapsing[index] or (self.originalOpen and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_BAG_COLLAPSED))) then
+    if self.applyVisibility and self.collapsing[index] then
       group:ToggleOpen(true)
     end
     table.insert(groups, group)
@@ -200,22 +200,7 @@ function AuctionatorGroupsViewMixin:UpdateFromExisting()
           table.insert(infos, info)
         end
       end
-      if self.applyVisibility and Auctionator.Config.Get(Auctionator.Config.Options.SELLING_FAVOURITES_SORT_OWNED) then
-        table.sort(infos, function(a, b)
-          if #a.locations > 0 and #b.locations == 0 then
-            return true
-          elseif #b.locations > 0 and #a.locations == 0 then
-            return false
-          else
-            return a.sortKey < b.sortKey
-          end
-        end)
-      else
-        table.sort(infos, function(a, b) return a.sortKey < b.sortKey end)
-      end
-      if self.applyVisibility and not Auctionator.Config.Get(Auctionator.Config.Options.SELLING_MISSING_FAVOURITES) then
-        infos = tFilter(infos, function(a) return #a.locations > 0 end, true)
-      end
+      table.sort(infos, function(a, b) return a.sortKey < b.sortKey end)
       local keyName = GetKeyName(groupDetails.name, isCustom)
       for _, info in ipairs(infos) do
         local button = self.buttonPool:Acquire()

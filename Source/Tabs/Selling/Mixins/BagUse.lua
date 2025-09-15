@@ -3,7 +3,7 @@ function AuctionatorBagUseMixin:OnLoad()
   self:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
 
   Auctionator.EventBus:RegisterSource(self, "AuctionatorBagUseMixin")
-  self.View.rowWidth = math.ceil(5 * 42 / Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE))
+  self.View.rowWidth = math.ceil(5 * 42 / Auctionator.Constants.SellingBagIconSize)
   self.awaitingCompletion = true
 
   Auctionator.EventBus:Register(self, {

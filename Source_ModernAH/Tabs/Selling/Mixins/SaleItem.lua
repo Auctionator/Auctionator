@@ -614,7 +614,7 @@ function AuctionatorSaleItemMixin:GetPostButtonState()
       -- Bid only with no buyout price
         Auctionator.Config.Get(Auctionator.Config.Options.SHOW_SELLING_BID_PRICE) and
         -- Only items can have a bid amount
-        self.itemInfo.itemType == Auctionator.Constants.ITEM_TYPES.ITEM and
+        self.itemInfo.itemType == Auctionator.Constants.ItemType.Item and
         -- Only items can have a bid amount
         self.Price:GetAmount() == 0 and
         self.BidPrice:GetAmount() > 0
@@ -648,9 +648,7 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
 end
 
 function AuctionatorSaleItemMixin:RequiresConfirmationState()
-  return
-    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE) and
-    self:GetConfirmationMessage() ~= nil
+  return self:GetConfirmationMessage() ~= nil
 end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
@@ -733,9 +731,7 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
   }
 
   --Print auction to chat
-  if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG) then
-    Auctionator.Utilities.Message(Auctionator.Selling.ComposeAuctionPostedMessage(postedInfo))
-  end
+  Auctionator.Utilities.Message(Auctionator.Selling.ComposeAuctionPostedMessage(postedInfo))
 
   Auctionator.EventBus:Fire(self,
     Auctionator.Selling.Events.AuctionCreated,
@@ -761,9 +757,7 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     Auctionator.EventBus:Fire(self, Auctionator.Selling.Events.RefreshHistory)
   end
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
-    Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
-  end
+  Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
 
   -- Save item info for refreshing search results
   self.lastItemInfo = self.itemInfo

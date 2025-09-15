@@ -195,11 +195,7 @@ function Auctionator.Variables.InitializeDatabase()
     end
   end
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.NO_PRICE_DATABASE) then
-    Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, {})
-  else
-    Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
-  end
+  Auctionator.Database = CreateAndInitFromMixin(Auctionator.DatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
 end
 
 function Auctionator.Variables.InitializePostingHistory()

@@ -1,25 +1,20 @@
 Auctionator.Constants = {
-  History = {
-    NUMBER_OF_LINES = 20
-  },
-  RESULTS_DISPLAY_LIMIT = 100,
-
   AdvancedSearchDivider = ';',
 
-  PET_CAGE_ID = 82800,
-  WOW_TOKEN_ID = 122270,
+  PetCageID = 82800,
+  WoWTokenID = 122270,
 
-  SCAN_DAY_0 = time({year=2020, month=1, day=1, hour=0}),
+  ScanDay0 = time({year=2020, month=1, day=1, hour=0}),
 
-  SORT = {
-    ASCENDING = 1,
-    DESCENDING = 0
+  Sort = {
+    Ascending = 1,
+    Descending = 0
   },
-  ITEM_TYPES = {
-    ITEM = 1,
-    COMMODITY = 2
+  ItemType = {
+    Item = 1,
+    Commodity = 2
   },
-  INVENTORY_TYPE_IDS = {
+  OldSlotTypes = {
     Enum.InventoryType.IndexHeadType,
     Enum.InventoryType.IndexShoulderType,
     Enum.InventoryType.IndexChestType,
@@ -29,12 +24,7 @@ Auctionator.Constants = {
     Enum.InventoryType.IndexWristType,
     Enum.InventoryType.IndexHandType,
   },
-  EXPORT_TYPES = {
-    STRING = 0,
-    WHISPER = 1
-  },
-  NO_LIST = "",
-  ITEM_LEVEL_THRESHOLD = 168,
+  NoList = "",
 
   ShoppingListViews = {
     Lists = 1,
@@ -44,9 +34,29 @@ Auctionator.Constants = {
   RecentsListLimit = 30,
 
   Durations = {
-    Short = 12,
-    Medium = 24,
-    Long = 48,
+    Short = 1,
+    Medium = 2,
+    Long = 3,
+  },
+
+  ItemMatching = {
+    Full = "full",
+    BaseOnly = "base",
+  },
+
+  UndercutType = {
+    Percentage = "percentage",
+    Static = "static"
+  },
+
+  Shortcuts = {
+    LeftClick = "left click",
+    RightClick = "right click",
+    AltLeftClick = "alt left click",
+    ShiftLeftClick = "shift left click",
+    AltRightClick = "alt right click",
+    ShiftRightClick = "shift right click",
+    None = "none",
   },
 
   AfterAHCut = 0.95,
@@ -56,9 +66,12 @@ Auctionator.Constants = {
 
 
   EnchantingVellumID = 38682,
+
 }
 
 if Auctionator.Constants.IsRetail then
+  Auctionator.Constants.SellingBagIconSize = 42
+  Auctionator.Constants.ItemLevelThreshold = 168
   Auctionator.Constants.QualityIDs = {
     Enum.ItemQuality.Poor,
     Enum.ItemQuality.Common,
@@ -69,6 +82,8 @@ if Auctionator.Constants.IsRetail then
     Enum.ItemQuality.Artifact,
   }
 else
+  Auctionator.Constants.SellingBagIconSize = 35
+  Auctionator.Constants.ItemLevelThreshold = 0
   Auctionator.Constants.QualityIDs = {
     Enum.ItemQuality.Poor,
     Enum.ItemQuality.Standard,

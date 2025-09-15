@@ -189,7 +189,7 @@ function AuctionatorSearchDataProviderMixin:ProcessCommodityResults(itemID)
       timeLeft = resultInfo.timeLeftSeconds or 0, --Used in sorting
       auctionID = resultInfo.auctionID,
       itemID = itemID,
-      itemType = Auctionator.Constants.ITEM_TYPES.COMMODITY,
+      itemType = Auctionator.Constants.ItemType.Commodity,
       canBuy = not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)
     }
 

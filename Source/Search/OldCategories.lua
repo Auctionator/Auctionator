@@ -19,7 +19,7 @@
 --    }
 --  }
 
-local INVENTORY_TYPE_IDS = Auctionator.Constants.INVENTORY_TYPE_IDS
+local INVENTORY_TYPE_IDS = Auctionator.Constants.OldSlotTypes
 
 local OldCategories = {}
 local OldCategoryLookup = {}

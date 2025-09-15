@@ -17,15 +17,15 @@ end
 
 function AuctionatorStringColumnHeaderTemplateMixin:DoSort()
   if self.sortKey then
-    if self.sortDirection == Auctionator.Constants.SORT.DESCENDING or self.sortDirection == nil then
-      self.sortDirection = Auctionator.Constants.SORT.ASCENDING
+    if self.sortDirection == Auctionator.Constants.Sort.Descending or self.sortDirection == nil then
+      self.sortDirection = Auctionator.Constants.Sort.Ascending
     else
-      self.sortDirection = Auctionator.Constants.SORT.DESCENDING
+      self.sortDirection = Auctionator.Constants.Sort.Descending
     end
 
     self.sortFunction(self.sortKey, self.sortDirection)
 
-    if self.sortDirection == Auctionator.Constants.SORT.DESCENDING then
+    if self.sortDirection == Auctionator.Constants.Sort.Descending then
       self.Arrow:SetTexCoord(0, 1, 1, 0)
     else
       self.Arrow:SetTexCoord(0, 1, 0, 1)

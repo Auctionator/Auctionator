@@ -50,13 +50,13 @@ function AuctionatorConfirmDropDownMixin:ReceiveEvent(event, ...)
     self.data = ...
     self.totalPrice = nil
 
-    if self.data.itemType == Auctionator.Constants.ITEM_TYPES.COMMODITY then
+    if self.data.itemType == Auctionator.Constants.ItemType.Commodity then
       self.commoditiesPurchaseOngoing = true
 
       C_AuctionHouse.StartCommoditiesPurchase(self.data.itemID, self.data.quantity)
       FrameUtil.RegisterFrameForEvents(self, COMMODITY_PURCHASE_EVENTS)
 
-    else --Auctionator.Constants.ITEM_TYPES.ITEM
+    else --Auctionator.Constants.ItemType.Item
       self.totalPrice = self.data.price
       self.unitPrice = self.data.price
       self:Toggle()
@@ -74,7 +74,7 @@ function AuctionatorConfirmDropDownMixin:Toggle()
           GetMoneyString(self.totalPrice, true)
         ),
         function()
-          if self.data.itemType == Auctionator.Constants.ITEM_TYPES.ITEM then
+          if self.data.itemType == Auctionator.Constants.ItemType.Item then
             C_AuctionHouse.PlaceBid(self.data.auctionID, self.totalPrice)
           else
             self.commoditiesPurchaseOngoing = false

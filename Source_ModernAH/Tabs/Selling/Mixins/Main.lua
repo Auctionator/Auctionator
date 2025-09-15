@@ -5,10 +5,9 @@ function AuctionatorSellingTabMixin:OnLoad()
 
   Auctionator.Groups.OnAHOpen()
 
-  local defaultIconSize = Auctionator.Config.Defaults[Auctionator.Config.Options.SELLING_ICON_SIZE]
-  local currentIconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
+  local currentIconSize = Auctionator.Constants.SellingBagIconSize
   local defaultIconsPerRow = 5
-  self.BagListing:SetWidth(math.ceil(defaultIconsPerRow * defaultIconSize / currentIconSize ) * currentIconSize + self.BagListing.View.ScrollBar:GetWidth() + 4 * 2)
+  self.BagListing:SetWidth(defaultIconsPerRow * currentIconSize + self.BagListing.View.ScrollBar:GetWidth() + 4 * 2)
 
   self.HistoricalPriceListing:Init(self.HistoricalPriceProvider)
 

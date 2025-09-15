@@ -5,7 +5,7 @@ function AuctionatorGroupsViewGroupMixin:Reset()
   self.row = 0
   self.collapsed = false
   self.buttons = {}
-  self.iconSize = Auctionator.Config.Get(Auctionator.Config.Options.SELLING_ICON_SIZE)
+  self.iconSize = Auctionator.Constants.SellingBagIconSize
   -- Use first fixed parent's size to determine how many icons per row
   self.rowWidth = math.floor(self:GetParent():GetParent():GetWidth() / self.iconSize)
   self.GroupTitle:SetPoint("TOPLEFT", self.insetLeft, 0)

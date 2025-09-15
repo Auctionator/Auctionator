@@ -1,7 +1,7 @@
 local LibCBOR = LibStub("LibCBOR-1.0")
 
 local function GetScanDay()
-  return (math.floor ((time() - Auctionator.Constants.SCAN_DAY_0) / (86400)));
+  return (math.floor ((time() - Auctionator.Constants.ScanDay0) / (86400)));
 end
 
 local daysSinceZero = tostring(GetScanDay())
@@ -150,7 +150,7 @@ function Auctionator.DatabaseMixin:GetPriceHistory(dbKey)
   for _, day in ipairs(sortedDays) do
     table.insert(results, {
      date = Auctionator.Utilities.PrettyDate(
-        tonumber(day) * 86400 + Auctionator.Constants.SCAN_DAY_0
+        tonumber(day) * 86400 + Auctionator.Constants.ScanDay0
      ),
      rawDay = day,
      minSeen = itemData.l[day] or itemData.h[day],

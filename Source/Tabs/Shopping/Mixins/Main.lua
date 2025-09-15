@@ -314,7 +314,7 @@ end
 function AuctionatorShoppingTabFrameMixin:OpenDefaultList()
   local listName = Auctionator.Config.Get(Auctionator.Config.Options.DEFAULT_LIST)
 
-  if listName == Auctionator.Constants.NO_LIST then
+  if listName == Auctionator.Constants.NoList then
     return
   end
 

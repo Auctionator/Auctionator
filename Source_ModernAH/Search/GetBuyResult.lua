@@ -13,7 +13,7 @@ function Auctionator.Search.GetBuyItemResult(resultInfo)
     quantityFormatted = FormatLargeNumber(resultInfo.quantity),
     itemLink = resultInfo.itemLink,
     auctionID = resultInfo.auctionID,
-    itemType = Auctionator.Constants.ITEM_TYPES.ITEM,
+    itemType = Auctionator.Constants.ItemType.Item,
     containsOwnerItem = resultInfo.containsOwnerItem,
     bidder = resultInfo.bidder,
     canBuy = resultInfo.buyoutAmount ~= nil and not (resultInfo.containsOwnerItem or resultInfo.containsAccountItem)

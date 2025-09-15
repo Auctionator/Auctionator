@@ -16,7 +16,7 @@ function AuctionatorCancellingListResultsRowMixin:OnClick(button, ...)
       :UnregisterSource(self)
   elseif button == "RightButton" then
     if Auctionator.Utilities.IsEquipment(select(6, C_Item.GetItemInfoInstant(self.rowData.itemKey.itemID))) and
-       self.rowData.itemKey.itemLevel < Auctionator.Constants.ITEM_LEVEL_THRESHOLD then
+       self.rowData.itemKey.itemLevel < Auctionator.Constants.ItemLevelThreshold then
       local item = Item:CreateFromItemID(self.rowData.itemKey.itemID)
       item:ContinueOnItemLoad(function()
         Auctionator.API.v1.MultiSearch(AUCTIONATOR_L_CANCELLING_TAB, { item:GetItemName() })

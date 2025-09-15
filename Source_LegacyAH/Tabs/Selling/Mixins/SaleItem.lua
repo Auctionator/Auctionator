@@ -661,9 +661,7 @@ function AuctionatorSaleItemMixin:GetConfirmationMessage()
 end
 
 function AuctionatorSaleItemMixin:RequiresConfirmationState()
-  return
-    Auctionator.Config.Get(Auctionator.Config.Options.SELLING_CONFIRM_LOW_PRICE) and
-    self:GetConfirmationMessage() ~= nil
+  return self:GetConfirmationMessage() ~= nil
 end
 
 function AuctionatorSaleItemMixin:UpdatePostButtonState()
@@ -734,23 +732,19 @@ function AuctionatorSaleItemMixin:PostItem(confirmed)
     Auctionator.AH.PostAuction(startingBid, buyoutPrice, duration, stackSize, numStacks)
   end
 
-  if Auctionator.Config.Get(Auctionator.Config.Options.SAVE_LAST_DURATION_AS_DEFAULT) then
-    Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
-  end
+  Auctionator.Config.Set(Auctionator.Config.Options.AUCTION_DURATION, self.Duration:GetValue())
 
   self:Reset()
 end
 
 function AuctionatorSaleItemMixin:SuccessfulPost(details)
   --Print auction to chat
-  if Auctionator.Config.Get(Auctionator.Config.Options.AUCTION_CHAT_LOG) then
-    Auctionator.Utilities.Message(Auctionator.Selling.ComposeAuctionPostedMessage({
-      itemLink = details.itemInfo.itemLink,
-      numStacks = details.numStacksReached,
-      stackSize = details.stackSize,
-      stackBuyout = details.buyoutPrice,
-    }))
-  end
+  Auctionator.Utilities.Message(Auctionator.Selling.ComposeAuctionPostedMessage({
+    itemLink = details.itemInfo.itemLink,
+    numStacks = details.numStacksReached,
+    stackSize = details.stackSize,
+    stackBuyout = details.buyoutPrice,
+  }))
 
   Auctionator.EventBus:Fire(self,
     Auctionator.Selling.Events.AuctionCreated,
