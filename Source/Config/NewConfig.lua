@@ -5,28 +5,30 @@ addonTable.Config = {}
 Auctionator.Config = addonTable.Config
 
 local settings = {
-  DEBUG = {key = "debug", default = false},
-  MAILBOX_TOOLTIPS = {key = "mailbox_tooltips", default = true},
-  VENDOR_TOOLTIPS = {key = "vendor_tooltips", default = true},
-  AUCTION_TOOLTIPS = {key = "auction_tooltips", default = true},
-  AUCTION_AGE_TOOLTIPS = {key = "auction_age_tooltips", default = false},
-  SHIFT_STACK_TOOLTIPS = {key = "shift_stack_tooltips", default = true},
-  ENCHANT_TOOLTIPS = {key = "enchant_tooltips", default = false},
+  TOOLTIPS_MAILBOX = {key = "mailbox_tooltips", default = true},
+  TOOLTIPS_VENDOR = {key = "vendor_tooltips", default = true},
+  TOOLTIPS_AUCTION = {key = "auction_tooltips", default = true},
+  TOOLTIPS_AUCTION_AGE = {key = "auction_age_tooltips", default = false},
+  TOOLTIPS_SHIFT_STACK = {key = "shift_stack_tooltips", default = true},
 
+  TOOLTIPS_ENCHANT = {key = "enchant_tooltips", default = false},
+  TOOLTIPS_PROSPECT = {key = "prospect_tooltips", default = false}, -- Classic
+  TOOLTIPS_MILL = {key = "mill_tooltips", default = false}, -- Classic
+
+  TOOLTIPS_AUCTION_MEAN = {key = "auction_mean_tooltip", default = false},
   AUCTION_MEAN_DAYS_LIMIT = {key = "auction_mean_days_limit", default = 21},
-  AUCTION_MEAN_TOOLTIP = {key = "auction_mean_tooltip", default = false},
 
   DEFAULT_TAB = {key = "default_tab", default = 0},
 
-  AUTO_LIST_SEARCH = {key = "auto_list_search", default = Auctionator.Constants.IsRetail},
-  DEFAULT_LIST = {key = "default_list_2", default = Auctionator.Constants.NoList},
+  SHOPPING_AUTO_LIST_SEARCH = {key = "auto_list_search", default = Auctionator.Constants.IsRetail},
+  SHOPPING_DEFAULT_LIST = {key = "default_list_2", default = Auctionator.Constants.NoList},
   SHOPPING_LAST_CONTAINER_VIEW = {key = "shopping_last_container_view", default = Auctionator.Constants.ShoppingListViews.Lists},
 
-  SHOW_SELLING_BID_PRICE = {key = "show_selling_bid_price", default = false},
+  SELLING_SHOW_BID_PRICE = {key = "show_selling_bid_price", default = false},
   SELLING_AUTO_SELECT_NEXT = {key = "selling_auto_select_next", default = false},
 
-  SHOW_SELLING_BAG = {key = "show_selling_bag_2", default = true},
   SELLING_BAG_SELECT_SHORTCUT = {key = "selling_bag_select_shortcut", default = Auctionator.Config.Shortcuts.ALT_LEFT_CLICK},
+  SELLING_SHOW_BAG = {key = "show_selling_bag_2", default = true},
 
   SELLING_POST_SHORTCUT = {key = "selling_post_shortcut", default = "SPACE"},
   SELLING_SKIP_SHORTCUT = {key = "selling_skip_shortcut", default = "SHIFT-SPACE"},
@@ -34,11 +36,19 @@ local settings = {
   SELLING_AUCTION_DURATION = {key = "selling_auction_duration", default = Auctionator.Constants.Durations.Medium},
   SELLING_AUCTION_UNDERCUT = {key = "selling_auction_undercut", default = {mode = Auctionator.Config.SalesTypes.Static, value = Auctionator.Constants.IsLegacyAH and 1 or 0}},
   SELLING_ITEM_MATCHING = {key = "selling_item_matching", default = Auctionator.Constants.ItemMatching.Full},
+  SELLING_REMEMBER_ITEM = {key = "selling_remember_item", default = false},
+  SELLING_ITEM_TO_RESTORE = {key = "selling_item_to_restore", default = ""},
+
+  SELLING_STACK_SIZE_MEMORY = {key = "stack_size_memory", default = {}}, -- Classic
+
+  CANCELLING_UNDERCUT_SHORTCUT = {key = "cancel_undercut_shortcut", default = "SPACE"},
+
+  COLUMNS = {key = "columns", default = {}},
 
   PRICE_HISTORY_DAYS = {key = "price_history_days", default = 21},
   POSTING_HISTORY_LENGTH = {key = "auctions_history_length", default = 10},
 
-  CANCEL_UNDERCUT_SHORTCUT = {key = "cancel_undercut_shortcut", default = "SPACE"},
+  DEBUG = {key = "debug", default = false},
 }
 
 addonTable.Config.RefreshType = {}
