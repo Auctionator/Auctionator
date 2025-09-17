@@ -48,6 +48,8 @@ local settings = {
   PRICE_HISTORY_DAYS = {key = "price_history_days", default = 21},
   POSTING_HISTORY_LENGTH = {key = "auctions_history_length", default = 10},
 
+  SCAN_STATE = {key = "scan_state", default = {TimeOfLastRestricted = 0, TimeOfLastFree = 0}},
+
   DEBUG = {key = "debug", default = false},
 }
 
