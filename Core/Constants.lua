@@ -8,6 +8,8 @@ addonTable.Constants = {
 
   ScanDay0 = time({year=2020, month=1, day=1, hour=0}),
 
+  ScanInterval = 15 * 60,
+
   Sort = {
     Ascending = 1,
     Descending = 0
@@ -141,5 +143,14 @@ else
     Enum.ItemQuality.Epic,
   }
 end
+
+addonTable.Constants.Events = {
+  "ScanStart",
+  "ScanProgress",
+  "ScanComplete",
+  "ScanFail",
+
+  "PricesUpdated"
+}
 
 Auctionator.Constants = CopyTable(addonTable.Constants)

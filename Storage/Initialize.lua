@@ -178,7 +178,7 @@ function addonTable.Variables.InitializeDatabase()
     end
   end
 
-  addonTable.Database = CreateAndInitFromMixin(addonTable.Storage.PriceDatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
+  addonTable.PriceDatabase = CreateAndInitFromMixin(addonTable.Storage.PriceDatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
 end
 
 function addonTable.Variables.InitializePostingHistory()
