@@ -7,11 +7,17 @@ addonTable.CallbackRegistry:GenerateCallbackEvents(addonTable.Constants.Events)
 
 function addonTable.Core.Initialize()
   addonTable.Config.InitializeData()
-  addonTable.Data.Initialize()
+  addonTable.CustomiseDialog.Initialize()
+  addonTable.SlashCmd.Initialize()
 
-  addonTable.Groups.Initialize()
+  addonTable.Storage.Initialize()
+  --addonTable.Scanning.Initialize()
+
+  --addonTable.Groups.Initialize()
+
+  addonTable.Skins.Initialize()
 end
 
-addonTable.OnAddonLoaded("Auctionator", function()
+addonTable.Utilities.OnAddonLoaded("Auctionator", function()
   addonTable.Core.Initialize()
 end)

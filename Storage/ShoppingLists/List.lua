@@ -1,16 +1,19 @@
-AuctionatorShoppingListMixin = {}
+---@class addonTableaddonTable.
+local addonTable = select(2, ...)
 
-function AuctionatorShoppingListMixin:Init(data, manager)
+addonTable.Storage.ShoppingListMixin = {}
+
+function addonTable.Storage.ShoppingListMixin:Init(data, manager)
   assert(data)
   self.data = data
   self.manager = manager
 end
 
-function AuctionatorShoppingListMixin:GetName()
+function addonTable.Storage.ShoppingListMixin:GetName()
   return self.data.name
 end
 
-function AuctionatorShoppingListMixin:Rename(newName)
+function addonTable.Storage.ShoppingListMixin:Rename(newName)
   assert(type(newName) == "string")
   assert(self.manager:GetIndexForName(newName) == nil, "New name already in use")
 
@@ -19,40 +22,40 @@ function AuctionatorShoppingListMixin:Rename(newName)
   self.manager:FireMetaChangeEvent(self:GetName())
 end
 
-function AuctionatorShoppingListMixin:IsTemporary()
+function addonTable.Storage.ShoppingListMixin:IsTemporary()
   return self.data.isTemporary
 end
 
-function AuctionatorShoppingListMixin:MakePermanent()
+function addonTable.Storage.ShoppingListMixin:MakePermanent()
   self.data.isTemporary = false
 
   self.manager:FireMetaChangeEvent(self:GetName())
 end
 
-function AuctionatorShoppingListMixin:GetItemCount()
+function addonTable.Storage.ShoppingListMixin:GetItemCount()
   return #self.data.items
 end
 
-function AuctionatorShoppingListMixin:GetItemByIndex(index)
+function addonTable.Storage.ShoppingListMixin:GetItemByIndex(index)
   return self.data.items[index]
 end
 
-function AuctionatorShoppingListMixin:GetIndexForItem(item)
+function addonTable.Storage.ShoppingListMixin:GetIndexForItem(item)
   return tIndexOf(self.data.items, item)
 end
 
-function AuctionatorShoppingListMixin:GetAllItems()
+function addonTable.Storage.ShoppingListMixin:GetAllItems()
   return CopyTable(self.data.items)
 end
 
-function AuctionatorShoppingListMixin:DeleteItem(index)
+function addonTable.Storage.ShoppingListMixin:DeleteItem(index)
   assert(self.data.items[index], "Nonexistent item")
   table.remove(self.data.items, index)
 
   self.manager:FireItemChangeEvent(self:GetName())
 end
 
-function AuctionatorShoppingListMixin:AlterItem(index, newItem)
+function addonTable.Storage.ShoppingListMixin:AlterItem(index, newItem)
   assert(self.data.items[index], "Nonexistent item")
   assert(type(newItem) == "string")
 
@@ -61,7 +64,7 @@ function AuctionatorShoppingListMixin:AlterItem(index, newItem)
   self.manager:FireItemChangeEvent(self:GetName())
 end
 
-function AuctionatorShoppingListMixin:InsertItem(newItem, index)
+function addonTable.Storage.ShoppingListMixin:InsertItem(newItem, index)
   assert(type(newItem) == "string")
   if index ~= nil then
     table.insert(self.data.items, index, newItem)
@@ -72,11 +75,11 @@ function AuctionatorShoppingListMixin:InsertItem(newItem, index)
   self.manager:FireItemChangeEvent(self:GetName())
 end
 
-function AuctionatorShoppingListMixin:ClearItems()
+function addonTable.Storage.ShoppingListMixin:ClearItems()
   self.data.items = {}
 end
 
-function AuctionatorShoppingListMixin:AppendItems(newItems)
+function addonTable.Storage.ShoppingListMixin:AppendItems(newItems)
   for _, i in ipairs(newItems) do
     assert(type(i) == "string")
     table.insert(self.data.items, i)
@@ -85,7 +88,7 @@ function AuctionatorShoppingListMixin:AppendItems(newItems)
   self.manager:FireItemChangeEvent(self:GetName())
 end
 
-function AuctionatorShoppingListMixin:Sort()
+function addonTable.Storage.ShoppingListMixin:Sort()
   table.sort(self.data.items, function(a, b)
     return a:lower():gsub("\"", "") < b:lower():gsub("\"", "")
   end)

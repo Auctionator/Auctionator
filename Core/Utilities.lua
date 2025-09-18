@@ -1,7 +1,7 @@
 ---@class addonTableAuctionator
 local addonTable = select(2, ...)
 function addonTable.Utilities.Message(text)
-  print(LINK_FONT_COLOR:WrapTextInColorCode("Auctionator") .. ": " .. text)
+  print(LIGHTBLUE_FONT_COLOR:WrapTextInColorCode("Auctionator") .. ": " .. text)
 end
 
 do

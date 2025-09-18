@@ -1,6 +1,27 @@
 ---@class addonTableAuctionator
 local addonTable = select(2, ...)
 
+-- All "realms" that are connected together use the same AH database, this
+-- determines which database is in use.
+-- Call this AFTER event PLAYER_LOGIN fires.
+function addonTable.Storage.GetConnectedRealmRoot()
+  -- We use GetRealmName() because GetNormalizedRealmName() isn't available on
+  -- first load.
+  local currentRealm = GetNormalizedRealmName()
+  local connections = GetAutoCompleteRealms()
+
+  -- We sort so that we always get the same first realm to use for the database
+  table.sort(connections)
+
+  if connections[1] ~= nil then
+    -- Case where we are on a connected realm
+    return connections[1]
+  else
+    -- We are not on a connected realm
+    return currentRealm
+  end
+end
+
 function addonTable.Storage.Initialize()
   local frame = CreateFrame("Frame")
   frame:RegisterEvent("PLAYER_LOGIN")
@@ -15,13 +36,11 @@ local VERSION_KEY_SERIALIZED = 8
 local POSTING_HISTORY_DB_VERSION = 1
 local VENDOR_PRICE_CACHE_DB_VERSION = 1
 
-function addonTable.Variables.InitializeInternal()
-  addonTable.Variables.InitializeSavedState()
-
-  addonTable.Variables.InitializeDatabase()
-  addonTable.Variables.InitializeShoppingLists()
-  addonTable.Variables.InitializePostingHistory()
-  addonTable.Variables.InitializeVendorPriceCache()
+function addonTable.Storage.InitializeInternal()
+  addonTable.Storage.InitializeDatabase()
+  addonTable.Storage.InitializeShoppingLists()
+  addonTable.Storage.InitializePostingHistory()
+  addonTable.Storage.InitializeVendorPriceCache()
 end
 
 -- Attempt to import from other connected realms (this may happen if another
@@ -64,7 +83,7 @@ end
 -- variables and serialize any other realms.
 -- We keep the current realm deserialized in the saved variables to speed up
 -- /reloads and logging in/out when only using one realm.
-function addonTable.Variables.InitializeDatabase()
+function addonTable.Storage.InitializeDatabase()
   -- First time users need the price database initialized
   if AUCTIONATOR_PRICE_DATABASE == nil then
     AUCTIONATOR_PRICE_DATABASE = {
@@ -181,7 +200,7 @@ function addonTable.Variables.InitializeDatabase()
   addonTable.PriceDatabase = CreateAndInitFromMixin(addonTable.Storage.PriceDatabaseMixin, AUCTIONATOR_PRICE_DATABASE[realm])
 end
 
-function addonTable.Variables.InitializePostingHistory()
+function addonTable.Storage.InitializePostingHistory()
   if AUCTIONATOR_POSTING_HISTORY == nil  or
      AUCTIONATOR_POSTING_HISTORY["__dbversion"] ~= POSTING_HISTORY_DB_VERSION then
     AUCTIONATOR_POSTING_HISTORY = {
@@ -192,9 +211,9 @@ function addonTable.Variables.InitializePostingHistory()
   addonTable.PostingHistory = CreateAndInitFromMixin(addonTable.Storage.PostingHistoryMixin, AUCTIONATOR_POSTING_HISTORY)
 end
 
-function addonTable.Variables.InitializeShoppingLists()
-  addonTable.Shopping.ListManager = CreateAndInitFromMixin(
-    AuctionatorShoppingListManagerMixin,
+function addonTable.Storage.InitializeShoppingLists()
+  addonTable.ShoppingListManager = CreateAndInitFromMixin(
+    addonTable.Storage.ShoppingListManagerMixin,
     function() return AUCTIONATOR_SHOPPING_LISTS end,
     function(newVal) AUCTIONATOR_SHOPPING_LISTS = newVal end
   )
@@ -202,7 +221,7 @@ function addonTable.Variables.InitializeShoppingLists()
   AUCTIONATOR_RECENT_SEARCHES = AUCTIONATOR_RECENT_SEARCHES or {}
 end
 
-function addonTable.Variables.InitializeVendorPriceCache()
+function addonTable.Storage.InitializeVendorPriceCache()
   if AUCTIONATOR_VENDOR_PRICE_CACHE == nil  or
      AUCTIONATOR_VENDOR_PRICE_CACHE["__dbversion"] ~= VENDOR_PRICE_CACHE_DB_VERSION then
     AUCTIONATOR_VENDOR_PRICE_CACHE = {

@@ -1,4 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">
-  <Script file="List.lua" />
-  <Script file="ListManager.lua" />
-</Ui>

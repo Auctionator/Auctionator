@@ -1,10 +1,18 @@
+---@class addonTableAuctionator
+local addonTable = select(2, ...)
+
 addonTable.Storage.PostingHistoryMixin = {}
 
 function addonTable.Storage.PostingHistoryMixin:Init(db)
   self.db = db
-  addonTable.Storage.EventBus:Register(self, {
-    addonTable.Storage.Selling.Events.AuctionCreated
-  })
+
+  addonTable.CallbackRegistry:RegisterCallback("AuctionCreated", function()
+    addonTable.Storage.DBKeyFromLink(eventData.itemLink, function(keys)
+      for _, key in ipairs(keys) do
+        self:AddEntry(key, eventData.buyoutAmount, eventData.quantity, eventData.bidAmount)
+      end
+    end)
+  end)
 end
 
 function addonTable.Storage.PostingHistoryMixin:AddEntry(key, price, quantity, bidPrice)
@@ -51,16 +59,6 @@ function addonTable.Storage.PostingHistoryMixin:PruneKey(key)
 
   while #itemInfo > addonTable.Storage.Config.Get(Auctionator.Config.Options.POSTING_HISTORY_LENGTH) do
     table.remove(itemInfo, 1)
-  end
-end
-
-function addonTable.Storage.PostingHistoryMixin:ReceiveEvent(eventName, eventData)
-  if eventName == addonTable.Storage.Selling.Events.AuctionCreated then
-    addonTable.Storage.DBKeyFromLink(eventData.itemLink, function(keys)
-      for _, key in ipairs(keys) do
-        self:AddEntry(key, eventData.buyoutAmount, eventData.quantity, eventData.bidAmount)
-      end
-    end)
   end
 end
 

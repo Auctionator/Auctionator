@@ -150,7 +150,16 @@ addonTable.Constants.Events = {
   "ScanComplete",
   "ScanFail",
 
-  "PricesUpdated"
+  "AuctionCreated",
+
+  "PricesUpdated",
+
+  "ShoppingListItemChange",
+  "ShoppingListMetaChange",
+
+  "SkinLoaded",
+
+  "ShowCustomise"
 }
 
 Auctionator.Constants = CopyTable(addonTable.Constants)

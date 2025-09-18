@@ -1,4 +1,4 @@
----@class addonTableBaganator
+---@class addonTableAuctionator
 local addonTable = select(2, ...)
 local Locales = {
   enUS = {},
@@ -17,6 +17,35 @@ local Locales = {
 AUCTIONATOR_LOCALES = Locales
 
 local L = Locales.enUS
+
+L["AUCTIONATOR"] = "Auctionator"
+L["TO_OPEN_OPTIONS_X"] = "Access options with /atr"
+L["VERSION_COLON_X"] = "Version: %s"
+L["OPEN_OPTIONS"] = "Open Options"
+
+L["ENTER_PROFILE_NAME"] = "Enter Profile Name:"
+L["PROFILES"] = "Profiles"
+L["NEW_PROFILE_CLONE"] = "New Profile (clone current)"
+L["NEW_PROFILE_BLANK"] = "New Profile (blank)"
+L["CONFIRM_DELETE_PROFILE_X"] = "Are you sure you want to delete profile \"%s\"?"
+
+L["JOIN_THE_DISCORD"] = "Join the Discord"
+L["DISCORD_DESCRIPTION"] = "Updates, feature suggestions and support"
+L["BY_PLUSMOUSE_PAST_AUTHOR_BORJAMACARE"] = "By plusmouse, past author borjamacare"
+L["DEVELOPMENT_IS_TIME_CONSUMING"] = "|cff04cca4Development takes a huge amount of time|r"
+L["DONATE"] = "Donate"
+L["LINK"] = "Link"
+
+L["THEME"] = "Theme"
+
+L["CTRL_C_TO_COPY"] = "Ctrl+C to copy"
+
+L["SLASH_RESET"] = "reset"
+L["SLASH_RESET_HELP"] = "Reset all Baganator settings, then reload."
+L["SLASH_HELP"] = "Open the Baganator settings."
+L["SLASH_UNKNOWN_COMMAND"] = "Unknown command '%s'"
+
+--- OLD ---
 
 L["CONFIG_BASIC_OPTIONS_CATEGORY"] = "Basic Options"
 L["CONFIG_BASIC_OPTIONS_TEXT"] = "Basic options for enabling features in Auctionator."

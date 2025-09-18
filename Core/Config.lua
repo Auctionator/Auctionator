@@ -2,7 +2,7 @@
 local addonTable = select(2, ...)
 addonTable.Config = {}
 
-Auctionator.Config = addonTable.Config
+addonTable.Config = addonTable.Config
 
 local settings = {
   TOOLTIPS_MAILBOX = {key = "mailbox_tooltips", default = true},
@@ -20,28 +20,32 @@ local settings = {
 
   DEFAULT_TAB = {key = "default_tab", default = 0},
 
-  SHOPPING_AUTO_LIST_SEARCH = {key = "auto_list_search", default = Auctionator.Constants.IsRetail},
-  SHOPPING_DEFAULT_LIST = {key = "default_list_2", default = Auctionator.Constants.NoList},
-  SHOPPING_LAST_CONTAINER_VIEW = {key = "shopping_last_container_view", default = Auctionator.Constants.ShoppingListViews.Lists},
+  SHOPPING_AUTO_LIST_SEARCH = {key = "auto_list_search", default = addonTable.Constants.IsRetail},
+  SHOPPING_DEFAULT_LIST = {key = "default_list_2", default = addonTable.Constants.NoList},
+  SHOPPING_LAST_CONTAINER_VIEW = {key = "shopping_last_container_view", default = addonTable.Constants.ShoppingListViews.Lists},
 
   SELLING_SHOW_BID_PRICE = {key = "show_selling_bid_price", default = false},
   SELLING_AUTO_SELECT_NEXT = {key = "selling_auto_select_next", default = false},
 
-  SELLING_BAG_SELECT_SHORTCUT = {key = "selling_bag_select_shortcut", default = Auctionator.Config.Shortcuts.ALT_LEFT_CLICK},
+  SELLING_BAG_SELECT_SHORTCUT = {key = "selling_bag_select_shortcut", default = addonTable.Constants.Shortcuts.AltLeftClick},
   SELLING_SHOW_BAG = {key = "show_selling_bag_2", default = true},
 
   SELLING_POST_SHORTCUT = {key = "selling_post_shortcut", default = "SPACE"},
   SELLING_SKIP_SHORTCUT = {key = "selling_skip_shortcut", default = "SHIFT-SPACE"},
   SELLING_PREV_SHORTCUT = {key = "selling_prev_shortcut", default = "BACKSPACE"},
-  SELLING_AUCTION_DURATION = {key = "selling_auction_duration", default = Auctionator.Constants.Durations.Medium},
-  SELLING_AUCTION_UNDERCUT = {key = "selling_auction_undercut", default = {mode = Auctionator.Config.SalesTypes.Static, value = Auctionator.Constants.IsLegacyAH and 1 or 0}},
-  SELLING_ITEM_MATCHING = {key = "selling_item_matching", default = Auctionator.Constants.ItemMatching.Full},
+  SELLING_AUCTION_DURATION = {key = "selling_auction_duration", default = addonTable.Constants.Durations.Medium},
+  SELLING_AUCTION_UNDERCUT = {key = "selling_auction_undercut", default = {mode = addonTable.Constants.UndercutType.Static, value = Auctionator.Constants.IsLegacyAH and 1 or 0}},
+  SELLING_ITEM_MATCHING = {key = "selling_item_matching", default = addonTable.Constants.ItemMatching.Full},
   SELLING_REMEMBER_ITEM = {key = "selling_remember_item", default = false},
   SELLING_ITEM_TO_RESTORE = {key = "selling_item_to_restore", default = ""},
 
   SELLING_STACK_SIZE_MEMORY = {key = "stack_size_memory", default = {}}, -- Classic
 
   CANCELLING_UNDERCUT_SHORTCUT = {key = "cancel_undercut_shortcut", default = "SPACE"},
+
+  SKINS = {key = "skins", default = {}},
+  DISABLED_SKINS = {key = "disabled_skins", default = {}},
+  CURRENT_SKIN = {key = "current_skin", default = "blizzard"},
 
   COLUMNS = {key = "columns", default = {}},
 
