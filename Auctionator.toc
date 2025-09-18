@@ -1,5 +1,4 @@
-## Interface-Mainline: 110200, 110107
-## Interface-Mists: 50500
+## Interface: 110200, 110107, 50500
 ## Title: Auctionator
 ## Version: @project-version@
 ## Author: plusmouse, borjamacare
@@ -39,6 +38,8 @@ Core/Config.lua
 Core/Initialize.lua
 Core/SlashCmd.lua
 
+Data/Legacy/Suffixes.lua
+
 Skins/Main.lua
 Skins/Blizzard.lua
 
@@ -46,10 +47,23 @@ Storage/PriceDatabase.lua
 Storage/PostingHistory.lua
 Storage/ShoppingLists/List.lua
 Storage/ShoppingLists/ListManager.lua
+Storage/DatabaseKeys.lua
 Storage/Initialize.lua
+
+Scanning/Initialize.lua
+Scanning/Modern/Browse.lua
+Scanning/Legacy/QueryAll.lua
 
 CustomiseDialog/Main.lua
 CustomiseDialog/Components.lua
 CustomiseDialog/Initialize.lua
 
-#Groups/Manifest.xml
+Wrappers/Queue.lua
+Wrappers/Modern/ItemKeyLoader.lua
+Wrappers/Modern/SearchScan.lua
+Wrappers/Modern/Throttling.lua
+Wrappers/Modern/Wrappers.lua
+Wrappers/Modern/Initialize.lua
+Wrappers/Legacy/Initialize.lua
+Wrappers/Initialize.lua
+

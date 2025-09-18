@@ -10,8 +10,10 @@ function addonTable.Core.Initialize()
   addonTable.CustomiseDialog.Initialize()
   addonTable.SlashCmd.Initialize()
 
+  addonTable.Wrappers.Initialize()
+
   addonTable.Storage.Initialize()
-  --addonTable.Scanning.Initialize()
+  addonTable.Scanning.Initialize()
 
   --addonTable.Groups.Initialize()
 

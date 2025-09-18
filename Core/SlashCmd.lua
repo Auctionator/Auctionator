@@ -55,6 +55,10 @@ function addonTable.SlashCmd.Reset()
   ReloadUI()
 end
 
+function addonTable.SlashCmd.Scan()
+  addonTable.CallbackRegistry:TriggerEvent("RequestScan")
+end
+
 function addonTable.SlashCmd.CustomiseUI()
   addonTable.CustomiseDialog.Toggle()
 end
@@ -65,6 +69,8 @@ local COMMANDS = {
   ["config"] = addonTable.SlashCmd.Config,
   ["reset"] = addonTable.SlashCmd.Reset,
   [addonTable.Locales.SLASH_RESET] = addonTable.SlashCmd.Reset,
+  ["scan"] = addonTable.SlashCmd.Scan,
+  [addonTable.Locales.SLASH_SCAN] = addonTable.SlashCmd.Scan,
 }
 local HELP = {
   {"", addonTable.Locales.SLASH_HELP},

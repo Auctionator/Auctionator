@@ -1,5 +1,6 @@
 ---@class addonTableAuctionator
 local addonTable = select(2, ...)
+
 function addonTable.Utilities.Message(text)
   print(LIGHTBLUE_FONT_COLOR:WrapTextInColorCode("Auctionator") .. ": " .. text)
 end
@@ -26,6 +27,33 @@ do
     else
       callbacksPending[addonName] = callbacksPending[addonName] or {}
       table.insert(callbacksPending[addonName], callback)
+    end
+  end
+end
+
+do
+  local callbacksPending = {}
+  local isOpen = false
+  local frame = CreateFrame("Frame")
+  frame:RegisterEvent("AUCTION_HOUSE_SHOW")
+  frame:RegisterEvent("AUCTION_HOUSE_CLOSED")
+  frame:SetScript("OnEvent", function(_, event)
+    if event == "AUCTION_HOUSE_SHOW" then
+      isOpen = true
+      for _, cb in ipairs(callbacksPending) do
+        xpcall(cb, CallErrorHandler)
+      end
+      callbacksPending = {}
+    else
+      isOpen = false
+    end
+  end)
+
+  function addonTable.Utilities.OnAuctionHouseLoaded(callback)
+    if isOpen then
+      xpcall(callback, CallErrorHandler)
+    else
+      table.insert(callbacksPending, callback)
     end
   end
 end
@@ -82,4 +110,15 @@ function addonTable.Utilities.LoadItemData(itemID, callback)
   itemFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
   itemFrame:SetScript("OnUpdate", itemFrame.OnUpdate)
   C_Item.RequestLoadItemDataByID(itemID)
+end
+
+function addonTable.Utilities.InitFrameWithMixin(parent, mixin)
+  local f = CreateFrame("Frame", nil, parent)
+  Mixin(f, mixin)
+  f:OnLoad()
+  return f
+end
+
+function addonTable.Utilities.IsEquipment(classID)
+  return classID and (classID == Enum.ItemClass.Weapon or classID == Enum.ItemClass.Armor or classID == Enum.ItemClass.Profession)
 end

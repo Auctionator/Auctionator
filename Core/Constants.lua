@@ -75,7 +75,7 @@ addonTable.Constants = {
   EnchantingVellumID = 38682,
 }
 
-if not addonTable.Constants.IsModernAH then
+if addonTable.Constants.IsModernAH then
   addonTable.Constants.ShoppingSorts = {
     {sortOrder = Enum.AuctionHouseSortOrder.Name, reverseSort = false},
     {sortOrder = Enum.AuctionHouseSortOrder.Price, reverseSort = true}
@@ -145,6 +145,7 @@ else
 end
 
 addonTable.Constants.Events = {
+  "RequestScan",
   "ScanStart",
   "ScanProgress",
   "ScanComplete",
@@ -157,9 +158,15 @@ addonTable.Constants.Events = {
   "ShoppingListItemChange",
   "ShoppingListMetaChange",
 
+  "ThrottleReady",
+  "ThrottleUpdate",
+
+  "WrappedCommodityResultsReady", -- Modern
+  "WrappedItemResultsReady", -- Modern
+
   "SkinLoaded",
 
-  "ShowCustomise"
+  "ShowCustomise",
 }
 
 Auctionator.Constants = CopyTable(addonTable.Constants)

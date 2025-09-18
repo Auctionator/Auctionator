@@ -10,6 +10,8 @@ local INCREMENTAL_SCAN_EVENTS = {
 }
 
 function addonTable.Scanning.Modern.BrowseMixin:OnLoad()
+  self:SetScript("OnEvent", self.OnEvent)
+
   self.doingFullScan = false
   self.state = addonTable.Config.Get(addonTable.Config.Options.SCAN_STATE)
 
@@ -60,7 +62,7 @@ function addonTable.Scanning.Modern.BrowseMixin:InitiateScan()
     addonTable.Utilities.Message(AUCTIONATOR_L_STARTING_FULL_SCAN_SUMMARY)
     self:RegisterForEvents()
     self.state.TimeOfLastFree = time()
-    Auctionator.AH.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
+    addonTable.Wrappers.Modern.SendBrowseQuery({searchString = "", sorts = {}, filters = {}, itemClassFilters = {}})
     self.previousDatabaseCount = addonTable.PriceDatabase:GetItemCount()
     self.doingFullScan = true
 
@@ -102,7 +104,7 @@ end
 function addonTable.Scanning.Modern.BrowseMixin:AddPrices(results)
   for _, resultInfo in ipairs(results) do
     if resultInfo.totalQuantity ~= 0 then
-      local allDBKeys = addonTable.Utilities.DBKeyFromBrowseResult(resultInfo)
+      local allDBKeys = addonTable.Storage.Modern.DBKeyFromBrowseResult(resultInfo)
 
       for index, dbKey in ipairs(allDBKeys) do
         if self.info[dbKey] == nil then
@@ -121,8 +123,8 @@ function addonTable.Scanning.Modern.BrowseMixin:AddPrices(results)
 end
 
 function addonTable.Scanning.Modern.BrowseMixin:NextStep()
-  if not Auctionator.AH.HasFullBrowseResults() then
-    Auctionator.AH.RequestMoreBrowseResults()
+  if not addonTable.Wrappers.Modern.HasFullBrowseResults() then
+    addonTable.Wrappers.Modern.RequestMoreBrowseResults()
   else
     self:UnregisterForEvents()
     local count = addonTable.PriceDatabase:ProcessScan(self.info)

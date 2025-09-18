@@ -101,7 +101,6 @@ end
 --Takes all the items with a list of their prices, and determines the minimum
 --price.
 function addonTable.Storage.PriceDatabaseMixin:ProcessScan(itemIndexes)
-  addonTable.Debug.Message("addonTable.Storage.PriceDatabaseMixin.ProcessScan")
   local startTime = debugprofilestop()
 
   local count = 0
@@ -123,7 +122,6 @@ function addonTable.Storage.PriceDatabaseMixin:ProcessScan(itemIndexes)
     self:SetPrice(dbKey, minPrice, available)
   end
 
-  addonTable.Debug.Message("addonTable.Storage.PriceDatabaseMixin: Processing time: " .. tostring(debugprofilestop() - startTime))
   return count
 end
 

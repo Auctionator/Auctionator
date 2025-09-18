@@ -41,8 +41,10 @@ L["THEME"] = "Theme"
 L["CTRL_C_TO_COPY"] = "Ctrl+C to copy"
 
 L["SLASH_RESET"] = "reset"
-L["SLASH_RESET_HELP"] = "Reset all Baganator settings, then reload."
-L["SLASH_HELP"] = "Open the Baganator settings."
+L["SLASH_RESET_HELP"] = "Reset all Auctionator settings, then reload."
+L["SLASH_SCAN"] = "scan"
+L["SLASH_SCAN_HELP"] = "Start a full scan."
+L["SLASH_HELP"] = "Open the Auctionator settings."
 L["SLASH_UNKNOWN_COMMAND"] = "Unknown command '%s'"
 
 --- OLD ---
