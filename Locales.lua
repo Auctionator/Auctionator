@@ -37,6 +37,7 @@ L["DONATE"] = "Donate"
 L["LINK"] = "Link"
 
 L["THEME"] = "Theme"
+L["BLIZZARD"] = "Blizzard"
 
 L["CTRL_C_TO_COPY"] = "Ctrl+C to copy"
 
