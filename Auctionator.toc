@@ -67,3 +67,4 @@ Wrappers/Modern/Initialize.lua
 Wrappers/Legacy/Initialize.lua
 Wrappers/Initialize.lua
 
+API/Main.lua

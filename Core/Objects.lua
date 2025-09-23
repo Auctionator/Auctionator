@@ -26,4 +26,10 @@ addonTable.Wrappers = {
   Legacy = {},
 }
 
-Auctionator = {}
+addonTable.API = {}
+
+Auctionator = {
+  API = {
+    v1 = {}
+  }
+}

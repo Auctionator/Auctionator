@@ -14,8 +14,6 @@ function addonTable.Scanning.Modern.BrowseMixin:OnLoad()
 
   self.doingFullScan = false
   self.state = addonTable.Config.Get(addonTable.Config.Options.SCAN_STATE)
-
-  self:RegisterForEvents()
 end
 
 function addonTable.Scanning.Modern.BrowseMixin:RegisterForEvents()
